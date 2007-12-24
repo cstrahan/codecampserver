@@ -6,6 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\build.bat = ..\build.bat
 		..\clicktobuild.bat = ..\clicktobuild.bat
 		..\nant.build = ..\nant.build
+		nhibernate-default.cfg.xml = nhibernate-default.cfg.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{32475D7A-BE90-4496-B025-C568173E9B48}"

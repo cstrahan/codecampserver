@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                  namespace="CodeCampServer.Domain.Model"
+                  assembly="CodeCampServer.Domain" default-access="field.camelcase-underscore"  >
+
+	<class name="Attendee" table="Attendees">
+		<id name="Id" column="Id" type="Guid">
+			<generator class="guid.comb"/>
+		</id>
+
+		<many-to-one name="Conference" column="ConferenceId" not-null="true"/>
+		<property name="Name" length="50" not-null="true"/>
+		<component name="Contact" class="Contact">
+			<property name="FirstName" length="20" not-null="true"/>
+			<property name="LastName" length="20" not-null="true"/>
+			<property name="Email" length="60" not-null="true"/>
+		</component>
+		<property name="Website" not-null="true"/>
+		<property name="Comment" not-null="true"/>
+
+	</class>
+
+</hibernate-mapping>

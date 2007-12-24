@@ -1,5 +1,6 @@
 using System;
 using CodeCampServer.DataAccess;
+using CodeCampServer.DataAccess.Impl;
 using CodeCampServer.Domain.Model;
 using NHibernate;
 using NUnit.Framework;
@@ -9,6 +10,10 @@ namespace CodeCampServer.IntegrationTests.DataAccess
     [TestFixture]
     public class ZDataLoader : RepositoryBase
     {
+        public ZDataLoader(ISessionBuilder sessionFactory) : base(sessionFactory)
+        {
+        }
+
         [Test, Category("DataLoader")]
         public void PopulateDatabase()
         {
@@ -20,11 +25,11 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             Conference techEd2008 = new Conference("TechEd2008", "Party with Palermo: Tech Ed 2008 Edition");
             techEd2008.StartDate = new DateTime(2008, 6, 8, 19, 0, 0);
 
-            Attendee attendee1 = new Attendee("Homer Simpson", "http://www.simpsons.com", "Doh!", devTeachVancouver2007);
-            Attendee attendee2 = new Attendee("Bart Simpson", "http://www.simpsons.com", "Eat my shorts", devTeachVancouver2007);
-            Attendee attendee3 = new Attendee("Marge Simpson", "http://www.simpsons.com", "MMmmmm", devTeachVancouver2007);
+            Attendee attendee1 = new Attendee("Homer", "Simpson", "http://www.simpsons.com", "Doh!", devTeachVancouver2007, "a@b.com");
+            Attendee attendee2 = new Attendee("Bart", "Simpson", "http://www.simpsons.com", "Eat my shorts", devTeachVancouver2007, "a@b.com");
+            Attendee attendee3 = new Attendee("Marge", "Simpson", "http://www.simpsons.com", "MMmmmm", devTeachVancouver2007, "a@b.com");
 
-            using (ISession session = getSession())
+            using (ISession session = getSession(Database.Default))
             {
                 session.SaveOrUpdate(devTeachVancouver2007);
                 session.SaveOrUpdate(mvpSummit2008);

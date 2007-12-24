@@ -1,17 +1,22 @@
 using System.Collections.Generic;
+using CodeCampServer.DataAccess.Impl;
 using CodeCampServer.Domain;
 using CodeCampServer.Domain.Model;
 using NHibernate;
 using StructureMap;
 
-namespace CodeCampServer.DataAccess
+namespace CodeCampServer.DataAccess.Impl
 {
     [Pluggable("Default")]
     public class AttendeeRepository : RepositoryBase, IAttendeeRepository
     {
+        public AttendeeRepository(ISessionBuilder sessionFactory) : base(sessionFactory)
+        {
+        }
+
         public IEnumerable<Attendee> GetAttendeesForEvent(Conference anConference)
         {
-            using(ISession session = getSession())
+            using(ISession session = getSession(Database.Default))
             {
                 IQuery query = session.CreateQuery("from Attendee a join fetch a.Conference where a.Event = ?");
                 query.SetParameter(0, anConference, NHibernateUtil.Entity(typeof(Conference)));
@@ -22,7 +27,7 @@ namespace CodeCampServer.DataAccess
 
         public void SaveAttendee(Attendee attendee)
         {
-            using(ISession session = getSession())
+            using(ISession session = getSession(Database.Default))
             {
                 ITransaction transaction = session.BeginTransaction();
                 session.SaveOrUpdate(attendee);

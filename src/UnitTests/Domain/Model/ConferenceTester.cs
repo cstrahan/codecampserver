@@ -41,5 +41,18 @@ namespace CodeCampServer.UnitTests.Domain.Model
             conference.EndDate = new DateTime(2000, 1, 2);
             conference.AddTimeSlot(new DateTime(2000, 1, 1), new DateTime(2000, 1, 3));
         }
+
+        [Test]
+        public void ShouldAcceptSponsors()
+        {
+            Conference conference = new Conference();
+            Sponsor sponsor = new Sponsor();
+            Sponsor sponsor2 = new Sponsor();
+            conference.AddSponsor(sponsor);
+            conference.AddSponsor(sponsor2);
+
+            Sponsor[] sponsors = conference.GetSponsors();
+            Assert.That(sponsors.Length, Is.EqualTo(2));
+        }
     }
 }

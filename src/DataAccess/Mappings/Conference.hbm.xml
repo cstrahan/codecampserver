@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                  namespace="CodeCampServer.Domain.Model"
+                  assembly="CodeCampServer.Domain" default-access="field.camelcase-underscore"  >
+
+	<class name="Conference" table="Conferences">
+
+		<id name="Id" type="Guid" column="Id">
+			<generator class="guid.comb" />
+		</id>
+
+		<property name="Key" column="ConferenceKey" length="25" not-null="true"/>
+		<property name="Name" column="ConferenceName" length="200" not-null="true"/>
+		<property name="Description" not-null="false"/>
+		<property name="StartDate" />
+		<property name="EndDate" />
+		<property name="SponsorInfo" column="SponsorInfo" type="StringClob"/>
+		<property name="MaxAttendees" type="Int32" not-null="true"/>
+		<component name="Location" class="Location">
+			<property name="Name" column="LocationName" length="25"/>
+			<property name="Address1" length="50" />
+			<property name="Address2" length="50"/>
+			<property name="City" length="50"/>
+			<property name="Region" length="50"/>
+			<property name="PostalCode" length="10"/>
+			<property name="PhoneNumber" length="20"/>
+		</component>
+		<set name="TimeSlots" table="TimeSlots">
+			<key column="ConferenceId" />
+			<composite-element class="TimeSlot">
+				<property name="StartTime" not-null="true"/>
+				<property name="EndTime" not-null="true"/>
+				<many-to-one name="Session" />
+			</composite-element>
+		</set>
+		<set name="Sponsors" table="Sponsors">
+			<key column="ConferenceId"/>
+			<composite-element class="ConfirmedSponsor">
+				<property name="Level" not-null="true"/>
+				<many-to-one name="Sponsor" column="SponsorId"/>
+			</composite-element>
+
+		</set>
+	</class>
+
+</hibernate-mapping>

@@ -1,18 +1,23 @@
 using System;
 using System.Collections.Generic;
+using CodeCampServer.DataAccess.Impl;
 using CodeCampServer.Domain;
 using CodeCampServer.Domain.Model;
 using NHibernate;
 using StructureMap;
 
-namespace CodeCampServer.DataAccess
+namespace CodeCampServer.DataAccess.Impl
 {
     [Pluggable("Default")]
     public class ConferenceRepository : RepositoryBase, IConferenceRepository
     {
+        public ConferenceRepository(ISessionBuilder sessionFactory) : base(sessionFactory)
+        {
+        }
+
         public IEnumerable<Conference> GetAllEvents()
         {
-            using (ISession session = getSession())
+            using (ISession session = getSession(Database.Default))
             {
                 IQuery query = session.CreateQuery("from Conference");
 
@@ -24,7 +29,7 @@ namespace CodeCampServer.DataAccess
 
         public Conference GetEventByKey(string key)
         {
-            using (ISession session = getSession())
+            using (ISession session = getSession(Database.Default))
             {
                 IQuery query = session.CreateQuery("from Event e where e.Key = ?");
                 query.SetParameter(0, key);
@@ -35,7 +40,7 @@ namespace CodeCampServer.DataAccess
 
         public Conference GetFirstEventAfterDate(DateTime date)
         {
-            using(ISession session = getSession())
+            using(ISession session = getSession(Database.Default))
             {
                 IQuery query = session.CreateQuery("from Event e where e.StartDate >= ?");
                 query.SetParameter(0, date);

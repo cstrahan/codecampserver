@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                  namespace="CodeCampServer.Domain.Model"
+                  assembly="CodeCampServer.Domain" default-access="field.camelcase-underscore"  >
+
+	<class name="Sponsor" table="Sponsors">
+
+		<id name="Id" type="Guid" column="Id">
+			<generator class="guid.comb" />
+		</id>	
+
+		<property name="Name" column="SponsorName" length="200" not-null="true"/>
+		<component name="Contact" class="Contact">
+			<property name="FirstName" length="20" not-null="true"/>
+			<property name="LastName" length="20" not-null="true"/>
+			<property name="Email" length="60" not-null="true"/>
+		</component>
+		<property name="Website" length="1000" not-null="true"/>
+		<property name="LogoUrl" length="1000" not-null="true"/>
+	</class>
+
+</hibernate-mapping>

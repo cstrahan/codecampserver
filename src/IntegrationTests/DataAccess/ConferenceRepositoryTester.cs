@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CodeCampServer.DataAccess;
+using CodeCampServer.DataAccess.Impl;
 using CodeCampServer.Domain;
 using CodeCampServer.Domain.Model;
 using NHibernate;
@@ -10,19 +11,19 @@ using NUnit.Framework.SyntaxHelpers;
 namespace CodeCampServer.IntegrationTests.DataAccess
 {
     [TestFixture]
-    public class ConferenceRepositoryTester : RepositoryBase
+    public class ConferenceRepositoryTester : DatabaseTesterBase
     {
         [Test]
         public void ShouldGetAllEvents()
         {
             TestHelper.EmptyDatabase();
-            using (ISession session = getSession())
+            using (ISession session = getSession(Database.Default))
             {
                 session.SaveOrUpdate(new Conference("thekey", "theName"));
                 Conference theConference = new Conference("thekey2", "theName2");
                 theConference.StartDate = new DateTime(2007, 1, 1, 11, 59, 30);
                 theConference.EndDate = new DateTime(2007, 1, 1, 11, 59, 31);
-                theConference.SponsorInfoHtml = string.Join("a", new string[100001]);
+                theConference.SponsorInfo = string.Join("a", new string[100001]);
                 theConference.Location.Name = "locationname";
                 theConference.Location.Address1 = "locationaddress1";
                 theConference.Location.Address2 = "locationaddress2";
@@ -32,7 +33,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 session.Flush();
             }
 
-            IConferenceRepository repository = new ConferenceRepository();
+            IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
             IEnumerable<Conference> events = repository.GetAllEvents();
             List<Conference> eventList = new List<Conference>(events);
             eventList.Sort(delegate(Conference x, Conference y) { return x.Key.CompareTo(y.Key); });
@@ -42,14 +43,14 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             Assert.That(eventList[0].Name, Is.EqualTo("theName"));
             Assert.That(eventList[0].StartDate, Is.Null);
             Assert.That(eventList[0].EndDate, Is.Null);
-            Assert.That(eventList[0].SponsorInfoHtml, Is.Null);
+            Assert.That(eventList[0].SponsorInfo, Is.Null);
             Assert.That(eventList[0].Location, Is.Null);
 
             Assert.That(eventList[1].Key, Is.EqualTo("thekey2"));
             Assert.That(eventList[1].Name, Is.EqualTo("theName2"));
             Assert.That(eventList[1].StartDate, Is.EqualTo(DateTime.Parse("1/1/2007, 11:59:30 am")));
             Assert.That(eventList[1].EndDate, Is.EqualTo(DateTime.Parse("1/1/2007, 11:59:31 am")));
-            Assert.That(eventList[1].SponsorInfoHtml.Length, Is.EqualTo(100000));
+            Assert.That(eventList[1].SponsorInfo.Length, Is.EqualTo(100000));
             Assert.That(eventList[1].Location.Name, Is.EqualTo("locationname"));
             Assert.That(eventList[1].Location.Address1, Is.EqualTo("locationaddress1"));
             Assert.That(eventList[1].Location.Address2, Is.EqualTo("locationaddress2"));
@@ -63,14 +64,14 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             TestHelper.EmptyDatabase();
             Conference theConference = new Conference("Frank", "some name");
             Conference theEvent2 = new Conference("Frank2", "some name2");
-            using (ISession session = getSession())
+            using (ISession session = getSession(Database.Default))
             {
                 session.SaveOrUpdate(theConference);
                 session.SaveOrUpdate(theEvent2);
                 session.Flush();
             }
 
-            IConferenceRepository repository = new ConferenceRepository();
+            IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
             Conference conferenceSaved = repository.GetEventByKey("Frank");
 
             Assert.That(conferenceSaved, Is.Not.Null);
@@ -90,7 +91,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             Conference futureConference = new Conference("2008", "future event");
             futureConference.StartDate = new DateTime(2008, 1, 1);
 
-            using(ISession session = getSession())
+            using(ISession session = getSession(Database.Default))
             {
                 session.SaveOrUpdate(oldConference);
                 session.SaveOrUpdate(nextConference);
@@ -98,7 +99,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 session.Flush();
             }
 
-            IConferenceRepository repository = new ConferenceRepository();
+            IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
             Conference matchingConference = repository.GetFirstEventAfterDate(new DateTime(2006, 1, 2));
 
             Assert.That(matchingConference, Is.EqualTo(nextConference));

@@ -11,7 +11,7 @@ namespace CodeCampServer.Domain.Model
         private string _description;
         private DateTime? _startDate;
         private DateTime? _endDate;
-        private string _sponsorInfoHtml;
+        private string _sponsorInfo;
         private Location _location = new Location();
         private int _maxAttendees;
         private ISet<TimeSlot> _timeSlots = new HashedSet<TimeSlot>();
@@ -57,10 +57,10 @@ namespace CodeCampServer.Domain.Model
             set { _endDate = value; }
         }
 
-        public virtual string SponsorInfoHtml
+        public virtual string SponsorInfo
         {
-            get { return _sponsorInfoHtml; }
-            set { _sponsorInfoHtml = value; }
+            get { return _sponsorInfo; }
+            set { _sponsorInfo = value; }
         }
 
         public virtual Location Location
@@ -87,6 +87,16 @@ namespace CodeCampServer.Domain.Model
         public TimeSlot[] GetTimeSlots()
         {
             return new List<TimeSlot>(_timeSlots).ToArray();
+        }
+
+        public Sponsor[] GetSponsors()
+        {
+            return new List<Sponsor>(_sponsors).ToArray();
+        }
+
+        public void AddSponsor(Sponsor sponsor)
+        {
+            _sponsors.Add(sponsor);
         }
     }
 }

@@ -13,4 +13,30 @@
     <CanBeNullValueAttribute>
     </CanBeNullValueAttribute>
   </CodeInspection>
+  <SharedSolutionTemplateManager>
+    <LiveTemplates>
+      <Folder name="Shared Solution Templates" />
+    </LiveTemplates>
+    <Surrounds>
+      <Folder name="Shared Solution Templates" />
+    </Surrounds>
+    <FileTemplates>
+      <Folder name="Shared Solution Templates">
+        <Template uid="0c186981-eb31-48a8-a4fb-a9943a22b35c" text="using NUnit.Framework;&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;  [TestFixture]&#xD;&#xA;  public class $NAME$&#xD;&#xA;  {&#xD;&#xA;    $END$&#xD;&#xA;  }&#xD;&#xA;}" shortcut="" description="Test Fixture" reformat="true" shortenQualifiedReferences="true">
+          <Context>
+            <ProjectLanguageContext language="CSharp" />
+          </Context>
+          <Variables>
+            <Variable name="NAMESPACE" expression="fileDefaultNamespace()" initialRange="-1" />
+            <Variable name="NAME" expression="getFileNameWithoutExtension()" initialRange="-1" />
+          </Variables>
+          <CustomProperties>
+            <Property key="FileName" value="File" />
+            <Property key="Extension" value="cs" />
+            <Property key="ValidateFileName" value="False" />
+          </CustomProperties>
+        </Template>
+      </Folder>
+    </FileTemplates>
+  </SharedSolutionTemplateManager>
 </Configuration>

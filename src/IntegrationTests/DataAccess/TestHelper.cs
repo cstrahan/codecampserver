@@ -17,5 +17,10 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 }
             }
         }
+
+        public static void RebuildDatabase()
+        {
+            
+        }
     }
 }

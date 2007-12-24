@@ -43,16 +43,21 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AttendeeRepository.cs" />
-    <Compile Include="ConferenceRepository.cs" />
+    <Compile Include="Impl\AttendeeRepository.cs" />
+    <Compile Include="Impl\ConferenceRepository.cs" />
+    <Compile Include="Database.cs" />
+    <Compile Include="Impl\HybridSessionBuilder.cs" />
+    <Compile Include="Impl\NHibernateSessionModule.cs" />
+    <Compile Include="Impl\RepositoryBase.cs" />
+    <Compile Include="ISessionBuilder.cs" />
     <Compile Include="NHibernateSessionFactory.cs" />
-    <Compile Include="RepositoryBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Database\Update\0001_Addwebuser.sql" />
@@ -67,10 +72,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Event.hbm.xml" />
+    <EmbeddedResource Include="Mappings\Conference.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Attendee.hbm.xml" />
+    <EmbeddedResource Include="Mappings\Attendee.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Sponsor.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
