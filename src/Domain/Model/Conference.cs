@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Iesi.Collections.Generic;
 
 namespace CodeCampServer.Domain.Model
@@ -71,6 +72,21 @@ namespace CodeCampServer.Domain.Model
         {
             get { return _maxAttendees; }
             set { _maxAttendees = value; }
+        }
+
+        public void AddTimeSlot(DateTime startTime, DateTime endTime)
+        {
+            if(startTime < StartDate || endTime > EndDate)
+            {
+                throw new Exception("Time slot must be within conference.");
+            }
+
+            _timeSlots.Add(new TimeSlot(startTime, endTime));
+        }
+
+        public TimeSlot[] GetTimeSlots()
+        {
+            return new List<TimeSlot>(_timeSlots).ToArray();
         }
     }
 }

@@ -4,20 +4,30 @@ namespace CodeCampServer.Domain.Model
 {
     public class TimeSlot
     {
-        private DateTime _startDate;
-        private DateTime _endDate;
+        private DateTime _startTime;
+        private DateTime _endTime;
         private Session _session;
 
-        public DateTime StartDate
+        public TimeSlot()
         {
-            get { return _startDate; }
-            set { _startDate = value; }
         }
 
-        public DateTime EndDate
+        public TimeSlot(DateTime startTime, DateTime endTime)
         {
-            get { return _endDate; }
-            set { _endDate = value; }
+            _startTime = startTime;
+            _endTime = endTime;
+        }
+
+        public DateTime StartTime
+        {
+            get { return _startTime; }
+            set { _startTime = value; }
+        }
+
+        public DateTime EndTime
+        {
+            get { return _endTime; }
+            set { _endTime = value; }
         }
 
         public void SetSession(Session value)
