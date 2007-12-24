@@ -1,10 +1,9 @@
 namespace CodeCampServer.Domain.Model
 {
-    public class Sponsor
+    public class Sponsor : EntityBase
     {
         private string _name;
-        private string _contactName;
-        private string _contactEmail;
+        private Contact _contact = new Contact();
         private string _website;
         private string _logoUrl;
 
@@ -14,16 +13,9 @@ namespace CodeCampServer.Domain.Model
             set { _name = value; }
         }
 
-        public string ContactName
+        public Contact Contact
         {
-            get { return _contactName; }
-            set { _contactName = value; }
-        }
-
-        public string ContactEmail
-        {
-            get { return _contactEmail; }
-            set { _contactEmail = value; }
+            get { return _contact; }
         }
 
         public string Website

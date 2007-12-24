@@ -2,52 +2,55 @@ using System;
 
 namespace CodeCampServer.Domain.Model
 {
-    public class Attendee
+    public class Attendee : EntityBase
     {
         private Guid _id;
-        private string _name;
+        Contact _contact = new Contact();
         private string _website;
         private string _comment;
-        private Conference _Conference;
+        private Conference _conference;
 
-
-        protected Attendee()
+        public Attendee()
         {
         }
 
-        public Attendee(string name, string website, string comment, Conference theConference)
+        public Attendee(string firstName, string lastName, string website, string comment, Conference conference, string email)
         {
-            _name = name;
+            _contact.FirstName = firstName;
+            _contact.LastName = lastName;
+            _contact.Email = email;
             _website = website;
             _comment = comment;
-            _Conference = theConference;
+            _conference = conference;
         }
 
-
-        public virtual Guid Id
+        public Guid Id
         {
             get { return _id; }
             set { _id = value; }
         }
 
-        public virtual string Name
+        public Contact Contact
         {
-            get { return _name; }
+            get { return _contact; }
         }
 
-        public virtual string Website
+        public string Website
         {
             get { return _website; }
+            set { _website = value; }
         }
 
-        public virtual string Comment
+        public string Comment
         {
             get { return _comment; }
+            set { _comment = value; }
         }
 
-        public virtual Conference Conference
+        public Conference Conference
         {
-            get { return _Conference; }
+            get { return _conference; }
+            set { _conference = value; }
         }
     }
 }

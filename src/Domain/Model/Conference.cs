@@ -1,16 +1,20 @@
 using System;
+using Iesi.Collections.Generic;
 
 namespace CodeCampServer.Domain.Model
 {
-    public class Conference : IEquatable<Conference>
+    public class Conference : EntityBase
     {
-        private Guid _id;
         private string _key;
         private string _name;
+        private string _description;
         private DateTime? _startDate;
         private DateTime? _endDate;
         private string _sponsorInfoHtml;
         private Location _location = new Location();
+        private int _maxAttendees;
+        private ISet<TimeSlot> _timeSlots = new HashedSet<TimeSlot>();
+        private ISet<Sponsor> _sponsors = new HashedSet<Sponsor>();
 
         public Conference()
         {
@@ -20,12 +24,6 @@ namespace CodeCampServer.Domain.Model
         {
             _key = key;
             _name = name;
-        }
-
-        public virtual Guid Id
-        {
-            get { return _id; }
-            set { _id = value; }
         }
 
         public virtual string Key
@@ -38,6 +36,12 @@ namespace CodeCampServer.Domain.Model
         {
             get { return _name; }
             set { _name = value; }
+        }
+
+        public string Description
+        {
+            get { return _description; }
+            set { _description = value; }
         }
 
         public virtual DateTime? StartDate
@@ -63,26 +67,10 @@ namespace CodeCampServer.Domain.Model
             get { return _location; }
         }
 
-        public static Conference Empty
+        public int MaxAttendees
         {
-            get { return new Conference(); }
-        }
-
-        public bool Equals(Conference otherConference)
-        {
-            if (otherConference == null) return false;
-            return Equals(Key, otherConference.Key);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(this, obj)) return true;
-            return Equals(obj as Conference);
-        }
-
-        public override int GetHashCode()
-        {
-            return Key != null ? Key.GetHashCode() : 0;
+            get { return _maxAttendees; }
+            set { _maxAttendees = value; }
         }
     }
 }

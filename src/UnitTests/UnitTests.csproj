@@ -66,9 +66,14 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Domain\Model\AttendeeTester.cs" />
+    <Compile Include="Domain\Model\ConferenceTester.cs" />
+    <Compile Include="Domain\Model\EntityTesterBase.cs" />
+    <Compile Include="Domain\Model\SessionTester.cs" />
+    <Compile Include="Domain\Model\SpeakerTester.cs" />
+    <Compile Include="Domain\Model\SponsorTester.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Domain\" />
     <Folder Include="Properties\" />
     <Folder Include="Website\Controllers\" />
   </ItemGroup>
