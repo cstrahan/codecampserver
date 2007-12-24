@@ -23,7 +23,7 @@
 	<!-- default configuration -->
 	<property name="project.config" value="release" />
 	<!-- debug|release -->
-	<property name="build.dir" value="${build.base}/${nant.settings.currentframework}.${platform::get-name()}-${nant.project.name}-${project.config}/"/>
+	<property name="build.dir" value="${build.base}/${nant.settings.currentframework}.${platform::get-name()}-${project::get-name()}-${project.config}/"/>
 
 	<target name="build" depends="clean, version, init, commonassemblyinfo, compile, move-for-test, drop-database, create-database, test"/>
 	<target name="cruise" depends="build, package"/>
