@@ -72,7 +72,7 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DataAccess\AttendeeRepositoryTester.cs" />
-    <Compile Include="DataAccess\EventRepositoryTester.cs" />
+    <Compile Include="DataAccess\ConferenceRepositoryTester.cs" />
     <Compile Include="DataAccess\ZDataLoader.cs" />
     <Compile Include="DataAccess\TestHelper.cs" />
   </ItemGroup>

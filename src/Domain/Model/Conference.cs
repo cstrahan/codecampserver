@@ -2,7 +2,7 @@ using System;
 
 namespace CodeCampServer.Domain.Model
 {
-    public class Event : IEquatable<Event>
+    public class Conference : IEquatable<Conference>
     {
         private Guid _id;
         private string _key;
@@ -12,11 +12,11 @@ namespace CodeCampServer.Domain.Model
         private string _sponsorInfoHtml;
         private Location _location = new Location();
 
-        public Event()
+        public Conference()
         {
         }
 
-        public Event(string key, string name)
+        public Conference(string key, string name)
         {
             _key = key;
             _name = name;
@@ -63,21 +63,21 @@ namespace CodeCampServer.Domain.Model
             get { return _location; }
         }
 
-        public static Event Empty
+        public static Conference Empty
         {
-            get { return new Event(); }
+            get { return new Conference(); }
         }
 
-        public bool Equals(Event otherEvent)
+        public bool Equals(Conference otherConference)
         {
-            if (otherEvent == null) return false;
-            return Equals(Key, otherEvent.Key);
+            if (otherConference == null) return false;
+            return Equals(Key, otherConference.Key);
         }
 
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(this, obj)) return true;
-            return Equals(obj as Event);
+            return Equals(obj as Conference);
         }
 
         public override int GetHashCode()

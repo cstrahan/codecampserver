@@ -8,40 +8,40 @@ using StructureMap;
 namespace CodeCampServer.DataAccess
 {
     [Pluggable("Default")]
-    public class EventRepository : RepositoryBase, IEventRepository
+    public class ConferenceRepository : RepositoryBase, IConferenceRepository
     {
-        public IEnumerable<Event> GetAllEvents()
+        public IEnumerable<Conference> GetAllEvents()
         {
             using (ISession session = getSession())
             {
-                IQuery query = session.CreateQuery("from Event");
+                IQuery query = session.CreateQuery("from Conference");
 
-                IEnumerable<Event> result = query.List<Event>();
+                IEnumerable<Conference> result = query.List<Conference>();
 
                 return result;
             }
         }
 
-        public Event GetEventByKey(string key)
+        public Conference GetEventByKey(string key)
         {
             using (ISession session = getSession())
             {
                 IQuery query = session.CreateQuery("from Event e where e.Key = ?");
                 query.SetParameter(0, key);
-                Event result = query.UniqueResult<Event>();
+                Conference result = query.UniqueResult<Conference>();
                 return result;
             }
         }
 
-        public Event GetFirstEventAfterDate(DateTime date)
+        public Conference GetFirstEventAfterDate(DateTime date)
         {
             using(ISession session = getSession())
             {
                 IQuery query = session.CreateQuery("from Event e where e.StartDate >= ?");
                 query.SetParameter(0, date);
                 query.SetMaxResults(1);
-                Event matchingEvent = query.UniqueResult<Event>();
-                return matchingEvent;
+                Conference matchingConference = query.UniqueResult<Conference>();
+                return matchingConference;
             }
         }
     }

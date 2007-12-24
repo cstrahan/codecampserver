@@ -50,9 +50,9 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="IAttendeeRepository.cs" />
-    <Compile Include="IEventRepository.cs" />
+    <Compile Include="IConferenceRepository.cs" />
     <Compile Include="Model\Attendee.cs" />
-    <Compile Include="Model\Event.cs" />
+    <Compile Include="Model\Conference.cs" />
     <Compile Include="Model\Location.cs" />
     <Compile Include="Model\Sponsor.cs" />
   </ItemGroup>

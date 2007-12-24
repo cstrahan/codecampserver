@@ -8,19 +8,19 @@ namespace CodeCampServer.Domain.Model
         private string _name;
         private string _website;
         private string _comment;
-        private Event _event;
+        private Conference _Conference;
 
 
         protected Attendee()
         {
         }
 
-        public Attendee(string name, string website, string comment, Event theEvent)
+        public Attendee(string name, string website, string comment, Conference theConference)
         {
             _name = name;
             _website = website;
             _comment = comment;
-            _event = theEvent;
+            _Conference = theConference;
         }
 
 
@@ -45,9 +45,9 @@ namespace CodeCampServer.Domain.Model
             get { return _comment; }
         }
 
-        public virtual Event Event
+        public virtual Conference Conference
         {
-            get { return _event; }
+            get { return _Conference; }
         }
     }
 }

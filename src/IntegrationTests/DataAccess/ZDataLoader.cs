@@ -13,11 +13,11 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         public void PopulateDatabase()
         {
             TestHelper.EmptyDatabase();
-            Event devTeachVancouver2007 = new Event("DevTeach2007Vancouver", "Party with Palermo: DevTeach 2007 Edition - Vancouver");
+            Conference devTeachVancouver2007 = new Conference("DevTeach2007Vancouver", "Party with Palermo: DevTeach 2007 Edition - Vancouver");
             devTeachVancouver2007.StartDate = new DateTime(2007, 11, 26, 19, 30, 00);
-            Event mvpSummit2008 = new Event("MvpSummit2008", "Party with Palermo: MVP Summit 2008 Edition");
+            Conference mvpSummit2008 = new Conference("MvpSummit2008", "Party with Palermo: MVP Summit 2008 Edition");
             mvpSummit2008.StartDate = new DateTime(2008, 4, 13, 19, 0, 0);
-            Event techEd2008 = new Event("TechEd2008", "Party with Palermo: Tech Ed 2008 Edition");
+            Conference techEd2008 = new Conference("TechEd2008", "Party with Palermo: Tech Ed 2008 Edition");
             techEd2008.StartDate = new DateTime(2008, 6, 8, 19, 0, 0);
 
             Attendee attendee1 = new Attendee("Homer Simpson", "http://www.simpsons.com", "Doh!", devTeachVancouver2007);

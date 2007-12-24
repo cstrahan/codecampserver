@@ -50,7 +50,7 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AttendeeRepository.cs" />
-    <Compile Include="EventRepository.cs" />
+    <Compile Include="ConferenceRepository.cs" />
     <Compile Include="NHibernateSessionFactory.cs" />
     <Compile Include="RepositoryBase.cs" />
   </ItemGroup>
