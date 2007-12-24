@@ -15,22 +15,15 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         {
         }
 
-        public static void EmptyDatabase(Database database)
-        {
-            using (ISession session = _sessionBuilder.GetSession(database))
-            {
-                using (IDbCommand command = session.Connection.CreateCommand())
-                {
-                    command.CommandText = "delete from attendees;delete from conferences";
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-
         public static void recreateDatabase(Database selectedDatabase)
         {
             SchemaExport exporter = new SchemaExport(_sessionBuilder.GetConfiguration(selectedDatabase));
             exporter.Execute(false, true, false, true);
+        }
+
+        protected void resetSession(Database database)
+        {
+            HybridSessionBuilder.ResetSession(database);
         }
     }
 }

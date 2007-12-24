@@ -15,7 +15,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test]
         public void ShouldGetAttendeesMatchingConference()
         {
-            EmptyDatabase(Database.Default);
+            recreateDatabase(Database.Default);
             Conference theConference = new Conference("foo", "");
             Attendee attendee1a = new Attendee("jima", "foo", "http://www.www.coma", "some commenta", theConference, "a@b.com");
             Attendee attendee1b = new Attendee("jimb", "foo", "http://www.www.comb", "some commentb", theConference, "a@b.com");
@@ -52,7 +52,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test]
         public void ShouldSaveAttendeeToDatabase()
         {
-            EmptyDatabase(Database.Default);
+            recreateDatabase(Database.Default);
             Conference anConference = new Conference("party", "");
             using(ISession session = getSession(Database.Default))
             {
@@ -71,7 +71,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 rehydratedAttendee = session.Load<Attendee>(attendee.Id);
 
                 Assert.That(rehydratedAttendee != null);
-                Assert.That(rehydratedAttendee.Contact.FirstName, Is.EqualTo("Jeffrey Palermo"));
+                Assert.That(rehydratedAttendee.Contact.FirstName, Is.EqualTo("Jeffrey"));
                 Assert.That(rehydratedAttendee.Website, Is.EqualTo("http://www.jeffreypalermo.com"));
                 Assert.That(rehydratedAttendee.Comment, Is.EqualTo("the comment"));
                 Assert.That(rehydratedAttendee.Conference, Is.EqualTo(anConference));

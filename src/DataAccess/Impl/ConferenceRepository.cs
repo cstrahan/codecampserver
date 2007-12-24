@@ -42,7 +42,7 @@ namespace CodeCampServer.DataAccess.Impl
         {
             using(ISession session = getSession(Database.Default))
             {
-                IQuery query = session.CreateQuery("from Conference e where e.StartDate >= ?");
+                IQuery query = session.CreateQuery("from Conference e where e.StartDate >= ? order by e.StartDate asc");
                 query.SetParameter(0, date);
                 query.SetMaxResults(1);
                 Conference matchingConference = query.UniqueResult<Conference>();

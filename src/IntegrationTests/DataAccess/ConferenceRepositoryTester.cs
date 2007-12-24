@@ -16,14 +16,14 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test]
         public void ShouldGetAllConferences()
         {
-            EmptyDatabase(Database.Default);
+            recreateDatabase(Database.Default);
             using (ISession session = getSession(Database.Default))
             {
                 session.SaveOrUpdate(new Conference("thekey", "theName"));
                 Conference theConference = new Conference("thekey2", "theName2");
                 theConference.StartDate = new DateTime(2007, 1, 1, 11, 59, 30);
                 theConference.EndDate = new DateTime(2007, 1, 1, 11, 59, 31);
-                theConference.SponsorInfo = string.Join("a", new string[100001]);
+                theConference.SponsorInfo = string.Join("a", new string[4001]);
                 theConference.Location.Name = "locationname";
                 theConference.Location.Address1 = "locationaddress1";
                 theConference.Location.Address2 = "locationaddress2";
@@ -32,6 +32,8 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 
                 session.Flush();
             }
+
+            resetSession(Database.Default);
 
             IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
             IEnumerable<Conference> conferences = repository.GetAllConferences();
@@ -50,7 +52,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             Assert.That(conferenceList[1].Name, Is.EqualTo("theName2"));
             Assert.That(conferenceList[1].StartDate, Is.EqualTo(DateTime.Parse("1/1/2007, 11:59:30 am")));
             Assert.That(conferenceList[1].EndDate, Is.EqualTo(DateTime.Parse("1/1/2007, 11:59:31 am")));
-            Assert.That(conferenceList[1].SponsorInfo.Length, Is.EqualTo(100000));
+            Assert.That(conferenceList[1].SponsorInfo.Length, Is.EqualTo(4000));
             Assert.That(conferenceList[1].Location.Name, Is.EqualTo("locationname"));
             Assert.That(conferenceList[1].Location.Address1, Is.EqualTo("locationaddress1"));
             Assert.That(conferenceList[1].Location.Address2, Is.EqualTo("locationaddress2"));
@@ -61,7 +63,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test]
         public void GetByKey()
         {
-            EmptyDatabase(Database.Default);
+            recreateDatabase(Database.Default);
             Conference theConference = new Conference("Frank", "some name");
             Conference conference2 = new Conference("Frank2", "some name2");
             using (ISession session = getSession(Database.Default))
@@ -70,6 +72,8 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 session.SaveOrUpdate(conference2);
                 session.Flush();
             }
+
+            resetSession(Database.Default);
 
             IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
             Conference conferenceSaved = repository.GetConferenceByKey("Frank");
@@ -83,7 +87,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test]
         public void ShouldGetNextConferenceBasedOnDate()
         {
-            EmptyDatabase(Database.Default);
+            recreateDatabase(Database.Default);
             Conference oldConference = new Conference("2006", "past event");
             oldConference.StartDate = new DateTime(2006, 1, 1);
             Conference nextConference = new Conference("2007", "next event");
@@ -98,6 +102,8 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 session.SaveOrUpdate(futureConference);
                 session.Flush();
             }
+
+            resetSession(Database.Default);
 
             IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
             Conference matchingConference = repository.GetFirstConferenceAfterDate(new DateTime(2006, 1, 2));

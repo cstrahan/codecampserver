@@ -13,7 +13,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test, Category("DataLoader")]
         public void PopulateDatabase()
         {
-            EmptyDatabase(Database.Default);
+            recreateDatabase(Database.Default);
             Conference devTeachVancouver2007 = new Conference("DevTeach2007Vancouver", "Party with Palermo: DevTeach 2007 Edition - Vancouver");
             devTeachVancouver2007.StartDate = new DateTime(2007, 11, 26, 19, 30, 00);
             Conference mvpSummit2008 = new Conference("MvpSummit2008", "Party with Palermo: MVP Summit 2008 Edition");

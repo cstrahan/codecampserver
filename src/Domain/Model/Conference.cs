@@ -98,5 +98,10 @@ namespace CodeCampServer.Domain.Model
         {
             _sponsors.Add(sponsor);
         }
+
+        public override string ToString()
+        {
+            return Key;
+        }
     }
 }
