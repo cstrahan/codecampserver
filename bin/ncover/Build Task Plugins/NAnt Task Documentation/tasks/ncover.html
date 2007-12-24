@@ -1,0 +1,318 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <!-- Documenting T:NCoverExplorer.NAntTasks.NCoverTask-->
+  <head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>&lt;ncover&gt; Task</title>
+  </head>
+  <body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+      <tr>
+        <td class="NavBar-Cell">
+          <a href="">
+            <b>NCoverExplorer.NAntTasks</b>
+          </a>
+          <img alt="-&gt;" src="../images/arrow.gif" />
+          <a href="../index.html">Help</a>
+          <img alt="-&gt;" src="../images/arrow.gif" />
+          <a href="../tasks/index.html">Task Reference</a>
+          <img alt="-&gt;" src="../images/arrow.gif" /> &lt;ncover&gt;</td>
+        <td class="NavBar-Cell" align="right">
+                        v2.0.2.0</td>
+      </tr>
+    </table>
+    <h1>&lt;ncover&gt;</h1>
+    <p> NAnt task for automating NCover.Console.exe, with NCover 1.3.3, 1.5.x and 2.x support. Note that this task will self register CoverLib.dll by default using the registry (does not require local admin). </p>
+    <h3>Parameters</h3>
+    <div class="table">
+      <table>
+        <tr>
+          <th>Attribute</th>
+          <th style="text-align: center;">Type</th>
+          <th>Description</th>
+          <th style="text-align: center;">Required</th>
+        </tr>
+        <tr>
+          <td valign="top">additionalArgs</td>
+          <td style="text-align: center;">string</td>
+          <td> Additional command line switch arguments for NCover.Console.exe that are passed through directly. For future proofing usage to allow utilising new NCover.Console features not explicitly supported. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">assemblyList</td>
+          <td style="text-align: center;">string</td>
+          <td> Used to specify the assemblies to be profiled by specifically naming them. Values should be separated by semi-colons and not include suffixe or path (and case sensitive) as this is how they are identified by the CLR. e.g. "MyApp.Main;MyApp.Core". </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">autoExclude</td>
+          <td style="text-align: center;">bool</td>
+          <td> Determines whether to exclude compiler auto-generated code. Default value is <b>true</b>. For NCover 2.x. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">commandLineArgs</td>
+          <td style="text-align: center;">string</td>
+          <td> The arguments to pass to the command line executable to be launched by NCover (such as nunit-console.exe). </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">commandLineExe</td>
+          <td style="text-align: center;">string</td>
+          <td> The command line executable to be launched by NCover (such as nunit-console.exe). </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">coverageFile</td>
+          <td style="text-align: center;">string</td>
+          <td> The filename for the output coverage.xml file (default). </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">coverageHtmlDirectory</td>
+          <td style="text-align: center;">string</td>
+          <td> Gets or sets the directory to generate the coverage html report into. <code>Feature requires NCover 2.x Enterprise Edition.</code></td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">coverageType</td>
+          <td style="text-align: center;">
+            <a href="../enums/NCoverExplorer.NCoverRunner.Execution.NCoverCoverageType.html">NCoverCoverageType</a>
+          </td>
+          <td> What sort of coverage to produce in the output. Values are "Branch" and "SequencePoint" (the default is both). For NCover 2.x. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">excludeAttributes</td>
+          <td style="text-align: center;">string</td>
+          <td> If coverage exclusion attributes have been applied (NCover 1.5.4 onwards) specify the full namespace to the attribute including the "Attribute" suffix - e.g. "CoverageExcludeAttribute" if defined in no namespace. Separate multiple attributes with semi-colons. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">fileExclusionPatterns</td>
+          <td style="text-align: center;">string</td>
+          <td> Regular expression patterns for excluding files, comma separated. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">logFile</td>
+          <td style="text-align: center;">string</td>
+          <td> Gets or sets the logfile name to write to. The default is "coverage.log". </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">logLevel</td>
+          <td style="text-align: center;">
+            <a href="../enums/NCoverExplorer.NCoverRunner.Execution.NCoverLogLevel.html">NCoverLogLevel</a>
+          </td>
+          <td> What level of NCover logging to provide. Values are "Normal" and "Verbose". Note that due to a current bug in NCover 1.5.4 there is no different between Quiet and Normal since the //q argument (NoLog=true) will lock NCover. So logging is always on for NCover 1.5.4 </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">methodExclusionPatterns</td>
+          <td style="text-align: center;">string</td>
+          <td> Regular expression patterns for excluding methods, comma separated. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">profiledProcessModule</td>
+          <td style="text-align: center;">string</td>
+          <td> Gets or sets the profiled process module name. Use this argument when the executable being launched is not the actual process you want to profile coverage for. For NCover 1.5.8 or later. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">profileIIS</td>
+          <td style="text-align: center;">bool</td>
+          <td> Determines whether to profile under IIS (//iis). Default value is <b>false</b>. <code>Feature requires NCover 2.x Enterprise Edition.</code></td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">profileService</td>
+          <td style="text-align: center;">string</td>
+          <td> The service name to profile if any (//svc). Default is none. <code>Feature requires NCover 2.x Enterprise Edition.</code></td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">program</td>
+          <td style="text-align: center;">string</td>
+          <td> The name of the executable that should be used to launch the external program. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">projectName</td>
+          <td style="text-align: center;">string</td>
+          <td> The project name for use in html reports or for use by NCoverExplorer to switch settings. For NCover 2.x. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">registerProfiler</td>
+          <td style="text-align: center;">bool</td>
+          <td> Determines whether to register NCover CoverLib.dll on each run. The default is <code>true</code>. You would set this to <code>false</code> if using TypeMock due to a conflict in registered profilers. If set to true, the NCover task uses a reference counting approach to minimise the chance of issues when simultaneous builds. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">serviceTimeout</td>
+          <td style="text-align: center;">int</td>
+          <td> The service timeout in seconds to use when profiling IIS or windows service applications. If not specified the profiling will continue until the service is stopped. <code>Feature requires NCover 2.x Enterprise Edition.</code></td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">symbolSearchPolicy</td>
+          <td style="text-align: center;">int</td>
+          <td> The bitwise symbol search policy - 1=Registry, 2=Symbol server, 4=Original path, 8=Reference path. For NCover 2.x. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">typeExclusionPatterns</td>
+          <td style="text-align: center;">string</td>
+          <td> Regular expressions patterns for excluding type names, comma separated. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">workingDirectory</td>
+          <td style="text-align: center;">string</td>
+          <td> Gets or sets the working directory for the command line executable. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">failonerror</td>
+          <td style="text-align: center;">bool</td>
+          <td> Determines if task failure stops the build, or is just reported. The default is <b>true</b>. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">if</td>
+          <td style="text-align: center;">bool</td>
+          <td> If <b>true</b> then the task will be executed; otherwise, skipped. The default is <b>true</b>. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">timeout</td>
+          <td style="text-align: center;">int</td>
+          <td> The maximum amount of time the application is allowed to execute, expressed in milliseconds. Defaults to no time-out. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">unless</td>
+          <td style="text-align: center;">bool</td>
+          <td> Opposite of <code>if</code>. If <b>false</b> then the task will be executed; otherwise, skipped. The default is <b>false</b>. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">verbose</td>
+          <td style="text-align: center;">bool</td>
+          <td> Determines whether the task should report detailed build log messages. The default is <b>false</b>. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+      </table>
+    </div>
+    <h3>Framework-configurable parameters</h3>
+    <div class="table">
+      <table>
+        <tr>
+          <th>Attribute</th>
+          <th style="text-align: center;">Type</th>
+          <th>Description</th>
+          <th style="text-align: center;">Required</th>
+        </tr>
+        <tr>
+          <td valign="top">useruntimeengine</td>
+          <td style="text-align: center;">bool</td>
+          <td> Specifies whether the external program should be executed using a runtime engine, if configured. The default is <b>false</b>. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+      </table>
+    </div>
+    <h3>Nested Elements:</h3>
+    <!--Element-->
+    <h4>
+      <a id="assemblies">
+      </a>
+                    &lt;<a href="http://nant.sourceforge.net/release/latest/help/types/fileset.html">assemblies</a>&gt;
+                </h4>
+    <div class="nested-element"> Used to specify the assemblies to be profiled by choosing dynamically from a directory. To use see <a href="http://nant.sourceforge.net/release/latest/help/types/fileset.html">&lt;fileset&gt;</a>. <p /></div>
+    <h4>
+      <a id="assemblies">
+      </a>
+                    &lt;/<a href="http://nant.sourceforge.net/release/latest/help/types/fileset.html">assemblies</a>&gt;
+                </h4>
+    <!--Array-->
+    <!--NestedElementArray=T:NAnt.Core.Types.Argument-->
+    <h4>
+      <a id="arg">
+      </a>
+                    &lt;arg&gt;
+                </h4>
+    <div class="nested-element"> The command-line arguments for the external program. <p> Represents a command-line argument. </p><h3>Parameters</h3><div class="table"><table><tr><th>Attribute</th><th style="text-align: center;">Type</th><th>Description</th><th style="text-align: center;">Required</th></tr><tr><td valign="top">dir</td><td style="text-align: center;">directory</td><td> The value for a directory-based command-line argument; will be replaced with the absolute path of the directory. </td><td style="text-align: center;">False</td></tr><tr><td valign="top">file</td><td style="text-align: center;">file</td><td> The name of a file as a single command-line argument; will be replaced with the absolute filename of the file. </td><td style="text-align: center;">False</td></tr><tr><td valign="top">if</td><td style="text-align: center;">bool</td><td> Indicates if the argument should be passed to the external program. If <b>true</b> then the argument will be passed; otherwise, skipped. The default is <b>true</b>. </td><td style="text-align: center;">False</td></tr><tr><td valign="top">line</td><td style="text-align: center;">string</td><td> List of command-line arguments; will be passed to the executable as is. </td><td style="text-align: center;">False</td></tr><tr><td valign="top">path</td><td style="text-align: center;">&lt;path&gt;</td><td> The value for a PATH-like command-line argument; you can use <code>:</code> or <code>;</code> as path separators and NAnt will convert it to the platform's local conventions, while resolving references to environment variables. </td><td style="text-align: center;">False</td></tr><tr><td valign="top">unless</td><td style="text-align: center;">bool</td><td> Indicates if the argument should not be passed to the external program. If <b>false</b> then the argument will be passed; otherwise, skipped. The default is <b>false</b>. </td><td style="text-align: center;">False</td></tr><tr><td valign="top">value</td><td style="text-align: center;">string</td><td> A single command-line argument; can contain space characters. </td><td style="text-align: center;">False</td></tr></table></div><h3>Nested Elements:</h3><!--Element--><h4><a id="path"></a>
+                    &lt;<a href="http://nant.sourceforge.net/release/latest/help/types/path.html">path</a>&gt;
+                </h4><div class="nested-element"> Sets a single command-line argument and treats it like a PATH - ensures the right separator for the local platform is used. <p /></div><h4><a id="path"></a>
+                    &lt;/<a href="http://nant.sourceforge.net/release/latest/help/types/path.html">path</a>&gt;
+                </h4><h3>Examples</h3><ul class="examples"><li><p> A single command-line argument containing a space character. </p><pre class="code">
+&lt;arg value="-l -a" /&gt;
+    </pre></li><li><p> Two separate command-line arguments. </p><pre class="code">
+&lt;arg line="-l -a" /&gt;
+    </pre></li><li><p> A single command-line argument with the value <code>\dir;\dir2;\dir3</code> on DOS-based systems and <code>/dir:/dir2:/dir3</code> on Unix-like systems. </p><pre class="code">
+&lt;arg path="/dir;/dir2:\dir3" /&gt;
+    </pre></li></ul></div>
+    <h4>
+      <a id="arg">
+      </a>
+                    &lt;/arg&gt;
+                </h4>
+    <h3>Examples</h3>
+    <ul class="examples">
+      <li> This example shows the standard profiling using NCover for standard nunit tests with minimum arguments. Defaults are with no logging, profiling all assemblies, output filename of coverage.xml and this assumes that NCover and NUnit are in the path. <pre class="code">
+    &lt;ncover  commandLineExe="${nunit.path}\nunit-console.exe" 
+             commandLineArgs="${build.path}\myapp.tests.dll" &gt;
+    &lt;/ncover&gt;
+    </pre></li>
+      <li> If you are using TypeMock, you may experience issues with the registration of coverlib.dll conflicting due to overwriting the registered profiler. You should add the "registerProfiler" attribute below and set it to false. <pre class="code">
+    &lt;ncover  commandLineExe="${nunit.path}\nunit-console.exe" 
+             commandLineArgs="${build.path}\myapp.tests.dll"
+             registerProfiler="false" &gt;
+    &lt;/ncover&gt;
+    </pre></li>
+      <li> This example shows the standard profiling using for standard nunit tests with minimal arguments. Defaults are with logging to coverage.log, profiling all assemblies, output filename of coverage.xml and this example specifies a full path to NCover.Console.exe. <pre class="code">
+    &lt;ncover  program="C:\Program Files\NCover\ncover.console.exe" 
+             commandLineExe="${nunit.path}\nunit-console.exe" 
+             commandLineArgs="${build.path}\myapp.tests.dll" &gt;
+    &lt;/ncover&gt;
+    </pre></li>
+      <li> This example for NCover 1.5.8 or later shows profiling a process which is launched by another process. <pre class="code">
+    &lt;ncover  program="C:\Program Files\NCover\ncover.console.exe" 
+             commandLineExe="MyLauncher.exe" 
+             profiledProcessModule="LaunchedProcess.exe" &gt;
+    &lt;/ncover&gt;
+    </pre></li>
+      <li> This example shows using the assemblies attribute inline rather than having child elements, and also showing how child elements of commandLineArgs should be quoted if they contain spaces. It also shows a regular expression to exclude all filenames matching the *.Designer.cs pattern. <pre class="code">
+    &lt;ncover  program="tools\ncover\ncover.console.exe" 
+             commandLineExe="${nunit.path}\nunit-console.exe" 
+             commandLineArgs="myapp.tests.dll /xml=&amp;quot;c:\my results\test.xml&amp;quot;"
+             assemblyList="myapp.main;myapp.core"
+             excludeAttributes="CoverageExcludeAttribute" 
+             fileExclusionPatterns="^.*\.Designer\.cs"&gt;
+    &lt;/ncover&gt;
+    </pre></li>
+      <li> This example shows the standard profiling using NCover 1.5.x or 2.x for a Windows application, specifying a coverage exclusion, verbose logging to a named file, specifically named log, output xml and html files. It also shows coverage exclusion attributes, overriding the NCover location to run from and a way of listing assemblies to be included in the profiled NCover results. <pre class="code">
+    &lt;ncover  program="tools\ncover\ncover.console.exe" 
+             commandLineExe="${nunit.path}\nunit-console.exe" 
+             commandLineArgs="myapp.tests.dll"
+             coverageFile="myapp.coverage.xml"
+             logLevel="Verbose"
+             logFile="myapp.coverage.log"
+             workingDirectory="${build.path}"
+             excludeAttributes="CoverageExcludeAttribute" &gt;
+        &lt;assemblies basedir="${build.path}"&gt;
+            &lt;include name="myapp.*.dll" /&gt;
+        &lt;/assemblies&gt;
+    &lt;/ncover&gt;
+    </pre></li>
+    </ul>
+    <h3>Requirements</h3>
+    <div style="margin-left: 20px;">
+      <b>Assembly:</b> NCoverExplorer.NAntTasks (2.0.2.0)
+            </div>
+  </body>
+</html>

@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <!-- Documenting T:NCoverExplorer.NAntTasks.NDoc2Task-->
+  <head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>&lt;ndoc2&gt; Task</title>
+  </head>
+  <body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+      <tr>
+        <td class="NavBar-Cell">
+          <a href="">
+            <b>NCoverExplorer.NAntTasks</b>
+          </a>
+          <img alt="-&gt;" src="../images/arrow.gif" />
+          <a href="../index.html">Help</a>
+          <img alt="-&gt;" src="../images/arrow.gif" />
+          <a href="../tasks/index.html">Task Reference</a>
+          <img alt="-&gt;" src="../images/arrow.gif" /> &lt;ndoc2&gt;</td>
+        <td class="NavBar-Cell" align="right">
+                        v2.0.2.0</td>
+      </tr>
+    </table>
+    <h1>&lt;ndoc2&gt;</h1>
+    <p> Runs NDoc2 Alpha to create documentation for .NET 2.0 assemblies. Unlike the original &lt;ndoc&gt; task, this one simply runs the NDoc.Console.exe with the configuration file created. </p>
+    <p> The easiest way to create the correct contents for this task is to use the NDocGui and save the resulting configuration file. Then just paste in the &lt;documenter&gt; and other sections you want into your NAnt script as is. See the <a href="http://www.kynosarges.de/NDoc.html">NDoc2 Alpha page</a> for more information about NDoc Alpha. </p>
+    <h3>Parameters</h3>
+    <div class="table">
+      <table>
+        <tr>
+          <th>Attribute</th>
+          <th style="text-align: center;">Type</th>
+          <th>Description</th>
+          <th style="text-align: center;">Required</th>
+        </tr>
+        <tr>
+          <td valign="top">program</td>
+          <td style="text-align: center;">string</td>
+          <td> The name of the executable that should be used to launch the external program. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">failonerror</td>
+          <td style="text-align: center;">bool</td>
+          <td> Determines if task failure stops the build, or is just reported. The default is <b>true</b>. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">if</td>
+          <td style="text-align: center;">bool</td>
+          <td> If <b>true</b> then the task will be executed; otherwise, skipped. The default is <b>true</b>. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">timeout</td>
+          <td style="text-align: center;">int</td>
+          <td> The maximum amount of time the application is allowed to execute, expressed in milliseconds. Defaults to no time-out. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">unless</td>
+          <td style="text-align: center;">bool</td>
+          <td> Opposite of <code>if</code>. If <b>false</b> then the task will be executed; otherwise, skipped. The default is <b>false</b>. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">verbose</td>
+          <td style="text-align: center;">bool</td>
+          <td> Determines whether the task should report detailed build log messages. The default is <b>false</b>. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+      </table>
+    </div>
+    <h3>Framework-configurable parameters</h3>
+    <div class="table">
+      <table>
+        <tr>
+          <th>Attribute</th>
+          <th style="text-align: center;">Type</th>
+          <th>Description</th>
+          <th style="text-align: center;">Required</th>
+        </tr>
+        <tr>
+          <td valign="top">useruntimeengine</td>
+          <td style="text-align: center;">bool</td>
+          <td> Specifies whether the external program should be executed using a runtime engine, if configured. The default is <b>false</b>. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+      </table>
+    </div>
+    <h3>Nested Elements:</h3>
+    <!--Element-->
+    <h4>
+      <a id="assemblies">
+      </a>
+                    &lt;<a href="http://nant.sourceforge.net/release/latest/help/types/fileset.html">assemblies</a>&gt;
+                </h4>
+    <div class="nested-element"> The set of assemblies to document. <p /></div>
+    <h4>
+      <a id="assemblies">
+      </a>
+                    &lt;/<a href="http://nant.sourceforge.net/release/latest/help/types/fileset.html">assemblies</a>&gt;
+                </h4>
+    <!--Element-->
+    <h4>
+      <a id="summaries">
+      </a>
+                    &lt;<a href="http://nant.sourceforge.net/release/latest/help/types/fileset.html">summaries</a>&gt;
+                </h4>
+    <div class="nested-element"> The set of namespace summary files. <p /></div>
+    <h4>
+      <a id="summaries">
+      </a>
+                    &lt;/<a href="http://nant.sourceforge.net/release/latest/help/types/fileset.html">summaries</a>&gt;
+                </h4>
+    <!--Element-->
+    <h4>
+      <a id="documenters">
+      </a>
+                    &lt;documenters&gt;
+                </h4>
+    <div class="nested-element"> Specifies the formats in which the documentation should be generated. <p> Represents an element of which the XML is processed by its parent task or type. </p><p /></div>
+    <h4>
+      <a id="documenters">
+      </a>
+                    &lt;/documenters&gt;
+                </h4>
+    <!--Element-->
+    <h4>
+      <a id="referencepaths">
+      </a>
+                    &lt;<a href="http://nant.sourceforge.net/release/latest/help/types/dirset.html">referencepaths</a>&gt;
+                </h4>
+    <div class="nested-element"> Collection of additional directories to search for referenced assemblies. <p /></div>
+    <h4>
+      <a id="referencepaths">
+      </a>
+                    &lt;/<a href="http://nant.sourceforge.net/release/latest/help/types/dirset.html">referencepaths</a>&gt;
+                </h4>
+    <!--Array-->
+    <!--NestedElementArray=T:NAnt.Core.Types.Argument-->
+    <h4>
+      <a id="arg">
+      </a>
+                    &lt;arg&gt;
+                </h4>
+    <div class="nested-element"> The command-line arguments for the external program. <p> Represents a command-line argument. </p><h3>Parameters</h3><div class="table"><table><tr><th>Attribute</th><th style="text-align: center;">Type</th><th>Description</th><th style="text-align: center;">Required</th></tr><tr><td valign="top">dir</td><td style="text-align: center;">directory</td><td> The value for a directory-based command-line argument; will be replaced with the absolute path of the directory. </td><td style="text-align: center;">False</td></tr><tr><td valign="top">file</td><td style="text-align: center;">file</td><td> The name of a file as a single command-line argument; will be replaced with the absolute filename of the file. </td><td style="text-align: center;">False</td></tr><tr><td valign="top">if</td><td style="text-align: center;">bool</td><td> Indicates if the argument should be passed to the external program. If <b>true</b> then the argument will be passed; otherwise, skipped. The default is <b>true</b>. </td><td style="text-align: center;">False</td></tr><tr><td valign="top">line</td><td style="text-align: center;">string</td><td> List of command-line arguments; will be passed to the executable as is. </td><td style="text-align: center;">False</td></tr><tr><td valign="top">path</td><td style="text-align: center;">&lt;path&gt;</td><td> The value for a PATH-like command-line argument; you can use <code>:</code> or <code>;</code> as path separators and NAnt will convert it to the platform's local conventions, while resolving references to environment variables. </td><td style="text-align: center;">False</td></tr><tr><td valign="top">unless</td><td style="text-align: center;">bool</td><td> Indicates if the argument should not be passed to the external program. If <b>false</b> then the argument will be passed; otherwise, skipped. The default is <b>false</b>. </td><td style="text-align: center;">False</td></tr><tr><td valign="top">value</td><td style="text-align: center;">string</td><td> A single command-line argument; can contain space characters. </td><td style="text-align: center;">False</td></tr></table></div><h3>Nested Elements:</h3><!--Element--><h4><a id="path"></a>
+                    &lt;<a href="http://nant.sourceforge.net/release/latest/help/types/path.html">path</a>&gt;
+                </h4><div class="nested-element"> Sets a single command-line argument and treats it like a PATH - ensures the right separator for the local platform is used. <p /></div><h4><a id="path"></a>
+                    &lt;/<a href="http://nant.sourceforge.net/release/latest/help/types/path.html">path</a>&gt;
+                </h4><h3>Examples</h3><ul class="examples"><li><p> A single command-line argument containing a space character. </p><pre class="code">
+&lt;arg value="-l -a" /&gt;
+    </pre></li><li><p> Two separate command-line arguments. </p><pre class="code">
+&lt;arg line="-l -a" /&gt;
+    </pre></li><li><p> A single command-line argument with the value <code>\dir;\dir2;\dir3</code> on DOS-based systems and <code>/dir:/dir2:/dir3</code> on Unix-like systems. </p><pre class="code">
+&lt;arg path="/dir;/dir2:\dir3" /&gt;
+    </pre></li></ul></div>
+    <h4>
+      <a id="arg">
+      </a>
+                    &lt;/arg&gt;
+                </h4>
+    <h3>Examples</h3>
+    <ul class="examples">
+      <li>
+        <p> Document two assemblies using the MSDN-CHM documenter. The namespaces are documented in <code>NamespaceSummary.xml</code>. This is assuming that the NDocConsole.exe is in your path. If not, use the "program" attribute on the ndoc2 node to specify the path to NDocConsole.exe. </p>
+        <pre class="code">
+&lt;ndoc2&gt;
+    &lt;assemblies basedir="${build.dir}"&gt;
+        &lt;include name="MyApp.exe" /&gt;
+        &lt;include name="MyApp.dll" /&gt;
+    &lt;/assemblies&gt;
+    &lt;summaries basedir="${build.dir}"&gt;
+        &lt;include name="NamespaceSummary.xml" /&gt;
+    &lt;/summaries&gt;
+    &lt;documenters&gt;
+        &lt;documenter name="MSDN-CHM"&gt;
+            &lt;property name="IncludeFavorites" value="False" /&gt;
+            &lt;property name="OutputDirectory" value="doc\MSDN" /&gt;
+            &lt;property name="HtmlHelpName" value="MyApp" /&gt;
+            &lt;property name="Title" value="MyApp Class Library" /&gt;
+            &lt;property name="Version" value="" /&gt;
+            &lt;property name="UseAssemblyShadowCache" value="False" /&gt;
+            &lt;property name="DocumentExplicitInterfaceImplementations" value="True" /&gt;
+            &lt;property name="AssemblyVersionInfo" value="AssemblyFileVersion" /&gt;
+            &lt;property name="CopyrightText" value="© 2007 Gnoso Ltd" /&gt;
+         &lt;/documenter&gt;
+    &lt;/documenters&gt; 
+&lt;/ndoc2&gt;
+    </pre>
+        <p>Content of <code>NamespaceSummary.xml</code> :</p>
+        <pre class="code">
+&lt;namespaces&gt;
+    &lt;namespace name="Foo.Bar"&gt;
+        The &lt;b&gt;Foo.Bar&lt;/b&gt; namespace reinvents the wheel.
+    &lt;/namespace&gt;
+    &lt;namespace name="Foo.Bar.Tests"&gt;
+        The &lt;b&gt;Foo.Bar.Tests&lt;/b&gt; namespace ensures that the Foo.Bar namespace reinvents the wheel correctly.
+    &lt;/namespace&gt;
+&lt;/namespaces&gt;
+    </pre>
+      </li>
+    </ul>
+    <h3>Requirements</h3>
+    <div style="margin-left: 20px;">
+      <b>Assembly:</b> NCoverExplorer.NAntTasks (2.0.2.0)
+            </div>
+  </body>
+</html>

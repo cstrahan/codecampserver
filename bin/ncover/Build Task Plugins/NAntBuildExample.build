@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project name="NCoverExplorer" default="coverage" xmlns="http://nant.sf.net/schemas/nant.xsd">
+
+	<description>Build the entire ${build.application.name} codebase to output folder.</description>
+  
+	<property name="nant.settings.currentframework"	value="net-2.0" overwrite="false" />
+
+	<!-- Necessary if you do not have the NCoverExplorer assembly in your NAnt folders. -->
+  	<loadtasks assembly="NCoverExplorer.NAntTasks.dll"/>
+
+	<property name="build.application.name" 		value="NCoverExplorer" overwrite="false" />
+	<property name="build.configuration"			value="Debug" overwrite="false" />
+	<property name="build.output.dir" 				value="${project::get-base-directory()}" overwrite="false" />
+	<property name="build.solution.file" 			value="${build.application.name}.sln" />
+	<property name="build.test.assembly" 			value="${build.application.name}.Tests.dll" />
+	
+	<property name="coverage.output.dir" 			value="${build.output.dir}\Coverage" />
+	<property name="coverage.xml.file" 				value="${coverage.output.dir}\Coverage.xml" />
+	<property name="fail.onerror"					value="true" />
+	<property name="fail.message"					value="" />
+	<property name="path.nunit.console" 			value="C:\Program Files\NUnit 2.4.2\Bin\nunit-console.exe" />
+	<property name="path.ncover.console"			value="C:\Program Files\NCover\NCover.Console.exe" />
+	<property name="path.ncoverexplorer.console"	value="C:\Program Files\NCover\NCoverExplorer.Console.exe" />
+	<property name="test.assembly.pattern" 			value="${build.application.name}.Tests.*.dll" />
+	<property name="test.nunit.flags" 				value="/labels /nologo" />
+	<property name="test.output.dir" 				value="${build.output.dir}\Testing" />
+	<property name="test.results.xml" 				value="${build.application.name}.Testing.Results.xml" />
+
+  <!-- 
+		Build the application solution file
+	-->
+	<target name="build" description="Build the application">
+		
+		<!-- Perform the build -->
+		<msbuild project="${build.solution.file}">
+            <property name="Configuration" value="${build.configuration}"/>
+            <property name="OutputPath" value="${build.output.dir}"/>
+		</msbuild>
+		
+		<!-- Delete any "PostBuildEvent.bat" files and any others we want to cleanup -->
+		<delete>
+			<fileset basedir="${build.output.dir}">
+				<include name="PostBuildEvent.bat" />
+			</fileset>
+		</delete>
+		
+	</target>
+	
+	<!-- 
+		Clean the build folder.
+	-->
+	<target name="clean" description="Delete the output bin folder">
+		<delete dir="${build.output.dir}" failonerror="false"/>
+	</target>	  
+	
+	<!-- 
+		Build and run unit tests.
+	-->
+	<target name="build.test" depends="build,coverage" description="Build and run unit tests with coverage." />
+	
+	<!-- 
+		Code coverage test run. 
+	-->
+	<target name="coverage" description="Code coverage test run." >
+	
+		<!-- Ensure we have a directory for the output test results -->
+		<mkdir dir="${test.output.dir}" failonerror="false"/>
+		
+		<!-- Ensure we have a directory for the code coverage results -->
+		<mkdir dir="${coverage.output.dir}" failonerror="false"/>
+
+		<echo message="Starting NUnit code coverage run..."/>
+		<property name="test.failed" value="false"/>
+		<trycatch>
+			<try>
+				<ncover program="${path.ncover.console}"
+						commandLineExe="${path.nunit.console}"
+						commandLineArgs="${build.test.assembly} /xml=&quot;${test.output.dir}\${test.results.xml}&quot; ${test.nunit.flags}"
+						workingDirectory="${build.output.dir}"
+						coverageFile="${coverage.xml.file}">
+					<assemblies basedir="${build.output.dir}">
+						<include name="${build.application.name}.*.dll"/>
+					</assemblies>
+				</ncover>
+			</try>
+			<catch property="failure">
+				<echo message="At least one test failed: ${failure}"/>
+				<property name="fail.message" value="${failure}"/>
+				<property name="test.failed" value="true"/>
+			</catch>
+		</trycatch>
+		
+		<!-- If we had a test failure (and we are allowed to stop the build for a failure) then report it -->
+		<fail if="${fail.onerror and test.failed}" message="At least one test failed under code coverage.\r\n${fail.message}"/>
+
+		<call target="util.ncoverexplorer.nant" />
+	
+	</target>
+
+
+	<!-- 
+		***************************************************************************
+			Private utility targets 
+		***************************************************************************
+	-->
+		
+	<!-- 
+		Example showing NCoverExplorer from the command line.
+	-->
+	<target name="util.ncoverexplorer.exec">
+		<echo message="Starting NCoverExplorer report generation..."/>
+		
+		<exec program="${path.ncoverexplorer.console}" 
+			  workingdir="${path::get-directory-name(path.ncoverexplorer.console)}" >
+			<!-- Names of the coverage.xml file(s) to merge into the coverage report -->
+			<arg value="&quot;${coverage.xml.file}&quot;" />
+			<!-- /r[eport] Report type e.g. 'None' (default), 'NCoverHTMLReport', 
+			  'ModuleSummary', 'ModuleMethodSummary', 'ModuleNamespaceSummary',
+			  'ModuleClassSummary', 'ModuleClassFunctionSummary', 'ModuleMethodFunctionSummary' -->
+			<arg value="/r:ModuleClassSummary"/>
+			<!-- /x[ml][:filename] If specified will generate an xml report.         -->
+			<!--                   If no filename uses CoverageReport.xml            -->
+			<arg value="/x" />
+			<!-- /h[tml][:filename] If specified will generate an html report.       -->
+			<!--                    If no filename uses CoverageReport.html          -->
+			<arg value="/h" />
+			<!-- /e[xclusions] Include an exclusions footer in the report.           -->
+			<arg value="/e" />
+			<!-- /p[roject] Project name to appear in the report                     -->
+			<arg value="/p:NCoverExplorer" />
+			<!-- /m[inCoverage] Minimum acceptable coverage threshold.               -->
+			<arg value="/m:80" />
+			<!-- /f[ailMinimum] Fail the build if coverage < minimum threshold.      -->
+			<!--<arg value="/f" />-->
+			<!-- /c[onfig] configuration file -->
+			<!--<arg value="/c:MyProject.config" />-->
+			<!-- /s[ave][:filename] If specified will save merged coverage to a file -->
+			<!--                   If no filename uses CoverageMerge.xml             -->
+			<!--<arg value="/s" />-->
+		</exec>
+	</target>
+	
+	<!-- 
+		Example showing NCoverExplorer using the custom NAnt task.
+	-->
+	<target name="util.ncoverexplorer.nant">
+		<echo message="Starting NCoverExplorer report generation..."/>
+		
+		<!-- Other attributes that can be used on ncoverexplorer element:               -->
+		<!--   failMinimum="True" would fail the build if minimum coverage not met.     -->
+		<!-- Remove the xmlReportName and/or htmlReportName attributes to not generate. -->
+		<!-- /r[eport] Report type e.g. "None" (default), "NCoverHTMLReport", 
+		  'ModuleSummary', 'ModuleMethodSummary', 'ModuleNamespaceSummary',
+		  'ModuleClassSummary', 'ModuleClassFunctionSummary', 'ModuleMethodFunctionSummary' -->
+		<!-- Valid exclusion 'type' attributes are 'Assembly', 'Namespace', 'Class' and 'Method'. -->
+		<!-- See command line for which attributes are optional to alter behaviour.		-->
+		<ncoverexplorer program="${path.ncoverexplorer.console}"
+						projectName="NCoverExplorer"
+						reportType="ModuleClassSummary"
+						outputDir="${build.output.dir}\Coverage" 
+						xmlReportName="CoverageReport.xml"
+						htmlReportName="CoverageReport.html"
+						mergeFileName="CoverageMerge.xml"
+						showExcluded="True"
+						satisfactoryCoverage="80" >
+			<fileset>
+				<include name="${coverage.xml.file}"/>
+			</fileset>
+			<exclusions>
+				<exclusion type="Assembly" pattern="*.Tests" />
+				<exclusion type="Namespace" pattern="*.Presentation*" />
+				<exclusion type="Namespace" pattern="MyApp\.(\w*\.)?" isRegex="true" />
+			</exclusions>
+			<!--
+			<moduleThresholds>
+				<moduleThreshold moduleName="MyAssembly.dll" satisfactoryCoverage="30" />
+			</moduleThresholds>-->
+		</ncoverexplorer>
+	</target>
+
+</project>
