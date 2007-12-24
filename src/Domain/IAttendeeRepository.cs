@@ -7,7 +7,7 @@ namespace CodeCampServer.Domain
     [PluginFamily("Default")]
     public interface IAttendeeRepository
     {
-        IEnumerable<Attendee> GetAttendeesForEvent(Conference anConference);
+        IEnumerable<Attendee> GetAttendeesForConference(Conference anConference);
         void SaveAttendee(Attendee attendee);
     }
 }

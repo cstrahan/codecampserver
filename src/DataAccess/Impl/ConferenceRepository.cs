@@ -15,7 +15,7 @@ namespace CodeCampServer.DataAccess.Impl
         {
         }
 
-        public IEnumerable<Conference> GetAllEvents()
+        public IEnumerable<Conference> GetAllConferences()
         {
             using (ISession session = getSession(Database.Default))
             {
@@ -27,22 +27,22 @@ namespace CodeCampServer.DataAccess.Impl
             }
         }
 
-        public Conference GetEventByKey(string key)
+        public Conference GetConferenceByKey(string key)
         {
             using (ISession session = getSession(Database.Default))
             {
-                IQuery query = session.CreateQuery("from Event e where e.Key = ?");
+                IQuery query = session.CreateQuery("from Conference e where e.Key = ?");
                 query.SetParameter(0, key);
                 Conference result = query.UniqueResult<Conference>();
                 return result;
             }
         }
 
-        public Conference GetFirstEventAfterDate(DateTime date)
+        public Conference GetFirstConferenceAfterDate(DateTime date)
         {
             using(ISession session = getSession(Database.Default))
             {
-                IQuery query = session.CreateQuery("from Event e where e.StartDate >= ?");
+                IQuery query = session.CreateQuery("from Conference e where e.StartDate >= ?");
                 query.SetParameter(0, date);
                 query.SetMaxResults(1);
                 Conference matchingConference = query.UniqueResult<Conference>();

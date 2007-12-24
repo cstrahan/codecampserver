@@ -13,9 +13,9 @@ namespace CodeCampServer.IntegrationTests.DataAccess
     public class AttendeeRepositoryTester : DatabaseTesterBase
     {
         [Test]
-        public void ShouldGetAttendeesMatchingEvent()
+        public void ShouldGetAttendeesMatchingConference()
         {
-            TestHelper.EmptyDatabase();
+            EmptyDatabase(Database.Default);
             Conference theConference = new Conference("foo", "");
             Attendee attendee1a = new Attendee("jima", "foo", "http://www.www.coma", "some commenta", theConference, "a@b.com");
             Attendee attendee1b = new Attendee("jimb", "foo", "http://www.www.comb", "some commentb", theConference, "a@b.com");
@@ -33,7 +33,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             }
 
             IAttendeeRepository repository = new AttendeeRepository(_sessionBuilder);
-            IEnumerable<Attendee> matchingAttendees = repository.GetAttendeesForEvent(theConference);
+            IEnumerable<Attendee> matchingAttendees = repository.GetAttendeesForConference(theConference);
             List<Attendee> attendees = new List<Attendee>(matchingAttendees);
             attendees.Sort(delegate(Attendee x, Attendee y) { return x.Contact.FirstName.CompareTo(y.Contact.FirstName); });
 
@@ -52,7 +52,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test]
         public void ShouldSaveAttendeeToDatabase()
         {
-            TestHelper.EmptyDatabase();
+            EmptyDatabase(Database.Default);
             Conference anConference = new Conference("party", "");
             using(ISession session = getSession(Database.Default))
             {

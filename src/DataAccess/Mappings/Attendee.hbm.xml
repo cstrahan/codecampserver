@@ -9,7 +9,6 @@
 		</id>
 
 		<many-to-one name="Conference" column="ConferenceId" not-null="true"/>
-		<property name="Name" length="50" not-null="true"/>
 		<component name="Contact" class="Contact">
 			<property name="FirstName" length="20" not-null="true"/>
 			<property name="LastName" length="20" not-null="true"/>

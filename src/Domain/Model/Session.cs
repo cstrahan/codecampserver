@@ -1,5 +1,3 @@
-using System;
-
 namespace CodeCampServer.Domain.Model
 {
     public class Session : EntityBase
@@ -10,27 +8,26 @@ namespace CodeCampServer.Domain.Model
 
         public Session()
         {
-            
         }
 
-        public string Title
+        public virtual string Title
         {
             get { return _title; }
             set { _title = value; }
         }
 
-        public string Abstract
+        public virtual string Abstract
         {
             get { return _abstract; }
             set { _abstract = value; }
         }
 
-        public void SetSpeaker(Speaker value)
+        public virtual void SetSpeaker(Speaker value)
         {
             _speaker = value;
         }
 
-        public Speaker GetSpeaker()
+        public virtual Speaker GetSpeaker()
         {
             return _speaker;
         }

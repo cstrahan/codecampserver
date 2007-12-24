@@ -7,24 +7,24 @@ namespace CodeCampServer.Domain.Model
         private string _website;
         private string _logoUrl;
 
-        public string Name
+        public virtual string Name
         {
             get { return _name; }
             set { _name = value; }
         }
 
-        public Contact Contact
+        public virtual Contact Contact
         {
             get { return _contact; }
         }
 
-        public string Website
+        public virtual string Website
         {
             get { return _website; }
             set { _website = value; }
         }
 
-        public string LogoUrl
+        public virtual string LogoUrl
         {
             get { return _logoUrl; }
             set { _logoUrl = value; }

@@ -39,7 +39,7 @@ namespace CodeCampServer.Domain.Model
             set { _name = value; }
         }
 
-        public string Description
+        public virtual string Description
         {
             get { return _description; }
             set { _description = value; }
@@ -68,13 +68,13 @@ namespace CodeCampServer.Domain.Model
             get { return _location; }
         }
 
-        public int MaxAttendees
+        public virtual int MaxAttendees
         {
             get { return _maxAttendees; }
             set { _maxAttendees = value; }
         }
 
-        public void AddTimeSlot(DateTime startTime, DateTime endTime)
+        public virtual void AddTimeSlot(DateTime startTime, DateTime endTime)
         {
             if(startTime < StartDate || endTime > EndDate)
             {
@@ -84,17 +84,17 @@ namespace CodeCampServer.Domain.Model
             _timeSlots.Add(new TimeSlot(startTime, endTime));
         }
 
-        public TimeSlot[] GetTimeSlots()
+        public virtual TimeSlot[] GetTimeSlots()
         {
             return new List<TimeSlot>(_timeSlots).ToArray();
         }
 
-        public Sponsor[] GetSponsors()
+        public virtual Sponsor[] GetSponsors()
         {
             return new List<Sponsor>(_sponsors).ToArray();
         }
 
-        public void AddSponsor(Sponsor sponsor)
+        public virtual void AddSponsor(Sponsor sponsor)
         {
             _sponsors.Add(sponsor);
         }

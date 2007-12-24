@@ -6,19 +6,19 @@ namespace CodeCampServer.Domain.Model
         private string _lastName;
         private string _email;
 
-        public string FirstName
+        public virtual string FirstName
         {
             get { return _firstName; }
             set { _firstName = value; }
         }
 
-        public string LastName
+        public virtual string LastName
         {
             get { return _lastName; }
             set { _lastName = value; }
         }
 
-        public string Email
+        public virtual string Email
         {
             get { return _email; }
             set { _email = value; }

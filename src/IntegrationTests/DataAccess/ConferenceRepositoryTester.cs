@@ -14,9 +14,9 @@ namespace CodeCampServer.IntegrationTests.DataAccess
     public class ConferenceRepositoryTester : DatabaseTesterBase
     {
         [Test]
-        public void ShouldGetAllEvents()
+        public void ShouldGetAllConferences()
         {
-            TestHelper.EmptyDatabase();
+            EmptyDatabase(Database.Default);
             using (ISession session = getSession(Database.Default))
             {
                 session.SaveOrUpdate(new Conference("thekey", "theName"));
@@ -34,45 +34,45 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             }
 
             IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
-            IEnumerable<Conference> events = repository.GetAllEvents();
-            List<Conference> eventList = new List<Conference>(events);
-            eventList.Sort(delegate(Conference x, Conference y) { return x.Key.CompareTo(y.Key); });
+            IEnumerable<Conference> conferences = repository.GetAllConferences();
+            List<Conference> conferenceList = new List<Conference>(conferences);
+            conferenceList.Sort(delegate(Conference x, Conference y) { return x.Key.CompareTo(y.Key); });
 
-            Assert.That(eventList.Count, Is.EqualTo(2));
-            Assert.That(eventList[0].Key, Is.EqualTo("thekey"));
-            Assert.That(eventList[0].Name, Is.EqualTo("theName"));
-            Assert.That(eventList[0].StartDate, Is.Null);
-            Assert.That(eventList[0].EndDate, Is.Null);
-            Assert.That(eventList[0].SponsorInfo, Is.Null);
-            Assert.That(eventList[0].Location, Is.Null);
+            Assert.That(conferenceList.Count, Is.EqualTo(2));
+            Assert.That(conferenceList[0].Key, Is.EqualTo("thekey"));
+            Assert.That(conferenceList[0].Name, Is.EqualTo("theName"));
+            Assert.That(conferenceList[0].StartDate, Is.Null);
+            Assert.That(conferenceList[0].EndDate, Is.Null);
+            Assert.That(conferenceList[0].SponsorInfo, Is.Null);
+            Assert.That(conferenceList[0].Location, Is.Null);
 
-            Assert.That(eventList[1].Key, Is.EqualTo("thekey2"));
-            Assert.That(eventList[1].Name, Is.EqualTo("theName2"));
-            Assert.That(eventList[1].StartDate, Is.EqualTo(DateTime.Parse("1/1/2007, 11:59:30 am")));
-            Assert.That(eventList[1].EndDate, Is.EqualTo(DateTime.Parse("1/1/2007, 11:59:31 am")));
-            Assert.That(eventList[1].SponsorInfo.Length, Is.EqualTo(100000));
-            Assert.That(eventList[1].Location.Name, Is.EqualTo("locationname"));
-            Assert.That(eventList[1].Location.Address1, Is.EqualTo("locationaddress1"));
-            Assert.That(eventList[1].Location.Address2, Is.EqualTo("locationaddress2"));
-            Assert.That(eventList[1].Location.PhoneNumber, Is.EqualTo("512-555-5555"));
+            Assert.That(conferenceList[1].Key, Is.EqualTo("thekey2"));
+            Assert.That(conferenceList[1].Name, Is.EqualTo("theName2"));
+            Assert.That(conferenceList[1].StartDate, Is.EqualTo(DateTime.Parse("1/1/2007, 11:59:30 am")));
+            Assert.That(conferenceList[1].EndDate, Is.EqualTo(DateTime.Parse("1/1/2007, 11:59:31 am")));
+            Assert.That(conferenceList[1].SponsorInfo.Length, Is.EqualTo(100000));
+            Assert.That(conferenceList[1].Location.Name, Is.EqualTo("locationname"));
+            Assert.That(conferenceList[1].Location.Address1, Is.EqualTo("locationaddress1"));
+            Assert.That(conferenceList[1].Location.Address2, Is.EqualTo("locationaddress2"));
+            Assert.That(conferenceList[1].Location.PhoneNumber, Is.EqualTo("512-555-5555"));
 
         }
 
         [Test]
         public void GetByKey()
         {
-            TestHelper.EmptyDatabase();
+            EmptyDatabase(Database.Default);
             Conference theConference = new Conference("Frank", "some name");
-            Conference theEvent2 = new Conference("Frank2", "some name2");
+            Conference conference2 = new Conference("Frank2", "some name2");
             using (ISession session = getSession(Database.Default))
             {
                 session.SaveOrUpdate(theConference);
-                session.SaveOrUpdate(theEvent2);
+                session.SaveOrUpdate(conference2);
                 session.Flush();
             }
 
             IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
-            Conference conferenceSaved = repository.GetEventByKey("Frank");
+            Conference conferenceSaved = repository.GetConferenceByKey("Frank");
 
             Assert.That(conferenceSaved, Is.Not.Null);
             Assert.That(conferenceSaved, Is.EqualTo(theConference));
@@ -81,9 +81,9 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         }
 
         [Test]
-        public void ShouldGetNextEventBasedOnDate()
+        public void ShouldGetNextConferenceBasedOnDate()
         {
-            TestHelper.EmptyDatabase();
+            EmptyDatabase(Database.Default);
             Conference oldConference = new Conference("2006", "past event");
             oldConference.StartDate = new DateTime(2006, 1, 1);
             Conference nextConference = new Conference("2007", "next event");
@@ -100,7 +100,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             }
 
             IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
-            Conference matchingConference = repository.GetFirstEventAfterDate(new DateTime(2006, 1, 2));
+            Conference matchingConference = repository.GetFirstConferenceAfterDate(new DateTime(2006, 1, 2));
 
             Assert.That(matchingConference, Is.EqualTo(nextConference));
         }

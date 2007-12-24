@@ -1,11 +1,8 @@
-using System;
-
 namespace CodeCampServer.Domain.Model
 {
     public class Attendee : EntityBase
     {
-        private Guid _id;
-        Contact _contact = new Contact();
+        private Contact _contact = new Contact();
         private string _website;
         private string _comment;
         private Conference _conference;
@@ -14,7 +11,8 @@ namespace CodeCampServer.Domain.Model
         {
         }
 
-        public Attendee(string firstName, string lastName, string website, string comment, Conference conference, string email)
+        public Attendee(string firstName, string lastName, string website,
+                        string comment, Conference conference, string email)
         {
             _contact.FirstName = firstName;
             _contact.LastName = lastName;
@@ -24,30 +22,24 @@ namespace CodeCampServer.Domain.Model
             _conference = conference;
         }
 
-        public Guid Id
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
-
-        public Contact Contact
+        public virtual Contact Contact
         {
             get { return _contact; }
         }
 
-        public string Website
+        public virtual string Website
         {
             get { return _website; }
             set { _website = value; }
         }
 
-        public string Comment
+        public virtual string Comment
         {
             get { return _comment; }
             set { _comment = value; }
         }
 
-        public Conference Conference
+        public virtual Conference Conference
         {
             get { return _conference; }
             set { _conference = value; }

@@ -105,6 +105,7 @@
 				<include name="/**/bin/${project.config}/**" />
 				<include name="/**/Website/bin/**" />
 				<include name="*.config"/>
+				<include name="*.cfg.xml"/>
 			</fileset>
 		</copy>
 
@@ -120,12 +121,24 @@
 			<test assemblyname="${build.dir}/${project::get-name()}.UnitTests.dll" appconfig="${nant::get-base-directory()}nant.tests.config"/>
 		</nunit2>
 
+		<echo message="CREATING SCHEMA"/>
+		<nunit2 failonerror="true" verbose="true">
+			<formatter type="Xml" outputdir="${results.dir}" usefile="true" extension=".xml"/>
+			<formatter type="Plain" />
+			<test assemblyname="${build.dir}/${project::get-name()}.IntegrationTests.dll" appconfig="${nant::get-base-directory()}nant.tests.config">
+				<categories>
+					<include name="CreateSchema"/>
+				</categories>
+			</test>
+		</nunit2>
+		
 		<nunit2 failonerror="true" verbose="true">
 			<formatter type="Xml" outputdir="${results.dir}" usefile="true" extension=".xml"/>
 			<formatter type="Plain" />
 			<test assemblyname="${build.dir}/${project::get-name()}.IntegrationTests.dll" appconfig="${nant::get-base-directory()}nant.tests.config">
 				<categories>
 					<exclude name="DataLoader"/>
+					<exclude name="CreateSchema"/>
 				</categories>
 			</test>
 		</nunit2>
@@ -134,7 +147,7 @@
 		<nunit2 failonerror="true" verbose="true">
 			<formatter type="Xml" outputdir="${results.dir}" usefile="true" extension=".xml"/>
 			<formatter type="Plain" />
-			<test assemblyname="${build.dir}/MvcBook.EventManager.IntegrationTests.dll" appconfig="${nant::get-base-directory()}nant.tests.config">
+			<test assemblyname="${build.dir}/${project::get-name()}.IntegrationTests.dll" appconfig="${nant::get-base-directory()}nant.tests.config">
 				<categories>
 					<include name="DataLoader"/>
 				</categories>

@@ -57,13 +57,9 @@
     <Compile Include="Impl\NHibernateSessionModule.cs" />
     <Compile Include="Impl\RepositoryBase.cs" />
     <Compile Include="ISessionBuilder.cs" />
-    <Compile Include="NHibernateSessionFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Database\Update\0001_Addwebuser.sql" />
-    <None Include="Database\Update\0003_EventsTable.sql" />
-    <None Include="Database\Update\0005_AddWebUserToDatabase.sql" />
-    <None Include="Database\Update\0004_AttendeesTable.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
@@ -79,6 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\Sponsor.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Session.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

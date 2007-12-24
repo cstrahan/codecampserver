@@ -30,7 +30,7 @@
 			<composite-element class="TimeSlot">
 				<property name="StartTime" not-null="true"/>
 				<property name="EndTime" not-null="true"/>
-				<many-to-one name="Session" />
+				<many-to-one name="Session" column="SessionId" />
 			</composite-element>
 		</set>
 		<set name="Sponsors" table="Sponsors">

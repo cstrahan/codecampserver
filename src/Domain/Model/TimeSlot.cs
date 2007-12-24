@@ -18,24 +18,24 @@ namespace CodeCampServer.Domain.Model
             _endTime = endTime;
         }
 
-        public DateTime StartTime
+        public virtual DateTime StartTime
         {
             get { return _startTime; }
             set { _startTime = value; }
         }
 
-        public DateTime EndTime
+        public virtual DateTime EndTime
         {
             get { return _endTime; }
             set { _endTime = value; }
         }
 
-        public void SetSession(Session value)
+        public virtual void SetSession(Session value)
         {
             _session = value;
         }
 
-        public Session GetSession()
+        public virtual Session GetSession()
         {
             return _session;
         }

@@ -14,11 +14,11 @@ namespace CodeCampServer.DataAccess.Impl
         {
         }
 
-        public IEnumerable<Attendee> GetAttendeesForEvent(Conference anConference)
+        public IEnumerable<Attendee> GetAttendeesForConference(Conference anConference)
         {
             using(ISession session = getSession(Database.Default))
             {
-                IQuery query = session.CreateQuery("from Attendee a join fetch a.Conference where a.Event = ?");
+                IQuery query = session.CreateQuery("from Attendee a join fetch a.Conference where a.Conference = ?");
                 query.SetParameter(0, anConference, NHibernateUtil.Entity(typeof(Conference)));
                 IList<Attendee> attendees = query.List<Attendee>();
                 return attendees;

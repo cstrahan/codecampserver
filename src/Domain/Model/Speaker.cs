@@ -4,7 +4,7 @@ namespace CodeCampServer.Domain.Model
     {
         private string _avatarUrl;
 
-        public string AvatarUrl
+        public virtual string AvatarUrl
         {
             get { return _avatarUrl; }
             set { _avatarUrl = value; }
