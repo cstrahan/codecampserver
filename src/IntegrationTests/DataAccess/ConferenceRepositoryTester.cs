@@ -16,7 +16,6 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test]
         public void ShouldGetAllConferences()
         {
-            recreateDatabase(Database.Default);
             using (ISession session = getSession(Database.Default))
             {
                 session.SaveOrUpdate(new Conference("thekey", "theName"));
@@ -63,7 +62,6 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test]
         public void GetByKey()
         {
-            recreateDatabase(Database.Default);
             Conference theConference = new Conference("Frank", "some name");
             Conference conference2 = new Conference("Frank2", "some name2");
             using (ISession session = getSession(Database.Default))
@@ -87,7 +85,6 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test]
         public void ShouldGetNextConferenceBasedOnDate()
         {
-            recreateDatabase(Database.Default);
             Conference oldConference = new Conference("2006", "past event");
             oldConference.StartDate = new DateTime(2006, 1, 1);
             Conference nextConference = new Conference("2007", "next event");

@@ -15,7 +15,6 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test]
         public void ShouldGetAttendeesMatchingConference()
         {
-            recreateDatabase(Database.Default);
             Conference theConference = new Conference("foo", "");
             Attendee attendee1a = new Attendee("jima", "foo", "http://www.www.coma", "some commenta", theConference, "a@b.com");
             Attendee attendee1b = new Attendee("jimb", "foo", "http://www.www.comb", "some commentb", theConference, "a@b.com");
@@ -52,7 +51,6 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test]
         public void ShouldSaveAttendeeToDatabase()
         {
-            recreateDatabase(Database.Default);
             Conference anConference = new Conference("party", "");
             using(ISession session = getSession(Database.Default))
             {

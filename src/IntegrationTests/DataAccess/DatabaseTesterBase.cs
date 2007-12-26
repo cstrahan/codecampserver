@@ -1,8 +1,7 @@
-using System.Data;
 using CodeCampServer.DataAccess;
 using CodeCampServer.DataAccess.Impl;
-using NHibernate;
 using NHibernate.Tool.hbm2ddl;
+using NUnit.Framework;
 
 namespace CodeCampServer.IntegrationTests.DataAccess
 {
@@ -13,6 +12,12 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         public DatabaseTesterBase()
             : base(_sessionBuilder)
         {
+        }
+
+        [SetUp]
+        public void Setup()
+        {
+            recreateDatabase(Database.Default);
         }
 
         public static void recreateDatabase(Database selectedDatabase)
