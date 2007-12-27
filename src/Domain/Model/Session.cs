@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Iesi.Collections.Generic;
+
 namespace CodeCampServer.Domain.Model
 {
     public class Session : EntityBase
@@ -5,6 +8,7 @@ namespace CodeCampServer.Domain.Model
         private string _abstract;
         private string _title;
         private Speaker _speaker;
+        private ISet<OnlineResource> _onlineResources = new HashedSet<OnlineResource>();
 
         public Session()
         {
@@ -22,14 +26,20 @@ namespace CodeCampServer.Domain.Model
             set { _abstract = value; }
         }
 
-        public virtual void SetSpeaker(Speaker value)
+        public virtual Speaker Speaker
         {
-            _speaker = value;
+            get { return _speaker; }
+            set { _speaker = value; }
         }
 
-        public virtual Speaker GetSpeaker()
+        public virtual OnlineResource[] Resources
         {
-            return _speaker;
+            get { return new List<OnlineResource>(_onlineResources).ToArray(); }
+        }
+
+        public virtual void AddResource(OnlineResource resource)
+        {
+            _onlineResources.Add(resource);
         }
     }
 }

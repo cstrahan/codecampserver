@@ -20,7 +20,7 @@ namespace CodeCampServer.UnitTests.Domain.Model
             conference.AddTimeSlot(new DateTime(), new DateTime());
             conference.AddTimeSlot(new DateTime(), new DateTime());
 
-            TimeSlot[] timeslots = conference.GetTimeSlots();
+            TimeSlot[] timeslots = conference.TimeSlots;
             Assert.That(timeslots.Length, Is.EqualTo(2));
         }
 
@@ -48,11 +48,16 @@ namespace CodeCampServer.UnitTests.Domain.Model
             Conference conference = new Conference();
             Sponsor sponsor = new Sponsor();
             Sponsor sponsor2 = new Sponsor();
-            conference.AddSponsor(sponsor);
-            conference.AddSponsor(sponsor2);
+            conference.AddSponsor(sponsor, SponsorLevel.Bronze);
+            conference.AddSponsor(sponsor2, SponsorLevel.Gold);
 
-            Sponsor[] sponsors = conference.GetSponsors();
+            ConfirmedSponsor[] sponsors = conference.GetSponsors();
             Assert.That(sponsors.Length, Is.EqualTo(2));
+            Array.Sort(sponsors, delegate(ConfirmedSponsor x, ConfirmedSponsor y) { return x.Level.CompareTo(y.Level); });
+            Assert.That(sponsors[0].Level, Is.EqualTo(SponsorLevel.Bronze));
+            Assert.That(sponsors[1].Level, Is.EqualTo(SponsorLevel.Gold));
+            Assert.That(sponsors[0].Sponsor, Is.EqualTo(sponsor));
+            Assert.That(sponsors[1].Sponsor, Is.EqualTo(sponsor2));
         }
     }
 }

@@ -5,6 +5,16 @@ namespace CodeCampServer.Domain.Model
         private Sponsor _sponsor;
         private SponsorLevel _level;
 
+        private ConfirmedSponsor()
+        {
+        }
+
+        public ConfirmedSponsor(Sponsor sponsor, SponsorLevel level)
+        {
+            _sponsor = sponsor;
+            _level = level;
+        }
+
         public virtual Sponsor Sponsor
         {
             get { return _sponsor; }

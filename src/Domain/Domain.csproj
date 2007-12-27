@@ -66,6 +66,7 @@
     <Compile Include="Model\TimeSlot.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Model\ConferenceAggregateDiagram.cd" />
     <None Include="Model\DomainModelDiagram.cd" />
   </ItemGroup>
   <ItemGroup>

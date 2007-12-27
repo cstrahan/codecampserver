@@ -15,7 +15,7 @@ namespace CodeCampServer.Domain.Model
         private Location _location = new Location();
         private int _maxAttendees;
         private ISet<TimeSlot> _timeSlots = new HashedSet<TimeSlot>();
-        private ISet<Sponsor> _sponsors = new HashedSet<Sponsor>();
+        private ISet<ConfirmedSponsor> _sponsors = new HashedSet<ConfirmedSponsor>();
 
         public Conference()
         {
@@ -84,19 +84,19 @@ namespace CodeCampServer.Domain.Model
             _timeSlots.Add(new TimeSlot(startTime, endTime));
         }
 
-        public virtual TimeSlot[] GetTimeSlots()
+        public virtual TimeSlot[] TimeSlots
         {
-            return new List<TimeSlot>(_timeSlots).ToArray();
+            get { return new List<TimeSlot>(_timeSlots).ToArray(); }
         }
 
-        public virtual Sponsor[] GetSponsors()
+        public virtual ConfirmedSponsor[] GetSponsors()
         {
-            return new List<Sponsor>(_sponsors).ToArray();
+            return new List<ConfirmedSponsor>(_sponsors).ToArray();
         }
 
-        public virtual void AddSponsor(Sponsor sponsor)
+        public virtual void AddSponsor(Sponsor sponsor, SponsorLevel level)
         {
-            _sponsors.Add(sponsor);
+            _sponsors.Add(new ConfirmedSponsor(sponsor, level));
         }
 
         public override string ToString()

@@ -30,14 +30,10 @@ namespace CodeCampServer.Domain.Model
             set { _endTime = value; }
         }
 
-        public virtual void SetSession(Session value)
+        public virtual Session Session
         {
-            _session = value;
-        }
-
-        public virtual Session GetSession()
-        {
-            return _session;
+            set { _session = value; }
+            get { return _session; }
         }
     }
 }
