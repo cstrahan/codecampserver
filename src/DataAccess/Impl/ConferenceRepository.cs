@@ -49,5 +49,15 @@ namespace CodeCampServer.DataAccess.Impl
                 return matchingConference;
             }
         }
+
+        public Conference GetById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save(Conference conference)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

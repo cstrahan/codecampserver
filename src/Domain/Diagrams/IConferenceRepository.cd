@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Interface Name="CodeCampServer.Domain.IConferenceRepository">
+    <Position X="2.5" Y="1.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>IAAAAIAAAAABAAAAACAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>IConferenceRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
