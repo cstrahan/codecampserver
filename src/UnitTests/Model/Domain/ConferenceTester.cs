@@ -3,7 +3,7 @@ using CodeCampServer.Model.Domain;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
-namespace CodeCampServer.UnitTests.Domain.Model
+namespace CodeCampServer.UnitTests.Model.Domain
 {
     [TestFixture]
     public class ConferenceTester : EntityTesterBase

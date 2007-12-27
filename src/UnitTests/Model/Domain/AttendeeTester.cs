@@ -1,14 +1,14 @@
 using CodeCampServer.Model.Domain;
 using NUnit.Framework;
 
-namespace CodeCampServer.UnitTests.Domain.Model
+namespace CodeCampServer.UnitTests.Model.Domain
 {
     [TestFixture]
-    public class SponsorTester : EntityTesterBase
+    public class AttendeeTester : EntityTesterBase
     {
         protected override EntityBase createEntity()
         {
-            return new Sponsor();
+            return new Attendee();
         }
     }
 }

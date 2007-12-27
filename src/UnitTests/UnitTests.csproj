@@ -66,12 +66,12 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Domain\Model\AttendeeTester.cs" />
-    <Compile Include="Domain\Model\ConferenceTester.cs" />
-    <Compile Include="Domain\Model\EntityTesterBase.cs" />
-    <Compile Include="Domain\Model\SessionTester.cs" />
-    <Compile Include="Domain\Model\SpeakerTester.cs" />
-    <Compile Include="Domain\Model\SponsorTester.cs" />
+    <Compile Include="Model\Domain\AttendeeTester.cs" />
+    <Compile Include="Model\Domain\ConferenceTester.cs" />
+    <Compile Include="Model\Domain\EntityTesterBase.cs" />
+    <Compile Include="Model\Domain\SessionTester.cs" />
+    <Compile Include="Model\Domain\SpeakerTester.cs" />
+    <Compile Include="Model\Domain\SponsorTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
