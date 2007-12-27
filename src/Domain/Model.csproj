@@ -54,19 +54,19 @@
     <Compile Include="ISessionRepository.cs" />
     <Compile Include="ISpeakerRepository.cs" />
     <Compile Include="ISponsorRepository.cs" />
-    <Compile Include="Model\Attendee.cs" />
-    <Compile Include="Model\Conference.cs" />
-    <Compile Include="Model\ConfirmedSponsor.cs" />
-    <Compile Include="Model\Contact.cs" />
-    <Compile Include="Model\EntityBase.cs" />
-    <Compile Include="Model\Location.cs" />
-    <Compile Include="Model\OnlineResource.cs" />
-    <Compile Include="Model\OnlineResourceType.cs" />
-    <Compile Include="Model\Session.cs" />
-    <Compile Include="Model\Speaker.cs" />
-    <Compile Include="Model\Sponsor.cs" />
-    <Compile Include="Model\SponsorLevel.cs" />
-    <Compile Include="Model\TimeSlot.cs" />
+    <Compile Include="Domain\Attendee.cs" />
+    <Compile Include="Domain\Conference.cs" />
+    <Compile Include="Domain\ConfirmedSponsor.cs" />
+    <Compile Include="Domain\Contact.cs" />
+    <Compile Include="Domain\EntityBase.cs" />
+    <Compile Include="Domain\Location.cs" />
+    <Compile Include="Domain\OnlineResource.cs" />
+    <Compile Include="Domain\OnlineResourceType.cs" />
+    <Compile Include="Domain\Session.cs" />
+    <Compile Include="Domain\Speaker.cs" />
+    <Compile Include="Domain\Sponsor.cs" />
+    <Compile Include="Domain\SponsorLevel.cs" />
+    <Compile Include="Domain\TimeSlot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Diagrams\ConferenceAggregateDiagram.cd" />

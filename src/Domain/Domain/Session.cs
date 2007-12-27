@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Iesi.Collections.Generic;
 
-namespace CodeCampServer.Domain.Model
+namespace CodeCampServer.Model.Domain
 {
     public class Session : EntityBase
     {

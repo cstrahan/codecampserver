@@ -1,4 +1,4 @@
-using CodeCampServer.Domain.Model;
+using CodeCampServer.Model.Domain;
 using NUnit.Framework;
 
 namespace CodeCampServer.UnitTests.Domain.Model

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using CodeCampServer.DataAccess.Impl;
-using CodeCampServer.Domain;
-using CodeCampServer.Domain.Model;
+using CodeCampServer.Model;
+using CodeCampServer.Model.Domain;
 using NHibernate;
 using StructureMap;
 

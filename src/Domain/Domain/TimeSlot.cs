@@ -1,6 +1,6 @@
 using System;
 
-namespace CodeCampServer.Domain.Model
+namespace CodeCampServer.Model.Domain
 {
     public class TimeSlot
     {

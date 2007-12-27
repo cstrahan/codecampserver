@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using CodeCampServer.Domain.Model;
+using CodeCampServer.Model.Domain;
 using StructureMap;
 
-namespace CodeCampServer.Domain
+namespace CodeCampServer.Model
 {
     [PluginFamily("Default")]
     public interface IAttendeeRepository

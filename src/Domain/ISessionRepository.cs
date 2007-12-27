@@ -1,4 +1,4 @@
-namespace CodeCampServer.Domain
+namespace CodeCampServer.Model
 {
     public interface ISessionRepository
     {

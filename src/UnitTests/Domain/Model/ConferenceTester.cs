@@ -1,5 +1,5 @@
 using System;
-using CodeCampServer.Domain.Model;
+using CodeCampServer.Model.Domain;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
