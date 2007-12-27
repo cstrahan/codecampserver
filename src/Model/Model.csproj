@@ -67,6 +67,8 @@
     <Compile Include="Domain\Sponsor.cs" />
     <Compile Include="Domain\SponsorLevel.cs" />
     <Compile Include="Domain\TimeSlot.cs" />
+    <Compile Include="Presentation\Schedule.cs" />
+    <Compile Include="Presentation\ScheduleListing.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Diagrams\ConferenceAggregateDiagram.cd" />
