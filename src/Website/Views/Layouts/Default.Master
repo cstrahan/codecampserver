@@ -7,14 +7,14 @@
 	<asp:ContentPlaceHolder ID="Head" runat="server">
 	</asp:ContentPlaceHolder>
 </head>
-<body>
-	<div style="width: 800px">
-		<table cellpadding="0" cellspacing="0" border="0" style="width: 100%; height: 100%">
+<body style="margin:0px;padding:0px;height:100%;text-align:center">
+	<div style="width: 900px;height:100%;">
+		<table cellpadding="0" cellspacing="0" border="0" style="width:100%;height: 100%;" >
 			<tr>
-				<td style="width: 200px">
+				<td style="background: #ADD8E6; width: 300px; vertical-align:top">
 					<asp:ContentPlaceHolder ID="Left" runat="server" />
 				</td>
-				<td style="width: 600px">
+				<td style="width: 600px;vertical-align:top">
 					<asp:ContentPlaceHolder ID="Center" runat="server" />
 				</td>
 			</tr>

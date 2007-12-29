@@ -72,6 +72,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Views\Conference\Details.aspx.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Views\Conference\ShowSchedule.aspx.cs">
       <DependentUpon>ShowSchedule.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -97,6 +101,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Conference\Details.aspx" />
     <Content Include="Views\Layouts\Default.Master" />
   </ItemGroup>
   <ItemGroup>
