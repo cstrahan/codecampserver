@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
@@ -8,7 +7,7 @@ namespace CodeCampServer.Website.Controllers
 {
     public class ConferenceController : Controller
     {
-        private IConferenceRepository _conferenceRepository;
+        private readonly IConferenceRepository _conferenceRepository;
 
         public ConferenceController(IConferenceRepository conferenceRepository)
         {
