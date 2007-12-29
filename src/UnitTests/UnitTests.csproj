@@ -72,10 +72,10 @@
     <Compile Include="Model\Domain\SessionTester.cs" />
     <Compile Include="Model\Domain\SpeakerTester.cs" />
     <Compile Include="Model\Domain\SponsorTester.cs" />
+    <Compile Include="Website\Controllers\ConferenceControllerTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Website\Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
