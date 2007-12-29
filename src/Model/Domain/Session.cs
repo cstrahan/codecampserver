@@ -14,6 +14,12 @@ namespace CodeCampServer.Model.Domain
         {
         }
 
+        public Session(Speaker speaker, string title)
+        {
+            _speaker = speaker;
+            _title = title;
+        }
+
         public virtual string Title
         {
             get { return _title; }

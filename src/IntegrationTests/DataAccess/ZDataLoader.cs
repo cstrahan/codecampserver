@@ -12,32 +12,33 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test, Category("DataLoader")]
         public void PopulateDatabase()
         {
-            Conference codeCamp2007 =
-                new Conference("codecamp2007", "Uber Code Camp 2007");
-            codeCamp2007.StartDate = new DateTime(2007, 11, 26, 19, 30, 00);
-            Conference codeCamp2008 = new Conference("codecamp2008", "Uber Code Camp 2008");
-            codeCamp2008.StartDate = new DateTime(2008, 4, 13, 19, 0, 0);
-            Conference codeCamp2009 = new Conference("codecamp2009", "Uber Code Camp 2009");
-            codeCamp2009.StartDate = new DateTime(2009, 6, 8, 19, 0, 0);
-
-            Attendee attendee1 =
-                new Attendee("Homer", "Simpson", "http://www.simpsons.com", "Doh!", codeCamp2007, "a@b.com");
-            Attendee attendee2 =
-                new Attendee("Bart", "Simpson", "http://www.simpsons.com", "Eat my shorts", codeCamp2007,
-                             "a@b.com");
-            Attendee attendee3 =
-                new Attendee("Marge", "Simpson", "http://www.simpsons.com", "MMmmmm", codeCamp2007, "a@b.com");
-
             using (ISession session = getSession(Database.Default))
             {
-                session.SaveOrUpdate(codeCamp2007);
+                ITransaction transaction = session.BeginTransaction();
+                Conference codeCamp2008 =
+                    new Conference("austincodecamp2008", "Austin Code Camp 2008");
+                codeCamp2008.StartDate = new DateTime(2008, 11, 26, 19, 30, 00);
                 session.SaveOrUpdate(codeCamp2008);
-                session.SaveOrUpdate(codeCamp2009);
-                session.SaveOrUpdate(attendee1);
-                session.SaveOrUpdate(attendee2);
-                session.SaveOrUpdate(attendee3);
 
-                session.Flush();
+                TimeSlot slot1 = codeCamp2008.AddTimeSlot(new DateTime(2008, 11, 26, 19, 30, 00),
+                                                          new DateTime(2008, 11, 26, 20, 30, 00));
+                TimeSlot slot2 = codeCamp2008.AddTimeSlot(new DateTime(2008, 11, 26, 21, 00, 00),
+                                                          new DateTime(2008, 11, 26, 22, 00, 00));
+                TimeSlot slot3 = codeCamp2008.AddTimeSlot(new DateTime(2008, 11, 26, 22, 30, 00),
+                                                          new DateTime(2008, 11, 26, 23, 30, 00));
+                Speaker speaker = new Speaker("Homer", "Simpson", "http://www.simpsons.com", "Doh!", codeCamp2008, "a@b.com", "somelink");
+                Session session1 = new Session(speaker, "Domain-driven design explored");
+                Session session2 = new Session(speaker, "Advanced NHibernate");
+                Session session3 = new Session(speaker, "Extreme Programming: a primer");
+                slot1.Session = session1;
+                slot2.Session = session2;
+                slot3.Session = session3;
+            
+                session.SaveOrUpdate(speaker);
+                session.SaveOrUpdate(session1);
+                session.SaveOrUpdate(session2);
+                session.SaveOrUpdate(session3);
+                transaction.Commit();
             }
         }
 

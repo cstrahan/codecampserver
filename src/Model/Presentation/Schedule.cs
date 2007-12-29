@@ -12,6 +12,11 @@ namespace CodeCampServer.Model.Presentation
             _conference = conference;
         }
 
+        public string ConferenceName
+        {
+            get { return _conference.Name; }
+        }
+
         public IEnumerable<ScheduleListing> GetListings()
         {
             foreach (TimeSlot slot in _conference.TimeSlots)

@@ -68,8 +68,13 @@
     </Compile>
     <Compile Include="ControllerDefaults.cs" />
     <Compile Include="ControllerRoute.cs" />
+    <Compile Include="Controllers\ConferenceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Conference\ShowSchedule.aspx.cs">
+      <DependentUpon>ShowSchedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="default.aspx" />
+    <Content Include="Views\Conference\ShowSchedule.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -91,7 +97,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="images\" />
     <Folder Include="Properties\" />
     <Folder Include="styles\" />

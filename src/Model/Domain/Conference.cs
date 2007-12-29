@@ -74,14 +74,16 @@ namespace CodeCampServer.Model.Domain
             set { _maxAttendees = value; }
         }
 
-        public virtual void AddTimeSlot(DateTime startTime, DateTime endTime)
+        public virtual TimeSlot AddTimeSlot(DateTime startTime, DateTime endTime)
         {
             if(startTime < StartDate || endTime > EndDate)
             {
                 throw new Exception("Time slot must be within conference.");
             }
 
-            _timeSlots.Add(new TimeSlot(startTime, endTime));
+            TimeSlot timeSlot = new TimeSlot(startTime, endTime);
+            _timeSlots.Add(timeSlot);
+            return timeSlot;
         }
 
         public virtual TimeSlot[] TimeSlots
