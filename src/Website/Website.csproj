@@ -109,9 +109,7 @@
     <Content Include="Views\Layouts\Default.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="images\" />
     <Folder Include="Properties\" />
-    <Folder Include="styles\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
