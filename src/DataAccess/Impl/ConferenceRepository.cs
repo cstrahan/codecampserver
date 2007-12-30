@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using CodeCampServer.DataAccess.Impl;
-using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using NHibernate;
 using StructureMap;
@@ -17,7 +16,7 @@ namespace CodeCampServer.DataAccess.Impl
 
         public IEnumerable<Conference> GetAllConferences()
         {
-            using (ISession session = getSession(Database.Default))
+            using (ISession session = getSession())
             {
                 IQuery query = session.CreateQuery("from Conference");
 
@@ -29,7 +28,7 @@ namespace CodeCampServer.DataAccess.Impl
 
         public Conference GetConferenceByKey(string key)
         {
-            using (ISession session = getSession(Database.Default))
+            using (ISession session = getSession())
             {
                 string hql = @"from Conference c left join fetch c.TimeSlots ts
                     left join fetch ts.Session s left join fetch s.Speaker speaker where c.Key = ?";
@@ -42,7 +41,7 @@ namespace CodeCampServer.DataAccess.Impl
 
         public Conference GetFirstConferenceAfterDate(DateTime date)
         {
-            using(ISession session = getSession(Database.Default))
+            using(ISession session = getSession())
             {
                 IQuery query = session.CreateQuery("from Conference e where e.StartDate >= ? order by e.StartDate asc");
                 query.SetParameter(0, date);

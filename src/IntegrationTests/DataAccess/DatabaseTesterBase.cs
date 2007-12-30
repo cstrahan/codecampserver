@@ -26,9 +26,9 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             exporter.Execute(false, true, false, true);
         }
 
-        protected void resetSession(Database database)
+        protected void resetSession()
         {
-            HybridSessionBuilder.ResetSession(database);
+            HybridSessionBuilder.ResetSession(Database.Default);
         }
     }
 }

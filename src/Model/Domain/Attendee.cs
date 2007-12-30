@@ -22,7 +22,13 @@ namespace CodeCampServer.Model.Domain
             _conference = conference;
         }
 
-        public virtual Contact Contact
+    	public Attendee(string firstName, string lastName)
+    	{
+    		_contact.FirstName = firstName;
+    		_contact.LastName = lastName;
+    	}
+
+    	public virtual Contact Contact
         {
             get { return _contact; }
         }
@@ -44,5 +50,11 @@ namespace CodeCampServer.Model.Domain
             get { return _conference; }
             set { _conference = value; }
         }
+
+    	public virtual string GetName()
+    	{
+			Contact contact = Contact;
+			return string.Format("{0} {1}", contact.FirstName, contact.LastName);
+    	}
     }
 }

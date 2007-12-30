@@ -66,6 +66,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Model\ConferenceServiceTester.cs" />
     <Compile Include="Model\Domain\AttendeeTester.cs" />
     <Compile Include="Model\Domain\ConferenceTester.cs" />
     <Compile Include="Model\Domain\EntityTesterBase.cs" />

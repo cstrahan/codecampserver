@@ -12,7 +12,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test, Category("DataLoader")]
         public void PopulateDatabase()
         {
-            using (ISession session = getSession(Database.Default))
+            using (ISession session = getSession())
             {
                 ITransaction transaction = session.BeginTransaction();
                 Conference codeCamp2008 =
@@ -33,6 +33,12 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 slot1.Session = session1;
                 slot2.Session = session2;
                 slot3.Session = session3;
+
+            	for (int i = 0; i < 100; i++)
+            	{
+            		Attendee attendee = createAttendee(codeCamp2008, i.ToString().PadLeft(3, '0'));
+					session.SaveOrUpdate(attendee);
+            	}
             
                 session.SaveOrUpdate(speaker);
                 session.SaveOrUpdate(session1);
@@ -42,7 +48,14 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             }
         }
 
-        [Test, Category("CreateSchema")]
+    	private Attendee createAttendee(Conference conference, string suffix)
+    	{
+    		Attendee attendee = new Attendee("Homer" + suffix, "Simpson" + suffix, "http://www.simpsons.com" + suffix,
+				"I'll be there with " + suffix, conference, "homer" + suffix + "@simpsons.com");
+    		return attendee;
+    	}
+
+    	[Test, Category("CreateSchema"), Explicit]
         public void RecreateDatabaseSchema()
         {
             recreateDatabase(Database.Default);

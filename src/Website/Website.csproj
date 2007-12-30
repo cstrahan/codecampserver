@@ -38,6 +38,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\mvccontrib\MvcContrib.StructureMap.dll</HintPath>
     </Reference>
+    <Reference Include="MVCToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\mvctoolkit\MVCToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\structuremap\StructureMap.dll</HintPath>
@@ -72,10 +76,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Views\Conference\Details.aspx.cs">
-      <DependentUpon>Details.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Views\Conference\ShowSchedule.aspx.cs">
       <DependentUpon>ShowSchedule.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -102,6 +102,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Conference\Details.aspx" />
+    <Content Include="Views\Conference\ListAttendees.aspx" />
+    <Content Include="Views\Conference\RegisterConfirm.aspx" />
+    <Content Include="Views\Conference\RegisterForm.aspx" />
     <Content Include="Views\Layouts\Default.Master" />
   </ItemGroup>
   <ItemGroup>

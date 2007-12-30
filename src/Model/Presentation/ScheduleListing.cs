@@ -33,8 +33,7 @@ namespace CodeCampServer.Model.Presentation
 
         private string getSpeakerName()
         {
-            Contact contact = _timeSlot.Session.Speaker.Contact;
-            return string.Format("{0} {1}", contact.FirstName, contact.LastName);
+        	return _timeSlot.Session.Speaker.GetName();
         }
     }
 }

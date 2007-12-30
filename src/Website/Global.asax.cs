@@ -21,11 +21,11 @@ namespace CodeCampServer.Website
                 .TheDefaultIsConcreteType<ConferenceController>();
 
             RouteTable.Routes.Add(new Route("[conferenceKey]/[action]", 
-                new ControllerDefaults("schedule", "conference"), 
+                new ControllerDefaults("details", "conference"), 
                 typeof(MvcRouteHandler)));
             
             RouteTable.Routes.Add(new Route("Default.aspx", 
-                new {action = "schedule", 
+                new {action = "details", 
                     controller = "conference", 
                     conferenceKey = "austincodecamp2008"},
                 typeof(MvcRouteHandler)));

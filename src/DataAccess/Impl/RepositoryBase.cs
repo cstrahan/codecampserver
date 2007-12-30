@@ -11,9 +11,9 @@ namespace CodeCampServer.DataAccess.Impl
             _sessionBuilder = sessionFactory;
         }
 
-        protected ISession getSession(Database selectedDatabase)
+        protected ISession getSession()
         {
-            ISession session = _sessionBuilder.GetSession(selectedDatabase);
+            ISession session = _sessionBuilder.GetSession(Database.Default);
             return session;
         }
     }

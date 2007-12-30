@@ -49,11 +49,11 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="IAttendeeRepository.cs" />
-    <Compile Include="IConferenceRepository.cs" />
-    <Compile Include="ISessionRepository.cs" />
-    <Compile Include="ISpeakerRepository.cs" />
-    <Compile Include="ISponsorRepository.cs" />
+    <Compile Include="Domain\IAttendeeRepository.cs" />
+    <Compile Include="Domain\IConferenceRepository.cs" />
+    <Compile Include="Domain\ISessionRepository.cs" />
+    <Compile Include="Domain\ISpeakerRepository.cs" />
+    <Compile Include="Domain\ISponsorRepository.cs" />
     <Compile Include="Domain\Attendee.cs" />
     <Compile Include="Domain\Conference.cs" />
     <Compile Include="Domain\ConfirmedSponsor.cs" />
@@ -67,6 +67,9 @@
     <Compile Include="Domain\Sponsor.cs" />
     <Compile Include="Domain\SponsorLevel.cs" />
     <Compile Include="Domain\TimeSlot.cs" />
+    <Compile Include="IConferenceService.cs" />
+    <Compile Include="Impl\ConferenceService.cs" />
+    <Compile Include="Presentation\AttendeeListing.cs" />
     <Compile Include="Presentation\Schedule.cs" />
     <Compile Include="Presentation\ScheduleListing.cs" />
   </ItemGroup>

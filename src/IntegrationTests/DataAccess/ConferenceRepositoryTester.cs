@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using CodeCampServer.DataAccess;
 using CodeCampServer.DataAccess.Impl;
-using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using NHibernate;
 using NUnit.Framework;
@@ -16,7 +15,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test]
         public void ShouldGetAllConferences()
         {
-            using (ISession session = getSession(Database.Default))
+            using (ISession session = getSession())
             {
                 session.SaveOrUpdate(new Conference("thekey", "theName"));
                 Conference theConference = new Conference("thekey2", "theName2");
@@ -32,7 +31,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 session.Flush();
             }
 
-            resetSession(Database.Default);
+            resetSession();
 
             IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
             IEnumerable<Conference> conferences = repository.GetAllConferences();
@@ -64,14 +63,14 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         {
             Conference theConference = new Conference("Frank", "some name");
             Conference conference2 = new Conference("Frank2", "some name2");
-            using (ISession session = getSession(Database.Default))
+            using (ISession session = getSession())
             {
                 session.SaveOrUpdate(theConference);
                 session.SaveOrUpdate(conference2);
                 session.Flush();
             }
 
-            resetSession(Database.Default);
+            resetSession();
 
             IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
             Conference conferenceSaved = repository.GetConferenceByKey("Frank");
@@ -92,7 +91,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             Conference futureConference = new Conference("2008", "future event");
             futureConference.StartDate = new DateTime(2008, 1, 1);
 
-            using(ISession session = getSession(Database.Default))
+            using(ISession session = getSession())
             {
                 session.SaveOrUpdate(oldConference);
                 session.SaveOrUpdate(nextConference);
@@ -100,7 +99,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 session.Flush();
             }
 
-            resetSession(Database.Default);
+            resetSession();
 
             IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
             Conference matchingConference = repository.GetFirstConferenceAfterDate(new DateTime(2006, 1, 2));
