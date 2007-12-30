@@ -66,6 +66,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Extensions.cs" />
     <Compile Include="Model\ConferenceServiceTester.cs" />
     <Compile Include="Model\Domain\AttendeeTester.cs" />
     <Compile Include="Model\Domain\ConferenceTester.cs" />
@@ -73,6 +74,8 @@
     <Compile Include="Model\Domain\SessionTester.cs" />
     <Compile Include="Model\Domain\SpeakerTester.cs" />
     <Compile Include="Model\Domain\SponsorTester.cs" />
+    <Compile Include="TestHelper.cs" />
+    <Compile Include="Website\Controllers\HomeControllerTests.cs" />
     <Compile Include="Website\Controllers\ConferenceControllerTester.cs" />
   </ItemGroup>
   <ItemGroup>

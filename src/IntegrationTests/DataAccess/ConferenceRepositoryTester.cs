@@ -106,5 +106,34 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 
             Assert.That(matchingConference, Is.EqualTo(nextConference));
         }
+
+        [Test]
+        public void ShouldbeAbleToSaveAConference()
+        {
+            Conference conf = new Conference();
+            conf.Name = "test code camp";
+            conf.Key = "test-key";
+            conf.Location.Address1 = "1234 Northwest Freeway";
+            conf.Location.City = "Houston";
+            conf.Location.Region = "TX";
+            conf.Location.PostalCode = "12345";
+            conf.StartDate = DateTime.Parse("Dec 12 2007");
+            conf.EndDate = DateTime.Parse("Dec 14 2007");
+
+            IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
+            repository.Save(conf);               
+
+            Assert.AreNotEqual(Guid.Empty, conf.Id, "Primary key should have been set");
+
+            using(ISession session = _sessionBuilder.GetSession(Database.Default))
+            {
+                //clear all cached instances
+                session.Clear();
+
+                Conference confFromDb = session.Get<Conference>(conf.Id);
+
+                Assert.IsNotNull(confFromDb, "Couldn't find the conference in the database");
+            }
+        }
     }
 }

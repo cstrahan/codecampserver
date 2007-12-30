@@ -52,13 +52,20 @@ namespace CodeCampServer.DataAccess.Impl
         }
 
         public Conference GetById(Guid id)
-        {
-            throw new NotImplementedException();
+        {            
+            using(ISession session = getSession())
+            {
+                return session.Get<Conference>(id);
+            }
         }
 
         public void Save(Conference conference)
         {
-            throw new NotImplementedException();
+            using(ISession session = getSession())
+            {
+                session.SaveOrUpdate(conference);
+                session.Flush();
+            }
         }
     }
 }

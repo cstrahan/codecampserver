@@ -16,5 +16,10 @@ namespace CodeCampServer.DataAccess.Impl
             ISession session = _sessionBuilder.GetSession(Database.Default);
             return session;
         }
+
+        public void Flush()
+        {            
+            getSession().Flush();
+        }
     }
 }

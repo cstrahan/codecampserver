@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using CodeCampServer.Website.Controllers;
 using MvcContrib.ControllerFactories;
 using StructureMap;
+using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.Website
 {
@@ -11,24 +12,20 @@ namespace CodeCampServer.Website
     {
         protected void Application_Start(object sender, EventArgs e)
         {
+            InitializeControllerFactory();
             SetupRoutes();
         }
 
-        private void SetupRoutes()
+        private void InitializeControllerFactory()
         {
             ControllerBuilder.Current.SetDefaultControllerFactory(typeof(StructureMapControllerFactory));
             StructureMapConfiguration.BuildInstancesOf<ConferenceController>()
                 .TheDefaultIsConcreteType<ConferenceController>();
+        }
 
-            RouteTable.Routes.Add(new Route("[conferenceKey]/[action]", 
-                new ControllerDefaults("details", "conference"), 
-                typeof(MvcRouteHandler)));
-            
-            RouteTable.Routes.Add(new Route("Default.aspx", 
-                new {action = "details", 
-                    controller = "conference", 
-                    conferenceKey = "austincodecamp2008"},
-                typeof(MvcRouteHandler)));
+        private void SetupRoutes()
+        {
+            RouteManager.RegisterRoutes(RouteTable.Routes);            
         }
     }
 }
