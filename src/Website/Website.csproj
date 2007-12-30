@@ -102,6 +102,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\images\header_bg.gif" />
+    <Content Include="Content\images\menu_bg.gif" />
+    <Content Include="Content\images\side_bg.gif" />
+    <Content Include="Content\images\tab_bg.gif" />
     <Content Include="Views\Conference\Details.aspx" />
     <Content Include="Views\Conference\ListAttendees.aspx" />
     <Content Include="Views\Conference\RegisterConfirm.aspx" />

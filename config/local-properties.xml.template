@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="CodeCampServer">
+
+  <!-- copy this file to local-properties.xml and change the settings to match your machine's settings -->
+
+  <!-- database settings -->
+  <property name="database.server" value="localhost\sqlexpress"/>
+	<property name="database.name" value="${project::get-name()}"/>
+	
+	<!-- logging/debug settings -->
+	<property name="debug.show_sql" value="false" />
+	
+</project>
