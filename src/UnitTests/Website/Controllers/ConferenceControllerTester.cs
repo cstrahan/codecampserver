@@ -63,7 +63,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
                 ActualViewName = viewName;
                 ActualMasterName = masterName;
                 ActualViewData = viewData;
-            }
+            }           
         }
 
     	[Test]
@@ -119,7 +119,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			Attendee viewDataAttendee = controller.ViewData["attendee"] as Attendee;
 			Assert.That(viewDataConference, Is.Not.Null);
 			Assert.That(viewDataAttendee, Is.Not.Null);
-			Assert.That(viewDataConference, Is.EqualTo(_conference));
+			Assert.That(viewDataConference, Is.EqualTo(_conference));            
 			Assert.That(viewDataAttendee, Is.EqualTo(actualAttendee));
 			Assert.That(viewDataAttendee.Contact.FirstName, Is.EqualTo("a"));
 			Assert.That(viewDataAttendee.Contact.LastName, Is.EqualTo("b"));
@@ -152,6 +152,16 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			Assert.That(listingList.Count, Is.EqualTo(2));
 			Assert.That(listingList[0].Name, Is.EqualTo("a b"));
 			Assert.That(listingList[1].Name, Is.EqualTo("c d"));
-		}
+		}       
+
+        [Test]
+        public void NewActionShouldRenderNewView()
+        {
+            TestingConferenceController controller = new TestingConferenceController(_service);
+            controller.New();
+
+            Assert.That(controller.ActualViewName, Is.EqualTo("New"));
+        }
+
     }
 }

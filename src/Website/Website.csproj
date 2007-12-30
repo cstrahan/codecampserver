@@ -76,11 +76,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Views\Conference\New.aspx.cs">
+      <DependentUpon>New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Views\Conference\ShowSchedule.aspx.cs">
       <DependentUpon>ShowSchedule.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="RouteManager.cs" />
+    <Compile Include="Views\Layouts\ThreeColumnLayout.Master.cs">
+      <DependentUpon>ThreeColumnLayout.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Layouts\ThreeColumnLayout.Master.designer.cs">
+      <DependentUpon>ThreeColumnLayout.Master</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -109,9 +120,14 @@
     <Content Include="Content\images\tab_bg.gif" />
     <Content Include="Views\Conference\Details.aspx" />
     <Content Include="Views\Conference\ListAttendees.aspx" />
+    <Content Include="Views\Conference\New.aspx" />
     <Content Include="Views\Conference\RegisterConfirm.aspx" />
     <Content Include="Views\Conference\RegisterForm.aspx" />
     <Content Include="Views\Layouts\Default.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\forms.css" />
+    <Content Include="Views\Layouts\ThreeColumnLayout.Master" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

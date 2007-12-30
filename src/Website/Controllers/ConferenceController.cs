@@ -71,6 +71,12 @@ namespace CodeCampServer.Website.Controllers
 			RenderView("listattendees");
 		}
 
+        [ControllerAction]
+        public void New()
+        {
+            RenderView("New");
+        }        
+
 		private IEnumerable<AttendeeListing> getListingsFromAttendees(IEnumerable<Attendee> attendees)
 		{
 			foreach (Attendee attendee in attendees)

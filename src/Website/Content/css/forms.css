@@ -1,0 +1,24 @@
+﻿fieldset
+{
+	float: left;
+	border-top: solid 1px #999;
+}
+
+fieldset legend
+{
+	border: solid 1px #888;
+	padding: 3px;
+}
+
+fieldset label
+{
+	margin-top: 7px;
+	display: block;
+}
+
+fieldset span.info
+{
+	display: block;
+	font-size: .7em;
+	color: #345;
+}
