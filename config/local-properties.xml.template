@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<project name="CodeCampServer">
+<project name="CodeCampServer" xmlns="http://nant.sf.net/release/0.85/nant.xsd">
 
   <!-- copy this file to local-properties.xml and change the settings to match your machine's settings -->
+  <echo message="Loading machine specific settings from config\local-properties.xml" />
 
   <!-- database settings -->
   <property name="database.server" value="localhost\sqlexpress"/>
