@@ -74,6 +74,7 @@
     <Compile Include="Model\Domain\SessionTester.cs" />
     <Compile Include="Model\Domain\SpeakerTester.cs" />
     <Compile Include="Model\Domain\SponsorTester.cs" />
+    <Compile Include="Model\Presentation\ScheduledConferenceTester.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="Website\Controllers\ConferenceControllerTester.cs" />
   </ItemGroup>

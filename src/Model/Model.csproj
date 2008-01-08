@@ -67,10 +67,14 @@
     <Compile Include="Domain\Sponsor.cs" />
     <Compile Include="Domain\SponsorLevel.cs" />
     <Compile Include="Domain\TimeSlot.cs" />
+    <Compile Include="IClock.cs" />
     <Compile Include="IConferenceService.cs" />
+    <Compile Include="Impl\ClockStub.cs" />
     <Compile Include="Impl\ConferenceService.cs" />
+    <Compile Include="Impl\SystemClock.cs" />
+    <Compile Include="Keys.cs" />
     <Compile Include="Presentation\AttendeeListing.cs" />
-    <Compile Include="Presentation\Schedule.cs" />
+    <Compile Include="Presentation\ScheduledConference.cs" />
     <Compile Include="Presentation\ScheduleListing.cs" />
   </ItemGroup>
   <ItemGroup>

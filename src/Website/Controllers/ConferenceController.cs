@@ -9,30 +9,32 @@ namespace CodeCampServer.Website.Controllers
 	public class ConferenceController : Controller
 	{
 		private readonly IConferenceService _conferenceService;
+		private IClock _clock;
 
-		public ConferenceController(IConferenceService conferenceService)
+		public ConferenceController(IConferenceService conferenceService, IClock clock)
 		{
 			_conferenceService = conferenceService;
+			_clock = clock;
 		}
 
 		[ControllerAction]
 		public void Schedule(string conferenceKey)
 		{
-			Conference conference = getConference(conferenceKey);
-			Schedule schedule = new Schedule(conference);
+			ScheduledConference conference = getScheduledConference(conferenceKey);
 
-			RenderView("showschedule", schedule);
+			RenderView("showschedule", conference);
 		}
 
-		private Conference getConference(string conferenceKey)
+		private ScheduledConference getScheduledConference(string conferenceKey)
 		{
-			return _conferenceService.GetConference(conferenceKey);
+			Conference conference = _conferenceService.GetConference(conferenceKey);
+			return new ScheduledConference(conference, _clock);
 		}
 
 		[ControllerAction]
 		public void Details(string conferenceKey)
 		{
-			Conference conference = getConference(conferenceKey);
+			ScheduledConference conference = getScheduledConference(conferenceKey);
 			ViewData.Add("conference", conference);
 			RenderView("details");
 		}
@@ -40,7 +42,7 @@ namespace CodeCampServer.Website.Controllers
 		[ControllerAction]
 		public void PleaseRegister(string conferenceKey)
 		{
-			Conference conference = getConference(conferenceKey);
+			ScheduledConference conference = getScheduledConference(conferenceKey);
 			ViewData.Add("conference", conference);
 			RenderView("registerform");
 		}
@@ -49,11 +51,11 @@ namespace CodeCampServer.Website.Controllers
 		public void Register(string conferenceKey, string firstName, string lastName, string email, string website,
 		                     string comment)
 		{
-			Conference conference = getConference(conferenceKey);
-			Attendee attendee = new Attendee(firstName, lastName, website, comment, conference, email);
+			ScheduledConference scheduledConference = getScheduledConference(conferenceKey);
+			Attendee attendee = new Attendee(firstName, lastName, website, comment, scheduledConference.Conference, email);
 			_conferenceService.RegisterAttendee(attendee);
 			ViewData.Add("attendee", attendee);
-			ViewData.Add("conference", conference);
+			ViewData.Add("conference", scheduledConference);
 			RenderView("registerconfirm");
 		}
 
@@ -63,10 +65,10 @@ namespace CodeCampServer.Website.Controllers
 			int effectivePage = page.GetValueOrDefault(0);
 			int effectivePerPage = perPage.GetValueOrDefault(20);
 
-			Conference conference = _conferenceService.GetConference(conferenceKey);
-			IEnumerable<Attendee> attendees = _conferenceService.GetAttendees(conference, effectivePage, effectivePerPage);
+			ScheduledConference scheduledConference = getScheduledConference(conferenceKey);
+			IEnumerable<Attendee> attendees = _conferenceService.GetAttendees(scheduledConference.Conference, effectivePage, effectivePerPage);
 			IEnumerable<AttendeeListing> listings = getListingsFromAttendees(attendees);
-			ViewData.Add("conference", conference);
+			ViewData.Add("conference", scheduledConference);
 			ViewData.Add("attendees", listings);
 			RenderView("listattendees");
 		}

@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" Title="Conference Details" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
 Inherits="System.Web.Mvc.ViewPage" %>
+<%@ Import namespace="CodeCampServer.Model.Presentation"%>
 <%@ Import namespace="CodeCampServer.Model.Domain"%>
 
 
@@ -15,13 +16,17 @@ Inherits="System.Web.Mvc.ViewPage" %>
 <asp:Content ContentPlaceHolderID="Center" runat="server">
 Conference name: <%=getConference().Name %>
 <br />
-Starts: <%=getConference().StartDate.GetValueOrDefault().ToString() %>
+<% if (getConference().DaysUntilStart.HasValue) { %>
+There are <%=getConference().DaysUntilStart.ToString() %> days remaining until the conference starts.
+<br />
+<% } %>
+Starts: <%=getConference().StartDate %>
 </asp:Content>
 
 <script runat="server">
-	private Conference getConference()
+	private ScheduledConference getConference()
 	{
-		Conference conference = (Conference) ViewData["conference"];
+		ScheduledConference conference = (ScheduledConference)ViewData["conference"];
 		return conference;
 	}
 

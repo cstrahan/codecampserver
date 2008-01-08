@@ -7,7 +7,7 @@ Inherits="System.Web.Mvc.ViewPage" Title="Attendee Listing" %>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="Center" runat="server">
 <%
-	Conference conference = (Conference) ViewData["conference"];
+	ScheduledConference conference = (ScheduledConference)ViewData["conference"];
 	IEnumerable<AttendeeListing> attendees = (IEnumerable<AttendeeListing>)ViewData["attendees"];
 %>
 <h3>Attendee List for <%=conference.Name %></h3>

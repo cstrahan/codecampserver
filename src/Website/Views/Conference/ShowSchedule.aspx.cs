@@ -3,7 +3,7 @@ using CodeCampServer.Model.Presentation;
 
 namespace CodeCampServer.Website.Views.Conference
 {
-    public class ShowSchedule : ViewPage<Schedule>
+    public class ShowSchedule : ViewPage<ScheduledConference>
     {
     }
 }

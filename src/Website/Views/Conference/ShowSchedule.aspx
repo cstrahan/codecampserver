@@ -4,7 +4,7 @@ CodeBehind="ShowSchedule.aspx.cs" Inherits="CodeCampServer.Website.Views.Confere
 
 <asp:Content ContentPlaceHolderID="Center" runat="server">
 	<div style="margin:10px;width:100%">
-		<h1 style="text-align:center"><%=ViewData.ConferenceName %> Schedule</h1>
+		<h1 style="text-align:center"><%=ViewData.Name %> Schedule</h1>
 		<table style="width:650px" cellpadding="2" cellspacing="0">
 			<tr style="background-color:#DDD">
 				<th>Start Time</th>
@@ -12,7 +12,7 @@ CodeBehind="ShowSchedule.aspx.cs" Inherits="CodeCampServer.Website.Views.Confere
 				<th>Title</th>
 				<th>Speaker</th>
 			</tr>
-			<% foreach (ScheduleListing listing in ViewData.GetListings()) { %>
+			<% foreach (ScheduleListing listing in ViewData.GetSchedule()) { %>
 			<tr style="background-color:#EEE">
 				<td><%=listing.StartTime %></td>
 				<td><%=listing.EndTime %></td>
@@ -29,7 +29,7 @@ CodeBehind="ShowSchedule.aspx.cs" Inherits="CodeCampServer.Website.Views.Confere
 	protected override void OnPreInit(EventArgs e)
 	{
 		base.OnPreInit(e);
-		Title = "Conference Schedule for " + ViewData.ConferenceName;//should this go in the controller
+		Title = "Conference Schedule for " + ViewData.Name;//should this go in the controller
 	} 
 	
 </script>
