@@ -78,12 +78,6 @@
     <Compile Include="DataAccess\TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Website\Web.config">
-      <Link>Web.config</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="..\nhibernate-default.cfg.xml">
       <Link>nhibernate-default.cfg.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

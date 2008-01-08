@@ -126,6 +126,10 @@
     <Content Include="Views\Layouts\Default.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\nhibernate-default.cfg.xml">
+      <Link>nhibernate-default.cfg.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\css\forms.css" />
     <Content Include="Views\Layouts\ThreeColumnLayout.Master" />
   </ItemGroup>
