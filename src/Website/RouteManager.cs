@@ -26,6 +26,10 @@ namespace CodeCampServer.Website
         /// <param name="routes">The container in which to place the routes</param>
         public static void RegisterRoutes(RouteCollection routes)
         {
+            routes.Add(new Route("Login/[action]",
+                new ControllerDefaults("Login", "login"),
+                typeof (MvcRouteHandler)));
+
             routes.Add(new Route("[conferenceKey]/[action]",
                 new ControllerDefaults("details", "conference"),
                 typeof(MvcRouteHandler)));

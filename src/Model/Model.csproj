@@ -51,6 +51,7 @@
     </Compile>
     <Compile Include="Domain\IAttendeeRepository.cs" />
     <Compile Include="Domain\IConferenceRepository.cs" />
+    <Compile Include="Domain\ILoginService.cs" />
     <Compile Include="Domain\ISessionRepository.cs" />
     <Compile Include="Domain\ISpeakerRepository.cs" />
     <Compile Include="Domain\ISponsorRepository.cs" />
@@ -71,11 +72,13 @@
     <Compile Include="IConferenceService.cs" />
     <Compile Include="Impl\ClockStub.cs" />
     <Compile Include="Impl\ConferenceService.cs" />
+    <Compile Include="Impl\LoginService.cs" />
     <Compile Include="Impl\SystemClock.cs" />
     <Compile Include="Keys.cs" />
     <Compile Include="Presentation\AttendeeListing.cs" />
     <Compile Include="Presentation\ScheduledConference.cs" />
     <Compile Include="Presentation\ScheduleListing.cs" />
+    <Compile Include="Security\IAuthenticationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Diagrams\ConferenceAggregateDiagram.cd" />

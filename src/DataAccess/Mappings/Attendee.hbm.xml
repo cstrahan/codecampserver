@@ -13,10 +13,12 @@
 			<property name="FirstName" length="20" not-null="true"/>
 			<property name="LastName" length="20" not-null="true"/>
 			<property name="Email" length="60" not-null="true"/>
-		</component>
-		<property name="Website" not-null="true"/>
-		<property name="Comment" not-null="true"/>
+    </component>
+    <property name="Website" not-null="true"/>
+    <property name="Comment" not-null="true"/>
+    <property name="Password" length="256"/>
+    <property name="PasswordSalt" length="256"/>
 
-	</class>
+  </class>
 
 </hibernate-mapping>

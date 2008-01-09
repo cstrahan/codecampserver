@@ -70,9 +70,11 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Security\AuthenticationService.cs" />
     <Compile Include="ControllerDefaults.cs" />
     <Compile Include="ControllerRoute.cs" />
     <Compile Include="Controllers\ConferenceController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -132,6 +134,9 @@
     </Content>
     <Content Include="Content\css\forms.css" />
     <Content Include="Views\Layouts\ThreeColumnLayout.Master" />
+    <Content Include="Views\Login\LoginFailed.aspx" />
+    <Content Include="Views\Login\LoginSuccess.aspx" />
+    <Content Include="Views\Login\LoginForm.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

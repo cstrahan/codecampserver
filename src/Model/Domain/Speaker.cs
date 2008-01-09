@@ -9,8 +9,8 @@ namespace CodeCampServer.Model.Domain
         {
         }
 
-        public Speaker(string firstName, string lastName, string url, string comment, Conference conference, string email, string avatarUrl)
-            : base(firstName, lastName, url, comment, conference, email)
+        public Speaker(string firstName, string lastName, string url, string comment, Conference conference, string email, string avatarUrl, string password, string passwordSalt)
+            : base(firstName, lastName, url, comment, conference, email, password, passwordSalt)
         {
             _avatarUrl = avatarUrl;
         }

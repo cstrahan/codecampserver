@@ -49,11 +49,11 @@ namespace CodeCampServer.Website.Controllers
 
 		[ControllerAction]
 		public void Register(string conferenceKey, string firstName, string lastName, string email, string website,
-		                     string comment)
-		{
+		                     string comment, string password)
+		{		    
 			ScheduledConference scheduledConference = getScheduledConference(conferenceKey);
-			Attendee attendee = new Attendee(firstName, lastName, website, comment, scheduledConference.Conference, email);
-			_conferenceService.RegisterAttendee(attendee);
+			Attendee attendee = _conferenceService.RegisterAttendee(firstName, lastName, website, comment, 
+				scheduledConference.Conference, email, password);
 			ViewData.Add("attendee", attendee);
 			ViewData.Add("conference", scheduledConference);
 			RenderView("registerconfirm");

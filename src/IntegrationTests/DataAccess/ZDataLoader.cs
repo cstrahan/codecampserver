@@ -1,8 +1,10 @@
 using System;
 using CodeCampServer.DataAccess;
+using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using NHibernate;
 using NUnit.Framework;
+using StructureMap;
 
 namespace CodeCampServer.IntegrationTests.DataAccess
 {
@@ -26,7 +28,8 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                                                           new DateTime(2008, 11, 26, 22, 00, 00));
                 TimeSlot slot3 = codeCamp2008.AddTimeSlot(new DateTime(2008, 11, 26, 22, 30, 00),
                                                           new DateTime(2008, 11, 26, 23, 30, 00));
-                Speaker speaker = new Speaker("Homer", "Simpson", "http://www.simpsons.com", "Doh!", codeCamp2008, "a@b.com", "somelink");
+                Speaker speaker = new Speaker("Homer", "Simpson", "http://www.simpsons.com", "Doh!", codeCamp2008, 
+					"a@b.com", "somelink", getPassword(), getSalt());
                 Session session1 = new Session(speaker, "Domain-driven design explored");
                 Session session2 = new Session(speaker, "Advanced NHibernate");
                 Session session3 = new Session(speaker, "Extreme Programming: a primer");
@@ -45,13 +48,29 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 session.SaveOrUpdate(session2);
                 session.SaveOrUpdate(session3);
                 transaction.Commit();
+
+				IConferenceService service = ObjectFactory.GetInstance<IConferenceService>();
+				service.RegisterAttendee("Jeffrey", "Palermo", "http://www.jeffreypalermo.com", "comment",
+										 codeCamp2008, "jeffreypalermo@yahoo.com", "password");
             }
+
+			
         }
+
+    	private string getSalt()
+    	{
+			return "4OVv7LLaf/R29CXZK+LiFCjCEnmxfCUnvRUOl70GIeFD83JjPL26o/lSkIOanwXUUq+S9gfp9ycD1otbjpqSYg==";
+    	}
+
+    	private string getPassword()
+    	{
+			return "UyRkzg7mm/W1zAlR/1Euph+Z1E8="; //hash for "password" with default salt.
+    	}
 
     	private Attendee createAttendee(Conference conference, string suffix)
     	{
     		Attendee attendee = new Attendee("Homer" + suffix, "Simpson" + suffix, "http://www.simpsons.com" + suffix,
-				"I'll be there with " + suffix, conference, "homer" + suffix + "@simpsons.com");
+                "I'll be there with " + suffix, conference, "homer" + suffix + "@simpsons.com", getPassword(), getSalt());
     		return attendee;
     	}
 

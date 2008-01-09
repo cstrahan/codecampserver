@@ -6,13 +6,15 @@ namespace CodeCampServer.Model.Domain
         private string _website;
         private string _comment;
         private Conference _conference;
+        private string _password;
+        private string _passwordSalt;
 
         public Attendee()
         {
         }
 
         public Attendee(string firstName, string lastName, string website,
-                        string comment, Conference conference, string email)
+                        string comment, Conference conference, string email, string password, string passwordSalt)
         {
             _contact.FirstName = firstName;
             _contact.LastName = lastName;
@@ -20,6 +22,8 @@ namespace CodeCampServer.Model.Domain
             _website = website;
             _comment = comment;
             _conference = conference;
+            _password = password;
+            _passwordSalt = passwordSalt;
         }
 
     	public Attendee(string firstName, string lastName)
@@ -43,6 +47,18 @@ namespace CodeCampServer.Model.Domain
         {
             get { return _comment; }
             set { _comment = value; }
+        }
+
+        public virtual string Password
+        {
+            get { return _password; }
+            set { _password = value; }
+        }
+
+        public virtual string PasswordSalt
+        {
+            get { return _passwordSalt; }
+            set { _passwordSalt = value; }
         }
 
         public virtual Conference Conference

@@ -23,8 +23,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		{
 			_mocks = new MockRepository();
 			_service = _mocks.CreateMock<IConferenceService>();
-			_conference = new Conference("austincodecamp2008",
-			                             "Austin Code Camp");
+			_conference = new Conference("austincodecamp2008", "Austin Code Camp");
 		}
 
 		[Test]
@@ -42,8 +41,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			ScheduledConference actualViewData =
 				controller.ActualViewData as ScheduledConference;
 			Assert.That(actualViewData, Is.Not.Null);
-			Assert.That(actualViewData.Name,
-			            Is.EqualTo("Austin Code Camp"));
+			Assert.That(actualViewData.Name, Is.EqualTo("Austin Code Camp"));
 		}
 
 		private class TestingConferenceController : ConferenceController
@@ -52,12 +50,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			public string ActualMasterName;
 			public object ActualViewData;
 
-			public TestingConferenceController(IConferenceService conferenceService,
-			                                   IClock clock)
+			public TestingConferenceController(IConferenceService conferenceService, IClock clock)
 				: base(conferenceService, clock)
 			{
 			}
-
 
 			protected override void RenderView(string viewName,
 			                                   string masterName,
@@ -78,7 +74,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 			TestingConferenceController controller =
 				new TestingConferenceController(_service, new ClockStub());
-			controller.Details("austincodecamp2008");
+
+            controller.Details("austincodecamp2008");
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("details"));
 			ScheduledConference actualViewData = controller.ViewData["conference"] as ScheduledConference;
@@ -106,17 +103,16 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		[Test]
 		public void ShouldRegisterANewAttendee()
 		{
-			SetupResult.For(_service.GetConference("austincodecamp2008"))
-				.Return(_conference);
-			_service.RegisterAttendee(null);
+			SetupResult.For(_service.GetConference("austincodecamp2008")).Return(_conference);
 			Attendee actualAttendee = new Attendee();
-			LastCall.IgnoreArguments().Do(
-				new Action<Attendee>(delegate(Attendee obj) { actualAttendee = obj; }));
-			_mocks.ReplayAll();
+			Expect.Call(_service.RegisterAttendee("firstname", "lastname", "website", "comment", _conference, 
+				"email", "password")).Return(actualAttendee);
+
+		    _mocks.ReplayAll();
 
 			TestingConferenceController controller =
 				new TestingConferenceController(_service, new ClockStub());
-			controller.Register("austincodecamp2008", "a", "b", "c", "d", "e");
+			controller.Register("austincodecamp2008", "firstname", "lastname", "email", "website", "comment", "password");
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("registerconfirm"));
 			ScheduledConference viewDataConference =
@@ -126,11 +122,6 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			Assert.That(viewDataAttendee, Is.Not.Null);
 			Assert.That(viewDataConference.Conference, Is.EqualTo(_conference));
 			Assert.That(viewDataAttendee, Is.EqualTo(actualAttendee));
-			Assert.That(viewDataAttendee.Contact.FirstName, Is.EqualTo("a"));
-			Assert.That(viewDataAttendee.Contact.LastName, Is.EqualTo("b"));
-			Assert.That(viewDataAttendee.Contact.Email, Is.EqualTo("c"));
-			Assert.That(viewDataAttendee.Website, Is.EqualTo("d"));
-			Assert.That(viewDataAttendee.Comment, Is.EqualTo("e"));
 		}
 
 		[Test]

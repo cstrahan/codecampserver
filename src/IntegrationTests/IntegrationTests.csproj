@@ -84,6 +84,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Website\StructureMap.config">
+      <Link>StructureMap.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -97,5 +103,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
+    <PostBuildEvent>xcopy /Y "$(SolutionDir)Website\bin\*.dll" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

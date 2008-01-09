@@ -26,6 +26,10 @@
 				<td><%=Html.TextBox("email") %></td>
 			</tr>
 			<tr>
+			    <td>Password:</td>
+			    <td><%=Html.Password("password") %></td>
+			</tr>
+			<tr>
 				<td>Website:</td>
 				<td><%=Html.TextBox("website") %></td>
 			</tr>

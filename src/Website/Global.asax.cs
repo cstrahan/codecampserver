@@ -21,6 +21,7 @@ namespace CodeCampServer.Website
             ControllerBuilder.Current.SetDefaultControllerFactory(typeof(StructureMapControllerFactory));
             StructureMapConfiguration.BuildInstancesOf<ConferenceController>()
                 .TheDefaultIsConcreteType<ConferenceController>();
+            StructureMapConfiguration.BuildInstancesOf<LoginController>().TheDefaultIsConcreteType<LoginController>();
         }
 
         private void SetupRoutes()

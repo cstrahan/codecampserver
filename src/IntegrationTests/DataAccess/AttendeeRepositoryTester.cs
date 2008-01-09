@@ -15,10 +15,10 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 		public void ShouldGetAttendeesMatchingConference()
 		{
 			Conference theConference = new Conference("foo", "");
-			Attendee attendee1a = new Attendee("jima", "foo", "http://www.www.coma", "some commenta", theConference, "a@b.com");
-			Attendee attendee1b = new Attendee("jimb", "foo", "http://www.www.comb", "some commentb", theConference, "a@b.com");
+			Attendee attendee1a = new Attendee("jima", "foo", "http://www.www.coma", "some commenta", theConference, "a@b.com", "password", "salt");
+			Attendee attendee1b = new Attendee("jimb", "foo", "http://www.www.comb", "some commentb", theConference, "a@b.com", "password", "salt");
 			Conference anotherConference = new Conference("bar", "");
-			Attendee attendee2 = new Attendee("pam", "foo", "http://www.yahoo.com", "comment", anotherConference, "a@b.com");
+			Attendee attendee2 = new Attendee("pam", "foo", "http://www.yahoo.com", "comment", anotherConference, "a@b.com", "password", "salt");
 
 			using (ISession session = getSession())
 			{
@@ -59,9 +59,9 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 
 			Attendee attendee =
 				new Attendee("Jeffrey", "Palermo", "http://www.jeffreypalermo.com", "the comment", anConference,
-				             "me@jeffreypalermo.com");
+							 "me@jeffreypalermo.com", "password", "salt");
 			IAttendeeRepository repository = new AttendeeRepository(_sessionBuilder);
-			repository.SaveAttendee(attendee);
+			repository.Save(attendee);
 
 			Attendee rehydratedAttendee = null;
 			//get Attendee back from database to ensure it was saved correctly
@@ -111,6 +111,50 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 			Assert.That(attendeeList[19].Comment, Is.EqualTo("059"));
 		}
 
+		[Test]
+		public void ShouldRetrieveAttendeeByEmail()
+		{
+			Conference anConference = new Conference("tea party", "");
+			using (ISession session = getSession())
+			{
+				session.SaveOrUpdate(anConference);
+				session.Flush();
+			}
+			string email = "brownie@brownie.com.au";
+			Attendee attendee =
+				new Attendee("Andrew", "Browne", "http://blog.brownie.com.au", "the comment", anConference,
+							 email, "password", "salt");
+			IAttendeeRepository repository = new AttendeeRepository(_sessionBuilder);
+			repository.Save(attendee);
+
+			Attendee rehydratedAttendee = null;
+			//get Attendee back from database to ensure it was saved correctly
+			using (ISession session = getSession())
+			{
+				rehydratedAttendee = repository.GetAttendeeByEmail(email);
+
+				Assert.That(rehydratedAttendee != null);
+				Assert.That(rehydratedAttendee.Contact.FirstName, Is.EqualTo("Andrew"));
+				Assert.That(rehydratedAttendee.Website, Is.EqualTo("http://blog.brownie.com.au"));
+				Assert.That(rehydratedAttendee.Comment, Is.EqualTo("the comment"));
+				Assert.That(rehydratedAttendee.Conference, Is.EqualTo(anConference));
+			}
+		}
+
+		[Test]
+		public void VerifyReturnsNullIfAttendeeDoesNotExist()
+		{
+			IAttendeeRepository repository = new AttendeeRepository(_sessionBuilder);
+			Attendee rehydratedAttendee = null;
+			//get Attendee back from database to ensure it was saved correctly
+			using (ISession session = getSession())
+			{
+				rehydratedAttendee = repository.GetAttendeeByEmail("nonexistingacccount@brownie.com.au");
+
+				Assert.That(rehydratedAttendee == null);
+			}
+		}
+
 		private void load100Attendees(Conference codeCamp2008)
 		{
 			using (ISession session = getSession())
@@ -131,7 +175,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 		private Attendee createAttendee(Conference conference, string suffix)
 		{
 			Attendee attendee = new Attendee(suffix, suffix, suffix,
-			                                 suffix, conference, suffix);
+											 suffix, conference, suffix, suffix, suffix);
 			return attendee;
 		}
 	}
