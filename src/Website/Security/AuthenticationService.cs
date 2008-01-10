@@ -1,9 +1,10 @@
 using System.Web.Security;
+using CodeCampServer.Model;
 using StructureMap;
 using CodeCampServer.Model.Security;
 namespace CodeCampServer.Website.Security
 {
-	[Pluggable("Default")]
+	[Pluggable(Keys.DEFAULT)]
 	public class AuthenticationService : IAuthenticationService
 	{
 		public void SetActiveUser(string username)

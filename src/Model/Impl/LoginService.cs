@@ -5,7 +5,7 @@ using System.Text;
 using StructureMap;
 namespace CodeCampServer.Model.Impl
 {
-    [Pluggable("Default")]
+	[Pluggable(Keys.DEFAULT)]
     public class LoginService : ILoginService
     {
         private readonly IAttendeeRepository _attendeeRepository;

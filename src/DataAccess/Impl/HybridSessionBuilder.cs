@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using CodeCampServer.DataAccess;
+using CodeCampServer.Model;
 using NHibernate;
 using NHibernate.Cfg;
 using StructureMap;
 
 namespace CodeCampServer.DataAccess.Impl
 {
-    [Pluggable("Default")]
+	[Pluggable(Keys.DEFAULT)]
     public class HybridSessionBuilder : ISessionBuilder
     {
         private readonly IDictionary<Database, ISessionFactory> _sessionFactories = new Dictionary<Database, ISessionFactory>();
@@ -18,7 +19,9 @@ namespace CodeCampServer.DataAccess.Impl
         public ISession GetSession(Database selectedDatabase)
         {
             ISessionFactory factory = getSessionFactory(selectedDatabase);
-            return getExistingOrNewSession(factory);
+        	ISession session = getExistingOrNewSession(factory);
+			Log.Debug(this, "Using ISession " + session.GetHashCode());
+			return session;
         }
 
         private ISessionFactory getSessionFactory(Database selectedDatabase)
@@ -79,7 +82,7 @@ namespace CodeCampServer.DataAccess.Impl
 
         public ISession GetExistingWebSession()
         {
-            return (ISession) HttpContext.Current.Items[GetType().FullName] as ISession;
+            return HttpContext.Current.Items[GetType().FullName] as ISession;
         }
 
         private ISession openSessionAndAddToContext(ISessionFactory factory)

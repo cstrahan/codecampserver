@@ -1,7 +1,7 @@
 using StructureMap;
 namespace CodeCampServer.Model.Security
 {
-	[PluginFamily("Default")]
+	[PluginFamily(Keys.DEFAULT)]
 	public interface IAuthenticationService
 	{
 		void SetActiveUser(string username);

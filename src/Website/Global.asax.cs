@@ -1,32 +1,33 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using CodeCampServer.Model;
 using CodeCampServer.Website.Controllers;
 using MvcContrib.ControllerFactories;
 using StructureMap;
-using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.Website
 {
-    public class Global : HttpApplication
-    {
-        protected void Application_Start(object sender, EventArgs e)
-        {
-            InitializeControllerFactory();
-            SetupRoutes();
-        }
+	public class Global : HttpApplication
+	{
+		protected void Application_Start(object sender, EventArgs e)
+		{
+			Log.EnsureInitialized();
+			InitializeControllerFactory();
+			SetupRoutes();
+		}
 
-        private void InitializeControllerFactory()
-        {
-            ControllerBuilder.Current.SetDefaultControllerFactory(typeof(StructureMapControllerFactory));
-            StructureMapConfiguration.BuildInstancesOf<ConferenceController>()
-                .TheDefaultIsConcreteType<ConferenceController>();
-            StructureMapConfiguration.BuildInstancesOf<LoginController>().TheDefaultIsConcreteType<LoginController>();
-        }
+		private void InitializeControllerFactory()
+		{
+			ControllerBuilder.Current.SetDefaultControllerFactory(typeof (StructureMapControllerFactory));
+			StructureMapConfiguration.BuildInstancesOf<ConferenceController>()
+				.TheDefaultIsConcreteType<ConferenceController>();
+			StructureMapConfiguration.BuildInstancesOf<LoginController>().TheDefaultIsConcreteType<LoginController>();
+		}
 
-        private void SetupRoutes()
-        {
-            RouteManager.RegisterRoutes(RouteTable.Routes);            
-        }
-    }
+		private void SetupRoutes()
+		{
+			RouteManager.RegisterRoutes(RouteTable.Routes);
+		}
+	}
 }

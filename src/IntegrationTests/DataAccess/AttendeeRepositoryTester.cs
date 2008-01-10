@@ -15,10 +15,13 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 		public void ShouldGetAttendeesMatchingConference()
 		{
 			Conference theConference = new Conference("foo", "");
-			Attendee attendee1a = new Attendee("jima", "foo", "http://www.www.coma", "some commenta", theConference, "a@b.com", "password", "salt");
-			Attendee attendee1b = new Attendee("jimb", "foo", "http://www.www.comb", "some commentb", theConference, "a@b.com", "password", "salt");
+			Attendee attendee1a =
+				new Attendee("jima", "foo", "http://www.www.coma", "some commenta", theConference, "a@b.com", "password", "salt");
+			Attendee attendee1b =
+				new Attendee("jimb", "foo", "http://www.www.comb", "some commentb", theConference, "a@b.com", "password", "salt");
 			Conference anotherConference = new Conference("bar", "");
-			Attendee attendee2 = new Attendee("pam", "foo", "http://www.yahoo.com", "comment", anotherConference, "a@b.com", "password", "salt");
+			Attendee attendee2 =
+				new Attendee("pam", "foo", "http://www.yahoo.com", "comment", anotherConference, "a@b.com", "password", "salt");
 
 			using (ISession session = getSession())
 			{
@@ -59,7 +62,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 
 			Attendee attendee =
 				new Attendee("Jeffrey", "Palermo", "http://www.jeffreypalermo.com", "the comment", anConference,
-							 "me@jeffreypalermo.com", "password", "salt");
+				             "me@jeffreypalermo.com", "password", "salt");
 			IAttendeeRepository repository = new AttendeeRepository(_sessionBuilder);
 			repository.Save(attendee);
 
@@ -123,7 +126,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 			string email = "brownie@brownie.com.au";
 			Attendee attendee =
 				new Attendee("Andrew", "Browne", "http://blog.brownie.com.au", "the comment", anConference,
-							 email, "password", "salt");
+				             email, "password", "salt");
 			IAttendeeRepository repository = new AttendeeRepository(_sessionBuilder);
 			repository.Save(attendee);
 
@@ -175,7 +178,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 		private Attendee createAttendee(Conference conference, string suffix)
 		{
 			Attendee attendee = new Attendee(suffix, suffix, suffix,
-											 suffix, conference, suffix, suffix, suffix);
+			                                 suffix, conference, suffix, suffix, suffix);
 			return attendee;
 		}
 	}

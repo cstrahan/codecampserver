@@ -135,6 +135,9 @@
     <Content Include="Views\Login\LoginForm.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Log4Net.config" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Properties\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>

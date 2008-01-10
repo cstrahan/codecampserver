@@ -4,7 +4,7 @@ using StructureMap;
 
 namespace CodeCampServer.Model
 {
-	[PluginFamily("Default")]
+	[PluginFamily(Keys.DEFAULT)]
 	public interface IConferenceService
 	{
 		Conference GetConference(string conferenceKey);

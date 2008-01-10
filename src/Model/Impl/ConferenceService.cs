@@ -4,7 +4,7 @@ using StructureMap;
 
 namespace CodeCampServer.Model.Impl
 {
-	[Pluggable("Default")]
+	[Pluggable(Keys.DEFAULT)]
 	public class ConferenceService : IConferenceService
 	{
 		private readonly IConferenceRepository _conferenceRepository;

@@ -4,7 +4,7 @@ using StructureMap;
 
 namespace CodeCampServer.Model.Domain
 {
-	[PluginFamily("Default")]
+	[PluginFamily(Keys.DEFAULT)]
 	public interface IAttendeeRepository
 	{
 		IEnumerable<Attendee> GetAttendeesForConference(Conference anConference);

@@ -78,6 +78,10 @@
     <Compile Include="DataAccess\TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Website\Log4Net.config">
+      <Link>Log4Net.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="..\Website\StructureMap.config">
       <Link>StructureMap.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

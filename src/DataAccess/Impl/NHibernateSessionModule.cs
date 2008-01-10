@@ -1,4 +1,5 @@
 using System.Web;
+using CodeCampServer.Model;
 using NHibernate;
 
 namespace CodeCampServer.DataAccess.Impl
@@ -16,6 +17,7 @@ namespace CodeCampServer.DataAccess.Impl
             ISession session = builder.GetExistingWebSession();
             if (session != null)
             {
+				Log.Debug(this, "Disposing of ISession " + session.GetHashCode());
                 session.Dispose();
             }
         }
