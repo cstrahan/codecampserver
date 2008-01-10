@@ -41,8 +41,10 @@ namespace CodeCampServer.DataAccess.Impl
         private static Configuration GetConfiguration(Database selectedDatabase)
         {
             string configFile = string.Format("nhibernate-{0}.cfg.xml", selectedDatabase.ToString().ToLower());
+        	string configPath = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
+        	                                 configFile);
             Configuration configuration = new Configuration();
-            configuration.Configure(configFile);
+			configuration.Configure(configPath);
             return configuration;
         }
 

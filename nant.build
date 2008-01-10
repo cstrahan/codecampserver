@@ -20,32 +20,32 @@
 	<property name="database.name" value="${project::get-name()}"/>
 	<property name="nant.settings.currentframework" value="net-3.5" />
 	<property name="debug.show_sql" value="false" />
-  
+
 	<!-- default configuration -->
 	<property name="project.config" value="release" />
 	<!-- debug|release -->
 	<property name="build.dir" value="${build.base}/${nant.settings.currentframework}.${platform::get-name()}-${project::get-name()}-${project.config}/"/>
-		
+
 	<!-- allow machine-specific settings to be overridden -->
 	<if test="${file::exists('config\local-properties.xml')}">
 		<echo message="Loading config\local-properties.xml" />
-    <include buildfile="config\local-properties.xml" />       
-  </if>
+		<include buildfile="config\local-properties.xml" />
+	</if>
 
 	<target name="build" depends="config, clean, version, init, commonassemblyinfo, compile, move-for-test, drop-database, create-database, test"/>
 	<target name="cruise" depends="config, build, package"/>
 	<target name="builddatabase" depends="config, init, drop-database, create-database" />
-	
+
 	<target name="config" description="Generates necessary config files based on local settings">
-    <copy file="config\nhibernate-default.cfg.xml.template" tofile="src\nhibernate-default.cfg.xml">
-      <filterchain>
-        <replacetokens>
-          <token key="SERVER" value="${database.server}" />
-          <token key="DBNAME" value="${database.name}" />
-          <token key="SHOW_SQL" value="${debug.show_sql}" />
-        </replacetokens>
-      </filterchain>
-    </copy>
+		<copy file="config\nhibernate-default.cfg.xml.template" tofile="src\website\nhibernate-default.cfg.xml">
+			<filterchain>
+				<replacetokens>
+					<token key="SERVER" value="${database.server}" />
+					<token key="DBNAME" value="${database.name}" />
+					<token key="SHOW_SQL" value="${debug.show_sql}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
 	</target>
 
 	<target name="init" description="Initializes build properties">
@@ -53,7 +53,7 @@
 			<formatter property="datetime.buildtime" pattern="yyyy-MM-dd, HH:mm:ss" />
 		</tstamp>
 
-		
+
 		<mkdir dir="${build.dir}" />
 		<echo message="Current Directory: ${project::get-base-directory()}"/>
 	</target>
@@ -138,7 +138,7 @@
 			<formatter type="Plain" />
 			<test assemblyname="${build.dir}/${project::get-name()}.UnitTests.dll" appconfig="${nant::get-base-directory()}nant.tests.config"/>
 		</nunit2>
-		
+
 		<nunit2 failonerror="true" verbose="true">
 			<formatter type="Xml" outputdir="${results.dir}" usefile="true" extension=".xml"/>
 			<formatter type="Plain" />
