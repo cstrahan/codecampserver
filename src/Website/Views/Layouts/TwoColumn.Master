@@ -1,0 +1,79 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="TwoColumn.master.cs" Inherits="CodeCampServer.Website.Views.Layouts.TwoColumn" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--
+Design base on a free template by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+
+Name       : Unqualified
+Description: A two-column, fixed-width design.
+Version    : 1.0
+Released   : 20071220
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Code Camp Server</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link type="text/css" rel="stylesheet" href=<%= ResolveUrl("~/content/css/style-2column.css") %> />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div id="header">
+	    <div id="logo">
+		    <h1><a href="#">Code Camp Server</a></h1>
+		    <p>Organize your next code camp with CodeCampServer!</p>
+	    </div>
+	    <div id="menu">
+    		<ul>
+    		    
+			    <li class="active"><a href='<%= Url.Action("index", "home") %>'>Home</a></li>
+			    <li><a href="#">Sessions</a></li>
+			    <li><a href="#">Speakers</a></li>
+			    <li><a href="#">Schedule</a></li>
+			    <li><a href="#">Directions</a></li>			    
+	    	</ul>
+	    </div>
+    </div>
+        
+    <div id="page">
+        <div id="content">
+            <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server" />                
+        </div>
+    </div>
+    
+    <div id="sidebar">
+        
+        <asp:ContentPlaceHolder ID="SidebarContentPlaceHolder" runat="server" />
+        <p></p>
+    
+		<ul>
+			<li>
+				<h2>Gold Sponsors</h2>
+				<ul>
+					<li><a href="#">Microsoft</a></li>
+					<li><a href="#">company XYZ</a></li>
+					<li><a href="#">tech solutions inc.</a></li>					
+				</ul>
+			</li>
+			<li>
+				<h2>Platinum Sponsors</h2>
+				<ul>
+					<li><a href="#">geocities</a></li>
+					<li><a href="#">another company</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	
+	<div id="footer">
+	    <p>&copy;2007 All Rights Reserved. &nbsp;&bull;&nbsp; Design based on a free template by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a> &nbsp;&bull;&nbsp; Icons by <a href="http://www.famfamfam.com/">FAMFAMFAM</a>.</p>
+    </div>
+    
+	
+</body>
+</html>

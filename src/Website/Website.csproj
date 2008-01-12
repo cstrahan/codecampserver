@@ -78,6 +78,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Conference\ListAttendeesViewData.cs" />
+    <Compile Include="Views\Conference\Details.aspx.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Conference\ListAttendees.aspx.cs">
+      <DependentUpon>ListAttendees.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Views\Conference\New.aspx.cs">
       <DependentUpon>New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -93,6 +102,10 @@
     </Compile>
     <Compile Include="Views\Layouts\ThreeColumnLayout.Master.designer.cs">
       <DependentUpon>ThreeColumnLayout.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Layouts\TwoColumn.Master.cs">
+      <DependentUpon>TwoColumn.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -115,13 +128,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\style-3column.css" />
     <Content Include="Content\images\header_bg.gif" />
     <Content Include="Content\images\menu_bg.gif" />
     <Content Include="Content\images\side_bg.gif" />
     <Content Include="Content\images\tab_bg.gif" />
-    <Content Include="Views\Conference\Details.aspx" />
-    <Content Include="Views\Conference\ListAttendees.aspx" />
     <Content Include="Views\Conference\New.aspx" />
     <Content Include="Views\Conference\RegisterConfirm.aspx" />
     <Content Include="Views\Conference\RegisterForm.aspx" />
@@ -135,7 +146,22 @@
     <Content Include="Views\Login\LoginForm.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Log4Net.config" />
+    <Content Include="Content\css\style-2column.css" />
+    <Content Include="Content\css\style-2column.css" />
+    <Content Include="Content\images\TwoColumn\bg01.jpg" />
+    <Content Include="Content\images\TwoColumn\bg02.jpg" />
+    <Content Include="Content\images\TwoColumn\bg03.jpg" />
+    <Content Include="Content\images\TwoColumn\bg04.jpg" />
+    <Content Include="Content\images\TwoColumn\img01.jpg" />
+    <Content Include="Content\images\TwoColumn\img02.gif" />
+    <Content Include="Content\images\TwoColumn\img03.gif" />
+    <Content Include="Content\images\TwoColumn\img04.gif" />
+    <Content Include="Content\images\TwoColumn\img05.gif" />
+    <Content Include="Content\images\TwoColumn\img06.jpg" />
+    <Content Include="Content\images\TwoColumn\spacer.gif" />
+    <Content Include="Views\Conference\Details.aspx" />
+    <Content Include="Views\Conference\ListAttendees.aspx" />
+    <Content Include="Views\Layouts\TwoColumn.Master" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

@@ -1,15 +1,15 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" CodeBehind="New.aspx.cs" Inherits="CodeCampServer.Website.Views.Conference.New" Title="CodeCampServer - New Conference" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" CodeBehind="New.aspx.cs" Inherits="CodeCampServer.Website.Views.Conference.New" Title="CodeCampServer - New Conference" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
     <link href="../content/css/forms.css" type="text/css" rel="Stylesheet" />
+    
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="Left" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="SidebarContentPlaceHolder" runat="server">
 </asp:Content>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="Center" runat="server">
-    
-    
-    <form method="post" action="conference/create">    
+<asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
+        
+    <form method="post" action='<%= Url.Action("create") %>'>    
     
         <fieldset>
             <legend>New Conference</legend>
@@ -19,7 +19,7 @@
             <span class="info">The name of the conference.</span>
             
             <label for="conf_key">Unique Key</label>
-            <input type="text" id="conf_key" />
+            <input type="text" id="conf_key" />       
             <span class="info">A unique name to identify the conference.  Will be used in a url, so it must not contain illegal characters such as spaces or symbols.</span>
             
             <label for="conf_start">Starts</label>        
@@ -35,9 +35,9 @@
             <span class="button-row">
                 <input type="submit" id="conf_create" value="Create" />
             </span>
-        </fieldset>
-    
+        </fieldset>    
     </form>
+        
     
 
 </asp:Content>

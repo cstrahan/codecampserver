@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Presentation;
+using CodeCampServer.Website.Models.Conference;
 
 namespace CodeCampServer.Website.Controllers
 {
@@ -35,8 +36,7 @@ namespace CodeCampServer.Website.Controllers
 		public void Details(string conferenceKey)
 		{
 			ScheduledConference conference = getScheduledConference(conferenceKey);
-			ViewData.Add("conference", conference);
-			RenderView("details");
+			RenderView("details", conference);
 		}
 
 		[ControllerAction]
@@ -68,9 +68,9 @@ namespace CodeCampServer.Website.Controllers
 			ScheduledConference scheduledConference = getScheduledConference(conferenceKey);
 			IEnumerable<Attendee> attendees = _conferenceService.GetAttendees(scheduledConference.Conference, effectivePage, effectivePerPage);
 			IEnumerable<AttendeeListing> listings = getListingsFromAttendees(attendees);
-			ViewData.Add("conference", scheduledConference);
-			ViewData.Add("attendees", listings);
-			RenderView("listattendees");
+
+            ListAttendeesViewData viewData = new ListAttendeesViewData(scheduledConference, listings);
+			RenderView("listattendees", viewData);
 		}
 
         [ControllerAction]

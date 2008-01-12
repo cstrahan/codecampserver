@@ -15,7 +15,7 @@ http://creativecommons.org/licenses/by-nc/2.5/
     <meta name="description" content="CodeCampServer - Organize your next developer event with CodeCampServer with ASP.NET 3.5!" />
     <meta name="keywords" content=".net, code camp, developer, conference, event" />
     
-    <link href="~/content/css/style.css" type="text/css" rel="stylesheet" />
+    <link href="~/content/css/style-3column.css" type="text/css" rel="stylesheet" />
     
     <asp:ContentPlaceHolder ID="headPlaceHolder" runat="server" />
 </head>

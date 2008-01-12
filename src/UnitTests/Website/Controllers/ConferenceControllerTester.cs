@@ -8,6 +8,7 @@ using CodeCampServer.Website.Controllers;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
+using CodeCampServer.Website.Models.Conference;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {
@@ -78,7 +79,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             controller.Details("austincodecamp2008");
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("details"));
-			ScheduledConference actualViewData = controller.ViewData["conference"] as ScheduledConference;
+			ScheduledConference actualViewData = controller.ActualViewData as ScheduledConference;
 			Assert.That(actualViewData, Is.Not.Null);
 			Assert.That(actualViewData.Conference, Is.EqualTo(_conference));
 		}
@@ -139,16 +140,15 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			controller.ListAttendees("austincodecamp2008", 0, 2);
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("listattendees"));
-			ScheduledConference viewDataConference =
-				controller.ViewData["conference"] as ScheduledConference;
-			IEnumerable<AttendeeListing> viewDataAttendee =
-				controller.ViewData["attendees"] as IEnumerable<AttendeeListing>;
-			Assert.That(viewDataConference, Is.Not.Null);
-			Assert.That(viewDataAttendee, Is.Not.Null);
-			Assert.That(viewDataConference.Conference, Is.EqualTo(_conference));
+			ListAttendeesViewData viewData = controller.ActualViewData as ListAttendeesViewData;
+			            
+			Assert.That(viewData, Is.Not.Null);
+			Assert.That(viewData.Attendees, Is.Not.Null);
+			Assert.That(viewData.Conference, Is.Not.Null);
+            Assert.That(viewData.Conference.Conference, Is.EqualTo(_conference));
 
 			List<AttendeeListing> listingList =
-				new List<AttendeeListing>(viewDataAttendee);
+				new List<AttendeeListing>(viewData.Attendees);
 			Assert.That(listingList.Count, Is.EqualTo(2));
 			Assert.That(listingList[0].Name, Is.EqualTo("a b"));
 			Assert.That(listingList[1].Name, Is.EqualTo("c d"));

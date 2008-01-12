@@ -1,21 +1,18 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true"  
-Inherits="System.Web.Mvc.ViewPage" Title="Attendee Listing" %>
-<%@ Import namespace="CodeCampServer.Model.Presentation"%>
-<%@ Import namespace="System.Collections.Generic"%>
-<%@ Import namespace="CodeCampServer.Model.Domain"%>
-<asp:Content ContentPlaceHolderID="Left" runat="server">
-</asp:Content>
-<asp:Content ContentPlaceHolderID="Center" runat="server">
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" CodeBehind="ListAttendees.aspx.cs" Inherits="CodeCampServer.Website.Views.Conference.ListAttendees" Title="Untitled Page" %>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
+
+<h3>Attendee List for <%= ViewData.Conference.Name %></h3>
 <%
-	ScheduledConference conference = (ScheduledConference)ViewData["conference"];
-	IEnumerable<AttendeeListing> attendees = (IEnumerable<AttendeeListing>)ViewData["attendees"];
-%>
-<h3>Attendee List for <%=conference.Name %></h3>
-<%
-	attendeeGrid.DataSource = attendees;
+	attendeeGrid.DataSource = ViewData.Attendees;
 	attendeeGrid.DataBind();
 %>
 
 <asp:DataGrid ID="attendeeGrid" runat="server" />
 
+</asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="SidebarContentPlaceHolder" runat="server">
+    <h2>Want to attend?</h2>
+    <%= Html.ActionLink("Register Now!", "PleaseRegister") %>
 </asp:Content>

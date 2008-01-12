@@ -1,33 +1,27 @@
-﻿<%@ Page Language="C#" Title="Conference Details" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
-Inherits="System.Web.Mvc.ViewPage" %>
-<%@ Import namespace="CodeCampServer.Model.Presentation"%>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" CodeBehind="Details.aspx.cs" Inherits="CodeCampServer.Website.Views.Conference.Details" %>
 <%@ Import namespace="CodeCampServer.Model.Domain"%>
 
+<asp:Content ContentPlaceHolderID="SidebarContentPlaceHolder" ID="SidebarContent" runat="server">
 
-<asp:Content ContentPlaceHolderID="Left" runat="server">
 <div>
-<%=Html.ActionLink("Register Now!", new{ action = "pleaseregister", conferenceKey = getConference().Key}) %>
+<%=Html.ActionLink("Register Now!", new{ action = "pleaseregister", conferenceKey = ViewData.Key}) %>
 <br />
-<%=Html.ActionLink("Schedule", new{ action = "schedule", conferenceKey = getConference().Key}) %>
+<%=Html.ActionLink("Schedule", new{ action = "schedule", conferenceKey = ViewData.Key}) %>
 <br />
-<%=Html.ActionLink("List Attendees", new{ action = "listattendees", conferenceKey = getConference().Key}) %>
+<%=Html.ActionLink("List Attendees", new{ action = "listattendees", conferenceKey = ViewData.Key}) %>
 </div>
 </asp:Content>
-<asp:Content ContentPlaceHolderID="Center" runat="server">
-Conference name: <%=getConference().Name %>
+
+
+<asp:Content ContentPlaceHolderID="MainContentPlaceHolder" ID="MainContent" runat="server">
+Conference name: <%=ViewData.Name %>
 <br />
-<% if (getConference().DaysUntilStart.HasValue) { %>
-There are <%=getConference().DaysUntilStart.ToString() %> days remaining until the conference starts.
+
+<% if (ViewData.DaysUntilStart.HasValue) { %>
+There are <%=ViewData.DaysUntilStart.ToString() %> days remaining until the conference starts.
 <br />
 <% } %>
-Starts: <%=getConference().StartDate %>
+
+
+Starts: <%=ViewData.StartDate.GetValueOrDefault().ToString() %>
 </asp:Content>
-
-<script runat="server">
-	private ScheduledConference getConference()
-	{
-		ScheduledConference conference = (ScheduledConference)ViewData["conference"];
-		return conference;
-	}
-
-</script>
