@@ -155,13 +155,14 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		}
 
 		[Test]
-		public void NewActionShouldRenderNewView()
+		public void NewActionShouldRenderEditViewWithNewConference()
 		{
 			TestingConferenceController controller =
 				new TestingConferenceController(_service, new ClockStub());
 			controller.New();
 
-			Assert.That(controller.ActualViewName, Is.EqualTo("New"));
+            Assert.That(controller.ActualViewData, Is.TypeOf(typeof(Conference)));            
+			Assert.That(controller.ActualViewName, Is.EqualTo("Edit"));
 		}
 	}
 }
