@@ -135,9 +135,11 @@ a:hover {
 
 /* Page */
 
-#page {
+#page 
+{
+	position:relative;
 	width: 890px;
-	margin: 0 auto;
+	margin: 0px auto;
 }
 
 /* Content */
@@ -145,6 +147,7 @@ a:hover {
 #content {
 	float: left;
 	width: 590px;
+	margin-right: 240px;		
 }
 
 .post {
@@ -180,7 +183,11 @@ a:hover {
 
 /* Sidebar */
 
-#sidebar {
+#sidebar 
+{
+	position: absolute;
+	top: 0px;
+	right: 0px;
 	float: right;
 	width: 240px;
 }

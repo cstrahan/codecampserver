@@ -19,6 +19,7 @@ Released   : 20071220
     <title>Code Camp Server</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link type="text/css" rel="stylesheet" href=<%= ResolveUrl("~/content/css/style-2column.css") %> />
+    <link type="text/css" rel="stylesheet" href=<%= ResolveUrl("~/content/css/forms.css") %> />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -30,45 +31,45 @@ Released   : 20071220
 	    </div>
 	    <div id="menu">
     		<ul>
-    		    
-			    <li class="active"><a href='<%= Url.Action("index", "home") %>'>Home</a></li>
-			    <li><a href="#">Sessions</a></li>
-			    <li><a href="#">Speakers</a></li>
-			    <li><a href="#">Schedule</a></li>
-			    <li><a href="#">Directions</a></li>			    
+			    <li><a href='/'>Home</a></li>
+			    <li><a href="/austincodecamp2008/schedule">Schedule</a></li>
+			    <!--<li><a href="/austincodecamp2008/sessions">Sessions</a></li>-->
+			    <!--<li><a href="/austincodecamp2008/speakers">Speakers</a></li>-->
+			    <li><a href="/austincodecamp2008/pleaseregister">Register!</a></li>
+			    <!--<li><a href="/austincodecamp2008/directions">Directions</a></li>-->
 	    	</ul>
 	    </div>
     </div>
         
     <div id="page">
-        <div id="content">
-            <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server" />                
-        </div>
-    </div>
+        <div id="content">            
+            <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server" />                            
+        </div>   
     
-    <div id="sidebar">
+        <div id="sidebar">
+            
+            <asp:ContentPlaceHolder ID="SidebarContentPlaceHolder" runat="server" />
+            <p></p>
         
-        <asp:ContentPlaceHolder ID="SidebarContentPlaceHolder" runat="server" />
-        <p></p>
-    
-		<ul>
-			<li>
-				<h2>Gold Sponsors</h2>
-				<ul>
-					<li><a href="#">Microsoft</a></li>
-					<li><a href="#">company XYZ</a></li>
-					<li><a href="#">tech solutions inc.</a></li>					
-				</ul>
-			</li>
-			<li>
-				<h2>Platinum Sponsors</h2>
-				<ul>
-					<li><a href="#">geocities</a></li>
-					<li><a href="#">another company</a></li>
-				</ul>
-			</li>
-		</ul>
-	</div>
+		    <ul>
+			    <li>
+				    <h2>Gold Sponsors</h2>
+				    <ul>
+					    <li><a href="#">Microsoft</a></li>
+					    <li><a href="#">company XYZ</a></li>
+					    <li><a href="#">tech solutions inc.</a></li>					
+				    </ul>
+			    </li>
+			    <li>
+				    <h2>Platinum Sponsors</h2>
+				    <ul>
+					    <li><a href="#">geocities</a></li>
+					    <li><a href="#">another company</a></li>
+				    </ul>
+			    </li>
+		    </ul>
+	    </div>
+    </div>
 	
 	<div id="footer">
 	    <p>&copy;2007 All Rights Reserved. &nbsp;&bull;&nbsp; Design based on a free template by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a> &nbsp;&bull;&nbsp; Icons by <a href="http://www.famfamfam.com/">FAMFAMFAM</a>.</p>

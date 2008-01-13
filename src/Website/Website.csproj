@@ -83,6 +83,10 @@
       <DependentUpon>Details.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Views\Conference\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Views\Conference\ListAttendees.aspx.cs">
       <DependentUpon>ListAttendees.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -147,7 +151,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\style-2column.css" />
-    <Content Include="Content\css\style-2column.css" />
     <Content Include="Content\images\TwoColumn\bg01.jpg" />
     <Content Include="Content\images\TwoColumn\bg02.jpg" />
     <Content Include="Content\images\TwoColumn\bg03.jpg" />
@@ -159,7 +162,9 @@
     <Content Include="Content\images\TwoColumn\img05.gif" />
     <Content Include="Content\images\TwoColumn\img06.jpg" />
     <Content Include="Content\images\TwoColumn\spacer.gif" />
+    <Content Include="Content\js\CalendarPopup.js" />
     <Content Include="Views\Conference\Details.aspx" />
+    <Content Include="Views\Conference\Edit.aspx" />
     <Content Include="Views\Conference\ListAttendees.aspx" />
     <Content Include="Views\Layouts\TwoColumn.Master" />
   </ItemGroup>

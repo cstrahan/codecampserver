@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace CodeCampServer.Website.Views.Conference
 {
-    public partial class Details : ViewPage<Model.Presentation.ScheduledConference>
+    public partial class Edit : ViewPage<Model.Domain.Conference>
     {
     }
 }

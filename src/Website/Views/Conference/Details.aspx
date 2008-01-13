@@ -23,5 +23,5 @@ There are <%=ViewData.DaysUntilStart.ToString() %> days remaining until the conf
 <% } %>
 
 
-Starts: <%=ViewData.StartDate.GetValueOrDefault().ToString() %>
+Starts: <%=ViewData.StartDate.ToString() %>
 </asp:Content>

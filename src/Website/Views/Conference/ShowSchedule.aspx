@@ -27,7 +27,7 @@
 </asp:Content>
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 	<div class="schedule-listing">
-		<h1><%=ViewData.ConferenceName %> Schedule</h1>
+		<h1><%=ViewData.Name %> Schedule</h1>
 		
 		<table cellpadding="2" cellspacing="0">
 			<tr class="header-row">

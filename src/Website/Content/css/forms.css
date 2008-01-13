@@ -1,13 +1,22 @@
 ﻿fieldset
 {
 	float: left;
+	border: none;
 	border-top: solid 1px #999;
+	
 }
 
 fieldset legend
-{
-	border: solid 1px #888;
+{	
+	margin-left: 30px;
+	border-style: solid;
+	border-width: 1px 3px;
+	border-color: #999;	
 	padding: 3px;
+	font-size: 1.4em;
+	font-weight: bold;
+	color: #669;
+	background-color: #eef;
 }
 
 fieldset label
@@ -16,7 +25,7 @@ fieldset label
 	display: block;
 }
 
-fieldset span.info
+.info
 {
 	display: block;
 	font-size: .7em;

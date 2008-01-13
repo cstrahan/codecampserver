@@ -1,7 +1,16 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" CodeBehind="New.aspx.cs" Inherits="CodeCampServer.Website.Views.Conference.New" Title="CodeCampServer - New Conference" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
-    <link href="../content/css/forms.css" type="text/css" rel="Stylesheet" />
     
+    <script type="text/javascript">
+    //<![CDATA[
+    
+        function init_calendars()
+        {
+//            $$("input.calendar").each(function(e) { e.insertAfter(); })
+        }
+    
+    //]]>
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="SidebarContentPlaceHolder" runat="server">
@@ -19,11 +28,11 @@
             <span class="info">The name of the conference.</span>
             
             <label for="conf_key">Unique Key</label>
-            <input type="text" id="conf_key" />       
+            <input type="text" id="conf_key" class="calendar" />       
             <span class="info">A unique name to identify the conference.  Will be used in a url, so it must not contain illegal characters such as spaces or symbols.</span>
             
             <label for="conf_start">Starts</label>        
-            <input type="text" id="conf_start" />
+            <input type="text" id="conf_start" class="calendar" />
             
             <label for="conf_end">Ends</label>        
             <input type="text" id="conf_end" />

@@ -76,7 +76,7 @@ namespace CodeCampServer.Website.Controllers
         [ControllerAction]
         public void New()
         {
-            RenderView("New");
+            RenderView("Edit", new Conference());
         }        
 
 		private IEnumerable<AttendeeListing> getListingsFromAttendees(IEnumerable<Attendee> attendees)
