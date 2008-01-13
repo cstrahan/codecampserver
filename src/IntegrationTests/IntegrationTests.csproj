@@ -107,6 +107,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>xcopy /Y "$(SolutionDir)Website\bin\*.dll" "$(TargetDir)"</PostBuildEvent>
+    <PostBuildEvent>xcopy /Y "$(ProjectDir)..\Website\bin\*.dll" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
 </Project>
