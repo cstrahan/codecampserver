@@ -198,8 +198,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>xcopy /y "..\..\DataAccess\bin\$(ConfigurationName)\*.dll" .\</PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>xcopy /y "..\..\DataAccess\bin\$(ConfigurationName)\*.dll" .\</PostBuildEvent>
   </PropertyGroup>
 </Project>
