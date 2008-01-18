@@ -24,26 +24,31 @@ namespace CodeCampServer.Website.Controllers
         {
             _loginService = loginService;
 			_authenticationService = authenticationService;
-        }
+        }        
 
         [ControllerAction]
-        public void Login()
+        public void Index()
         {
             RenderView("loginform");
         }
 
         [ControllerAction]
-        public void ProcessLogin(string email, string password)
+        public void Process(string email, string password, string redirectUrl)
         {
             if (_loginService.VerifyAccount(email, password))
             {
             	_authenticationService.SetActiveUser(email);
-            	RenderView("loginsuccess");
+                Redirect(redirectUrl);
             }
             else
             {
                 RenderView("loginfailed");
             }
+        }
+
+        public virtual void Redirect(string url)
+        {
+            Response.Redirect(url);
         }
     }
 }

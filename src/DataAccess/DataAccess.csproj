@@ -53,6 +53,7 @@
     <Compile Include="Impl\AttendeeRepository.cs" />
     <Compile Include="Impl\ConferenceRepository.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="Impl\SpeakerRepository.cs" />
     <Compile Include="Impl\HybridSessionBuilder.cs" />
     <Compile Include="Impl\NHibernateSessionModule.cs" />
     <Compile Include="Impl\RepositoryBase.cs" />

@@ -1,25 +1,13 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="TwoColumn.master.cs" Inherits="CodeCampServer.Website.Views.Layouts.TwoColumn" %>
-
+<%@ Import Namespace="CodeCampServer.Website.Helpers" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<!--
-Design base on a free template by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-
-Name       : Unqualified
-Description: A two-column, fixed-width design.
-Version    : 1.0
-Released   : 20071220
-
--->
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
     <title>Code Camp Server</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <link type="text/css" rel="stylesheet" href=<%= ResolveUrl("~/content/css/style-2column.css") %> />
-    <link type="text/css" rel="stylesheet" href=<%= ResolveUrl("~/content/css/forms.css") %> />
+    <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/style-2column.css") %>" />
+    <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/forms.css") %>" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -31,19 +19,20 @@ Released   : 20071220
 	    </div>
 	    <div id="menu">
     		<ul>
-			    <li><a href='/'>Home</a></li>
-			    <li><a href="/austincodecamp2008/schedule">Schedule</a></li>
-			    <!--<li><a href="/austincodecamp2008/sessions">Sessions</a></li>-->
-			    <!--<li><a href="/austincodecamp2008/speakers">Speakers</a></li>-->
-			    <li><a href="/austincodecamp2008/pleaseregister">Register!</a></li>
-			    <!--<li><a href="/austincodecamp2008/directions">Directions</a></li>-->
+			    <li><%= this.NavLink("Home", "active", new { Controller="conference", Action="details", conferenceKey="austincodecamp2008"}) %></li>			    
+			    <li><%= this.NavLink("Schedule", "active", new { Controller="conference", Action="schedule", conferenceKey="austincodecamp2008"}) %></li>			    
+			    <li><%= this.NavLink("Speakers", "active", new { Controller="speaker", Action="list", conferenceKey="austincodecamp2008"}) %></li>			    
+			    <li><%= this.NavLink("Register!", "active", new { Controller="conference", Action="pleaseregister", conferenceKey="austincodecamp2008"}) %></li>			    
+			    <li><%= this.NavLink("Login", "active", new { Controller="login", Action="index", conferenceKey="austincodecamp2008"}) %></li>			    
+			    			    			    
 	    	</ul>
 	    </div>
     </div>
         
     <div id="page">
         <div id="content">            
-            <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server" />                            
+            <div class="prop"></div>
+            <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server" />                                                    
         </div>   
     
         <div id="sidebar">
@@ -78,3 +67,16 @@ Released   : 20071220
 	
 </body>
 </html>
+
+
+<!--
+Design base on a free template by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+
+Name       : Unqualified
+Description: A two-column, fixed-width design.
+Version    : 1.0
+Released   : 20071220
+
+-->

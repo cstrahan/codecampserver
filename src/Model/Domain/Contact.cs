@@ -23,5 +23,10 @@ namespace CodeCampServer.Model.Domain
             get { return _email; }
             set { _email = value; }
         }
+
+        public virtual string FullName
+        {
+            get { return _firstName + " " + _lastName; }
+        }
     }
 }

@@ -72,6 +72,7 @@
     <Compile Include="Domain\Sponsor.cs" />
     <Compile Include="Domain\SponsorLevel.cs" />
     <Compile Include="Domain\TimeSlot.cs" />
+    <Compile Include="Exceptions\DataValidationException.cs" />
     <Compile Include="IClock.cs" />
     <Compile Include="IConferenceService.cs" />
     <Compile Include="Impl\ClockStub.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Keys.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Presentation\AttendeeListing.cs" />
+    <Compile Include="Presentation\SpeakerListing.cs" />
     <Compile Include="Presentation\ScheduledConference.cs" />
     <Compile Include="Presentation\ScheduleListing.cs" />
     <Compile Include="Security\IAuthenticationService.cs" />

@@ -4,6 +4,7 @@ using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Presentation;
 using CodeCampServer.Website.Models.Conference;
+using CodeCampServer.Model.Exceptions;
 
 namespace CodeCampServer.Website.Controllers
 {
@@ -31,6 +32,12 @@ namespace CodeCampServer.Website.Controllers
 			Conference conference = _conferenceService.GetConference(conferenceKey);
 			return new ScheduledConference(conference, _clock);
 		}
+
+	    [ControllerAction]
+	    public void Index()
+	    {
+	        RedirectToAction("details");
+	    }
 
 		[ControllerAction]
 		public void Details(string conferenceKey)
@@ -86,5 +93,15 @@ namespace CodeCampServer.Website.Controllers
 				yield return new AttendeeListing(attendee);
 			}
 		}
+
+        private IEnumerable<SpeakerListing> getListingsFromSpeakers(IEnumerable<Speaker> speakers)
+        {
+            foreach (Speaker speaker in speakers)
+            {
+                yield return new SpeakerListing(speaker);
+            }
+        }		
+
+        
 	}
 }

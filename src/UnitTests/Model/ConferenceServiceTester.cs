@@ -6,6 +6,8 @@ using CodeCampServer.Model.Impl;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
+using CodeCampServer.Model.Security;
+using CodeCampServer.Model.Exceptions;
 
 namespace CodeCampServer.UnitTests.Model
 {
@@ -22,7 +24,7 @@ namespace CodeCampServer.UnitTests.Model
 			SetupResult.For(repository.GetConferenceByKey("foo")).Return(expectedConference);
 			mocks.ReplayAll();
 
-			IConferenceService service = new ConferenceService(repository, null, loginService);
+			IConferenceService service = new ConferenceService(repository, null, loginService, null, null);
 			Conference actualConference = service.GetConference("foo");
 
 			Assert.That(actualConference, Is.EqualTo(expectedConference));
@@ -42,7 +44,7 @@ namespace CodeCampServer.UnitTests.Model
 			LastCall.IgnoreArguments().Do(new Action<Attendee>(delegate(Attendee obj) { actualAttendee = obj; }));
 			mocks.ReplayAll();
 
-			IConferenceService service = new ConferenceService(null, repository, loginService);
+			IConferenceService service = new ConferenceService(null, repository, loginService, null, null);
 			Conference conference = new Conference();
 			Attendee attendee = service.RegisterAttendee("fn", "ln", "w", "c", conference, "email", "password");
 
@@ -70,11 +72,165 @@ namespace CodeCampServer.UnitTests.Model
 				toReturn);
 			mocks.ReplayAll();
 
-			IConferenceService service = new ConferenceService(null, repository, loginService);
+            IConferenceService service = new ConferenceService(null, repository, loginService, null, null);
 			IEnumerable<Attendee> attendees = service.GetAttendees(targetConference, 2, 3);
 			List<Attendee> attendeesList = new List<Attendee>(attendees);
 
 			Assert.That(attendeesList.ToArray(), Is.EqualTo(toReturn));
 		}
+
+		[Test]
+		public void ShouldGetSpeakerByEmail()
+		{
+			MockRepository mocks = new MockRepository();
+			ISpeakerRepository repository = mocks.CreateMock<ISpeakerRepository>();
+			Conference targetConference = new Conference();
+			string email = "brownie@brownie.com.au";
+            string displayName = "AndrewBrowne";
+			Speaker expectedSpeaker =
+				new Speaker("Andrew", "Browne", "http://blog.brownie.com.au", "the comment", targetConference,
+                             email, displayName, "http://blog.brownie.com.au/avatar.jpg", "Info about how important I am to go here.", "password", "salt");
+			SetupResult.For(repository.GetSpeakerByDisplayName(displayName)).Return(expectedSpeaker);
+			mocks.ReplayAll();
+
+            IConferenceService service = new ConferenceService(null, null, null, repository, null);
+			Speaker actualSpeaker = service.GetSpeakerByDisplayName(displayName);
+
+			Assert.That(actualSpeaker, Is.EqualTo(expectedSpeaker));
+		}
+
+        [Test]
+        public void GetSpeakersShouldUseRepositoryAndRespectPageInfo()
+        {
+            MockRepository mocks = new MockRepository();
+            ILoginService loginService = mocks.CreateMock<ILoginService>();
+            ISpeakerRepository repository = mocks.CreateMock<ISpeakerRepository>();
+            Conference targetConference = new Conference();
+            Speaker[] toReturn = new Speaker[] { new Speaker(), new Speaker() };
+            SetupResult.For(repository.GetSpeakersForConference(targetConference, 2, 3)).Return(
+                toReturn);
+            mocks.ReplayAll();
+
+            IConferenceService service = new ConferenceService(null, null, loginService, repository, null);
+            IEnumerable<Speaker> speakers = service.GetSpeakers(targetConference, 2, 3);
+            List<Speaker> speakersList = new List<Speaker>(speakers);
+
+            Assert.That(speakersList.ToArray(), Is.EqualTo(toReturn));
+        }
+
+        [Test]
+        public void GetCurrentSpeakerProfileShouldUseAuthenticationServiceAndRepository()
+        {
+            MockRepository mocks = new MockRepository();
+
+            Conference anConference = new Conference();
+            Speaker expectedResult =
+				new Speaker("Andrew", "Browne", "http://blog.brownie.com.au", "the comment", anConference,
+                             "brownie@brownie.com.au", "AndrewBrowne", "http://blog.brownie.com.au/avatar.jpg", "Info about how important I am to go here.", "password", "salt");
+			
+            IAuthenticationService authService = mocks.CreateMock<IAuthenticationService>();
+            ISpeakerRepository repository = mocks.CreateMock<ISpeakerRepository>();
+            SetupResult.For(authService.GetActiveUser()).Return("brownie@brownie.com.au");
+            SetupResult.For(repository.GetSpeakerByEmail("brownie@brownie.com.au")).Return(expectedResult);
+            mocks.ReplayAll();
+
+            IConferenceService service = new ConferenceService(null, null, null, repository, authService);
+            Speaker speaker = service.GetLoggedInSpeaker();
+
+            Assert.AreSame(expectedResult, speaker);
+        }
+
+        [Test]
+        public void GetLogginInUserNameUsesAuthService()
+        {
+            MockRepository mocks = new MockRepository();
+
+            IAuthenticationService authService = mocks.CreateMock<IAuthenticationService>();
+            SetupResult.For(authService.GetActiveUser()).Return("username");
+            mocks.ReplayAll();
+
+            IConferenceService service = new ConferenceService(null, null, null, null, authService);
+            string username = service.GetLoggedInUsername();
+
+            Assert.AreEqual("username", username);
+        }
+
+        [Test]
+        public void GetLoggedInSpeakerReturnsNullOnNoUser()
+        {
+            MockRepository mocks = new MockRepository();
+
+            IAuthenticationService authService = mocks.CreateMock<IAuthenticationService>();
+            SetupResult.For(authService.GetActiveUser()).Return("");
+            mocks.ReplayAll();
+
+            IConferenceService service = new ConferenceService(null, null, null, null, authService);
+            Speaker speaker = service.GetLoggedInSpeaker();
+
+            Assert.IsNull(speaker);
+        }
+
+        Speaker getSpeaker()
+        {
+            return new Speaker("Andrew", "Browne", "http://blog.brownie.com.au", "the comment", new Conference(),
+                             "brownie@brownie.com.au", "AndrewBrowne", "http://blog.brownie.com.au/avatar.jpg", "Info about how important I am to go here.", "password", "salt");
+        }
+
+        
+        [Test]
+        public void SaveSpeakerSavesToSpeakerRepository()
+        {
+            MockRepository mocks = new MockRepository();
+            ISpeakerRepository repository = mocks.CreateMock<ISpeakerRepository>();
+
+            Speaker theSpeaker =
+                getSpeaker();
+
+            SetupResult.For(repository.GetSpeakerByEmail("brownie@brownie.com.au")).Return(theSpeaker);
+            SetupResult.For(repository.CanSaveSpeakerWithDisplayName(theSpeaker, "UpdatedDisplayName")).Return(true);
+            Speaker actualSpeaker = null;
+            repository.Save(null);
+            LastCall.IgnoreArguments().Do(new Action<Speaker>(delegate(Speaker obj) { actualSpeaker = obj; }));
+			
+            mocks.ReplayAll();
+
+            IConferenceService service = new ConferenceService(null, null, null, repository, null);
+            Speaker speaker = service.SaveSpeaker("brownie@brownie.com.au", "UpdatedFirstName", "UpdatedLastName", "http://updated.website", "UpdatedComment", "UpdatedDisplayName", "updated profile", "http://updated.avatar.url");
+            Assert.AreEqual("UpdatedFirstName", actualSpeaker.Contact.FirstName);
+            Assert.AreEqual("UpdatedLastName",actualSpeaker.Contact.LastName);
+            Assert.AreEqual("http://updated.website",actualSpeaker.Website);
+            Assert.AreEqual("UpdatedComment",actualSpeaker.Comment);
+            Assert.AreEqual("UpdatedDisplayName",actualSpeaker.DisplayName);
+            Assert.AreEqual("updated profile",actualSpeaker.Profile);
+            Assert.AreEqual("http://updated.avatar.url",actualSpeaker.AvatarUrl);
+        }
+
+        [Test]
+        public void SaveSpeakerThrowsExceptionIfUpdatedDisplayNameIsNotUnique()
+        {
+            MockRepository mocks = new MockRepository();
+            ISpeakerRepository repository = mocks.CreateMock<ISpeakerRepository>();
+
+            Speaker theSpeaker = getSpeaker();
+
+            SetupResult.For(repository.GetSpeakerByEmail("brownie@brownie.com.au")).Return(theSpeaker);
+            SetupResult.For(repository.CanSaveSpeakerWithDisplayName(theSpeaker, "UpdatedDisplayName")).Return(false);
+            
+            mocks.ReplayAll();
+
+            DataValidationException exception = null;
+            IConferenceService service = new ConferenceService(null, null, null, repository, null);
+            try
+            {
+                service.SaveSpeaker("brownie@brownie.com.au", "UpdatedFirstName", "UpdatedLastName", "http://updated.website", "UpdatedComment", "UpdatedDisplayName", "updated profile", "http://updated.avatar.url");
+            }
+            catch (DataValidationException ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsNotNull(exception);
+            Assert.AreEqual("DisplayName is already in use", exception.Message);
+        }
 	}
 }

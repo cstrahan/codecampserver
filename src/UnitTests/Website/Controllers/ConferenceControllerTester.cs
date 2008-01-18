@@ -9,6 +9,7 @@ using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
 using CodeCampServer.Website.Models.Conference;
+using CodeCampServer.Model.Exceptions;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {
@@ -51,7 +52,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			public string ActualMasterName;
 			public object ActualViewData;
 
-			public TestingConferenceController(IConferenceService conferenceService, IClock clock)
+            public TestingConferenceController(IConferenceService conferenceService, IClock clock)
 				: base(conferenceService, clock)
 			{
 			}
@@ -64,7 +65,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 				ActualMasterName = masterName;
 				ActualViewData = viewData;
 			}
-		}
+        }
 
 		[Test]
 		public void ShouldGetConferenceToShowDetails()
@@ -164,5 +165,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             Assert.That(controller.ActualViewData, Is.TypeOf(typeof(Conference)));            
 			Assert.That(controller.ActualViewName, Is.EqualTo("Edit"));
 		}
+
+		
 	}
 }

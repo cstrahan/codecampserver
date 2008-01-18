@@ -70,6 +70,13 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="BetterMVCHandler.cs" />
+    <Compile Include="BetterMvcRouteHandler.cs" />
+    <Compile Include="Controllers\SpeakerController.cs" />
+    <Compile Include="Helpers\ControllerHelpers.cs" />
+    <Compile Include="Helpers\LinkHelpers.cs" />
+    <Compile Include="Helpers\ViewPageHelpers.cs" />
+    <Compile Include="Models\Speaker\ListSpeakersViewData.cs" />
     <Compile Include="Security\AuthenticationService.cs" />
     <Compile Include="ControllerDefaults.cs" />
     <Compile Include="ControllerRoute.cs" />
@@ -111,6 +118,18 @@
       <DependentUpon>TwoColumn.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Views\Speaker\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Speaker\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Speaker\View.aspx.cs">
+      <DependentUpon>View.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -147,7 +166,7 @@
     <Content Include="Views\Layouts\ThreeColumnLayout.Master" />
     <Content Include="Views\Login\LoginFailed.aspx" />
     <Content Include="Views\Login\LoginSuccess.aspx" />
-    <Content Include="Views\Login\LoginForm.aspx" />
+    <Content Include="Views\Shared\LoginForm.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\style-2column.css" />
@@ -162,15 +181,17 @@
     <Content Include="Content\images\TwoColumn\img05.gif" />
     <Content Include="Content\images\TwoColumn\img06.jpg" />
     <Content Include="Content\images\TwoColumn\spacer.gif" />
+    <Content Include="Views\Speaker\Edit.aspx" />
     <Content Include="Content\js\CalendarPopup.js" />
     <Content Include="Views\Conference\Details.aspx" />
     <Content Include="Views\Conference\Edit.aspx" />
     <Content Include="Views\Conference\ListAttendees.aspx" />
     <Content Include="Views\Layouts\TwoColumn.Master" />
+    <Content Include="Views\Speaker\View.aspx" />
+    <Content Include="Views\Speaker\List.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />

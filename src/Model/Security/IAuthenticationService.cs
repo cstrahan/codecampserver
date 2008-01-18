@@ -5,5 +5,6 @@ namespace CodeCampServer.Model.Security
 	public interface IAuthenticationService
 	{
 		void SetActiveUser(string username);
+        string GetActiveUser();
 	}
 }

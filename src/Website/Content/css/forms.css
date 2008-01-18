@@ -31,3 +31,8 @@ fieldset label
 	font-size: .7em;
 	color: #345;
 }
+
+.message
+{
+	color: #FF0000;
+}

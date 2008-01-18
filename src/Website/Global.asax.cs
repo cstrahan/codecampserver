@@ -5,6 +5,7 @@ using CodeCampServer.Model;
 using CodeCampServer.Website.Controllers;
 using MvcContrib.ControllerFactories;
 using StructureMap;
+using System.Reflection;
 
 namespace CodeCampServer.Website
 {
@@ -20,9 +21,19 @@ namespace CodeCampServer.Website
 		private void InitializeControllerFactory()
 		{
 			ControllerBuilder.Current.SetDefaultControllerFactory(typeof (StructureMapControllerFactory));
-			StructureMapConfiguration.BuildInstancesOf<ConferenceController>()
-				.TheDefaultIsConcreteType<ConferenceController>();
+			
+            /*add all controllers from this assembly
+            foreach(Type type in Assembly.GetExecutingAssembly().GetTypes())
+            {
+                if(type.IsClass && !type.IsAbstract && type.IsAssignableFrom(typeof(IController)))
+                {                    
+                    StructureMapConfiguration.BuildInstancesOf<type>().TheDefaultIsConcreteType<type>();
+                }
+            }*/
+
+            StructureMapConfiguration.BuildInstancesOf<ConferenceController>().TheDefaultIsConcreteType<ConferenceController>();
 			StructureMapConfiguration.BuildInstancesOf<LoginController>().TheDefaultIsConcreteType<LoginController>();
+		    StructureMapConfiguration.BuildInstancesOf<SpeakerController>().TheDefaultIsConcreteType<SpeakerController>();
 		}
 
 		private void SetupRoutes()

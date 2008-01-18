@@ -32,12 +32,17 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             public string ActualViewName;
             public string ActualMasterName;
             public object ActualViewData;
+            public string RedirectUrl;
 
 			public TestingLoginController(ILoginService loginService, IAuthenticationService authenticationService)
 				: base(loginService, authenticationService)
         	{
         	}
 
+            public override void Redirect(string url)
+            {
+                RedirectUrl = url;
+            }
 
         	protected override void RenderView(string viewName,
                                                string masterName,
@@ -50,10 +55,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         }
 
         [Test]
-        public void LoginActionShouldRenderLoginView()
+        public void LoginActionShouldRenderIndexView()
         {
            TestingLoginController controller = new TestingLoginController(_loginService, _authenticationService);
-           controller.Login();
+           controller.Index();
 
            Assert.That(controller.ActualViewName, Is.EqualTo("loginform"));
         }
@@ -64,10 +69,12 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			TestingLoginController controller = new TestingLoginController(_loginService, _authenticationService);
             string email = "brownie@brownie.com.au";
             string password = "nothing";
+            string returnUrl = "http://testurl/";
             SetupResult.For(_loginService.VerifyAccount(email, password)).Return(true);
             _mocks.ReplayAll();
-            controller.ProcessLogin(email, password);
-            Assert.That(controller.ActualViewName, Is.EqualTo("loginsuccess"));
+            
+            controller.Process(email, password, returnUrl);
+            Assert.That(controller.RedirectUrl, Is.EqualTo(returnUrl));
         }
 
         [Test]
@@ -78,7 +85,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             string password = "nothing";
             SetupResult.For(_loginService.VerifyAccount(email, password)).Return(false);
             _mocks.ReplayAll();
-            controller.ProcessLogin(email, password);
+            controller.Process(email, password, "");
             Assert.That(controller.ActualViewName, Is.EqualTo("loginfailed"));
         }
     }

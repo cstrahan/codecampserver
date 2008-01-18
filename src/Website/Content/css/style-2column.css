@@ -128,7 +128,7 @@ a:hover {
 	color: #FFFFFF;
 }
 
-#menu a:hover, .active a {
+#menu a:hover, a.active {
 	border-bottom: 3px solid #FFFFFF;
 }
 
@@ -148,6 +148,12 @@ a:hover {
 	float: left;
 	width: 590px;
 	margin-right: 240px;		
+}
+
+#content .prop 
+{
+	float: right;
+	height: 500px;
 }
 
 .post {

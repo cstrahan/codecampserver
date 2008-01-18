@@ -74,6 +74,7 @@
     <Compile Include="DataAccess\AttendeeRepositoryTester.cs" />
     <Compile Include="DataAccess\ConferenceRepositoryTester.cs" />
     <Compile Include="DataAccess\DatabaseTesterBase.cs" />
+    <Compile Include="DataAccess\SpeakerRepositoryTester.cs" />
     <Compile Include="DataAccess\ZDataLoader.cs" />
     <Compile Include="DataAccess\TestHelper.cs" />
   </ItemGroup>

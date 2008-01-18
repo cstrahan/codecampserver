@@ -53,7 +53,6 @@
       <Item>A178152D-B9A7-4C51-9E7C-E7A7F6FF8C5B/f:nant.build</Item>
       <Item>32475D7A-BE90-4496-B025-C568173E9B48/d:Views/d:Conference/f:Details.aspx</Item>
       <Item>32475D7A-BE90-4496-B025-C568173E9B48/d:Views/d:Conference/f:RegisterForm.aspx</Item>
-      <Item>32475D7A-BE90-4496-B025-C568173E9B48/d:Views/d:Login/f:LoginForm.aspx</Item>
     </SkipFilesAndFolders>
   </SolutionAnalysisSettings>
 </Configuration>
