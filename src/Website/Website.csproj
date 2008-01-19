@@ -102,10 +102,6 @@
       <DependentUpon>New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\Conference\ShowSchedule.aspx.cs">
-      <DependentUpon>ShowSchedule.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="RouteManager.cs" />
     <Compile Include="Views\Layouts\ThreeColumnLayout.Master.cs">
       <DependentUpon>ThreeColumnLayout.Master</DependentUpon>
@@ -118,6 +114,7 @@
       <DependentUpon>TwoColumn.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Views\SmartBag.cs" />
     <Compile Include="Views\Speaker\Edit.aspx.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -128,6 +125,9 @@
     </Compile>
     <Compile Include="Views\Speaker\View.aspx.cs">
       <DependentUpon>View.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ViewBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
   </ItemGroup>

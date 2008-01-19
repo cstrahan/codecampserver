@@ -5,6 +5,7 @@ using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Presentation;
 using CodeCampServer.Website.Models.Conference;
 using CodeCampServer.Model.Exceptions;
+using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.Website.Controllers
 {
@@ -23,8 +24,9 @@ namespace CodeCampServer.Website.Controllers
 		public void Schedule(string conferenceKey)
 		{
 			ScheduledConference conference = getScheduledConference(conferenceKey);
-
-			RenderView("showschedule", conference);
+			SmartBag bag = new SmartBag();
+			bag.Add(conference);
+			RenderView("showschedule", bag);
 		}
 
 		private ScheduledConference getScheduledConference(string conferenceKey)

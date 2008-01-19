@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ShowSchedule.aspx.cs" Inherits="CodeCampServer.Website.Views.Conference.ShowSchedule" MasterPageFile="~/Views/Layouts/TwoColumn.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" 
+Inherits="CodeCampServer.Website.Views.ViewBase" MasterPageFile="~/Views/Layouts/TwoColumn.Master" %>
 <%@ Import namespace="CodeCampServer.Model.Presentation"%>
 
 <asp:Content ContentPlaceHolderID="head" runat="server">
@@ -26,8 +27,9 @@
     </style>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
+	<% ScheduledConference conference = ViewData.Get<ScheduledConference>(); %>
 	<div class="schedule-listing">
-		<h1><%=ViewData.Name %> Schedule</h1>
+		<h1><%=conference.Name%> Schedule</h1>
 		
 		<table cellpadding="2" cellspacing="0">
 			<tr class="header-row">
@@ -36,7 +38,8 @@
 				<th>Title</th>
 				<th>Speaker</th>
 			</tr>
-			<% foreach (ScheduleListing listing in ViewData.GetSchedule()) { %>
+			<% foreach (ScheduleListing listing in conference.GetSchedule())
+	  { %>
 			<tr>
 				<td><%=listing.StartTime %></td>
 				<td><%=listing.EndTime %></td>
@@ -53,7 +56,7 @@
 	protected override void OnPreInit(EventArgs e)
 	{
 		base.OnPreInit(e);
-		Title = "Conference Schedule for " + ViewData.Name;//should this go in the controller
+		Title = "Conference Schedule for " + ViewData.Get<ScheduledConference>().Name;//should this go in the controller
 	} 
 	
 </script>

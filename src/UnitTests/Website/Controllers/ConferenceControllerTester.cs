@@ -5,6 +5,7 @@ using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Impl;
 using CodeCampServer.Model.Presentation;
 using CodeCampServer.Website.Controllers;
+using CodeCampServer.Website.Views;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
@@ -40,10 +41,11 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			controller.Schedule("austincodecamp2008");
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("showschedule"));
-			ScheduledConference actualViewData =
-				controller.ActualViewData as ScheduledConference;
+			SmartBag actualViewData =
+				controller.ActualViewData as SmartBag;
 			Assert.That(actualViewData, Is.Not.Null);
-			Assert.That(actualViewData.Name, Is.EqualTo("Austin Code Camp"));
+			Assert.That(actualViewData.Contains<ScheduledConference>());
+			Assert.That(actualViewData.Get<ScheduledConference>().Name, Is.EqualTo("Austin Code Camp"));
 		}
 
 		private class TestingConferenceController : ConferenceController
