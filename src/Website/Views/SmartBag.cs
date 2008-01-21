@@ -5,12 +5,12 @@ namespace CodeCampServer.Website.Views
 {
 	public class SmartBag : Hashtable
 	{
-		public T Get<T>()
+		public virtual T Get<T>()
 		{
-			return (T)Get(typeof(T));
+			return Get<T>(typeof (T));
 		}
 
-		public object Get(Type type)
+		public virtual object Get(Type type)
 		{
 			if (!ContainsKey(type))
 			{
@@ -21,7 +21,10 @@ namespace CodeCampServer.Website.Views
 			return this[type];
 		}
 
-		public void Add(object anObject)
+		/// <summary>
+		/// Adds an object using the type as the dictionary key
+		/// </summary>
+		public virtual void Add(object anObject)
 		{
 			Type type = anObject.GetType();
 			if (ContainsKey(type))
@@ -33,9 +36,34 @@ namespace CodeCampServer.Website.Views
 			Add(type, anObject);
 		}
 
-		public bool Contains<T>()
+		public virtual bool Contains<T>()
 		{
 			return ContainsKey(typeof (T));
+		}
+
+		public virtual T Get<T>(object key)
+		{
+			if (!ContainsKey(key))
+			{
+				string message = string.Format("No object exists with key '{0}'.", key);
+				throw new ArgumentException(message);
+			}
+
+			return (T) this[key];
+		}
+
+		public virtual int GetCount(Type type)
+		{
+			int count = 0;
+			foreach (object value in Values)
+			{
+				if (type.Equals(value.GetType()))
+				{
+					count++;
+				}
+			}
+
+			return count;
 		}
 	}
 }
