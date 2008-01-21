@@ -8,7 +8,7 @@
 <%ScheduledConference conference = ViewData.Get<ScheduledConference>(); %>
 <%=Html.ActionLink("Register Now!", new{ action = "pleaseregister", conferenceKey = conference.Key}) %>
 <br />
-<%=Html.ActionLink("Schedule", new{ action = "schedule", conferenceKey = conference.Key}) %>
+<%=Html.ActionLink("Schedule", new { Controller = "schedule", Action = "index", conferenceKey = conference.Key })%>
 <br />
 <%=Html.ActionLink("List Attendees", new{ action = "listattendees", conferenceKey = conference.Key}) %>
 </div>

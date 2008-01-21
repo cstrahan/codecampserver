@@ -5,7 +5,6 @@ using CodeCampServer.Model;
 using CodeCampServer.Website.Controllers;
 using MvcContrib.ControllerFactories;
 using StructureMap;
-using System.Reflection;
 
 namespace CodeCampServer.Website
 {
@@ -14,31 +13,25 @@ namespace CodeCampServer.Website
 		protected void Application_Start(object sender, EventArgs e)
 		{
 			Log.EnsureInitialized();
-			InitializeControllerFactory();
-			SetupRoutes();
+			initializeControllerFactory();
+			setupRoutes();
 		}
 
-		private void InitializeControllerFactory()
+		private void initializeControllerFactory()
 		{
 			ControllerBuilder.Current.SetDefaultControllerFactory(typeof (StructureMapControllerFactory));
-			
-            /*add all controllers from this assembly
-            foreach(Type type in Assembly.GetExecutingAssembly().GetTypes())
-            {
-                if(type.IsClass && !type.IsAbstract && type.IsAssignableFrom(typeof(IController)))
-                {                    
-                    StructureMapConfiguration.BuildInstancesOf<type>().TheDefaultIsConcreteType<type>();
-                }
-            }*/
 
-            StructureMapConfiguration.BuildInstancesOf<ConferenceController>().TheDefaultIsConcreteType<ConferenceController>();
+			//StructureMapControllerFactory will be enhanced in MvcContrib to make the following unecessary.
+			StructureMapConfiguration.BuildInstancesOf<ConferenceController>().TheDefaultIsConcreteType<ConferenceController>();
 			StructureMapConfiguration.BuildInstancesOf<LoginController>().TheDefaultIsConcreteType<LoginController>();
-		    StructureMapConfiguration.BuildInstancesOf<SpeakerController>().TheDefaultIsConcreteType<SpeakerController>();
+			StructureMapConfiguration.BuildInstancesOf<SpeakerController>().TheDefaultIsConcreteType<SpeakerController>();
+			StructureMapConfiguration.BuildInstancesOf<ScheduleController>().TheDefaultIsConcreteType<ScheduleController>();
 		}
 
-		private void SetupRoutes()
+		private void setupRoutes()
 		{
-			RouteManager.RegisterRoutes(RouteTable.Routes);
+			IRouteConfigurator configurator = ObjectFactory.GetInstance<IRouteConfigurator>();
+			configurator.RegisterRoutes();
 		}
 	}
 }

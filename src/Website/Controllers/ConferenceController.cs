@@ -18,14 +18,6 @@ namespace CodeCampServer.Website.Controllers
 			_clock = clock;
 		}
 
-		[ControllerAction]
-		public void Schedule(string conferenceKey)
-		{
-			ScheduledConference conference = getScheduledConference(conferenceKey);
-			SmartBag bag = new SmartBag(conference);
-			RenderView("showschedule", bag);
-		}
-
 		private ScheduledConference getScheduledConference(string conferenceKey)
 		{
 			Conference conference = _conferenceService.GetConference(conferenceKey);

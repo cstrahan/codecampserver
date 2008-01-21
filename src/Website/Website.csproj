@@ -70,12 +70,14 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="BetterMVCHandler.cs" />
     <Compile Include="BetterMvcRouteHandler.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\LinkHelpers.cs" />
     <Compile Include="Helpers\ViewPageHelpers.cs" />
+    <Compile Include="IRouteConfigurator.cs" />
     <Compile Include="Models\Speaker\ListSpeakersViewData.cs" />
     <Compile Include="Security\AuthenticationService.cs" />
     <Compile Include="ControllerDefaults.cs" />
@@ -86,7 +88,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Conference\ListAttendeesViewData.cs" />
-    <Compile Include="RouteManager.cs" />
+    <Compile Include="RouteConfigurator.cs" />
     <Compile Include="Views\Layouts\ThreeColumnLayout.Master.cs">
       <DependentUpon>ThreeColumnLayout.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -171,6 +173,7 @@
     <Content Include="Views\Conference\Edit.aspx" />
     <Content Include="Views\Conference\ListAttendees.aspx" />
     <Content Include="Views\Layouts\TwoColumn.Master" />
+    <Content Include="Views\Schedule\View.aspx" />
     <Content Include="Views\Speaker\View.aspx" />
     <Content Include="Views\Speaker\List.aspx" />
   </ItemGroup>

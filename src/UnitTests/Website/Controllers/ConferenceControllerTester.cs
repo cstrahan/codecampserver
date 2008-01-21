@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Impl;
@@ -9,8 +7,6 @@ using CodeCampServer.Website.Views;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
-using CodeCampServer.Website.Models.Conference;
-using CodeCampServer.Model.Exceptions;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {
@@ -29,32 +25,13 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_conference = new Conference("austincodecamp2008", "Austin Code Camp");
 		}
 
-		[Test]
-		public void ScheduleShouldGetConferenceByKeyAndSendScheduleToTheView()
-		{
-			SetupResult.For(_service.GetConference("austincodecamp2008"))
-				.Return(_conference);
-			_mocks.ReplayAll();
-
-			TestingConferenceController controller =
-				new TestingConferenceController(_service, new ClockStub());
-			controller.Schedule("austincodecamp2008");
-
-			Assert.That(controller.ActualViewName, Is.EqualTo("showschedule"));
-			SmartBag actualViewData =
-				controller.ActualViewData as SmartBag;
-			Assert.That(actualViewData, Is.Not.Null);
-			Assert.That(actualViewData.Contains<ScheduledConference>());
-			Assert.That(actualViewData.Get<ScheduledConference>().Name, Is.EqualTo("Austin Code Camp"));
-		}
-
 		private class TestingConferenceController : ConferenceController
 		{
 			public string ActualViewName;
 			public string ActualMasterName;
 			public object ActualViewData;
 
-            public TestingConferenceController(IConferenceService conferenceService, IClock clock)
+			public TestingConferenceController(IConferenceService conferenceService, IClock clock)
 				: base(conferenceService, clock)
 			{
 			}
@@ -67,7 +44,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 				ActualMasterName = masterName;
 				ActualViewData = viewData;
 			}
-        }
+		}
 
 		[Test]
 		public void ShouldGetConferenceToShowDetails()
@@ -79,7 +56,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			TestingConferenceController controller =
 				new TestingConferenceController(_service, new ClockStub());
 
-            controller.Details("austincodecamp2008");
+			controller.Details("austincodecamp2008");
 			SmartBag bag = (SmartBag) controller.ActualViewData;
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("details"));
@@ -111,10 +88,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		{
 			SetupResult.For(_service.GetConference("austincodecamp2008")).Return(_conference);
 			Attendee actualAttendee = new Attendee();
-			Expect.Call(_service.RegisterAttendee("firstname", "lastname", "website", "comment", _conference, 
-				"email", "password")).Return(actualAttendee);
+			Expect.Call(_service.RegisterAttendee("firstname", "lastname", "website", "comment", _conference,
+			                                      "email", "password")).Return(actualAttendee);
 
-		    _mocks.ReplayAll();
+			_mocks.ReplayAll();
 
 			TestingConferenceController controller =
 				new TestingConferenceController(_service, new ClockStub());
@@ -151,7 +128,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			ScheduledConference conference = bag.Get<ScheduledConference>();
 			Assert.That(attendeeListings, Is.Not.Null);
 			Assert.That(conference, Is.Not.Null);
-            Assert.That(conference.Conference, Is.EqualTo(_conference));
+			Assert.That(conference.Conference, Is.EqualTo(_conference));
 
 			Assert.That(attendeeListings.Length, Is.EqualTo(2));
 			Assert.That(attendeeListings[0].Name, Is.EqualTo("a b"));
@@ -165,12 +142,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 				new TestingConferenceController(_service, new ClockStub());
 			controller.New();
 
-            Assert.That(controller.ActualViewData, Is.TypeOf(typeof(SmartBag)));
+			Assert.That(controller.ActualViewData, Is.TypeOf(typeof (SmartBag)));
 			SmartBag bag = (SmartBag) controller.ActualViewData;
 			Assert.That(bag.Contains<Conference>());
 			Assert.That(controller.ActualViewName, Is.EqualTo("Edit"));
 		}
-
-		
 	}
 }

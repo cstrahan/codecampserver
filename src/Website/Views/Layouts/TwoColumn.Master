@@ -20,7 +20,7 @@
 	    <div id="menu">
     		<ul>
 			    <li><%= this.NavLink("Home", "active", new { Controller="conference", Action="details", conferenceKey="austincodecamp2008"}) %></li>			    
-			    <li><%= this.NavLink("Schedule", "active", new { Controller="conference", Action="schedule", conferenceKey="austincodecamp2008"}) %></li>			    
+			    <li><%= this.NavLink("Schedule", "active", new { Controller="schedule", Action="", conferenceKey="austincodecamp2008"}) %></li>			    
 			    <li><%= this.NavLink("Speakers", "active", new { Controller="speaker", Action="list", conferenceKey="austincodecamp2008"}) %></li>			    
 			    <li><%= this.NavLink("Register!", "active", new { Controller="conference", Action="pleaseregister", conferenceKey="austincodecamp2008"}) %></li>			    
 			    <li><%= this.NavLink("Login", "active", new { Controller="login", Action="index", conferenceKey="austincodecamp2008"}) %></li>			    
