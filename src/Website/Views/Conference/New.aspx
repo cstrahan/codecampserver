@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" CodeBehind="New.aspx.cs" Inherits="CodeCampServer.Website.Views.Conference.New" Title="CodeCampServer - New Conference" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" 
+	Inherits="CodeCampServer.Website.Views.ViewBase" Title="CodeCampServer - New Conference" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
     
     <script type="text/javascript">

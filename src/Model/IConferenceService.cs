@@ -8,7 +8,7 @@ namespace CodeCampServer.Model
 	public interface IConferenceService
 	{
 		Conference GetConference(string conferenceKey);
-		IEnumerable<Attendee> GetAttendees(Conference conference, int page, int perPage);
+		Attendee[] GetAttendees(Conference conference, int page, int perPage);
 		Attendee RegisterAttendee(string firstName, string lastName, string website, string comment, Conference conference, string emailAddress, string cleartextPassword);
 		Speaker GetSpeakerByDisplayName(string displayName);
         IEnumerable<Speaker> GetSpeakers(Conference conference, int page, int perPage);

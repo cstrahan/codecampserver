@@ -45,7 +45,7 @@ namespace CodeCampServer.Website
 		    });       
             
 
-			routes.Add(new Route("[conferenceKey]/[controller]/[action]",   
+			routes.Add(new Route("[conferenceKey]/[action]",   
 				new ControllerDefaults("index", "conference"),
 				typeof(BetterMvcRouteHandler)));
 

@@ -1,5 +1,6 @@
 using System;
 using System.Security.Policy;
+using System.Security.Principal;
 using CodeCampServer.Website.Views;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
@@ -77,6 +78,17 @@ namespace CodeCampServer.UnitTests.Website.Views
 			bag.Add("3", new Url("/3"));
 
 			Assert.That(bag.GetCount(typeof(Url)), Is.EqualTo(3));
+		}
+
+		[Test]
+		public void ShouldBeAbleToInitializeBagWithSeveralObjects()
+		{
+			Url url = new Url("/1");
+			GenericIdentity identity = new GenericIdentity("name");
+
+			SmartBag bag = new SmartBag(identity, url);
+			Assert.That(bag.Get(typeof(GenericIdentity)), Is.EqualTo(identity));
+			Assert.That(bag.Get(typeof(Url)), Is.EqualTo(url));
 		}
 	}
 }

@@ -86,22 +86,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Conference\ListAttendeesViewData.cs" />
-    <Compile Include="Views\Conference\Details.aspx.cs">
-      <DependentUpon>Details.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Conference\Edit.aspx.cs">
-      <DependentUpon>Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Conference\ListAttendees.aspx.cs">
-      <DependentUpon>ListAttendees.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Conference\New.aspx.cs">
-      <DependentUpon>New.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="RouteManager.cs" />
     <Compile Include="Views\Layouts\ThreeColumnLayout.Master.cs">
       <DependentUpon>ThreeColumnLayout.Master</DependentUpon>

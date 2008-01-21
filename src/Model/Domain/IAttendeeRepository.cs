@@ -9,7 +9,7 @@ namespace CodeCampServer.Model.Domain
 	{
 		IEnumerable<Attendee> GetAttendeesForConference(Conference anConference);
 		void Save(Attendee attendee);
-		IEnumerable<Attendee> GetAttendeesForConference(Conference conference, int pageNumber, int perPage);
+		Attendee[] GetAttendeesForConference(Conference conference, int pageNumber, int perPage);
         Attendee GetAttendeeByEmail(string email);
     }
 }

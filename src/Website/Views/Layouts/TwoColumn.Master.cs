@@ -1,11 +1,8 @@
-﻿using System;
-using System.Web;
-using System.Web.Mvc;
-using CodeCampServer.Website.Helpers;
+﻿using System.Web.Mvc;
 
 namespace CodeCampServer.Website.Views.Layouts
 {
-    public partial class TwoColumn : ViewMasterPage
-    {
-    }
+	public partial class TwoColumn : ViewMasterPage
+	{
+	}
 }

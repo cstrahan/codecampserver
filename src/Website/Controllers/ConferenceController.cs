@@ -3,8 +3,6 @@ using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Presentation;
-using CodeCampServer.Website.Models.Conference;
-using CodeCampServer.Model.Exceptions;
 using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.Website.Controllers
@@ -24,8 +22,7 @@ namespace CodeCampServer.Website.Controllers
 		public void Schedule(string conferenceKey)
 		{
 			ScheduledConference conference = getScheduledConference(conferenceKey);
-			SmartBag bag = new SmartBag();
-			bag.Add(conference);
+			SmartBag bag = new SmartBag(conference);
 			RenderView("showschedule", bag);
 		}
 
@@ -35,37 +32,34 @@ namespace CodeCampServer.Website.Controllers
 			return new ScheduledConference(conference, _clock);
 		}
 
-	    [ControllerAction]
-	    public void Index()
-	    {
-	        RedirectToAction("details");
-	    }
+		[ControllerAction]
+		public void Index()
+		{
+			RedirectToAction("details");
+		}
 
 		[ControllerAction]
 		public void Details(string conferenceKey)
 		{
 			ScheduledConference conference = getScheduledConference(conferenceKey);
-			RenderView("details", conference);
+			RenderView("details", new SmartBag(conference));
 		}
 
 		[ControllerAction]
 		public void PleaseRegister(string conferenceKey)
 		{
 			ScheduledConference conference = getScheduledConference(conferenceKey);
-			ViewData.Add("conference", conference);
-			RenderView("registerform");
+			RenderView("registerform", new SmartBag(conference));
 		}
 
 		[ControllerAction]
 		public void Register(string conferenceKey, string firstName, string lastName, string email, string website,
 		                     string comment, string password)
-		{		    
+		{
 			ScheduledConference scheduledConference = getScheduledConference(conferenceKey);
-			Attendee attendee = _conferenceService.RegisterAttendee(firstName, lastName, website, comment, 
-				scheduledConference.Conference, email, password);
-			ViewData.Add("attendee", attendee);
-			ViewData.Add("conference", scheduledConference);
-			RenderView("registerconfirm");
+			Attendee attendee = _conferenceService.RegisterAttendee(firstName, lastName, website, comment,
+			                                                        scheduledConference.Conference, email, password);
+			RenderView("registerconfirm", new SmartBag(attendee, scheduledConference));
 		}
 
 		[ControllerAction]
@@ -75,35 +69,28 @@ namespace CodeCampServer.Website.Controllers
 			int effectivePerPage = perPage.GetValueOrDefault(20);
 
 			ScheduledConference scheduledConference = getScheduledConference(conferenceKey);
-			IEnumerable<Attendee> attendees = _conferenceService.GetAttendees(scheduledConference.Conference, effectivePage, effectivePerPage);
-			IEnumerable<AttendeeListing> listings = getListingsFromAttendees(attendees);
+			Attendee[] attendees =
+				_conferenceService.GetAttendees(scheduledConference.Conference, effectivePage, effectivePerPage);
+			AttendeeListing[] listings = getListingsFromAttendees(attendees);
 
-            ListAttendeesViewData viewData = new ListAttendeesViewData(scheduledConference, listings);
-			RenderView("listattendees", viewData);
+			RenderView("listattendees", new SmartBag(scheduledConference, listings));
 		}
 
-        [ControllerAction]
-        public void New()
-        {
-            RenderView("Edit", new Conference());
-        }        
-
-		private IEnumerable<AttendeeListing> getListingsFromAttendees(IEnumerable<Attendee> attendees)
+		[ControllerAction]
+		public void New()
 		{
+			RenderView("Edit", new SmartBag(new Conference()));
+		}
+
+		private AttendeeListing[] getListingsFromAttendees(IEnumerable<Attendee> attendees)
+		{
+			List<AttendeeListing> listings = new List<AttendeeListing>();
 			foreach (Attendee attendee in attendees)
 			{
-				yield return new AttendeeListing(attendee);
+				listings.Add(new AttendeeListing(attendee));
 			}
+
+			return listings.ToArray();
 		}
-
-        private IEnumerable<SpeakerListing> getListingsFromSpeakers(IEnumerable<Speaker> speakers)
-        {
-            foreach (Speaker speaker in speakers)
-            {
-                yield return new SpeakerListing(speaker);
-            }
-        }		
-
-        
 	}
 }

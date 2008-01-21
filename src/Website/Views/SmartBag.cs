@@ -5,6 +5,14 @@ namespace CodeCampServer.Website.Views
 {
 	public class SmartBag : Hashtable
 	{
+		public SmartBag(params object[] initialObjects)
+		{
+			foreach (object obj in initialObjects)
+			{
+				Add(obj);
+			}
+		}
+
 		public virtual T Get<T>()
 		{
 			return Get<T>(typeof (T));

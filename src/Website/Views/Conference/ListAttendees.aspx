@@ -1,10 +1,11 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" CodeBehind="ListAttendees.aspx.cs" Inherits="CodeCampServer.Website.Views.Conference.ListAttendees" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" 
+	Inherits="CodeCampServer.Website.Views.ViewBase" Title="Untitled Page" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
-<h3>Attendee List for <%= ViewData.Conference.Name %></h3>
+<h3>Attendee List for <%= ViewData.Get<ScheduledConference>().Name %></h3>
 <%
-	attendeeGrid.DataSource = ViewData.Attendees;
+	attendeeGrid.DataSource = ViewData.Get<AttendeeListing[]>();
 	attendeeGrid.DataBind();
 %>
 

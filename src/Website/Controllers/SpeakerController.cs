@@ -1,23 +1,11 @@
 ﻿using System;
-using System.Data;
-using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
+using System.Collections.Generic;
 using System.Web.Mvc;
-using CodeCampServer.Model.Presentation;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
-using CodeCampServer.Website.Models.Speaker;
-using System.Collections.Generic;
-using CodeCampServer.Model.Impl;
 using CodeCampServer.Model.Exceptions;
-using CodeCampServer.Website.Helpers;
+using CodeCampServer.Model.Presentation;
+using CodeCampServer.Website.Models.Speaker;
 
 namespace CodeCampServer.Website.Controllers
 {

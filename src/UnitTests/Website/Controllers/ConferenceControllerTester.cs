@@ -80,9 +80,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 				new TestingConferenceController(_service, new ClockStub());
 
             controller.Details("austincodecamp2008");
+			SmartBag bag = (SmartBag) controller.ActualViewData;
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("details"));
-			ScheduledConference actualViewData = controller.ActualViewData as ScheduledConference;
+			ScheduledConference actualViewData = bag.Get<ScheduledConference>();
 			Assert.That(actualViewData, Is.Not.Null);
 			Assert.That(actualViewData.Conference, Is.EqualTo(_conference));
 		}
@@ -98,8 +99,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 				new TestingConferenceController(_service, new ClockStub());
 			controller.PleaseRegister("austincodecamp2008");
 
+			SmartBag bag = (SmartBag) controller.ActualViewData;
 			Assert.That(controller.ActualViewName, Is.EqualTo("registerform"));
-			ScheduledConference actualViewData = controller.ViewData["conference"] as ScheduledConference;
+			ScheduledConference actualViewData = bag.Get<ScheduledConference>();
 			Assert.That(actualViewData, Is.Not.Null);
 			Assert.That(actualViewData.Conference, Is.EqualTo(_conference));
 		}
@@ -118,10 +120,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 				new TestingConferenceController(_service, new ClockStub());
 			controller.Register("austincodecamp2008", "firstname", "lastname", "email", "website", "comment", "password");
 
+			SmartBag bag = (SmartBag) controller.ActualViewData;
 			Assert.That(controller.ActualViewName, Is.EqualTo("registerconfirm"));
-			ScheduledConference viewDataConference =
-				controller.ViewData["conference"] as ScheduledConference;
-			Attendee viewDataAttendee = controller.ViewData["attendee"] as Attendee;
+			ScheduledConference viewDataConference = bag.Get<ScheduledConference>();
+			Attendee viewDataAttendee = bag.Get<Attendee>();
 			Assert.That(viewDataConference, Is.Not.Null);
 			Assert.That(viewDataAttendee, Is.Not.Null);
 			Assert.That(viewDataConference.Conference, Is.EqualTo(_conference));
@@ -142,19 +144,18 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 				new TestingConferenceController(_service, new ClockStub());
 			controller.ListAttendees("austincodecamp2008", 0, 2);
 
+			SmartBag bag = (SmartBag) controller.ActualViewData;
 			Assert.That(controller.ActualViewName, Is.EqualTo("listattendees"));
-			ListAttendeesViewData viewData = controller.ActualViewData as ListAttendeesViewData;
-			            
-			Assert.That(viewData, Is.Not.Null);
-			Assert.That(viewData.Attendees, Is.Not.Null);
-			Assert.That(viewData.Conference, Is.Not.Null);
-            Assert.That(viewData.Conference.Conference, Is.EqualTo(_conference));
 
-			List<AttendeeListing> listingList =
-				new List<AttendeeListing>(viewData.Attendees);
-			Assert.That(listingList.Count, Is.EqualTo(2));
-			Assert.That(listingList[0].Name, Is.EqualTo("a b"));
-			Assert.That(listingList[1].Name, Is.EqualTo("c d"));
+			AttendeeListing[] attendeeListings = bag.Get<AttendeeListing[]>();
+			ScheduledConference conference = bag.Get<ScheduledConference>();
+			Assert.That(attendeeListings, Is.Not.Null);
+			Assert.That(conference, Is.Not.Null);
+            Assert.That(conference.Conference, Is.EqualTo(_conference));
+
+			Assert.That(attendeeListings.Length, Is.EqualTo(2));
+			Assert.That(attendeeListings[0].Name, Is.EqualTo("a b"));
+			Assert.That(attendeeListings[1].Name, Is.EqualTo("c d"));
 		}
 
 		[Test]
@@ -164,7 +165,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 				new TestingConferenceController(_service, new ClockStub());
 			controller.New();
 
-            Assert.That(controller.ActualViewData, Is.TypeOf(typeof(Conference)));            
+            Assert.That(controller.ActualViewData, Is.TypeOf(typeof(SmartBag)));
+			SmartBag bag = (SmartBag) controller.ActualViewData;
+			Assert.That(bag.Contains<Conference>());
 			Assert.That(controller.ActualViewName, Is.EqualTo("Edit"));
 		}
 

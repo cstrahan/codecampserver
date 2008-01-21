@@ -32,7 +32,7 @@ namespace CodeCampServer.DataAccess.Impl
 			transaction.Commit();
 		}
 
-		public IEnumerable<Attendee> GetAttendeesForConference(Conference conference, int pageNumber, int perPage)
+		public Attendee[] GetAttendeesForConference(Conference conference, int pageNumber, int perPage)
 		{
 			ISession session = getSession();
 			IQuery query =
@@ -43,7 +43,7 @@ namespace CodeCampServer.DataAccess.Impl
 			query.SetMaxResults(perPage);
 			query.SetFirstResult((pageNumber - 1)*perPage);
 			IList<Attendee> attendees = query.List<Attendee>();
-			return attendees;
+			return new List<Attendee>(attendees).ToArray();
 		}
 
 		public Attendee GetAttendeeByEmail(string email)

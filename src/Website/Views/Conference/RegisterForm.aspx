@@ -1,8 +1,8 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewPage" Title="Register for conference" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" Inherits="CodeCampServer.Website.Views.ViewBase"
+ Title="Register for conference" %>
 <%@ Import namespace="CodeCampServer.Model.Presentation"%>
 <%@ Import namespace="CodeCampServer.Website.Controllers"%>
 <%@ Import namespace="CodeCampServer.Model.Domain"%>
-<%@ Import namespace="System.Web.Mvc"%>
 
 <asp:Content ContentPlaceHolderID="Head" runat="server">
 </asp:Content>
@@ -52,7 +52,7 @@
 <script runat="server">
 	private ScheduledConference getConference()
 	{
-		ScheduledConference conference = (ScheduledConference)ViewData["conference"];
+		ScheduledConference conference = ViewData.Get<ScheduledConference>();
 		return conference;
 	}
 
