@@ -11,8 +11,8 @@ namespace CodeCampServer.Website
 		public virtual void RegisterRoutes()
 		{
 			RouteCollection routes = RouteTable.Routes;
-			routes.Add(new Route("Login/[action]",
-				new ControllerDefaults("Login", "login"),
+			routes.Add(new Route("login/[action]",
+				new ControllerDefaults("login", "login"),
 				typeof(BetterMvcRouteHandler)));
                         
             routes.Add(new Route
@@ -36,7 +36,14 @@ namespace CodeCampServer.Website
 				RouteHandler = typeof(BetterMvcRouteHandler)
 			});
 
-			routes.Add(new Route("[conferenceKey]/[action]",   
+            routes.Add(new Route
+            {
+                Url = "[conferenceKey]/sessions/[action]",
+                Defaults = new { Controller = "session", Action = "list" },
+                RouteHandler = typeof(BetterMvcRouteHandler)
+            });
+
+            routes.Add(new Route("[conferenceKey]/[action]",   
 				new ControllerDefaults("index", "conference"),
 				typeof(BetterMvcRouteHandler)));
 

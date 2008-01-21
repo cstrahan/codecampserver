@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CodeCampServer.Model.Domain;
+using Iesi.Collections.Generic;
 using StructureMap;
 using CodeCampServer.Model.Security;
 using System;
@@ -15,15 +16,18 @@ namespace CodeCampServer.Model.Impl
         private readonly ILoginService _loginService;
         private readonly ISpeakerRepository _speakerRepository;
         private readonly IAuthenticationService _authenticationService;
+        private readonly ISessionRepository _sessionRepository;
 
         public ConferenceService(IConferenceRepository conferenceRepository, IAttendeeRepository attendeeRepository,
-                                 ILoginService loginService, ISpeakerRepository speakerRepository, IAuthenticationService authenticationService)
+                                 ILoginService loginService, ISpeakerRepository speakerRepository,
+                                 IAuthenticationService authenticationService, ISessionRepository sessionRepository)
         {
             _conferenceRepository = conferenceRepository;
             _attendeeRepository = attendeeRepository;
             _loginService = loginService;
             _speakerRepository = speakerRepository;
             _authenticationService = authenticationService;
+            _sessionRepository = sessionRepository;
         }
 
         public Conference GetConference(string conferenceKey)
@@ -96,5 +100,14 @@ namespace CodeCampServer.Model.Impl
         {
             return _authenticationService.GetActiveUser();
         }
+
+        public Session CreateSession(Speaker speaker, string title,
+                             string @abstract, ISet<OnlineResource> onlineResources)
+        {
+            Session session = new Session(speaker, title, @abstract, onlineResources);
+            _sessionRepository.Save(session);
+            return session;
+        }
+
     }
 }

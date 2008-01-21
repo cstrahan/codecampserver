@@ -23,7 +23,8 @@ namespace CodeCampServer.Website
 
 			//StructureMapControllerFactory will be enhanced in MvcContrib to make the following unecessary.
 			StructureMapConfiguration.BuildInstancesOf<ConferenceController>().TheDefaultIsConcreteType<ConferenceController>();
-			StructureMapConfiguration.BuildInstancesOf<LoginController>().TheDefaultIsConcreteType<LoginController>();
+            StructureMapConfiguration.BuildInstancesOf<SessionController>().TheDefaultIsConcreteType<SessionController>();
+            StructureMapConfiguration.BuildInstancesOf<LoginController>().TheDefaultIsConcreteType<LoginController>();
 			StructureMapConfiguration.BuildInstancesOf<SpeakerController>().TheDefaultIsConcreteType<SpeakerController>();
 			StructureMapConfiguration.BuildInstancesOf<ScheduleController>().TheDefaultIsConcreteType<ScheduleController>();
 		}

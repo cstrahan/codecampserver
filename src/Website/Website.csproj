@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Iesi.Collections, Version=1.0.0.3, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\nhibernate\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="MvcContrib, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\mvccontrib\MvcContrib.dll</HintPath>
@@ -79,6 +83,7 @@
     <Compile Include="Helpers\ViewPageHelpers.cs" />
     <Compile Include="IRouteConfigurator.cs" />
     <Compile Include="Models\Speaker\ListSpeakersViewData.cs" />
+    <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Security\AuthenticationService.cs" />
     <Compile Include="ControllerDefaults.cs" />
     <Compile Include="ControllerRoute.cs" />
@@ -176,6 +181,8 @@
     <Content Include="Views\Schedule\View.aspx" />
     <Content Include="Views\Speaker\View.aspx" />
     <Content Include="Views\Speaker\List.aspx" />
+    <Content Include="Views\Session\RegisterConfirm.aspx" />
+    <Content Include="Views\Session\Register.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -195,7 +202,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4140</DevelopmentServerPort>
+          <DevelopmentServerPort>56874</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

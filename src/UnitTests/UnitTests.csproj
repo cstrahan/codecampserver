@@ -38,6 +38,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\mvctoolkit\MVCToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.0.3, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\nhibernate\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.4.3.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\nunit\nunit.framework.dll</HintPath>
@@ -84,6 +88,7 @@
     <Compile Include="Website\Controllers\ConferenceControllerTester.cs" />
     <Compile Include="Website\Controllers\ScheduleControllerTester.cs" />
     <Compile Include="Website\Controllers\LoginControllerTester.cs" />
+    <Compile Include="Website\Controllers\SessionControllerTester.cs" />
     <Compile Include="Website\Controllers\SpeakerControllerTester.cs" />
     <Compile Include="Website\Views\SmartBagTester.cs" />
   </ItemGroup>

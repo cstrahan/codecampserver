@@ -13,6 +13,11 @@ namespace CodeCampServer.Model.Presentation
             _speaker = speaker;
 		}
 
+	    public string Key
+	    {
+            get { return _speaker.DisplayName; }
+	    }
+
 		public string Name
 		{
             get { return _speaker.GetName(); }
@@ -21,7 +26,8 @@ namespace CodeCampServer.Model.Presentation
 		public string DisplayName
 		{
             get { return _speaker.DisplayName; }
-		}        
+		}
+
     }
 
     public class SpeakerListingCollection : IEnumerable<SpeakerListing>

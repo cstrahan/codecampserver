@@ -5,19 +5,28 @@ namespace CodeCampServer.Model.Domain
 {
     public class Session : EntityBase
     {
-        private string _abstract;
-        private string _title;
         private Speaker _speaker;
+        private string _title;
+        private string _abstract;
         private ISet<OnlineResource> _onlineResources = new HashedSet<OnlineResource>();
 
         public Session()
         {
         }
 
-        public Session(Speaker speaker, string title)
+        public Session(Speaker speaker, string title, string @abstract)
         {
             _speaker = speaker;
             _title = title;
+            _abstract = @abstract;
+        }
+
+        public Session(Speaker speaker, string title, string @abstract, ISet<OnlineResource> onlineResources)
+        {
+            _speaker = speaker;
+            _title = title;
+            _abstract = @abstract;
+            _onlineResources = onlineResources;
         }
 
         public virtual string Title
@@ -38,14 +47,15 @@ namespace CodeCampServer.Model.Domain
             set { _speaker = value; }
         }
 
-        public virtual OnlineResource[] Resources
+        public virtual ISet<OnlineResource> Resources
         {
-            get { return new List<OnlineResource>(_onlineResources).ToArray(); }
+            get { return _onlineResources; }
         }
 
         public virtual void AddResource(OnlineResource resource)
         {
             _onlineResources.Add(resource);
         }
+
     }
 }

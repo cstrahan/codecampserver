@@ -1,7 +1,10 @@
+using StructureMap;
+
 namespace CodeCampServer.Model.Domain
 {
-	public interface ISessionRepository
+    [PluginFamily(Keys.DEFAULT)]
+    public interface ISessionRepository
 	{
-        
+	    void Save(Session session);
 	}
 }

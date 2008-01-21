@@ -30,9 +30,9 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                                                           new DateTime(2008, 11, 26, 23, 30, 00));
                 Speaker speaker = new Speaker("Homer", "Simpson", "http://www.simpsons.com", "Doh!", codeCamp2008,
                     "a@b.com", "HomerSimpson", "somelink", "profile info", getPassword(), getSalt());
-                Session session1 = new Session(speaker, "Domain-driven design explored");
-                Session session2 = new Session(speaker, "Advanced NHibernate");
-                Session session3 = new Session(speaker, "Extreme Programming: a primer");
+                Session session1 = new Session(speaker, "Domain-driven design explored", "In this session we'll explore Domain-driven design");
+                Session session2 = new Session(speaker, "Advanced NHibernate", "In this session we'll explore Advanced NHibernate");
+                Session session3 = new Session(speaker, "Extreme Programming: a primer", "In this session we'll provide a primer on XP");
                 slot1.Session = session1;
                 slot2.Session = session2;
                 slot3.Session = session3;

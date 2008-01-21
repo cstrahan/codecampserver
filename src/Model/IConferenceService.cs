@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CodeCampServer.Model.Domain;
+using Iesi.Collections.Generic;
 using StructureMap;
 
 namespace CodeCampServer.Model
@@ -16,5 +17,7 @@ namespace CodeCampServer.Model
         Speaker SaveSpeaker(string emailAddress, string firstName, string lastName, string website, string comment, string displayName, string profile, string avatarUrl);
 
         string GetLoggedInUsername();
+	    Session CreateSession(Speaker speaker, string title, string @abstract, ISet<OnlineResource> onlineResources);
+
     }
 }

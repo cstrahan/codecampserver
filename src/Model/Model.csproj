@@ -82,6 +82,7 @@
     <Compile Include="Keys.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Presentation\AttendeeListing.cs" />
+    <Compile Include="Presentation\SessionListing.cs" />
     <Compile Include="Presentation\SpeakerListing.cs" />
     <Compile Include="Presentation\ScheduledConference.cs" />
     <Compile Include="Presentation\ScheduleListing.cs" />

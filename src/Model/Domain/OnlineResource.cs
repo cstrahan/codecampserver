@@ -6,6 +6,16 @@ namespace CodeCampServer.Model.Domain
         private string _name;
         private string _href;
 
+        public OnlineResource()
+        {
+        }
+        public OnlineResource(OnlineResourceType resourceType, string name, string href)
+        {
+            _type = resourceType;
+            _name = name;
+            _href = href;
+        }
+
         public virtual OnlineResourceType Type
         {
             get { return _type; }

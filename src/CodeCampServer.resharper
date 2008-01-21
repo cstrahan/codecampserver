@@ -8,20 +8,18 @@
     <TerminatingMethod MethodName="System.Diagnostics.Debug.Fail" />
     <TerminatingMethod MethodName="System.Environment.Exit" />
     <TerminatingMethod MethodName="NUnit.Framework.Assert.Fail" />
-    <StringFormatMethod MethodName="System.String.Format" FormatParameterName="format" />
-    <StringFormatMethod MethodName="System.Text.StringBuilder.AppendFormat" FormatParameterName="format" />
-    <StringFormatMethod MethodName="System.IO.TextWriter.WriteLine" FormatParameterName="format" />
-    <StringFormatMethod MethodName="System.IO.TextWriter.Write" FormatParameterName="format" />
-    <StringFormatMethod MethodName="System.Console.WriteLine" FormatParameterName="format" />
-    <StringFormatMethod MethodName="System.Console.Write" FormatParameterName="format" />
-    <StringFormatMethod MethodName="System.Console.Out.Write" FormatParameterName="format" />
-    <StringFormatMethod MethodName="System.Diagnostics.Debug.Print" FormatParameterName="format" />
-    <StringFormatMethod MethodName="System.Text.StringBuilder.AppendFormat" FormatParameterName="format" />
     <NotNullableValueAttribute>
     </NotNullableValueAttribute>
     <CanBeNullValueAttribute>
     </CanBeNullValueAttribute>
   </CodeInspection>
+  <SolutionAnalysisSettings>
+    <SkipFilesAndFolders>
+      <Item>A178152D-B9A7-4C51-9E7C-E7A7F6FF8C5B/f:nant.build</Item>
+      <Item>32475D7A-BE90-4496-B025-C568173E9B48/d:Views/d:Conference/f:Details.aspx</Item>
+      <Item>32475D7A-BE90-4496-B025-C568173E9B48/d:Views/d:Conference/f:RegisterForm.aspx</Item>
+    </SkipFilesAndFolders>
+  </SolutionAnalysisSettings>
   <SharedSolutionTemplateManager>
     <LiveTemplates>
       <Folder name="Shared Solution Templates" />
@@ -48,11 +46,4 @@
       </Folder>
     </FileTemplates>
   </SharedSolutionTemplateManager>
-  <SolutionAnalysisSettings>
-    <SkipFilesAndFolders>
-      <Item>A178152D-B9A7-4C51-9E7C-E7A7F6FF8C5B/f:nant.build</Item>
-      <Item>32475D7A-BE90-4496-B025-C568173E9B48/d:Views/d:Conference/f:Details.aspx</Item>
-      <Item>32475D7A-BE90-4496-B025-C568173E9B48/d:Views/d:Conference/f:RegisterForm.aspx</Item>
-    </SkipFilesAndFolders>
-  </SolutionAnalysisSettings>
 </Configuration>

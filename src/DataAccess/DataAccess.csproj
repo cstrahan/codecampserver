@@ -57,6 +57,7 @@
     <Compile Include="Impl\HybridSessionBuilder.cs" />
     <Compile Include="Impl\NHibernateSessionModule.cs" />
     <Compile Include="Impl\RepositoryBase.cs" />
+    <Compile Include="Impl\SessionRepository.cs" />
     <Compile Include="ISessionBuilder.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Impl;
+using Iesi.Collections.Generic;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
@@ -24,7 +25,7 @@ namespace CodeCampServer.UnitTests.Model
 			SetupResult.For(repository.GetConferenceByKey("foo")).Return(expectedConference);
 			mocks.ReplayAll();
 
-			IConferenceService service = new ConferenceService(repository, null, loginService, null, null);
+            IConferenceService service = new ConferenceService(repository, null, loginService, null, null, null);
 			Conference actualConference = service.GetConference("foo");
 
 			Assert.That(actualConference, Is.EqualTo(expectedConference));
@@ -44,7 +45,7 @@ namespace CodeCampServer.UnitTests.Model
 			LastCall.IgnoreArguments().Do(new Action<Attendee>(delegate(Attendee obj) { actualAttendee = obj; }));
 			mocks.ReplayAll();
 
-			IConferenceService service = new ConferenceService(null, repository, loginService, null, null);
+            IConferenceService service = new ConferenceService(null, repository, loginService, null, null, null);
 			Conference conference = new Conference();
 			Attendee attendee = service.RegisterAttendee("fn", "ln", "w", "c", conference, "email", "password");
 
@@ -72,7 +73,7 @@ namespace CodeCampServer.UnitTests.Model
 				toReturn);
 			mocks.ReplayAll();
 
-            IConferenceService service = new ConferenceService(null, repository, loginService, null, null);
+            IConferenceService service = new ConferenceService(null, repository, loginService, null, null, null);
 			IEnumerable<Attendee> attendees = service.GetAttendees(targetConference, 2, 3);
 			List<Attendee> attendeesList = new List<Attendee>(attendees);
 
@@ -93,7 +94,7 @@ namespace CodeCampServer.UnitTests.Model
 			SetupResult.For(repository.GetSpeakerByDisplayName(displayName)).Return(expectedSpeaker);
 			mocks.ReplayAll();
 
-            IConferenceService service = new ConferenceService(null, null, null, repository, null);
+            IConferenceService service = new ConferenceService(null, null, null, repository, null, null);
 			Speaker actualSpeaker = service.GetSpeakerByDisplayName(displayName);
 
 			Assert.That(actualSpeaker, Is.EqualTo(expectedSpeaker));
@@ -111,7 +112,7 @@ namespace CodeCampServer.UnitTests.Model
                 toReturn);
             mocks.ReplayAll();
 
-            IConferenceService service = new ConferenceService(null, null, loginService, repository, null);
+            IConferenceService service = new ConferenceService(null, null, loginService, repository, null, null);
             IEnumerable<Speaker> speakers = service.GetSpeakers(targetConference, 2, 3);
             List<Speaker> speakersList = new List<Speaker>(speakers);
 
@@ -134,7 +135,7 @@ namespace CodeCampServer.UnitTests.Model
             SetupResult.For(repository.GetSpeakerByEmail("brownie@brownie.com.au")).Return(expectedResult);
             mocks.ReplayAll();
 
-            IConferenceService service = new ConferenceService(null, null, null, repository, authService);
+            IConferenceService service = new ConferenceService(null, null, null, repository, authService, null);
             Speaker speaker = service.GetLoggedInSpeaker();
 
             Assert.AreSame(expectedResult, speaker);
@@ -149,7 +150,7 @@ namespace CodeCampServer.UnitTests.Model
             SetupResult.For(authService.GetActiveUser()).Return("username");
             mocks.ReplayAll();
 
-            IConferenceService service = new ConferenceService(null, null, null, null, authService);
+            IConferenceService service = new ConferenceService(null, null, null, null, authService, null);
             string username = service.GetLoggedInUsername();
 
             Assert.AreEqual("username", username);
@@ -164,7 +165,7 @@ namespace CodeCampServer.UnitTests.Model
             SetupResult.For(authService.GetActiveUser()).Return("");
             mocks.ReplayAll();
 
-            IConferenceService service = new ConferenceService(null, null, null, null, authService);
+            IConferenceService service = new ConferenceService(null, null, null, null, authService, null);
             Speaker speaker = service.GetLoggedInSpeaker();
 
             Assert.IsNull(speaker);
@@ -194,7 +195,7 @@ namespace CodeCampServer.UnitTests.Model
 			
             mocks.ReplayAll();
 
-            IConferenceService service = new ConferenceService(null, null, null, repository, null);
+            IConferenceService service = new ConferenceService(null, null, null, repository, null, null);
             Speaker speaker = service.SaveSpeaker("brownie@brownie.com.au", "UpdatedFirstName", "UpdatedLastName", "http://updated.website", "UpdatedComment", "UpdatedDisplayName", "updated profile", "http://updated.avatar.url");
             Assert.AreEqual("UpdatedFirstName", actualSpeaker.Contact.FirstName);
             Assert.AreEqual("UpdatedLastName",actualSpeaker.Contact.LastName);
@@ -219,7 +220,7 @@ namespace CodeCampServer.UnitTests.Model
             mocks.ReplayAll();
 
             DataValidationException exception = null;
-            IConferenceService service = new ConferenceService(null, null, null, repository, null);
+            IConferenceService service = new ConferenceService(null, null, null, repository, null, null);
             try
             {
                 service.SaveSpeaker("brownie@brownie.com.au", "UpdatedFirstName", "UpdatedLastName", "http://updated.website", "UpdatedComment", "UpdatedDisplayName", "updated profile", "http://updated.avatar.url");
@@ -231,6 +232,34 @@ namespace CodeCampServer.UnitTests.Model
 
             Assert.IsNotNull(exception);
             Assert.AreEqual("DisplayName is already in use", exception.Message);
+        }
+
+        [Test]
+        public void CreatingNewSessionShouldSaveSessionToRepository()
+        {
+            MockRepository mocks = new MockRepository();
+
+            ISessionRepository repository = mocks.CreateMock<ISessionRepository>();
+            Session actualSession = null;
+            repository.Save(null);
+            LastCall.IgnoreArguments().Do(new Action<Session>(delegate(Session obj) { actualSession = obj; }));
+            mocks.ReplayAll();
+
+            IConferenceService service = new ConferenceService(null, null, null, null, null, repository);
+            Speaker speaker = new Speaker("a", "b", "c", "d", new Conference(), "e", "f", "g", "h", "password", "salt");
+            ISet<OnlineResource> resources = new HashedSet<OnlineResource>
+            {
+                new OnlineResource { Name = "Name", Type = OnlineResourceType.Blog, Href = "http://myblog.com" }
+            };
+            Session session = service.CreateSession(speaker, "title", "abstract", resources);
+
+            mocks.VerifyAll();
+
+            Assert.That(actualSession, Is.EqualTo(session));
+            Assert.That(actualSession.Speaker, Is.EqualTo(speaker));
+            Assert.That(actualSession.Title, Is.EqualTo("title"));
+            Assert.That(actualSession.Abstract, Is.EqualTo("abstract"));
+            Assert.That(actualSession.Resources, Is.EqualTo(resources));
         }
 	}
 }
