@@ -234,6 +234,7 @@ namespace CodeCampServer.UnitTests.Model
             Assert.AreEqual("DisplayName is already in use", exception.Message);
         }
 
+		//TODO:  Please avoid using C# 3.0 features until Resharper 4.0 comes our (20 days).
         [Test]
         public void CreatingNewSessionShouldSaveSessionToRepository()
         {

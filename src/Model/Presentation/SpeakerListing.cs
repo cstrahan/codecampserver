@@ -30,6 +30,7 @@ namespace CodeCampServer.Model.Presentation
 
     }
 
+	//TODO:  Put in it's own file
     public class SpeakerListingCollection : IEnumerable<SpeakerListing>
     {
         private List<SpeakerListing> _list;

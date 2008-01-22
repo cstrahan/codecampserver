@@ -17,6 +17,7 @@ namespace CodeCampServer.Model
         Speaker SaveSpeaker(string emailAddress, string firstName, string lastName, string website, string comment, string displayName, string profile, string avatarUrl);
 
         string GetLoggedInUsername();
+		//TODO:  Do not use collection types in APIs.  IEnumerable or arrays.
 	    Session CreateSession(Speaker speaker, string title, string @abstract, ISet<OnlineResource> onlineResources);
 
     }

@@ -24,6 +24,7 @@ namespace CodeCampServer.Model.Presentation
             set { _session.Abstract = value; }
         }
 
+		//TODO:  Public interface should not lie.  Remove empty setters.
         public SpeakerListing Speaker
         {
             get { return new SpeakerListing(_session.Speaker); }
