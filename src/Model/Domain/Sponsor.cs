@@ -7,6 +7,17 @@ namespace CodeCampServer.Model.Domain
         private string _website;
         private string _logoUrl;
 
+        public Sponsor()
+        {
+        }
+
+        public Sponsor(string name, string logoUrl, string website)
+        {
+            _name = name;
+            _logoUrl = logoUrl;
+            _website = website;
+        }
+
         public virtual string Name
         {
             get { return _name; }
