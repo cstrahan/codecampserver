@@ -28,11 +28,13 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                                                           new DateTime(2008, 11, 26, 22, 00, 00));
                 TimeSlot slot3 = codeCamp2008.AddTimeSlot(new DateTime(2008, 11, 26, 22, 30, 00),
                                                           new DateTime(2008, 11, 26, 23, 30, 00));
-                Speaker speaker = new Speaker("Homer", "Simpson", "http://www.simpsons.com", "Doh!", codeCamp2008,
-                    "a@b.com", "HomerSimpson", "somelink", "profile info", getPassword(), getSalt());
-                Session session1 = new Session(speaker, "Domain-driven design explored", "In this session we'll explore Domain-driven design");
-                Session session2 = new Session(speaker, "Advanced NHibernate", "In this session we'll explore Advanced NHibernate");
-                Session session3 = new Session(speaker, "Extreme Programming: a primer", "In this session we'll provide a primer on XP");
+                Speaker speaker1 = new Speaker("Homer", "Simpson", "http://www.simpsons.com", "Doh!", codeCamp2008,
+                    "homer@simpsons.com", "Homer J. Simpson", "http://www.simpsons.com/homer.jpg", "Homer Simpson's Profiles", getPassword(), getSalt());
+                Speaker speaker2 = new Speaker("Frank", "Sinatra", "http://www.sinatra.com", "Old Blue Eyes", codeCamp2008,
+                    "frank@sinatra.com", "Frank Sinatra", "http://www.sinatra.com/frank_sinatra.jpg", "Frank Sinatra's Profile", getPassword(), getSalt());
+                Session session1 = new Session(speaker1, "Domain-driven design explored", "In this session we'll explore Domain-driven design");
+                Session session2 = new Session(speaker1, "Advanced NHibernate", "In this session we'll explore Advanced NHibernate");
+                Session session3 = new Session(speaker2, "Extreme Programming: a primer", "In this session we'll provide a primer on XP");
                 slot1.Session = session1;
                 slot2.Session = session2;
                 slot3.Session = session3;
@@ -43,7 +45,8 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 					session.SaveOrUpdate(attendee);
             	}
             
-                session.SaveOrUpdate(speaker);
+                session.SaveOrUpdate(speaker1);
+                session.SaveOrUpdate(speaker2);
                 session.SaveOrUpdate(session1);
                 session.SaveOrUpdate(session2);
                 session.SaveOrUpdate(session3);

@@ -37,37 +37,13 @@ namespace CodeCampServer.Website.Controllers
             Speaker speaker = _conferenceService.GetSpeakerByDisplayName(speakerKey);
             
             ISet<OnlineResource> onlineResources = new HashedSet<OnlineResource>();
-            if (!String.IsNullOrEmpty(blogUrl))
-                onlineResources.Add(new OnlineResource(OnlineResourceType.Blog, blogName, blogUrl));
-            if (!String.IsNullOrEmpty(websiteUrl))
-                onlineResources.Add(new OnlineResource(OnlineResourceType.Website, websiteName, websiteUrl));
-            if (!String.IsNullOrEmpty(downloadUrl))
-                onlineResources.Add(new OnlineResource(OnlineResourceType.Download, downloadName, downloadUrl));
+            onlineResources.Add(new OnlineResource(OnlineResourceType.Blog, blogName, blogUrl));
+            onlineResources.Add(new OnlineResource(OnlineResourceType.Website, websiteName, websiteUrl));
+            onlineResources.Add(new OnlineResource(OnlineResourceType.Download, downloadName, downloadUrl));
 
             Session session = _conferenceService.CreateSession(speaker, title, @abstract, onlineResources);
 
             RenderView("RegisterConfirm", new SmartBag(session));
-        }
-
-        private static ISet<OnlineResource> ParseOnlineResources(string onlineResources)
-        {
-            HashedSet<OnlineResource> resourceList = new HashedSet<OnlineResource>();
-
-            OnlineResource newResource = new OnlineResource();
-            foreach (string resource in onlineResources.Split('\n'))
-            {
-                string[] resourceParts = resource.Split('|');
-                if(resourceParts.Length == 3)
-                {
-                    newResource.Type = (OnlineResourceType)Enum.Parse(typeof(OnlineResourceType), resourceParts[0]);
-                    newResource.Name = resourceParts[1];
-                    newResource.Href = resourceParts[2];
-
-                    resourceList.Add(newResource);
-                }
-            }
-
-            return resourceList;
         }
 
     }

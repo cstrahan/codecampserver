@@ -109,6 +109,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
                         Assert.That(resource.Name, Is.EqualTo("My Website"));
                         Assert.That(resource.Href, Is.EqualTo("http://www.mywebsite.com"));
                         break;
+                    default:
+                        Assert.Fail("Unexpected resource found: {0}", resource.Type);
+                        break;
                 }
             }
         }
