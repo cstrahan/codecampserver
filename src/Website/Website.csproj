@@ -157,10 +157,10 @@
     <Content Include="Views\Layouts\ThreeColumnLayout.Master" />
     <Content Include="Views\Login\LoginFailed.aspx" />
     <Content Include="Views\Login\LoginSuccess.aspx" />
-    <Content Include="Views\Shared\LoginForm.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\style-2column.css" />
+    <Content Include="Content\css\master.css" />
     <Content Include="Content\images\TwoColumn\bg01.jpg" />
     <Content Include="Content\images\TwoColumn\bg02.jpg" />
     <Content Include="Content\images\TwoColumn\bg03.jpg" />
@@ -172,6 +172,7 @@
     <Content Include="Content\images\TwoColumn\img05.gif" />
     <Content Include="Content\images\TwoColumn\img06.jpg" />
     <Content Include="Content\images\TwoColumn\spacer.gif" />
+    <Content Include="Views\Login\LoginForm.aspx" />
     <Content Include="Views\Speaker\Edit.aspx" />
     <Content Include="Content\js\CalendarPopup.js" />
     <Content Include="Views\Conference\Details.aspx" />
@@ -186,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />

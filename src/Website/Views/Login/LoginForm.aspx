@@ -1,12 +1,11 @@
-﻿<%@ Page Language="C#" Title="Conference Details" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
-Inherits="System.Web.Mvc.ViewPage" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" 
+	Inherits="System.Web.Mvc.ViewPage" Title="CodeCampServer - Login" %>
 
-<asp:Content ContentPlaceHolderID="Center" runat="server">
+<asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <div style="text-align:center">
 		<h3>Login</h3>
-		<%
-			FormExtensions.SimpleForm form = Html.Form("ProcessLogin", "login");
-				 %>
+		<% 
+		    FormExtensions.SimpleForm form = Html.Form("process", "login"); %>
 		<table style="text-align:left">
 			<tr>
 				<td>Email:</td>

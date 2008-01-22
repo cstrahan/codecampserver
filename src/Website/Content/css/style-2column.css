@@ -132,6 +132,14 @@ a:hover {
 	border-bottom: 3px solid #FFFFFF;
 }
 
+#login 
+{
+	display: block;
+	position: absolute;
+	top: 5px;
+	right: 10px;
+	color: #FFF;
+}
 
 /* Page */
 

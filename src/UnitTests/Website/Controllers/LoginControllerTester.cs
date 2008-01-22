@@ -59,7 +59,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		}
 
 		[Test]
-		public void ProcessLoginShouldRenderLoginSuccessOnSuccess()
+		public void ProcessLoginShouldRedirectToReturnUrlOnSuccess()
 		{
 			TestingLoginController controller = new TestingLoginController(_loginService, _authenticationService);
 			string email = "brownie@brownie.com.au";
@@ -83,5 +83,18 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			controller.Process(email, password, "");
 			Assert.That(controller.ActualViewName, Is.EqualTo("loginfailed"));
 		}
+
+        [Test]
+        public void ProcessLoginShouldRedirectToDefaultPageOnSuccessAndNullReturnUrl()
+        {
+            TestingLoginController controller = new TestingLoginController(_loginService, _authenticationService);
+            SetupResult.For(_loginService.VerifyAccount(null, null))
+                .IgnoreArguments()
+                .Return(true);
+            _mocks.ReplayAll();
+
+            controller.Process("brownie@brownie.com.au", "password", null);
+            Assert.That(controller.RedirectUrl, Is.EqualTo("~/default.aspx"));
+        }
 	}
 }
