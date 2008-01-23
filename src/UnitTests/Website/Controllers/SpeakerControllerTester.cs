@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using NUnit.Framework;
+using NUnit.Framework.SyntaxHelpers;
+using Rhino.Mocks;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Exceptions;
 using CodeCampServer.Model.Impl;
 using CodeCampServer.Model.Presentation;
 using CodeCampServer.Website.Controllers;
-using CodeCampServer.Website.Models.Speaker;
-using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
-using Rhino.Mocks;
+using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {
@@ -108,7 +108,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			TestingSpeakerController controller = GetController();
 			controller.View("austincodecamp2008", speaker.DisplayName);
 
-			Speaker viewDataSpeakerProfile = controller.ActualViewData as Speaker;
+			Speaker viewDataSpeakerProfile = (controller.ActualViewData as SmartBag).Get<Speaker>();
 
 			Assert.That(viewDataSpeakerProfile, Is.Not.Null);
 			Assert.That(viewDataSpeakerProfile, Is.SameAs(speaker));
@@ -127,7 +127,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			TestingSpeakerController controller = GetController();
 			controller.Edit();
 
-			Speaker viewDataSpeakerProfile = controller.ActualViewData as Speaker;
+			Speaker viewDataSpeakerProfile = (controller.ActualViewData as SmartBag).Get<Speaker>();
 
 			Assert.AreSame(speaker, viewDataSpeakerProfile);
 			Assert.That(controller.ActualViewName, Is.EqualTo("edit"));
@@ -216,14 +216,14 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			controller.List("austincodecamp2008", 0, 2);
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("List"));
-			ListSpeakersViewData viewData = controller.ActualViewData as ListSpeakersViewData;
+            SmartBag viewData = (controller.ActualViewData as SmartBag);
 
 			Assert.That(viewData, Is.Not.Null);
-			Assert.That(viewData.Conference, Is.Not.Null);
-			Assert.That(viewData.Speakers, Is.Not.Null);
-			Assert.That(viewData.Conference.Conference, Is.EqualTo(_conference));
+			Assert.That(viewData.Get<ScheduledConference>(), Is.Not.Null);
+            Assert.That(viewData.Get<SpeakerListingCollection>(), Is.Not.Null);
+            Assert.That(viewData.Get<ScheduledConference>().Conference, Is.EqualTo(_conference));
 
-			List<SpeakerListing> list = new List<SpeakerListing>(viewData.Speakers);
+            List<SpeakerListing> list = new List<SpeakerListing>(viewData.Get<SpeakerListingCollection>());
 			Assert.That(list.Count, Is.EqualTo(2));
 			Assert.That(list[0].Name, Is.EqualTo("Andrew Browne"));
 			Assert.That(list[1].Name, Is.EqualTo("Some Person"));

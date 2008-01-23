@@ -1,8 +1,10 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" CodeBehind="View.aspx.cs" Inherits="CodeCampServer.Website.Views.Speaker.View" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" 
+    Inherits="CodeCampServer.Website.Views.ViewBase" Title="Speaker Details" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-    <%=ViewData.Contact.FullName%><br />
-    <%=ViewData.Contact.Email%><br />
-    <%=ViewData.Website%><br />
-    <%=ViewData.Comment%><br />
-    <%=ViewData.Profile%><br />
+    <% Speaker _speaker = ViewData.Get<Speaker>(); %>
+    Name:    <%=_speaker.Contact.FullName%><br />
+    Email:   <%=_speaker.Contact.Email%><br />
+    Website: <%=_speaker.Website%><br />
+    Profile: <%=_speaker.Profile%><br />
+    Comment: <%=_speaker.Comment%><br />
 </asp:Content>

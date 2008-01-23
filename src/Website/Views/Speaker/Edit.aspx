@@ -1,45 +1,32 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" CodeBehind="Edit.aspx.cs" Inherits="CodeCampServer.Website.Views.Speaker.Edit" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" 
+    Inherits="CodeCampServer.Website.Views.ViewBase" Title="Edit Speaker" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-
-    <div>
-		<h3>Edit Profile</h3>
-		<% var speaker = this.ViewData; %>
-		<% using (Html.Form("save", "speaker")) { %>    
-			
-		<table>
-		    <tr>
-		        <td>Display Name:</td>
-		        <td><%=Html.TextBox("displayName",speaker.DisplayName)%></td>
-		    </tr>
-			<tr>
-				<td>First Name:</td>
-				<td><%=Html.TextBox("firstName",speaker.Contact.FirstName)%></td>
-			</tr>
-			<tr>
-				<td>Last Name:</td>
-				<td><%=Html.TextBox("lastName", speaker.Contact.LastName)%></td>
-			</tr>
-			<tr>
-				<td>Website:</td>
-				<td><%=Html.TextBox("website", speaker.Website)%></td>
-			</tr>
-			<tr>
-				<td>Comment:</td>
-				<td><%=Html.TextArea("comment", speaker.Comment, 4, 40)%></td>
-			</tr>
-			<tr>
-			    <td>Profile:</td>
-			    <td><%=Html.TextArea("profile", speaker.Profile, 4, 40)%></td>
-			</tr>
-			<tr>
-			    <td>Avatar Url:</td>
-			    <td><%=Html.TextBox("avatarUrl", speaker.AvatarUrl)%></td>
-			</tr>
-			<tr>
-				<td colspan="2"><%=Html.SubmitButton("Save")%></td>
-			</tr>
-		</table>
-		<% } %>
-	</div>
-
+    <% Speaker speaker = ViewData.Get<Speaker>(); %>
+    <% using (Html.Form("save", "speaker")) { %>    
+    <fieldset>
+        <legend>Edit Speaker Profile</legend>
+        
+        <label for="displayName">Display Name</label>
+        <%=Html.TextBox("displayName",speaker.DisplayName)%>
+        
+        <label for="firstName">First Name</label>
+        <%=Html.TextBox("firstName",speaker.Contact.FirstName)%>
+        
+        <label for="lastName">Last Name</label>
+        <%=Html.TextBox("lastName", speaker.Contact.LastName)%>
+        
+        <label for="website">Website</label>
+        <%=Html.TextBox("website", speaker.Website, 80)%>
+        
+        <label for="comment">Comment</label>
+        <%=Html.TextArea("comment", speaker.Comment, 4, 79)%>
+        
+        <label for="profile">Profile</label>
+        <%=Html.TextArea("profile", speaker.Profile, 4, 79)%>
+        
+        <div class="button-row">
+            <%=Html.SubmitButton("Save", "Save")%>
+        </div>
+    </fieldset>
+    <% } %>
 </asp:Content>

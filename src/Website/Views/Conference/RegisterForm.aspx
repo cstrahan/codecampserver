@@ -9,38 +9,35 @@
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 	<div>
-		<h3>Register for <%=getConference().Name %></h3>
+		<h3></h3>
 		<% using (Html.Form("register", "conference")) { %>    
 			
-		<table>
-			<tr>
-				<td>First Name:</td>
-				<td><%=Html.TextBox("firstName")%></td>
-			</tr>
-			<tr>
-				<td>Last Name:</td>
-				<td><%=Html.TextBox("lastName")%></td>
-			</tr>
-			<tr>
-				<td>Email:</td>
-				<td><%=Html.TextBox("email")%></td>
-			</tr>
-			<tr>
-			    <td>Password:</td>
-			    <td><%=Html.Password("password") %></td>
-			</tr>
-			<tr>
-				<td>Website:</td>
-				<td><%=Html.TextBox("website")%></td>
-			</tr>
-			<tr>
-				<td>Comment:</td>
-				<td><%=Html.TextArea("comment", "", 4, 40)%></td>
-			</tr>
-			<tr>
-				<td colspan="2"><%=Html.SubmitButton("Register")%></td>
-			</tr>
-		</table>
+		<fieldset>
+		    <legend>Register for <%=getConference().Name %></legend>
+		
+            <label for="firstName">First Name</label>
+            <%=Html.TextBox("firstName", 30)%>
+		    
+            <label for="lastName">Last Name</label>
+            <%=Html.TextBox("lastName", 30)%>
+		    
+            <label for="email">Email Address:</label>
+            <%=Html.TextBox("email", 30)%>
+		    
+            <label for="password">Password</label>
+            <%=Html.Password("password", 30)%>
+		    
+            <label for="website">Website URL:</label>
+            <%=Html.TextBox("website", 80)%>
+		    
+            <label for="comment">Comment</label>
+            <%=Html.TextArea("comment", "", 4, 79)%>
+            
+            <div class="button-row">
+                <%=Html.SubmitButton("register", "Register Me!")%>
+            </div>
+		    
+		</fieldset>
 		<% } %>
 	</div>
 </asp:Content>

@@ -5,7 +5,7 @@ using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Exceptions;
 using CodeCampServer.Model.Presentation;
-using CodeCampServer.Website.Models.Speaker;
+using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.Website.Controllers
 {
@@ -39,8 +39,10 @@ namespace CodeCampServer.Website.Controllers
             ScheduledConference scheduledConference = new ScheduledConference(conference, _clock);
             IEnumerable<Speaker> speakers = _conferenceService.GetSpeakers(conference, effectivePage, effectivePerPage);
             IEnumerable<SpeakerListing> speakerListings = new SpeakerListingCollection(speakers);
-            
-            ListSpeakersViewData viewData = new ListSpeakersViewData(scheduledConference, speakerListings, effectivePage, effectivePerPage);
+
+            SmartBag viewData = new SmartBag(scheduledConference, speakerListings);
+            viewData.Add("page", effectivePage);
+            viewData.Add("perPage", effectivePerPage);
 
             RenderView("List", viewData);
         }
@@ -49,7 +51,7 @@ namespace CodeCampServer.Website.Controllers
         public void View(string conferenceKey, string speakerId)
         {
             Speaker speaker = _conferenceService.GetSpeakerByDisplayName(speakerId);
-            RenderView("view", speaker);
+            RenderView("view", new SmartBag(speaker));
         }
 
         [ControllerAction]
@@ -58,7 +60,7 @@ namespace CodeCampServer.Website.Controllers
             Speaker speaker = _conferenceService.GetLoggedInSpeaker();
             if (speaker != null)
             {                
-                RenderView("edit", speaker);
+                RenderView("edit", new SmartBag(speaker));
             }
             else
             {

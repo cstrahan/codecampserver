@@ -7,7 +7,7 @@
 		
 		<fieldset>
 		    
-		    <legend>Register New Session</legend>
+		    <legend>Create New Session</legend>
 		    
 		    <%=Html.Hidden("speakerEmail", ViewData.Get<Speaker>().Contact.Email) %>
 		
@@ -15,7 +15,7 @@
             <%=Html.TextBox("title", 80)%>     
 
             <label for="abstract">Abstract</label>
-            <%=Html.TextArea("abstract", "", 5, 80)%>
+            <%=Html.TextArea("abstract", "", 5, 79)%>
             <span class="info">Please provide an overview of the session.</span>
 
             <label for="blogName">Blog Name</label>

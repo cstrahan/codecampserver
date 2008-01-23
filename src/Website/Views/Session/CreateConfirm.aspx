@@ -9,26 +9,24 @@
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <% Session _session = ViewData.Get<Session>(); %>
     
-    Thank you for registering your session!
+    <fieldset>
+        <legend>New Session Information</legend>
+    
+        <label for="speaker">Speaker</label>
+        <%=_session.Speaker.Contact.FullName %>
+        
+        <label for="title">Title</label>
+        <%=_session.Title%>
+        
+        <label for="abstract">Abstract</label>
+        <%=_session.Abstract%>
+
+    <% foreach(OnlineResource resource in _session.GetResources()) { %>
+        <label><%=resource.Type.ToString() %></label>
+        <p><%=resource.Name %> (<a href='<%=resource.Href %>' target="_blank"><%=resource.Href %></a>)</p>
+	<% } %>
+    </fieldset>
     <br />
-    <table>
-        <tr>
-            <th>Speaker:</th>
-            <td><%=_session.Speaker.Contact.FullName %></td>
-        </tr>
-        <tr>
-            <th>Title:</th>
-            <td><%=_session.Title%></td>
-        </tr>
-        <tr>
-            <th>Abstract:</th>
-            <td><%=_session.Abstract%></td>
-        </tr>
-        <% foreach(OnlineResource resource in _session.GetResources()) { %>
-		<tr>
-		    <th><%=resource.Type.ToString() %>:</th>
-            <td><%=resource.Name %> (<a href='<%=resource.Href %>' target="_blank"><%=resource.Href %></a>)</td>
-		</tr>
-		<% } %>
-    </table>
+    
+    Thank you for registering!
 </asp:Content>
