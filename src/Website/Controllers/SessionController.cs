@@ -19,31 +19,33 @@ namespace CodeCampServer.Website.Controllers
         }
 
         [ControllerAction]
-        public void Register(string conferenceKey)
+        public void Create(string conferenceKey)
         {
-            IEnumerable<Speaker> speakers = 
-                _conferenceService.GetSpeakers(_conferenceService.GetConference(conferenceKey), 0, int.MaxValue);
+            Speaker currentUser = _conferenceService.GetLoggedInSpeaker();
 
-            RenderView("Register", new SmartBag(new SpeakerListingCollection(speakers)));
+            if (currentUser == null)
+                RedirectToAction(new { Controller = "login", Action="index" });
+            else
+                RenderView("Create", new SmartBag(currentUser));
         }
 
         [ControllerAction]
-        public void Create( string conferenceKey, string speakerKey, 
+        public void CreateNew( string conferenceKey, string speakerEmail, 
                             string title, string @abstract,
                             string blogName, string blogUrl,
                             string websiteName, string websiteUrl, 
                             string downloadName, string downloadUrl)
         {
-            Speaker speaker = _conferenceService.GetSpeakerByDisplayName(speakerKey);
-            
-            ISet<OnlineResource> onlineResources = new HashedSet<OnlineResource>();
+            Speaker speaker = _conferenceService.GetSpeakerByEmail(speakerEmail);
+
+            List<OnlineResource> onlineResources = new List<OnlineResource>();
             onlineResources.Add(new OnlineResource(OnlineResourceType.Blog, blogName, blogUrl));
             onlineResources.Add(new OnlineResource(OnlineResourceType.Website, websiteName, websiteUrl));
             onlineResources.Add(new OnlineResource(OnlineResourceType.Download, downloadName, downloadUrl));
 
-            Session session = _conferenceService.CreateSession(speaker, title, @abstract, onlineResources);
+            Session session = _conferenceService.CreateSession(speaker, title, @abstract, onlineResources.ToArray());
 
-            RenderView("RegisterConfirm", new SmartBag(session));
+            RenderView("CreateConfirm", new SmartBag(session));
         }
 
     }
