@@ -57,6 +57,12 @@ namespace CodeCampServer.Model.Impl
             Speaker speaker = _speakerRepository.GetSpeakerByDisplayName(displayName);
             return speaker;
         }
+        public Speaker GetSpeakerByEmail(string emailAddress)
+        {
+            Speaker speaker = _speakerRepository.GetSpeakerByEmail(emailAddress);
+            return speaker;
+        }
+
 
         public IEnumerable<Speaker> GetSpeakers(Conference conference, int page, int perPage)
         {
@@ -102,7 +108,7 @@ namespace CodeCampServer.Model.Impl
         }
 
         public Session CreateSession(Speaker speaker, string title,
-                             string @abstract, ISet<OnlineResource> onlineResources)
+                             string @abstract, OnlineResource[] onlineResources)
         {
             Session session = new Session(speaker, title, @abstract, onlineResources);
             _sessionRepository.Save(session);

@@ -1,4 +1,5 @@
 using Iesi.Collections.Generic;
+using System.Collections.Generic;
 
 namespace CodeCampServer.Model.Domain
 {
@@ -20,14 +21,12 @@ namespace CodeCampServer.Model.Domain
 			_abstract = @abstract;
 		}
 
-		//TODO:  Please do not expose internal data structures in public interfaces.
-		//Argument should either be of type OnlineResource[] or IEnumerable<OnlineResource>
-		public Session(Speaker speaker, string title, string @abstract, ISet<OnlineResource> onlineResources)
+		public Session(Speaker speaker, string title, string @abstract, OnlineResource[] onlineResources)
 		{
 			_speaker = speaker;
 			_title = title;
 			_abstract = @abstract;
-			_onlineResources = onlineResources;
+			_onlineResources = new HashedSet<OnlineResource>(onlineResources);
 		}
 
 		public virtual string Title
@@ -48,11 +47,10 @@ namespace CodeCampServer.Model.Domain
 			set { _speaker = value; }
 		}
 
-		//TODO: Convert to method GetResources() : OnlineResource[]
-		public virtual ISet<OnlineResource> Resources
-		{
-			get { return _onlineResources; }
-		}
+        public virtual OnlineResource[] GetResources()
+        {
+            return new List<OnlineResource>(_onlineResources).ToArray();
+        }
 
 		public virtual void AddResource(OnlineResource resource)
 		{

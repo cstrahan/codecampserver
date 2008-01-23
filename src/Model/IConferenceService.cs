@@ -11,14 +11,15 @@ namespace CodeCampServer.Model
 		Conference GetConference(string conferenceKey);
 		Attendee[] GetAttendees(Conference conference, int page, int perPage);
 		Attendee RegisterAttendee(string firstName, string lastName, string website, string comment, Conference conference, string emailAddress, string cleartextPassword);
-		Speaker GetSpeakerByDisplayName(string displayName);
-        IEnumerable<Speaker> GetSpeakers(Conference conference, int page, int perPage);
-        Speaker GetLoggedInSpeaker();
-        Speaker SaveSpeaker(string emailAddress, string firstName, string lastName, string website, string comment, string displayName, string profile, string avatarUrl);
 
         string GetLoggedInUsername();
-		//TODO:  Do not use collection types in APIs.  IEnumerable or arrays.
-	    Session CreateSession(Speaker speaker, string title, string @abstract, ISet<OnlineResource> onlineResources);
 
+        Session CreateSession(Speaker speaker, string title, string @abstract, OnlineResource[] onlineResources);
+
+        Speaker GetLoggedInSpeaker();
+        Speaker GetSpeakerByDisplayName(string displayName);
+        Speaker GetSpeakerByEmail(string email);
+        IEnumerable<Speaker> GetSpeakers(Conference conference, int page, int perPage);
+        Speaker SaveSpeaker(string emailAddress, string firstName, string lastName, string website, string comment, string displayName, string profile, string avatarUrl);
     }
 }

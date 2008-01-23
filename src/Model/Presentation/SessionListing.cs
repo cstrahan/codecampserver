@@ -1,5 +1,6 @@
 using CodeCampServer.Model.Domain;
 using Iesi.Collections.Generic;
+using System.Collections.Generic;
 
 namespace CodeCampServer.Model.Presentation
 {
@@ -24,17 +25,14 @@ namespace CodeCampServer.Model.Presentation
             set { _session.Abstract = value; }
         }
 
-		//TODO:  Public interface should not lie.  Remove empty setters.
         public SpeakerListing Speaker
         {
             get { return new SpeakerListing(_session.Speaker); }
-            set {  }
         }
 
-        public ISet<OnlineResource> Resources
+        public OnlineResource[] GetResources()
         {
-            get { return _session.Resources; }
-            set {  }
+            return new List<OnlineResource>(_session.GetResources()).ToArray();
         }
     }
 }

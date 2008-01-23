@@ -153,7 +153,6 @@
     <Content Include="Views\Layouts\Default.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\forms.css" />
     <Content Include="Views\Layouts\ThreeColumnLayout.Master" />
     <Content Include="Views\Login\LoginFailed.aspx" />
     <Content Include="Views\Login\LoginSuccess.aspx" />
@@ -182,8 +181,8 @@
     <Content Include="Views\Schedule\View.aspx" />
     <Content Include="Views\Speaker\View.aspx" />
     <Content Include="Views\Speaker\List.aspx" />
-    <Content Include="Views\Session\RegisterConfirm.aspx" />
-    <Content Include="Views\Session\Register.aspx" />
+    <Content Include="Views\Session\CreateConfirm.aspx" />
+    <Content Include="Views\Session\Create.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

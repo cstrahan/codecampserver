@@ -5,6 +5,7 @@ using Iesi.Collections.Generic;
 using NHibernate;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
+using System.Collections.Generic;
 
 namespace CodeCampServer.IntegrationTests.DataAccess
 {
@@ -25,11 +26,9 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 session.Flush();
             }
 
-            ISet<OnlineResource> resources = new HashedSet<OnlineResource>
-            {
-                new OnlineResource { Name = "Name", Type = OnlineResourceType.Blog, Href = "http://myblog.com" }
-            };
-            Session newSession = new Session(speaker, "title", "abstract", resources);
+            List<OnlineResource> resources = new List<OnlineResource>();
+            resources.Add(new OnlineResource(OnlineResourceType.Blog, "My Blog", "http://www.myblog.com"));
+            Session newSession = new Session(speaker, "title", "abstract", resources.ToArray());
 
             ISessionRepository repository = new SessionRepository(_sessionBuilder);
             repository.Save(newSession);
@@ -45,7 +44,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 Assert.That(rehydratedSession.Speaker, Is.EqualTo(speaker));
                 Assert.That(rehydratedSession.Title, Is.EqualTo("title"));
                 Assert.That(rehydratedSession.Abstract, Is.EqualTo("abstract"));
-                Assert.That(rehydratedSession.Resources, Is.EqualTo(resources));
+                Assert.That(rehydratedSession.GetResources(), Is.EqualTo(resources.ToArray()));
             }
         }
     }

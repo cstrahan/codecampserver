@@ -24,7 +24,7 @@
             <th>Abstract:</th>
             <td><%=_session.Abstract%></td>
         </tr>
-        <% foreach(OnlineResource resource in _session.Resources) { %>
+        <% foreach(OnlineResource resource in _session.GetResources()) { %>
 		<tr>
 		    <th><%=resource.Type.ToString() %>:</th>
             <td><%=resource.Name %> (<a href='<%=resource.Href %>' target="_blank"><%=resource.Href %></a>)</td>

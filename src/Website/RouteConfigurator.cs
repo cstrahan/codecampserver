@@ -11,10 +11,14 @@ namespace CodeCampServer.Website
 		public virtual void RegisterRoutes()
 		{
 			RouteCollection routes = RouteTable.Routes;
-			routes.Add(new Route("login/[action]",
-				new ControllerDefaults("login", "login"),
-				typeof(BetterMvcRouteHandler)));
-                        
+
+            routes.Add(new Route
+            {
+                Url = "login/[action]",
+                Defaults = new { Controller = "login", Action = "index" },
+                RouteHandler = typeof(BetterMvcRouteHandler)
+            });
+
             routes.Add(new Route
             {
                 Url = "[conferenceKey]/speakers",

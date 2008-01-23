@@ -81,7 +81,7 @@ namespace CodeCampServer.UnitTests.Model
 		}
 
 		[Test]
-		public void ShouldGetSpeakerByEmail()
+		public void ShouldGetSpeakerByDisplayName()
 		{
 			MockRepository mocks = new MockRepository();
 			ISpeakerRepository repository = mocks.CreateMock<ISpeakerRepository>();
@@ -99,6 +99,27 @@ namespace CodeCampServer.UnitTests.Model
 
 			Assert.That(actualSpeaker, Is.EqualTo(expectedSpeaker));
 		}
+
+        [Test]
+        public void ShouldGetSpeakerByEmail()
+        {
+            MockRepository mocks = new MockRepository();
+            ISpeakerRepository repository = mocks.CreateMock<ISpeakerRepository>();
+            Conference targetConference = new Conference();
+            string email = "user@gmail.com";
+            string displayName = "Test Speaker";
+            Speaker expectedSpeaker =
+                new Speaker("Test", "Speaker", "http://www.website.com", "the comment", targetConference,
+                             email, displayName, "http://www.website.com/avatar.jpg", "Info about how important I am to go here.", "password", "salt");
+            SetupResult.For(repository.GetSpeakerByEmail(email))
+                .Return(expectedSpeaker);
+            mocks.ReplayAll();
+
+            IConferenceService service = new ConferenceService(null, null, null, repository, null, null);
+            Speaker actualSpeaker = service.GetSpeakerByEmail(email);
+
+            Assert.That(actualSpeaker, Is.EqualTo(expectedSpeaker));
+        }
 
         [Test]
         public void GetSpeakersShouldUseRepositoryAndRespectPageInfo()
@@ -234,7 +255,6 @@ namespace CodeCampServer.UnitTests.Model
             Assert.AreEqual("DisplayName is already in use", exception.Message);
         }
 
-		//TODO:  Please avoid using C# 3.0 features until Resharper 4.0 comes our (20 days).
         [Test]
         public void CreatingNewSessionShouldSaveSessionToRepository()
         {
@@ -248,11 +268,10 @@ namespace CodeCampServer.UnitTests.Model
 
             IConferenceService service = new ConferenceService(null, null, null, null, null, repository);
             Speaker speaker = new Speaker("a", "b", "c", "d", new Conference(), "e", "f", "g", "h", "password", "salt");
-            ISet<OnlineResource> resources = new HashedSet<OnlineResource>
-            {
-                new OnlineResource { Name = "Name", Type = OnlineResourceType.Blog, Href = "http://myblog.com" }
-            };
-            Session session = service.CreateSession(speaker, "title", "abstract", resources);
+            List<OnlineResource> resources = new List<OnlineResource>();
+            resources.Add(new OnlineResource(OnlineResourceType.Blog, "Name", "http://myblog.com"));
+            
+            Session session = service.CreateSession(speaker, "title", "abstract", resources.ToArray());
 
             mocks.VerifyAll();
 
@@ -260,7 +279,7 @@ namespace CodeCampServer.UnitTests.Model
             Assert.That(actualSession.Speaker, Is.EqualTo(speaker));
             Assert.That(actualSession.Title, Is.EqualTo("title"));
             Assert.That(actualSession.Abstract, Is.EqualTo("abstract"));
-            Assert.That(actualSession.Resources, Is.EqualTo(resources));
+            Assert.That(actualSession.GetResources(), Is.EqualTo(resources.ToArray()));
         }
 	}
 }
