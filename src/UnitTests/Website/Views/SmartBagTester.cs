@@ -1,9 +1,12 @@
 using System;
+using System.Net.Mail;
 using System.Security.Policy;
 using System.Security.Principal;
+using System.Xml;
 using CodeCampServer.Website.Views;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
+using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.Website.Views
 {
@@ -18,10 +21,11 @@ namespace CodeCampServer.UnitTests.Website.Views
 			bag.Add(url);
 
 			Assert.That(bag.Get<Url>(), Is.EqualTo(url));
-			Assert.That(bag.Get(typeof(Url)), Is.EqualTo(url));
+			Assert.That(bag.Get(typeof (Url)), Is.EqualTo(url));
 		}
 
-		[Test, ExpectedException(ExceptionType = typeof(ArgumentException), ExpectedMessage = "You can only add one default object for type 'System.Security.Policy.Url'.")]
+		[Test, ExpectedException(ExceptionType = typeof (ArgumentException),
+			ExpectedMessage = "You can only add one default object for type 'System.Security.Policy.Url'.")]
 		public void AddingTwoDefaultObjectsOfSameTypeThrows()
 		{
 			Url url1 = new Url("/1");
@@ -32,7 +36,8 @@ namespace CodeCampServer.UnitTests.Website.Views
 			bag.Add(url2);
 		}
 
-		[Test, ExpectedException(typeof(ArgumentException), ExpectedMessage = "No object exists with key 'System.Security.Policy.Url'.")]
+		[Test, ExpectedException(typeof (ArgumentException),
+			ExpectedMessage = "No object exists with key 'System.Security.Policy.Url'.")]
 		public void ShouldGetMeaningfulExceptionIfObjectDoesntExist()
 		{
 			SmartBag bag = new SmartBag();
@@ -46,7 +51,7 @@ namespace CodeCampServer.UnitTests.Website.Views
 			bag.Add(new Url("/2"));
 
 			Assert.That(bag.Contains<Url>());
-			Assert.That(bag.Contains(typeof(Url)));
+			Assert.That(bag.Contains(typeof (Url)));
 		}
 
 		[Test]
@@ -60,7 +65,8 @@ namespace CodeCampServer.UnitTests.Website.Views
 			Assert.That(bag.Get<Url>("key2").Value, Is.EqualTo("/2"));
 		}
 
-		[Test, ExpectedException(typeof(ArgumentException), ExpectedMessage = "No object exists with key 'foobar'.")]
+		[Test, ExpectedException(typeof (ArgumentException), 
+			ExpectedMessage = "No object exists with key 'foobar'.")]
 		public void ShouldGetMeaningfulExceptionIfObjectDoesntExistByKey()
 		{
 			SmartBag bag = new SmartBag();
@@ -71,13 +77,13 @@ namespace CodeCampServer.UnitTests.Website.Views
 		public void ShouldCountNumberOfObjectsOfGivenType()
 		{
 			SmartBag bag = new SmartBag();
-			Assert.That(bag.GetCount(typeof(Url)), Is.EqualTo(0));
+			Assert.That(bag.GetCount(typeof (Url)), Is.EqualTo(0));
 
 			bag.Add("1", new Url("/1"));
 			bag.Add("2", new Url("/2"));
 			bag.Add("3", new Url("/3"));
 
-			Assert.That(bag.GetCount(typeof(Url)), Is.EqualTo(3));
+			Assert.That(bag.GetCount(typeof (Url)), Is.EqualTo(3));
 		}
 
 		[Test]
@@ -86,9 +92,40 @@ namespace CodeCampServer.UnitTests.Website.Views
 			Url url = new Url("/1");
 			GenericIdentity identity = new GenericIdentity("name");
 
-			SmartBag bag = new SmartBag(identity, url);
-			Assert.That(bag.Get(typeof(GenericIdentity)), Is.EqualTo(identity));
-			Assert.That(bag.Get(typeof(Url)), Is.EqualTo(url));
+			SmartBag bag = new SmartBag().Add(identity).Add(url);
+			Assert.That(bag.Get(typeof (GenericIdentity)), Is.EqualTo(identity));
+			Assert.That(bag.Get(typeof (Url)), Is.EqualTo(url));
+		}
+
+		[Test]
+		public void ShouldHandleProxiedObjectsByType()
+		{
+			MailMessage stub = MockRepository.GenerateStub<MailMessage>();
+			SmartBag bag = new SmartBag();
+			bag.Add(stub);
+			MailMessage message = bag.Get<MailMessage>();
+
+			Assert.That(message, Is.EqualTo(stub));
+		}
+
+		[Test]
+		public void ShouldInitializeWithProxiesAndResolveCorrectly()
+		{
+			MailMessage messageProxy = MockRepository.GenerateStub<MailMessage>();
+			XmlDocument xmlDocumentProxy = MockRepository.GenerateStub<XmlDocument>();
+
+			SmartBag bag = new SmartBag().Add(messageProxy).Add(xmlDocumentProxy);
+
+			Assert.That(bag.Get<MailMessage>(), Is.EqualTo(messageProxy));
+			Assert.That(bag.Get<XmlDocument>(), Is.EqualTo(xmlDocumentProxy));
+		}
+
+		[Test]
+		public void ShouldInitializeWithKeys()
+		{
+			SmartBag bag = new SmartBag().Add("key1", 2).Add("key2", 3);
+			Assert.That(bag.ContainsKey("key1"));
+			Assert.That(bag.ContainsKey("key2"));
 		}
 	}
 }

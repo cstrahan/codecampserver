@@ -52,6 +52,8 @@ namespace CodeCampServer.Model.Impl
             return attendee;
         }
 
+		//TODO:  There is no purpose to these methods.  They are merely pass-throughs.  Clients of these
+		//methods should use ISpeakerRepository directly
         public Speaker GetSpeakerByDisplayName(string displayName)
         {
             Speaker speaker = _speakerRepository.GetSpeakerByDisplayName(displayName);

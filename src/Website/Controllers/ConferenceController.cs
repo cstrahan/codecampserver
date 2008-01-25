@@ -34,14 +34,14 @@ namespace CodeCampServer.Website.Controllers
 		public void Details(string conferenceKey)
 		{
 			ScheduledConference conference = getScheduledConference(conferenceKey);
-			RenderView("details", new SmartBag(conference));
+			RenderView("details", new SmartBag().Add(conference));
 		}
 
 		[ControllerAction]
 		public void PleaseRegister(string conferenceKey)
 		{
 			ScheduledConference conference = getScheduledConference(conferenceKey);
-			RenderView("registerform", new SmartBag(conference));
+			RenderView("registerform", new SmartBag().Add(conference));
 		}
 
 		[ControllerAction]
@@ -51,7 +51,7 @@ namespace CodeCampServer.Website.Controllers
 			ScheduledConference scheduledConference = getScheduledConference(conferenceKey);
 			Attendee attendee = _conferenceService.RegisterAttendee(firstName, lastName, website, comment,
 			                                                        scheduledConference.Conference, email, password);
-			RenderView("registerconfirm", new SmartBag(attendee, scheduledConference));
+			RenderView("registerconfirm", new SmartBag().Add(attendee).Add(scheduledConference));
 		}
 
 		[ControllerAction]
@@ -65,13 +65,13 @@ namespace CodeCampServer.Website.Controllers
 				_conferenceService.GetAttendees(scheduledConference.Conference, effectivePage, effectivePerPage);
 			AttendeeListing[] listings = getListingsFromAttendees(attendees);
 
-			RenderView("listattendees", new SmartBag(scheduledConference, listings));
+			RenderView("listattendees", new SmartBag().Add(scheduledConference).Add(listings));
 		}
 
 		[ControllerAction]
 		public void New()
 		{
-			RenderView("Edit", new SmartBag(new Conference()));
+			RenderView("Edit", new SmartBag().Add(new Conference()));
 		}
 
 		private AttendeeListing[] getListingsFromAttendees(IEnumerable<Attendee> attendees)

@@ -5,14 +5,6 @@ namespace CodeCampServer.Website.Views
 {
 	public class SmartBag : Hashtable
 	{
-		public SmartBag(params object[] initialObjects)
-		{
-			foreach (object obj in initialObjects)
-			{
-				Add(obj);
-			}
-		}
-
 		public virtual T Get<T>()
 		{
 			return Get<T>(typeof (T));
@@ -29,12 +21,18 @@ namespace CodeCampServer.Website.Views
 			return this[type];
 		}
 
+		public virtual SmartBag Add<T>(object key, T value)
+		{
+			base.Add(key, value);
+			return this;
+		}
+
 		/// <summary>
 		/// Adds an object using the type as the dictionary key
 		/// </summary>
-		public virtual void Add(object anObject)
+		public virtual SmartBag Add<T>(T anObject)
 		{
-			Type type = anObject.GetType();
+			Type type = typeof (T);
 			if (ContainsKey(type))
 			{
 				string message = string.Format("You can only add one default object for type '{0}'.", type);
@@ -42,6 +40,7 @@ namespace CodeCampServer.Website.Views
 			}
 
 			Add(type, anObject);
+			return this;
 		}
 
 		public virtual bool Contains<T>()

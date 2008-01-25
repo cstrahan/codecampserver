@@ -22,7 +22,7 @@ namespace CodeCampServer.Website.Controllers
 		{
 			Conference conference = _conferenceService.GetConference(conferenceKey);
 			ScheduledConference scheduledConference = new ScheduledConference(conference, _clock);
-			RenderView("View", new SmartBag(scheduledConference));
+			RenderView("View", new SmartBag().Add(scheduledConference));
 		}
 	}
 }

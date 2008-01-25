@@ -26,7 +26,7 @@ namespace CodeCampServer.Website.Controllers
             if (currentUser == null)
                 RedirectToAction(new { Controller = "login", Action="index" });
             else
-                RenderView("Create", new SmartBag(currentUser));
+                RenderView("Create", new SmartBag().Add(currentUser));
         }
 
         [ControllerAction]
@@ -45,7 +45,7 @@ namespace CodeCampServer.Website.Controllers
 
             Session session = _conferenceService.CreateSession(speaker, title, @abstract, onlineResources.ToArray());
 
-            RenderView("CreateConfirm", new SmartBag(session));
+            RenderView("CreateConfirm", new SmartBag().Add(session));
         }
 
     }
