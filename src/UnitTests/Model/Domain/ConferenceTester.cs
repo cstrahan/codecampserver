@@ -59,5 +59,43 @@ namespace CodeCampServer.UnitTests.Model.Domain
             Assert.That(sponsors[0].Sponsor, Is.EqualTo(sponsor));
             Assert.That(sponsors[1].Sponsor, Is.EqualTo(sponsor2));
         }
+
+        [Test]
+        public void ShouldProvideSponsorsSortedByLevelDescending()
+        {
+            Conference conference = new Conference();
+            conference.AddSponsor(new Sponsor(), SponsorLevel.Silver);
+            conference.AddSponsor(new Sponsor(), SponsorLevel.Bronze);
+            conference.AddSponsor(new Sponsor(), SponsorLevel.Gold);
+            conference.AddSponsor(new Sponsor(), SponsorLevel.Platinum);
+            conference.AddSponsor(new Sponsor(), SponsorLevel.Gold);
+            
+            ConfirmedSponsor[] sponsors = conference.GetSponsors();
+
+            Array.ForEach(sponsors, delegate(ConfirmedSponsor item)
+            {
+                int nextIndex = Array.IndexOf(sponsors, item) + 1;
+                if (sponsors.Length > nextIndex)
+                    Assert.That(item.Level, Is.GreaterThanOrEqualTo(sponsors[nextIndex].Level));
+            });
+        }
+
+        [Test]
+        public void ShouldProvideSponsorsFilteredByLevel()
+        {
+            Conference conference = new Conference();
+            conference.AddSponsor(new Sponsor(), SponsorLevel.Silver);
+            conference.AddSponsor(new Sponsor(), SponsorLevel.Platinum);
+            conference.AddSponsor(new Sponsor(), SponsorLevel.Gold);
+            conference.AddSponsor(new Sponsor(), SponsorLevel.Platinum);
+            conference.AddSponsor(new Sponsor(), SponsorLevel.Platinum);
+
+            ConfirmedSponsor[] platinumSponsors = conference.GetSponsors(SponsorLevel.Platinum);
+
+            Array.ForEach(platinumSponsors, delegate(ConfirmedSponsor item)
+            {
+                Assert.That(item.Level, Is.EqualTo(SponsorLevel.Platinum));
+            });
+        }
     }
 }

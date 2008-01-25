@@ -237,6 +237,38 @@ a:hover {
 #sidebar a:hover {
 }
 
+/* Sponsors */
+
+.sponsors
+{
+	list-style: none;
+}
+
+.sponsor p
+{
+	padding: 0 10px 10px 10px;
+}
+
+.Platinum p
+{
+	font-weight: bold;
+}
+
+.Gold p
+{
+	background-color: #FFFFCC;
+	}
+
+.Silver p
+{
+	background-color: #DDDDDD;
+}
+
+.Bronze p
+{
+	background-color: #CCCC99;
+}
+
 /* Footer */
 
 #footer {

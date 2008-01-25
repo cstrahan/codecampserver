@@ -33,11 +33,11 @@
 				<many-to-one name="Session" column="SessionId" />
 			</composite-element>
 		</set>
-		<set name="Sponsors" table="Sponsors">
+		<set name="Sponsors" table="ConfirmedSponsors" cascade="all">
 			<key column="ConferenceId"/>
 			<composite-element class="ConfirmedSponsor">
 				<property name="Level" not-null="true"/>
-				<many-to-one name="Sponsor" column="SponsorId"/>
+				<many-to-one name="Sponsor" column="SponsorId" cascade="all"/>
 			</composite-element>
 
 		</set>

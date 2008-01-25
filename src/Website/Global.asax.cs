@@ -27,6 +27,8 @@ namespace CodeCampServer.Website
             StructureMapConfiguration.BuildInstancesOf<LoginController>().TheDefaultIsConcreteType<LoginController>();
 			StructureMapConfiguration.BuildInstancesOf<SpeakerController>().TheDefaultIsConcreteType<SpeakerController>();
 			StructureMapConfiguration.BuildInstancesOf<ScheduleController>().TheDefaultIsConcreteType<ScheduleController>();
+            StructureMapConfiguration.BuildInstancesOf<SponsorController>().TheDefaultIsConcreteType<SponsorController>();
+            
 		}
 
 		private void setupRoutes()

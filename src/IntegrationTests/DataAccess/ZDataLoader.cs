@@ -20,6 +20,15 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 Conference codeCamp2008 =
                     new Conference("austincodecamp2008", "Austin Code Camp 2008");
                 codeCamp2008.StartDate = new DateTime(2008, 11, 26, 19, 30, 00);
+
+                Sponsor sponsor =
+                    new Sponsor("Microsoft",
+                                "http://www.microsoft.com/presspass/images/gallery/logos/thumbnails/mslogo-1.gif",
+                                "http://microsoft.com/");
+                Sponsor sponsor2 = new Sponsor("Central Market", "http://www.centralmarket.com/images/about/cmILoveFood.jpg", "http://www.centralmarket.com/");
+                codeCamp2008.AddSponsor(sponsor, SponsorLevel.Platinum);
+                codeCamp2008.AddSponsor(sponsor2, SponsorLevel.Gold);
+
                 session.SaveOrUpdate(codeCamp2008);
 
                 TimeSlot slot1 = codeCamp2008.AddTimeSlot(new DateTime(2008, 11, 26, 19, 30, 00),

@@ -78,6 +78,7 @@
     <Compile Include="BetterMVCHandler.cs" />
     <Compile Include="BetterMvcRouteHandler.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
+    <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\LinkHelpers.cs" />
     <Compile Include="Helpers\ViewPageHelpers.cs" />
@@ -170,6 +171,7 @@
     <Content Include="Views\Speaker\List.aspx" />
     <Content Include="Views\Session\CreateConfirm.aspx" />
     <Content Include="Views\Session\Create.aspx" />
+    <Content Include="Views\Sponsor\List.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

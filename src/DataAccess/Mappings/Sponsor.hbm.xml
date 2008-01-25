@@ -11,12 +11,12 @@
 
 		<property name="Name" column="SponsorName" length="200" not-null="true"/>
 		<component name="Contact" class="Contact">
-			<property name="FirstName" length="20" not-null="true"/>
-			<property name="LastName" length="20" not-null="true"/>
-			<property name="Email" length="60" not-null="true"/>
+			<property name="FirstName" length="20" />
+			<property name="LastName" length="20" />
+			<property name="Email" length="60" />
 		</component>
-		<property name="Website" length="1000" not-null="true"/>
-		<property name="LogoUrl" length="1000" not-null="true"/>
+		<property name="Website" length="1000" />
+		<property name="LogoUrl" length="1000" />
 	</class>
 
 </hibernate-mapping>

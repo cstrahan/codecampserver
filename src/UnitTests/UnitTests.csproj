@@ -90,6 +90,7 @@
     <Compile Include="Website\Controllers\LoginControllerTester.cs" />
     <Compile Include="Website\Controllers\SessionControllerTester.cs" />
     <Compile Include="Website\Controllers\SpeakerControllerTester.cs" />
+    <Compile Include="Website\Controllers\SponsorControllerTester.cs" />
     <Compile Include="Website\Views\SmartBagTester.cs" />
   </ItemGroup>
   <ItemGroup>

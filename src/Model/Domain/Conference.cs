@@ -93,7 +93,15 @@ namespace CodeCampServer.Model.Domain
 
         public virtual ConfirmedSponsor[] GetSponsors()
         {
-            return new List<ConfirmedSponsor>(_sponsors).ToArray();
+            ConfirmedSponsor[] result = new List<ConfirmedSponsor>(_sponsors).ToArray();
+            Array.Sort(result, delegate(ConfirmedSponsor x, ConfirmedSponsor y) { return y.Level.CompareTo(x.Level); });
+            return result;
+        }
+
+        public virtual ConfirmedSponsor[] GetSponsors(SponsorLevel level)
+        {
+            List<ConfirmedSponsor> sponsors = new List<ConfirmedSponsor>(_sponsors);
+            return sponsors.FindAll(delegate(ConfirmedSponsor item) { return item.Level == level; }).ToArray();
         }
 
         public virtual void AddSponsor(Sponsor sponsor, SponsorLevel level)
