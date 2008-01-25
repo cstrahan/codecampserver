@@ -65,37 +65,29 @@ namespace CodeCampServer.UnitTests.Model.Domain
         {
             Conference conference = new Conference();
             conference.AddSponsor(new Sponsor(), SponsorLevel.Silver);
-            conference.AddSponsor(new Sponsor(), SponsorLevel.Bronze);
-            conference.AddSponsor(new Sponsor(), SponsorLevel.Gold);
             conference.AddSponsor(new Sponsor(), SponsorLevel.Platinum);
             conference.AddSponsor(new Sponsor(), SponsorLevel.Gold);
             
             ConfirmedSponsor[] sponsors = conference.GetSponsors();
-
-            Array.ForEach(sponsors, delegate(ConfirmedSponsor item)
-            {
-                int nextIndex = Array.IndexOf(sponsors, item) + 1;
-                if (sponsors.Length > nextIndex)
-                    Assert.That(item.Level, Is.GreaterThanOrEqualTo(sponsors[nextIndex].Level));
-            });
+            
+            Assert.That(sponsors[0].Level, Is.EqualTo(SponsorLevel.Platinum));
+            Assert.That(sponsors[1].Level, Is.EqualTo(SponsorLevel.Gold));
+            Assert.That(sponsors[2].Level, Is.EqualTo(SponsorLevel.Silver));
         }
 
         [Test]
         public void ShouldProvideSponsorsFilteredByLevel()
         {
             Conference conference = new Conference();
-            conference.AddSponsor(new Sponsor(), SponsorLevel.Silver);
-            conference.AddSponsor(new Sponsor(), SponsorLevel.Platinum);
             conference.AddSponsor(new Sponsor(), SponsorLevel.Gold);
             conference.AddSponsor(new Sponsor(), SponsorLevel.Platinum);
             conference.AddSponsor(new Sponsor(), SponsorLevel.Platinum);
 
             ConfirmedSponsor[] platinumSponsors = conference.GetSponsors(SponsorLevel.Platinum);
 
-            Array.ForEach(platinumSponsors, delegate(ConfirmedSponsor item)
-            {
-                Assert.That(item.Level, Is.EqualTo(SponsorLevel.Platinum));
-            });
+            Assert.That(platinumSponsors.Length, Is.EqualTo(2));
+            Assert.That(platinumSponsors[0].Level, Is.EqualTo(SponsorLevel.Platinum));
+            Assert.That(platinumSponsors[1].Level, Is.EqualTo(SponsorLevel.Platinum));
         }
     }
 }
