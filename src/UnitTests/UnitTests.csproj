@@ -85,6 +85,7 @@
     <Compile Include="Model\LoginServiceTester.cs" />
     <Compile Include="Model\Presentation\ScheduledConferenceTester.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="Website\Controllers\ApplicationControllerTests.cs" />
     <Compile Include="Website\Controllers\ConferenceControllerTester.cs" />
     <Compile Include="Website\Controllers\ScheduleControllerTester.cs" />
     <Compile Include="Website\Controllers\LoginControllerTester.cs" />

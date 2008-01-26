@@ -10,6 +10,14 @@ namespace CodeCampServer.Website.Views
 			return Get<T>(typeof (T));
 		}
 
+        public virtual T GetOrDefault<T>(object key, T defaultValue)
+        {
+            if (ContainsKey(key))
+                return (T)this[key];
+
+            return defaultValue;
+        }
+
 		public virtual object Get(Type type)
 		{
 			if (!ContainsKey(type))

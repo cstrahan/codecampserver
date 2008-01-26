@@ -4,18 +4,21 @@ using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Presentation;
 using CodeCampServer.Website.Views;
+using CodeCampServer.Model.Security;
 
 namespace CodeCampServer.Website.Controllers
 {
-	public class ConferenceController : Controller
+	public class ConferenceController : ApplicationController
 	{
+	    private readonly IAuthorizationService _authService;
 		private readonly IConferenceService _conferenceService;
 		private IClock _clock;
 
-		public ConferenceController(IConferenceService conferenceService, IClock clock)
+		public ConferenceController(IConferenceService conferenceService, IAuthorizationService authService, IClock clock) :base(authService)
 		{
 			_conferenceService = conferenceService;
-			_clock = clock;
+		    _authService = authService;
+		    _clock = clock;
 		}
 
 		private ScheduledConference getScheduledConference(string conferenceKey)
@@ -33,9 +36,27 @@ namespace CodeCampServer.Website.Controllers
 		[ControllerAction]
 		public void Details(string conferenceKey)
 		{
-			ScheduledConference conference = getScheduledConference(conferenceKey);
-			RenderView("details", new SmartBag().Add(conference));
+			ScheduledConference conference = getScheduledConference(conferenceKey);		    
+            SmartBag.Add(conference);
+			RenderView("details", SmartBag);
 		}
+
+	    [ControllerAction]
+	    public void List()
+	    {
+	        RequireAdmin();
+            IEnumerable<Conference> conferences = _conferenceService.GetAllConferences();
+            SmartBag.Add(conferences);
+	        RenderView("List", SmartBag);
+	    }
+
+        private void RequireAdmin()
+        {
+            if(! _authService.IsAdministrator)
+            {
+                RedirectToAction("index", "Login");
+            }
+        }
 
 		[ControllerAction]
 		public void PleaseRegister(string conferenceKey)

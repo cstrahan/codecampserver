@@ -88,6 +88,7 @@
     <Compile Include="Presentation\ScheduledConference.cs" />
     <Compile Include="Presentation\ScheduleListing.cs" />
     <Compile Include="Security\IAuthenticationService.cs" />
+    <Compile Include="Security\IAuthorizationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Diagrams\ConferenceAggregateDiagram.cd" />

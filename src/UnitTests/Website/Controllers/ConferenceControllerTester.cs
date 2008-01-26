@@ -7,6 +7,7 @@ using CodeCampServer.Website.Views;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
+using CodeCampServer.Model.Security;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {
@@ -15,6 +16,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	{
 		private MockRepository _mocks;
 		private IConferenceService _service;
+	    private IAuthorizationService _authService;
 		private Conference _conference;
 
 		[SetUp]
@@ -22,6 +24,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		{
 			_mocks = new MockRepository();
 			_service = _mocks.CreateMock<IConferenceService>();
+		    _authService = _mocks.DynamicMock<IAuthorizationService>();
 			_conference = new Conference("austincodecamp2008", "Austin Code Camp");
 		}
 
@@ -31,8 +34,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			public string ActualMasterName;
 			public object ActualViewData;
 
-			public TestingConferenceController(IConferenceService conferenceService, IClock clock)
-				: base(conferenceService, clock)
+			public TestingConferenceController(IConferenceService conferenceService, IAuthorizationService authService, IClock clock)
+                : base(conferenceService, authService, clock)
 			{
 			}
 
@@ -54,7 +57,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_mocks.ReplayAll();
 
 			TestingConferenceController controller =
-				new TestingConferenceController(_service, new ClockStub());
+				new TestingConferenceController(_service, _authService, new ClockStub());
 
 			controller.Details("austincodecamp2008");
 			SmartBag bag = (SmartBag) controller.ActualViewData;
@@ -73,7 +76,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_mocks.ReplayAll();
 
 			TestingConferenceController controller =
-				new TestingConferenceController(_service, new ClockStub());
+                new TestingConferenceController(_service, _authService, new ClockStub());
 			controller.PleaseRegister("austincodecamp2008");
 
 			SmartBag bag = (SmartBag) controller.ActualViewData;
@@ -94,7 +97,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_mocks.ReplayAll();
 
 			TestingConferenceController controller =
-				new TestingConferenceController(_service, new ClockStub());
+                new TestingConferenceController(_service, _authService, new ClockStub());
 			controller.Register("austincodecamp2008", "firstname", "lastname", "email", "website", "comment", "password");
 
 			SmartBag bag = (SmartBag) controller.ActualViewData;
@@ -118,7 +121,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_mocks.ReplayAll();
 
 			TestingConferenceController controller =
-				new TestingConferenceController(_service, new ClockStub());
+                new TestingConferenceController(_service, _authService, new ClockStub());
 			controller.ListAttendees("austincodecamp2008", 0, 2);
 
 			SmartBag bag = (SmartBag) controller.ActualViewData;
@@ -139,7 +142,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void NewActionShouldRenderEditViewWithNewConference()
 		{
 			TestingConferenceController controller =
-				new TestingConferenceController(_service, new ClockStub());
+                new TestingConferenceController(_service, _authService, new ClockStub());
 			controller.New();
 
 			Assert.That(controller.ActualViewData, Is.TypeOf(typeof (SmartBag)));

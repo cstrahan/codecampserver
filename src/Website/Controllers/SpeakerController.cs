@@ -75,12 +75,12 @@ namespace CodeCampServer.Website.Controllers
             {
                 Speaker savedSpeaker = _conferenceService.SaveSpeaker(email, firstName, lastName, website, comment, displayName, profile, avatarUrl);
                 
-                //TempData["message"] = "Profile saved";
+                TempData["message"] = "Profile saved";
                 RedirectToAction(new { Action = "view", conferenceKey = conferenceKey, speakerId = displayName });
             }
             catch (DataValidationException ex)
             {
-                //TempData["error"] = ex.Message;
+                TempData["error"] = ex.Message;
                 RedirectToAction("edit");
             }
             

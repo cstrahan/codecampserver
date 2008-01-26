@@ -15,7 +15,7 @@ namespace CodeCampServer.Model
         string GetLoggedInUsername();
 
         Session CreateSession(Speaker speaker, string title, string @abstract, OnlineResource[] onlineResources);
-
+        IEnumerable<Conference> GetAllConferences();
         Speaker GetLoggedInSpeaker();
         Speaker GetSpeakerByDisplayName(string displayName);
         Speaker GetSpeakerByEmail(string email);

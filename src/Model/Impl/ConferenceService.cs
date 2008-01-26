@@ -35,6 +35,11 @@ namespace CodeCampServer.Model.Impl
             return _conferenceRepository.GetConferenceByKey(conferenceKey);
         }
 
+        public IEnumerable<Conference> GetAllConferences()
+        {
+            return _conferenceRepository.GetAllConferences();
+        }
+
         public Attendee[] GetAttendees(Conference conference, int page, int perPage)
         {
             return _attendeeRepository.GetAttendeesForConference(conference, page, perPage);

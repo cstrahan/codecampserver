@@ -13,6 +13,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		private MockRepository _mocks;
 		private ILoginService _loginService;
 		private IAuthenticationService _authenticationService;
+	    private IAuthorizationService _authorizationService;
 
 		[SetUp]
 		public void Setup()
@@ -20,6 +21,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_mocks = new MockRepository();
 			_loginService = _mocks.CreateMock<ILoginService>();
 			_authenticationService = _mocks.DynamicMock<IAuthenticationService>();
+		    _authorizationService = _mocks.DynamicMock<IAuthorizationService>();
 		}
 
 		private class TestingLoginController : LoginController
@@ -29,8 +31,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			public object ActualViewData;
 			public string RedirectUrl;
 
-			public TestingLoginController(ILoginService loginService, IAuthenticationService authenticationService)
-				: base(loginService, authenticationService)
+			public TestingLoginController(ILoginService loginService, IAuthenticationService authenticationService, IAuthorizationService authorizationService)
+				: base(loginService, authenticationService, authorizationService)
 			{
 			}
 
@@ -52,7 +54,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		[Test]
 		public void LoginActionShouldRenderIndexView()
 		{
-			TestingLoginController controller = new TestingLoginController(_loginService, _authenticationService);
+			TestingLoginController controller = new TestingLoginController(_loginService, _authenticationService, _authorizationService);
 			controller.Index();
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("loginform"));
@@ -61,7 +63,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		[Test]
 		public void ProcessLoginShouldRedirectToReturnUrlOnSuccess()
 		{
-			TestingLoginController controller = new TestingLoginController(_loginService, _authenticationService);
+			TestingLoginController controller = new TestingLoginController(_loginService, _authenticationService, _authorizationService);
 			string email = "brownie@brownie.com.au";
 			string password = "nothing";
 			string returnUrl = "http://testurl/";
@@ -75,7 +77,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		[Test]
 		public void ProcessLoginShouldRenderLoginFailureOnFailure()
 		{
-			TestingLoginController controller = new TestingLoginController(_loginService, _authenticationService);
+			TestingLoginController controller = new TestingLoginController(_loginService, _authenticationService, _authorizationService);
 			string email = "brownie@brownie.com.au";
 			string password = "nothing";
 			SetupResult.For(_loginService.VerifyAccount(email, password)).Return(false);
@@ -87,7 +89,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         [Test]
         public void ProcessLoginShouldRedirectToDefaultPageOnSuccessAndNullReturnUrl()
         {
-            TestingLoginController controller = new TestingLoginController(_loginService, _authenticationService);
+            TestingLoginController controller = new TestingLoginController(_loginService, _authenticationService, _authorizationService);
             SetupResult.For(_loginService.VerifyAccount(null, null))
                 .IgnoreArguments()
                 .Return(true);

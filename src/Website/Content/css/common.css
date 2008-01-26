@@ -1,0 +1,12 @@
+﻿div.admin-panel
+{
+	border: dotted 1px #ddd;
+	margin: 4px;
+	padding: 4px;	
+}
+
+div.admin-panel h3
+{
+	background-color: #000;
+	color: #fff;	
+}

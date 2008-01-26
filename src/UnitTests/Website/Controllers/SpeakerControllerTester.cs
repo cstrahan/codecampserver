@@ -31,12 +31,18 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 			IHttpResponse response = _mocks.DynamicMock<IHttpResponse>();
 			IHttpSessionState session = _mocks.DynamicMock<IHttpSessionState>();
+		    SetupResult.For(session[null]).IgnoreArguments().Return(TestingSpeakerController.ActualTempData);
 
 			IHttpContext httpContext = _mocks.DynamicMock<IHttpContext>();
 
 			SetupResult.For(httpContext.Session).Return(session);
 			SetupResult.For(httpContext.Request).Return(request);
 			SetupResult.For(httpContext.Response).Return(response);
+
+            _mocks.Replay(session);
+		    _mocks.Replay(request);
+            _mocks.Replay(response);
+            _mocks.Replay(httpContext);
 
 			return httpContext;
 		}
@@ -47,18 +53,13 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			public string ActualMasterName;
 			public object ActualViewData;
 			public Hashtable RedirectToActionValues;
-			public TempDataDictionary ActualTempData;
+			public static TempDataDictionary ActualTempData;
 
 			public void CreateTempData(IHttpContext context)
 			{
-				foreach (FieldInfo field in typeof (Controller).GetFields(BindingFlags.NonPublic | BindingFlags.Instance))
-				{
-					if (field.Name == "<TempData>k__BackingField")
-					{
-						ActualTempData = new TempDataDictionary(context);
-						field.SetValue(this, ActualTempData);
-					}
-				}
+                ActualTempData = new TempDataDictionary(context);
+			    PropertyInfo property = typeof (Controller).GetProperty("TempData");
+                property.SetValue(this, ActualTempData, null);				
 			}
 
 			public TestingSpeakerController(IConferenceService conferenceService, IClock clock)
@@ -162,7 +163,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			                "Info about how important I am to go here.", "http://blog.brownie.com.au/avatar.jpg");
 
 			string viewDataMessage = controller.TempData["message"] as string;
-			//Assert.AreEqual("Profile saved", viewDataMessage);
+			Assert.AreEqual("Profile saved", viewDataMessage);
 			Assert.That(controller.RedirectToActionValues, Is.Not.Null);
 			Assert.That(controller.RedirectToActionValues["Action"], Is.EqualTo("view"));
 		}
@@ -187,8 +188,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			                "Info about how important I am to go here.", "http://blog.brownie.com.au/avatar.jpg");
 
 			Assert.That(controller.RedirectToActionValues["Action"], Is.EqualTo("edit"));
-			//string viewDataMessage = controller.TempData["error"] as string;
-			//Assert.AreEqual(validationMessage, viewDataMessage);
+			string viewDataMessage = controller.TempData["error"] as string;
+			Assert.AreEqual(validationMessage, viewDataMessage);
 		}
 
 		[Test]

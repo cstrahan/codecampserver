@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" 
-	Inherits="System.Web.Mvc.ViewPage" Title="CodeCampServer - Login" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true"  Inherits="CodeCampServer.Website.Views.ViewBase" Title="CodeCampServer - Login" %>
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <div style="text-align:center">

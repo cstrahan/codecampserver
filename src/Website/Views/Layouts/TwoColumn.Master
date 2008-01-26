@@ -1,5 +1,5 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="TwoColumn.master.cs" Inherits="CodeCampServer.Website.Views.Layouts.TwoColumn" %>
-<%@ Import Namespace="CodeCampServer.Website.Helpers" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="CodeCampServer.Website.Views.ViewMasterBase" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -8,6 +8,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/style-2column.css") %>" />
     <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/master.css") %>" />
+    <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/common.css") %>" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -46,6 +47,11 @@
         <div id="sidebar">
             
             <asp:ContentPlaceHolder ID="SidebarContentPlaceHolder" runat="server" />
+            <p></p>
+            
+            <% if (ViewData.GetOrDefault<bool>("ShouldRenderAdminPanel", false)) { %>            
+                <%= Html.RenderUserControl("~/Views/Shared/AdminControlPanel.ascx") %>            
+            <% } %>
             <p></p>
         
 		    <ul>

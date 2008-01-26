@@ -97,6 +97,19 @@ namespace CodeCampServer.UnitTests.Website.Views
 			Assert.That(bag.Get(typeof (Url)), Is.EqualTo(url));
 		}
 
+	    [Test]
+	    public void ShouldBeAbleToGetADefaultValueIfTheKeyDoesntExist()
+	    {
+	        DateTime theDate = DateTime.Parse("April 04, 2005");
+	        DateTime defaultDate = DateTime.Parse("October 31, 2005");
+
+            SmartBag bag = new SmartBag();	        
+            Assert.That(bag.GetOrDefault("some_date", defaultDate), Is.EqualTo(defaultDate));           
+
+            bag.Add("some_date", theDate);
+            Assert.That(bag.GetOrDefault("some_date", defaultDate), Is.EqualTo(theDate));
+	    }        
+
 		[Test]
 		public void ShouldHandleProxiedObjectsByType()
 		{
