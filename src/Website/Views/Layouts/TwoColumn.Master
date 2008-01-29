@@ -9,6 +9,7 @@
     <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/style-2column.css") %>" />
     <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/master.css") %>" />
     <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/common.css") %>" />
+    <script type="text/javascript" src="<%= ResolveUrl("~/content/js/jquery.js") %>"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
