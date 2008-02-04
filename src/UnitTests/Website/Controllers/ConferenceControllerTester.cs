@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Impl;
@@ -28,11 +30,15 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_conference = new Conference("austincodecamp2008", "Austin Code Camp");
 		}
 
+
 		private class TestingConferenceController : ConferenceController
 		{
 			public string ActualViewName;
 			public string ActualMasterName;
 			public object ActualViewData;
+            public object ActualRedirectToActionValue;
+
+            public event EventHandler RedirectedToAction;
 
 			public TestingConferenceController(IConferenceService conferenceService, IAuthorizationService authService, IClock clock)
                 : base(conferenceService, authService, clock)
@@ -47,9 +53,68 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 				ActualMasterName = masterName;
 				ActualViewData = viewData;
 			}
+
+            protected override void RedirectToAction(object values)
+            {
+                ActualRedirectToActionValue = values;
+                if (RedirectedToAction != null)
+                    RedirectedToAction(this, null);
+            }
 		}
 
-		[Test]
+        [Test]
+        public void IndexShouldRedirectToDetailsAction()
+        {
+            TestingConferenceController controller =
+                new TestingConferenceController(_service, _authService, new ClockStub());
+            controller.Index();
+
+            Assert.That(controller.ActualRedirectToActionValue, Has.Property("Action", "details"));
+        }
+
+        [Test]
+        public void ListAsAdminShouldRenderListViewWithAllConferences()
+        {
+            List<Conference> conferences = new List<Conference>(new Conference[] { _conference });
+            SetupResult.For(_service.GetAllConferences())
+                .Return(conferences);
+            SetupResult.On(_authService)
+                .Call(_authService.IsAdministrator)
+                .Return(true);
+            _mocks.ReplayAll();
+
+            TestingConferenceController controller =
+                new TestingConferenceController(_service, _authService, new ClockStub());
+            controller.List();
+
+            Assert.That(controller.ActualViewName, Is.EqualTo("List"));
+            Assert.That(controller.SmartBag.Get<IEnumerable<Conference>>(), Is.SameAs(conferences));
+        }
+
+        [Test]
+        public void ListAsNonAdminShouldRedirectToLogin()
+        {
+            SetupResult.On(_authService)
+                .Call(_authService.IsAdministrator)
+                .Return(false);
+            _mocks.ReplayAll();
+
+            TestingConferenceController controller =
+                new TestingConferenceController(_service, _authService, new ClockStub());
+
+            // Have the RedirectToAction event mimic ResposeRedirect by throwing 
+            // an exception and causing the end of the request.
+            ApplicationException exception = new ApplicationException("Redirected!");
+            controller.RedirectedToAction += delegate { throw exception; };
+            try { controller.List(); }
+            catch(ApplicationException x) { Assert.That(x, Is.SameAs(exception)); }
+
+            Assert.That(controller.ActualRedirectToActionValue, Has.Property("Controller", "Login"));
+            Assert.That(controller.ActualRedirectToActionValue, Has.Property("Action", "index"));
+        }
+
+
+        [Test]
 		public void ShouldGetConferenceToShowDetails()
 		{
 			SetupResult.For(_service.GetConference("austincodecamp2008"))

@@ -96,7 +96,18 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			return controller;
 		}
 
-		[Test]
+        [Test]
+        public void IndexShouldRedirectToConferenceDetails()
+        {
+            TestingSpeakerController controller = GetController();
+            controller.Index("austincodecamp2008");
+
+            Assert.That(controller.RedirectToActionValues, Is.Not.Null);
+            Assert.That(controller.RedirectToActionValues["Controller"], Is.EqualTo("conference"));
+            Assert.That(controller.RedirectToActionValues["Action"], Is.EqualTo("details"));
+        }
+
+	    [Test]
 		public void ShouldViewSpeakerByDisplayName()
 		{
 			Speaker speaker = getSpeaker();
