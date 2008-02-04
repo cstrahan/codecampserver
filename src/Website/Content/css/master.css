@@ -1,3 +1,4 @@
+/* Messages  */
 .info
 {
 	display: block;
@@ -17,7 +18,7 @@
 }
 
 
-/* Form Formatting */
+/* Forms */
 fieldset
 {
 	float: left;
@@ -49,4 +50,54 @@ fieldset .button-row
     margin-top: 25px;
     text-align: center;
 }
-/* End Form Formatting */
+
+
+#login 
+{
+	display: block;
+	position: absolute;
+	top: 5px;
+	right: 10px;
+	color: #FFF;
+}
+
+/* Sponsors */
+.sponsors
+{
+	list-style: none;
+}
+.sponsor p
+{
+	padding: 0 10px 10px 10px;
+}
+.Platinum p
+{
+	font-weight: bold;
+}
+.Gold p
+{
+	background-color: #FFFFCC;
+}
+.Silver p
+{
+	background-color: #DDDDDD;
+}
+.Bronze p
+{
+	background-color: #CCCC99;
+}
+
+
+/* Administration */
+div.admin-panel
+{
+	border: dotted 1px #ddd;
+	margin: 4px;
+	padding: 4px;	
+}
+
+div.admin-panel h3
+{
+	background-color: #000;
+	color: #fff;	
+}

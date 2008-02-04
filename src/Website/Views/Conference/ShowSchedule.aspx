@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" 
-Inherits="CodeCampServer.Website.Views.ViewBase" MasterPageFile="~/Views/Layouts/TwoColumn.Master" %>
+Inherits="CodeCampServer.Website.Views.ViewBase" MasterPageFile="~/Views/Layouts/Default.Master" %>
 <%@ Import namespace="CodeCampServer.Model.Presentation"%>
 
 <asp:Content ContentPlaceHolderID="head" runat="server">

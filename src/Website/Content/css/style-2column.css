@@ -61,7 +61,6 @@ a:hover {
 }
 
 /* Header */
-
 #header {
 	width: 890px;
 	height: 190px;
@@ -69,7 +68,6 @@ a:hover {
 }
 
 /* Logo */
-
 #logo {
 	float: left;
 	padding: 40px 0 0 0;
@@ -103,7 +101,6 @@ a:hover {
 }
 
 /* Menu */
-
 #menu {
 	float: right;
 }
@@ -132,17 +129,7 @@ a:hover {
 	border-bottom: 3px solid #FFFFFF;
 }
 
-#login 
-{
-	display: block;
-	position: absolute;
-	top: 5px;
-	right: 10px;
-	color: #FFF;
-}
-
 /* Page */
-
 #page 
 {
 	position:relative;
@@ -151,7 +138,6 @@ a:hover {
 }
 
 /* Content */
-
 #content {
 	float: left;
 	width: 590px;
@@ -196,7 +182,6 @@ a:hover {
 }
 
 /* Sidebar */
-
 #sidebar 
 {
 	position: absolute;
@@ -237,40 +222,7 @@ a:hover {
 #sidebar a:hover {
 }
 
-/* Sponsors */
-
-.sponsors
-{
-	list-style: none;
-}
-
-.sponsor p
-{
-	padding: 0 10px 10px 10px;
-}
-
-.Platinum p
-{
-	font-weight: bold;
-}
-
-.Gold p
-{
-	background-color: #FFFFCC;
-	}
-
-.Silver p
-{
-	background-color: #DDDDDD;
-}
-
-.Bronze p
-{
-	background-color: #CCCC99;
-}
-
 /* Footer */
-
 #footer {
 	clear: both;
 	margin: 0px;
