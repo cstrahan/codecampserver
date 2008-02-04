@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Web.Mvc;
 using CodeCampServer.Model.Security;
-using NUnit.Framework;
 using CodeCampServer.Website.Controllers;
-using System.Web.Mvc;
-using Rhino.Mocks;
+using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
-using System.Reflection;
+using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {
     [TestFixture]
     public class ApplicationControllerTests
     {
+        IAuthorizationService _authorizationService;
+
         private class FooController : ApplicationController
         {
             public FooController(IAuthorizationService authorizationService) : base(authorizationService)
@@ -25,7 +22,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             public void Bar()
             {
                 //would normally be called by the Execute method
-                this.OnPreAction("bar", null);
+                OnPreAction("bar", null);
             }
         }
 
@@ -35,17 +32,16 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         public void Setup()
         {
             _mocks = new MockRepository();
+            _authorizationService = _mocks.CreateMock<IAuthorizationService>();
         }
 
         [Test]
         public void OnPreActionShouldVerifyTheUserIsAnAdmin()
         {
-            IAuthorizationService mockAuthorizationService = _mocks.CreateMock<IAuthorizationService>();
-            Expect.Call(mockAuthorizationService.IsAdministrator).Return(true);
-
+            Expect.Call(_authorizationService.IsAdministrator).Return(true);
             _mocks.ReplayAll();
 
-            FooController controller = new FooController(mockAuthorizationService);            
+            FooController controller = new FooController(_authorizationService);            
             controller.Bar();
             
             _mocks.VerifyAll();
@@ -54,23 +50,66 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         [Test]
         public void OnPreActionShouldSetSmartBagDataToRenderAdminPanelWhenTheUserIsAnAdmin()
         {
-            IAuthorizationService mockAuthorizationService = _mocks.DynamicMock<IAuthorizationService>();
-            SetupResult.For(mockAuthorizationService.IsAdministrator).Return(true);
-
+            SetupResult.For(_authorizationService.IsAdministrator).Return(true);
             _mocks.ReplayAll();
 
-            FooController controller = new FooController(mockAuthorizationService);
+            FooController controller = new FooController(_authorizationService);
             controller.Bar();
 
             Assert.That(controller.SmartBag.ContainsKey("ShouldRenderAdminPanel"));
             Assert.That(controller.SmartBag.Get<bool>("ShouldRenderAdminPanel"), Is.True);
 
             _mocks.BackToRecordAll();
-            SetupResult.For(mockAuthorizationService.IsAdministrator).Return(false);
+            SetupResult.For(_authorizationService.IsAdministrator).Return(false);
             _mocks.ReplayAll();
 
             controller.Bar();
             _mocks.VerifyAll();
+        }
+
+
+        private class RenderTestController : ApplicationController
+        {
+            public object ActualViewData;
+
+            public RenderTestController(IAuthorizationService authorizationService) 
+                : base(authorizationService)
+            {
+            }
+
+            protected override void RenderView(string viewName, string masterName, object viewData)
+            {
+                ActualViewData = viewData;
+            }
+
+            [ControllerAction]
+            public void RenderWithViewName(string viewName)
+            {
+                RenderView(viewName);
+            }
+            [ControllerAction]
+            public void RenderWithViewNameAndMasterName(string viewName, string masterName)
+            {
+                RenderView(viewName, masterName);
+            }
+        }
+        
+        [Test]
+        public void RenderWithViewStringShouldUseSmartBagAndNotDefaultViewData()
+        {
+            RenderTestController controller = new RenderTestController(_authorizationService);
+            controller.RenderWithViewName("TestView");
+
+            Assert.That(controller.ActualViewData, Is.Null);
+        }
+
+        [Test]
+        public void RenderWithViewStringAndMasterNameShouldUseSmartBagAndNotDefaultViewData()
+        {
+            RenderTestController controller = new RenderTestController(_authorizationService);
+            controller.RenderWithViewNameAndMasterName("TestView", "Master");
+
+            Assert.That(controller.ActualViewData, Is.Null);
         }
     }
 
