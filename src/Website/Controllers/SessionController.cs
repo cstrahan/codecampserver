@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
-using CodeCampServer.Website.Views;
+using CodeCampServer.Model.Security;
 
 namespace CodeCampServer.Website.Controllers
 {
-    public class SessionController : Controller
+    public class SessionController : ApplicationController
     {
-        private IConferenceService _conferenceService;
+        private readonly IConferenceService _conferenceService;
 
-        public SessionController(IConferenceService conferenceService)
+        public SessionController(IConferenceService conferenceService, IAuthorizationService authorizationService)
+            : base(authorizationService)
         {
             _conferenceService = conferenceService;
         }
@@ -24,7 +25,10 @@ namespace CodeCampServer.Website.Controllers
             if (currentUser == null)
                 RedirectToAction(new { Controller = "login", Action="index" });
             else
-                RenderView("Create", new SmartBag().Add(currentUser));
+            {
+                SmartBag.Add(currentUser);
+                RenderView("Create");
+            }
         }
 
         [ControllerAction]
@@ -42,8 +46,9 @@ namespace CodeCampServer.Website.Controllers
             onlineResources.Add(new OnlineResource(OnlineResourceType.Download, downloadName, downloadUrl));
 
             Session session = _conferenceService.CreateSession(speaker, title, @abstract, onlineResources.ToArray());
+            SmartBag.Add(session);
 
-            RenderView("CreateConfirm", new SmartBag().Add(session));
+            RenderView("CreateConfirm");
         }
 
         [ControllerAction]
@@ -51,12 +56,10 @@ namespace CodeCampServer.Website.Controllers
         {
             Conference conference = _conferenceService.GetConference(conferenceKey);
             IEnumerable<Session> sessions = _conferenceService.GetProposedSessions(conference);
+            SmartBag.Add(conference);
+            SmartBag.Add(sessions);
 
-            SmartBag values = new SmartBag();
-            values.Add(conference);
-            values.Add(sessions);
-
-            RenderView("Proposed", values);
+            RenderView("Proposed");
         }
     }
 }

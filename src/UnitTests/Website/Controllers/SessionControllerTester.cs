@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
+using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Controllers;
-using CodeCampServer.Website.Views;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
@@ -15,14 +15,16 @@ namespace CodeCampServer.UnitTests.Website.Controllers
     public class SessionControllerTester
     {
         private MockRepository _mocks;
-        private IConferenceService _service;
+        private IConferenceService _conferenceService;
+        private IAuthorizationService _authorizationService;
         private Conference _conference;
 
         [SetUp]
         public void Setup()
         {
             _mocks = new MockRepository();
-            _service = _mocks.CreateMock<IConferenceService>();
+            _conferenceService = _mocks.CreateMock<IConferenceService>();
+            _authorizationService = _mocks.CreateMock<IAuthorizationService>();
             _conference = new Conference("austincodecamp2008", "Austin Code Camp");
         }
 
@@ -33,8 +35,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             public object ActualViewData;
             public Hashtable RedirectToActionValues;
 
-            public TestingSessionController(IConferenceService conferenceService)
-                : base(conferenceService)
+            public TestingSessionController(IConferenceService conferenceService, IAuthorizationService authorizationService)
+                : base(conferenceService, authorizationService)
             {
             }
 
@@ -42,6 +44,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
                                                string masterName,
                                                object viewData)
             {
+                if (viewData == null)
+                    viewData = SmartBag;
+
                 ActualViewName = viewName;
                 ActualMasterName = masterName;
                 ActualViewData = viewData;
@@ -57,29 +62,30 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         public void CreateActionShouldContainSpeakerListingCollectionAndRenderNewView()
         {
             Speaker expectedSpeaker = new Speaker();
-            SetupResult.For(_service.GetConference("austincodecamp2008"))
+            SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
                 .Return(_conference);
-            Expect.Call(_service.GetLoggedInSpeaker())
+            Expect.Call(_conferenceService.GetLoggedInSpeaker())
                 .Return(expectedSpeaker);
             _mocks.ReplayAll();
 
-            TestingSessionController controller = new TestingSessionController(_service);
+            TestingSessionController controller = new TestingSessionController(_conferenceService, _authorizationService);
             controller.Create("austincodecamp2008");
 
             Assert.That(controller.ActualViewName, Is.EqualTo("Create"));
-            Assert.That((controller.ActualViewData as SmartBag).Get<Speaker>(), Is.EqualTo(expectedSpeaker));
+            Assert.That(controller.ActualViewData, Is.SameAs(controller.SmartBag));
+            Assert.That(controller.SmartBag.Get<Speaker>(), Is.EqualTo(expectedSpeaker));
         }
 
         [Test]
         public void CreateActionShouldRedirectToLoginIfUserIsNotASpeaker()
         {
-            SetupResult.For(_service.GetConference("austincodecamp2008"))
+            SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
                 .Return(_conference);
-            Expect.Call(_service.GetLoggedInSpeaker())
+            Expect.Call(_conferenceService.GetLoggedInSpeaker())
                 .Return(null);
             _mocks.ReplayAll();
 
-            TestingSessionController controller = new TestingSessionController(_service);
+            TestingSessionController controller = new TestingSessionController(_conferenceService, _authorizationService);
             controller.Create("austincodecamp2008");
 
             Assert.That(controller.RedirectToActionValues, Is.Not.Null);
@@ -94,22 +100,23 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             actualSession.AddResource(new OnlineResource(OnlineResourceType.Blog, "My Blog", "http://www.myblog.com"));
             actualSession.AddResource(new OnlineResource(OnlineResourceType.Download, "My Download", "http://www.mydownload.com"));
             actualSession.AddResource(new OnlineResource(OnlineResourceType.Website, "My Website", "http://www.mywebsite.com"));
-            SetupResult.For(_service.GetConference("austincodecamp2008"))
+            SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
                 .Return(_conference);
-            Expect.Call(_service.GetSpeakerByEmail(speaker.Contact.Email))
+            Expect.Call(_conferenceService.GetSpeakerByEmail(speaker.Contact.Email))
                 .Return(speaker);
-            Expect.Call(_service.CreateSession(actualSession.Speaker, actualSession.Title, actualSession.Abstract, actualSession.GetResources()))
+            Expect.Call(_conferenceService.CreateSession(actualSession.Speaker, actualSession.Title, actualSession.Abstract, actualSession.GetResources()))
                 .IgnoreArguments()
                 .Return(actualSession);
             _mocks.ReplayAll();
 
-            TestingSessionController controller = new TestingSessionController(_service);
+            TestingSessionController controller = new TestingSessionController(_conferenceService, _authorizationService);
             controller.CreateNew("austincodecamp2008", speaker.Contact.Email, "title", "abstract",
                 "My Blog", "http://www.myblog.com", "My Website", "http://www.mywebsite.com", 
                 "Session Download", "http://www.mydownload.com");
 
             Assert.That(controller.ActualViewName, Is.EqualTo("CreateConfirm"));
-            Session session = (controller.ActualViewData as SmartBag).Get<Session>();
+            Assert.That(controller.ActualViewData, Is.SameAs(controller.SmartBag));
+            Session session = controller.SmartBag.Get<Session>();
             Assert.IsNotNull(session);
             Assert.That(session.Speaker.DisplayName, Is.EqualTo(speaker.DisplayName));
             Assert.That(session.Title, Is.EqualTo("title"));
@@ -129,17 +136,18 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         public void ProposedActionShouldShowProposedSessions()
         {
             IEnumerable<Session> sessions = new List<Session>();
-            SetupResult.For(_service.GetConference("austincodecamp2008"))
+            SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
                 .Return(_conference);
-            Expect.Call(_service.GetProposedSessions(_conference))
+            Expect.Call(_conferenceService.GetProposedSessions(_conference))
                 .Return(sessions);
             _mocks.ReplayAll();
 
-            TestingSessionController controller = new TestingSessionController(_service);
+            TestingSessionController controller = new TestingSessionController(_conferenceService, _authorizationService);
             controller.Proposed("austincodecamp2008");
 
             Assert.That(controller.ActualViewName, Is.EqualTo("Proposed"));
-            Assert.That((controller.ActualViewData as SmartBag).Get<IEnumerable<Session>>(), Is.SameAs(sessions));
+            Assert.That(controller.ActualViewData, Is.SameAs(controller.SmartBag));
+            Assert.That(controller.SmartBag.Get<IEnumerable<Session>>(), Is.SameAs(sessions));
         }
     }
 }
