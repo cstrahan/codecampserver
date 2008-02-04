@@ -162,6 +162,7 @@
     <Content Include="Content\images\TwoColumn\spacer.gif" />
     <Content Include="Views\Conference\List.aspx" />
     <Content Include="Views\Login\LoginForm.aspx" />
+    <Content Include="Views\Session\Proposed.aspx" />
     <Content Include="Views\Shared\AdminControlPanel.ascx" />
     <Content Include="Views\Speaker\Edit.aspx" />
     <Content Include="Content\js\CalendarPopup.js" />

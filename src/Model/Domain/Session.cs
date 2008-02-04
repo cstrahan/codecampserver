@@ -8,7 +8,8 @@ namespace CodeCampServer.Model.Domain
 		private Speaker _speaker;
 		private string _title;
 		private string _abstract;
-		private ISet<OnlineResource> _onlineResources = new HashedSet<OnlineResource>();
+        private bool _isApproved;
+        private ISet<OnlineResource> _onlineResources = new HashedSet<OnlineResource>();
 
 		public Session()
 		{
@@ -46,6 +47,12 @@ namespace CodeCampServer.Model.Domain
 			get { return _speaker; }
 			set { _speaker = value; }
 		}
+
+	    public virtual bool IsApproved
+	    {
+            get { return _isApproved; }
+            set { _isApproved = value; }
+	    }
 
         public virtual OnlineResource[] GetResources()
         {

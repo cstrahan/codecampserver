@@ -1,15 +1,13 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
-using CodeCampServer.Model.Presentation;
 using CodeCampServer.Website.Controllers;
 using CodeCampServer.Website.Views;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
-using System.Web.Mvc;
-using System.Collections;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {
@@ -127,5 +125,21 @@ namespace CodeCampServer.UnitTests.Website.Controllers
                 Is.EqualTo("http://www.mywebsite.com"));
         }
 
+        [Test]
+        public void ProposedActionShouldShowProposedSessions()
+        {
+            IEnumerable<Session> sessions = new List<Session>();
+            SetupResult.For(_service.GetConference("austincodecamp2008"))
+                .Return(_conference);
+            Expect.Call(_service.GetProposedSessions(_conference))
+                .Return(sessions);
+            _mocks.ReplayAll();
+
+            TestingSessionController controller = new TestingSessionController(_service);
+            controller.Proposed("austincodecamp2008");
+
+            Assert.That(controller.ActualViewName, Is.EqualTo("Proposed"));
+            Assert.That((controller.ActualViewData as SmartBag).Get<IEnumerable<Session>>(), Is.SameAs(sessions));
+        }
     }
 }

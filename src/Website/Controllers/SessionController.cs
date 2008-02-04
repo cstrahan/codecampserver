@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
-using CodeCampServer.Model.Presentation;
 using CodeCampServer.Website.Views;
-using Iesi.Collections.Generic;
 
 namespace CodeCampServer.Website.Controllers
 {
@@ -48,5 +46,17 @@ namespace CodeCampServer.Website.Controllers
             RenderView("CreateConfirm", new SmartBag().Add(session));
         }
 
+        [ControllerAction]
+        public void Proposed(string conferenceKey)
+        {
+            Conference conference = _conferenceService.GetConference(conferenceKey);
+            IEnumerable<Session> sessions = _conferenceService.GetProposedSessions(conference);
+
+            SmartBag values = new SmartBag();
+            values.Add(conference);
+            values.Add(sessions);
+
+            RenderView("Proposed", values);
+        }
     }
 }

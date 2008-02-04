@@ -1,11 +1,9 @@
 using System;
-using CodeCampServer.DataAccess.Impl;
-using CodeCampServer.Model.Domain;
-using Iesi.Collections.Generic;
-using NHibernate;
+using System.Collections.Generic;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
-using System.Collections.Generic;
+using CodeCampServer.DataAccess.Impl;
+using CodeCampServer.Model.Domain;
 
 namespace CodeCampServer.IntegrationTests.DataAccess
 {
@@ -19,11 +17,11 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             Speaker speaker = new Speaker("first", "last", "http://google.com", "comment", conference, 
                                           "email@email.com", "display name", "http://avatars.com", 
                                           "http://profile.com", "password", "salt");
-            using (ISession session = getSession())
+            using (NHibernate.ISession dataSession = getSession())
             {
-                session.SaveOrUpdate(conference);
-                session.SaveOrUpdate(speaker);
-                session.Flush();
+                dataSession.SaveOrUpdate(conference);
+                dataSession.SaveOrUpdate(speaker);
+                dataSession.Flush();
             }
 
             List<OnlineResource> resources = new List<OnlineResource>();
@@ -33,11 +31,10 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             ISessionRepository repository = new SessionRepository(_sessionBuilder);
             repository.Save(newSession);
 
-            Session rehydratedSession = null;
-            //get Session back from database to ensure it was saved correctly
-            using (ISession session = getSession())
+            // Get Session back from database to ensure it was saved correctly
+            using (NHibernate.ISession dataSession = getSession())
             {
-                rehydratedSession = session.Load<Session>(newSession.Id);
+                Session rehydratedSession = dataSession.Load<Session>(newSession.Id);
 
                 Assert.That(rehydratedSession != null);
                 Assert.That(rehydratedSession, Is.EqualTo(newSession));
@@ -46,6 +43,36 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 Assert.That(rehydratedSession.Abstract, Is.EqualTo("abstract"));
                 Assert.That(rehydratedSession.GetResources(), Is.EqualTo(resources.ToArray()));
             }
+        }
+
+        [Test]
+        public void ShouldGetProposedSessions()
+        {
+            Conference conference = new Conference("austincodecamp", "");
+            Speaker speaker = new Speaker("first", "last", "http://google.com", "comment", conference,
+                                          "email@email.com", "display name", "http://avatars.com",
+                                          "http://profile.com", "password", "salt");
+            // Make one session that should be returned
+            Session proposedSession = new Session(speaker, "Proposed", "Abstract");
+            proposedSession.IsApproved = false;
+            // Make one session and approve it so it will NOT be returned
+            Session approvedSession = new Session(speaker, "Scheduled", "Abstract");
+            approvedSession.IsApproved = true;
+            
+            using (NHibernate.ISession dataSession = getSession())
+            {
+                dataSession.SaveOrUpdate(conference);
+                dataSession.SaveOrUpdate(speaker);
+                dataSession.SaveOrUpdate(proposedSession);
+                dataSession.SaveOrUpdate(approvedSession);
+                dataSession.Flush();
+            }
+
+            ISessionRepository repository = new SessionRepository(_sessionBuilder);
+            List<Session> sessions = new List<Session>(repository.GetProposedSessions(conference));
+            // Make sure we only got the one Proposed session
+            Assert.That(sessions.Count, Is.EqualTo(1));
+            Assert.That(sessions[0].Title, Is.EqualTo("Proposed"));
         }
     }
 }

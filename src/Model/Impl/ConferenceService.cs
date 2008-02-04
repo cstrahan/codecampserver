@@ -1,10 +1,9 @@
-using System.Collections.Generic;
-using CodeCampServer.Model.Domain;
-using Iesi.Collections.Generic;
-using StructureMap;
-using CodeCampServer.Model.Security;
 using System;
+using System.Collections.Generic;
+using StructureMap;
+using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Exceptions;
+using CodeCampServer.Model.Security;
 
 namespace CodeCampServer.Model.Impl
 {
@@ -120,6 +119,12 @@ namespace CodeCampServer.Model.Impl
             Session session = new Session(speaker, title, @abstract, onlineResources);
             _sessionRepository.Save(session);
             return session;
+        }
+
+
+        public IEnumerable<Session> GetProposedSessions(Conference conference)
+        {
+            return _sessionRepository.GetProposedSessions(conference);
         }
 
     }
