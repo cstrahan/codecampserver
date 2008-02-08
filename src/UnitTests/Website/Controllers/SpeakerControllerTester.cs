@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using CodeCampServer.Model.Security;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
@@ -22,7 +23,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	{
 		private MockRepository _mocks;
 		private IConferenceService _service;
-		private Conference _conference;
+        private IAuthorizationService _authorizationService;
+        private Conference _conference;
 
 		private IHttpContext GetHttpContext(string requestUrl)
 		{
@@ -62,13 +64,16 @@ namespace CodeCampServer.UnitTests.Website.Controllers
                 property.SetValue(this, ActualTempData, null);				
 			}
 
-			public TestingSpeakerController(IConferenceService conferenceService, IClock clock)
-				: base(conferenceService, clock)
+			public TestingSpeakerController(IConferenceService conferenceService, IAuthorizationService authorizationService, IClock clock)
+                : base(conferenceService, authorizationService, clock)
 			{
 			}
 
 			protected override void RenderView(string viewName, string masterName, object viewData)
 			{
+                if (viewData == null)
+                    viewData = SmartBag;
+
 				ActualViewName = viewName;
 				ActualMasterName = masterName;
 				ActualViewData = viewData;
@@ -85,12 +90,13 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		{
 			_mocks = new MockRepository();
 			_service = _mocks.CreateMock<IConferenceService>();
+            _authorizationService = _mocks.CreateMock<IAuthorizationService>();
 			_conference = new Conference("austincodecamp2008", "Austin Code Camp");
 		}
 
 		private TestingSpeakerController GetController()
 		{
-			TestingSpeakerController controller = new TestingSpeakerController(_service, new ClockStub());
+			TestingSpeakerController controller = new TestingSpeakerController(_service, _authorizationService, new ClockStub());
 			controller.CreateTempData(GetHttpContext("http://localhost/speaker"));
 
 			return controller;
