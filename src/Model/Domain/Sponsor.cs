@@ -1,11 +1,26 @@
+using System;
+
 namespace CodeCampServer.Model.Domain
 {
-    public class Sponsor : EntityBase
+    public class Sponsor : IEquatable<Sponsor>
     {
         private string _name;
         private Contact _contact = new Contact();
         private string _website;
         private string _logoUrl;
+
+        public bool Equals(Sponsor sponsor)
+        {
+            if (sponsor == null) return false;
+            return Equals(_name, sponsor._name) && Equals(_level, sponsor._level);
+        }
+
+        public override int GetHashCode()
+        {
+            return (_name != null ? _name.GetHashCode() : 0) + 29 * _level.GetHashCode();
+        }
+
+        private SponsorLevel _level;
 
         public Sponsor()
         {
@@ -18,6 +33,12 @@ namespace CodeCampServer.Model.Domain
             _website = website;
         }
 
+        public Sponsor(string name, string logoUrl, string website, SponsorLevel level)
+            : this(name, logoUrl, website)
+        {
+            _level = level;
+        }
+
         public virtual string Name
         {
             get { return _name; }
@@ -27,6 +48,7 @@ namespace CodeCampServer.Model.Domain
         public virtual Contact Contact
         {
             get { return _contact; }
+            set { _contact = value; }
         }
 
         public virtual string Website
@@ -39,6 +61,12 @@ namespace CodeCampServer.Model.Domain
         {
             get { return _logoUrl; }
             set { _logoUrl = value; }
+        }
+
+        public virtual SponsorLevel Level
+        {
+            get { return _level; }
+            set { _level = value; }
         }
     }
 }

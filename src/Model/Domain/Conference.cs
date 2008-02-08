@@ -15,7 +15,7 @@ namespace CodeCampServer.Model.Domain
         private Location _location = new Location();
         private int _maxAttendees;
         private ISet<TimeSlot> _timeSlots = new HashedSet<TimeSlot>();
-        private ISet<ConfirmedSponsor> _sponsors = new HashedSet<ConfirmedSponsor>();
+        private ISet<Sponsor> _sponsors = new HashedSet<Sponsor>();
 
         public Conference()
         {
@@ -91,22 +91,24 @@ namespace CodeCampServer.Model.Domain
             get { return new List<TimeSlot>(_timeSlots).ToArray(); }
         }
 
-        public virtual ConfirmedSponsor[] GetSponsors()
+        public virtual Sponsor[] GetSponsors()
         {
-            ConfirmedSponsor[] result = new List<ConfirmedSponsor>(_sponsors).ToArray();
-            Array.Sort(result, delegate(ConfirmedSponsor x, ConfirmedSponsor y) { return y.Level.CompareTo(x.Level); });
+            Sponsor[] result = new List<Sponsor>(_sponsors).ToArray();
+            Array.Sort(result, delegate(Sponsor x, Sponsor y) { return y.Level.CompareTo(x.Level); });
             return result;
         }
 
-        public virtual ConfirmedSponsor[] GetSponsors(SponsorLevel level)
+        public virtual Sponsor[] GetSponsors(SponsorLevel level)
         {
-            List<ConfirmedSponsor> sponsors = new List<ConfirmedSponsor>(_sponsors);
-            return sponsors.FindAll(delegate(ConfirmedSponsor item) { return item.Level == level; }).ToArray();
+            List<Sponsor> sponsors = new List<Sponsor>(_sponsors);
+            return sponsors.FindAll(delegate(Sponsor item) { return item.Level == level; }).ToArray();
         }
 
         public virtual void AddSponsor(Sponsor sponsor, SponsorLevel level)
         {
-            _sponsors.Add(new ConfirmedSponsor(sponsor, level));
+            sponsor.Level = level;
+            if (!_sponsors.Contains(sponsor))
+                _sponsors.Add(sponsor);
         }
 
         public override string ToString()

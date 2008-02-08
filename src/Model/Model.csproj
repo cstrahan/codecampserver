@@ -65,7 +65,6 @@
     <Compile Include="Domain\ISponsorRepository.cs" />
     <Compile Include="Domain\Attendee.cs" />
     <Compile Include="Domain\Conference.cs" />
-    <Compile Include="Domain\ConfirmedSponsor.cs" />
     <Compile Include="Domain\Contact.cs" />
     <Compile Include="Domain\EntityBase.cs" />
     <Compile Include="Domain\Location.cs" />

@@ -11,20 +11,20 @@ namespace CodeCampServer.Website.Controllers
     {
         private readonly IConferenceService _conferenceService;
         private IClock _clock;
-        
-    	public SponsorController(IConferenceService conferenceService, IClock clock)
-		{
+
+        public SponsorController(IConferenceService conferenceService, IClock clock)
+        {
             _conferenceService = conferenceService;
-			_clock = clock;
-		}
+            _clock = clock;
+        }
 
         [ControllerAction]
         public void List(string conferenceKey)
         {
             Conference conference = _conferenceService.GetConference(conferenceKey);
-            ConfirmedSponsor[] sponsors = conference.GetSponsors();
+            Sponsor[] sponsors = conference.GetSponsors();
             SmartBag viewData = new SmartBag().Add(sponsors);
-            RenderView("List", viewData);    
+            RenderView("List", viewData);
         }
     }
 }

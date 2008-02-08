@@ -24,10 +24,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _service = _mocks.CreateMock<IConferenceService>();
             _conference = _mocks.CreateMock<Conference>();
 
-            ConfirmedSponsor[] toReturn = new ConfirmedSponsor[]
+            Sponsor[] toReturn = new Sponsor[]
                 {
-                    new ConfirmedSponsor(new Sponsor("name", "logourl", "website"), SponsorLevel.Platinum),
-                    new ConfirmedSponsor(new Sponsor("name2", "logourl2", "website2"), SponsorLevel.Bronze) 
+                    new Sponsor("name", "logourl", "website", SponsorLevel.Platinum),
+                    new Sponsor("name2", "logourl2", "website2", SponsorLevel.Bronze) 
                 };
             
             SetupResult.For(_service.GetConference("austincodecamp2008")).Return(_conference);
@@ -40,13 +40,13 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             
             SmartBag viewData = controller.ActualViewData as SmartBag;
             Assert.That(viewData, Is.Not.Null);
-            Assert.That(viewData.Contains<ConfirmedSponsor[]>());
+            Assert.That(viewData.Contains<Sponsor[]>());
             
-            ConfirmedSponsor[] sponsors = viewData.Get<ConfirmedSponsor[]>();
+            Sponsor[] sponsors = viewData.Get<Sponsor[]>();
             Assert.That(sponsors[0].Level, Is.EqualTo(SponsorLevel.Platinum));
             Assert.That(sponsors[1].Level, Is.EqualTo(SponsorLevel.Bronze));
-            Assert.That(sponsors[0].Sponsor.Name, Is.EqualTo("name"));
-            Assert.That(sponsors[1].Sponsor.Name, Is.EqualTo("name2"));
+            Assert.That(sponsors[0].Name, Is.EqualTo("name"));
+            Assert.That(sponsors[1].Name, Is.EqualTo("name2"));
         }
 
 

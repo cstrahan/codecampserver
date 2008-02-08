@@ -51,25 +51,25 @@ namespace CodeCampServer.UnitTests.Model.Domain
             conference.AddSponsor(sponsor, SponsorLevel.Bronze);
             conference.AddSponsor(sponsor2, SponsorLevel.Gold);
 
-            ConfirmedSponsor[] sponsors = conference.GetSponsors();
+            Sponsor[] sponsors = conference.GetSponsors();
             Assert.That(sponsors.Length, Is.EqualTo(2));
-            Array.Sort(sponsors, delegate(ConfirmedSponsor x, ConfirmedSponsor y) { return x.Level.CompareTo(y.Level); });
+            Array.Sort(sponsors, delegate(Sponsor x, Sponsor y) { return x.Level.CompareTo(y.Level); });
             Assert.That(sponsors[0].Level, Is.EqualTo(SponsorLevel.Bronze));
             Assert.That(sponsors[1].Level, Is.EqualTo(SponsorLevel.Gold));
-            Assert.That(sponsors[0].Sponsor, Is.EqualTo(sponsor));
-            Assert.That(sponsors[1].Sponsor, Is.EqualTo(sponsor2));
+            Assert.That(sponsors[0], Is.EqualTo(sponsor));
+            Assert.That(sponsors[1], Is.EqualTo(sponsor2));
         }
 
         [Test]
         public void ShouldProvideSponsorsSortedByLevelDescending()
         {
             Conference conference = new Conference();
-            conference.AddSponsor(new Sponsor(), SponsorLevel.Silver);
-            conference.AddSponsor(new Sponsor(), SponsorLevel.Platinum);
-            conference.AddSponsor(new Sponsor(), SponsorLevel.Gold);
-            
-            ConfirmedSponsor[] sponsors = conference.GetSponsors();
-            
+            conference.AddSponsor(new Sponsor("test", "", ""), SponsorLevel.Silver);
+            conference.AddSponsor(new Sponsor("test1", "", ""), SponsorLevel.Platinum);
+            conference.AddSponsor(new Sponsor("test2", "", ""), SponsorLevel.Gold);
+
+            Sponsor[] sponsors = conference.GetSponsors();
+
             Assert.That(sponsors[0].Level, Is.EqualTo(SponsorLevel.Platinum));
             Assert.That(sponsors[1].Level, Is.EqualTo(SponsorLevel.Gold));
             Assert.That(sponsors[2].Level, Is.EqualTo(SponsorLevel.Silver));
@@ -79,11 +79,12 @@ namespace CodeCampServer.UnitTests.Model.Domain
         public void ShouldProvideSponsorsFilteredByLevel()
         {
             Conference conference = new Conference();
-            conference.AddSponsor(new Sponsor(), SponsorLevel.Gold);
-            conference.AddSponsor(new Sponsor(), SponsorLevel.Platinum);
-            conference.AddSponsor(new Sponsor(), SponsorLevel.Platinum);
+            conference.AddSponsor(new Sponsor("test", "", ""), SponsorLevel.Gold);
+            conference.AddSponsor(new Sponsor("test1", "", ""), SponsorLevel.Platinum);
+            conference.AddSponsor(new Sponsor("test2", "", ""), SponsorLevel.Platinum);
+            conference.AddSponsor(new Sponsor("test2", "", ""), SponsorLevel.Platinum);
 
-            ConfirmedSponsor[] platinumSponsors = conference.GetSponsors(SponsorLevel.Platinum);
+            Sponsor[] platinumSponsors = conference.GetSponsors(SponsorLevel.Platinum);
 
             Assert.That(platinumSponsors.Length, Is.EqualTo(2));
             Assert.That(platinumSponsors[0].Level, Is.EqualTo(SponsorLevel.Platinum));

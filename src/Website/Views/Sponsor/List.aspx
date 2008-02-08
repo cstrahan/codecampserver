@@ -4,15 +4,15 @@ Inherits="CodeCampServer.Website.Views.ViewBase" Title="Sponsor List" %>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 <ul class="sponsors">
-<% foreach (ConfirmedSponsor sponsor in ViewData.Get<ConfirmedSponsor[]>()) { %>
+<% foreach (Sponsor sponsor in ViewData.Get<Sponsor[]>()) { %>
     <li>
         <div class="<%=sponsor.Level.ToString()%> sponsor">
-            <a href='<%=sponsor.Sponsor.Website %>'>
-                <img src='<%=sponsor.Sponsor.LogoUrl %>' border="0" alt='<%=sponsor.Sponsor.Name %> logo' />
+            <a href='<%=sponsor.Website %>'>
+                <img src='<%=sponsor.LogoUrl %>' border="0" alt='<%=sponsor.Name %> logo' />
             </a>          
             <p>
-                <a href='<%=sponsor.Sponsor.Website %>'>
-                    <%=sponsor.Sponsor.Name %>
+                <a href='<%=sponsor.Website %>'>
+                    <%=sponsor.Name %>
                 </a>
             </p>            
         </div>    

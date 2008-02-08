@@ -76,9 +76,6 @@
     <EmbeddedResource Include="Mappings\Attendee.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\Sponsor.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Mappings\Session.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
