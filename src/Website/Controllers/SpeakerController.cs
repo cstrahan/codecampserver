@@ -5,18 +5,16 @@ using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Exceptions;
 using CodeCampServer.Model.Presentation;
-using CodeCampServer.Model.Security;
+using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.Website.Controllers
 {
-    public class SpeakerController : ApplicationController
+    public class SpeakerController : Controller
     {
         private readonly IConferenceService _conferenceService;
-        private readonly IClock _clock;
+        private IClock _clock;
 
-        public SpeakerController(IConferenceService conferenceService, 
-                                 IAuthorizationService authorizationService, IClock clock)
-            : base(authorizationService)
+        public SpeakerController(IConferenceService conferenceService, IClock clock)
         {            
             _conferenceService = conferenceService;
             _clock = clock;
@@ -25,7 +23,10 @@ namespace CodeCampServer.Website.Controllers
         [ControllerAction]
         public void Index(string conferenceKey)
         {
-            RedirectToAction( new { Controller="conference", Action="details", conferenceKey=conferenceKey });            
+            RedirectToAction( new
+            {
+                Controller="conference", Action="details", conferenceKey=conferenceKey
+            });            
         }
 
         [ControllerAction]
@@ -39,20 +40,17 @@ namespace CodeCampServer.Website.Controllers
             IEnumerable<Speaker> speakers = _conferenceService.GetSpeakers(conference, effectivePage, effectivePerPage);
 			SpeakerListingCollection speakerListings = new SpeakerListingCollection(speakers);
 
-            SmartBag.Add(scheduledConference);
-            SmartBag.Add(speakerListings);
-			SmartBag.Add("page", effectivePage);
-            SmartBag.Add("perPage", effectivePerPage);
+            SmartBag viewData = new SmartBag().Add(scheduledConference).Add(speakerListings)
+				.Add("page", effectivePage).Add("perPage", effectivePerPage);
 
-            RenderView("List");
+            RenderView("List", viewData);
         }
 
         [ControllerAction]
         public void View(string conferenceKey, string speakerId)
         {
             Speaker speaker = _conferenceService.GetSpeakerByDisplayName(speakerId);
-            SmartBag.Add(speaker);
-            RenderView("view");
+            RenderView("view", new SmartBag().Add(speaker));
         }
 
         [ControllerAction]
@@ -60,13 +58,12 @@ namespace CodeCampServer.Website.Controllers
         {
             Speaker speaker = _conferenceService.GetLoggedInSpeaker();
             if (speaker != null)
-            {
-                SmartBag.Add(speaker);
-                RenderView("edit");
+            {                
+                RenderView("edit", new SmartBag().Add(speaker));
             }
             else
             {
-                RedirectToAction(new { Controller="login" });
+                RedirectToAction(new { Controller = "login", Action = "Index" });
             }
         }
 
@@ -76,7 +73,7 @@ namespace CodeCampServer.Website.Controllers
             string email = _conferenceService.GetLoggedInUsername();
             try
             {
-                _conferenceService.SaveSpeaker(email, firstName, lastName, website, comment, displayName, profile, avatarUrl);
+                Speaker savedSpeaker = _conferenceService.SaveSpeaker(email, firstName, lastName, website, comment, displayName, profile, avatarUrl);
                 
                 TempData["message"] = "Profile saved";
                 RedirectToAction(new { Action = "view", conferenceKey = conferenceKey, speakerId = displayName });

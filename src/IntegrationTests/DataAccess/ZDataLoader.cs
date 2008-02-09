@@ -38,7 +38,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 TimeSlot slot3 = codeCamp2008.AddTimeSlot(new DateTime(2008, 11, 26, 22, 30, 00),
                                                           new DateTime(2008, 11, 26, 23, 30, 00));
                 Speaker speaker1 = new Speaker("Homer", "Simpson", "http://www.simpsons.com", "Doh!", codeCamp2008,
-                    "homer@simpsons.com", "Homer J. Simpson", "http://www.simpsons.com/homer.jpg", "Homer Simpson's Profiles", getPassword(), getSalt());
+                    "homer@simpsons.com", "Homer J Simpson", "http://www.simpsons.com/homer.jpg", "Homer Simpson's Profiles", getPassword(), getSalt());
                 Speaker speaker2 = new Speaker("Frank", "Sinatra", "http://www.sinatra.com", "Old Blue Eyes", codeCamp2008,
                     "frank@sinatra.com", "Frank Sinatra", "http://www.sinatra.com/frank_sinatra.jpg", "Frank Sinatra's Profile", getPassword(), getSalt());
                 Session session1 = new Session(speaker1, "Domain-driven design explored", "In this session we'll explore Domain-driven design");

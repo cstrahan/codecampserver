@@ -20,18 +20,18 @@ namespace CodeCampServer.Website
             });
 
             routes.Add(new Route
-            {
-                Url = "[conferenceKey]/speakers",
-                Defaults = new { Controller = "speaker", Action = "list" },
-                RouteHandler = typeof(BetterMvcRouteHandler)
-            });
-
-            routes.Add(new Route
 		    {
 		        Url = "[conferenceKey]/speaker/[speakerId]",
                 Defaults = new { Controller = "speaker", Action = "view" },
                 RouteHandler = typeof(BetterMvcRouteHandler)
 		    });
+
+            routes.Add(new Route
+            {
+                Url = "[conferenceKey]/speakers/[action]",
+                Defaults = new { Controller = "speaker", Action = "list" },
+                RouteHandler = typeof(BetterMvcRouteHandler)
+            });
 
 			routes.Add(new Route
 			{
