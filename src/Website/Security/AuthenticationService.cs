@@ -8,13 +8,13 @@ namespace CodeCampServer.Website.Security
 	[Pluggable(Keys.DEFAULT)]
 	public class AuthenticationService : IAuthenticationService
 	{
-		public void SetActiveUser(string username)
+		public void SetActiveUserName(string username)
 		{
 			FormsAuthentication.SignOut();
 			FormsAuthentication.SetAuthCookie(username, false);
 		}
 
-        public string GetActiveUser()
+        public string GetActiveUserName()
         {
             return HttpContext.Current.User.Identity.Name;
         }

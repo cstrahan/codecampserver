@@ -25,6 +25,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		private IConferenceService _service;
         private IAuthorizationService _authorizationService;
         private Conference _conference;
+		private IUserSession _userSession;
 
 		private IHttpContext GetHttpContext(string requestUrl)
 		{
@@ -64,8 +65,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
                 property.SetValue(this, ActualTempData, null);				
 			}
 
-			public TestingSpeakerController(IConferenceService conferenceService, IAuthorizationService authorizationService, IClock clock)
-                : base(conferenceService, authorizationService, clock)
+			public TestingSpeakerController(IConferenceService conferenceService, IAuthorizationService authorizationService, IClock clock, IUserSession userSession)
+                : base(conferenceService, authorizationService, clock, userSession)
 			{
 			}
 
@@ -96,7 +97,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 		private TestingSpeakerController GetController()
 		{
-			TestingSpeakerController controller = new TestingSpeakerController(_service, _authorizationService, new ClockStub());
+			TestingSpeakerController controller = new TestingSpeakerController(_service, _authorizationService, new ClockStub(), _userSession);
 			controller.CreateTempData(GetHttpContext("http://localhost/speaker"));
 
 			return controller;
@@ -167,8 +168,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void SaveSpeakerShouldSaveToConferenceServiceAndRenderViewSpeakerViewWithSavedMessage()
 		{
 			Speaker savedSpeaker = getSpeaker();
+			Attendee attendee = new Attendee();
+			attendee.Contact.Email = "brownie@brownie.com.au";
+			_userSession = new UserSessionStub(attendee);
 
-			SetupResult.For(_service.GetLoggedInUsername()).Return("brownie@brownie.com.au");
 			SetupResult.For(
 				_service.SaveSpeaker("brownie@brownie.com.au", "Andrew", "Browne", "http://blog.brownie.com.au", "A comment",
 				                     "AndrewBrowne", "Info about how important I am to go here.",
@@ -189,9 +192,11 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void SaveSpeakerReturnSaveExceptionMessageOnExceptionAndReturnToEditAction()
 		{
 			Speaker savedSpeaker = getSpeaker();
+			Attendee attendee = new Attendee();
+			attendee.Contact.Email = "brownie@brownie.com.au";
+			_userSession = new UserSessionStub(attendee);
 
 			string validationMessage = "Validation Error";
-			SetupResult.For(_service.GetLoggedInUsername()).Return("brownie@brownie.com.au");
 			SetupResult.For(_service.GetLoggedInSpeaker()).Return(savedSpeaker);
 			SetupResult.For(
 				_service.SaveSpeaker("brownie@brownie.com.au", "Andrew", "Browne", "http://blog.brownie.com.au", "A comment",

@@ -150,31 +150,17 @@ namespace CodeCampServer.UnitTests.Model
 				new Speaker("Andrew", "Browne", "http://blog.brownie.com.au", "the comment", anConference,
                              "brownie@brownie.com.au", "AndrewBrowne", "http://blog.brownie.com.au/avatar.jpg", "Info about how important I am to go here.", "password", "salt");
 			
-            IAuthenticationService authService = mocks.CreateMock<IAuthenticationService>();
             ISpeakerRepository repository = mocks.CreateMock<ISpeakerRepository>();
-            SetupResult.For(authService.GetActiveUser()).Return("brownie@brownie.com.au");
+        	Attendee attendee = new Attendee();
+        	attendee.Contact.Email = "brownie@brownie.com.au";
+        	IUserSession session = new UserSessionStub(attendee);
             SetupResult.For(repository.GetSpeakerByEmail("brownie@brownie.com.au")).Return(expectedResult);
             mocks.ReplayAll();
 
-            IConferenceService service = new ConferenceService(null, null, null, repository, authService, null);
+			IConferenceService service = new ConferenceService(null, null, null, repository, null, session);
             Speaker speaker = service.GetLoggedInSpeaker();
 
             Assert.AreSame(expectedResult, speaker);
-        }
-
-        [Test]
-        public void GetLogginInUserNameUsesAuthService()
-        {
-            MockRepository mocks = new MockRepository();
-
-            IAuthenticationService authService = mocks.CreateMock<IAuthenticationService>();
-            SetupResult.For(authService.GetActiveUser()).Return("username");
-            mocks.ReplayAll();
-
-            IConferenceService service = new ConferenceService(null, null, null, null, authService, null);
-            string username = service.GetLoggedInUsername();
-
-            Assert.AreEqual("username", username);
         }
 
         [Test]
@@ -182,11 +168,11 @@ namespace CodeCampServer.UnitTests.Model
         {
             MockRepository mocks = new MockRepository();
 
-            IAuthenticationService authService = mocks.CreateMock<IAuthenticationService>();
-            SetupResult.For(authService.GetActiveUser()).Return("");
+			IUserSession userSession = mocks.CreateMock<IUserSession>();
+            SetupResult.For(userSession.GetCurrentUser()).Return(null);
             mocks.ReplayAll();
 
-            IConferenceService service = new ConferenceService(null, null, null, null, authService, null);
+            IConferenceService service = new ConferenceService(null, null, null, null, null, userSession);
             Speaker speaker = service.GetLoggedInSpeaker();
 
             Assert.IsNull(speaker);
@@ -266,7 +252,7 @@ namespace CodeCampServer.UnitTests.Model
             LastCall.IgnoreArguments().Do(new Action<Session>(delegate(Session obj) { actualSession = obj; }));
             mocks.ReplayAll();
 
-            IConferenceService service = new ConferenceService(null, null, null, null, null, repository);
+            IConferenceService service = new ConferenceService(null, null, null, null, repository, null);
             Speaker speaker = new Speaker("a", "b", "c", "d", new Conference(), "e", "f", "g", "h", "password", "salt");
             List<OnlineResource> resources = new List<OnlineResource>();
             resources.Add(new OnlineResource(OnlineResourceType.Blog, "Name", "http://myblog.com"));

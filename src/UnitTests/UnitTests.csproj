@@ -83,6 +83,7 @@
     <Compile Include="Model\Domain\SpeakerTester.cs" />
     <Compile Include="Model\LoginServiceTester.cs" />
     <Compile Include="Model\Presentation\ScheduledConferenceTester.cs" />
+    <Compile Include="Model\UserSessionTester.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="Website\Controllers\ApplicationControllerTests.cs" />
     <Compile Include="Website\Controllers\ConferenceControllerTester.cs" />

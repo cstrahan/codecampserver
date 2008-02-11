@@ -27,7 +27,7 @@ namespace CodeCampServer.Website.Controllers
 		{
 			if (_loginService.VerifyAccount(email, password))
 			{
-				_authenticationService.SetActiveUser(email);
+				_authenticationService.SetActiveUserName(email);
 				Redirect(redirectUrl ?? "~/default.aspx");
 			}
 			else
