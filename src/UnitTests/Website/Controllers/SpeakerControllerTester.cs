@@ -22,7 +22,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	public class SpeakerControllerTester
 	{
 		private MockRepository _mocks;
-		private IConferenceService _service;
+		private IConferenceService _conferenceService;
+        private ISpeakerService _speakerService;
         private IAuthorizationService _authorizationService;
         private Conference _conference;
 		private IUserSession _userSession;
@@ -65,8 +66,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
                 property.SetValue(this, ActualTempData, null);				
 			}
 
-			public TestingSpeakerController(IConferenceService conferenceService, IAuthorizationService authorizationService, IClock clock, IUserSession userSession)
-                : base(conferenceService, authorizationService, clock, userSession)
+			public TestingSpeakerController(IConferenceService conferenceService, ISpeakerService speakerService, IAuthorizationService authorizationService, IClock clock, IUserSession userSession)
+                : base(conferenceService, speakerService, authorizationService, clock, userSession)
 			{
 			}
 
@@ -90,14 +91,16 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void Setup()
 		{
 			_mocks = new MockRepository();
-			_service = _mocks.CreateMock<IConferenceService>();
+			_conferenceService = _mocks.CreateMock<IConferenceService>();
             _authorizationService = _mocks.CreateMock<IAuthorizationService>();
+            _speakerService = _mocks.CreateMock<ISpeakerService>();
+            _userSession = _mocks.CreateMock<IUserSession>();
 			_conference = new Conference("austincodecamp2008", "Austin Code Camp");
 		}
 
 		private TestingSpeakerController GetController()
 		{
-			TestingSpeakerController controller = new TestingSpeakerController(_service, _authorizationService, new ClockStub(), _userSession);
+			TestingSpeakerController controller = new TestingSpeakerController(_conferenceService, _speakerService, _authorizationService, new ClockStub(), _userSession);
 			controller.CreateTempData(GetHttpContext("http://localhost/speaker"));
 
 			return controller;
@@ -118,10 +121,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void ShouldViewSpeakerByDisplayName()
 		{
 			Speaker speaker = getSpeaker();
-			SetupResult.For(_service.GetConference("austincodecamp2008"))
+			SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
 				.Return(_conference);
 
-			SetupResult.For(_service.GetSpeakerByDisplayName(speaker.DisplayName)).Return(speaker);
+            SetupResult.For(_speakerService.GetSpeakerByDisplayName(speaker.DisplayName)).Return(speaker);
 			_mocks.ReplayAll();
 
 			TestingSpeakerController controller = GetController();
@@ -139,7 +142,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		{
 			Speaker speaker = getSpeaker();
 
-			SetupResult.For(_service.GetLoggedInSpeaker()).Return(speaker);
+			SetupResult.For(_userSession.GetLoggedInSpeaker()).Return(speaker);
 
 			_mocks.ReplayAll();
 
@@ -155,7 +158,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		[Test]
 		public void EditProfileShouldReturnLoginWhenNoSpeaker()
 		{
-			SetupResult.For(_service.GetLoggedInSpeaker()).Return(null);
+            SetupResult.For(_userSession.GetLoggedInSpeaker()).Return(null);
 			_mocks.ReplayAll();
 
 			TestingSpeakerController controller = GetController();
@@ -170,12 +173,13 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			Speaker savedSpeaker = getSpeaker();
 			Attendee attendee = new Attendee();
 			attendee.Contact.Email = "brownie@brownie.com.au";
-			_userSession = new UserSessionStub(attendee);
+			_userSession = new UserSessionStub(attendee, savedSpeaker);
 
 			SetupResult.For(
-				_service.SaveSpeaker("brownie@brownie.com.au", "Andrew", "Browne", "http://blog.brownie.com.au", "A comment",
+                _speakerService.SaveSpeaker("brownie@brownie.com.au", "Andrew", "Browne", "http://blog.brownie.com.au", "A comment",
 				                     "AndrewBrowne", "Info about how important I am to go here.",
-				                     "http://blog.brownie.com.au/avatar.jpg")).Return(savedSpeaker);
+				                     "http://blog.brownie.com.au/avatar.jpg"))
+                .Return(savedSpeaker);
 			_mocks.ReplayAll();
 
 			TestingSpeakerController controller = GetController();
@@ -194,12 +198,11 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			Speaker savedSpeaker = getSpeaker();
 			Attendee attendee = new Attendee();
 			attendee.Contact.Email = "brownie@brownie.com.au";
-			_userSession = new UserSessionStub(attendee);
+			_userSession = new UserSessionStub(attendee, savedSpeaker);
 
 			string validationMessage = "Validation Error";
-			SetupResult.For(_service.GetLoggedInSpeaker()).Return(savedSpeaker);
 			SetupResult.For(
-				_service.SaveSpeaker("brownie@brownie.com.au", "Andrew", "Browne", "http://blog.brownie.com.au", "A comment",
+                _speakerService.SaveSpeaker("brownie@brownie.com.au", "Andrew", "Browne", "http://blog.brownie.com.au", "A comment",
 				                     "AndrewBrowne", "Info about how important I am to go here.",
 				                     "http://blog.brownie.com.au/avatar.jpg"))
 				.Throw(new DataValidationException(validationMessage));
@@ -217,7 +220,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		[Test]
 		public void ShouldListSpeakersForAConference()
 		{
-			SetupResult.For(_service.GetConference("austincodecamp2008"))
+			SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
 				.Return(_conference);
 
 			Speaker speaker1 =
@@ -232,7 +235,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 			Speaker[] toReturn =
 				new Speaker[] {speaker1, speaker2};
-			SetupResult.For(_service.GetSpeakers(_conference, 0, 2)).Return(toReturn);
+            SetupResult.For(_speakerService.GetSpeakers(_conference, 0, 2)).Return(toReturn);
 			_mocks.ReplayAll();
 
 			TestingSpeakerController controller = GetController();

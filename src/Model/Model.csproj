@@ -81,9 +81,13 @@
     <Compile Include="Impl\ClockStub.cs" />
     <Compile Include="Impl\ConferenceService.cs" />
     <Compile Include="Impl\LoginService.cs" />
+    <Compile Include="Impl\SessionService.cs" />
+    <Compile Include="Impl\SpeakerService.cs" />
     <Compile Include="Impl\SystemClock.cs" />
     <Compile Include="Impl\UserSession.cs" />
     <Compile Include="Impl\UserSessionStub.cs" />
+    <Compile Include="ISessionService.cs" />
+    <Compile Include="ISpeakerService.cs" />
     <Compile Include="IUserSession.cs" />
     <Compile Include="Keys.cs" />
     <Compile Include="Log.cs" />

@@ -7,5 +7,6 @@ namespace CodeCampServer.Model
 	public interface IUserSession
 	{
 		Attendee GetCurrentUser();
-	}
+        Speaker GetLoggedInSpeaker();
+    }
 }

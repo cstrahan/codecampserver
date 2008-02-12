@@ -16,6 +16,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
     {
         private MockRepository _mocks;
         private IConferenceService _conferenceService;
+        private ISessionService _sessionService;
+        private ISpeakerService _speakerService;
+        private IUserSession _userSession;
         private IAuthorizationService _authorizationService;
         private Conference _conference;
 
@@ -25,6 +28,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _mocks = new MockRepository();
             _conferenceService = _mocks.CreateMock<IConferenceService>();
             _authorizationService = _mocks.CreateMock<IAuthorizationService>();
+            _sessionService = _mocks.CreateMock<ISessionService>();
+            _speakerService = _mocks.CreateMock<ISpeakerService>();
+            _userSession = _mocks.CreateMock<IUserSession>();
             _conference = new Conference("austincodecamp2008", "Austin Code Camp");
         }
 
@@ -35,8 +41,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             public object ActualViewData;
             public Hashtable RedirectToActionValues;
 
-            public TestingSessionController(IConferenceService conferenceService, IAuthorizationService authorizationService)
-                : base(conferenceService, authorizationService)
+            public TestingSessionController(IConferenceService conferenceService, ISessionService sessionService, ISpeakerService speakerService, IAuthorizationService authorizationService, IUserSession userSession)
+                : base(conferenceService, sessionService, speakerService, authorizationService, userSession)
             {
             }
 
@@ -64,11 +70,11 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             Speaker expectedSpeaker = new Speaker();
             SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
                 .Return(_conference);
-            Expect.Call(_conferenceService.GetLoggedInSpeaker())
+            Expect.Call(_userSession.GetLoggedInSpeaker())
                 .Return(expectedSpeaker);
             _mocks.ReplayAll();
 
-            TestingSessionController controller = new TestingSessionController(_conferenceService, _authorizationService);
+            TestingSessionController controller = new TestingSessionController(_conferenceService, null, null, null, _userSession);
             controller.Create("austincodecamp2008");
 
             Assert.That(controller.ActualViewName, Is.EqualTo("Create"));
@@ -81,11 +87,11 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         {
             SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
                 .Return(_conference);
-            Expect.Call(_conferenceService.GetLoggedInSpeaker())
+            Expect.Call(_userSession.GetLoggedInSpeaker())
                 .Return(null);
             _mocks.ReplayAll();
 
-            TestingSessionController controller = new TestingSessionController(_conferenceService, _authorizationService);
+            TestingSessionController controller = new TestingSessionController(_conferenceService, null, null, null, _userSession);
             controller.Create("austincodecamp2008");
 
             Assert.That(controller.RedirectToActionValues, Is.Not.Null);
@@ -102,14 +108,14 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             actualSession.AddResource(new OnlineResource(OnlineResourceType.Website, "My Website", "http://www.mywebsite.com"));
             SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
                 .Return(_conference);
-            Expect.Call(_conferenceService.GetSpeakerByEmail(speaker.Contact.Email))
+            Expect.Call(_speakerService.GetSpeakerByEmail(speaker.Contact.Email))
                 .Return(speaker);
-            Expect.Call(_conferenceService.CreateSession(actualSession.Speaker, actualSession.Title, actualSession.Abstract, actualSession.GetResources()))
+            Expect.Call(_sessionService.CreateSession(actualSession.Speaker, actualSession.Title, actualSession.Abstract, actualSession.GetResources()))
                 .IgnoreArguments()
                 .Return(actualSession);
             _mocks.ReplayAll();
 
-            TestingSessionController controller = new TestingSessionController(_conferenceService, _authorizationService);
+            TestingSessionController controller = new TestingSessionController(_conferenceService, _sessionService, _speakerService, _authorizationService, _userSession);
             controller.CreateNew("austincodecamp2008", speaker.Contact.Email, "title", "abstract",
                 "My Blog", "http://www.myblog.com", "My Website", "http://www.mywebsite.com", 
                 "Session Download", "http://www.mydownload.com");
@@ -138,11 +144,11 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             IEnumerable<Session> sessions = new List<Session>();
             SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
                 .Return(_conference);
-            Expect.Call(_conferenceService.GetProposedSessions(_conference))
+            Expect.Call(_sessionService.GetProposedSessions(_conference))
                 .Return(sessions);
             _mocks.ReplayAll();
 
-            TestingSessionController controller = new TestingSessionController(_conferenceService, _authorizationService);
+            TestingSessionController controller = new TestingSessionController(_conferenceService, _sessionService, null, null, null);
             controller.Proposed("austincodecamp2008");
 
             Assert.That(controller.ActualViewName, Is.EqualTo("Proposed"));

@@ -10,17 +10,27 @@ namespace CodeCampServer.Website.Controllers
     public class SessionController : ApplicationController
     {
         private readonly IConferenceService _conferenceService;
+        private readonly ISessionService _sessionService;
+        private readonly ISpeakerService _speakerService;
+        private readonly IUserSession _userSession;
 
-        public SessionController(IConferenceService conferenceService, IAuthorizationService authorizationService)
+        public SessionController(IConferenceService conferenceService, 
+                                 ISessionService sessionService,
+                                 ISpeakerService speakerService,
+                                 IAuthorizationService authorizationService,
+                                 IUserSession userSession)
             : base(authorizationService)
         {
             _conferenceService = conferenceService;
+            _sessionService = sessionService;
+            _speakerService = speakerService;
+            _userSession = userSession;
         }
 
         [ControllerAction]
         public void Create(string conferenceKey)
         {
-            Speaker currentUser = _conferenceService.GetLoggedInSpeaker();
+            Speaker currentUser = _userSession.GetLoggedInSpeaker();
 
             if (currentUser == null)
                 RedirectToAction(new { Controller = "login", Action="index" });
@@ -38,14 +48,14 @@ namespace CodeCampServer.Website.Controllers
                             string websiteName, string websiteUrl, 
                             string downloadName, string downloadUrl)
         {
-            Speaker speaker = _conferenceService.GetSpeakerByEmail(speakerEmail);
+            Speaker speaker = _speakerService.GetSpeakerByEmail(speakerEmail);
 
             List<OnlineResource> onlineResources = new List<OnlineResource>();
             onlineResources.Add(new OnlineResource(OnlineResourceType.Blog, blogName, blogUrl));
             onlineResources.Add(new OnlineResource(OnlineResourceType.Website, websiteName, websiteUrl));
             onlineResources.Add(new OnlineResource(OnlineResourceType.Download, downloadName, downloadUrl));
 
-            Session session = _conferenceService.CreateSession(speaker, title, @abstract, onlineResources.ToArray());
+            Session session = _sessionService.CreateSession(speaker, title, @abstract, onlineResources.ToArray());
             SmartBag.Add(session);
 
             RenderView("CreateConfirm");
@@ -55,7 +65,7 @@ namespace CodeCampServer.Website.Controllers
         public void Proposed(string conferenceKey)
         {
             Conference conference = _conferenceService.GetConference(conferenceKey);
-            IEnumerable<Session> sessions = _conferenceService.GetProposedSessions(conference);
+            IEnumerable<Session> sessions = _sessionService.GetProposedSessions(conference);
             SmartBag.Add(conference);
             SmartBag.Add(sessions);
 
