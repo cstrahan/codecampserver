@@ -44,6 +44,9 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 Session session1 = new Session(speaker1, "Domain-driven design explored", "In this session we'll explore Domain-driven design");
                 Session session2 = new Session(speaker1, "Advanced NHibernate", "In this session we'll explore Advanced NHibernate");
                 Session session3 = new Session(speaker2, "Extreme Programming: a primer", "In this session we'll provide a primer on XP");
+                session1.IsApproved = true;
+                session2.IsApproved = true;
+                session3.IsApproved = true;
                 slot1.Session = session1;
                 slot2.Session = session2;
                 slot3.Session = session3;
