@@ -53,6 +53,8 @@
     <Compile Include="Impl\AttendeeRepository.cs" />
     <Compile Include="Impl\ConferenceRepository.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="Impl\TrackRepository.cs" />
+    <Compile Include="Impl\TimeSlotRepository.cs" />
     <Compile Include="Impl\SpeakerRepository.cs" />
     <Compile Include="Impl\HybridSessionBuilder.cs" />
     <Compile Include="Impl\NHibernateSessionModule.cs" />
@@ -80,6 +82,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\Speaker.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\TimeSlot.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Track.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

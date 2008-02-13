@@ -77,6 +77,8 @@
     </Compile>
     <Compile Include="DataAccess\AttendeeRepositoryTester.cs" />
     <Compile Include="DataAccess\ConferenceRepositoryTester.cs" />
+    <Compile Include="DataAccess\TrackRepositoryTester.cs" />
+    <Compile Include="DataAccess\TimeSlotRepositoryTester.cs" />
     <Compile Include="DataAccess\DatabaseTesterBase.cs" />
     <Compile Include="DataAccess\SessionRepositoryTester.cs" />
     <Compile Include="DataAccess\SpeakerRepositoryTester.cs" />

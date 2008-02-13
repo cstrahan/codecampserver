@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                  namespace="CodeCampServer.Model.Domain"
+                  assembly="CodeCampServer.Model" default-access="field.camelcase-underscore"  >
+
+	<class name="TimeSlot" table="TimeSlots">
+
+		<id name="Id" type="Guid" column="Id">
+			<generator class="guid.comb" />
+		</id>
+
+		<many-to-one name="Conference" column="ConferenceId" not-null="true"/>
+		<property name="StartTime" not-null="true"/>
+		<property name="EndTime" not-null="true"/>
+		<property name="Purpose" not-null="false"/>
+		<set name="Sessions" table="Sessions" inverse="true" cascade="all">
+			<key column="TimeSlotId" />
+			<one-to-many class="Session" />
+		</set>
+	</class>
+
+</hibernate-mapping>

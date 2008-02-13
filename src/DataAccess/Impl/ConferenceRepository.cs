@@ -28,8 +28,7 @@ namespace CodeCampServer.DataAccess.Impl
 		{
 			ISession session = getSession();
 			string hql =
-				@"from Conference c left join fetch c.TimeSlots ts
-                    left join fetch ts.Session s left join fetch s.Speaker speaker where c.Key = ?";
+				@"from Conference c where c.Key = ?";
 			IQuery query = session.CreateQuery(hql);
 			query.SetParameter(0, key);
 			Conference result = query.UniqueResult<Conference>();

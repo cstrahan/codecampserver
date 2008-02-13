@@ -51,12 +51,17 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Domain\ITrackRepository.cs" />
+    <Compile Include="Domain\ITimeSlotRepository.cs" />
     <Compile Include="Domain\IAttendeeRepository.cs" />
     <Compile Include="Domain\IConferenceRepository.cs" />
     <Compile Include="Domain\ILoginService.cs" />
@@ -99,6 +104,7 @@
     <Compile Include="Presentation\ScheduleListing.cs" />
     <Compile Include="Security\IAuthenticationService.cs" />
     <Compile Include="Security\IAuthorizationService.cs" />
+    <Compile Include="Domain\Track.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Diagrams\ConferenceAggregateDiagram.cd" />

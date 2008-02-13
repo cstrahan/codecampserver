@@ -29,21 +29,25 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 	<div class="schedule-listing">
 	    <% ScheduledConference conference = ViewData.Get<ScheduledConference>(); %>
-		<h1><%= conference.Name %> Schedule - sweet!</h1>
+	    <% ScheduleListing[] schedule = ViewData.Get<ScheduleListing[]>(); %>
+		<h1><%= conference.Name %> Schedule</h1>
 		
 		<table cellpadding="2" cellspacing="0">
 			<tr class="header-row">
 				<th>Start Time</th>
 				<th>End Time</th>
-				<th>Title</th>
-				<th>Speaker</th>
+				<th>Sessions</th>
 			</tr>
-			<% foreach (ScheduleListing listing in conference.GetSchedule()) { %>
+			<% foreach (ScheduleListing listing in schedule) { %>
 			<tr>
 				<td><%=listing.StartTime %></td>
 				<td><%=listing.EndTime %></td>
-				<td><%=listing.SessionTitle %></td>
-				<td><%=listing.SpeakerName %></td>
+				<td>
+				    <% foreach (SessionListing session in listing.Sessions)
+                       { %>
+                       <%= session.Title %> (<%= session.Speaker.DisplayName %>)<br />
+				    <% } %>
+				</td>
 			</tr>
 			<% } %>
 		</table>

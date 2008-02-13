@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Iesi.Collections.Generic;
 
 namespace CodeCampServer.Model.Domain
@@ -14,7 +15,6 @@ namespace CodeCampServer.Model.Domain
         private string _sponsorInfo;
         private Location _location = new Location();
         private int _maxAttendees;
-        private ISet<TimeSlot> _timeSlots = new HashedSet<TimeSlot>();
         private ISet<Sponsor> _sponsors = new HashedSet<Sponsor>();
 
         public Conference()
@@ -74,22 +74,37 @@ namespace CodeCampServer.Model.Domain
             set { _maxAttendees = value; }
         }
 
-        public virtual TimeSlot AddTimeSlot(DateTime startTime, DateTime endTime)
-        {
-            if(startTime < StartDate || endTime > EndDate)
-            {
-                throw new Exception("Time slot must be within conference.");
-            }
+        //public virtual TimeSlot AddTimeSlot(DateTime startTime, DateTime endTime, string purpose)
+        //{
+        //    if(startTime < StartDate || endTime > EndDate)
+        //    {
+        //        throw new Exception("Time slot must be within conference.");
+        //    }
 
-            TimeSlot timeSlot = new TimeSlot(startTime, endTime);
-            _timeSlots.Add(timeSlot);
-            return timeSlot;
-        }
+        //    TimeSlot timeSlot = new TimeSlot(startTime, endTime, purpose);
+        //    _timeSlots.Add(timeSlot);
+        //    return timeSlot;
+        //}
 
-        public virtual TimeSlot[] TimeSlots
-        {
-            get { return new List<TimeSlot>(_timeSlots).ToArray(); }
-        }
+        //public virtual TimeSlot[] GetTimeSlots()
+        //{
+        //    return new List<TimeSlot>(_timeSlots).ToArray();
+        //}
+
+        //public virtual TimeSlot[] GetTimeSlots(DateTime date)
+        //{
+        //    DateTime day = date.Date;
+        //    DateTime startDay = StartDate.Value.Date;
+        //    DateTime endDay = EndDate.Value.Date;
+
+        //    if (day < startDay || day > endDay)
+        //    {
+        //        throw new Exception("Date must be within conference.");
+        //    }
+
+        //    List<TimeSlot> timeSlots = new List<TimeSlot>(_timeSlots);
+        //    return timeSlots.Where(t => t.StartTime.Date == day).ToArray();
+        //}
 
         public virtual Sponsor[] GetSponsors()
         {
@@ -110,6 +125,16 @@ namespace CodeCampServer.Model.Domain
             if (!_sponsors.Contains(sponsor))
                 _sponsors.Add(sponsor);
         }
+
+        //public virtual Track[] Tracks
+        //{
+        //    get { return new List<Track>(_tracks).ToArray(); }
+        //}
+
+        //public virtual void AddTrack(Track track)
+        //{
+        //    _tracks.Add(track);
+        //}
 
         public override string ToString()
         {

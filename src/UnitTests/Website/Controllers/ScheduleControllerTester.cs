@@ -1,3 +1,4 @@
+using System;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Impl;
@@ -15,14 +16,28 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	{
 		private MockRepository _mocks;
 		private IConferenceService _service;
+		private ITimeSlotRepository _timeSlotRepository;
 		private Conference _conference;
+		private TimeSlot[] _timeSlots;
 
 		[SetUp]
 		public void Setup()
 		{
 			_mocks = new MockRepository();
 			_service = _mocks.CreateMock<IConferenceService>();
+			_timeSlotRepository = _mocks.CreateMock<ITimeSlotRepository>();
 			_conference = new Conference("austincodecamp2008", "Austin Code Camp");
+			_timeSlots = new TimeSlot[]
+				{
+					new TimeSlot(_conference,
+					             new DateTime(2008, 1, 1, 8, 0, 0),
+					             new DateTime(2008, 1, 1, 9, 0, 0),
+					             "Morning Session 1"),
+					new TimeSlot(_conference,
+					             new DateTime(2008, 1, 1, 10, 0, 0),
+					             new DateTime(2008, 1, 1, 11, 0, 0),
+					             "Morning Session 2"),
+				};
 		}
 
 		[Test]
@@ -30,10 +45,12 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		{
 			SetupResult.For(_service.GetConference("austincodecamp2008"))
 				.Return(_conference);
+			SetupResult.For(_timeSlotRepository.GetTimeSlotsFor(_conference))
+				.Return(_timeSlots);
 			_mocks.ReplayAll();
 
 			TestingScheduleController controller =
-				new TestingScheduleController(_service, new ClockStub());
+				new TestingScheduleController(_service, new ClockStub(), _timeSlotRepository);
 			controller.Index("austincodecamp2008");
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("View"));
@@ -42,6 +59,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			Assert.That(actualViewData, Is.Not.Null);
 			Assert.That(actualViewData.Contains<ScheduledConference>());
 			Assert.That(actualViewData.Get<ScheduledConference>().Name, Is.EqualTo("Austin Code Camp"));
+			Assert.That(actualViewData.Contains<ScheduleListing[]>());
+			Assert.That(actualViewData.Get<ScheduleListing[]>().Length, Is.EqualTo(2));
+			Assert.That(actualViewData.Get<ScheduleListing[]>()[0].Purpose, Is.EqualTo("Morning Session 1"));
+			Assert.That(actualViewData.Get<ScheduleListing[]>()[1].Purpose, Is.EqualTo("Morning Session 2"));
 		}
 
 		private class TestingScheduleController : ScheduleController
@@ -50,8 +71,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			public string ActualMasterName;
 			public object ActualViewData;
 
-			public TestingScheduleController(IConferenceService conferenceService, IClock clock)
-				: base(conferenceService, clock)
+			public TestingScheduleController(IConferenceService conferenceService, IClock clock,
+			                                 ITimeSlotRepository timeSlotRepository)
+				: base(conferenceService, clock, timeSlotRepository)
 			{
 			}
 

@@ -26,7 +26,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 
             List<OnlineResource> resources = new List<OnlineResource>();
             resources.Add(new OnlineResource(OnlineResourceType.Blog, "My Blog", "http://www.myblog.com"));
-            Session newSession = new Session(speaker, "title", "abstract", resources.ToArray());
+            Session newSession = new Session(speaker, "title", "abstract", null, resources.ToArray());
 
             ISessionRepository repository = new SessionRepository(_sessionBuilder);
             repository.Save(newSession);
@@ -42,6 +42,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 Assert.That(rehydratedSession.Title, Is.EqualTo("title"));
                 Assert.That(rehydratedSession.Abstract, Is.EqualTo("abstract"));
                 Assert.That(rehydratedSession.GetResources(), Is.EqualTo(resources.ToArray()));
+				Assert.That(rehydratedSession.Track, Is.Null);
             }
         }
 

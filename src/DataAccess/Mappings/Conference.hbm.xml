@@ -25,29 +25,21 @@
 			<property name="PostalCode" length="10"/>
 			<property name="PhoneNumber" length="20"/>
 		</component>
-		<set name="TimeSlots" table="TimeSlots">
-			<key column="ConferenceId" />
-			<composite-element class="TimeSlot">
-				<property name="StartTime" not-null="true"/>
-				<property name="EndTime" not-null="true"/>
-				<many-to-one name="Session" column="SessionId" />
+		<set name="Sponsors" table="Sponsors" cascade="all">
+			<key column="ConferenceId"/>
+			<composite-element class="Sponsor">
+				<property name="Level" not-null="true"/>
+				<property name="Name" length="50" not-null="true"/>
+				<property name="LogoUrl" length="260"/>
+				<property name="Website" length="260"/>
+				<nested-composite-element name="Contact" class="Contact">
+					<property name="FirstName" length="20" />
+					<property name="LastName" length="20" />
+					<property name="Email" length="60" />
+				</nested-composite-element>
 			</composite-element>
 		</set>
-    <set name="Sponsors" table="Sponsors" cascade="all">
-      <key column="ConferenceId"/>
-      <composite-element class="Sponsor">
-        <property name="Level" not-null="true"/>
-        <property name="Name" length="50" not-null="true"/>
-        <property name="LogoUrl" length="260"/>
-        <property name="Website" length="260"/>
-        <nested-composite-element name="Contact" class="Contact">
-          <property name="FirstName" length="20" />
-          <property name="LastName" length="20" />
-          <property name="Email" length="60" />
-        </nested-composite-element>
-      </composite-element>
-    </set>
-    
+
 	</class>
 
 </hibernate-mapping>

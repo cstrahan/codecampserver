@@ -47,6 +47,5 @@ namespace CodeCampServer.Model.Impl
 			_attendeeRepository.Save(attendee);
 			return attendee;
 		}
-
 	}
 }
