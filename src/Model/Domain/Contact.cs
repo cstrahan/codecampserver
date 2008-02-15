@@ -2,9 +2,9 @@ namespace CodeCampServer.Model.Domain
 {
     public class Contact
     {
-        private string _firstName;
-        private string _lastName;
-        private string _email;
+        private string _firstName = string.Empty;
+        private string _lastName = string.Empty;
+        private string _email = string.Empty;
 
         public virtual string FirstName
         {

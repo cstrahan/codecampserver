@@ -119,11 +119,19 @@ namespace CodeCampServer.Model.Domain
             return sponsors.FindAll(delegate(Sponsor item) { return item.Level == level; }).ToArray();
         }
 
-        public virtual void AddSponsor(Sponsor sponsor, SponsorLevel level)
+        public virtual void AddSponsor(Sponsor sponsor)
         {
-            sponsor.Level = level;
-            if (!_sponsors.Contains(sponsor))
-                _sponsors.Add(sponsor);
+            _sponsors.Add(sponsor);
+        }
+
+        public virtual Sponsor GetSponsor(string sponsorName)
+        {
+            return new List<Sponsor>(_sponsors).Find(delegate(Sponsor sponsor) { return sponsor.Name.ToLower() == sponsorName.ToLower(); });
+        }
+
+        public virtual void RemoveSponsor(Sponsor sponsor)
+        {
+            _sponsors.Remove(sponsor);
         }
 
         //public virtual Track[] Tracks

@@ -25,20 +25,20 @@
 			<property name="PostalCode" length="10"/>
 			<property name="PhoneNumber" length="20"/>
 		</component>
-		<set name="Sponsors" table="Sponsors" cascade="all">
-			<key column="ConferenceId"/>
-			<composite-element class="Sponsor">
-				<property name="Level" not-null="true"/>
-				<property name="Name" length="50" not-null="true"/>
-				<property name="LogoUrl" length="260"/>
-				<property name="Website" length="260"/>
-				<nested-composite-element name="Contact" class="Contact">
-					<property name="FirstName" length="20" />
-					<property name="LastName" length="20" />
-					<property name="Email" length="60" />
-				</nested-composite-element>
-			</composite-element>
-		</set>
+    <set name="Sponsors" table="Sponsors" cascade="all">
+    <key column="ConferenceId" />
+      <composite-element class="Sponsor">
+        <property name="Level" not-null="true"/>
+        <property name="Name" length="50" not-null="true"/>
+        <property name="LogoUrl" length="260" not-null="true"/>
+        <property name="Website" length="260" not-null="true"/>
+        <nested-composite-element name="Contact" class="Contact">
+          <property name="FirstName" length="20" not-null="true"/>
+          <property name="LastName" length="20" not-null="true"/>
+          <property name="Email" length="60" not-null="true"/>
+        </nested-composite-element>
+      </composite-element>
+    </set>
 
 	</class>
 

@@ -49,8 +49,15 @@ namespace CodeCampServer.Website
 
             routes.Add(new Route
             {
-                Url = "[conferenceKey]/sponsors",
+                Url = "[conferenceKey]/sponsors/[action]",
                 Defaults = new { Controller = "sponsor", Action = "list" },
+                RouteHandler = typeof(BetterMvcRouteHandler)
+            });
+
+            routes.Add(new Route
+            {
+                Url = "[conferenceKey]/sponsors/[action]/[sponsorName]",
+                Defaults = new { Controller = "sponsor", Action = "edit" },
                 RouteHandler = typeof(BetterMvcRouteHandler)
             });
 

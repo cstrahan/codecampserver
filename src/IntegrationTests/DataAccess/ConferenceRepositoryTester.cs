@@ -55,7 +55,6 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             Assert.That(conferenceList[1].Location.Address1, Is.EqualTo("locationaddress1"));
             Assert.That(conferenceList[1].Location.Address2, Is.EqualTo("locationaddress2"));
             Assert.That(conferenceList[1].Location.PhoneNumber, Is.EqualTo("512-555-5555"));
-
         }
 
         [Test]
@@ -91,7 +90,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             Conference futureConference = new Conference("2008", "future event");
             futureConference.StartDate = new DateTime(2008, 1, 1);
 
-            using(ISession session = getSession())
+            using (ISession session = getSession())
             {
                 session.SaveOrUpdate(oldConference);
                 session.SaveOrUpdate(nextConference);
@@ -110,6 +109,101 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         [Test]
         public void ShouldbeAbleToSaveAConference()
         {
+            Conference conf = GetTestConference();
+            IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
+            repository.Save(conf);
+            Assert.AreNotEqual(Guid.Empty, conf.Id, "Primary key should have been set");
+            using (ISession session = _sessionBuilder.GetSession(Database.Default))
+            {
+                session.Clear();
+                Conference confFromDb = session.Get<Conference>(conf.Id);
+                Assert.IsNotNull(confFromDb, "Couldn't find the conference in the database");
+            }
+        }
+
+        [Test]
+        public void ShouldPersistSponsor()
+        {
+            Conference conf = GetTestConference();
+            IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
+            Sponsor sponsor = GetSponsor("test");
+            conf.AddSponsor(sponsor);
+            repository.Save(conf);
+            using (ISession session = _sessionBuilder.GetSession(Database.Default))
+            {
+                session.Clear();
+                Conference confFromDb = session.Get<Conference>(conf.Id);
+                Sponsor sponsorFromDb = confFromDb.GetSponsor("test");
+                Assert.That(sponsorFromDb, Is.EqualTo(sponsor));
+            }
+        }
+
+        [Test]
+        public void ShouldDeleteSponsor()
+        {
+            Conference conf = GetTestConference();
+            IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
+            Sponsor sponsorToDelete = GetSponsor("test");
+            Sponsor sponsorToKeep = GetSponsor("test2");
+            conf.AddSponsor(sponsorToDelete);
+            conf.AddSponsor(sponsorToKeep);
+            repository.Save(conf);
+            using (ISession session = _sessionBuilder.GetSession(Database.Default))
+            {
+                session.Clear();
+                Conference confFromDb = session.Get<Conference>(conf.Id);
+                confFromDb.RemoveSponsor(sponsorToDelete);
+                repository.Save(confFromDb);
+            }
+            using (ISession session = _sessionBuilder.GetSession(Database.Default))
+            {
+                session.Clear();
+                Conference confFromDb = session.Get<Conference>(conf.Id);
+                List<Sponsor> sponsors = new List<Sponsor>(confFromDb.GetSponsors());
+                Assert.That(sponsors.Contains(sponsorToKeep), Is.True);
+                Assert.That(sponsors.Contains(sponsorToDelete), Is.False);
+            }
+        }
+
+        [Test]
+        public void CanProperlySaveEditedSponsor()
+        {
+            Conference conf = GetTestConference();
+            IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
+
+            Sponsor sponsor = GetSponsor("test");
+            conf.AddSponsor(sponsor);
+            repository.Save(conf);
+
+            Sponsor editedSponsor;
+
+            using (ISession session = _sessionBuilder.GetSession(Database.Default))
+            {
+                session.Clear();
+                Conference confToEdit = session.Get<Conference>(conf.Id);
+                editedSponsor = confToEdit.GetSponsor("test");
+                editedSponsor.Name = "edited";
+                editedSponsor.Level = SponsorLevel.Platinum;
+                repository.Save(confToEdit);
+            }
+
+            using (ISession session = _sessionBuilder.GetSession(Database.Default))
+            {
+                session.Clear();
+                Conference editedConf = session.Get<Conference>(conf.Id);
+                List<Sponsor> sponsors = new List<Sponsor>(editedConf.GetSponsors());
+                Assert.That(sponsors.Contains(editedSponsor), Is.True);
+                Assert.That(sponsors.Contains(sponsor), Is.False);
+            }
+        }
+
+        private static Sponsor GetSponsor(string name)
+        {
+            return new Sponsor(name, "", "", "", "", "", SponsorLevel.Gold);
+        }
+
+        private static Conference GetTestConference()
+        {
             Conference conf = new Conference();
             conf.Name = "test code camp";
             conf.Key = "test-key";
@@ -119,21 +213,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             conf.Location.PostalCode = "12345";
             conf.StartDate = DateTime.Parse("Dec 12 2007");
             conf.EndDate = DateTime.Parse("Dec 14 2007");
-
-            IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
-            repository.Save(conf);               
-
-            Assert.AreNotEqual(Guid.Empty, conf.Id, "Primary key should have been set");
-
-            using(ISession session = _sessionBuilder.GetSession(Database.Default))
-            {
-                //clear all cached instances
-                session.Clear();
-
-                Conference confFromDb = session.Get<Conference>(conf.Id);
-
-                Assert.IsNotNull(confFromDb, "Couldn't find the conference in the database");
-            }
+            return conf;
         }
     }
 }
