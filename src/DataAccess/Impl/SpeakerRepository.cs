@@ -20,7 +20,7 @@ namespace CodeCampServer.DataAccess.Impl
 			ISession session = getSession();
 			ICriteria criteria = session.CreateCriteria(typeof(Speaker));
 			criteria.Add(new EqExpression("DisplayName", displayName));
-			criteria.SetFetchMode("Conference", FetchMode.Eager);
+            criteria.SetFetchMode("Person.Conference", FetchMode.Eager);
 			Speaker speaker = criteria.UniqueResult<Speaker>();
 
 			return speaker;
@@ -29,11 +29,14 @@ namespace CodeCampServer.DataAccess.Impl
         public Speaker GetSpeakerByEmail(string email)
         {
             ISession session = getSession();
-            ICriteria criteria = session.CreateCriteria(typeof(Speaker));
-            criteria.Add(new EqExpression("Contact.Email", email));
-            criteria.SetFetchMode("Conference", FetchMode.Eager);
-            Speaker speaker = criteria.UniqueResult<Speaker>();
+           
+            IQuery query =
+                session.CreateQuery(
+                    @"from Speaker s where s.Person.Contact.Email = ?");
 
+            query.SetParameter(0, email);
+            Speaker speaker = query.UniqueResult<Speaker>();
+           
             return speaker;
         }
 
@@ -50,8 +53,8 @@ namespace CodeCampServer.DataAccess.Impl
             ISession session = getSession();
             IQuery query =
                 session.CreateQuery(
-                    @"from Speaker a join fetch a.Conference where a.Conference = ?
-					order by a.Contact.LastName, a.Contact.FirstName");
+                    @"from Speaker a join fetch a.Person.Conference where a.Person.Conference = ?
+					order by a.Person.Contact.LastName, a.Person.Contact.FirstName");
             query.SetParameter(0, conference, NHibernateUtil.Entity(typeof(Conference)));
             query.SetMaxResults(perPage);
             query.SetFirstResult((pageNumber - 1) * perPage);

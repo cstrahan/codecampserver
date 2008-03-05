@@ -18,7 +18,7 @@ namespace CodeCampServer.DataAccess.Impl
 		{
 			ISession session = getSession();
 
-			IQuery query = session.CreateQuery("from Attendee a join fetch a.Conference where a.Conference = ?");
+            IQuery query = session.CreateQuery("from Attendee a join fetch a.Person.Conference where a.Person.Conference = ?");
 			query.SetParameter(0, anConference, NHibernateUtil.Entity(typeof (Conference)));
 			IList<Attendee> attendees = query.List<Attendee>();
 			return attendees;
@@ -37,8 +37,8 @@ namespace CodeCampServer.DataAccess.Impl
 			ISession session = getSession();
 			IQuery query =
 				session.CreateQuery(
-					@"from Attendee a join fetch a.Conference where a.Conference = ?
-					order by a.Contact.LastName, a.Contact.FirstName");
+                    @"from Attendee a join fetch a.Person.Conference where a.Person.Conference = ?
+					order by a.Person.Contact.LastName, a.Person.Contact.FirstName");
 			query.SetParameter(0, conference, NHibernateUtil.Entity(typeof (Conference)));
 			query.SetMaxResults(perPage);
 			query.SetFirstResult((pageNumber - 1)*perPage);
@@ -49,11 +49,14 @@ namespace CodeCampServer.DataAccess.Impl
 		public Attendee GetAttendeeByEmail(string email)
 		{
 			ISession session = getSession();
-			ICriteria criteria = session.CreateCriteria(typeof (Attendee));
-			criteria.Add(new EqExpression("Contact.Email", email));
-			criteria.SetFetchMode("Conference", FetchMode.Eager);
-			Attendee attendee = criteria.UniqueResult<Attendee>();
+            
+            IQuery query =
+                session.CreateQuery(
+                    @"from Attendee a where a.Person.Contact.Email = ?");
 
+            query.SetParameter(0, email);
+
+            Attendee attendee = query.UniqueResult<Attendee>();
 			return attendee;
 		}
 	}

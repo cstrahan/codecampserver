@@ -60,6 +60,9 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Domain\IPersonRepository.cs" />
+    <Compile Include="Domain\Role.cs" />
+    <Compile Include="Domain\Person.cs" />
     <Compile Include="Domain\ITrackRepository.cs" />
     <Compile Include="Domain\ITimeSlotRepository.cs" />
     <Compile Include="Domain\IAttendeeRepository.cs" />

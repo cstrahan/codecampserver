@@ -1,14 +1,7 @@
 namespace CodeCampServer.Model.Domain
 {
-    public class Attendee : EntityBase
+    public class Attendee : Role
     {
-        private Contact _contact = new Contact();
-        private string _website;
-        private string _comment;
-        private Conference _conference;
-        private string _password;
-        private string _passwordSalt;
-
         public Attendee()
         {
         }
@@ -16,61 +9,60 @@ namespace CodeCampServer.Model.Domain
         public Attendee(string firstName, string lastName, string website,
                         string comment, Conference conference, string email, string password, string passwordSalt)
         {
-            _contact.FirstName = firstName;
-            _contact.LastName = lastName;
-            _contact.Email = email;
-            _website = website;
-            _comment = comment;
-            _conference = conference;
-            _password = password;
-            _passwordSalt = passwordSalt;
+            Person.Contact.FirstName = firstName;
+            Person.Contact.LastName = lastName;
+            Person.Contact.Email = email;
+            Person.Website = website;
+            Person.Comment = comment;
+            Person.Conference = conference;
+            Person.Password = password;
+            Person.PasswordSalt = passwordSalt;
         }
 
     	public Attendee(string firstName, string lastName)
     	{
-    		_contact.FirstName = firstName;
-    		_contact.LastName = lastName;
+            Person.Contact.FirstName = firstName;
+            Person.Contact.LastName = lastName;
     	}
 
     	public virtual Contact Contact
         {
-            get { return _contact; }
+            get { return Person.Contact; }
         }
 
         public virtual string Website
         {
-            get { return _website; }
-            set { _website = value; }
+            get { return Person.Website; }
+            set { Person.Website = value; }
         }
 
         public virtual string Comment
         {
-            get { return _comment; }
-            set { _comment = value; }
+            get { return Person.Comment; }
+            set { Person.Comment = value; }
         }
 
         public virtual string Password
         {
-            get { return _password; }
-            set { _password = value; }
+            get { return Person.Password; }
+            set { Person.Password = value; }
         }
 
         public virtual string PasswordSalt
         {
-            get { return _passwordSalt; }
-            set { _passwordSalt = value; }
+            get { return Person.PasswordSalt; }
+            set { Person.PasswordSalt = value; }
         }
 
         public virtual Conference Conference
         {
-            get { return _conference; }
-            set { _conference = value; }
+            get { return Person.Conference; }
+            set { Person.Conference = value; }
         }
 
-    	public virtual string GetName()
-    	{
-			Contact contact = Contact;
-			return string.Format("{0} {1}", contact.FirstName, contact.LastName);
-    	}
+        public virtual string GetName()
+        {
+            return Person.GetName();
+        }
     }
 }

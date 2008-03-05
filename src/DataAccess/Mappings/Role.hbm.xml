@@ -3,9 +3,12 @@
                   namespace="CodeCampServer.Model.Domain"
                   assembly="CodeCampServer.Model" default-access="field.camelcase-underscore"  >
 
-  <joined-subclass name="Attendee" table="Attendees" extends="Role">
+	<class name="Role" table="Roles">
     <!-- Called RoleId instead of Id to avoid problem naming constraints in the database -->
-    <key column="Id"/>
-  </joined-subclass>
+    <id name="Id" column="Id" type="Guid">
+			<generator class="guid.comb"/>
+		</id>
+    <many-to-one name="Person" class="Person" column="PersonId" cascade="all"/>
+	</class>
 
 </hibernate-mapping>

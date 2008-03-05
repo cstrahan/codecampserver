@@ -1,6 +1,6 @@
 namespace CodeCampServer.Model.Domain
 {
-    public class Speaker : Attendee
+    public class Speaker : Role
     {
         private string _avatarUrl;
     	private string _profile;
@@ -11,8 +11,16 @@ namespace CodeCampServer.Model.Domain
         }
 
         public Speaker(string firstName, string lastName, string url, string comment, Conference conference, string email, string displayName, string avatarUrl, string profile, string password, string passwordSalt)
-            : base(firstName, lastName, url, comment, conference, email, password, passwordSalt)
         {
+            Person.Contact.FirstName = firstName;
+            Person.Contact.LastName = lastName;
+            Person.Contact.Email = email;
+            Person.Comment = comment;
+            Person.Conference = conference;
+            Person.Website = url;
+            Person.Password = password;
+            Person.PasswordSalt = passwordSalt;
+
             _displayName = displayName;
             _avatarUrl = avatarUrl;
         	_profile = profile;
@@ -33,6 +41,46 @@ namespace CodeCampServer.Model.Domain
         {
             get { return _displayName; }
             set { _displayName = value; }
+        }
+
+        public virtual Contact Contact
+        {
+            get { return Person.Contact; }
+        }
+
+        public virtual string Website
+        {
+            get { return Person.Website; }
+            set { Person.Website = value; }
+        }
+
+        public virtual string Comment
+        {
+            get { return Person.Comment; }
+            set { Person.Comment = value; }
+        }
+
+        public virtual string Password
+        {
+            get { return Person.Password; }
+            set { Person.Password = value; }
+        }
+
+        public virtual string PasswordSalt
+        {
+            get { return Person.PasswordSalt; }
+            set { Person.PasswordSalt = value; }
+        }
+
+        public virtual Conference Conference
+        {
+            get { return Person.Conference; }
+            set { Person.Conference = value; }
+        }
+
+        public virtual string GetName()
+        {
+            return Person.GetName();
         }
     }
 }

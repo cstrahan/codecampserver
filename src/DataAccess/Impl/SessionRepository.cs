@@ -25,8 +25,8 @@ namespace CodeCampServer.DataAccess.Impl
         public IEnumerable<Session> GetProposedSessions(Conference conference)
         {
             IQuery query = getSession().CreateQuery(
-                @"from Session s join fetch s.Speaker.Conference 
-                 where s.Speaker.Conference = ? and s.IsApproved = false");
+                @"from Session s join fetch s.Speaker.Person.Conference 
+                 where s.Speaker.Person.Conference = ? and s.IsApproved = false");
             query.SetParameter(0, conference, NHibernateUtil.Entity(typeof(Conference)));
             return query.List<Session>();
         }

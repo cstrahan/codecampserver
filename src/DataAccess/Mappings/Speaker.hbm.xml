@@ -3,12 +3,13 @@
                   namespace="CodeCampServer.Model.Domain"
                   assembly="CodeCampServer.Model" default-access="field.camelcase-underscore"  >
 
-	<joined-subclass name="Speaker" table="Speakers" extends="Attendee">
-		<key column="Id" foreign-key="Id"/>
-
-		<property name="DisplayName" length="60" not-null="true" unique="true"/>
-		<property name="AvatarUrl" length="200" not-null="false"/>
-		<property name="Profile" not-null="false"/>
-	</joined-subclass>
+  <joined-subclass name="Speaker" table="Speakers" extends="Role">
+    <!-- Called RoleId instead of Id to avoid problem naming constraints in the database -->
+    <key column="Id"/>
+    
+    <property name="DisplayName" length="60" not-null="true" unique="true"/>
+    <property name="AvatarUrl" length="200" not-null="false"/>
+    <property name="Profile" not-null="false"/>
+  </joined-subclass>
 
 </hibernate-mapping>
