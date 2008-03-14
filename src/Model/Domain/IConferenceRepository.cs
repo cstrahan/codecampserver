@@ -11,6 +11,7 @@ namespace CodeCampServer.Model.Domain
 		IEnumerable<Conference> GetAllConferences();
 		Conference GetConferenceByKey(string key);
 		Conference GetFirstConferenceAfterDate(DateTime date);
+	    Conference GetMostRecentConference(DateTime date);
 		Conference GetById(Guid id);
 		void Save(Conference conference);
 	}

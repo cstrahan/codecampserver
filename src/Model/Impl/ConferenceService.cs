@@ -10,14 +10,17 @@ namespace CodeCampServer.Model.Impl
 		private readonly IConferenceRepository _conferenceRepository;
 		private readonly IAttendeeRepository _attendeeRepository;
 		private readonly ILoginService _loginService;
+	    private readonly IClock _clock;
 
 		public ConferenceService(IConferenceRepository conferenceRepository, IAttendeeRepository attendeeRepository,
 		                         ILoginService loginService,
-		                         IUserSession userSession)
+		                         IUserSession userSession,
+                                 IClock clock)
 		{
 			_conferenceRepository = conferenceRepository;
 			_attendeeRepository = attendeeRepository;
 			_loginService = loginService;
+		    _clock = clock;
 		}
 
 		public Conference GetConference(string conferenceKey)
@@ -47,5 +50,17 @@ namespace CodeCampServer.Model.Impl
 			_attendeeRepository.Save(attendee);
 			return attendee;
 		}
-	}
+
+        public Conference GetCurrentConference()
+        {
+            //try to get the next conference
+            Conference conf = _conferenceRepository.GetFirstConferenceAfterDate(_clock.GetCurrentTime());
+
+            //if there isn't one, get the most recent one
+            if (conf == null)
+                conf = _conferenceRepository.GetMostRecentConference(_clock.GetCurrentTime());
+
+            return conf;
+        }
+    }
 }

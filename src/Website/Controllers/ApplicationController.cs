@@ -3,12 +3,13 @@ using System.Reflection;
 using System.Web.Mvc;
 using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Views;
+using CodeCampServer.Model.Presentation;
 
 namespace CodeCampServer.Website.Controllers
 {
 	public abstract class ApplicationController : Controller
-	{
-		private IAuthorizationService _authorizationService;
+	{	    
+		private readonly IAuthorizationService _authorizationService;
 		private SmartBag _smartBag;
 
 		protected ApplicationController(IAuthorizationService authorizationService)
@@ -37,8 +38,20 @@ namespace CodeCampServer.Website.Controllers
 
 			return base.OnPreAction(actionName, methodInfo);
 		}
+        
+	    private void PreparePageTitle()
+	    {
+	        if(SmartBag.Contains<ScheduledConference>())
+	        {
+	            SmartBag.Add("PageTitle", SmartBag.Get<ScheduledConference>().Name);
+	        }
+	        else
+	        {
+	            SmartBag.Add("PageTitle", "Code Camp Server");
+	        }
+	    }
 
-		protected new void RenderView(string viewName)
+	    protected new void RenderView(string viewName)
 		{
 			RenderView(viewName, String.Empty, null);
 		}
@@ -56,5 +69,5 @@ namespace CodeCampServer.Website.Controllers
 
 			base.RenderView(viewName, masterName, viewData);
 		}
-	}
+	}    
 }

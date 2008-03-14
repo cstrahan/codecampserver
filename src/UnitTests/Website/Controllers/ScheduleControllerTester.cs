@@ -8,6 +8,7 @@ using CodeCampServer.Website.Views;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
+using CodeCampServer.Model.Security;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {
@@ -47,10 +48,13 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 				.Return(_conference);
 			SetupResult.For(_timeSlotRepository.GetTimeSlotsFor(_conference))
 				.Return(_timeSlots);
+
+		    IAuthorizationService authorizationService = _mocks.DynamicMock<IAuthorizationService>();
+
 			_mocks.ReplayAll();
 
 			TestingScheduleController controller =
-				new TestingScheduleController(_service, new ClockStub(), _timeSlotRepository);
+				new TestingScheduleController(_service, new ClockStub(), _timeSlotRepository, authorizationService);
 			controller.Index("austincodecamp2008");
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("View"));
@@ -72,8 +76,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			public object ActualViewData;
 
 			public TestingScheduleController(IConferenceService conferenceService, IClock clock,
-			                                 ITimeSlotRepository timeSlotRepository)
-				: base(conferenceService, clock, timeSlotRepository)
+			                                 ITimeSlotRepository timeSlotRepository, IAuthorizationService authorizationService)
+                : base(conferenceService, clock, timeSlotRepository, authorizationService)
 			{
 			}
 

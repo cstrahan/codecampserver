@@ -15,5 +15,7 @@ namespace CodeCampServer.Model
 		//TODO:  should be moved to IAttendeeService - Palermo
 		Attendee RegisterAttendee(string firstName, string lastName, string website, string comment, Conference conference,
 		                          string emailAddress, string cleartextPassword);
-	}
+
+        Conference GetCurrentConference();
+    }
 }

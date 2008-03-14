@@ -20,6 +20,13 @@ namespace CodeCampServer.Website
             });
 
             routes.Add(new Route
+            {
+                Url = "[conferenceKey]/admin/[action]",
+                Defaults = new { Controller = "admin", Action="schedule" },
+                RouteHandler = typeof(BetterMvcRouteHandler)
+            });
+
+            routes.Add(new Route
 		    {
 		        Url = "[conferenceKey]/speaker/[speakerId]",
                 Defaults = new { Controller = "speaker", Action = "view" },
@@ -68,9 +75,9 @@ namespace CodeCampServer.Website
 			routes.Add(new Route("Default.aspx",
 				new
 				{
-					action = "details",
+					action = "current",
 					controller = "conference",
-					conferenceKey = "austincodecamp2008"
+					/* conferenceKey = "austincodecamp2008"*/
 				},
 				typeof(BetterMvcRouteHandler)));
 		}

@@ -45,6 +45,15 @@ namespace CodeCampServer.DataAccess.Impl
 			return matchingConference;
 		}
 
+        public Conference GetMostRecentConference(DateTime date)
+        {
+            ISession session = getSession();
+            IQuery query = session.CreateQuery("from Conference c where c.EndDate <= ? order by c.EndDate desc");
+            query.SetParameter(0, date);
+            query.SetMaxResults(1);
+            return query.UniqueResult<Conference>();
+        }
+
 		public Conference GetById(Guid id)
 		{
 			ISession session = getSession();

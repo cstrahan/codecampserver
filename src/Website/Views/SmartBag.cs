@@ -8,7 +8,7 @@ namespace CodeCampServer.Website.Views
 		public virtual T Get<T>()
 		{
 			return Get<T>(typeof (T));
-		}
+		}        
 
         public virtual T GetOrDefault<T>(object key, T defaultValue)
         {

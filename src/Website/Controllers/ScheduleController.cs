@@ -4,17 +4,19 @@ using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Presentation;
 using CodeCampServer.Website.Views;
+using CodeCampServer.Model.Security;
 
 namespace CodeCampServer.Website.Controllers
 {
-	public class ScheduleController : Controller
+	public class ScheduleController : ApplicationController
 	{
 		private readonly IConferenceService _conferenceService;
 		private readonly IClock _clock;
 		private readonly ITimeSlotRepository _timeSlotRepository;
 
 		public ScheduleController(IConferenceService conferenceService, IClock clock,
-		                          ITimeSlotRepository timeSlotRepository)
+		                          ITimeSlotRepository timeSlotRepository, IAuthorizationService authorizationService)
+            :base(authorizationService)
 		{
 			_conferenceService = conferenceService;
 			_clock = clock;

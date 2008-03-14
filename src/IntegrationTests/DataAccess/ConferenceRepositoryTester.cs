@@ -107,6 +107,31 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         }
 
         [Test]
+        public void ShouldGetMostRecentConferenceIfNoNextConferenceIsFound()
+        {
+            var oldConference = new Conference("2005", "past event");
+            oldConference.StartDate = new DateTime(2005, 1, 1);
+            oldConference.EndDate = new DateTime(2005, 1, 1);
+            var olderConference = new Conference("2004", "older event");
+            olderConference.StartDate = new DateTime(2004, 5, 5);
+            olderConference.EndDate = new DateTime(2004, 5, 5);
+
+            using(var session = getSession())
+            {
+                session.SaveOrUpdate(olderConference);
+                session.SaveOrUpdate(oldConference);                
+                session.Flush();
+            }
+
+            resetSession();
+
+            IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
+            Conference conf = repository.GetMostRecentConference(new DateTime(2008, 10, 8));
+
+            Assert.That(conf, Is.EqualTo(oldConference));
+        }
+
+        [Test]
         public void ShouldbeAbleToSaveAConference()
         {
             Conference conf = GetTestConference();

@@ -29,15 +29,15 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		private IUserSession _userSession;
 
 		private IHttpContext GetHttpContext(string requestUrl)
-		{
+		{            
 			IHttpRequest request = _mocks.DynamicMock<IHttpRequest>();
 			SetupResult.For(request.Url).Return(new Uri(requestUrl));
 
 			IHttpResponse response = _mocks.DynamicMock<IHttpResponse>();
 			IHttpSessionState session = _mocks.DynamicMock<IHttpSessionState>();
-		    SetupResult.For(session[null]).IgnoreArguments().Return(TestingSpeakerController.ActualTempData);
+            IHttpContext httpContext = _mocks.DynamicMock<IHttpContext>();
 
-			IHttpContext httpContext = _mocks.DynamicMock<IHttpContext>();
+		    SetupResult.For(session[null]).IgnoreArguments().Return(TestingSpeakerController.ActualTempData);
 
 			SetupResult.For(httpContext.Session).Return(session);
 			SetupResult.For(httpContext.Request).Return(request);

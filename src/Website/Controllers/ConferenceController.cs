@@ -41,6 +41,13 @@ namespace CodeCampServer.Website.Controllers
 			RenderView("details", SmartBag);
 		}
 
+        [ControllerAction]
+        public void Current()
+        {
+            Conference conference = _conferenceService.GetCurrentConference();
+            RedirectToAction(new { Action="details", conferenceKey=conference.Key });
+        }
+
 	    [ControllerAction]
 	    public void List()
 	    {
