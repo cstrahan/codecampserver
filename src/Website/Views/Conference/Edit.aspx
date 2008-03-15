@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
 	Inherits="CodeCampServer.Website.Views.ViewBase" Title="Untitled Page" %>
+<%@ Import namespace="CodeCampServer.Model.Domain"%>
 <%@ Import Namespace="System.Web.Mvc" %>
-<%@ Import Namespace="System.Web.Mvc.BindingHelpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

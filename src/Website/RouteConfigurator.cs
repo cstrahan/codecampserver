@@ -1,4 +1,5 @@
-﻿using System.Web.Routing;
+﻿using System.Web.Mvc;
+using System.Web.Routing;
 using CodeCampServer.Model;
 using StructureMap;
 
@@ -8,7 +9,7 @@ namespace CodeCampServer.Website
 	public class RouteConfigurator : IRouteConfigurator
 	{
 		public virtual void RegisterRoutes()
-		{
+		{		    
 			RouteCollection routes = RouteTable.Routes;
 
 			routes.Add(new Route("login/{action}",

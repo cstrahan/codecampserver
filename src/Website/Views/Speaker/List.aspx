@@ -1,18 +1,22 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
     Inherits="CodeCampServer.Website.Views.ViewBase" Title="Speaker List" %>
+<%@ Import namespace="CodeCampServer.Website.Controllers"%>
 <%@ Import Namespace="CodeCampServer.Model.Domain" %>
 <%@ Import Namespace="CodeCampServer.Model.Presentation" %>
 <%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="System.Web.Mvc" %>
+
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
 <h3>Speaker List for <%=ViewData.Get<ScheduledConference>().Name%></h3>
 
 <ul>
+<% var conference = ViewData.Get<ScheduledConference>(); %>
 <% foreach (SpeakerListing speaker in ViewData.Get<SpeakerListingCollection>()) { %>
     <li>
         <span class="speaker-name">
-        <%=Html.ActionLink(speaker.Name, new { action = "view", speakerId = speaker.DisplayName })%>
+        <%=Html.ActionLink<SpeakerController>(c=>c.View(conference.Key, speaker.DisplayName), speaker.Name) %>
         </span>        
     </li>
 <% } %>

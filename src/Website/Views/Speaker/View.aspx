@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
     Inherits="CodeCampServer.Website.Views.ViewBase" Title="Speaker Details" %>
+<%@ Import namespace="CodeCampServer.Model.Domain"%>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <% Speaker _speaker = ViewData.Get<Speaker>(); %>
     Name:    <%=_speaker.Contact.FullName%><br />
