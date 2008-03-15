@@ -14,8 +14,7 @@ namespace CodeCampServer.Website.Controllers
         {
             _conferenceService = conferenceService;
         }
-
-        [ControllerAction]
+        
         public void Schedule()
         {                          
             RenderView("Schedule");

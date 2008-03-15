@@ -19,7 +19,7 @@ namespace CodeCampServer.Website
 
 		private void initializeControllerFactory()
 		{
-			ControllerBuilder.Current.SetDefaultControllerFactory(typeof (StructureMapControllerFactory));
+            ControllerBuilder.Current.SetControllerFactory(typeof(StructureMapControllerFactory));			
 
 			//StructureMapControllerFactory will be enhanced in MvcContrib to make the following unecessary.
 			StructureMapConfiguration.BuildInstancesOf<ConferenceController>().TheDefaultIsConcreteType<ConferenceController>();
@@ -34,7 +34,7 @@ namespace CodeCampServer.Website
 
 		private void setupRoutes()
 		{
-			IRouteConfigurator configurator = ObjectFactory.GetInstance<IRouteConfigurator>();
+			var configurator = ObjectFactory.GetInstance<IRouteConfigurator>();
 			configurator.RegisterRoutes();
 		}
 	}

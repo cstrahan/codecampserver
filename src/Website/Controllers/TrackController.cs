@@ -31,8 +31,7 @@ namespace CodeCampServer.Website.Controllers
             _conferenceService = conferenceService;
             _clock = clock;
         }
-
-        [ControllerAction]
+        
         public void List(string conferenceKey)
         {
             Conference conference = _conferenceService.GetConference(conferenceKey);

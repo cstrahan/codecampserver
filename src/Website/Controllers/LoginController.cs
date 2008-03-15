@@ -1,5 +1,4 @@
-﻿using System.Web.Mvc;
-using CodeCampServer.Model.Domain;
+﻿using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
 
 namespace CodeCampServer.Website.Controllers
@@ -16,13 +15,11 @@ namespace CodeCampServer.Website.Controllers
 			_authenticationService = authenticationService;
 		}
 
-		[ControllerAction]
 		public void Index()
 		{
-			RenderView("loginform", this.SmartBag);
+			RenderView("loginform", SmartBag);
 		}
 
-		[ControllerAction]
 		public void Process(string email, string password, string redirectUrl)
 		{
 			if (_loginService.VerifyAccount(email, password))

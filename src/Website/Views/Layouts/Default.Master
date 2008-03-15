@@ -1,9 +1,13 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="CodeCampServer.Website.Views.ViewMasterBase" %>
-
+﻿<%@ Import namespace="CodeCampServer.Website.Controllers"%>
+<%@ Master Language="C#" AutoEventWireup="true" Inherits="CodeCampServer.Website.Views.ViewMasterBase" %>
+<%@ Import Namespace="CodeCampServer.Website.Helpers" %>
+<%@ Import namespace="System.Web.Mvc"%>
+<%@ Import Namespace="System.Linq.Expressions" %>
+<%@ Import Namespace="System.Linq" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
-<head id="Head1" runat="server">
+<head runat="server">
     <title><%= ViewData.Get<string>("PageTitle") %></title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/style-2column.css") %>" />
@@ -19,16 +23,19 @@
 		    <p>Powered by <a href="http://codecampserver.org">Code Camp Server</a></p>
 	    </div>
 	    <div id="menu">
-    		<ul>
-			    <li><%= this.NavLink("Home", "active", new { Controller="conference", Action="details", conferenceKey="austincodecamp2008"}) %></li>			    
-			    <li><%= this.NavLink("Schedule", "active", new { Controller="schedule", Action="", conferenceKey="austincodecamp2008"}) %></li>			    
-			    <li><%= this.NavLink("Speakers", "active", new { Controller="speaker", Action="list", conferenceKey="austincodecamp2008"}) %></li>
-                <li><%= this.NavLink("Sponsors", "active", new { Controller = "sponsor", Action = "list", conferenceKey = "austincodecamp2008" })%></li>
+    		<ul>     		    
+    		    <%-- 
+    		    <li><%=Html.ActionLink<ConferenceController>(c => c.Details(conferenceKey), "Home") %></li>
+    		    <li><%=Html.ActionLink<ScheduleController>(c => c.Index(conferenceKey), "Schedule") %></li>
+    		    <li><%=Html.ActionLink<SpeakerController>(c => c.List(conferenceKey), "Speakers") %></li>
+    		    <li><%=Html.ActionLink<SponsorController>(c => c.List(conferenceKey), "Sponsors") %></li>    				  
 
 	        <%  if (!Context.User.Identity.IsAuthenticated) { %>
-                <li><%= this.NavLink("Register!", "active", new { Controller = "conference", Action = "pleaseregister", conferenceKey = "austincodecamp2008" })%></li>
-                <li><%= this.NavLink("Login", "active", new { Controller = "login", Action = "index", conferenceKey = "austincodecamp2008" })%></li>
-	        <% } %>
+	            <li><%=Html.ActionLink<ConferenceController>(c => c.PleaseRegister(conferenceKey), "Register!") %></li>
+	            <li><%=Html.ActionLink<LoginController>(c => c.Index(conferenceKey), "Login") %></li>                                
+	            
+	        <% } %>	        
+	        --%>
 	    	</ul>
 	    </div>
 	    <div id="login">
@@ -49,7 +56,7 @@
             <asp:ContentPlaceHolder ID="SidebarContentPlaceHolder" runat="server" />
             <p></p>
             
-            <% if (ViewData.GetOrDefault<bool>("ShouldRenderAdminPanel", false)) { %>            
+            <% if (ViewData.GetOrDefault("ShouldRenderAdminPanel", false)) { %>            
                 <%= Html.RenderUserControl("~/Views/Shared/AdminControlPanel.ascx") %>            
             <% } %>
             <p></p>

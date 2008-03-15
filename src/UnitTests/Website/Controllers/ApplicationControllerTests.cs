@@ -1,5 +1,4 @@
-﻿using System.Web.Mvc;
-using CodeCampServer.Model.Security;
+﻿using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Controllers;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
@@ -10,7 +9,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
     [TestFixture]
     public class ApplicationControllerTests
     {
-        IAuthorizationService _authorizationService;
+        IAuthorizationService _authorizationService;       
 
         private class FooController : ApplicationController
         {
@@ -18,11 +17,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             {
             }
 
-            [ControllerAction]
             public void Bar()
             {
                 //would normally be called by the Execute method
-                OnPreAction("bar", null);
+                OnActionExecuting(null);
             }
         }
 
@@ -41,9 +39,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             Expect.Call(_authorizationService.IsAdministrator).Return(true);
             _mocks.ReplayAll();
 
-            FooController controller = new FooController(_authorizationService);            
-            controller.Bar();
-            
+            var foo = new FooController(_authorizationService);
+            foo.Bar();
+
             _mocks.VerifyAll();
         }
 
@@ -52,19 +50,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         {
             SetupResult.For(_authorizationService.IsAdministrator).Return(true);
             _mocks.ReplayAll();
+            var foo = new FooController(_authorizationService);
+            foo.Bar();
 
-            FooController controller = new FooController(_authorizationService);
-            controller.Bar();
-
-            Assert.That(controller.SmartBag.ContainsKey("ShouldRenderAdminPanel"));
-            Assert.That(controller.SmartBag.Get<bool>("ShouldRenderAdminPanel"), Is.True);
-
-            _mocks.BackToRecordAll();
-            SetupResult.For(_authorizationService.IsAdministrator).Return(false);
-            _mocks.ReplayAll();
-
-            controller.Bar();
-            _mocks.VerifyAll();
+            Assert.That(foo.SmartBag.ContainsKey("ShouldRenderAdminPanel"));
         }
 
 
@@ -82,12 +71,11 @@ namespace CodeCampServer.UnitTests.Website.Controllers
                 ActualViewData = viewData;
             }
 
-            [ControllerAction]
             public void RenderWithViewName(string viewName)
             {
                 RenderView(viewName);
             }
-            [ControllerAction]
+
             public void RenderWithViewNameAndMasterName(string viewName, string masterName)
             {
                 RenderView(viewName, masterName);

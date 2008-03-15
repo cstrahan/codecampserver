@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
-using System.Web;
+using System.Web.Routing;
 using System.Web.Mvc;
-using CodeCampServer.Model.Security;
-using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
-using Rhino.Mocks;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Exceptions;
 using CodeCampServer.Model.Impl;
 using CodeCampServer.Model.Presentation;
+using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Controllers;
 using CodeCampServer.Website.Views;
+using System.Web;
+using NUnit.Framework;
+using NUnit.Framework.SyntaxHelpers;
+using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {
@@ -28,38 +27,15 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         private Conference _conference;
 		private IUserSession _userSession;
 
-		private IHttpContext GetHttpContext(string requestUrl)
-		{            
-			IHttpRequest request = _mocks.DynamicMock<IHttpRequest>();
-			SetupResult.For(request.Url).Return(new Uri(requestUrl));
-
-			IHttpResponse response = _mocks.DynamicMock<IHttpResponse>();
-			IHttpSessionState session = _mocks.DynamicMock<IHttpSessionState>();
-            IHttpContext httpContext = _mocks.DynamicMock<IHttpContext>();
-
-		    SetupResult.For(session[null]).IgnoreArguments().Return(TestingSpeakerController.ActualTempData);
-
-			SetupResult.For(httpContext.Session).Return(session);
-			SetupResult.For(httpContext.Request).Return(request);
-			SetupResult.For(httpContext.Response).Return(response);
-
-            _mocks.Replay(session);
-		    _mocks.Replay(request);
-            _mocks.Replay(response);
-            _mocks.Replay(httpContext);
-
-			return httpContext;
-		}
-
 		private class TestingSpeakerController : SpeakerController
 		{
 			public string ActualViewName;
 			public string ActualMasterName;
 			public object ActualViewData;
-			public Hashtable RedirectToActionValues;
+            public RouteValueDictionary RedirectToActionValues;
 			public static TempDataDictionary ActualTempData;
 
-			public void CreateTempData(IHttpContext context)
+			public void CreateTempData(HttpContextBase context)
 			{
                 ActualTempData = new TempDataDictionary(context);
 			    PropertyInfo property = typeof (Controller).GetProperty("TempData");
@@ -81,10 +57,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 				ActualViewData = viewData;
 			}
 
-			protected override void RedirectToAction(object values)
-			{
-				RedirectToActionValues = HtmlExtensionUtility.GetPropertyHash(values);
-			}
+            protected override void RedirectToAction(RouteValueDictionary values)
+            {
+                RedirectToActionValues = values;
+            }
 		}
 
 		[SetUp]
@@ -100,8 +76,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 		private TestingSpeakerController GetController()
 		{
-			TestingSpeakerController controller = new TestingSpeakerController(_conferenceService, _speakerService, _authorizationService, new ClockStub(), _userSession);
-			controller.CreateTempData(GetHttpContext("http://localhost/speaker"));
+            HttpContextBase context = _mocks.FakeHttpContext("~/speaker");
+            TestingSpeakerController controller = new TestingSpeakerController(_conferenceService, _speakerService, _authorizationService, new ClockStub(), _userSession);
+            controller.CreateTempData(context);
 
 			return controller;
 		}

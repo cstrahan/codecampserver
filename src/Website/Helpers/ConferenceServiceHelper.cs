@@ -1,11 +1,8 @@
-?using System;
-using System.Web;
-using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Presentation;
 using CodeCampServer.Model.Domain;
 
-namespace CodeCampServer.Website.Controllers
+namespace CodeCampServer.Website.Helpers
 {
     internal class ConferenceServiceHelper
     {

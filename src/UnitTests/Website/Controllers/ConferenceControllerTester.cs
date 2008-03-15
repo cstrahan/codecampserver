@@ -10,6 +10,7 @@ using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
 using CodeCampServer.Model.Security;
+using System.Web.Routing;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {
@@ -36,7 +37,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			public string ActualViewName;
 			public string ActualMasterName;
 			public object ActualViewData;
-            public object ActualRedirectToActionValue;
+            public RouteValueDictionary ActualRedirectToActionValues;
 
             public event EventHandler RedirectedToAction;
 
@@ -54,9 +55,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 				ActualViewData = viewData;
 			}
 
-            protected override void RedirectToAction(object values)
+            protected override void RedirectToAction(RouteValueDictionary values)
             {
-                ActualRedirectToActionValue = values;
+                ActualRedirectToActionValues = values;
                 if (RedirectedToAction != null)
                     RedirectedToAction(this, null);
             }
@@ -69,7 +70,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
                 new TestingConferenceController(_service, _authService, new ClockStub());
             controller.Index();
 
-            Assert.That(controller.ActualRedirectToActionValue, Has.Property("Action", "details"));
+            Assert.AreEqual(controller.ActualRedirectToActionValues["Action"], "details");
         }
 
         [Test]
@@ -109,8 +110,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             try { controller.List(); }
             catch(ApplicationException x) { Assert.That(x, Is.SameAs(exception)); }
 
-            Assert.That(controller.ActualRedirectToActionValue, Has.Property("Controller", "Login"));
-            Assert.That(controller.ActualRedirectToActionValue, Has.Property("Action", "index"));
+            Assert.AreEqual(controller.ActualRedirectToActionValues["Controller"], "Login");
+            Assert.AreEqual(controller.ActualRedirectToActionValues["Action"], "index");
         }
 
 

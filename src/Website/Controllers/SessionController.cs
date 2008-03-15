@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
@@ -26,7 +25,6 @@ namespace CodeCampServer.Website.Controllers
 			_userSession = userSession;
 		}
 
-		[ControllerAction]
 		public void Create(string conferenceKey)
 		{
 			Speaker currentUser = _userSession.GetLoggedInSpeaker();
@@ -40,7 +38,6 @@ namespace CodeCampServer.Website.Controllers
 			}
 		}
 
-		[ControllerAction]
 		public void CreateNew(string conferenceKey, string speakerEmail,
 		                      string title, string @abstract,
 		                      string blogName, string blogUrl,
@@ -61,7 +58,6 @@ namespace CodeCampServer.Website.Controllers
 			RenderView("CreateConfirm");
 		}
 
-		[ControllerAction]
 		public void Proposed(string conferenceKey)
 		{
 			Conference conference = _conferenceService.GetConference(conferenceKey);

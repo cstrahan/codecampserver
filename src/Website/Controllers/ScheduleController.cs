@@ -23,7 +23,6 @@ namespace CodeCampServer.Website.Controllers
 			_timeSlotRepository = timeSlotRepository;
 		}
 
-		[ControllerAction]
 		public void Index(string conferenceKey)
 		{
 			Conference conference = _conferenceService.GetConference(conferenceKey);

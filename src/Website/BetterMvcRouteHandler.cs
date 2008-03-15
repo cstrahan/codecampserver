@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace CodeCampServer.Website
 {
@@ -9,8 +10,7 @@ namespace CodeCampServer.Website
 
 		public IHttpHandler GetHttpHandler(RequestContext requestContext)
 		{
-			MvcHandler handler = new BetterMvcHandler();
-			handler.RequestContext = requestContext;
+			MvcHandler handler = new BetterMvcHandler(requestContext);
 			return handler;
 		}
 

@@ -21,14 +21,12 @@ namespace CodeCampServer.Website.Controllers
             _clock = clock;
         }
 
-        [ControllerAction]
         public void New(string conferenceKey)
         {
             // TODO IAuthorizationService check
             RenderView("Edit", new SmartBag().Add(new Sponsor()));
         }
 
-        [ControllerAction]
         public void Delete(string conferenceKey, string sponsorName)
         {
             // TODO IAuthorizationService check
@@ -45,7 +43,6 @@ namespace CodeCampServer.Website.Controllers
         }
 
 
-        [ControllerAction]
         public void List(string conferenceKey)
         {
             Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
@@ -54,7 +51,6 @@ namespace CodeCampServer.Website.Controllers
             RenderView("List", viewData);
         }
 
-        [ControllerAction]
         public void Edit(string conferenceKey, string sponsorName)
         {
             // TODO IAuthorizationService check
@@ -71,7 +67,6 @@ namespace CodeCampServer.Website.Controllers
             }
         }
 
-        [ControllerAction]
         public void Save(string conferenceKey, string oldName, string name, string level, string logoUrl, string website,
                          string firstName, string lastName, string email)
         {

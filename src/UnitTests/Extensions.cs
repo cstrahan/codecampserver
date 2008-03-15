@@ -1,26 +1,83 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections.Specialized;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests
 {
     public static class Extensions
     {
-        public static IHttpContext DynamicIHttpContext(this MockRepository mocks, string url)
+        public static HttpContextBase FakeHttpContext(this MockRepository mocks)
         {
-            IHttpContext context = mocks.DynamicMock<IHttpContext>();
-            IHttpRequest request = mocks.DynamicMock<IHttpRequest>();
-            IHttpResponse response = mocks.DynamicMock<IHttpResponse>();
+            HttpContextBase context = mocks.PartialMock<HttpContextBase>();
+            HttpRequestBase request = mocks.PartialMock<HttpRequestBase>();
+            HttpResponseBase response = mocks.PartialMock<HttpResponseBase>();
+            MockHttpSessionState session = new MockHttpSessionState();
+            HttpServerUtilityBase server = mocks.PartialMock<HttpServerUtilityBase>();
 
             SetupResult.For(context.Request).Return(request);
             SetupResult.For(context.Response).Return(response);
-            SetupResult.For(request.AppRelativeCurrentExecutionFilePath).Return(url);
-            SetupResult.For(request.PathInfo).Return(string.Empty);            
+            SetupResult.For(context.Session).Return(session);
+            SetupResult.For(context.Server).Return(server);
 
+            mocks.Replay(context);
             return context;
+        }
+
+        public static HttpContextBase FakeHttpContext(this MockRepository mocks, string url)
+        {
+            HttpContextBase context = FakeHttpContext(mocks);
+            context.Request.SetupRequestUrl(url);
+            mocks.Replay(context.Request);
+            return context;
+        }
+
+        public static void SetFakeControllerContext(this MockRepository mocks, Controller controller)
+        {
+            var httpContext = mocks.FakeHttpContext();
+            ControllerContext context = new ControllerContext(new RequestContext(httpContext, new RouteData()), controller);
+            controller.ControllerContext = context;
+        }
+
+        static string GetUrlFileName(string url)
+        {
+            if (url.Contains("?"))
+                return url.Substring(0, url.IndexOf("?"));
+            else
+                return url;
+        }
+
+        static NameValueCollection GetQueryStringParameters(string url)
+        {
+            if (url.Contains("?"))
+            {
+                string[] parts = url.Split('?');
+                return System.Web.HttpUtility.ParseQueryString(parts[1]);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static void SetHttpMethodResult(this HttpRequestBase request, string httpMethod)
+        {
+            SetupResult.For(request.HttpMethod).Return(httpMethod);
+        }
+
+        public static void SetupRequestUrl(this HttpRequestBase request, string url)
+        {
+            if (url == null)
+                throw new ArgumentNullException("url");
+
+            if (!url.StartsWith("~/"))
+                throw new ArgumentException("Sorry, we expect a virtual url starting with \"~/\".");
+
+            SetupResult.For(request.QueryString).Return(GetQueryStringParameters(url));
+            SetupResult.For(request.AppRelativeCurrentExecutionFilePath).Return(GetUrlFileName(url));
+            SetupResult.For(request.PathInfo).Return(string.Empty);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.Routing;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Exceptions;
@@ -28,18 +29,16 @@ namespace CodeCampServer.Website.Controllers
 			_userSession = userSession;
 		}
 
-		[ControllerAction]
 		public void Index(string conferenceKey)
 		{
-			RedirectToAction(new
+			RedirectToAction(new RouteValueDictionary(new
 			{
 				Controller = "conference",
 				Action = "details",
 				conferenceKey = conferenceKey
-			});
+			}));
 		}
 
-		[ControllerAction]
 		public void List(string conferenceKey, int? page, int? perPage)
 		{
 			int effectivePage = page.GetValueOrDefault(0);
@@ -58,7 +57,6 @@ namespace CodeCampServer.Website.Controllers
 			RenderView("List");
 		}
 
-		[ControllerAction]
 		public void View(string conferenceKey, string speakerId)
 		{
             Speaker speaker = _speakerService.GetSpeakerByDisplayName(speakerId);
@@ -66,7 +64,6 @@ namespace CodeCampServer.Website.Controllers
 			RenderView("view");
 		}
 
-		[ControllerAction]
 		public void Edit()
 		{
 			Speaker speaker = _userSession.GetLoggedInSpeaker();
@@ -77,15 +74,14 @@ namespace CodeCampServer.Website.Controllers
 			}
 			else
 			{
-				RedirectToAction(new
+				RedirectToAction(new RouteValueDictionary(new
 				{
 					Controller = "login",
 					Action = "Index"
-				});
+				}));
 			}
 		}
 
-		[ControllerAction]
 		public void Save(string conferenceKey, string displayName, string firstName, string lastName, string website,
 		                 string comment, string profile, string avatarUrl)
 		{
@@ -95,12 +91,12 @@ namespace CodeCampServer.Website.Controllers
                 _speakerService.SaveSpeaker(user.Contact.Email, firstName, lastName, website, comment, displayName, profile, avatarUrl);
 
 				TempData["message"] = "Profile saved";
-				RedirectToAction(new
+				RedirectToAction(new RouteValueDictionary(new
 				{
 					Action = "view",
 					conferenceKey = conferenceKey,
 					speakerId = displayName
-				});
+				}));
 			}
 			catch (DataValidationException ex)
 			{
