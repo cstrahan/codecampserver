@@ -163,7 +163,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_mocks.ReplayAll();
 
 			TestingConferenceController controller =
-                new TestingConferenceController(_service, _authService, new ClockStub());
+                new TestingConferenceController(_service, _authService, new ClockStub());            
 			controller.Register("austincodecamp2008", "firstname", "lastname", "email", "website", "comment", "password");
 
 			SmartBag bag = (SmartBag) controller.ActualViewData;
@@ -183,8 +183,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		{
 			SetupResult.For(_service.GetConference("austincodecamp2008"))
 				.Return(_conference);
-			Person[] toReturn = new [] {new Person("a", "b", "c"), new Person("d", "e", "f")};
-			SetupResult.For(_service.GetAttendees(_conference, 0, 2)).Return(toReturn);
+            _conference.AddAttendee(new Person("George", "Carlin", "gcarlin@aol.com"));
+            _conference.AddAttendee(new Person("Dave", "Chappelle", "rjames@gmail.com"));
+			
+			//SetupResult.For(_service.GetAttendees(_conference, 0, 2)).IgnoreArguments().Return(toReturn);
 			_mocks.ReplayAll();
 
 			TestingConferenceController controller =
@@ -201,8 +203,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			Assert.That(conference.Conference, Is.EqualTo(_conference));
 
 			Assert.That(attendeeListings.Length, Is.EqualTo(2));
-			Assert.That(attendeeListings[0].Name, Is.EqualTo("a b"));
-			Assert.That(attendeeListings[1].Name, Is.EqualTo("c d"));
+			Assert.That(attendeeListings[0].Name, Is.EqualTo("George Carlin"));
+			Assert.That(attendeeListings[1].Name, Is.EqualTo("Dave Chappelle"));
 		}
 
 		[Test]

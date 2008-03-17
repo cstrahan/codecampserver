@@ -105,19 +105,17 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
                 .Return(_conference);
 
-
-            //add the speaker to the conference
-            Assert.Fail();
-            //SetupResult.For(_speakerService.GetSpeakerByDisplayName(speaker.SpeakerKey)).Return(speaker);
+            _conference.AddSpeaker(speaker.Person, speaker.SpeakerKey, speaker.Bio, speaker.AvatarUrl);
+                        
             _mocks.ReplayAll();
 
             TestingSpeakerController controller = GetController();
             controller.View("austincodecamp2008", speaker.SpeakerKey);
 
-            Speaker viewDataSpeakerProfile = (controller.ActualViewData as SmartBag).Get<Speaker>();
+            Speaker viewDataSpeakerProfile = ((SmartBag)controller.ActualViewData).Get<Speaker>();
 
             Assert.That(viewDataSpeakerProfile, Is.Not.Null);
-            Assert.That(viewDataSpeakerProfile, Is.SameAs(speaker));
+            Assert.That(viewDataSpeakerProfile, Is.EqualTo(speaker));
             Assert.That(controller.ActualViewName, Is.EqualTo("view"));
         }
 
@@ -125,24 +123,27 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         public void EditSpeakerShouldGetSpeakerData()
         {
             Speaker speaker = getSpeaker();
+            _conference.AddSpeaker(speaker.Person, speaker.SpeakerKey, speaker.Bio, speaker.AvatarUrl);
             SetupResult.For(_userSession.GetLoggedInPerson()).Return(speaker.Person);
+            SetupResult.For(_conferenceService.GetConference(null)).IgnoreArguments().Return(_conference);
             
             _mocks.ReplayAll();
 
             TestingSpeakerController controller = GetController();
             controller.Edit("conf123");
 
-            Speaker viewDataSpeakerProfile = (controller.ActualViewData as SmartBag).Get<Speaker>();
-
-            Assert.AreSame(speaker, viewDataSpeakerProfile);
             Assert.That(controller.ActualViewName, Is.EqualTo("edit"));
+            Speaker viewDataSpeakerProfile = ((SmartBag)controller.ActualViewData).Get<Speaker>();
+
+            Assert.That(speaker, Is.EqualTo(viewDataSpeakerProfile));
+            
         }
 
         [Test]
         public void EditProfileShouldReturnLoginWhenNoSpeaker()
         {
-            Speaker speaker = getSpeaker();
-            SetupResult.For(_userSession.GetLoggedInPerson()).Return(speaker.Person);
+            SetupResult.For(_conferenceService.GetConference(null)).IgnoreArguments().Return(_conference);
+            SetupResult.For(_userSession.GetLoggedInPerson()).Return(null);
             _mocks.ReplayAll();
 
             TestingSpeakerController controller = GetController();

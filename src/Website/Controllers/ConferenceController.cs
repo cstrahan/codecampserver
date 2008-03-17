@@ -72,20 +72,29 @@ namespace CodeCampServer.Website.Controllers
 		public void PleaseRegister(string conferenceKey)
 		{
 			ScheduledConference conference = getScheduledConference(conferenceKey);
-			RenderView("registerform", new SmartBag().Add(conference));
+		    SmartBag.Add(conference);
+			RenderView("registerform", SmartBag);
 		}
 
 		public void Register(string conferenceKey, string firstName, string lastName, string email, string website,
 		                     string comment, string password)
 		{
-			ScheduledConference scheduledConference = getScheduledConference(conferenceKey);
-            
-            throw new NotImplementedException();
-            //I think this will be moved to PersonController... pending further thought.
+            try 
+            {
+		        Conference conference = _conferenceService.GetConference(conferenceKey);
+                Person person = _conferenceService.RegisterAttendee(firstName, lastName, email, website, comment, conference, password);
 
-			/*Attendee attendee = _conferenceService.RegisterAttendee(firstName, lastName, website, comment,
-			                                                        scheduledConference.Conference, email, password);*/
-			//RenderView("registerconfirm", new SmartBag().Add(attendee).Add(scheduledConference));
+                //sign in the person
+
+                SmartBag.Add(person).Add(new ScheduledConference(conference, _clock));
+                RenderView("registerconfirm", SmartBag);
+            } 
+            catch(Exception exc)
+            {
+                TempData["error"] = "An error occurred while registering your account.";
+                Log.Error(this, "An error occcurred while registering a user", exc);
+                RenderView("pleaseregister");
+            }						
 		}
 
 		public void ListAttendees(string conferenceKey, int? page, int? perPage)

@@ -69,12 +69,15 @@ namespace CodeCampServer.Website.Controllers
 		{
 		    Conference conference = _conferenceService.GetConference(conferenceKey);
             Person person = _userSession.GetLoggedInPerson();
-		    Speaker speaker = person.GetSpeakerProfileFor(conference);
+
+		    Speaker speaker = null;
+		    if(person != null)
+		        speaker = person.GetSpeakerProfileFor(conference);
 
 			if (speaker != null)
 			{
 				SmartBag.Add(speaker);
-				RenderView("edit");
+				RenderView("edit", SmartBag);
 			}
 			else
 			{

@@ -28,7 +28,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_conferenceService = _mocks.CreateMock<IConferenceService>();
 			_authorizationService = _mocks.CreateMock<IAuthorizationService>();
 			_sessionService = _mocks.CreateMock<ISessionService>();
-			_personRepository = _mocks.CreateMock<IPersonRepository>();
+			_personRepository = _mocks.DynamicMock<IPersonRepository>();
 			_userSession = _mocks.CreateMock<IUserSession>();
 			_conference = new Conference("austincodecamp2008", "Austin Code Camp");
 		}
@@ -68,7 +68,11 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		[Test]
 		public void CreateActionShouldContainSpeakerListingCollectionAndRenderNewView()
 		{
-			Speaker expectedSpeaker = new Speaker();
+		    var person = new Person("Barney", "Rubble", "brubble@aol.com");
+		    Speaker expectedSpeaker = new Speaker(person, "brubble", "bio", "avatar");
+		    _conference.AddSpeaker(person, expectedSpeaker.SpeakerKey, expectedSpeaker.Bio, expectedSpeaker.AvatarUrl);
+
+		    SetupResult.For(_userSession.GetLoggedInPerson()).Return(person);		    
 			SetupResult.For(_conferenceService.GetConference("austincodecamp2008")).Return(_conference);
 			Expect.Call(_userSession.GetLoggedInPerson()).Return(expectedSpeaker.Person);
 			_mocks.ReplayAll();
@@ -101,16 +105,17 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		[Test]
 		public void CreateNewActionShouldCreateNewSession()
 		{
-			Conference conference = _conferenceService.GetConference("austincodecamp2008");
+            Person speaker = new Person();
+            _conference.AddSpeaker(speaker, "key", "bio", "avatar");
+			
 			Track track = new Track("Misc");
 			
             Session actualSession = new Session(new Person(), "title", "abstract");
 			
             actualSession.Track = track;
 			
-            SetupResult.For(conference)
-				.Return(_conference);
-			
+            SetupResult.For(_conferenceService.GetConference(null)).IgnoreArguments().Return(_conference);
+		    SetupResult.For(_personRepository.FindByEmail(null)).IgnoreArguments().Return(speaker);
 			Expect.Call(
 				_sessionService.CreateSession(actualSession.Speaker, actualSession.Title, actualSession.Abstract,
 				                              actualSession.Track))
@@ -131,6 +136,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             //Assert.That(session.Speaker, Is.EqualTo(speaker.SpeakerKey));
 			Assert.That(session.Title, Is.EqualTo("title"));
 			Assert.That(session.Abstract, Is.EqualTo("abstract"));			
+
+            _mocks.VerifyAll();
 		}
 
 		[Test]

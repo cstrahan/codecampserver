@@ -41,6 +41,8 @@ namespace CodeCampServer.Website.Controllers
 	    private Speaker getLoggedInSpeaker(string conferenceKey)
 	    {
 	        Person p = _userSession.GetLoggedInPerson();
+            if(p == null) return null;
+
 	        Conference conf = _conferenceService.GetConference(conferenceKey);
 	        return p.GetSpeakerProfileFor(conf);
 	    }

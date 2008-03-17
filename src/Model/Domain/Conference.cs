@@ -175,7 +175,10 @@ namespace CodeCampServer.Model.Domain
 
         public Speaker GetSpeakerByKey(string id)
         {
-            throw new NotImplementedException();
+            return Array.Find(GetSpeakers(), delegate(Speaker speaker)
+                                                 {
+                                                     return (speaker.SpeakerKey == id);                                                     
+                                                 });
         }
     }
 }
