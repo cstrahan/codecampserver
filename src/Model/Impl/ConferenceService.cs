@@ -8,18 +8,15 @@ namespace CodeCampServer.Model.Impl
 	public class ConferenceService : IConferenceService
 	{
 		private readonly IConferenceRepository _conferenceRepository;
-		private readonly IAttendeeRepository _attendeeRepository;
-		private readonly ILoginService _loginService;
+	    private readonly IPersonRepository _personRepository;
+	    private readonly ILoginService _loginService;
 	    private readonly IClock _clock;
 
-		public ConferenceService(IConferenceRepository conferenceRepository, IAttendeeRepository attendeeRepository,
-		                         ILoginService loginService,
-		                         IUserSession userSession,
-                                 IClock clock)
+		public ConferenceService(IConferenceRepository conferenceRepository, IPersonRepository personRepository, ILoginService loginService, IClock clock)
 		{
 			_conferenceRepository = conferenceRepository;
-			_attendeeRepository = attendeeRepository;
-			_loginService = loginService;
+		    _personRepository = personRepository;
+		    _loginService = loginService;
 		    _clock = clock;
 		}
 
@@ -33,22 +30,25 @@ namespace CodeCampServer.Model.Impl
 			return _conferenceRepository.GetAllConferences();
 		}
 
-		public Attendee[] GetAttendees(Conference conference, int page, int perPage)
+		public Person[] GetAttendees(Conference conference, int page, int perPage)
 		{
-			return _attendeeRepository.GetAttendeesForConference(conference, page, perPage);
+		    return conference.GetAttendees();
 		}
-
-		//TODO:  This method should be broken out to a AttendeeService, IAttendeeService
-		public Attendee RegisterAttendee(string firstName, string lastName, string website, string comment,
-		                                 Conference conference, string emailAddress, string cleartextPassword)
+		
+		public Person RegisterAttendee(string firstName, string lastName, string emailAddress, string website, string comment, Conference conference, string cleartextPassword)
 		{
-			string passwordSalt = _loginService.CreateSalt();
-			string encryptedPassword = _loginService.CreatePasswordHash(cleartextPassword, passwordSalt);
+            var passwordSalt = _loginService.CreateSalt();
+			var encryptedPassword = _loginService.CreatePasswordHash(cleartextPassword, passwordSalt);
 
-			Attendee attendee = new Attendee(firstName, lastName, website, comment, conference, emailAddress, encryptedPassword,
-			                                 passwordSalt);
-			_attendeeRepository.Save(attendee);
-			return attendee;
+            Person person = new Person(firstName, lastName, emailAddress);
+		    person.Website = website;
+		    person.Comment = comment;
+		    person.PasswordSalt = passwordSalt;
+		    person.Password = encryptedPassword;
+
+            conference.AddAttendee(person);
+
+		    return person;
 		}
 
         public Conference GetCurrentConference()

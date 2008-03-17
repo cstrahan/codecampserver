@@ -6,6 +6,6 @@
     Name:    <%=_speaker.Contact.FullName%><br />
     Email:   <%=_speaker.Contact.Email%><br />
     Website: <%=_speaker.Website%><br />
-    Profile: <%=_speaker.Profile%><br />
+    Profile: <%=_speaker.Bio%><br />
     Comment: <%=_speaker.Comment%><br />
 </asp:Content>

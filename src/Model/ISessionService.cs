@@ -7,7 +7,7 @@ namespace CodeCampServer.Model
     [PluginFamily(Keys.DEFAULT)]
     public interface ISessionService
     {
-        Session CreateSession(Speaker speaker, string title, string @abstract, Track track, OnlineResource[] onlineResources);
+        Session CreateSession(Person speaker, string title, string @abstract, Track track);
 
         //TODO:  This is a duplicate of ISessionRepository -Palermo
         IEnumerable<Session> GetProposedSessions(Conference conference);

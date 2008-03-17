@@ -1,17 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="CodeCampServer.Model.Domain.TimeSlot">
-    <Position X="12.75" Y="9.75" Width="2" />
+    <Position X="14.25" Y="10.5" Width="2" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAEAAAAAIAAAAQAAAAAAAAAAIAAgAAAgAAAAAAAAAAA=</HashCode>
-      <FileName>Model\TimeSlot.cs</FileName>
+      <HashCode>IAEAAAAAIAAgAAAAAAAAAAAIIAAgAAAiIAAACAAAAAA=</HashCode>
+      <FileName>Domain\TimeSlot.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Session" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="CodeCampServer.Model.Domain.Conference">
     <Position X="11.25" Y="6.5" Width="2.5" />
@@ -19,39 +16,16 @@
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="TimeSlots" Type="CodeCampServer.Model.Domain.TimeSlot" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="13.75" Y="8.907" />
-        <Point X="14" Y="8.907" />
-        <Point X="14" Y="9.75" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAIAAAAAAgoAYEAAKAAAR4AQAAAAAAKCABAEAAEAA=</HashCode>
-      <FileName>Model\Conference.cs</FileName>
+      <HashCode>AABAIAAAAAAgIAYMEAKAAAR4AUAAAAAECCABAEEAOAA=</HashCode>
+      <FileName>Domain\Conference.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Location" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Field Name="_sponsors" />
-      <Property Name="TimeSlots" />
     </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="CodeCampServer.Model.Domain.ConfirmedSponsor">
-    <Position X="9.5" Y="9.75" Width="2.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAEAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAEAA=</HashCode>
-      <FileName>Model\ConfirmedSponsor.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Sponsor" />
-      <Property Name="Level" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="CodeCampServer.Model.Domain.Location">
     <Position X="11.5" Y="11.75" Width="1.75" />
@@ -60,18 +34,18 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>ACABIAACgAAAAAAIIAAEQAQAAAAAAAAQAAAAAEACAAA=</HashCode>
-      <FileName>Model\Location.cs</FileName>
+      <FileName>Domain\Location.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CodeCampServer.Model.Domain.Session">
-    <Position X="15" Y="6.5" Width="2.75" />
+    <Position X="14.75" Y="6.5" Width="2.75" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAABJIAAAEAAAAAAAAAgAAgAAAAAgAAAAAQAAAA=</HashCode>
-      <FileName>Model\Session.cs</FileName>
+      <HashCode>AACAQAABAMAgAEAAAAAAAABgAAgAAAACgAAACAAAIIA=</HashCode>
+      <FileName>Domain\Session.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CodeCampServer.Model.Domain.Sponsor">
@@ -80,15 +54,16 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAIAAAAAgAgCAACAAAAAQAAAAAAAAAAAAAgAEAAAA=</HashCode>
-      <FileName>Model\Sponsor.cs</FileName>
+      <HashCode>AAAAIAAAAAgAgCAAiAAAAQQAAAAAAIABAAAAgAEAAAA=</HashCode>
+      <FileName>Domain\Sponsor.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Enum Name="CodeCampServer.Model.Domain.SponsorLevel">
     <Position X="9.5" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgIAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
-      <FileName>Model\SponsorLevel.cs</FileName>
+      <FileName>Domain\SponsorLevel.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="8.25" />

@@ -1,14 +1,14 @@
-using CodeCampServer.Model.Domain;
 using NUnit.Framework;
 
 namespace CodeCampServer.UnitTests.Model.Domain
 {
     [TestFixture]
-    public class SpeakerTester : EntityTesterBase
+    public class SpeakerTester
     {
-        protected override EntityBase createEntity()
+        [Test]
+        public void ShouldBeEqualIfAllPropertiesAreEqual()
         {
-            return new Speaker();
+            Assert.Fail("forget something?");
         }
     }
 }

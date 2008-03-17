@@ -75,16 +75,15 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="DataAccess\AttendeeRepositoryTester.cs" />
     <Compile Include="DataAccess\ConferenceRepositoryTester.cs" />
     <Compile Include="DataAccess\PersonRepositoryTester.cs" />
     <Compile Include="DataAccess\TrackRepositoryTester.cs" />
     <Compile Include="DataAccess\TimeSlotRepositoryTester.cs" />
     <Compile Include="DataAccess\DatabaseTesterBase.cs" />
     <Compile Include="DataAccess\SessionRepositoryTester.cs" />
-    <Compile Include="DataAccess\SpeakerRepositoryTester.cs" />
     <Compile Include="DataAccess\ZDataLoader.cs" />
     <Compile Include="DataAccess\TestHelper.cs" />
+    <Compile Include="Mappings\ConferenceMappingTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Website\Log4Net.config">

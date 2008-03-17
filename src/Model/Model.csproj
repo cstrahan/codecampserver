@@ -61,23 +61,18 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Domain\IPersonRepository.cs" />
-    <Compile Include="Domain\Role.cs" />
     <Compile Include="Domain\Person.cs" />
     <Compile Include="Domain\ITrackRepository.cs" />
     <Compile Include="Domain\ITimeSlotRepository.cs" />
-    <Compile Include="Domain\IAttendeeRepository.cs" />
     <Compile Include="Domain\IConferenceRepository.cs" />
     <Compile Include="Domain\ILoginService.cs" />
     <Compile Include="Domain\ISessionRepository.cs" />
     <Compile Include="Domain\ISpeakerRepository.cs" />
     <Compile Include="Domain\ISponsorRepository.cs" />
-    <Compile Include="Domain\Attendee.cs" />
     <Compile Include="Domain\Conference.cs" />
     <Compile Include="Domain\Contact.cs" />
     <Compile Include="Domain\EntityBase.cs" />
     <Compile Include="Domain\Location.cs" />
-    <Compile Include="Domain\OnlineResource.cs" />
-    <Compile Include="Domain\OnlineResourceType.cs" />
     <Compile Include="Domain\Session.cs" />
     <Compile Include="Domain\Speaker.cs" />
     <Compile Include="Domain\Sponsor.cs" />
@@ -90,12 +85,10 @@
     <Compile Include="Impl\ConferenceService.cs" />
     <Compile Include="Impl\LoginService.cs" />
     <Compile Include="Impl\SessionService.cs" />
-    <Compile Include="Impl\SpeakerService.cs" />
     <Compile Include="Impl\SystemClock.cs" />
     <Compile Include="Impl\UserSession.cs" />
     <Compile Include="Impl\UserSessionStub.cs" />
     <Compile Include="ISessionService.cs" />
-    <Compile Include="ISpeakerService.cs" />
     <Compile Include="IUserSession.cs" />
     <Compile Include="Keys.cs" />
     <Compile Include="Log.cs" />

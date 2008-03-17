@@ -6,7 +6,6 @@ namespace CodeCampServer.Model
 	[PluginFamily(Keys.DEFAULT)]
 	public interface IUserSession
 	{
-		Attendee GetCurrentUser();
-        Speaker GetLoggedInSpeaker();
-    }
+	    Person GetLoggedInPerson();	    
+	}
 }

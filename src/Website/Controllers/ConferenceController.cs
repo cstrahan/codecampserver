@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -43,9 +44,13 @@ namespace CodeCampServer.Website.Controllers
         public void Current()
         {
             Conference conference = _conferenceService.GetCurrentConference();
-            RedirectToAction(new RouteValueDictionary(
-                new { action = "list", conferenceKey = conference.Key })
-            );        
+
+            if(conference == null)
+                RedirectToAction("index", "admin");           
+            else
+                RedirectToAction(new RouteValueDictionary(
+                    new { controller="conference", action = "details", conferenceKey = conference.Key })
+                );        
         }
 
 	    public void List()
@@ -74,9 +79,13 @@ namespace CodeCampServer.Website.Controllers
 		                     string comment, string password)
 		{
 			ScheduledConference scheduledConference = getScheduledConference(conferenceKey);
-			Attendee attendee = _conferenceService.RegisterAttendee(firstName, lastName, website, comment,
-			                                                        scheduledConference.Conference, email, password);
-			RenderView("registerconfirm", new SmartBag().Add(attendee).Add(scheduledConference));
+            
+            throw new NotImplementedException();
+            //I think this will be moved to PersonController... pending further thought.
+
+			/*Attendee attendee = _conferenceService.RegisterAttendee(firstName, lastName, website, comment,
+			                                                        scheduledConference.Conference, email, password);*/
+			//RenderView("registerconfirm", new SmartBag().Add(attendee).Add(scheduledConference));
 		}
 
 		public void ListAttendees(string conferenceKey, int? page, int? perPage)
@@ -84,12 +93,18 @@ namespace CodeCampServer.Website.Controllers
 			int effectivePage = page.GetValueOrDefault(0);
 			int effectivePerPage = perPage.GetValueOrDefault(20);
 
-			ScheduledConference scheduledConference = getScheduledConference(conferenceKey);
-			Attendee[] attendees =
-				_conferenceService.GetAttendees(scheduledConference.Conference, effectivePage, effectivePerPage);
+		    Conference conference = _conferenceService.GetConference(conferenceKey);
+		    Person[] attendees = conference.GetAttendees();
+
+            //TODO: implement paging for attendee listing
+            //List<Person> pageOfAttendees = new List<Person>(attendees).GetRange(effectivePage * effectivePerPage, effectivePerPage);
+			
 			AttendeeListing[] listings = getListingsFromAttendees(attendees);
 
-			RenderView("listattendees", new SmartBag().Add(scheduledConference).Add(listings));
+		    SmartBag
+		        .Add(new ScheduledConference(conference, _clock))
+		        .Add(listings);
+            RenderView("listattendees", SmartBag);                                
 		}
 
 		public void New()
@@ -97,10 +112,11 @@ namespace CodeCampServer.Website.Controllers
 			RenderView("Edit", new SmartBag().Add(new Conference()));
 		}
 
-		private AttendeeListing[] getListingsFromAttendees(IEnumerable<Attendee> attendees)
+		private AttendeeListing[] getListingsFromAttendees(Person[] attendees)
 		{
+
 			List<AttendeeListing> listings = new List<AttendeeListing>();
-			foreach (Attendee attendee in attendees)
+			foreach (Person attendee in attendees)
 			{
 				listings.Add(new AttendeeListing(attendee));
 			}

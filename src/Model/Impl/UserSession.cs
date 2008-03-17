@@ -1,3 +1,4 @@
+using System;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
 using StructureMap;
@@ -8,34 +9,25 @@ namespace CodeCampServer.Model.Impl
 	public class UserSession : IUserSession
 	{
 		private readonly IAuthenticationService _authenticationService;
-		private readonly IAttendeeRepository _attendeeRepository;
-        private readonly ISpeakerRepository _speakerRepository;
+	    private readonly IPersonRepository _personRepository;	    
 
-		public UserSession( IAuthenticationService authenticationService, 
-                            IAttendeeRepository attendeeRepository,
-                            ISpeakerRepository speakerRepository)
+		public UserSession(IAuthenticationService authenticationService, IPersonRepository personRepository)
 		{
 			_authenticationService = authenticationService;
-			_attendeeRepository = attendeeRepository;
-            _speakerRepository = speakerRepository;
+		    _personRepository = personRepository;
 		}
 
-		public Attendee GetCurrentUser()
-		{
-			string username = _authenticationService.GetActiveUserName();
-			Attendee currentUser = _attendeeRepository.GetAttendeeByEmail(username);
-			return currentUser;
-		}
-    
         public Speaker GetLoggedInSpeaker()
         {
-            Attendee user = GetCurrentUser();
-
-            if (user != null)
-                return _speakerRepository.GetSpeakerByEmail(user.Contact.Email);
-            else
-                return null;
+            throw new NotImplementedException();
         }
 
-    }
+	    public Person GetLoggedInPerson()
+        {
+            string username = _authenticationService.GetActiveUserName();
+            Person p = _personRepository.FindByEmail(username);
+
+            return p;
+	    }
+	}
 }

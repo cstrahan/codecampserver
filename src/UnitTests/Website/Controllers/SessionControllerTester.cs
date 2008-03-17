@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
@@ -18,7 +16,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		private MockRepository _mocks;
 		private IConferenceService _conferenceService;
 		private ISessionService _sessionService;
-		private ISpeakerService _speakerService;
+		private IPersonRepository _personRepository;
 		private IUserSession _userSession;
 		private IAuthorizationService _authorizationService;
 		private Conference _conference;
@@ -30,7 +28,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_conferenceService = _mocks.CreateMock<IConferenceService>();
 			_authorizationService = _mocks.CreateMock<IAuthorizationService>();
 			_sessionService = _mocks.CreateMock<ISessionService>();
-			_speakerService = _mocks.CreateMock<ISpeakerService>();
+			_personRepository = _mocks.CreateMock<IPersonRepository>();
 			_userSession = _mocks.CreateMock<IUserSession>();
 			_conference = new Conference("austincodecamp2008", "Austin Code Camp");
 		}
@@ -43,9 +41,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             public RouteValueDictionary RedirectToActionValues;
 
 			public TestingSessionController(IConferenceService conferenceService, ISessionService sessionService,
-			                                ISpeakerService speakerService, IAuthorizationService authorizationService,
+			                                IPersonRepository personRepository, IAuthorizationService authorizationService,
 			                                IUserSession userSession)
-				: base(conferenceService, sessionService, speakerService, authorizationService, userSession)
+				: base(conferenceService, sessionService, personRepository, authorizationService, userSession)
 			{
 			}
 
@@ -71,10 +69,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void CreateActionShouldContainSpeakerListingCollectionAndRenderNewView()
 		{
 			Speaker expectedSpeaker = new Speaker();
-			SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
-				.Return(_conference);
-			Expect.Call(_userSession.GetLoggedInSpeaker())
-				.Return(expectedSpeaker);
+			SetupResult.For(_conferenceService.GetConference("austincodecamp2008")).Return(_conference);
+			Expect.Call(_userSession.GetLoggedInPerson()).Return(expectedSpeaker.Person);
 			_mocks.ReplayAll();
 
 			TestingSessionController controller =
@@ -91,8 +87,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		{
 			SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
 				.Return(_conference);
-			Expect.Call(_userSession.GetLoggedInSpeaker())
-				.Return(null);
+			Expect.Call(_userSession.GetLoggedInPerson()).Return(null);
 			_mocks.ReplayAll();
 
 			TestingSessionController controller =
@@ -108,48 +103,34 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		{
 			Conference conference = _conferenceService.GetConference("austincodecamp2008");
 			Track track = new Track("Misc");
-			Speaker speaker =
-				new Speaker("first", "last", "http://google.com", "comment", _conference, "email@gmail.com", "display name",
-				            "http://avatars.com", "my profile", "password", "salt");
-			Session actualSession = new Session(speaker, "title", "abstract");
-			actualSession.AddResource(new OnlineResource(OnlineResourceType.Blog, "My Blog", "http://www.myblog.com"));
-			actualSession.AddResource(new OnlineResource(OnlineResourceType.Download, "My Download", "http://www.mydownload.com"));
-			actualSession.AddResource(new OnlineResource(OnlineResourceType.Website, "My Website", "http://www.mywebsite.com"));
-			actualSession.Track = track;
-			SetupResult.For(conference)
+			
+            Session actualSession = new Session(new Person(), "title", "abstract");
+			
+            actualSession.Track = track;
+			
+            SetupResult.For(conference)
 				.Return(_conference);
-			Expect.Call(_speakerService.GetSpeakerByEmail(speaker.Contact.Email))
-				.Return(speaker);
+			
 			Expect.Call(
 				_sessionService.CreateSession(actualSession.Speaker, actualSession.Title, actualSession.Abstract,
-				                              actualSession.Track, actualSession.GetResources()))
+				                              actualSession.Track))
 				.IgnoreArguments()
 				.Return(actualSession);
 			_mocks.ReplayAll();
 
 			TestingSessionController controller =
-				new TestingSessionController(_conferenceService, _sessionService, _speakerService, _authorizationService,
+				new TestingSessionController(_conferenceService, _sessionService, _personRepository, _authorizationService,
 				                             _userSession);
-			controller.CreateNew("austincodecamp2008", speaker.Contact.Email, "title", "abstract",
-			                     "My Blog", "http://www.myblog.com", "My Website", "http://www.mywebsite.com",
-			                     "Session Download", "http://www.mydownload.com");
+		    controller.CreateNew("austincodecamp2008", "test@aol.com", "title", "abstract");
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("CreateConfirm"));
 			Assert.That(controller.ActualViewData, Is.SameAs(controller.SmartBag));
 			Session session = controller.SmartBag.Get<Session>();
 			Assert.IsNotNull(session);
-			Assert.That(session.Speaker.DisplayName, Is.EqualTo(speaker.DisplayName));
+			
+            //Assert.That(session.Speaker, Is.EqualTo(speaker.SpeakerKey));
 			Assert.That(session.Title, Is.EqualTo("title"));
-			Assert.That(session.Abstract, Is.EqualTo("abstract"));
-
-			List<OnlineResource> resources = new List<OnlineResource>(session.GetResources());
-			Assert.That(resources.Count, Is.EqualTo(3));
-			Assert.That(resources.Find(delegate(OnlineResource r) { return r.Name == "My Blog"; }).Href,
-			            Is.EqualTo("http://www.myblog.com"));
-			Assert.That(resources.Find(delegate(OnlineResource r) { return r.Name == "My Download"; }).Href,
-			            Is.EqualTo("http://www.mydownload.com"));
-			Assert.That(resources.Find(delegate(OnlineResource r) { return r.Name == "My Website"; }).Href,
-			            Is.EqualTo("http://www.mywebsite.com"));
+			Assert.That(session.Abstract, Is.EqualTo("abstract"));			
 		}
 
 		[Test]

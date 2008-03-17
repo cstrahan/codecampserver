@@ -8,20 +8,20 @@ namespace CodeCampServer.Model.Impl
 	[Pluggable(Keys.DEFAULT)]
     public class LoginService : ILoginService
     {
-        private readonly IAttendeeRepository _attendeeRepository;
+	    private readonly IPersonRepository _personRepository;
 
-        public LoginService(IAttendeeRepository attendeeRepository)
+        public LoginService(IPersonRepository personRepository)
         {
-            _attendeeRepository = attendeeRepository;
+            _personRepository = personRepository;
         }
 
         public bool VerifyAccount(string email, string password)
         {
-            Attendee attendee = _attendeeRepository.GetAttendeeByEmail(email);
-            if (attendee == null) return false;
+            Person person = _personRepository.FindByEmail(email);
+            if (person == null) return false;
 
-            string passwordHash = CreatePasswordHash(password, attendee.PasswordSalt);
-            return passwordHash == attendee.Password;
+            string passwordHash = CreatePasswordHash(password, person.PasswordSalt);
+            return passwordHash == person.Password;
         }
 
         /// <summary>

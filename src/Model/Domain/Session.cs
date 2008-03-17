@@ -1,78 +1,62 @@
-using Iesi.Collections.Generic;
-using System.Collections.Generic;
-
 namespace CodeCampServer.Model.Domain
 {
-	public class Session : EntityBase
-	{
-		private Speaker _speaker;
-		private string _title;
-		private string _abstract;
+    public class Session : EntityBase
+    {
+        private Conference _conference;
+        private Person _speaker;
+        private string _title;
+        private string _abstract;
         private bool _isApproved;
-        private ISet<OnlineResource> _onlineResources = new HashedSet<OnlineResource>();
         private Track _track;
         private TimeSlot _timeSlot;
 
-		public Session()
-		{
-		}
+        public Session()
+        {
+        }
 
-        public Session(Speaker speaker, string title, string @abstract)
+        public Session(Person speaker, string title, string @abstract)
         {
             _speaker = speaker;
             _title = title;
             _abstract = @abstract;
         }
 
-		public Session(Speaker speaker, string title, string @abstract, Track track)
-		{
-			_speaker = speaker;
-			_title = title;
-			_abstract = @abstract;
-			_track = track;
-		}
-
-		public Session(Speaker speaker, string title, string @abstract, Track track, OnlineResource[] onlineResources)
+        public Session(Person speaker, string title, string @abstract, Track track)
         {
             _speaker = speaker;
             _title = title;
             _abstract = @abstract;
-            _onlineResources = new HashedSet<OnlineResource>(onlineResources);
             _track = track;
         }
 
-		public virtual string Title
+        public Conference Conference
+        {
+            get { return _conference; }
+            set { _conference = value; }
+        }
+
+        public virtual string Title
         {
             get { return _title; }
             set { _title = value; }
         }
 
-		public virtual string Abstract
-		{
-			get { return _abstract; }
-			set { _abstract = value; }
-		}
-
-		public virtual Speaker Speaker
-		{
-			get { return _speaker; }
-			set { _speaker = value; }
-		}
-
-	    public virtual bool IsApproved
-	    {
-            get { return _isApproved; }
-            set { _isApproved = value; }
-	    }
-
-        public virtual OnlineResource[] GetResources()
+        public virtual string Abstract
         {
-            return new List<OnlineResource>(_onlineResources).ToArray();
+            get { return _abstract; }
+            set { _abstract = value; }
         }
 
-        public virtual void AddResource(OnlineResource resource)
+        public virtual Person Speaker
         {
-            _onlineResources.Add(resource);
+            get { return _speaker; }
+            set { _speaker = value; }
+        }
+
+        public virtual bool IsApproved
+        {
+            get { return _isApproved; }
+            set { _isApproved = value; }
         }
 
         public virtual Track Track
@@ -85,6 +69,11 @@ namespace CodeCampServer.Model.Domain
         {
             get { return _timeSlot; }
             set { _timeSlot = value; }
+        }
+
+        public Speaker GetSpeakerProfile()
+        {
+            return Speaker.GetSpeakerProfileFor(Conference);
         }
     }
 }

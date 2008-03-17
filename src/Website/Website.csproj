@@ -42,6 +42,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\mvccontrib\MvcContrib.StructureMap.dll</HintPath>
     </Reference>
+    <Reference Include="RouteDebug, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\system.web.mvc\RouteDebug.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\structuremap\StructureMap.dll</HintPath>
@@ -83,9 +87,8 @@
     </Compile>
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
+    <Compile Include="Controllers\AuthorizationFilterAttribute.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
-    <Compile Include="BetterMVCHandler.cs" />
-    <Compile Include="BetterMvcRouteHandler.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\TrackController.cs" />
@@ -157,6 +160,7 @@
   <ItemGroup>
     <Content Include="Content\css\style-2column.css" />
     <Content Include="Content\css\master.css" />
+    <Content Include="Content\images\green_bullet.png" />
     <Content Include="Content\images\TwoColumn\bg01.jpg" />
     <Content Include="Content\images\TwoColumn\bg02.jpg" />
     <Content Include="Content\images\TwoColumn\bg03.jpg" />
@@ -168,6 +172,7 @@
     <Content Include="Content\images\TwoColumn\img05.gif" />
     <Content Include="Content\images\TwoColumn\img06.jpg" />
     <Content Include="Content\images\TwoColumn\spacer.gif" />
+    <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Admin\Schedule.aspx" />
     <Content Include="Content\js\jquery.js" />
     <Content Include="Views\Conference\List.aspx" />

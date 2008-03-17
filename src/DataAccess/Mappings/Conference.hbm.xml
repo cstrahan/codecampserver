@@ -1,32 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                   namespace="CodeCampServer.Model.Domain"
-                  assembly="CodeCampServer.Model" default-access="field.camelcase-underscore"  >
+                  assembly="CodeCampServer.Model" default-access="field.camelcase-underscore">
 
-	<class name="Conference" table="Conferences">
+  <class name="Conference" table="Conferences">
 
-		<id name="Id" type="Guid" column="Id">
-			<generator class="guid.comb" />
-		</id>
+    <id name="Id" type="Guid" column="Id">
+      <generator class="guid.comb" />
+    </id>
 
-		<property name="Key" column="ConferenceKey" length="25" not-null="true"/>
-		<property name="Name" column="ConferenceName" length="200" not-null="true"/>
-		<property name="Description" not-null="false"/>
-		<property name="StartDate" />
-		<property name="EndDate" />
-		<property name="SponsorInfo" column="SponsorInfo" length="4000"/>
-		<property name="MaxAttendees" type="Int32" not-null="true"/>
-		<component name="Location" class="Location">
-			<property name="Name" column="LocationName" length="25"/>
-			<property name="Address1" length="50" />
-			<property name="Address2" length="50"/>
-			<property name="City" length="50"/>
-			<property name="Region" length="50"/>
-			<property name="PostalCode" length="10"/>
-			<property name="PhoneNumber" length="20"/>
-		</component>
-    <set name="Sponsors" table="Sponsors" cascade="all">
-    <key column="ConferenceId" />
+    <property name="Key" column="ConferenceKey" length="25" not-null="true"/>
+    <property name="Name" column="ConferenceName" length="200" not-null="true"/>
+    <property name="Description" not-null="false"/>
+    <property name="StartDate" />
+    <property name="EndDate" />
+    <property name="SponsorInfo" column="SponsorInfo" length="4000"/>
+    <property name="MaxAttendees" type="Int32" not-null="true"/>
+    <component name="Location" class="Location">
+      <property name="Name" column="LocationName" length="25"/>
+      <property name="Address1" length="50" />
+      <property name="Address2" length="50"/>
+      <property name="City" length="50"/>
+      <property name="Region" length="50"/>
+      <property name="PostalCode" length="10"/>
+      <property name="PhoneNumber" length="20"/>
+    </component>
+
+    <set name="Sponsors" table="Sponsors" cascade="all" lazy="true">
+      <key column="ConferenceId" />
       <composite-element class="Sponsor">
         <property name="Level" not-null="true"/>
         <property name="Name" length="50" not-null="true"/>
@@ -40,6 +41,11 @@
       </composite-element>
     </set>
 
-	</class>
+    <set name="Attendees" table="Attendance" lazy="true">
+      <key column="ConferenceId" />
+      <many-to-many class="Person" column="PersonId" />
+    </set>
+
+  </class>
 
 </hibernate-mapping>

@@ -10,12 +10,8 @@ namespace CodeCampServer.Model
 		Conference GetConference(string conferenceKey);
 		IEnumerable<Conference> GetAllConferences();
 
-		Attendee[] GetAttendees(Conference conference, int page, int perPage);
-
-		//TODO:  should be moved to IAttendeeService - Palermo
-		Attendee RegisterAttendee(string firstName, string lastName, string website, string comment, Conference conference,
-		                          string emailAddress, string cleartextPassword);
-
+		Person[] GetAttendees(Conference conference, int page, int perPage);		
+		Person RegisterAttendee(string firstName, string lastName, string emailAddress, string website, string comment, Conference conference, string cleartextPassword);
         Conference GetCurrentConference();
     }
 }

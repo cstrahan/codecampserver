@@ -15,7 +15,13 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         }
 
         [SetUp]
-        public void Setup()
+        public virtual void Setup()
+        {
+            recreateDatabase(Database.Default);
+        }
+
+        [TearDown]
+        public void TearDown()
         {
             recreateDatabase(Database.Default);
         }

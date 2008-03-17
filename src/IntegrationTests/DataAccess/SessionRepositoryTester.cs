@@ -14,9 +14,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         public void ShouldSaveSessionToDatabase()
         {
             Conference conference = new Conference("austincodecamp", "");
-            Speaker speaker = new Speaker("first", "last", "http://google.com", "comment", conference, 
-                                          "email@email.com", "display name", "http://avatars.com", 
-                                          "http://profile.com", "password", "salt");
+            Person speaker = new Person("first", "last", "email@email.com");
             using (NHibernate.ISession dataSession = getSession())
             {
                 dataSession.SaveOrUpdate(conference);
@@ -24,9 +22,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 dataSession.Flush();
             }
 
-            List<OnlineResource> resources = new List<OnlineResource>();
-            resources.Add(new OnlineResource(OnlineResourceType.Blog, "My Blog", "http://www.myblog.com"));
-            Session newSession = new Session(speaker, "title", "abstract", null, resources.ToArray());
+            Session newSession = new Session(speaker, "title", "abstract", null);
 
             ISessionRepository repository = new SessionRepository(_sessionBuilder);
             repository.Save(newSession);
@@ -41,7 +37,6 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 Assert.That(rehydratedSession.Speaker, Is.EqualTo(speaker));
                 Assert.That(rehydratedSession.Title, Is.EqualTo("title"));
                 Assert.That(rehydratedSession.Abstract, Is.EqualTo("abstract"));
-                Assert.That(rehydratedSession.GetResources(), Is.EqualTo(resources.ToArray()));
 				Assert.That(rehydratedSession.Track, Is.Null);
             }
         }
@@ -50,9 +45,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         public void ShouldGetProposedSessions()
         {
             Conference conference = new Conference("austincodecamp", "");
-            Speaker speaker = new Speaker("first", "last", "http://google.com", "comment", conference,
-                                          "email@email.com", "display name", "http://avatars.com",
-                                          "http://profile.com", "password", "salt");
+            Person speaker = new Person("first", "last", "email@email.com");
             // Make one session that should be returned
             Session proposedSession = new Session(speaker, "Proposed", "Abstract");
             proposedSession.IsApproved = false;

@@ -50,22 +50,17 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                                               new DateTime(2008, 11, 26, 23, 30, 00),
                                               "Session");
 
-                Speaker speaker1 = new Speaker("Homer", "Simpson", "http://www.simpsons.com", "Doh!", codeCamp2008,
-                                               "homer@simpsons.com", "Homer J Simpson",
-                                               "http://www.simpsons.com/homer.jpg",
-                                               "Homer Simpson's Profiles", getPassword(), getSalt());
-                Speaker speaker2 =
-                    new Speaker("Frank", "Sinatra", "http://www.sinatra.com", "Old Blue Eyes", codeCamp2008,
-                                "frank@sinatra.com", "Frank Sinatra", "http://www.sinatra.com/frank_sinatra.jpg",
-                                "Frank Sinatra's Profile", getPassword(), getSalt());
+                
+                Person person1 = new Person("Homer", "Simpson", "homer@simpson.com");
+                Person person2 = new Person("Frank", "Sinatra", "frank@sinatra.com");
 
-                Session session1 = new Session(speaker1, "Domain-driven design explored",
+                Session session1 = new Session(person1, "Domain-driven design explored",
                                                "In this session we'll explore Domain-driven design", track);
-                Session session2 = new Session(speaker1, "Advanced NHibernate",
+                Session session2 = new Session(person1, "Advanced NHibernate",
                                                "In this session we'll explore Advanced NHibernate", track);
-                Session session3 = new Session(speaker2, "NHibernate for Beginners",
+                Session session3 = new Session(person2, "NHibernate for Beginners",
                                                "In this session we'll help Aaron Lerch understand NHibernate", track);
-                Session session4 = new Session(speaker2, "Extreme Programming: a primer",
+                Session session4 = new Session(person2, "Extreme Programming: a primer",
                                                "In this session we'll provide a primer on XP",
                                                track);
 
@@ -76,12 +71,12 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 
                 for (int i = 0; i < 100; i++)
                 {
-                    Attendee attendee = createAttendee(codeCamp2008, i.ToString().PadLeft(3, '0'));
-                    session.SaveOrUpdate(attendee);
+                    createAttendee(codeCamp2008, i.ToString().PadLeft(3, '0'));                    
                 }
 
-                session.SaveOrUpdate(speaker1);
-                session.SaveOrUpdate(speaker2);
+                session.SaveOrUpdate(codeCamp2008);
+                session.SaveOrUpdate(person1);
+                session.SaveOrUpdate(person2);
                 session.SaveOrUpdate(session1);
                 session.SaveOrUpdate(session2);
                 session.SaveOrUpdate(session3);
@@ -93,8 +88,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 transaction.Commit();
 
                 IConferenceService service = ObjectFactory.GetInstance<IConferenceService>();
-                service.RegisterAttendee("Jeffrey", "Palermo", "http://www.jeffreypalermo.com", "comment",
-                                         codeCamp2008, "jeffreypalermo@yahoo.com", "password");
+                service.RegisterAttendee("Jeffrey", "Palermo", "jeffreypalermo@yahoo.com", "http://www.jeffreypalermo.com", "comment", codeCamp2008, "password");
             }
         }
 
@@ -108,13 +102,19 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             return "UyRkzg7mm/W1zAlR/1Euph+Z1E8="; //hash for "password" with default salt.
         }
 
-        private Attendee createAttendee(Conference conference, string suffix)
+        private void createAttendee(Conference conference, string suffix)
         {
-            Attendee attendee = new Attendee("Homer" + suffix, "Simpson" + suffix, "http://www.simpsons.com" + suffix,
-                                             "I'll be there with " + suffix, conference,
-                                             "homer" + suffix + "@simpsons.com",
-                                             getPassword(), getSalt());
-            return attendee;
+            Person person = createPerson(suffix);            
+            conference.AddAttendee(person);
+        }
+
+        private Person createPerson(string suffix)
+        {
+            Person person = new Person("Homer" + suffix, "Simpson" + suffix, "homer" + suffix + "@simpson.com");
+            person.Password = getPassword();
+            person.PasswordSalt = getSalt();
+
+            return person;
         }
 
         [Test, Category("CreateSchema"), Explicit]

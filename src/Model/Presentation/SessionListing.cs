@@ -10,7 +10,7 @@ namespace CodeCampServer.Model.Presentation
         public SessionListing(Session session)
         {
             _session = session;
-            _speaker = new SpeakerListing(_session.Speaker);
+            _speaker = new SpeakerListing(_session.GetSpeakerProfile());
         }
 
         public string Title
@@ -26,11 +26,6 @@ namespace CodeCampServer.Model.Presentation
         public SpeakerListing Speaker
         {
             get { return _speaker; }
-        }
-
-        public OnlineResource[] GetResources()
-        {
-            return _session.GetResources();
         }
     }
 }

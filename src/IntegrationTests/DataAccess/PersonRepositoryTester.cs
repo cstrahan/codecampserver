@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using CodeCampServer.DataAccess.Impl;
 using CodeCampServer.Model.Domain;
 using NHibernate;
@@ -21,7 +19,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 session.SaveOrUpdate(theConference);
                 session.Flush();
             }
-            Person person = new Person("Andrew","Browne");
+            Person person = new Person("Andrew","Browne", "");
             person.Conference = theConference;
             person.Website = "";
             person.Comment = "";
@@ -42,102 +40,36 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         }
 
         [Test]
-        public void ShouldSavePersonAndRoleToDatabase()
-        {
-            Conference theConference = new Conference("foo", "");
-            using (ISession session = getSession())
+        public void ShouldGetNumberOfUsers()
+        {            
+            IPersonRepository repository = new PersonRepository(_sessionBuilder);
+            Assert.That(repository.GetNumberOfUsers(), Is.EqualTo(0));
+
+            Conference conf = new Conference("test123", "test conference");
+            using(var session = getSession())
             {
-                session.SaveOrUpdate(theConference);
+                session.SaveOrUpdate(conf);
                 session.Flush();
             }
-            Person person = new Person("Andrew", "Browne");
-            person.Conference = theConference;
-            person.Website = "";
-            person.Comment = "";
 
-            Role role = new Role();
-            person.AddRole(role);
-
-            IPersonRepository repository = new PersonRepository(_sessionBuilder);
-            repository.Save(person);
-
-            Person rehydratedPerson = null;
-            //get Person back from database to ensure it was saved correctly
-            using (ISession session = getSession())
-            {
-                rehydratedPerson = session.Load<Person>(person.Id);
-
-                Assert.That(rehydratedPerson != null);
-                Assert.That(rehydratedPerson.RoleCount, Is.EqualTo(1));
-            }
+            insertTestPerson();
+            insertTestPerson();
+            insertTestPerson();
+            insertTestPerson();
+            insertTestPerson();
+            
+            Assert.That(repository.GetNumberOfUsers(), Is.EqualTo(5));
         }
 
-        [Test]
-        public void ShouldSaveSpeakerToDatabase()
+        private void insertTestPerson()
         {
-            Conference theConference = new Conference("foo", "");
-            using (ISession session = getSession())
+            using(ISession session = getSession())
             {
-                session.SaveOrUpdate(theConference);
+                Person p = new Person("test", "person", "");
+                p.Website = "http://test";
+                p.Comment = "test comment";
+                session.SaveOrUpdate(p);
                 session.Flush();
-            }
-            Person person = new Person("Andrew", "Browne");
-            person.Conference = theConference;
-            person.Website = "";
-            person.Comment = "";
-
-            Speaker role = new Speaker();
-            role.DisplayName = "Andrew Browne";
-            person.AddRole(role);
-
-            IPersonRepository repository = new PersonRepository(_sessionBuilder);
-            repository.Save(person);
-
-            Person rehydratedPerson = null;
-            //get Person back from database to ensure it was saved correctly
-            using (ISession session = getSession())
-            {
-                rehydratedPerson = session.Load<Person>(person.Id);
-
-                Assert.That(rehydratedPerson != null);
-                Assert.That(rehydratedPerson.RoleCount, Is.EqualTo(1));
-                Assert.That(rehydratedPerson.IsInRole(typeof(Speaker)), Is.True);
-                Assert.That(rehydratedPerson.IsInRole(typeof(Attendee)), Is.False);
-            }
-        }
-
-        [Test]
-        public void CanRetrieveSpecificRoleFromDatabase()
-        {
-            Conference theConference = new Conference("foo", "");
-            using (ISession session = getSession())
-            {
-                session.SaveOrUpdate(theConference);
-                session.Flush();
-            }
-            Person person = new Person("Andrew", "Browne");
-            person.Website = "";
-            person.Comment = "";
-            person.Conference = theConference;
-
-            Speaker role = new Speaker();
-            role.DisplayName = "Andrew Browne";
-            person.AddRole(role);
-
-            IPersonRepository repository = new PersonRepository(_sessionBuilder);
-            repository.Save(person);
-
-            Person rehydratedPerson = null;
-            //get Person back from database to ensure it was saved correctly
-            using (ISession session = getSession())
-            {
-                rehydratedPerson = session.Load<Person>(person.Id);
-
-                Assert.That(rehydratedPerson != null);
-                Assert.That(rehydratedPerson.IsInRole(typeof(Speaker)), Is.True);
-                Speaker Speaker = (rehydratedPerson.GetRole(typeof(Speaker))) as Speaker;
-                Assert.That(Speaker != null);
-                Assert.That(Speaker.DisplayName == "Andrew Browne");
             }
         }
     }

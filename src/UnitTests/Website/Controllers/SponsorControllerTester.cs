@@ -1,6 +1,5 @@
 using System;
-using System.Collections;
-using System.Web.Mvc;
+using System.Collections.Generic;
 using System.Web.Routing;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
@@ -11,13 +10,25 @@ using CodeCampServer.Website.Views;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
-using System.Web.Routing;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {
     [TestFixture]
     public class SponsorControllerTester
     {
+        #region Setup/Teardown
+
+        [SetUp]
+        public void Setup()
+        {
+            _mocks = new MockRepository();
+            _conferenceRepository = _mocks.CreateMock<IConferenceRepository>();
+            _authorizationService = _mocks.CreateMock<IAuthorizationService>();
+            _conference = new Conference("austincodecamp2008", "Austin Code Camp");
+        }
+
+        #endregion
+
         private MockRepository _mocks;
         private IConferenceRepository _conferenceRepository;
         private Conference _conference;
@@ -25,9 +36,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
         private class TestingSponsorController : SponsorController
         {
-            public string ActualViewName;
             public string ActualMasterName;
             public object ActualViewData;
+            public string ActualViewName;
             public RouteValueDictionary RedirectToActionValues;
 
             public TestingSponsorController(IConferenceRepository conferenceRepository,
@@ -51,39 +62,34 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             }
         }
 
-        [SetUp]
-        public void Setup()
+        private TestingSponsorController GetController()
         {
-            _mocks = new MockRepository();
-            _conferenceRepository = _mocks.CreateMock<IConferenceRepository>();
-            _authorizationService = _mocks.CreateMock<IAuthorizationService>();
-            _conference = new Conference("austincodecamp2008", "Austin Code Camp");
+            TestingSponsorController controller =
+                new TestingSponsorController(_conferenceRepository, _authorizationService, new ClockStub());
+            return controller;
         }
 
         [Test]
-        public void ShouldListSponsorsForAConference()
+        public void DeleteShouldRemoveSponsorAndRenderList()
         {
-            _conference.AddSponsor(new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum));
-            _conference.AddSponsor(new Sponsor("name2", "logourl2", "website2", "", "", "", SponsorLevel.Bronze));
-
+            Sponsor sponsorToDelete = new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum);
+            Sponsor sponsor = new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum);
+            _conference.AddSponsor(sponsor);
+            _conference.AddSponsor(sponsorToDelete);
             SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
-
+            Expect.Call(delegate { _conferenceRepository.Save(_conference); });
             _mocks.ReplayAll();
 
-            TestingSponsorController controller =
-                new TestingSponsorController(_conferenceRepository, _authorizationService, new ClockStub());
-            controller.List("austincodecamp2008");
+            TestingSponsorController controller = GetController();
+
+            controller.Delete(_conference.Key, "name");
+            Assert.That(controller.ActualViewData, Is.TypeOf(typeof (SmartBag)));
+            SmartBag bag = (SmartBag) controller.ActualViewData;
+            Assert.That(bag.Contains<Sponsor[]>(), Is.True);
+            List<Sponsor> sponsors =
+                new List<Sponsor>(bag.Get<Sponsor[]>());
+            Assert.That(sponsors.Contains(sponsorToDelete), Is.False);
             Assert.That(controller.ActualViewName, Is.EqualTo("List"));
-
-            SmartBag viewData = controller.ActualViewData as SmartBag;
-            Assert.That(viewData, Is.Not.Null);
-            Assert.That(viewData.Contains<Sponsor[]>());
-
-            Sponsor[] sponsors = viewData.Get<Sponsor[]>();
-            Assert.That(sponsors[0].Level, Is.EqualTo(SponsorLevel.Platinum));
-            Assert.That(sponsors[1].Level, Is.EqualTo(SponsorLevel.Bronze));
-            Assert.That(sponsors[0].Name, Is.EqualTo("name"));
-            Assert.That(sponsors[1].Name, Is.EqualTo("name2"));
         }
 
         [Test]
@@ -129,22 +135,15 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         //}
 
         [Test]
-        public void SaveShouldSaveSponsor()
+        public void NewActionShouldRenderEditViewWithNewSponsor()
         {
-            SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
-            Expect.Call(delegate { _conferenceRepository.Save(_conference); });
-            _mocks.ReplayAll();
-
             TestingSponsorController controller = GetController();
-            controller.Save(_conference.Key, "", "name", "Bronze", "logoUrl", "website", "firstName", "lastName",
-                            "email");
-            SmartBag viewData = controller.ActualViewData as SmartBag;
+            controller.New(_conference.Key);
 
-            Assert.That(controller.ActualViewName, Is.EqualTo("list"));
-            Assert.That(viewData, Is.Not.Null);
-
-            Assert.That(Array.Exists(viewData.Get<Sponsor[]>(), delegate(Sponsor s) { return s.Name == "name"; }),
-                        Is.True);
+            Assert.That(controller.ActualViewData, Is.TypeOf(typeof (SmartBag)));
+            SmartBag bag = (SmartBag) controller.ActualViewData;
+            Assert.That(bag.Contains<Sponsor>());
+            Assert.That(controller.ActualViewName, Is.EqualTo("Edit"));
         }
 
         [Test]
@@ -174,45 +173,48 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         }
 
         [Test]
-        public void DeleteShouldRemoveSponsorAndRenderList()
+        public void SaveShouldSaveSponsor()
         {
-            Sponsor sponsorToDelete = new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum);
-            Sponsor sponsor = new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum);
-            _conference.AddSponsor(sponsor);
-            _conference.AddSponsor(sponsorToDelete);
             SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
             Expect.Call(delegate { _conferenceRepository.Save(_conference); });
             _mocks.ReplayAll();
 
             TestingSponsorController controller = GetController();
+            controller.Save(_conference.Key, "", "name", "Bronze", "logoUrl", "website", "firstName", "lastName",
+                            "email");
+            SmartBag viewData = controller.ActualViewData as SmartBag;
 
-            controller.Delete(_conference.Key, "name");
-            Assert.That(controller.ActualViewData, Is.TypeOf(typeof (SmartBag)));
-            SmartBag bag = (SmartBag) controller.ActualViewData;
-            Assert.That(bag.Contains<Sponsor[]>(), Is.True);
-            System.Collections.Generic.List<Sponsor> sponsors =
-                new System.Collections.Generic.List<Sponsor>(bag.Get<Sponsor[]>());
-            Assert.That(sponsors.Contains(sponsorToDelete), Is.False);
-            Assert.That(controller.ActualViewName, Is.EqualTo("List"));
+            Assert.That(controller.ActualViewName, Is.EqualTo("list"));
+            Assert.That(viewData, Is.Not.Null);
+
+            Assert.That(Array.Exists(viewData.Get<Sponsor[]>(), delegate(Sponsor s) { return s.Name == "name"; }),
+                        Is.True);
         }
 
         [Test]
-        public void NewActionShouldRenderEditViewWithNewSponsor()
+        public void ShouldListSponsorsForAConference()
         {
-            TestingSponsorController controller = GetController();
-            controller.New(_conference.Key);
+            _conference.AddSponsor(new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum));
+            _conference.AddSponsor(new Sponsor("name2", "logourl2", "website2", "", "", "", SponsorLevel.Bronze));
 
-            Assert.That(controller.ActualViewData, Is.TypeOf(typeof (SmartBag)));
-            SmartBag bag = (SmartBag) controller.ActualViewData;
-            Assert.That(bag.Contains<Sponsor>());
-            Assert.That(controller.ActualViewName, Is.EqualTo("Edit"));
-        }
+            SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
 
-        private TestingSponsorController GetController()
-        {
+            _mocks.ReplayAll();
+
             TestingSponsorController controller =
                 new TestingSponsorController(_conferenceRepository, _authorizationService, new ClockStub());
-            return controller;
+            controller.List("austincodecamp2008");
+            Assert.That(controller.ActualViewName, Is.EqualTo("List"));
+
+            SmartBag viewData = controller.ActualViewData as SmartBag;
+            Assert.That(viewData, Is.Not.Null);
+            Assert.That(viewData.Contains<Sponsor[]>());
+
+            Sponsor[] sponsors = viewData.Get<Sponsor[]>();
+            Assert.That(sponsors[0].Level, Is.EqualTo(SponsorLevel.Platinum));
+            Assert.That(sponsors[1].Level, Is.EqualTo(SponsorLevel.Bronze));
+            Assert.That(sponsors[0].Name, Is.EqualTo("name"));
+            Assert.That(sponsors[1].Name, Is.EqualTo("name2"));
         }
     }
 }

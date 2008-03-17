@@ -156,9 +156,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void ShouldRegisterANewAttendee()
 		{
 			SetupResult.For(_service.GetConference("austincodecamp2008")).Return(_conference);
-			Attendee actualAttendee = new Attendee();
-			Expect.Call(_service.RegisterAttendee("firstname", "lastname", "website", "comment", _conference,
-			                                      "email", "password")).Return(actualAttendee);
+			Person actualAttendee = new Person();
+			Expect.Call(_service.RegisterAttendee("firstname", "lastname",
+			                                      "email", "website", "comment", _conference, "password")).Return(actualAttendee);
 
 			_mocks.ReplayAll();
 
@@ -168,8 +168,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 			SmartBag bag = (SmartBag) controller.ActualViewData;
 			Assert.That(controller.ActualViewName, Is.EqualTo("registerconfirm"));
+
 			ScheduledConference viewDataConference = bag.Get<ScheduledConference>();
-			Attendee viewDataAttendee = bag.Get<Attendee>();
+			Person viewDataAttendee = bag.Get<Person>();
+
 			Assert.That(viewDataConference, Is.Not.Null);
 			Assert.That(viewDataAttendee, Is.Not.Null);
 			Assert.That(viewDataConference.Conference, Is.EqualTo(_conference));
@@ -181,8 +183,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		{
 			SetupResult.For(_service.GetConference("austincodecamp2008"))
 				.Return(_conference);
-			Attendee[] toReturn =
-				new Attendee[] {new Attendee("a", "b"), new Attendee("c", "d")};
+			Person[] toReturn = new [] {new Person("a", "b", "c"), new Person("d", "e", "f")};
 			SetupResult.For(_service.GetAttendees(_conference, 0, 2)).Return(toReturn);
 			_mocks.ReplayAll();
 

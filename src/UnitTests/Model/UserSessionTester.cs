@@ -14,16 +14,16 @@ namespace CodeCampServer.UnitTests.Model
 		[Test]
 		public void ShouldGetCurrentUser()
 		{
-			Attendee currentUser = new Attendee();
+			Person currentUser = new Person();
 			MockRepository mocks = new MockRepository();
 			IAuthenticationService service = mocks.CreateMock<IAuthenticationService>();
-			IAttendeeRepository attendeeRepository = mocks.CreateMock<IAttendeeRepository>();
+			IPersonRepository personRepository = mocks.CreateMock<IPersonRepository>();
             SetupResult.For(service.GetActiveUserName()).Return("foo");
-			SetupResult.For(attendeeRepository.GetAttendeeByEmail("foo")).Return(currentUser);
+			SetupResult.For(personRepository.FindByEmail("foo")).Return(currentUser);
 			mocks.ReplayAll();
 
-            IUserSession userSession = new UserSession(service, attendeeRepository, null);
-			Attendee actualUser = userSession.GetCurrentUser();
+            IUserSession userSession = new UserSession(service, personRepository);
+		    Person actualUser = userSession.GetLoggedInPerson();
 			Assert.That(actualUser, Is.EqualTo(currentUser));
 		}
 
@@ -32,16 +32,14 @@ namespace CodeCampServer.UnitTests.Model
         {
             MockRepository mocks = new MockRepository();
             IAuthenticationService authService = mocks.CreateMock<IAuthenticationService>();
-            IAttendeeRepository attendeeRepository = mocks.CreateMock<IAttendeeRepository>();
+            IPersonRepository personRepository = mocks.CreateMock<IPersonRepository>();
 
-            IUserSession userSession = new UserSession(authService, attendeeRepository, null);
-            SetupResult.For(authService.GetActiveUserName())
-                .Return(null);
-            SetupResult.For(attendeeRepository.GetAttendeeByEmail(null))
-                .Return(null);
+            IUserSession userSession = new UserSession(authService, personRepository);
+            SetupResult.For(authService.GetActiveUserName()).Return(null);
+            SetupResult.For(personRepository.FindByEmail(null)).Return(null);
             mocks.ReplayAll();
 
-            Assert.IsNull(userSession.GetLoggedInSpeaker());
+            Assert.IsNull(userSession.GetLoggedInPerson());
         }
 
     }

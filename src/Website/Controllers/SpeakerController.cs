@@ -13,19 +13,19 @@ namespace CodeCampServer.Website.Controllers
 	public class SpeakerController : ApplicationController
 	{
 		private readonly IConferenceService _conferenceService;
-        private readonly ISpeakerService _speakerService;
+	    private readonly IPersonRepository _personRepository;
         private readonly IClock _clock;
 		private IUserSession _userSession;
 
 		public SpeakerController(IConferenceService conferenceService,
-                                 ISpeakerService speakerService,
+                                 IPersonRepository personRepository,
                                  IAuthorizationService authorizationService,
 		                         IClock clock, IUserSession userSession)
 			: base(authorizationService)
 		{
 			_conferenceService = conferenceService;
-            _speakerService = speakerService;
-			_clock = clock;
+		    _personRepository = personRepository;
+		    _clock = clock;
 			_userSession = userSession;
 		}
 
@@ -46,7 +46,7 @@ namespace CodeCampServer.Website.Controllers
 
 			Conference conference = _conferenceService.GetConference(conferenceKey);
 			ScheduledConference scheduledConference = new ScheduledConference(conference, _clock);
-            IEnumerable<Speaker> speakers = _speakerService.GetSpeakers(conference, effectivePage, effectivePerPage);
+            IEnumerable<Speaker> speakers = conference.GetSpeakers();
 			SpeakerListingCollection speakerListings = new SpeakerListingCollection(speakers);
 
 			SmartBag.Add(scheduledConference);
@@ -59,14 +59,18 @@ namespace CodeCampServer.Website.Controllers
 
 		public void View(string conferenceKey, string speakerId)
 		{
-            Speaker speaker = _speakerService.GetSpeakerByDisplayName(speakerId);
+		    Conference conference = _conferenceService.GetConference(conferenceKey); 
+            Speaker speaker =  conference.GetSpeakerByKey(speakerId);            
 			SmartBag.Add(speaker);
 			RenderView("view");
 		}
 
-		public void Edit()
+		public void Edit(string conferenceKey)
 		{
-			Speaker speaker = _userSession.GetLoggedInSpeaker();
+		    Conference conference = _conferenceService.GetConference(conferenceKey);
+            Person person = _userSession.GetLoggedInPerson();
+		    Speaker speaker = person.GetSpeakerProfileFor(conference);
+
 			if (speaker != null)
 			{
 				SmartBag.Add(speaker);
@@ -85,10 +89,11 @@ namespace CodeCampServer.Website.Controllers
 		public void Save(string conferenceKey, string displayName, string firstName, string lastName, string website,
 		                 string comment, string profile, string avatarUrl)
 		{
-			Attendee user = _userSession.GetCurrentUser();
+			Person user = _userSession.GetLoggedInPerson();
 			try
 			{
-                _speakerService.SaveSpeaker(user.Contact.Email, firstName, lastName, website, comment, displayName, profile, avatarUrl);
+                //TODO:  replace this with conference.AddSpeaker
+                //_speakerService.SaveSpeaker(user.Contact.Email, firstName, lastName, website, comment, displayName, profile, avatarUrl);
 
 				TempData["message"] = "Profile saved";
 				RedirectToAction(new RouteValueDictionary(new

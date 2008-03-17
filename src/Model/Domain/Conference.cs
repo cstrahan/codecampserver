@@ -16,6 +16,8 @@ namespace CodeCampServer.Model.Domain
         private Location _location = new Location();
         private int _maxAttendees;
         private ISet<Sponsor> _sponsors = new HashedSet<Sponsor>();
+        private ISet<Person> _attendees = new HashedSet<Person>();
+        private ISet<Speaker> _speakers = new HashedSet<Speaker>();
 
         public Conference()
         {
@@ -126,7 +128,9 @@ namespace CodeCampServer.Model.Domain
 
         public virtual Sponsor GetSponsor(string sponsorName)
         {
-            return new List<Sponsor>(_sponsors).Find(delegate(Sponsor sponsor) { return sponsor.Name.ToLower() == sponsorName.ToLower(); });
+            return
+                new List<Sponsor>(_sponsors).Find(
+                    delegate(Sponsor sponsor) { return sponsor.Name.ToLower() == sponsorName.ToLower(); });
         }
 
         public virtual void RemoveSponsor(Sponsor sponsor)
@@ -147,6 +151,31 @@ namespace CodeCampServer.Model.Domain
         public override string ToString()
         {
             return Key;
+        }
+
+        public virtual void AddAttendee(Person attendee)
+        {
+            _attendees.Add(attendee);
+        }
+
+        public virtual Person[] GetAttendees()
+        {
+            return new List<Person>(_attendees).ToArray();
+        }
+
+        public void AddSpeaker(Person speaker, string speakerKey, string bio, string avatarUrl)
+        {
+            _speakers.Add(new Speaker(speaker, speakerKey, bio, avatarUrl));
+        }
+
+        public Speaker[] GetSpeakers()
+        {
+            return new List<Speaker>(_speakers).ToArray();
+        }
+
+        public Speaker GetSpeakerByKey(string id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

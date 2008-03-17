@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using CodeCampServer.Model.Domain;
 using StructureMap;
 
@@ -8,5 +7,7 @@ namespace CodeCampServer.Model.Domain
 	public interface IPersonRepository
 	{
 		void Save(Person person);
+	    Person FindByEmail(string email);
+        int GetNumberOfUsers();
     }
 }

@@ -14,9 +14,9 @@ namespace CodeCampServer.Model.Impl
 			_sessionRepository = sessionRepository;
 		}
 
-		public Session CreateSession(Speaker speaker, string title, string @abstract, Track track, OnlineResource[] onlineResources)
+		public Session CreateSession(Person speaker, string title, string @abstract, Track track)
 		{
-			Session session = new Session(speaker, title, @abstract, track, onlineResources);
+			Session session = new Session(speaker, title, @abstract, track);
 			_sessionRepository.Save(session);
 			return session;
 		}

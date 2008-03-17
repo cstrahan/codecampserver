@@ -1,77 +1,32 @@
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+
 namespace CodeCampServer.Model.Domain
 {
     public class Person : EntityBase
     {
-        private IList<Role> _roles = new List<Role>();
-        public Person()
-        {
-        }
-
-        internal virtual IList<Role> Roles
-        {
-            get { return _roles; }
-            set { _roles = value; }
-        }
-
-        public virtual void AddRole(Role role)
-        {
-            if (role.Person != this)
-                role.Person = this;
-            Roles.Add(role);
-        }
-
-        public virtual int RoleCount
-        {
-            get { return Roles.Count; }
-        }
-
-        public virtual bool IsInRole(Type roleType)
-        {
-            foreach (Role role in Roles)
-            {
-                if (role.GetType() == roleType)
-                    return true;
-            }
-            return false;
-        }
-
-        public virtual Role GetRole(Type roleType)
-        {
-            foreach (Role role in Roles)
-                if (role.GetType() == roleType)
-                    return role;
-            return null;
-        }
-
-        private Contact _contact = new Contact();
-        private string _website;
+        private readonly Contact _contact = new Contact();
         private string _comment;
         private Conference _conference;
         private string _password;
         private string _passwordSalt;
+        private string _website;
+        private bool _isAdministrator;
 
-        public Person(string firstName, string lastName, string website,
-                        string comment, Conference conference, string email, string password, string passwordSalt)
+        
+
+        public Person()
+        {
+        }
+
+        public Person(string firstName, string lastName, string email)
         {
             _contact.FirstName = firstName;
             _contact.LastName = lastName;
             _contact.Email = email;
-            _website = website;
-            _comment = comment;
-            _conference = conference;
-            _password = password;
-            _passwordSalt = passwordSalt;
         }
 
-    	public Person(string firstName, string lastName)
-    	{
-    		_contact.FirstName = firstName;
-    		_contact.LastName = lastName;
-    	}
-
-    	public virtual Contact Contact
+        public virtual Contact Contact
         {
             get { return _contact; }
         }
@@ -106,10 +61,23 @@ namespace CodeCampServer.Model.Domain
             set { _conference = value; }
         }
 
-    	public virtual string GetName()
-    	{
-			Contact contact = Contact;
-			return string.Format("{0} {1}", contact.FirstName, contact.LastName);
-    	}
+        public bool IsAdministrator
+        {
+            get { return _isAdministrator; }
+            set { _isAdministrator = value; }
+        }
+
+        public virtual string GetName()
+        {
+            Contact contact = Contact;
+            return string.Format("{0} {1}", contact.FirstName, contact.LastName);
+        }
+
+        public virtual Speaker GetSpeakerProfileFor(Conference conference)
+        {
+            Speaker[] speakers = conference.GetSpeakers();
+            Speaker speaker = Array.Find(speakers, delegate(Speaker aSpeaker) { return aSpeaker.Person == this; });
+            return speaker;
+        }
     }
 }

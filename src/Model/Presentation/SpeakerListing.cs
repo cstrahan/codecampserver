@@ -15,7 +15,7 @@ namespace CodeCampServer.Model.Presentation
 
 	    public string Key
 	    {
-            get { return _speaker.DisplayName; }
+            get { return _speaker.SpeakerKey; }
 	    }
 
 		public string Name
@@ -25,7 +25,7 @@ namespace CodeCampServer.Model.Presentation
 
 		public string DisplayName
 		{
-            get { return _speaker.DisplayName; }
+            get { return _speaker.SpeakerKey; }
 		}
 
     }

@@ -4,23 +4,16 @@ namespace CodeCampServer.Model.Impl
 {
 	public class UserSessionStub : IUserSession
 	{
-		private readonly Attendee _attendee;
-        private readonly Speaker _speaker;
+	    private readonly Person _person;
 
-        public UserSessionStub(Attendee attendee, Speaker speaker)
+	    public UserSessionStub(Person person)
 		{
-			_attendee = attendee;
-            _speaker = speaker;
+		    _person = person;
 		}
 
-		public Attendee GetCurrentUser()
-		{
-			return _attendee;
-		}
-
-	    public Speaker GetLoggedInSpeaker()
+	    public Person GetLoggedInPerson()
 	    {
-	        return _speaker;
+	        return _person;
 	    }
 	}
 }

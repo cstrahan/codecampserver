@@ -15,7 +15,7 @@ namespace CodeCampServer.Model.Domain
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(this, obj)) return true;
-            return Equals(obj as Conference);
+            return Equals(obj as EntityBase);
         }
 
         public override int GetHashCode()

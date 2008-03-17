@@ -9,25 +9,25 @@ namespace CodeCampServer.Website.Controllers
 	{
 		private readonly IConferenceService _conferenceService;
 		private readonly ISessionService _sessionService;
-		private readonly ISpeakerService _speakerService;
 		private readonly IUserSession _userSession;
+	    private IPersonRepository _personRepository;
 
-		public SessionController(IConferenceService conferenceService,
+	    public SessionController(IConferenceService conferenceService,
 		                         ISessionService sessionService,
-		                         ISpeakerService speakerService,
+		                         IPersonRepository personRepository,
 		                         IAuthorizationService authorizationService,
 		                         IUserSession userSession)
 			: base(authorizationService)
 		{
 			_conferenceService = conferenceService;
 			_sessionService = sessionService;
-			_speakerService = speakerService;
-			_userSession = userSession;
+	        _personRepository = personRepository;
+	        _userSession = userSession;
 		}
 
 		public void Create(string conferenceKey)
 		{
-			Speaker currentUser = _userSession.GetLoggedInSpeaker();
+		    Speaker currentUser = getLoggedInSpeaker(conferenceKey);
 
 			if (currentUser == null)
 				RedirectToAction("index", "login");
@@ -38,21 +38,20 @@ namespace CodeCampServer.Website.Controllers
 			}
 		}
 
-		public void CreateNew(string conferenceKey, string speakerEmail,
-		                      string title, string @abstract,
-		                      string blogName, string blogUrl,
-		                      string websiteName, string websiteUrl,
-		                      string downloadName, string downloadUrl)
+	    private Speaker getLoggedInSpeaker(string conferenceKey)
+	    {
+	        Person p = _userSession.GetLoggedInPerson();
+	        Conference conf = _conferenceService.GetConference(conferenceKey);
+	        return p.GetSpeakerProfileFor(conf);
+	    }
+
+	    public void CreateNew(string conferenceKey, string speakerEmail,
+		                      string title, string @abstract)
 		{
-			Speaker speaker = _speakerService.GetSpeakerByEmail(speakerEmail);
-			Conference conference = _conferenceService.GetConference(conferenceKey);
+		    
+		    Person person = _personRepository.FindByEmail(speakerEmail);		    
 
-			List<OnlineResource> onlineResources = new List<OnlineResource>();
-			onlineResources.Add(new OnlineResource(OnlineResourceType.Blog, blogName, blogUrl));
-			onlineResources.Add(new OnlineResource(OnlineResourceType.Website, websiteName, websiteUrl));
-			onlineResources.Add(new OnlineResource(OnlineResourceType.Download, downloadName, downloadUrl));
-
-			Session session = _sessionService.CreateSession(speaker, title, @abstract, null, onlineResources.ToArray());
+		    Session session = _sessionService.CreateSession(person, title, @abstract, null);
 			SmartBag.Add(session);
 
 			RenderView("CreateConfirm");

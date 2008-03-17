@@ -9,10 +9,11 @@
 			<generator class="guid.comb" />
 		</id>
 
+    <many-to-one name="Conference" class="Conference" column="ConferenceId" not-null="true"/>
 		<property name="Title" length="200" not-null="true"/>
 		<property name="Abstract" not-null="false"/>
 		<property name="IsApproved" not-null="true"/>
-		<many-to-one name="Speaker" class="Speaker" column="SpeakerId" not-null="true" />
+		<many-to-one name="Speaker" class="Person" column="SpeakerId" not-null="true" />
 		<many-to-one name="Track" class="Track" column="TrackId" not-null="false" />
 		<many-to-one name="TimeSlot" class="TimeSlot" column="TimeSlotId" not-null="false" />
 	</class>

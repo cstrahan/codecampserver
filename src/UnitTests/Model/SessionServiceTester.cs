@@ -24,11 +24,9 @@ namespace CodeCampServer.UnitTests.Model
             mocks.ReplayAll();
 
             ISessionService service = new SessionService(repository);
-            Speaker speaker = new Speaker("a", "b", "c", "d", new Conference(), "e", "f", "g", "h", "password", "salt");
-            List<OnlineResource> resources = new List<OnlineResource>();
-            resources.Add(new OnlineResource(OnlineResourceType.Blog, "Name", "http://myblog.com"));
+            Person speaker = new Person();
 
-            Session session = service.CreateSession(speaker, "title", "abstract", null, resources.ToArray());
+            Session session = service.CreateSession(speaker, "title", "abstract", null);
 
             mocks.VerifyAll();
 
@@ -36,7 +34,6 @@ namespace CodeCampServer.UnitTests.Model
             Assert.That(actualSession.Speaker, Is.EqualTo(speaker));
             Assert.That(actualSession.Title, Is.EqualTo("title"));
             Assert.That(actualSession.Abstract, Is.EqualTo("abstract"));
-            Assert.That(actualSession.GetResources(), Is.EqualTo(resources.ToArray()));
 			Assert.That(actualSession.Track, Is.Null);
         }
     }
