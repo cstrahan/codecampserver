@@ -54,13 +54,16 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 Person person1 = new Person("Homer", "Simpson", "homer@simpson.com");
                 Person person2 = new Person("Frank", "Sinatra", "frank@sinatra.com");
 
-                Session session1 = new Session(person1, "Domain-driven design explored",
+                codeCamp2008.AddSpeaker(person1, "hsimpson", "bio", "avatar");
+                codeCamp2008.AddSpeaker(person2, "fsinatra", "bio", "avatar");
+
+                Session session1 = new Session(codeCamp2008, person1, "Domain-driven design explored",
                                                "In this session we'll explore Domain-driven design", track);
-                Session session2 = new Session(person1, "Advanced NHibernate",
+                Session session2 = new Session(codeCamp2008, person1, "Advanced NHibernate",
                                                "In this session we'll explore Advanced NHibernate", track);
-                Session session3 = new Session(person2, "NHibernate for Beginners",
+                Session session3 = new Session(codeCamp2008, person2, "NHibernate for Beginners",
                                                "In this session we'll help Aaron Lerch understand NHibernate", track);
-                Session session4 = new Session(person2, "Extreme Programming: a primer",
+                Session session4 = new Session(codeCamp2008, person2, "Extreme Programming: a primer",
                                                "In this session we'll provide a primer on XP",
                                                track);
 
@@ -71,12 +74,13 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 
                 for (int i = 0; i < 100; i++)
                 {
-                    createAttendee(codeCamp2008, i.ToString().PadLeft(3, '0'));                    
+                    createAttendee(session, codeCamp2008, i.ToString().PadLeft(3, '0'));                    
                 }
 
-                session.SaveOrUpdate(codeCamp2008);
                 session.SaveOrUpdate(person1);
-                session.SaveOrUpdate(person2);
+                session.SaveOrUpdate(person2);                
+
+                session.SaveOrUpdate(codeCamp2008);
                 session.SaveOrUpdate(session1);
                 session.SaveOrUpdate(session2);
                 session.SaveOrUpdate(session3);
@@ -86,7 +90,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 session.SaveOrUpdate(slot2);
                 session.SaveOrUpdate(slot3);
                 transaction.Commit();
-
+                
                 IConferenceService service = ObjectFactory.GetInstance<IConferenceService>();
                 service.RegisterAttendee("Jeffrey", "Palermo", "jeffreypalermo@yahoo.com", "http://www.jeffreypalermo.com", "comment", codeCamp2008, "password");
             }
@@ -102,9 +106,10 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             return "UyRkzg7mm/W1zAlR/1Euph+Z1E8="; //hash for "password" with default salt.
         }
 
-        private void createAttendee(Conference conference, string suffix)
+        private void createAttendee(ISession session, Conference conference, string suffix)
         {
-            Person person = createPerson(suffix);            
+            Person person = createPerson(suffix);     
+            session.SaveOrUpdate(person);
             conference.AddAttendee(person);
         }
 

@@ -16,7 +16,7 @@ namespace CodeCampServer.UnitTests.Model
         public void CreatingNewSessionShouldSaveSessionToRepository()
         {
             MockRepository mocks = new MockRepository();
-
+            
             ISessionRepository repository = mocks.CreateMock<ISessionRepository>();
             Session actualSession = null;
             repository.Save(null);
@@ -26,7 +26,7 @@ namespace CodeCampServer.UnitTests.Model
             ISessionService service = new SessionService(repository);
             Person speaker = new Person();
 
-            Session session = service.CreateSession(speaker, "title", "abstract", null);
+            Session session = service.CreateSession(null, speaker, "title", "abstract", null);
 
             mocks.VerifyAll();
 

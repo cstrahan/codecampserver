@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
@@ -22,7 +21,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 dataSession.Flush();
             }
 
-            Session newSession = new Session(speaker, "title", "abstract", null);
+            Session newSession = new Session(conference, speaker, "title", "abstract", null);
 
             ISessionRepository repository = new SessionRepository(_sessionBuilder);
             repository.Save(newSession);
@@ -47,10 +46,10 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             Conference conference = new Conference("austincodecamp", "");
             Person speaker = new Person("first", "last", "email@email.com");
             // Make one session that should be returned
-            Session proposedSession = new Session(speaker, "Proposed", "Abstract");
+            Session proposedSession = new Session(conference, speaker, "Proposed", "Abstract");
             proposedSession.IsApproved = false;
             // Make one session and approve it so it will NOT be returned
-            Session approvedSession = new Session(speaker, "Scheduled", "Abstract");
+            Session approvedSession = new Session(conference, speaker, "Scheduled", "Abstract");
             approvedSession.IsApproved = true;
             
             using (NHibernate.ISession dataSession = getSession())

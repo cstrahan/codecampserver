@@ -18,8 +18,8 @@ namespace CodeCampServer.UnitTests.Model.Domain
         {
             Conference conference = new Conference();
             TimeSlot slot = new TimeSlot() { Conference = conference };
-            slot.AddSession(new Session(new Person(), "Session 1", "Session 1 abstract"));
-            slot.AddSession(new Session(new Person(), "Session 2", "Session 2 abstract"));
+            slot.AddSession(new Session(conference, new Person(), "Session 1", "Session 1 abstract"));
+            slot.AddSession(new Session(conference, new Person(), "Session 2", "Session 2 abstract"));
 
             Session[] sessions = slot.GetSessions();
             Assert.That(sessions.Length, Is.EqualTo(2));

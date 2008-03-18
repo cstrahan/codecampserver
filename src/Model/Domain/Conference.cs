@@ -138,16 +138,6 @@ namespace CodeCampServer.Model.Domain
             _sponsors.Remove(sponsor);
         }
 
-        //public virtual Track[] Tracks
-        //{
-        //    get { return new List<Track>(_tracks).ToArray(); }
-        //}
-
-        //public virtual void AddTrack(Track track)
-        //{
-        //    _tracks.Add(track);
-        //}
-
         public override string ToString()
         {
             return Key;
@@ -163,17 +153,17 @@ namespace CodeCampServer.Model.Domain
             return new List<Person>(_attendees).ToArray();
         }
 
-        public void AddSpeaker(Person speaker, string speakerKey, string bio, string avatarUrl)
+        public virtual void AddSpeaker(Person speaker, string speakerKey, string bio, string avatarUrl)
         {
             _speakers.Add(new Speaker(speaker, speakerKey, bio, avatarUrl));
         }
 
-        public Speaker[] GetSpeakers()
+        public virtual Speaker[] GetSpeakers()
         {
             return new List<Speaker>(_speakers).ToArray();
         }
 
-        public Speaker GetSpeakerByKey(string id)
+        public virtual Speaker GetSpeakerByKey(string id)
         {
             return Array.Find(GetSpeakers(), delegate(Speaker speaker)
                                                  {

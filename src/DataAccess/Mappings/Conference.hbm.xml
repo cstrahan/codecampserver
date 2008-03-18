@@ -46,6 +46,16 @@
       <many-to-many class="Person" column="PersonId" />
     </set>
 
+    <set name="Speakers" table="Speakers" lazy="true">
+      <key column="ConferenceId" />
+      <composite-element class="Speaker">
+        <many-to-one class="Person" name="Person" column="PersonId" />
+        <property name="SpeakerKey" not-null="true" />
+        <property name="Bio" />
+        <property name="AvatarUrl" />        
+      </composite-element>
+    </set>
+    
   </class>
 
 </hibernate-mapping>

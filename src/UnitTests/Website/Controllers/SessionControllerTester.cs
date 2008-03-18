@@ -110,14 +110,14 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			
 			Track track = new Track("Misc");
 			
-            Session actualSession = new Session(new Person(), "title", "abstract");
+            Session actualSession = new Session(_conference, new Person(), "title", "abstract");
 			
             actualSession.Track = track;
 			
             SetupResult.For(_conferenceService.GetConference(null)).IgnoreArguments().Return(_conference);
 		    SetupResult.For(_personRepository.FindByEmail(null)).IgnoreArguments().Return(speaker);
 			Expect.Call(
-				_sessionService.CreateSession(actualSession.Speaker, actualSession.Title, actualSession.Abstract,
+				_sessionService.CreateSession(null, actualSession.Speaker, actualSession.Title, actualSession.Abstract,
 				                              actualSession.Track))
 				.IgnoreArguments()
 				.Return(actualSession);

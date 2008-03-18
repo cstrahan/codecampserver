@@ -53,7 +53,7 @@ namespace CodeCampServer.Website.Controllers
 		    
 		    Person person = _personRepository.FindByEmail(speakerEmail);		    
 
-		    Session session = _sessionService.CreateSession(person, title, @abstract, null);
+		    Session session = _sessionService.CreateSession(null, person, title, @abstract, null);
 			SmartBag.Add(session);
 
 			RenderView("CreateConfirm");

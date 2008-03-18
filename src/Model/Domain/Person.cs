@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace CodeCampServer.Model.Domain
 {
@@ -12,8 +11,6 @@ namespace CodeCampServer.Model.Domain
         private string _passwordSalt;
         private string _website;
         private bool _isAdministrator;
-
-        
 
         public Person()
         {
@@ -61,7 +58,7 @@ namespace CodeCampServer.Model.Domain
             set { _conference = value; }
         }
 
-        public bool IsAdministrator
+        public virtual bool IsAdministrator
         {
             get { return _isAdministrator; }
             set { _isAdministrator = value; }

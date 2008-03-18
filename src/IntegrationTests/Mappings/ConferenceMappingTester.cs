@@ -1,5 +1,4 @@
 ﻿using System;
-using CodeCampServer.DataAccess.Impl;
 using CodeCampServer.IntegrationTests.DataAccess;
 using CodeCampServer.Model.Domain;
 using NHibernate;
@@ -83,7 +82,6 @@ namespace CodeCampServer.IntegrationTests.Mappings
                 session.SaveOrUpdate(_conference);
                 session.Flush();
             }
-
 
             var rehydratedConference = getSession().Load<Conference>(_conference.Id);
             Speaker[] speakers = rehydratedConference.GetSpeakers();

@@ -14,22 +14,21 @@ namespace CodeCampServer.Model.Domain
         {
         }
 
-        public Session(Person speaker, string title, string @abstract)
+        public Session(Conference conference, Person speaker, string title, string @abstract)
         {
+            _conference = conference;
             _speaker = speaker;
             _title = title;
             _abstract = @abstract;
         }
 
-        public Session(Person speaker, string title, string @abstract, Track track)
+        public Session(Conference conference, Person speaker, string title, string @abstract, Track track)
+            :this(conference, speaker, title, @abstract)
         {
-            _speaker = speaker;
-            _title = title;
-            _abstract = @abstract;
             _track = track;
         }
 
-        public Conference Conference
+        public virtual Conference Conference
         {
             get { return _conference; }
             set { _conference = value; }
@@ -71,7 +70,7 @@ namespace CodeCampServer.Model.Domain
             set { _timeSlot = value; }
         }
 
-        public Speaker GetSpeakerProfile()
+        public virtual Speaker GetSpeakerProfile()
         {
             return Speaker.GetSpeakerProfileFor(Conference);
         }
