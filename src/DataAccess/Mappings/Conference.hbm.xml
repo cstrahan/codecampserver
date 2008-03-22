@@ -50,7 +50,7 @@
       <key column="ConferenceId" />
       <composite-element class="Speaker">
         <many-to-one class="Person" name="Person" column="PersonId" />
-        <property name="SpeakerKey" not-null="true" />
+        <property name="SpeakerKey" unique="true" not-null="true" />
         <property name="Bio" />
         <property name="AvatarUrl" />        
       </composite-element>

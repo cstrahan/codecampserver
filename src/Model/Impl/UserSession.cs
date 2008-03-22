@@ -1,11 +1,9 @@
 using System;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
-using StructureMap;
 
 namespace CodeCampServer.Model.Impl
 {
-	[Pluggable(Keys.DEFAULT)]
 	public class UserSession : IUserSession
 	{
 		private readonly IAuthenticationService _authenticationService;

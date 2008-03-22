@@ -1,13 +1,10 @@
 using System.Collections.Generic;
-using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using NHibernate;
 using NHibernate.Expression;
-using StructureMap;
 
 namespace CodeCampServer.DataAccess.Impl
 {
-	[Pluggable(Keys.DEFAULT)]
 	public class SpeakerRepository : RepositoryBase, ISpeakerRepository
 	{
 		public SpeakerRepository(ISessionBuilder sessionFactory)
@@ -30,9 +27,7 @@ namespace CodeCampServer.DataAccess.Impl
         {
             ISession session = getSession();
            
-            IQuery query =
-                session.CreateQuery(
-                    @"from Speaker s where s.Person.Contact.Email = ?");
+            IQuery query = session.CreateQuery(@"from Speaker s where s.Person.Contact.Email = ?");
 
             query.SetParameter(0, email);
             Speaker speaker = query.UniqueResult<Speaker>();

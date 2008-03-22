@@ -1,8 +1,7 @@
-using StructureMap;
 using System.Collections.Generic;
+
 namespace CodeCampServer.Model.Domain
 {
-	[PluginFamily(Keys.DEFAULT)]
 	public interface ISpeakerRepository
 	{
 		void Save(Speaker speaker);

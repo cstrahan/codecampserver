@@ -45,10 +45,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\nunit\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="StructureMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\structuremap\StructureMap.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -84,6 +80,7 @@
     <Compile Include="DataAccess\ZDataLoader.cs" />
     <Compile Include="DataAccess\TestHelper.cs" />
     <Compile Include="Mappings\ConferenceMappingTester.cs" />
+    <Compile Include="Mappings\PersonMappingTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Website\Log4Net.config">

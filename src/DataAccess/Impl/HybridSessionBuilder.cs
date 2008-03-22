@@ -6,11 +6,9 @@ using CodeCampServer.DataAccess;
 using CodeCampServer.Model;
 using NHibernate;
 using NHibernate.Cfg;
-using StructureMap;
 
 namespace CodeCampServer.DataAccess.Impl
 {
-	[Pluggable(Keys.DEFAULT)]
     public class HybridSessionBuilder : ISessionBuilder
     {
         private readonly IDictionary<Database, ISessionFactory> _sessionFactories = new Dictionary<Database, ISessionFactory>();

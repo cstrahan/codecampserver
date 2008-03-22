@@ -1,12 +1,9 @@
 using System.Collections.Generic;
-using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using NHibernate;
-using StructureMap;
 
 namespace CodeCampServer.DataAccess.Impl
 {
-	[Pluggable(Keys.DEFAULT)]
 	public class TimeSlotRepository : RepositoryBase, ITimeSlotRepository
 	{
         public TimeSlotRepository(ISessionBuilder sessionFactory)

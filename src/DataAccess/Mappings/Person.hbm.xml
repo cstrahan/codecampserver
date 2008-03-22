@@ -17,6 +17,7 @@
     <property name="Comment" not-null="false"/>
     <property name="Password" length="256"/>
     <property name="PasswordSalt" length="256"/>
+    <property name="IsAdministrator" not-null="true" />
     
 	</class>
 

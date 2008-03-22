@@ -1,12 +1,9 @@
 using System;
-using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using NHibernate;
-using StructureMap;
 
 namespace CodeCampServer.DataAccess.Impl
-{
-	[Pluggable(Keys.DEFAULT)]
+{	
 	public class PersonRepository : RepositoryBase, IPersonRepository
 	{
 		public PersonRepository(ISessionBuilder sessionFactory) : base(sessionFactory)

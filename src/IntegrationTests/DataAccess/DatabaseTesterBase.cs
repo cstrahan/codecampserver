@@ -28,7 +28,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 
         public static void recreateDatabase(Database selectedDatabase)
         {
-            SchemaExport exporter = new SchemaExport(_sessionBuilder.GetConfiguration(selectedDatabase));
+            var exporter = new SchemaExport(_sessionBuilder.GetConfiguration(selectedDatabase));
             exporter.Execute(false, true, false, true);
         }
 

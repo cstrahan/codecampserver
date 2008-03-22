@@ -1,5 +1,4 @@
 using NHibernate;
-using StructureMap;
 
 namespace CodeCampServer.DataAccess.Impl
 {
@@ -11,11 +10,7 @@ namespace CodeCampServer.DataAccess.Impl
         {
             _sessionBuilder = sessionFactory;
         }
-
-        public RepositoryBase() : this(ObjectFactory.GetInstance<ISessionBuilder>())
-        {
-        }
-
+        
         protected ISession getSession()
         {
             ISession session = _sessionBuilder.GetSession(Database.Default);

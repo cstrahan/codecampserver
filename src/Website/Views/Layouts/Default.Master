@@ -57,8 +57,9 @@
                 <%= Html.RenderUserControl("~/Views/Shared/AdminControlPanel.ascx") %>            
             <% } %>
             <p></p>
-        
-		    <ul>
+                   
+		    <ul>		        
+		    
 			    <li>
 				    <h2>Gold Sponsors</h2>
 				    <ul>

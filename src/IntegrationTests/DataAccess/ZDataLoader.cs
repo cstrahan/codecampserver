@@ -1,10 +1,11 @@
 using System;
 using CodeCampServer.DataAccess;
+using CodeCampServer.DataAccess.Impl;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
+using CodeCampServer.Model.Impl;
 using NHibernate;
 using NUnit.Framework;
-using StructureMap;
 
 namespace CodeCampServer.IntegrationTests.DataAccess
 {
@@ -16,18 +17,20 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         {
             using (ISession session = getSession())
             {
-                ITransaction transaction = session.BeginTransaction();
-                Conference codeCamp2008 =
-                    new Conference("austincodecamp2008", "Austin Code Camp 2008");
-                codeCamp2008.StartDate = new DateTime(2008, 11, 26, 19, 30, 00);
+                var transaction = session.BeginTransaction();
+                var codeCamp2008 = new Conference("austincodecamp2008", "Austin Code Camp 2008")
+                        {
+                            StartDate = new DateTime(2008, 11, 26, 19, 30, 00)
+                        };
 
-                Sponsor sponsor =
+                var sponsor =
                     new Sponsor("Microsoft",
                                 "http://www.microsoft.com/presspass/images/gallery/logos/thumbnails/mslogo-1.gif",
                                 "http://microsoft.com/", "Bill", "Gates", "billg@microsoft.com", SponsorLevel.Platinum);
-                Sponsor sponsor2 =
+                var sponsor2 =
                     new Sponsor("Central Market", "http://www.centralmarket.com/images/about/cmILoveFood.jpg",
                                 "http://www.centralmarket.com/", "H. E.", "Butts", "owner@centralmarket.com", SponsorLevel.Gold);
+
                 codeCamp2008.AddSponsor(sponsor);
                 codeCamp2008.AddSponsor(sponsor2);
 
@@ -39,31 +42,31 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 transaction = session.BeginTransaction();
 
                 // Add track(s) and time slot(s)
-                Track track = new Track(codeCamp2008, ".NET");
-                TimeSlot slot1 = new TimeSlot(codeCamp2008, new DateTime(2008, 11, 26, 19, 30, 00),
+                var track = new Track(codeCamp2008, ".NET");
+                var slot1 = new TimeSlot(codeCamp2008, new DateTime(2008, 11, 26, 19, 30, 00),
                                               new DateTime(2008, 11, 26, 20, 30, 00),
                                               "Session");
-                TimeSlot slot2 = new TimeSlot(codeCamp2008, new DateTime(2008, 11, 26, 21, 00, 00),
+                var slot2 = new TimeSlot(codeCamp2008, new DateTime(2008, 11, 26, 21, 00, 00),
                                               new DateTime(2008, 11, 26, 22, 00, 00),
                                               "Session");
-                TimeSlot slot3 = new TimeSlot(codeCamp2008, new DateTime(2008, 11, 26, 22, 30, 00),
+                var slot3 = new TimeSlot(codeCamp2008, new DateTime(2008, 11, 26, 22, 30, 00),
                                               new DateTime(2008, 11, 26, 23, 30, 00),
                                               "Session");
 
                 
-                Person person1 = new Person("Homer", "Simpson", "homer@simpson.com");
-                Person person2 = new Person("Frank", "Sinatra", "frank@sinatra.com");
+                var person1 = new Person("Homer", "Simpson", "homer@simpson.com");
+                var person2 = new Person("Frank", "Sinatra", "frank@sinatra.com");
 
                 codeCamp2008.AddSpeaker(person1, "hsimpson", "bio", "avatar");
                 codeCamp2008.AddSpeaker(person2, "fsinatra", "bio", "avatar");
 
-                Session session1 = new Session(codeCamp2008, person1, "Domain-driven design explored",
+                var session1 = new Session(codeCamp2008, person1, "Domain-driven design explored",
                                                "In this session we'll explore Domain-driven design", track);
-                Session session2 = new Session(codeCamp2008, person1, "Advanced NHibernate",
+                var session2 = new Session(codeCamp2008, person1, "Advanced NHibernate",
                                                "In this session we'll explore Advanced NHibernate", track);
-                Session session3 = new Session(codeCamp2008, person2, "NHibernate for Beginners",
+                var session3 = new Session(codeCamp2008, person2, "NHibernate for Beginners",
                                                "In this session we'll help Aaron Lerch understand NHibernate", track);
-                Session session4 = new Session(codeCamp2008, person2, "Extreme Programming: a primer",
+                var session4 = new Session(codeCamp2008, person2, "Extreme Programming: a primer",
                                                "In this session we'll provide a primer on XP",
                                                track);
 
@@ -72,7 +75,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 slot2.AddSession(session3);
                 slot3.AddSession(session4);
 
-                for (int i = 0; i < 100; i++)
+                for (var i = 0; i < 100; i++)
                 {
                     createAttendee(session, codeCamp2008, i.ToString().PadLeft(3, '0'));                    
                 }
@@ -90,10 +93,21 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 session.SaveOrUpdate(slot2);
                 session.SaveOrUpdate(slot3);
                 transaction.Commit();
-                
-                IConferenceService service = ObjectFactory.GetInstance<IConferenceService>();
+
+                IConferenceService service = getConferenceService();
                 service.RegisterAttendee("Jeffrey", "Palermo", "jeffreypalermo@yahoo.com", "http://www.jeffreypalermo.com", "comment", codeCamp2008, "password");
             }
+        }
+
+        private IConferenceService getConferenceService()
+        {
+            var personRepository = new PersonRepository(_sessionBuilder);
+            return new ConferenceService(
+                new ConferenceRepository(_sessionBuilder),
+                personRepository,
+                new LoginService(personRepository),
+                new SystemClock()
+                );
         }
 
         private string getSalt()

@@ -97,5 +97,26 @@ namespace CodeCampServer.IntegrationTests.Mappings
             Assert.That(speakers[1].Bio, Is.EqualTo("a guy in Austin"));
             Assert.That(speakers[1].AvatarUrl, Is.EqualTo("http://palermoconsulting.com/me.jpg"));
         }
+
+        [Test]
+        public void SpeakerKeysAreUnique()
+        {
+            const string speakerKey = "sameKey";
+            _conference.AddSpeaker(_person1, speakerKey, "bio", "avatar");
+            _conference.AddSpeaker(_person2, speakerKey, "bio2", "avatar2");
+
+            try
+            {
+                using (var session = getSession())
+                {
+                    session.SaveOrUpdate(_conference);
+                    session.Flush();
+                }
+                Assert.Fail("should have thrown exception due to unique constraint violation");
+            }
+            catch(ADOException)
+            {
+            }
+        }
     }
 }

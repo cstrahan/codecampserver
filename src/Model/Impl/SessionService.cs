@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using CodeCampServer.Model.Domain;
-using StructureMap;
 
 namespace CodeCampServer.Model.Impl
 {
-	[Pluggable(Keys.DEFAULT)]
 	public class SessionService : ISessionService
 	{
 		private readonly ISessionRepository _sessionRepository;

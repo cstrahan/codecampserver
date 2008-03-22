@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
-using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using NHibernate;
-using StructureMap;
 
 namespace CodeCampServer.DataAccess.Impl
 {
-	[Pluggable(Keys.DEFAULT)]
 	public class ConferenceRepository : RepositoryBase, IConferenceRepository
 	{
 		public ConferenceRepository(ISessionBuilder sessionFactory) : base(sessionFactory)

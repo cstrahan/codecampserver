@@ -1,10 +1,10 @@
-using StructureMap;
+using CodeCampServer.Model.Domain;
+
 namespace CodeCampServer.Model.Security
 {
-	[PluginFamily(Keys.DEFAULT)]
 	public interface IAuthenticationService
 	{
-		void SetActiveUserName(string username);
+		void SignIn(Person person);
         string GetActiveUserName();
 	}
 }

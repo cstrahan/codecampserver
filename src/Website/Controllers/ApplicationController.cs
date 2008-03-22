@@ -28,9 +28,9 @@ namespace CodeCampServer.Website.Controllers
 				return _smartBag;
 			}
 		}
-
+        
 		protected override void OnActionExecuting(FilterExecutingContext filterContext)
-		{
+		{            
 			if (_authorizationService.IsAdministrator)
 			{
 				SmartBag.Add("ShouldRenderAdminPanel", true);

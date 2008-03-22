@@ -1,11 +1,8 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using CodeCampServer.Model;
-using StructureMap;
 
 namespace CodeCampServer.Website
 {
-	[Pluggable(Keys.DEFAULT)]
 	public class RouteConfigurator : IRouteConfigurator
 	{
 		public virtual void RegisterRoutes()

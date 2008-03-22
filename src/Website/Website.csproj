@@ -30,6 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\castle\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.MicroKernel, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\castle\Castle.MicroKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\castle\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.0.3, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\nhibernate\Iesi.Collections.dll</HintPath>
@@ -38,17 +50,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\mvccontrib\MvcContrib.dll</HintPath>
     </Reference>
-    <Reference Include="MvcContrib.StructureMap, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MvcContrib.Castle, Version=0.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\mvccontrib\MvcContrib.StructureMap.dll</HintPath>
+      <HintPath>..\..\bin\mvccontrib\MvcContrib.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.3.0.906, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\rhinomocks\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="RouteDebug, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\system.web.mvc\RouteDebug.dll</HintPath>
-    </Reference>
-    <Reference Include="StructureMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\structuremap\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -85,22 +97,25 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AuthenticationModule.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\AuthorizationFilterAttribute.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
+    <Compile Include="Controllers\SponsorComponentController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\TrackController.cs" />
+    <Compile Include="Helpers\CodeCampServerHelpers.cs" />
     <Compile Include="Helpers\ConferenceServiceHelper.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\LinkHelpers.cs" />
     <Compile Include="Helpers\RouteHelpers.cs" />
     <Compile Include="Helpers\ViewPageHelpers.cs" />
+    <Compile Include="HttpContextFactory.cs" />
     <Compile Include="IRouteConfigurator.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Security\AuthenticationService.cs" />
-    <Compile Include="ControllerDefaults.cs" />
     <Compile Include="Controllers\ConferenceController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -112,6 +127,13 @@
     <Compile Include="Views\Admin\Schedule.aspx.cs">
       <DependentUpon>Schedule.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Shared\Sponsor.ascx.cs">
+      <DependentUpon>Sponsor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Shared\Sponsor.ascx.designer.cs">
+      <DependentUpon>Sponsor.ascx</DependentUpon>
     </Compile>
     <Compile Include="Views\SmartBag.cs" />
     <Compile Include="Views\ViewBase.cs">
@@ -180,6 +202,7 @@
     <Content Include="Views\Session\Proposed.aspx" />
     <Content Include="Views\Schedule\Edit.aspx" />
     <Content Include="Views\Shared\AdminControlPanel.ascx" />
+    <Content Include="Views\Shared\Sponsor.ascx" />
     <Content Include="Views\Speaker\Edit.aspx" />
     <Content Include="Views\Conference\Details.aspx" />
     <Content Include="Views\Conference\Edit.aspx" />
@@ -191,6 +214,7 @@
     <Content Include="Views\Session\Create.aspx" />
     <Content Include="Views\Sponsor\Edit.aspx" />
     <Content Include="Views\Sponsor\List.aspx" />
+    <Content Include="Windsor.config.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

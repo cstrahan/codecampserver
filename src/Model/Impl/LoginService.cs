@@ -2,10 +2,9 @@ using CodeCampServer.Model.Domain;
 using System.Security.Cryptography;
 using System;
 using System.Text;
-using StructureMap;
+
 namespace CodeCampServer.Model.Impl
 {
-	[Pluggable(Keys.DEFAULT)]
     public class LoginService : ILoginService
     {
 	    private readonly IPersonRepository _personRepository;
@@ -41,7 +40,7 @@ namespace CodeCampServer.Model.Impl
             return Convert.ToBase64String(buff);
         }
 
-        /// <summary>
+	    /// <summary>
         /// Create a password hash based on a password and salt.  
         /// Adapted from: http://davidhayden.com/blog/dave/archive/2004/02/16/157.aspx
         /// </summary>
