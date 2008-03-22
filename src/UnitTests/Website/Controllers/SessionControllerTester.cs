@@ -3,6 +3,7 @@ using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Controllers;
+using CodeCampServer.Website.Views;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
@@ -52,7 +53,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			                                   object viewData)
 			{
 				if (viewData == null)
-					viewData = SmartBag;
+					viewData = ViewData;
 
 				ActualViewName = viewName;
 				ActualMasterName = masterName;
@@ -82,8 +83,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			controller.Create("austincodecamp2008");
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("Create"));
-			Assert.That(controller.ActualViewData, Is.SameAs(controller.SmartBag));
-			Assert.That(controller.SmartBag.Get<Speaker>(), Is.EqualTo(expectedSpeaker));
+			Assert.That(controller.ActualViewData, Is.SameAs(controller.ViewData));
+			Assert.That(controller.ViewData.Get<Speaker>(), Is.EqualTo(expectedSpeaker));
 		}
 
 		[Test]
@@ -129,8 +130,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		    controller.CreateNew("austincodecamp2008", "test@aol.com", "title", "abstract");
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("CreateConfirm"));
-			Assert.That(controller.ActualViewData, Is.SameAs(controller.SmartBag));
-			Session session = controller.SmartBag.Get<Session>();
+			Assert.That(controller.ActualViewData, Is.SameAs(controller.ViewData));
+			Session session = controller.ViewData.Get<Session>();
 			Assert.IsNotNull(session);
 			
             //Assert.That(session.Speaker, Is.EqualTo(speaker.SpeakerKey));
@@ -155,8 +156,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			controller.Proposed("austincodecamp2008");
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("Proposed"));
-			Assert.That(controller.ActualViewData, Is.SameAs(controller.SmartBag));
-			Assert.That(controller.SmartBag.Get<IEnumerable<Session>>(), Is.SameAs(sessions));
+			Assert.That(controller.ActualViewData, Is.SameAs(controller.ViewData));
+			Assert.That(controller.ViewData.Get<IEnumerable<Session>>(), Is.SameAs(sessions));
 		}
 	}
 }

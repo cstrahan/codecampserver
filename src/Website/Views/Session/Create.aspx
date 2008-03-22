@@ -1,5 +1,6 @@
 <%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
 	Inherits="CodeCampServer.Website.Views.ViewBase" Title="CodeCampServer - New Session" %>
+<%@ Import namespace="CodeCampServer.Website.Views"%>
     
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <div>

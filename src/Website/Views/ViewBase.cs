@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace CodeCampServer.Website.Views
 {
-	public class ViewBase : ViewPage<SmartBag>
+    public class ViewBase : ViewPage<IDictionary<string, object>>
 	{
 		
 	}

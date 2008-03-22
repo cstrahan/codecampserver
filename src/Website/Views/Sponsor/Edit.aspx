@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
 Inherits="CodeCampServer.Website.Views.ViewBase" Title="Edit Sponsor" %>
+<%@ Import namespace="CodeCampServer.Website.Views"%>
 <%@ Import namespace="CodeCampServer.Website.Controllers"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 

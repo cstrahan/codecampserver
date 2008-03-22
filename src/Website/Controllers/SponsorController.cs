@@ -24,7 +24,8 @@ namespace CodeCampServer.Website.Controllers
         public void New(string conferenceKey)
         {
             // TODO IAuthorizationService check
-            RenderView("Edit", new SmartBag().Add(new Sponsor()));
+            ViewData.Add(new Sponsor());
+            RenderView("Edit");
         }
 
         public void Delete(string conferenceKey, string sponsorName)
@@ -38,8 +39,8 @@ namespace CodeCampServer.Website.Controllers
                 _conferenceRepository.Save(conference);
             }
             Sponsor[] sponsors = conference.GetSponsors();
-            SmartBag viewData = new SmartBag().Add(sponsors);
-            RenderView("List", viewData);
+            ViewData.Add(sponsors);
+            RenderView("List");
         }
 
 
@@ -47,8 +48,8 @@ namespace CodeCampServer.Website.Controllers
         {
             Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
             Sponsor[] sponsors = conference.GetSponsors();
-            SmartBag viewData = new SmartBag().Add(sponsors);
-            RenderView("List", viewData);
+            ViewData.Add(sponsors);
+            RenderView("List");
         }
 
         public void Edit(string conferenceKey, string sponsorName)
@@ -58,8 +59,8 @@ namespace CodeCampServer.Website.Controllers
             Sponsor sponsor = conference.GetSponsor(sponsorName);
             if (sponsor != null)
             {
-                SmartBag viewData = new SmartBag().Add(sponsor);
-                RenderView("edit", viewData);
+                ViewData.Add(sponsor);
+                RenderView("edit");
             }
             else
             {
@@ -87,8 +88,8 @@ namespace CodeCampServer.Website.Controllers
             _conferenceRepository.Save(conference);
             
             Sponsor[] sponsors = conference.GetSponsors();
-            SmartBag viewData = new SmartBag().Add(sponsors);
-            RenderView("list", viewData);
+            ViewData.Add(sponsors);
+            RenderView("list");
         }
     }
 }

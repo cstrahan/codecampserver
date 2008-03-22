@@ -27,8 +27,9 @@ namespace CodeCampServer.Website.Controllers
 		{
 			Conference conference = _conferenceService.GetConference(conferenceKey);
 			ScheduledConference scheduledConference = new ScheduledConference(conference, _clock);
-			ScheduleListing[] scheduleListings = getListingsFromTimeSlots(_timeSlotRepository.GetTimeSlotsFor(conference));
-			RenderView("View", new SmartBag().Add(scheduledConference).Add(scheduleListings));
+		    ScheduleListing[] scheduleListings = getListingsFromTimeSlots(_timeSlotRepository.GetTimeSlotsFor(conference));
+		    ViewData.Add(scheduledConference).Add(scheduleListings);
+			RenderView("View");
 		}
 
 		private ScheduleListing[] getListingsFromTimeSlots(IEnumerable<TimeSlot> timeSlots)

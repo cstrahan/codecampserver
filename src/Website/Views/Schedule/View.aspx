@@ -1,5 +1,6 @@
 <%@ Page Language="C#" AutoEventWireup="true" 
 	Title="Schedule" Inherits="CodeCampServer.Website.Views.ViewBase" MasterPageFile="~/Views/Layouts/Default.Master" %>
+<%@ Import namespace="CodeCampServer.Website.Views"%>
 <%@ Import namespace="CodeCampServer.Model.Presentation"%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

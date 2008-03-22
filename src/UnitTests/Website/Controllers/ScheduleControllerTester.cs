@@ -58,15 +58,13 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			controller.Index("austincodecamp2008");
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("View"));
-			SmartBag actualViewData =
-				controller.ActualViewData as SmartBag;
-			Assert.That(actualViewData, Is.Not.Null);
-			Assert.That(actualViewData.Contains<ScheduledConference>());
-			Assert.That(actualViewData.Get<ScheduledConference>().Name, Is.EqualTo("Austin Code Camp"));
-			Assert.That(actualViewData.Contains<ScheduleListing[]>());
-			Assert.That(actualViewData.Get<ScheduleListing[]>().Length, Is.EqualTo(2));
-			Assert.That(actualViewData.Get<ScheduleListing[]>()[0].Purpose, Is.EqualTo("Morning Session 1"));
-			Assert.That(actualViewData.Get<ScheduleListing[]>()[1].Purpose, Is.EqualTo("Morning Session 2"));
+			Assert.That(controller.ViewData, Is.Not.Null);
+            Assert.That(controller.ViewData.Contains<ScheduledConference>());
+            Assert.That(controller.ViewData.Get<ScheduledConference>().Name, Is.EqualTo("Austin Code Camp"));
+            Assert.That(controller.ViewData.Contains<ScheduleListing[]>());
+            Assert.That(controller.ViewData.Get<ScheduleListing[]>().Length, Is.EqualTo(2));
+            Assert.That(controller.ViewData.Get<ScheduleListing[]>()[0].Purpose, Is.EqualTo("Morning Session 1"));
+            Assert.That(controller.ViewData.Get<ScheduleListing[]>()[1].Purpose, Is.EqualTo("Morning Session 2"));
 		}
 
 		private class TestingScheduleController : ScheduleController

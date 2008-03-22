@@ -52,7 +52,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             protected override void RenderView(string viewName, string masterName, object viewData)
             {
                 if (viewData == null)
-                    viewData = SmartBag;
+                    viewData = ViewData;
 
                 ActualViewName = viewName;
                 ActualMasterName = masterName;
@@ -112,7 +112,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             TestingSpeakerController controller = GetController();
             controller.View("austincodecamp2008", speaker.SpeakerKey);
 
-            Speaker viewDataSpeakerProfile = ((SmartBag)controller.ActualViewData).Get<Speaker>();
+            Speaker viewDataSpeakerProfile = controller.ViewData.Get<Speaker>();
 
             Assert.That(viewDataSpeakerProfile, Is.Not.Null);
             Assert.That(viewDataSpeakerProfile, Is.EqualTo(speaker));
@@ -133,7 +133,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             controller.Edit("conf123");
 
             Assert.That(controller.ActualViewName, Is.EqualTo("edit"));
-            Speaker viewDataSpeakerProfile = ((SmartBag)controller.ActualViewData).Get<Speaker>();
+            Speaker viewDataSpeakerProfile = controller.ViewData.Get<Speaker>();
 
             Assert.That(speaker, Is.EqualTo(viewDataSpeakerProfile));
             

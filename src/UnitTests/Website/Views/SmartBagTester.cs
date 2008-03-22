@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Mail;
 using System.Security.Policy;
 using System.Security.Principal;
+using System.Web.Mvc;
 using System.Xml;
 using CodeCampServer.Website.Views;
 using NUnit.Framework;
@@ -16,7 +18,7 @@ namespace CodeCampServer.UnitTests.Website.Views
 		[Test]
 		public void ShouldRetrieveSingleObjectByType()
 		{
-			SmartBag bag = new SmartBag();
+		    var bag = new Dictionary<string, object>();
 			Url url = new Url("/asdf"); //arbitrary object
 			bag.Add(url);
 
@@ -31,7 +33,7 @@ namespace CodeCampServer.UnitTests.Website.Views
 			Url url1 = new Url("/1");
 			Url url2 = new Url("/2");
 
-			SmartBag bag = new SmartBag();
+            var bag = new Dictionary<string, object>();
 			bag.Add(url1);
 			bag.Add(url2);
 		}
@@ -40,14 +42,14 @@ namespace CodeCampServer.UnitTests.Website.Views
 			ExpectedMessage = "No object exists with key 'System.Security.Policy.Url'.")]
 		public void ShouldGetMeaningfulExceptionIfObjectDoesntExist()
 		{
-			SmartBag bag = new SmartBag();
+            var bag = new Dictionary<string, object>();
 			Url url = bag.Get<Url>();
 		}
 
 		[Test]
 		public void ShouldReportContainsCorrectly()
 		{
-			SmartBag bag = new SmartBag();
+		    var bag = new Dictionary<string, object>();
 			bag.Add(new Url("/2"));
 
 			Assert.That(bag.Contains<Url>());
@@ -57,7 +59,7 @@ namespace CodeCampServer.UnitTests.Website.Views
 		[Test]
 		public void ShouldManageMoreThanOneObjectPerType()
 		{
-			SmartBag bag = new SmartBag();
+            var bag = new Dictionary<string, object>();
 			bag.Add("key1", new Url("/1"));
 			bag.Add("key2", new Url("/2"));
 
@@ -69,14 +71,14 @@ namespace CodeCampServer.UnitTests.Website.Views
 			ExpectedMessage = "No object exists with key 'foobar'.")]
 		public void ShouldGetMeaningfulExceptionIfObjectDoesntExistByKey()
 		{
-			SmartBag bag = new SmartBag();
+            var bag = new Dictionary<string, object>();
 			Url url = bag.Get<Url>("foobar");
 		}
 
 		[Test]
 		public void ShouldCountNumberOfObjectsOfGivenType()
 		{
-			SmartBag bag = new SmartBag();
+            var bag = new Dictionary<string, object>();
 			Assert.That(bag.GetCount(typeof (Url)), Is.EqualTo(0));
 
 			bag.Add("1", new Url("/1"));
@@ -92,7 +94,8 @@ namespace CodeCampServer.UnitTests.Website.Views
 			Url url = new Url("/1");
 			GenericIdentity identity = new GenericIdentity("name");
 
-			SmartBag bag = new SmartBag().Add(identity).Add(url);
+            var bag = new Dictionary<string, object>();
+			bag.Add(identity).Add(url);
 			Assert.That(bag.Get(typeof (GenericIdentity)), Is.EqualTo(identity));
 			Assert.That(bag.Get(typeof (Url)), Is.EqualTo(url));
 		}
@@ -103,7 +106,7 @@ namespace CodeCampServer.UnitTests.Website.Views
 	        DateTime theDate = DateTime.Parse("April 04, 2005");
 	        DateTime defaultDate = DateTime.Parse("October 31, 2005");
 
-            SmartBag bag = new SmartBag();	        
+            var bag = new Dictionary<string, object>();	        
             Assert.That(bag.GetOrDefault("some_date", defaultDate), Is.EqualTo(defaultDate));           
 
             bag.Add("some_date", theDate);
@@ -114,7 +117,7 @@ namespace CodeCampServer.UnitTests.Website.Views
 		public void ShouldHandleProxiedObjectsByType()
 		{
 			MailMessage stub = MockRepository.GenerateStub<MailMessage>();
-			SmartBag bag = new SmartBag();
+            var bag = new Dictionary<string, object>();
 			bag.Add(stub);
 			MailMessage message = bag.Get<MailMessage>();
 
@@ -127,7 +130,8 @@ namespace CodeCampServer.UnitTests.Website.Views
 			MailMessage messageProxy = MockRepository.GenerateStub<MailMessage>();
 			XmlDocument xmlDocumentProxy = MockRepository.GenerateStub<XmlDocument>();
 
-			SmartBag bag = new SmartBag().Add(messageProxy).Add(xmlDocumentProxy);
+            var bag = new Dictionary<string, object>();
+			bag.Add(messageProxy).Add(xmlDocumentProxy);
 
 			Assert.That(bag.Get<MailMessage>(), Is.EqualTo(messageProxy));
 			Assert.That(bag.Get<XmlDocument>(), Is.EqualTo(xmlDocumentProxy));
@@ -136,7 +140,9 @@ namespace CodeCampServer.UnitTests.Website.Views
 		[Test]
 		public void ShouldInitializeWithKeys()
 		{
-			SmartBag bag = new SmartBag().Add("key1", 2).Add("key2", 3);
+            var bag = new Dictionary<string, object>();
+			bag.Add("key1", 2);
+            bag.Add("key2", 3);
 			Assert.That(bag.ContainsKey("key1"));
 			Assert.That(bag.ContainsKey("key2"));
 		}

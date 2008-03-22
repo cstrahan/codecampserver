@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
+using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.Website.Controllers
 {
@@ -33,7 +34,7 @@ namespace CodeCampServer.Website.Controllers
 				RedirectToAction("index", "login");
 			else
 			{
-				SmartBag.Add(currentUser);
+				ViewData.Add(currentUser);
 				RenderView("Create");
 			}
 		}
@@ -54,7 +55,7 @@ namespace CodeCampServer.Website.Controllers
 		    Person person = _personRepository.FindByEmail(speakerEmail);		    
 
 		    Session session = _sessionService.CreateSession(null, person, title, @abstract, null);
-			SmartBag.Add(session);
+			ViewData.Add(session);
 
 			RenderView("CreateConfirm");
 		}
@@ -63,8 +64,8 @@ namespace CodeCampServer.Website.Controllers
 		{
 			Conference conference = _conferenceService.GetConference(conferenceKey);
 			IEnumerable<Session> sessions = _sessionService.GetProposedSessions(conference);
-			SmartBag.Add(conference);
-			SmartBag.Add(sessions);
+			ViewData.Add(conference);
+			ViewData.Add(sessions);
 
 			RenderView("Proposed");
 		}

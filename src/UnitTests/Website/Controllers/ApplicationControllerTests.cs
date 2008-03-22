@@ -53,7 +53,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             var foo = new FooController(_authorizationService);
             foo.Bar();
 
-            Assert.That(foo.SmartBag.ContainsKey("ShouldRenderAdminPanel"));
+            Assert.That(foo.ViewData.ContainsKey("ShouldRenderAdminPanel"));
         }
 
 

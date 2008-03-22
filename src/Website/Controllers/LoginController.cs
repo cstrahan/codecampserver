@@ -22,9 +22,9 @@ namespace CodeCampServer.Website.Controllers
 		public void Index()
 		{
 		    int numberOfUsers = getNumberOfUsers();
-		    SmartBag.Add("ShowFirstTimeRegisterLink", numberOfUsers == 0);            
+		    ViewData.Add("ShowFirstTimeRegisterLink", numberOfUsers == 0);            
 
-			RenderView("loginform", SmartBag);
+			RenderView("loginform", ViewData);
 		}
 
 	    private int getNumberOfUsers()

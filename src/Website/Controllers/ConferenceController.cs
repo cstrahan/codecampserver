@@ -37,8 +37,8 @@ namespace CodeCampServer.Website.Controllers
 		public void Details(string conferenceKey)
 		{
 			ScheduledConference conference = getScheduledConference(conferenceKey);		    
-            SmartBag.Add(conference);
-			RenderView("details", SmartBag);
+            ViewData.Add(conference);
+			RenderView("details", ViewData);
 		}
 
         public void Current()
@@ -57,8 +57,8 @@ namespace CodeCampServer.Website.Controllers
 	    {
 	        RequireAdmin();
             IEnumerable<Conference> conferences = _conferenceService.GetAllConferences();
-            SmartBag.Add(conferences);
-	        RenderView("List", SmartBag);
+            ViewData.Add(conferences);
+	        RenderView("List", ViewData);
 	    }
 
         private void RequireAdmin()
@@ -72,8 +72,8 @@ namespace CodeCampServer.Website.Controllers
 		public void PleaseRegister(string conferenceKey)
 		{
 			ScheduledConference conference = getScheduledConference(conferenceKey);
-		    SmartBag.Add(conference);
-			RenderView("registerform", SmartBag);
+		    ViewData.Add(conference);
+			RenderView("registerform", ViewData);
 		}
 
 		public void Register(string conferenceKey, string firstName, string lastName, string email, string website,
@@ -86,8 +86,8 @@ namespace CodeCampServer.Website.Controllers
 
                 //sign in the person
 
-                SmartBag.Add(person).Add(new ScheduledConference(conference, _clock));
-                RenderView("registerconfirm", SmartBag);
+                ViewData.Add(person).Add(new ScheduledConference(conference, _clock));
+                RenderView("registerconfirm", ViewData);
             } 
             catch(Exception exc)
             {
@@ -110,15 +110,16 @@ namespace CodeCampServer.Website.Controllers
 			
 			AttendeeListing[] listings = getListingsFromAttendees(attendees);
 
-		    SmartBag
+		    ViewData
 		        .Add(new ScheduledConference(conference, _clock))
 		        .Add(listings);
-            RenderView("listattendees", SmartBag);                                
+            RenderView("listattendees", ViewData);                                
 		}
 
 		public void New()
 		{
-			RenderView("Edit", new SmartBag().Add(new Conference()));
+		    ViewData.Add(new Conference());
+			RenderView("Edit");
 		}
 
 		private AttendeeListing[] getListingsFromAttendees(Person[] attendees)

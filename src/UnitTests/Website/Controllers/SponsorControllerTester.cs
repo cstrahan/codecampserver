@@ -64,7 +64,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
         private TestingSponsorController GetController()
         {
-            TestingSponsorController controller =
+            var controller =
                 new TestingSponsorController(_conferenceRepository, _authorizationService, new ClockStub());
             return controller;
         }
@@ -72,8 +72,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         [Test]
         public void DeleteShouldRemoveSponsorAndRenderList()
         {
-            Sponsor sponsorToDelete = new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum);
-            Sponsor sponsor = new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum);
+            var sponsorToDelete = new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum);
+            var sponsor = new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum);
             _conference.AddSponsor(sponsor);
             _conference.AddSponsor(sponsorToDelete);
             SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
@@ -83,11 +83,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             TestingSponsorController controller = GetController();
 
             controller.Delete(_conference.Key, "name");
-            Assert.That(controller.ActualViewData, Is.TypeOf(typeof (SmartBag)));
-            SmartBag bag = (SmartBag) controller.ActualViewData;
-            Assert.That(bag.Contains<Sponsor[]>(), Is.True);
-            List<Sponsor> sponsors =
-                new List<Sponsor>(bag.Get<Sponsor[]>());
+            Assert.That(controller.ViewData.Contains<Sponsor[]>(), Is.True);
+            var sponsors =
+                new List<Sponsor>(controller.ViewData.Get<Sponsor[]>());
             Assert.That(sponsors.Contains(sponsorToDelete), Is.False);
             Assert.That(controller.ActualViewName, Is.EqualTo("List"));
         }
@@ -104,7 +102,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             TestingSponsorController controller = GetController();
             controller.Edit("austincodecamp2008", "test");
 
-            Sponsor viewDataSponsor = (controller.ActualViewData as SmartBag).Get<Sponsor>();
+            var viewDataSponsor = controller.ViewData.Get<Sponsor>();
             Assert.That(viewDataSponsor.Name, Is.EqualTo("test"));
             Assert.That(controller.ActualViewName, Is.EqualTo("edit"));
         }
@@ -140,9 +138,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             TestingSponsorController controller = GetController();
             controller.New(_conference.Key);
 
-            Assert.That(controller.ActualViewData, Is.TypeOf(typeof (SmartBag)));
-            SmartBag bag = (SmartBag) controller.ActualViewData;
-            Assert.That(bag.Contains<Sponsor>());
+            Assert.That(controller.ViewData.Contains<Sponsor>());
             Assert.That(controller.ActualViewName, Is.EqualTo("Edit"));
         }
 
@@ -159,17 +155,17 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             TestingSponsorController controller = GetController();
             controller.Save(_conference.Key, "name", "edited name", "Gold", "", "", "", "", "");
 
-            SmartBag viewData = controller.ActualViewData as SmartBag;
-
             Assert.That(controller.ActualViewName, Is.EqualTo("list"));
-            Assert.That(viewData, Is.Not.Null);
+            Assert.That(controller.ViewData, Is.Not.Null);
 
-            Assert.That(viewData.Get<Sponsor[]>().Length, Is.EqualTo(2));
+            Assert.That(controller.ViewData.Get<Sponsor[]>().Length, Is.EqualTo(2));
             Assert.That(
-                Array.Exists(viewData.Get<Sponsor[]>(), delegate(Sponsor s) { return s.Name == "edited name"; }),
+                Array.Exists(controller.ViewData.Get<Sponsor[]>(),
+                             delegate(Sponsor s) { return s.Name == "edited name"; }),
                 Is.True);
-            Assert.That(Array.Exists(viewData.Get<Sponsor[]>(), delegate(Sponsor s) { return s.Name == "name"; }),
-                        Is.False);
+            Assert.That(
+                Array.Exists(controller.ViewData.Get<Sponsor[]>(), delegate(Sponsor s) { return s.Name == "name"; }),
+                Is.False);
         }
 
         [Test]
@@ -182,12 +178,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             TestingSponsorController controller = GetController();
             controller.Save(_conference.Key, "", "name", "Bronze", "logoUrl", "website", "firstName", "lastName",
                             "email");
-            SmartBag viewData = controller.ActualViewData as SmartBag;
-
             Assert.That(controller.ActualViewName, Is.EqualTo("list"));
-            Assert.That(viewData, Is.Not.Null);
+            Assert.That(controller.ViewData, Is.Not.Null);
 
-            Assert.That(Array.Exists(viewData.Get<Sponsor[]>(), delegate(Sponsor s) { return s.Name == "name"; }),
+            Assert.That(Array.Exists(controller.ViewData.Get<Sponsor[]>(), delegate(Sponsor s) { return s.Name == "name"; }),
                         Is.True);
         }
 
@@ -201,16 +195,15 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
             _mocks.ReplayAll();
 
-            TestingSponsorController controller =
+            var controller =
                 new TestingSponsorController(_conferenceRepository, _authorizationService, new ClockStub());
             controller.List("austincodecamp2008");
             Assert.That(controller.ActualViewName, Is.EqualTo("List"));
 
-            SmartBag viewData = controller.ActualViewData as SmartBag;
-            Assert.That(viewData, Is.Not.Null);
-            Assert.That(viewData.Contains<Sponsor[]>());
+            Assert.That(controller.ViewData, Is.Not.Null);
+            Assert.That(controller.ViewData.Contains<Sponsor[]>());
 
-            Sponsor[] sponsors = viewData.Get<Sponsor[]>();
+            Sponsor[] sponsors = controller.ViewData.Get<Sponsor[]>();
             Assert.That(sponsors[0].Level, Is.EqualTo(SponsorLevel.Platinum));
             Assert.That(sponsors[1].Level, Is.EqualTo(SponsorLevel.Bronze));
             Assert.That(sponsors[0].Name, Is.EqualTo("name"));

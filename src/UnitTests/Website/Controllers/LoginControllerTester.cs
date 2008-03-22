@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Web.Mvc;
 using System.Web.Routing;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
@@ -41,6 +43,11 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 				: base(loginService, personRepository, authenticationService, authorizationService)
 			{
 			}
+
+		    public IDictionary<string, object> ActualViewDataAsDictionary
+		    {
+                get { return (IDictionary<string, object>) ActualViewData; }
+		    }
 
 			public override void Redirect(string url)
 			{
@@ -92,7 +99,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             TestingLoginController controller = new TestingLoginController(_loginService, _personRepository, _authenticationService, _authorizationService);
             controller.Index();
 
-	        Assert.That(((SmartBag) controller.ActualViewData).Get<bool>("ShowFirstTimeRegisterLink"), Is.True);
+	        Assert.That(controller.ActualViewDataAsDictionary.Get<bool>("ShowFirstTimeRegisterLink"), Is.True);
 	    }
 
         [Test]
@@ -104,7 +111,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             TestingLoginController controller = GetController();
             controller.Index();
 
-            Assert.That(((SmartBag)controller.ActualViewData).Get<bool>("ShowFirstTimeRegisterLink"), Is.False);
+            Assert.That(controller.ActualViewDataAsDictionary.Get<bool>("ShowFirstTimeRegisterLink"), Is.False);
         }
 
 	    [Test, ExpectedException(typeof(SecurityException))]
