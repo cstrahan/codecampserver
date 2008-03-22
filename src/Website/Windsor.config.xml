@@ -58,6 +58,10 @@
     <component id="session-repository"
                service="CodeCampServer.Model.Domain.ISessionRepository, CodeCampServer.Model"
                type="CodeCampServer.DataAccess.Impl.SessionRepository, CodeCampServer.DataAccess" />
+    
+    <component id="timeslot-repository"
+               service="CodeCampServer.Model.Domain.ITimeSlotRepository, CodeCampServer.Model"
+               type="CodeCampServer.DataAccess.Impl.TimeSlotRepository, CodeCampServer.DataAccess" />
           
   </components>  
 </configuration>
