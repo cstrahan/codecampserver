@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
-    Inherits="CodeCampServer.Website.Views.ViewBase" Title="Edit Speaker" %>
+    Inherits="System.Web.Mvc.ViewPage" Title="Edit Speaker" %>
 <%@ Import namespace="CodeCampServer.Website.Views"%>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <% Speaker speaker = ViewData.Get<Speaker>(); %>

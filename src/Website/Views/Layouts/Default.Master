@@ -1,5 +1,6 @@
 ﻿<%@ Import namespace="CodeCampServer.Website.Views"%>
-<%@ Master Language="C#" AutoEventWireup="true" Inherits="CodeCampServer.Website.Views.ViewMasterBase" %>
+<%@ Master Language="C#" AutoEventWireup="true" 
+Inherits="System.Web.Mvc.ViewMasterPage" %>
 <%@ Import Namespace="CodeCampServer.Website.Helpers" %>
 <%@ Import namespace="CodeCampServer.Website.Controllers"%>
 <%@ Import namespace="System.Web.Mvc"%>

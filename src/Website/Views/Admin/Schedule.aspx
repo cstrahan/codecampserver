@@ -1,4 +1,6 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" Inherits="CodeCampServer.Website.Views.ViewBase" Title="Code Camp Server - Schedule Administration" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" 
+AutoEventWireup="true" Inherits="System.Web.Mvc.ViewPage" 
+Title="Code Camp Server - Schedule Administration" %>
 
 <asp:Content ID="headContent" ContentPlaceHolderID="head" runat="server">
 

@@ -1,5 +1,6 @@
-?<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" AutoEventWireup="true" 
-Inherits="CodeCampServer.Website.Views.ViewBase" Title="Edit Schedule" %>
+?<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" 
+AutoEventWireup="true" 
+Inherits="System.Web.Mvc.ViewPage" Title="Edit Schedule" %>
 <%@ Import namespace="CodeCampServer.Website.Views"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

@@ -8,9 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CodeCampServer.Website.Views {
+namespace System.Web.Mvc {
     
     
-    public partial class ViewUserControlBase {
+    public partial class ViewUserControl {
     }
 }

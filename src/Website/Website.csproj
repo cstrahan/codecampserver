@@ -128,10 +128,6 @@
     <Compile Include="Models\Conference\ListAttendeesViewData.cs" />
     <Compile Include="RouteConfigurator.cs" />
     <Compile Include="Security\AuthorizationService.cs" />
-    <Compile Include="Views\Admin\Schedule.aspx.cs">
-      <DependentUpon>Schedule.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Views\Shared\Sponsor.ascx.cs">
       <DependentUpon>Sponsor.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -140,15 +136,6 @@
       <DependentUpon>Sponsor.ascx</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewDataExtensions.cs" />
-    <Compile Include="Views\ViewBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\ViewControlBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\ViewMasterBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />

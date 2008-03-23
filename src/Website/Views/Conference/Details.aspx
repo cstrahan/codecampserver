@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
-	Inherits="CodeCampServer.Website.Views.ViewBase" %>
+	Inherits="System.Web.Mvc.ViewPage" %>
 <%@ Import namespace="CodeCampServer.Website.Views"%>
 <%@ Import namespace="CodeCampServer.Website.Controllers"%>
 <%@ Import namespace="CodeCampServer.Model.Presentation"%>
