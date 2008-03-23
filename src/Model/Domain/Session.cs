@@ -8,7 +8,6 @@ namespace CodeCampServer.Model.Domain
         private string _abstract;
         private bool _isApproved;
         private Track _track;
-        private TimeSlot _timeSlot;
 
         public Session()
         {
@@ -62,12 +61,6 @@ namespace CodeCampServer.Model.Domain
         {
             get { return _track; }
             set { _track = value; }
-        }
-
-        public virtual TimeSlot TimeSlot
-        {
-            get { return _timeSlot; }
-            set { _timeSlot = value; }
         }
 
         public virtual Speaker GetSpeakerProfile()

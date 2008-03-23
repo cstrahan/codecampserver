@@ -1,10 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="CodeCampServer.Model.Domain.TimeSlot">
-    <Position X="9.5" Y="7.5" Width="2" />
+    <Position X="9.5" Y="7.25" Width="2" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
+    <AssociationLine Name="_sessions" Type="CodeCampServer.Model.Domain.Session" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11.5" Y="9.082" />
+        <Point X="12.062" Y="9.082" />
+        <Point X="12.062" Y="11" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.33" Y="0.801" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>IAEAAAAAIAAgAAAAAAAAAAAIIAAgAAAiIAAACAAAAAA=</HashCode>
       <FileName>Domain\TimeSlot.cs</FileName>
@@ -12,6 +22,9 @@
     <ShowAsAssociation>
       <Property Name="Conference" />
     </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_sessions" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="CodeCampServer.Model.Domain.Conference">
     <Position X="5.5" Y="6.5" Width="2.5" />
@@ -23,10 +36,12 @@
         <Position X="-1.034" Y="0.516" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="_attendees" Type="CodeCampServer.Model.Domain.Person" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="_attendees" Type="CodeCampServer.Model.Domain.Person" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="8" Y="10.188" />
-        <Point X="10.062" Y="10.188" />
+        <Point X="8" Y="10.062" />
+        <Point X="8.33" Y="10.062" />
+        <Point X="8.33" Y="10.033" />
+        <Point X="10.062" Y="10.033" />
         <Point X="10.062" Y="10.25" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
@@ -91,20 +106,12 @@
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="TimeSlot" Type="CodeCampServer.Model.Domain.TimeSlot" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="12" Y="11" />
-        <Point X="12" Y="8.766" />
-        <Point X="11.5" Y="8.766" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AACAQAABAMAgAEAAAAAAAABgAAgAAAACgAAACAAAIIA=</HashCode>
+      <HashCode>AACAAAABAMAgAEAAAAAAAAAgAAgAAAACgAAACAAAIIA=</HashCode>
       <FileName>Domain\Session.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Track" />
-      <Property Name="TimeSlot" />
     </ShowAsAssociation>
   </Class>
   <Class Name="CodeCampServer.Model.Domain.Speaker">
@@ -137,10 +144,12 @@
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="Conference" Type="CodeCampServer.Model.Domain.Conference" FixedFromPoint="true">
+    <AssociationLine Name="Conference" Type="CodeCampServer.Model.Domain.Conference" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="11.75" Y="7.25" />
-        <Point X="8" Y="7.25" />
+        <Point X="11.627" Y="7.25" />
+        <Point X="11.627" Y="6.875" />
+        <Point X="8" Y="6.875" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="1.714" Y="0.112" />
@@ -161,7 +170,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>EAQAAAAEEAAggCEACAAAAAAAAAAAAAICAAQBCAEABAA=</HashCode>
+      <HashCode>EAQAAAAEEAAggCEECAAAAAAAAAAAAAICAAQBCAEABAA=</HashCode>
       <FileName>Domain\Person.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

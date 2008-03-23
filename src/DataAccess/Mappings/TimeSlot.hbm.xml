@@ -13,9 +13,9 @@
 		<property name="StartTime" not-null="true"/>
 		<property name="EndTime" not-null="true"/>
 		<property name="Purpose" not-null="false"/>
-		<set name="Sessions" table="Sessions" inverse="true" cascade="all">
+		<set name="Sessions" table="ScheduledSessions">
 			<key column="TimeSlotId" />
-			<one-to-many class="Session" />
+			<many-to-many class="Session" column="SessionId" />
 		</set>
 	</class>
 

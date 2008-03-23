@@ -57,7 +57,6 @@ namespace CodeCampServer.Model.Domain
 
         public virtual void AddSession(Session session)
         {
-            session.TimeSlot = this;
             _sessions.Add(session);
         }
 
