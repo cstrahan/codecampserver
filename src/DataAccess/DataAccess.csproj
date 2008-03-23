@@ -51,7 +51,6 @@
     <Compile Include="Impl\PersonRepository.cs" />
     <Compile Include="Impl\TrackRepository.cs" />
     <Compile Include="Impl\TimeSlotRepository.cs" />
-    <Compile Include="Impl\SpeakerRepository.cs" />
     <Compile Include="Impl\HybridSessionBuilder.cs" />
     <Compile Include="Impl\NHibernateSessionModule.cs" />
     <Compile Include="Impl\RepositoryBase.cs" />

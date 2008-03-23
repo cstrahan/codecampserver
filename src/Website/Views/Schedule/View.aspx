@@ -30,8 +30,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 	<div style="padding:10px">
-	    <% ScheduledConference conference = ViewData.Get<ScheduledConference>(); %>
-	    <% ScheduleListing[] schedule = ViewData.Get<ScheduleListing[]>(); %>
+	    <% Schedule conference = ViewData.Get<Schedule>(); %>
+	    <% ScheduleListing[] schedule = conference.GetScheduleListings(); %>
 		<h1><%= conference.Name %> Schedule</h1>
 			<table cellpadding="2" cellspacing="0" width="100%">
 				<tr class="header-row">

@@ -67,8 +67,6 @@
     <Compile Include="Domain\IConferenceRepository.cs" />
     <Compile Include="Domain\ILoginService.cs" />
     <Compile Include="Domain\ISessionRepository.cs" />
-    <Compile Include="Domain\ISpeakerRepository.cs" />
-    <Compile Include="Domain\ISponsorRepository.cs" />
     <Compile Include="Domain\Conference.cs" />
     <Compile Include="Domain\Contact.cs" />
     <Compile Include="Domain\EntityBase.cs" />
@@ -96,7 +94,7 @@
     <Compile Include="Presentation\SessionListing.cs" />
     <Compile Include="Presentation\SpeakerListingCollection.cs" />
     <Compile Include="Presentation\SpeakerListing.cs" />
-    <Compile Include="Presentation\ScheduledConference.cs" />
+    <Compile Include="Presentation\Schedule.cs" />
     <Compile Include="Presentation\ScheduleListing.cs" />
     <Compile Include="Security\IAuthenticationService.cs" />
     <Compile Include="Security\IAuthorizationService.cs" />

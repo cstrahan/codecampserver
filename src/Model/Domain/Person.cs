@@ -6,11 +6,11 @@ namespace CodeCampServer.Model.Domain
     {
         private readonly Contact _contact = new Contact();
         private string _comment;
-        private Conference _conference;
         private string _password;
         private string _passwordSalt;
         private string _website;
         private bool _isAdministrator;
+        private Conference _conference;
 
         public Person()
         {

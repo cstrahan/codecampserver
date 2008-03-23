@@ -25,10 +25,10 @@ namespace CodeCampServer.Website.Helpers
             get { return _clock; }
         }
 
-        internal ScheduledConference GetScheduledConference(string conferenceKey)
+        internal Schedule GetScheduledConference(string conferenceKey)
         {
             Conference conference = _conferenceService.GetConference(conferenceKey);
-            return new ScheduledConference(conference, _clock);
+            return new Schedule(conference, _clock, null);
         }
     }
 }

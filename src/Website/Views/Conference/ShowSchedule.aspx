@@ -29,7 +29,7 @@ MasterPageFile="~/Views/Layouts/Default.Master" %>
     </style>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-	<% ScheduledConference conference = ViewData.Get<ScheduledConference>(); %>
+	<% Schedule conference = ViewData.Get<Schedule>(); %>
 	<div class="schedule-listing">
 		<h1><%=conference.Name%> Schedule</h1>
 		
@@ -58,7 +58,7 @@ MasterPageFile="~/Views/Layouts/Default.Master" %>
 	protected override void OnPreInit(EventArgs e)
 	{
 		base.OnPreInit(e);
-		Title = "Conference Schedule for " + ViewData.Get<ScheduledConference>().Name;//should this go in the controller
+		Title = "Conference Schedule for " + ViewData.Get<Schedule>().Name;//should this go in the controller
 	} 
 	
 </script>

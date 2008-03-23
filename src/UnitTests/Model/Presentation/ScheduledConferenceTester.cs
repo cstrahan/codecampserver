@@ -17,13 +17,13 @@ namespace CodeCampServer.UnitTests.Model.Presentation
 			conference.Key = "key";
 			conference.Name = "name";
 			conference.StartDate = new DateTime(2000, 1, 1);
-			ScheduledConference scheduledConference = new ScheduledConference(
-				conference, new ClockStub());
+			Schedule schedule = new Schedule(
+				conference, new ClockStub(), null);
 			
-			Assert.That(scheduledConference.Key, Is.EqualTo("key"));
-			Assert.That(scheduledConference.Name, Is.EqualTo("name"));
-			Assert.That(scheduledConference.StartDate, Is.EqualTo(new DateTime(2000, 1, 1)));
-			Assert.That(scheduledConference.Conference, Is.EqualTo(conference));
+			Assert.That(schedule.Key, Is.EqualTo("key"));
+			Assert.That(schedule.Name, Is.EqualTo("name"));
+			Assert.That(schedule.StartDate, Is.EqualTo(new DateTime(2000, 1, 1)));
+			Assert.That(schedule.Conference, Is.EqualTo(conference));
 		}
 
 		[Test]
@@ -31,10 +31,10 @@ namespace CodeCampServer.UnitTests.Model.Presentation
 		{
 			Conference conference = new Conference();
 			conference.StartDate = new DateTime(2000, 1, 11);
-			ScheduledConference scheduledConference = new ScheduledConference(
-				conference, new ClockStub(new DateTime(2000, 1, 1)));
+			Schedule schedule = new Schedule(
+				conference, new ClockStub(new DateTime(2000, 1, 1)), null);
 
-			Assert.That(scheduledConference.DaysUntilStart, Is.EqualTo(10));
+			Assert.That(schedule.DaysUntilStart, Is.EqualTo(10));
 		}
 
 		[Test]
@@ -42,10 +42,10 @@ namespace CodeCampServer.UnitTests.Model.Presentation
 		{
 			Conference conference = new Conference();
 			conference.StartDate = new DateTime(1999, 12, 21);
-			ScheduledConference scheduledConference = new ScheduledConference(
-				conference, new ClockStub(new DateTime(2000, 1, 1)));
+			Schedule schedule = new Schedule(
+				conference, new ClockStub(new DateTime(2000, 1, 1)), null);
 
-			Assert.That(scheduledConference.DaysUntilStart, Is.Null);
+			Assert.That(schedule.DaysUntilStart, Is.Null);
 		}
 
 		[Test]
@@ -53,10 +53,10 @@ namespace CodeCampServer.UnitTests.Model.Presentation
 		{
 			Conference conference = new Conference();
 			conference.StartDate = null;
-			ScheduledConference scheduledConference = new ScheduledConference(
-				conference, new ClockStub(new DateTime(2000, 1, 1)));
+			Schedule schedule = new Schedule(
+				conference, new ClockStub(new DateTime(2000, 1, 1)), null);
 
-			Assert.That(scheduledConference.DaysUntilStart, Is.Null);
+			Assert.That(schedule.DaysUntilStart, Is.Null);
 		}
 	}
 }

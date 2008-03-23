@@ -29,9 +29,9 @@ namespace CodeCampServer.Website.Controllers
         
 	    private void PreparePageTitle()
 	    {
-            if (ViewData.Contains<ScheduledConference>())
+            if (ViewData.Contains<Schedule>())
             {
-                string conferenceName = ViewData.Get<ScheduledConference>().Name;
+                string conferenceName = ViewData.Get<Schedule>().Name;
                 ViewData.Add("PageTitle", conferenceName);
             }
             else

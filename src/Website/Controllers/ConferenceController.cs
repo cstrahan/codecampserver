@@ -23,10 +23,10 @@ namespace CodeCampServer.Website.Controllers
 		    _clock = clock;
 		}
 
-		private ScheduledConference getScheduledConference(string conferenceKey)
+		private Schedule getScheduledConference(string conferenceKey)
 		{
 			Conference conference = _conferenceService.GetConference(conferenceKey);
-			return new ScheduledConference(conference, _clock);
+			return new Schedule(conference, _clock, null);
 		}
 
 		public void Index()
@@ -36,7 +36,7 @@ namespace CodeCampServer.Website.Controllers
 
 		public void Details(string conferenceKey)
 		{
-			ScheduledConference conference = getScheduledConference(conferenceKey);		    
+			Schedule conference = getScheduledConference(conferenceKey);		    
             ViewData.Add(conference);
 			RenderView("details", ViewData);
 		}
@@ -71,7 +71,7 @@ namespace CodeCampServer.Website.Controllers
 
 		public void PleaseRegister(string conferenceKey)
 		{
-			ScheduledConference conference = getScheduledConference(conferenceKey);
+			Schedule conference = getScheduledConference(conferenceKey);
 		    ViewData.Add(conference);
 			RenderView("registerform", ViewData);
 		}
@@ -86,7 +86,7 @@ namespace CodeCampServer.Website.Controllers
 
                 //sign in the person
 
-                ViewData.Add(person).Add(new ScheduledConference(conference, _clock));
+                ViewData.Add(person).Add(new Schedule(conference, _clock, null));
                 RenderView("registerconfirm", ViewData);
             } 
             catch(Exception exc)
@@ -111,7 +111,7 @@ namespace CodeCampServer.Website.Controllers
 			AttendeeListing[] listings = getListingsFromAttendees(attendees);
 
 		    ViewData
-		        .Add(new ScheduledConference(conference, _clock))
+		        .Add(new Schedule(conference, _clock, null))
 		        .Add(listings);
             RenderView("listattendees", ViewData);                                
 		}

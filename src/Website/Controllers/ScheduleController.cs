@@ -26,20 +26,11 @@ namespace CodeCampServer.Website.Controllers
 		public void Index(string conferenceKey)
 		{
 			Conference conference = _conferenceService.GetConference(conferenceKey);
-			ScheduledConference scheduledConference = new ScheduledConference(conference, _clock);
-		    ScheduleListing[] scheduleListings = getListingsFromTimeSlots(_timeSlotRepository.GetTimeSlotsFor(conference));
-		    ViewData.Add(scheduledConference).Add(scheduleListings);
+			Schedule schedule = new Schedule(conference, _clock, _timeSlotRepository);
+		    ViewData.Add(schedule);
 			RenderView("View");
 		}
 
-		private ScheduleListing[] getListingsFromTimeSlots(IEnumerable<TimeSlot> timeSlots)
-		{
-			List<ScheduleListing> listings = new List<ScheduleListing>();
-			foreach (TimeSlot timeSlot in timeSlots)
-			{
-				listings.Add(new ScheduleListing(timeSlot));
-			}
-			return listings.ToArray();
-		}
+		
 	}
 }

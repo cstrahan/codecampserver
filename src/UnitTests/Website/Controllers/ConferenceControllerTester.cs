@@ -127,7 +127,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 			controller.Details("austincodecamp2008");
 			Assert.That(controller.ActualViewName, Is.EqualTo("details"));
-			ScheduledConference actualViewData = controller.ViewData.Get<ScheduledConference>();
+			Schedule actualViewData = controller.ViewData.Get<Schedule>();
 			Assert.That(actualViewData, Is.Not.Null);
 			Assert.That(actualViewData.Conference, Is.EqualTo(_conference));
 		}
@@ -144,7 +144,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			controller.PleaseRegister("austincodecamp2008");
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("registerform"));
-			ScheduledConference actualViewData = controller.ViewData.Get<ScheduledConference>();
+			Schedule actualViewData = controller.ViewData.Get<Schedule>();
 			Assert.That(actualViewData, Is.Not.Null);
 			Assert.That(actualViewData.Conference, Is.EqualTo(_conference));
 		}
@@ -165,12 +165,12 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("registerconfirm"));
 
-			ScheduledConference viewDataConference = controller.ViewData.Get<ScheduledConference>();
+			Schedule schedule = controller.ViewData.Get<Schedule>();
 			Person viewDataAttendee = controller.ViewData.Get<Person>();
 
-			Assert.That(viewDataConference, Is.Not.Null);
+			Assert.That(schedule, Is.Not.Null);
 			Assert.That(viewDataAttendee, Is.Not.Null);
-			Assert.That(viewDataConference.Conference, Is.EqualTo(_conference));
+			Assert.That(schedule.Conference, Is.EqualTo(_conference));
 			Assert.That(viewDataAttendee, Is.EqualTo(actualAttendee));
 		}
 
@@ -192,7 +192,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			Assert.That(controller.ActualViewName, Is.EqualTo("listattendees"));
 
 			AttendeeListing[] attendeeListings = controller.ViewData.Get<AttendeeListing[]>();
-			ScheduledConference conference = controller.ViewData.Get<ScheduledConference>();
+			Schedule conference = controller.ViewData.Get<Schedule>();
 			Assert.That(attendeeListings, Is.Not.Null);
 			Assert.That(conference, Is.Not.Null);
 			Assert.That(conference.Conference, Is.EqualTo(_conference));

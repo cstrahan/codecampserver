@@ -59,12 +59,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("View"));
 			Assert.That(controller.ViewData, Is.Not.Null);
-            Assert.That(controller.ViewData.Contains<ScheduledConference>());
-            Assert.That(controller.ViewData.Get<ScheduledConference>().Name, Is.EqualTo("Austin Code Camp"));
-            Assert.That(controller.ViewData.Contains<ScheduleListing[]>());
-            Assert.That(controller.ViewData.Get<ScheduleListing[]>().Length, Is.EqualTo(2));
-            Assert.That(controller.ViewData.Get<ScheduleListing[]>()[0].Purpose, Is.EqualTo("Morning Session 1"));
-            Assert.That(controller.ViewData.Get<ScheduleListing[]>()[1].Purpose, Is.EqualTo("Morning Session 2"));
+            Assert.That(controller.ViewData.Contains<Schedule>());
+            Assert.That(controller.ViewData.Get<Schedule>().Name, Is.EqualTo("Austin Code Camp"));
 		}
 
 		private class TestingScheduleController : ScheduleController

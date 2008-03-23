@@ -49,9 +49,9 @@ AutoEventWireup="true" Inherits="System.Web.Mvc.ViewPage"
 </asp:Content>
 
 <script runat="server">
-	private ScheduledConference getConference()
+	private Schedule getConference()
 	{
-		ScheduledConference conference = ViewData.Get<ScheduledConference>();
+		Schedule conference = ViewData.Get<Schedule>();
 		return conference;
 	}
 

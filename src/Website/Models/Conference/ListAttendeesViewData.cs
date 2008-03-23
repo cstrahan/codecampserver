@@ -6,20 +6,20 @@ namespace CodeCampServer.Website.Models.Conference
 {
 	public class ListAttendeesViewData : IEquatable<ListAttendeesViewData>
 	{
-		private ScheduledConference _conference;
+		private Schedule _conference;
 		private IEnumerable<AttendeeListing> _attendees;
 
 		public ListAttendeesViewData()
 		{
 		}
 
-		public ListAttendeesViewData(ScheduledConference conference, IEnumerable<AttendeeListing> attendees)
+		public ListAttendeesViewData(Schedule conference, IEnumerable<AttendeeListing> attendees)
 		{
 			_conference = conference;
 			_attendees = attendees;
 		}
 
-		public ScheduledConference Conference
+		public Schedule Conference
 		{
 			get { return _conference; }
 			set { _conference = value; }

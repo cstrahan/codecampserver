@@ -10,10 +10,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
-<h3>Speaker List for <%=ViewData.Get<ScheduledConference>().Name%></h3>
+<h3>Speaker List for <%=ViewData.Get<Schedule>().Name%></h3>
 
 <ul>
-<% var conference = ViewData.Get<ScheduledConference>(); %>
+<% var conference = ViewData.Get<Schedule>(); %>
 <% foreach (SpeakerListing speaker in ViewData.Get<SpeakerListingCollection>()) { %>
     <li>
         <span class="speaker-name">

@@ -1,70 +1,76 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Class Name="CodeCampServer.Model.Domain.TimeSlot">
-    <Position X="14.25" Y="10.5" Width="2" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>IAEAAAAAIAAgAAAAAAAAAAAIIAAgAAAiIAAACAAAAAA=</HashCode>
-      <FileName>Domain\TimeSlot.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="CodeCampServer.Model.Domain.Conference">
     <Position X="11.25" Y="6.5" Width="2.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
+    <AssociationLine Name="_speakers" Type="CodeCampServer.Model.Domain.Speaker">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.631" Y="0.419" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AABAIAAAAAAgIAYMEAKAAAR4AUAAAAAECCABAEEAOAA=</HashCode>
       <FileName>Domain\Conference.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Location" />
-    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Field Name="_sponsors" />
+      <Field Name="_speakers" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="CodeCampServer.Model.Domain.Location">
-    <Position X="11.5" Y="11.75" Width="1.75" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>ACABIAACgAAAAAAIIAAEQAQAAAAAAAAQAAAAAEACAAA=</HashCode>
-      <FileName>Domain\Location.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="CodeCampServer.Model.Domain.Session">
-    <Position X="14.75" Y="6.5" Width="2.75" />
+    <Position X="15.5" Y="6.5" Width="2.75" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AACAQAABAMAgAEAAAAAAAABgAAgAAAACgAAACAAAIIA=</HashCode>
+      <HashCode>AACAAAABAMAgAEAAAAAAAAAgAAgAAAACgAAACAAAIIA=</HashCode>
       <FileName>Domain\Session.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Conference" />
+      <Property Name="Speaker" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="CodeCampServer.Model.Domain.Sponsor">
-    <Position X="6.75" Y="6.5" Width="2.5" />
+  <Class Name="CodeCampServer.Model.Domain.Speaker">
+    <Position X="11.25" Y="10.5" Width="2.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAIAAAAAgAgCAAiAAAAQQAAAAAAIABAAAAgAEAAAA=</HashCode>
-      <FileName>Domain\Sponsor.cs</FileName>
+      <HashCode>AIAAAAAAAAAAACBMiAAAABAAAAAAAIAAAAAAASAABAA=</HashCode>
+      <FileName>Domain\Speaker.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Person" />
+    </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Enum Name="CodeCampServer.Model.Domain.SponsorLevel">
-    <Position X="9.5" Y="11.25" Width="1.5" />
+  <Class Name="CodeCampServer.Model.Domain.Person">
+    <Position X="6.75" Y="6.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAgIAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
-      <FileName>Domain\SponsorLevel.cs</FileName>
+      <HashCode>EAQAAAAEEAAAgCEECAAAAAAAAAAAAAICAAQBCAEABAA=</HashCode>
+      <FileName>Domain\Person.cs</FileName>
     </TypeIdentifier>
-  </Enum>
+    <ShowAsAssociation>
+      <Field Name="_contact" />
+      <Property Name="Conference" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CodeCampServer.Model.Domain.Contact">
+    <Position X="6.75" Y="10.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAEAAEAAACAAAIAAAAEAAAAAAAAAAAAAAAAAAAAAAAk=</HashCode>
+      <FileName>Domain\Contact.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="8.25" />
 </ClassDiagram>

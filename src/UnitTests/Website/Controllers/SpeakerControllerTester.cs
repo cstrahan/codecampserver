@@ -205,9 +205,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 //            SmartBag viewData = (controller.ActualViewData as SmartBag);
 //
 //			Assert.That(viewData, Is.Not.Null);
-//			Assert.That(viewData.Get<ScheduledConference>(), Is.Not.Null);
+//			Assert.That(viewData.Get<Schedule>(), Is.Not.Null);
 //            Assert.That(viewData.Get<SpeakerListingCollection>(), Is.Not.Null);
-//            Assert.That(viewData.Get<ScheduledConference>().Conference, Is.EqualTo(_conference));
+//            Assert.That(viewData.Get<Schedule>().Conference, Is.EqualTo(_conference));
 //
 //            List<SpeakerListing> list = new List<SpeakerListing>(viewData.Get<SpeakerListingCollection>());
 //			Assert.That(list.Count, Is.EqualTo(2));

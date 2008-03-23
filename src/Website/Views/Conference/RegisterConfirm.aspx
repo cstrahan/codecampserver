@@ -7,7 +7,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 <%
-	ScheduledConference conference = ViewData.Get<ScheduledConference>();
+	Schedule conference = ViewData.Get<Schedule>();
 	Person attendee = ViewData.Get<Person>();
 %>
 <h3>Thank you for registering for <%=conference.Name %>:</h3>

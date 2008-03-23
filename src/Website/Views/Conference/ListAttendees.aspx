@@ -4,7 +4,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
-<h3>Attendee List for <%= ViewData.Get<ScheduledConference>().Name %></h3>
+<h3>Attendee List for <%= ViewData.Get<Schedule>().Name %></h3>
 <%
 	attendeeGrid.DataSource = ViewData.Get<AttendeeListing[]>();
 	attendeeGrid.DataBind();

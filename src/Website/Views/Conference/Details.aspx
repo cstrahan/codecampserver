@@ -9,7 +9,7 @@
 <asp:Content ContentPlaceHolderID="SidebarContentPlaceHolder" ID="SidebarContent" runat="server">
 
 <div>
-<%ScheduledConference conference = ViewData.Get<ScheduledConference>(); %>
+<%Schedule conference = ViewData.Get<Schedule>(); %>
 <%=Html.ActionLink<ConferenceController>(c => c.PleaseRegister(conference.Key), "Register Now!") %>
 <br />
 <%=Html.ActionLink<ScheduleController>(c => c.Index(conference.Key), "Schedule") %>
@@ -20,7 +20,7 @@
 
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" ID="MainContent" runat="server">
-<%ScheduledConference conference = ViewData.Get<ScheduledConference>();%>
+<%Schedule conference = ViewData.Get<Schedule>();%>
 Conference name: <%=conference.Name %>
 <br />
 

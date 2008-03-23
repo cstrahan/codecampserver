@@ -44,7 +44,7 @@ namespace CodeCampServer.Website.Controllers
             int effectivePerPage = perPage.GetValueOrDefault(20);
 
             Conference conference = _conferenceService.GetConference(conferenceKey);
-            var scheduledConference = new ScheduledConference(conference, _clock);
+            var scheduledConference = new Schedule(conference, _clock, null);
             IEnumerable<Speaker> speakers = conference.GetSpeakers();
             var speakerListings = new SpeakerListingCollection(speakers);
 

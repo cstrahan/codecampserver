@@ -5,11 +5,11 @@ Inherits="System.Web.Mvc.ViewPage" Title="Edit Schedule" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-    <% ScheduledConference conference = ViewData.Get<ScheduledConference>(); %>
+    <% Schedule conference = ViewData.Get<Schedule>(); %>
     <form method="post" action='<%= Url.Action("Save") %>'>
         <fieldset>
             <legend>Edit the Schedule</legend>
-            <% foreach (ScheduleListing listing in conference.GetSchedule())
+            <% foreach (ScheduleListing listing in conference.GetScheduleListings())
                { %>
                 Put the listing here!<br />
             <% } %>
