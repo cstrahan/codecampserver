@@ -110,7 +110,7 @@
     <Compile Include="Website\Controllers\SessionControllerTester.cs" />
     <Compile Include="Website\Controllers\SpeakerControllerTester.cs" />
     <Compile Include="Website\Controllers\SponsorControllerTester.cs" />
-    <Compile Include="Website\Views\SmartBagTester.cs" />
+    <Compile Include="Website\Views\ViewDataExtensionsTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

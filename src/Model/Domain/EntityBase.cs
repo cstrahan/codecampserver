@@ -20,14 +20,14 @@ namespace CodeCampServer.Model.Domain
 
         public override int GetHashCode()
         {
-            return Id != Guid.Empty ? Id.GetHashCode() : base.GetHashCode();
+            return _id != Guid.Empty ? _id.GetHashCode() : base.GetHashCode();
         }
 
         public bool Equals(EntityBase other)
         {
             if (other == null) return false;
-            if (Id == Guid.Empty) return base.Equals(other);
-            return Equals(Id, other.Id);
+            if (_id == Guid.Empty) return base.Equals(other);
+            return Equals(_id, other.Id);
         }
     }
 }

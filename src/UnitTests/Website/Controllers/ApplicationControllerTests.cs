@@ -55,51 +55,5 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
             Assert.That(foo.ViewData.ContainsKey("ShouldRenderAdminPanel"));
         }
-
-
-        private class RenderTestController : ApplicationController
-        {
-            public object ActualViewData;
-
-            public RenderTestController(IAuthorizationService authorizationService) 
-                : base(authorizationService)
-            {
-            }
-
-            protected override void RenderView(string viewName, string masterName, object viewData)
-            {
-                ActualViewData = viewData;
-            }
-
-            public void RenderWithViewName(string viewName)
-            {
-                RenderView(viewName);
-            }
-
-            public void RenderWithViewNameAndMasterName(string viewName, string masterName)
-            {
-                RenderView(viewName, masterName);
-            }
-        }
-        
-        [Test]
-        public void RenderWithViewStringShouldUseSmartBagAndNotDefaultViewData()
-        {
-            RenderTestController controller = new RenderTestController(_authorizationService);
-            controller.RenderWithViewName("TestView");
-
-            Assert.That(controller.ActualViewData, Is.Null);
-        }
-
-        [Test]
-        public void RenderWithViewStringAndMasterNameShouldUseSmartBagAndNotDefaultViewData()
-        {
-            RenderTestController controller = new RenderTestController(_authorizationService);
-            controller.RenderWithViewNameAndMasterName("TestView", "Master");
-
-            Assert.That(controller.ActualViewData, Is.Null);
-        }
     }
-
-
 }

@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Castle.Core;
 using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
 using CodeCampServer.Model;
@@ -63,7 +64,7 @@ namespace CodeCampServer.Website
             {
                 if (typeof(IController).IsAssignableFrom(type))
                 {
-                    _container.AddComponent(type.Name.ToLower(), type);
+                    _container.AddComponentWithLifestyle(type.Name.ToLower(), type, LifestyleType.Transient);
                 }
             }
         }

@@ -24,10 +24,6 @@ namespace CodeCampServer.UnitTests.Model.Domain
 
             Assert.That(p, Is.EqualTo(p2));
             Assert.That(p.GetHashCode(), Is.EqualTo(p2.GetHashCode()));
-            
-
         }
-
-       
     }
 }

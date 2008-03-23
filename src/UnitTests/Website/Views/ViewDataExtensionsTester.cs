@@ -13,7 +13,7 @@ using Rhino.Mocks;
 namespace CodeCampServer.UnitTests.Website.Views
 {
 	[TestFixture]
-	public class SmartBagTester
+	public class ViewDataExtensionsTester
 	{
 		[Test]
 		public void ShouldRetrieveSingleObjectByType()

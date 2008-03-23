@@ -73,8 +73,15 @@ namespace CodeCampServer.Model.Domain
         public virtual Speaker GetSpeakerProfileFor(Conference conference)
         {
             Speaker[] speakers = conference.GetSpeakers();
-            Speaker speaker = Array.Find(speakers, delegate(Speaker aSpeaker) { return aSpeaker.Person == this; });
+            Speaker speaker = Array.Find(speakers,
+                                         delegate(Speaker aSpeaker) { return this.Equals(aSpeaker.Person); });
             return speaker;
+        }
+
+
+        public override string ToString()
+        {
+            return Contact.FullName;
         }
     }
 }

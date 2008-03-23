@@ -5,12 +5,12 @@ namespace CodeCampServer.Model.Presentation
     public class SessionListing
     {
         private readonly Session _session;
-        private readonly SpeakerListing _speaker;
+        private readonly SpeakerListing _listing;
 
         public SessionListing(Session session)
         {
             _session = session;
-            _speaker = new SpeakerListing(_session.GetSpeakerProfile());
+            _listing = new SpeakerListing(_session.GetSpeakerProfile());
         }
 
         public string Title
@@ -23,9 +23,9 @@ namespace CodeCampServer.Model.Presentation
             get { return _session.Abstract; }
         }
 
-        public SpeakerListing Speaker
+        public SpeakerListing Listing
         {
-            get { return _speaker; }
+            get { return _listing; }
         }
     }
 }

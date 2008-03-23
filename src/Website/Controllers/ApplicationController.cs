@@ -22,6 +22,7 @@ namespace CodeCampServer.Website.Controllers
 			{
 				ViewData.Add("ShouldRenderAdminPanel", true);
 			}
+            PreparePageTitle();
 
 			base.OnActionExecuting(filterContext);
 		}
@@ -38,15 +39,5 @@ namespace CodeCampServer.Website.Controllers
                 ViewData.Add("PageTitle", "Code Camp Server");
 	        }
 	    }
-
-	    protected new void RenderView(string viewName)
-		{
-			RenderView(viewName, String.Empty, null);
-		}
-
-		protected new void RenderView(string viewName, string masterName)
-		{
-			RenderView(viewName, masterName, null);
-		}
 	}    
 }

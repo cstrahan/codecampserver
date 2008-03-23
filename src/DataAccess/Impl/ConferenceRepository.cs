@@ -29,6 +29,11 @@ namespace CodeCampServer.DataAccess.Impl
 			IQuery query = session.CreateQuery(hql);
 			query.SetParameter(0, key);
 			Conference result = query.UniqueResult<Conference>();
+            if(result == null)
+            {
+                throw new ObjectNotFoundException(key, typeof(Conference));
+            }
+
 			return result;
 		}
 

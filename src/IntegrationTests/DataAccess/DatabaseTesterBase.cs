@@ -20,12 +20,6 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             recreateDatabase(Database.Default);
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            recreateDatabase(Database.Default);
-        }
-
         public static void recreateDatabase(Database selectedDatabase)
         {
             var exporter = new SchemaExport(_sessionBuilder.GetConfiguration(selectedDatabase));
