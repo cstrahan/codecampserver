@@ -12,7 +12,7 @@ namespace CodeCampServer.Website
 {
     public class Global : HttpApplication, IContainerAccessor
     {
-        private const string WindsorConfigFilename = @"Windsor.config.xml";
+        public const string WindsorConfigFilename = @"Windsor.config.xml";
 
         private IWindsorContainer _container;
         private static readonly object _lockDummy = new object();
