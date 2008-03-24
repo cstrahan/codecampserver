@@ -14,6 +14,7 @@ using System.Web;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
+using Controller=System.Web.Mvc.Controller;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {

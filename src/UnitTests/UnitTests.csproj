@@ -103,6 +103,7 @@
     <Compile Include="Model\SessionServiceTester.cs" />
     <Compile Include="Model\UserSessionTester.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="Website\ControllerContextStub.cs" />
     <Compile Include="Website\Controllers\ApplicationControllerTests.cs" />
     <Compile Include="Website\Controllers\ConferenceControllerTester.cs" />
     <Compile Include="Website\Controllers\ScheduleControllerTester.cs" />
@@ -110,6 +111,9 @@
     <Compile Include="Website\Controllers\SessionControllerTester.cs" />
     <Compile Include="Website\Controllers\SpeakerControllerTester.cs" />
     <Compile Include="Website\Controllers\SponsorControllerTester.cs" />
+    <Compile Include="Website\HttpContextStub.cs" />
+    <Compile Include="Website\ResponseWriteStub.cs" />
+    <Compile Include="Website\ViewEngineStub.cs" />
     <Compile Include="Website\Views\ViewDataExtensionsTester.cs" />
   </ItemGroup>
   <ItemGroup>

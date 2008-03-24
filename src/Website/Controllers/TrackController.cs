@@ -6,7 +6,7 @@ using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.Website.Controllers
 {
-    public class TrackController : ApplicationController
+    public class TrackController : Controller
     {
         private readonly ITrackRepository _trackRepository;
         private readonly IConferenceService _conferenceService;

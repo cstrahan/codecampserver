@@ -4,7 +4,7 @@ using CodeCampServer.Model.Security;
 
 namespace CodeCampServer.Website.Controllers
 {
-	public class LoginController : ApplicationController
+	public class LoginController : Controller
 	{
 		private readonly ILoginService _loginService;
 	    private readonly IPersonRepository _personRepository;

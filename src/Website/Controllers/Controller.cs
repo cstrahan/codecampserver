@@ -7,11 +7,11 @@ using CodeCampServer.Model.Presentation;
 
 namespace CodeCampServer.Website.Controllers
 {
-	public abstract class ApplicationController : Controller
+	public abstract class Controller : System.Web.Mvc.Controller
 	{	    
 		private readonly IAuthorizationService _authorizationService;
 
-		protected ApplicationController(IAuthorizationService authorizationService)
+		protected Controller(IAuthorizationService authorizationService)
 		{
 			_authorizationService = authorizationService;
 		}

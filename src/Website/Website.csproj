@@ -103,7 +103,7 @@
     </Compile>
     <Compile Include="AuthenticationModule.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\ApplicationController.cs" />
+    <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\AuthorizationFilterAttribute.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
@@ -143,7 +143,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="default.aspx" />
-    <Content Include="Views\Conference\ShowSchedule.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

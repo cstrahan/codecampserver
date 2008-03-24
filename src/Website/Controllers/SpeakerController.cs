@@ -9,7 +9,7 @@ using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.Website.Controllers
 {
-    public class SpeakerController : ApplicationController
+    public class SpeakerController : Controller
     {
         private readonly IConferenceService _conferenceService;
         private readonly IPersonRepository _personRepository;

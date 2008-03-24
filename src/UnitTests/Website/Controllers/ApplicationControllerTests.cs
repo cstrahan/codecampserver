@@ -11,7 +11,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
     {
         IAuthorizationService _authorizationService;       
 
-        private class FooController : ApplicationController
+        private class FooController : Controller
         {
             public FooController(IAuthorizationService authorizationService) : base(authorizationService)
             {

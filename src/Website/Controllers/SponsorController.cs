@@ -7,7 +7,7 @@ using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.Website.Controllers
 {
-    public class SponsorController : Controller
+    public class SponsorController : System.Web.Mvc.Controller
     {
         private readonly IConferenceRepository _conferenceRepository;
         private IAuthorizationService _authorizationService;

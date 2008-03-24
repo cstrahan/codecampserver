@@ -6,7 +6,7 @@ using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.Website.Controllers
 {
-	public class SessionController : ApplicationController
+	public class SessionController : Controller
 	{
 		private readonly IConferenceService _conferenceService;
 		private readonly ISessionService _sessionService;

@@ -25,10 +25,10 @@ namespace CodeCampServer.Website
 		    routes.Add(new Route("{conferenceKey}/speakers/{action}",
                                 new RouteValueDictionary(new {controller = "speaker", action = "list"}),
                                 new MvcRouteHandler()));
-            
-            routes.Add(new Route("{conferenceKey}/schedule/{action}",
-                                new RouteValueDictionary(new{controller="schedule", action="index"}),
-                                new MvcRouteHandler()));
+
+                routes.Add(new Route("{conferenceKey}/schedule/{action}",
+                                    new RouteValueDictionary(new { controller = "schedule", action = "index" }),
+                                    new MvcRouteHandler()));
 
 		    routes.Add(new Route("{conferenceKey}/sessions/{action}",
 		                        new RouteValueDictionary(new {Controller = "session", Action = "list"}),
