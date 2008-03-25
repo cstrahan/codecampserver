@@ -96,6 +96,7 @@
     <Compile Include="Presentation\SpeakerListing.cs" />
     <Compile Include="Presentation\Schedule.cs" />
     <Compile Include="Presentation\ScheduleListing.cs" />
+    <Compile Include="Presentation\TrackListing.cs" />
     <Compile Include="Security\IAuthenticationService.cs" />
     <Compile Include="Security\IAuthorizationService.cs" />
     <Compile Include="Domain\Track.cs" />

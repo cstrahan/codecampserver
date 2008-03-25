@@ -28,7 +28,7 @@ namespace CodeCampServer.Website.Helpers
         internal Schedule GetScheduledConference(string conferenceKey)
         {
             Conference conference = _conferenceService.GetConference(conferenceKey);
-            return new Schedule(conference, _clock, null);
+            return new Schedule(conference, _clock, null, null);
         }
     }
 }

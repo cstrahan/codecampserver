@@ -73,5 +73,10 @@
 				   type="CodeCampServer.DataAccess.Impl.TimeSlotRepository, CodeCampServer.DataAccess"
 				   lifestyle="transient"/>
 
+    <component id="track-repository"
+				   service="CodeCampServer.Model.Domain.ITrackRepository, CodeCampServer.Model"
+				   type="CodeCampServer.DataAccess.Impl.TrackRepository, CodeCampServer.DataAccess"
+				   lifestyle="transient"/>
+
 	</components>
 </configuration>

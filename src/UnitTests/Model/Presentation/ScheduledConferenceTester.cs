@@ -18,7 +18,7 @@ namespace CodeCampServer.UnitTests.Model.Presentation
 			conference.Name = "name";
 			conference.StartDate = new DateTime(2000, 1, 1);
 			Schedule schedule = new Schedule(
-				conference, new ClockStub(), null);
+				conference, new ClockStub(), null, null);
 			
 			Assert.That(schedule.Key, Is.EqualTo("key"));
 			Assert.That(schedule.Name, Is.EqualTo("name"));
@@ -32,7 +32,7 @@ namespace CodeCampServer.UnitTests.Model.Presentation
 			Conference conference = new Conference();
 			conference.StartDate = new DateTime(2000, 1, 11);
 			Schedule schedule = new Schedule(
-				conference, new ClockStub(new DateTime(2000, 1, 1)), null);
+				conference, new ClockStub(new DateTime(2000, 1, 1)), null, null);
 
 			Assert.That(schedule.DaysUntilStart, Is.EqualTo(10));
 		}
@@ -43,7 +43,7 @@ namespace CodeCampServer.UnitTests.Model.Presentation
 			Conference conference = new Conference();
 			conference.StartDate = new DateTime(1999, 12, 21);
 			Schedule schedule = new Schedule(
-				conference, new ClockStub(new DateTime(2000, 1, 1)), null);
+				conference, new ClockStub(new DateTime(2000, 1, 1)), null, null);
 
 			Assert.That(schedule.DaysUntilStart, Is.Null);
 		}
@@ -54,7 +54,7 @@ namespace CodeCampServer.UnitTests.Model.Presentation
 			Conference conference = new Conference();
 			conference.StartDate = null;
 			Schedule schedule = new Schedule(
-				conference, new ClockStub(new DateTime(2000, 1, 1)), null);
+				conference, new ClockStub(new DateTime(2000, 1, 1)), null, null);
 
 			Assert.That(schedule.DaysUntilStart, Is.Null);
 		}

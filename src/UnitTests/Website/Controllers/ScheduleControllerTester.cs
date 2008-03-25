@@ -19,6 +19,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         private MockRepository _mocks;
         private IConferenceService _service;
         private ITimeSlotRepository _timeSlotRepository;
+	    private ITrackRepository _trackRepository;
         private Conference _conference;
         private TimeSlot[] _timeSlots;
         private IViewEngine _viewEngine;
@@ -30,6 +31,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             //We use RhinoMocks to create mock objects for our
             //controller dependencies.
             _service = _mocks.CreateMock<IConferenceService>();
+            _trackRepository = _mocks.CreateMock<ITrackRepository>();
             _timeSlotRepository = _mocks.CreateMock<ITimeSlotRepository>();
             _viewEngine = _mocks.CreateMock<IViewEngine>();
             _conference = new Conference("austincodecamp2008", "Austin Code Camp");
@@ -69,7 +71,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _mocks.ReplayAll();
 
             var controller = new ScheduleController(_service, new ClockStub(),
-                                                    _timeSlotRepository, 
+                                                    _timeSlotRepository, _trackRepository,
                                                     authorizationService);
             controller.ViewEngine = _viewEngine;
             //ControllerContext must be stubbed in the current build.

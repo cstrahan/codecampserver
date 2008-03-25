@@ -9,12 +9,14 @@ namespace CodeCampServer.Model.Presentation
         private readonly Conference _conference;
         private readonly IClock _clock;
         private readonly ITimeSlotRepository _timeSlotRepository;
+        private readonly ITrackRepository _trackRepository;
 
-        public Schedule(Conference conference, IClock clock, ITimeSlotRepository timeSlotRepository)
+        public Schedule(Conference conference, IClock clock, ITimeSlotRepository timeSlotRepository, ITrackRepository trackRepository)
         {
             _conference = conference;
             _clock = clock;
             _timeSlotRepository = timeSlotRepository;
+            _trackRepository = trackRepository;
         }
 
         public string Name
@@ -52,16 +54,33 @@ namespace CodeCampServer.Model.Presentation
         public ScheduleListing[] GetScheduleListings()
         {
             TimeSlot[] timeSlots = _timeSlotRepository.GetTimeSlotsFor(_conference);
-            ScheduleListing[] listings = getListingsFromTimeSlots(timeSlots);
-            return listings;
+            ScheduleListing[] scheduleListings = getScheduleListingsFromTimeSlots(timeSlots);
+            return scheduleListings;
         }
 
-        private static ScheduleListing[] getListingsFromTimeSlots(IEnumerable<TimeSlot> timeSlots)
+        public TrackListing[] GetTrackListings()
+        {
+            Track[] tracks = _trackRepository.GetTracksFor(_conference);
+            TrackListing[] trackListings = getTrackListingsFromTracks(tracks);
+            return trackListings;
+        }
+
+        private static ScheduleListing[] getScheduleListingsFromTimeSlots(IEnumerable<TimeSlot> timeSlots)
         {
             var listings = new List<ScheduleListing>();
             foreach (TimeSlot timeSlot in timeSlots)
             {
                 listings.Add(new ScheduleListing(timeSlot));
+            }
+            return listings.ToArray();
+        }
+
+        private static TrackListing[] getTrackListingsFromTracks(IEnumerable<Track> tracks)
+        {
+            var listings = new List<TrackListing>();
+            foreach (Track track in tracks)
+            {
+                listings.Add(new TrackListing(track));
             }
             return listings.ToArray();
         }

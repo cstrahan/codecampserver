@@ -42,13 +42,20 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 transaction = session.BeginTransaction();
 
                 // Add track(s) and time slot(s)
-                var track = new Track(codeCamp2008, ".NET");
+                var track1 = new Track(codeCamp2008, ".NET");
+                var track2 = new Track(codeCamp2008, "Web");
                 var slot1 = new TimeSlot(codeCamp2008, new DateTime(2008, 11, 26, 19, 30, 00),
                                               new DateTime(2008, 11, 26, 20, 30, 00),
                                               "Session");
+                var slot1_2break = new TimeSlot(codeCamp2008, new DateTime(2008, 11, 26, 20, 30, 00),
+                                              new DateTime(2008, 11, 26, 21, 00, 00),
+                                              "Break");
                 var slot2 = new TimeSlot(codeCamp2008, new DateTime(2008, 11, 26, 21, 00, 00),
                                               new DateTime(2008, 11, 26, 22, 00, 00),
                                               "Session");
+                var slot2_3break = new TimeSlot(codeCamp2008, new DateTime(2008, 11, 26, 22, 00, 00),
+                                              new DateTime(2008, 11, 26, 22, 30, 00),
+                                              "Break");
                 var slot3 = new TimeSlot(codeCamp2008, new DateTime(2008, 11, 26, 22, 30, 00),
                                               new DateTime(2008, 11, 26, 23, 30, 00),
                                               "Session");
@@ -61,14 +68,14 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 codeCamp2008.AddSpeaker(person2, "fsinatra", "bio", "avatar");
 
                 var session1 = new Session(codeCamp2008, person1, "Domain-driven design explored",
-                                               "In this session we'll explore Domain-driven design", track);
+                                               "In this session we'll explore Domain-driven design", track1);
                 var session2 = new Session(codeCamp2008, person1, "Advanced NHibernate",
-                                               "In this session we'll explore Advanced NHibernate", track);
+                                               "In this session we'll explore Advanced NHibernate", track1);
                 var session3 = new Session(codeCamp2008, person2, "NHibernate for Beginners",
-                                               "In this session we'll help Aaron Lerch understand NHibernate", track);
+                                               "In this session we'll help Aaron Lerch understand NHibernate", track2);
                 var session4 = new Session(codeCamp2008, person2, "Extreme Programming: a primer",
                                                "In this session we'll provide a primer on XP",
-                                               track);
+                                               track1);
 
                 slot1.AddSession(session1);
                 slot2.AddSession(session2);
@@ -88,9 +95,12 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 session.SaveOrUpdate(session2);
                 session.SaveOrUpdate(session3);
                 session.SaveOrUpdate(session4);
-                session.SaveOrUpdate(track);
+                session.SaveOrUpdate(track1);
+                session.SaveOrUpdate(track2);
                 session.SaveOrUpdate(slot1);
+                session.SaveOrUpdate(slot1_2break);
                 session.SaveOrUpdate(slot2);
+                session.SaveOrUpdate(slot2_3break);
                 session.SaveOrUpdate(slot3);
                 transaction.Commit();
 

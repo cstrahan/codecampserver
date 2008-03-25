@@ -25,7 +25,7 @@ namespace CodeCampServer.Website.Controllers
         {
             Conference conference = _conferenceService.GetConference(conferenceKey);
             Track[] tracks = _trackRepository.GetTracksFor(conference);
-            ViewData.Add(new Schedule(conference, _clock, null));
+            ViewData.Add(new Schedule(conference, _clock, null, _trackRepository));
             ViewData.Add(tracks);
 
             RenderView("List", ViewData);

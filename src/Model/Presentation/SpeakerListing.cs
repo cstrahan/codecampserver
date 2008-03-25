@@ -18,14 +18,9 @@ namespace CodeCampServer.Model.Presentation
             get { return _speaker.SpeakerKey; }
 	    }
 
-		public string Name
-		{
-            get { return _speaker.GetName(); }
-		}
-
 		public string DisplayName
 		{
-            get { return _speaker.SpeakerKey; }
+            get { return _speaker.GetName(); }
 		}
 
     }
