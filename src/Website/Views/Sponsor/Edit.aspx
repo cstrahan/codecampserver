@@ -19,7 +19,7 @@ function ConfirmDelete() {
         string selectedLevel = Enum.GetName(typeof (SponsorLevel), sponsor.Level);  
     %>
     
-    <% using (Html.Form("save", "sponsor")) { %>    
+    <% using (Html.Form("sponsor", "save")) { %>    
     <fieldset>
         <legend>Edit Sponsor</legend>
         <%=Html.Hidden("oldName", sponsor.Name) %>
@@ -27,7 +27,7 @@ function ConfirmDelete() {
         <%=Html.TextBox("name",sponsor.Name, 50, 50)%>
         
         <label for="level">Sponsor Level</label>
-        <%= Html.Select("level", levels, null, null, selectedLevel) %>
+        <%= Html.Select("level", levels, new[]{ selectedLevel}) %>
         
         <label for="company">Logo Url</label>
         <%=Html.TextBox("logoUrl",sponsor.LogoUrl, 50, 260)%>
