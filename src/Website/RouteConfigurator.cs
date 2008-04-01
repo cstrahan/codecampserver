@@ -13,6 +13,10 @@ namespace CodeCampServer.Website
 			                     new RouteValueDictionary(new {Controller = "login", Action = "index"}),
 			                     new MvcRouteHandler()));
 
+            routes.Add(new Route("conference/{action}",
+                                 new RouteValueDictionary(new {Controller="Conference", Action="index"}), 
+                                 new MvcRouteHandler()));
+
             routes.Add(new Route("admin/{action}",
                                  new RouteValueDictionary(new{Controller="Admin", Action="index"}),
                                  new MvcRouteHandler()));

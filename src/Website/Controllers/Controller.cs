@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Views;
 using CodeCampServer.Model.Presentation;

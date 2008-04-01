@@ -32,8 +32,8 @@ namespace CodeCampServer.Website.Controllers
         public void Index()
         {
             RedirectToAction("details");
-        }
-
+        }        
+        
         public void Details(string conferenceKey)
         {
             Schedule conference = getScheduledConference(conferenceKey);
@@ -117,10 +117,17 @@ namespace CodeCampServer.Website.Controllers
             RenderView("listattendees", ViewData);
         }
 
+        [AuthorizationFilter(AllowRoles = "Administrator,Organizer")]
         public void New()
         {
             ViewData.Add(new Conference());
             RenderView("Edit");
+        }
+
+        [AuthorizationFilter(AllowRoles = "Administrator,Organizer")]
+        public void Save()
+        {
+            throw new NotImplementedException();
         }
 
         private AttendeeListing[] getListingsFromAttendees(Person[] attendees)

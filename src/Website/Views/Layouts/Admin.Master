@@ -7,8 +7,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
-<head runat="server">
-    <title><%= ViewData.GetOrDefault("PageTitle", "Code Camp Server") %></title>
+<head id="Head1" runat="server">
+    <title>Code Camp Server - Admin</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/style-2column.css") %>" />
     <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/master.css") %>" />
@@ -19,27 +19,15 @@
 <body>
     <div id="header">
 	    <div id="logo">
-		    <h1><%=Html.ActionLink(ViewData.GetOrDefault("PageTitle", "Code Camp Server"), "Details", "Conference") %></h1>
+		    <h1>Code Camp Server - Admin</h1>
 		    <p>Powered by <a href="http://codecampserver.org">Code Camp Server</a></p>
 	    </div>
 	    <div id="menu">
-    		<ul>     		    
-    		    <% var conferenceKey = "austinCodeCamp2008"; %>
-    		    <li><%=Html.ActionLink<ConferenceController>(c => c.Details(conferenceKey), "Home") %></li>
-    		    <li><%=Html.ActionLink<ScheduleController>(c => c.Index(conferenceKey), "Schedule") %></li>
-    		    <li><%=Html.ActionLink<SpeakerController>(c => c.List(conferenceKey,0,20), "Speakers") %></li>
-    		    <li><%=Html.ActionLink<SponsorController>(c => c.List(conferenceKey), "Sponsors") %></li>    				  
-
-	        <%  if (!Context.User.Identity.IsAuthenticated) { %>
-	            <li><%=Html.ActionLink<ConferenceController>(c => c.PleaseRegister(conferenceKey), "Register!") %></li>
-	            <li><%=Html.ActionLink<LoginController>(c => c.Index(), "Login") %></li>                                	            
-	        <% } %>	        
+    		<ul>     		        	    		    
 	    	</ul>
 	    </div>
 	    <div id="login">
-	        <%  if (Context.User.Identity.IsAuthenticated) { %>
-	        Logged in as: <%=Context.User.Identity.Name %>
-	        <% } %>
+	    
 	    </div>
     </div>
         
@@ -52,31 +40,7 @@
         <div id="sidebar">
             
             <asp:ContentPlaceHolder ID="SidebarContentPlaceHolder" runat="server" />
-            <p></p>
-            
-            <% if (ViewData.GetOrDefault("ShouldRenderAdminPanel", false)) { %>            
-                <%= Html.RenderUserControl("~/Views/Shared/AdminControlPanel.ascx") %>            
-            <% } %>
-            <p></p>
-                   
-		    <ul>		        
-		    
-			    <li>
-				    <h2>Gold Sponsors</h2>
-				    <ul>
-					    <li><a href="#">Microsoft</a></li>
-					    <li><a href="#">company XYZ</a></li>
-					    <li><a href="#">tech solutions inc.</a></li>					
-				    </ul>
-			    </li>
-			    <li>
-				    <h2>Platinum Sponsors</h2>
-				    <ul>
-					    <li><a href="#">geocities</a></li>
-					    <li><a href="#">another company</a></li>
-				    </ul>
-			    </li>
-		    </ul>
+        
 	    </div>
     </div>
 	

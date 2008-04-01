@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
+using CodeCampServer.Website;
 using CodeCampServer.Website.Controllers;
 using CodeCampServer.Website.Views;
 using NUnit.Framework;
@@ -20,6 +21,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		private ILoginService _loginService;
 		private IAuthenticationService _authenticationService;
 	    private IAuthorizationService _authorizationService;
+	    private TempDataDictionary _tempData;
 
 		[SetUp]
 		public void Setup()
@@ -29,6 +31,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_authenticationService = _mocks.DynamicMock<IAuthenticationService>();
 		    _authorizationService = _mocks.DynamicMock<IAuthorizationService>();
 		    _personRepository = _mocks.DynamicMock<IPersonRepository>();
+            _tempData = new TempDataDictionary(_mocks.FakeHttpContext("~/login"));
 		}
 
 		private class TestingLoginController : LoginController
@@ -37,8 +40,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			public string ActualMasterName;
 			public object ActualViewData;
 			public string RedirectUrl;
-		    public RouteValueDictionary RedirectToActionValues;
-
+		    public RouteValueDictionary RedirectToActionValues;		                
+		    
 			public TestingLoginController(ILoginService loginService, IPersonRepository personRepository, IAuthenticationService authenticationService, IAuthorizationService authorizationService)
 				: base(loginService, personRepository, authenticationService, authorizationService)
 			{
@@ -69,22 +72,31 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             }
 		}
 
-		[Test]
+	    private TestingLoginController getController()
+	    {
+	        var controller = new TestingLoginController(_loginService, _personRepository, _authenticationService, _authorizationService);
+	        controller.TempData = _tempData;
+
+	        return controller;
+	    }
+
+	    [Test]
 		public void LoginActionShouldRenderIndexView()
 		{
-			TestingLoginController controller = new TestingLoginController(_loginService, _personRepository, _authenticationService, _authorizationService);
+			var controller = getController();
 			controller.Index();
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("loginform"));
 		}
 
-        [Test]
+	    [Test]
         public void LoginActionShouldCheckNumberOfRegisteredUsers()
     	{
+            var controller = getController();
             Expect.Call(_personRepository.GetNumberOfUsers()).Return(44);
+            
             _mocks.ReplayAll();
-
-	        TestingLoginController controller = new TestingLoginController(_loginService, _personRepository, _authenticationService, _authorizationService);
+	        
             controller.Index();
 
             _mocks.VerifyAll();
@@ -94,9 +106,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	    public void LoginActionShouldSetFirstTimeRegisterWhenNoUsersArePresent()
 	    {
             SetupResult.For(_personRepository.GetNumberOfUsers()).Return(0);
+            var controller = getController();
             _mocks.ReplayAll();
-
-            TestingLoginController controller = new TestingLoginController(_loginService, _personRepository, _authenticationService, _authorizationService);
+	        
             controller.Index();
 
 	        Assert.That(controller.ActualViewDataAsDictionary.Get<bool>("ShowFirstTimeRegisterLink"), Is.True);
@@ -106,9 +118,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         public void LoginActionShouldNotSetFirstTimeRegisterWhenUsersArePresent()
         {
             SetupResult.For(_personRepository.GetNumberOfUsers()).Return(1);
+            var controller = getController();
             _mocks.ReplayAll();
-
-            TestingLoginController controller = GetController();
+            
             controller.Index();
 
             Assert.That(controller.ActualViewDataAsDictionary.Get<bool>("ShowFirstTimeRegisterLink"), Is.False);
@@ -118,38 +130,34 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	    public void CreateAdminAccountThrowsSecurityErrorIfCalledWhenUsersArePresent()
 	    {
 	        SetupResult.For(_personRepository.GetNumberOfUsers()).Return(1);
+            var controller = getController();
 	        _mocks.ReplayAll();
-
-	        LoginController controller = GetController();
+	        
 	        controller.CreateAdminAccount("test", "user", "email@email.com", "pwd", "pwd");
 	    }
 
-
+        [Test]
         public void CreateAdminAccountVerifiesEmailAndPasswordExist()
         {
             SetupResult.For(_personRepository.GetNumberOfUsers()).Return(0);
-            _mocks.ReplayAll();
 
-            TestingLoginController controller = GetController();
+            var controller = getController();
+            _mocks.ReplayAll();
+            
             controller.CreateAdminAccount("fname", "lname", null, null, null);
 
             Assert.That(controller.TempData["error"], Is.Not.Null);
             Assert.That(controller.RedirectToActionValues["action"], Is.EqualTo("index"));
         }
-
-        private TestingLoginController GetController()
-        {
-            return new TestingLoginController(_loginService, _personRepository, _authenticationService, _authorizationService);
-        }
-
+        
 		[Test]
 		public void ProcessLoginShouldRedirectToReturnUrlOnSuccess()
-		{
-            TestingLoginController controller = new TestingLoginController(_loginService, _personRepository, _authenticationService, _authorizationService);
-			string email = "brownie@brownie.com.au";
-			string password = "nothing";
-			string returnUrl = "http://testurl/";
+		{		    
+			const string email = "brownie@brownie.com.au";
+			const string password = "nothing";
+			const string returnUrl = "http://testurl/";
 			SetupResult.For(_loginService.VerifyAccount(email, password)).Return(true);
+            var controller = getController();
 			_mocks.ReplayAll();
 
 			controller.Process(email, password, returnUrl);
@@ -157,24 +165,28 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		}
 
 		[Test]
-		public void ProcessLoginShouldRenderLoginFailureOnFailure()
+		public void ProcessLoginShouldRedirectToIndexOnFailureWithError()
 		{
-            TestingLoginController controller = new TestingLoginController(_loginService, _personRepository, _authenticationService, _authorizationService);
-			string email = "brownie@brownie.com.au";
-			string password = "nothing";
-			SetupResult.For(_loginService.VerifyAccount(email, password)).Return(false);
-			_mocks.ReplayAll();
-			controller.Process(email, password, "");
-			Assert.That(controller.ActualViewName, Is.EqualTo("loginfailed"));
+		    const string email = "brownie@brownie.com.au";
+		    const string password = "nothing";
+		    SetupResult.For(_loginService.VerifyAccount(email, password)).Return(false);
+		    var controller = getController();
+		    
+            _mocks.ReplayAll();
+			
+            controller.Process(email, password, "");
+
+            Assert.That(controller.RedirectToActionValues["action"], Is.EqualTo("index"));
+			Assert.That(controller.TempData[TempDataKeys.Error], Is.Not.Null);
 		}
 
         [Test]
         public void ProcessLoginShouldRedirectToDefaultPageOnSuccessAndNullReturnUrl()
         {
-            TestingLoginController controller = new TestingLoginController(_loginService, _personRepository, _authenticationService, _authorizationService);
             SetupResult.For(_loginService.VerifyAccount(null, null))
                 .IgnoreArguments()
                 .Return(true);
+            var controller = getController();
             _mocks.ReplayAll();
 
             controller.Process("brownie@brownie.com.au", "password", null);

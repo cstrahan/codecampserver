@@ -1,16 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewPage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewPage" MasterPageFile="~/Views/Layouts/Admin.Master" %>
+<%@ Import namespace="CodeCampServer.Website.Controllers"%>
+<asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    Admin....
+    
+    <ul>
+        <li><%= Html.ActionLink<ConferenceController>(c=> c.New(), "Create a new conference") %></li>
+    </ul>
 
-<html xmlns="http://www.w3.org/1999/xhtml" >
-<head runat="server">
-    <title>Code Camp Server - Admin</title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-        Admin, welcome!
-    </div>
-    </form>
-</body>
-</html>
+</asp:Content>

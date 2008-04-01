@@ -1,13 +1,18 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" 
 AutoEventWireup="true"  Inherits="System.Web.Mvc.ViewPage" 
 Title="CodeCampServer - Login" %>
+<%@ Import namespace="CodeCampServer.Website"%>
 <%@ Import namespace="CodeCampServer.Website.Views"%>
 <%@ Import namespace="CodeCampServer.Website.Controllers"%>
 <%@ Import namespace="System.Web.Mvc"%>
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
-    <% if(ViewData.Get<bool>("ShowFirstTimeRegisterLink")) { %>
+    <% if(TempData.ContainsKey(TempDataKeys.Error)) { %>
+        <span class="error"><%=TempData[TempDataKeys.Error]%></span>
+    <% } %>
+
+    <% if(ViewData.GetOrDefault("ShowFirstTimeRegisterLink", false)) { %>
     
         <div class="notice">
             <h2>Create Your Administrator Account</h2>

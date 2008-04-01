@@ -129,6 +129,7 @@
     <Compile Include="Models\Conference\ListAttendeesViewData.cs" />
     <Compile Include="RouteConfigurator.cs" />
     <Compile Include="Security\AuthorizationService.cs" />
+    <Compile Include="TempDataKeys.cs" />
     <Compile Include="Views\ViewDataExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +195,9 @@
     <Content Include="Views\Sponsor\Edit.aspx" />
     <Content Include="Views\Sponsor\List.aspx" />
     <Content Include="Windsor.config.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Layouts\Admin.Master" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

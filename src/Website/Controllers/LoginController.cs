@@ -42,8 +42,8 @@ namespace CodeCampServer.Website.Controllers
 			}
 			else
 			{
-			    TempData["Error"] = "Invalid login.";
-				RenderView("loginform");
+			    TempData[TempDataKeys.Error] = "Invalid login.";
+				RedirectToAction("index");
 			}
 		}
 
@@ -67,7 +67,7 @@ namespace CodeCampServer.Website.Controllers
 
             if (!task.Success)
             {
-                TempData["error"] = task.ErrorMessage;
+                TempData[TempDataKeys.Error] = task.ErrorMessage;
             }
         	  
             RedirectToAction("index");

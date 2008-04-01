@@ -11,11 +11,11 @@ namespace CodeCampServer.UnitTests
     {
         public static HttpContextBase FakeHttpContext(this MockRepository mocks)
         {
-            HttpContextBase context = mocks.PartialMock<HttpContextBase>();
-            HttpRequestBase request = mocks.PartialMock<HttpRequestBase>();
-            HttpResponseBase response = mocks.PartialMock<HttpResponseBase>();
-            MockHttpSessionState session = new MockHttpSessionState();
-            HttpServerUtilityBase server = mocks.PartialMock<HttpServerUtilityBase>();
+            var context = mocks.PartialMock<HttpContextBase>();
+            var request = mocks.PartialMock<HttpRequestBase>();
+            var response = mocks.PartialMock<HttpResponseBase>();
+            var session = new MockHttpSessionState();
+            var server = mocks.PartialMock<HttpServerUtilityBase>();
 
             SetupResult.For(context.Request).Return(request);
             SetupResult.For(context.Response).Return(response);
@@ -28,7 +28,7 @@ namespace CodeCampServer.UnitTests
 
         public static HttpContextBase FakeHttpContext(this MockRepository mocks, string url)
         {
-            HttpContextBase context = FakeHttpContext(mocks);
+            var context = FakeHttpContext(mocks);
             context.Request.SetupRequestUrl(url);
             mocks.Replay(context.Request);
             return context;
