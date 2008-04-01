@@ -14,13 +14,13 @@ namespace CodeCampServer.Website
         void context_AuthenticateRequest(object sender, System.EventArgs e)
         {
             var context = ((HttpApplication) sender).Context;
-            if(context == null || !context.User.Identity.IsAuthenticated) return;
+            if(context.User == null || !context.User.Identity.IsAuthenticated) return;
 
             if(context.User.Identity is FormsIdentity)
             {
-                FormsIdentity formsIdentity = (FormsIdentity) context.User.Identity;
-                FormsAuthenticationTicket ticket = formsIdentity.Ticket;
-                string[] roles = ticket.UserData.Split(',');
+                var formsIdentity = (FormsIdentity) context.User.Identity;
+                var ticket = formsIdentity.Ticket;
+                var roles = ticket.UserData.Split(',');
 
                 context.User = new GenericPrincipal(formsIdentity, roles);
             }

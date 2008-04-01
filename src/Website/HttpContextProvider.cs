@@ -2,7 +2,7 @@
 
 namespace CodeCampServer.Website
 {
-    public class HttpContextFactory
+    public class HttpContextProvider : IHttpContextProvider
     {
         public HttpContextBase GetCurrentHttpContext()
         {

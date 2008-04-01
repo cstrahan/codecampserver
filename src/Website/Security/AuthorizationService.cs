@@ -1,19 +1,24 @@
-﻿using System.Web;
-using CodeCampServer.Model.Security;
+﻿using CodeCampServer.Model.Security;
 
 namespace CodeCampServer.Website.Security
 {
     public class AuthorizationService : IAuthorizationService
     {
-        private const string AdminRole = "Admin";
+        private const string AdminRole = "Administrator";
+        private readonly IHttpContextProvider _httpContextProvider;
 
-        #region IAuthorizationService Members
 
+        public AuthorizationService(IHttpContextProvider httpContextProvider)
+        {
+            _httpContextProvider = httpContextProvider;
+        }
+       
         public bool IsAdministrator
         {
-            get { return HttpContext.Current.User.IsInRole(AdminRole); }
+            get
+            {
+                return _httpContextProvider.GetCurrentHttpContext().User.IsInRole(AdminRole);                 
+            }
         }
-
-        #endregion
     }
 }

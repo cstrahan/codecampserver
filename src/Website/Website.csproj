@@ -105,18 +105,19 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\AuthorizationFilterAttribute.cs" />
+    <Compile Include="Controllers\CreateAdminAccountTask.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="Controllers\SponsorComponentController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\TrackController.cs" />
-    <Compile Include="Helpers\CodeCampServerHelpers.cs" />
     <Compile Include="Helpers\ConferenceServiceHelper.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\LinkHelpers.cs" />
     <Compile Include="Helpers\RouteHelpers.cs" />
     <Compile Include="Helpers\ViewPageHelpers.cs" />
-    <Compile Include="HttpContextFactory.cs" />
+    <Compile Include="HttpContextProvider.cs" />
+    <Compile Include="IHttpContextProvider.cs" />
     <Compile Include="IRouteConfigurator.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Security\AuthenticationService.cs" />
@@ -128,18 +129,10 @@
     <Compile Include="Models\Conference\ListAttendeesViewData.cs" />
     <Compile Include="RouteConfigurator.cs" />
     <Compile Include="Security\AuthorizationService.cs" />
-    <Compile Include="Views\Shared\Sponsor.ascx.cs">
-      <DependentUpon>Sponsor.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Shared\Sponsor.ascx.designer.cs">
-      <DependentUpon>Sponsor.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Views\ViewDataExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="StructureMap.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="default.aspx" />
@@ -164,10 +157,6 @@
     <Content Include="Views\Conference\RegisterConfirm.aspx" />
     <Content Include="Views\Conference\RegisterForm.aspx" />
     <Content Include="Views\Layouts\Default.Master" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Login\LoginFailed.aspx" />
-    <Content Include="Views\Login\LoginSuccess.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\style-2column.css" />

@@ -10,16 +10,10 @@
 		<component id="clock"
 				   service="CodeCampServer.Model.IClock, CodeCampServer.Model"
 				   type="CodeCampServer.Model.Impl.SystemClock, CodeCampServer.Model" />
-
-		<component id="httpcontext-factory"
-				   type="CodeCampServer.Website.HttpContextFactory, CodeCampServer.Website" />
-
-		<component id="httpcontextbase"
-				   service="System.Web.HttpContextBase, System.Web.Abstractions"
-				   type="System.Web.HttpContextBase, System.Web.Abstractions"
-				   lifestyle="transient"
-				   factoryId="httpcontext-factory"
-				   factoryCreate="GetCurrentHttpContext" />
+   
+    <component id="httpcontext-provider"
+               service="CodeCampServer.Website.IHttpContextProvider, CodeCampServer.Website"
+               type="CodeCampServer.Website.HttpContextProvider, CodeCampServer.Website" />               
 
 		<component id="session-builder"
 				   service="CodeCampServer.DataAccess.ISessionBuilder, CodeCampServer.DataAccess"
