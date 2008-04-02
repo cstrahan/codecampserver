@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Web;
+using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Impl;
 using CodeCampServer.Model.Presentation;
+using CodeCampServer.Website;
 using CodeCampServer.Website.Controllers;
 using CodeCampServer.Website.Views;
 using NUnit.Framework;
@@ -18,32 +21,38 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	public class ConferenceControllerTester
 	{
 		private MockRepository _mocks;
-		private IConferenceService _service;
-	    private IAuthorizationService _authService;
-		private Conference _conference;
 
-		[SetUp]
+	    private IConferenceService _service;
+
+	    private IAuthorizationService _authService;
+
+	    private Conference _conference;
+	    private IConferenceRepository _conferenceRepository;
+
+	    [SetUp]
 		public void Setup()
 		{
 			_mocks = new MockRepository();
 			_service = _mocks.CreateMock<IConferenceService>();
 		    _authService = _mocks.DynamicMock<IAuthorizationService>();
+	        _conferenceRepository = _mocks.DynamicMock<IConferenceRepository>();
 			_conference = new Conference("austincodecamp2008", "Austin Code Camp");
 		}
 
 
-		private class TestingConferenceController : ConferenceController
+	    private class TestingConferenceController : ConferenceController
 		{
 			public string ActualViewName;
 			public string ActualMasterName;
 			public object ActualViewData;
-            public RouteValueDictionary ActualRedirectToActionValues;
+            public RouteValueDictionary ActualRedirectToActionValues;            
 
             public event EventHandler RedirectedToAction;
 
-			public TestingConferenceController(IConferenceService conferenceService, IAuthorizationService authService, IClock clock)
-                : base(conferenceService, authService, clock)
+			public TestingConferenceController(HttpContextBase context, IConferenceRepository repository, IConferenceService conferenceService, IAuthorizationService authService, IClock clock)
+                : base(repository, conferenceService, authService, clock)
 			{
+                TempData = new TempDataDictionary(context);
 			}
 
 			protected override void RenderView(string viewName,
@@ -63,17 +72,22 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             }
 		}
 
-        [Test]
+	    private TestingConferenceController getController()
+	    {
+	        var fakeContext = _mocks.FakeHttpContext("~/conference");
+	        return new TestingConferenceController(fakeContext, _conferenceRepository, _service, _authService, new ClockStub());
+	    }
+
+	    [Test]
         public void IndexShouldRedirectToDetailsAction()
         {
-            TestingConferenceController controller =
-                new TestingConferenceController(_service, _authService, new ClockStub());
+	        var controller = getController();           
             controller.Index();
 
             Assert.AreEqual(controller.ActualRedirectToActionValues["Action"], "details");
         }
 
-        [Test]
+	    [Test]
         public void ListAsAdminShouldRenderListViewWithAllConferences()
         {
             List<Conference> conferences = new List<Conference>(new Conference[] { _conference });
@@ -84,15 +98,14 @@ namespace CodeCampServer.UnitTests.Website.Controllers
                 .Return(true);
             _mocks.ReplayAll();
 
-            TestingConferenceController controller =
-                new TestingConferenceController(_service, _authService, new ClockStub());
+	        var controller = getController();
             controller.List();
 
             Assert.That(controller.ActualViewName, Is.EqualTo("List"));
             Assert.That(controller.ViewData.Get<IEnumerable<Conference>>(), Is.SameAs(conferences));
         }
 
-        [Test]
+	    [Test]
         public void ListAsNonAdminShouldRedirectToLogin()
         {
             SetupResult.On(_authService)
@@ -100,12 +113,11 @@ namespace CodeCampServer.UnitTests.Website.Controllers
                 .Return(false);
             _mocks.ReplayAll();
 
-            TestingConferenceController controller =
-                new TestingConferenceController(_service, _authService, new ClockStub());
+	        var controller = getController();
 
             // Have the RedirectToAction event mimic ResposeRedirect by throwing 
             // an exception and causing the end of the request.
-            ApplicationException exception = new ApplicationException("Redirected!");
+            var exception = new ApplicationException("Redirected!");
             controller.RedirectedToAction += delegate { throw exception; };
             try { controller.List(); }
             catch(ApplicationException x) { Assert.That(x, Is.SameAs(exception)); }
@@ -115,15 +127,14 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         }
 
 
-        [Test]
+	    [Test]
 		public void ShouldGetConferenceToShowDetails()
 		{
 			SetupResult.For(_service.GetConference("austincodecamp2008"))
 				.Return(_conference);
 			_mocks.ReplayAll();
 
-			TestingConferenceController controller =
-				new TestingConferenceController(_service, _authService, new ClockStub());
+	        var controller = getController();				
 
 			controller.Details("austincodecamp2008");
 			Assert.That(controller.ActualViewName, Is.EqualTo("details"));
@@ -132,15 +143,14 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			Assert.That(actualViewData.Conference, Is.EqualTo(_conference));
 		}
 
-		[Test]
+	    [Test]
 		public void ShouldGetConferenceForTheRegistrationForm()
 		{
 			SetupResult.For(_service.GetConference("austincodecamp2008"))
 				.Return(_conference);
 			_mocks.ReplayAll();
 
-			TestingConferenceController controller =
-                new TestingConferenceController(_service, _authService, new ClockStub());
+			var controller = getController();
 			controller.PleaseRegister("austincodecamp2008");
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("registerform"));
@@ -148,8 +158,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			Assert.That(actualViewData, Is.Not.Null);
 			Assert.That(actualViewData.Conference, Is.EqualTo(_conference));
 		}
-
-		[Test]
+	 
+	    [Test]
 		public void ShouldRegisterANewAttendee()
 		{
 			SetupResult.For(_service.GetConference("austincodecamp2008")).Return(_conference);
@@ -160,7 +170,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_mocks.ReplayAll();
 
 			TestingConferenceController controller =
-                new TestingConferenceController(_service, _authService, new ClockStub());            
+                getController();            
 			controller.Register("austincodecamp2008", "firstname", "lastname", "email", "website", "comment", "password");
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("registerconfirm"));
@@ -174,7 +184,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			Assert.That(viewDataAttendee, Is.EqualTo(actualAttendee));
 		}
 
-		[Test]
+	    [Test]
 		public void ShouldListAttendeesForAConference()
 		{
 			SetupResult.For(_service.GetConference("austincodecamp2008"))
@@ -185,8 +195,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			//SetupResult.For(_service.GetAttendees(_conference, 0, 2)).IgnoreArguments().Return(toReturn);
 			_mocks.ReplayAll();
 
-			TestingConferenceController controller =
-                new TestingConferenceController(_service, _authService, new ClockStub());
+			TestingConferenceController controller = getController();
 			controller.ListAttendees("austincodecamp2008", 0, 2);
 
 			Assert.That(controller.ActualViewName, Is.EqualTo("listattendees"));
@@ -202,15 +211,51 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			Assert.That(attendeeListings[1].Name, Is.EqualTo("Dave Chappelle"));
 		}
 
-		[Test]
+	    [Test]
 		public void NewActionShouldRenderEditViewWithNewConference()
 		{
-			TestingConferenceController controller =
-                new TestingConferenceController(_service, _authService, new ClockStub());
+			var controller = getController();
 			controller.New();
 
 			Assert.That(controller.ViewData.Contains<Conference>());
 			Assert.That(controller.ActualViewName, Is.EqualTo("Edit"));
 		}
+
+	    [Test]
+        public void SaveActionShouldVerifyUniquenessOfNameAndKey()
+        {
+            var controller = getController();
+	        Expect.Call(_conferenceRepository.ConferenceExists("conference", "conf")).Return(true);
+
+            _mocks.ReplayAll();
+
+            controller.Save("conference", "conf", DateTime.Parse("Dec 12 2007"), null, null);
+
+            _mocks.VerifyAll();
+        }
+
+        [Test]
+        public void SaveWithPreExistingKeySetsErrorMessageToTempData()
+        {
+            var controller = getController();
+            SetupResult.For(_conferenceRepository.ConferenceExists("conference", "conf")).Return(true);
+
+            _mocks.ReplayAll();
+
+            controller.Save("conference", "conf", DateTime.Parse("Dec 12 2007"), null, null);
+            Assert.That(controller.TempData.ContainsKey(TempDataKeys.Error));
+        }
+
+        [Test]
+        public void SaveCallsConferenceRepositorySave()
+        {
+            var controller = getController();
+            SetupResult.For(_conferenceRepository.ConferenceExists("conference", "conf")).Return(false);            
+            _mocks.ReplayAll();
+
+            controller.Save("conference", "conf", DateTime.Parse("Dec 12 2007"), null, null);
+
+            _mocks.VerifyAll();
+        }
 	}
 }

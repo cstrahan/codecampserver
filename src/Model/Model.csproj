@@ -79,8 +79,10 @@
     <Compile Include="Exceptions\DataValidationException.cs" />
     <Compile Include="IClock.cs" />
     <Compile Include="IConferenceService.cs" />
+    <Compile Include="ICryptoUtil.cs" />
     <Compile Include="Impl\ClockStub.cs" />
     <Compile Include="Impl\ConferenceService.cs" />
+    <Compile Include="Impl\CryptoUtil.cs" />
     <Compile Include="Impl\LoginService.cs" />
     <Compile Include="Impl\SessionService.cs" />
     <Compile Include="Impl\SystemClock.cs" />

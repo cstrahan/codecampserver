@@ -1,4 +1,5 @@
 ﻿using System.Security;
+using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
 
@@ -9,14 +10,15 @@ namespace CodeCampServer.Website.Controllers
 		private readonly ILoginService _loginService;
 	    private readonly IPersonRepository _personRepository;
 	    private readonly IAuthenticationService _authenticationService;
+	    private readonly ICryptoUtil _cryptoUtil;
 
-		public LoginController(ILoginService loginService, IPersonRepository personRepository, IAuthenticationService authenticationService, IAuthorizationService authService) 
+	    public LoginController(ILoginService loginService, IPersonRepository personRepository, IAuthenticationService authenticationService, IAuthorizationService authService, ICryptoUtil _cryptoUtil) 
             :base(authService)
 		{
 			_loginService = loginService;
-		    _personRepository = personRepository;
-		    _authenticationService = authenticationService;
-           
+	        this._cryptoUtil = _cryptoUtil;
+	        _personRepository = personRepository;
+		    _authenticationService = authenticationService;           
 		}
 
 		public void Index()
@@ -60,7 +62,7 @@ namespace CodeCampServer.Website.Controllers
                     "This action is only valid when there are no registered users in the system.");
             }
 
-            var task = new CreateAdminAccountTask(_personRepository, _loginService, firstName, 
+            var task = new CreateAdminAccountTask(_personRepository, _cryptoUtil, firstName, 
                 lastName, email, password, passwordConfirm);
 
             task.Execute();

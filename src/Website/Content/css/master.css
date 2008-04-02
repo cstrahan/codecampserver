@@ -41,7 +41,7 @@ a.link_button:link, a.link_button:visited
 
 a.link_button:hover, a.link_button:active
 {
-	background-color: AliceBlue;
+	background-color: #F0F8FF;
 	border: solid 1px Navy;
 }
 

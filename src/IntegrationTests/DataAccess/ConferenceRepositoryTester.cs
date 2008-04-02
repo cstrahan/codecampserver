@@ -222,6 +222,35 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             }
         }
 
+        [Test]
+        public void ConferenceExistsShouldReturnFalseWithNoNameOrKeyMatches()
+        {
+            string name = "name";
+            string key = "key";
+
+            IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
+            Assert.That(repository.ConferenceExists(name, key), Is.False);
+        }
+
+        [Test]
+        public void ConferenceExistsShouldReturnTrueWithMatchingKeyOrName()
+        {
+            string name = "name";
+            string key = "key";
+
+            var conf = new Conference(key, name);
+            using(var session = getSession())
+            {
+                session.SaveOrUpdate(conf);
+                session.Flush();
+            }
+
+            IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
+            Assert.That(repository.ConferenceExists(name, "different"), Is.True);
+            Assert.That(repository.ConferenceExists("different", key), Is.True);
+            Assert.That(repository.ConferenceExists(name, key), Is.True);
+        }
+
         private static Sponsor GetSponsor(string name)
         {
             return new Sponsor(name, "", "", "", "", "", SponsorLevel.Gold);

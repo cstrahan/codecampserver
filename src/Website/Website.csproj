@@ -154,7 +154,6 @@
     <Content Include="Content\images\menu_bg.gif" />
     <Content Include="Content\images\side_bg.gif" />
     <Content Include="Content\images\tab_bg.gif" />
-    <Content Include="Views\Conference\New.aspx" />
     <Content Include="Views\Conference\RegisterConfirm.aspx" />
     <Content Include="Views\Conference\RegisterForm.aspx" />
     <Content Include="Views\Layouts\Default.Master" />

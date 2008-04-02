@@ -14,10 +14,11 @@ namespace CodeCampServer.Website.Controllers
         private readonly IAuthorizationService _authService;
         private readonly IConferenceService _conferenceService;
         private IClock _clock;
+        private IConferenceRepository _conferenceRepository;
 
-        public ConferenceController(IConferenceService conferenceService, IAuthorizationService authService,
-                                    IClock clock) : base(authService)
+        public ConferenceController(IConferenceRepository conferenceRepository, IConferenceService conferenceService, IAuthorizationService authService, IClock clock) : base(authService)
         {
+            _conferenceRepository = conferenceRepository;
             _conferenceService = conferenceService;
             _authService = authService;
             _clock = clock;
@@ -125,9 +126,17 @@ namespace CodeCampServer.Website.Controllers
         }
 
         [AuthorizationFilter(AllowRoles = "Administrator,Organizer")]
-        public void Save()
+        public void Save(string conf_name, string conf_key, DateTime conf_start, DateTime? conf_end, string conf_desc)
         {
-            throw new NotImplementedException();
+            if(_conferenceRepository.ConferenceExists(conf_name, conf_key))
+            {
+                TempData[TempDataKeys.Error] = "A conference has already been created with that name or key";
+            }
+
+            Conference conf = new Conference(conf_key, conf_name);
+            conf.StartDate = conf_start;
+            conf.EndDate = conf.EndDate;
+
         }
 
         private AttendeeListing[] getListingsFromAttendees(Person[] attendees)

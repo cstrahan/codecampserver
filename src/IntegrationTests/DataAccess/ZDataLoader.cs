@@ -18,6 +18,14 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             using (ISession session = getSession())
             {
                 var transaction = session.BeginTransaction();
+
+                var admin = new Person("Admin", "", "admin@admin.com");                                
+                var pwd = "admin";
+                CryptoUtil crypto = new CryptoUtil();
+                var salt = crypto.CreateSalt();
+                crypto.HashPassword(pwd, salt);
+                session.SaveOrUpdate(admin);
+
                 var codeCamp2008 = new Conference("austincodecamp2008", "Austin Code Camp 2008")
                         {
                             StartDate = new DateTime(2008, 11, 26, 19, 30, 00)
@@ -114,8 +122,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             var personRepository = new PersonRepository(_sessionBuilder);
             return new ConferenceService(
                 new ConferenceRepository(_sessionBuilder),
-                personRepository,
-                new LoginService(personRepository),
+                new CryptoUtil(),
                 new SystemClock()
                 );
         }

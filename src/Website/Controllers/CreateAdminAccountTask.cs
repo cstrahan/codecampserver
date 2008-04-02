@@ -1,22 +1,22 @@
+using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 
 namespace CodeCampServer.Website.Controllers
 {
     public class CreateAdminAccountTask : ITask
     {
-        private readonly IPersonRepository _repository;
-        private readonly ILoginService _loginService;
+        private readonly IPersonRepository _repository;        
         private readonly string _firstName;
         private readonly string _lastName;
         private readonly string _email;
         private readonly string _password;
         private readonly string _passwordConfirm;
+        private readonly ICryptoUtil _cryptoUtil;
 
-        public CreateAdminAccountTask(IPersonRepository repository, ILoginService loginService, 
-                                      string name, string lastName, string email, string password, string passwordConfirm)
+        public CreateAdminAccountTask(IPersonRepository repository, ICryptoUtil cryptoUtil, string name, string lastName, string email, string password, string passwordConfirm)
         {
             _repository = repository;
-            _loginService = loginService;
+            _cryptoUtil = cryptoUtil;            
             _firstName = name;
             _lastName = lastName;
             _email = email;
@@ -29,8 +29,8 @@ namespace CodeCampServer.Website.Controllers
             if (!Validate()) return;
 
             var person = new Person(_firstName, _lastName, _email);
-            person.PasswordSalt = _loginService.CreateSalt();
-            person.Password = _loginService.CreatePasswordHash(_password, person.PasswordSalt);
+            person.PasswordSalt = _cryptoUtil.CreateSalt();
+            person.Password = _cryptoUtil.HashPassword(_password, person.PasswordSalt);
             person.IsAdministrator = true;
 
             _repository.Save(person);

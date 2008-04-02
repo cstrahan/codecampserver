@@ -6,15 +6,13 @@ namespace CodeCampServer.Model.Impl
 	public class ConferenceService : IConferenceService
 	{
 		private readonly IConferenceRepository _conferenceRepository;
-	    private readonly IPersonRepository _personRepository;
-	    private readonly ILoginService _loginService;
+	    private readonly ICryptoUtil _cryptoUtil;
 	    private readonly IClock _clock;
 
-		public ConferenceService(IConferenceRepository conferenceRepository, IPersonRepository personRepository, ILoginService loginService, IClock clock)
+		public ConferenceService(IConferenceRepository conferenceRepository, ICryptoUtil cryptoUtil, IClock clock)
 		{
 			_conferenceRepository = conferenceRepository;
-		    _personRepository = personRepository;
-		    _loginService = loginService;
+		    _cryptoUtil = cryptoUtil;
 		    _clock = clock;
 		}
 
@@ -35,16 +33,18 @@ namespace CodeCampServer.Model.Impl
 		
 		public Person RegisterAttendee(string firstName, string lastName, string emailAddress, string website, string comment, Conference conference, string cleartextPassword)
 		{
-            var passwordSalt = _loginService.CreateSalt();
-			var encryptedPassword = _loginService.CreatePasswordHash(cleartextPassword, passwordSalt);
+		    var passwordSalt = _cryptoUtil.CreateSalt();
+			var encryptedPassword = _cryptoUtil.HashPassword(cleartextPassword, passwordSalt);
 
-            Person person = new Person(firstName, lastName, emailAddress);
-		    person.Website = website;
-		    person.Comment = comment;
-		    person.PasswordSalt = passwordSalt;
-		    person.Password = encryptedPassword;
+            var person = new Person(firstName, lastName, emailAddress)
+                             {
+                                 Website = website,
+                                 Comment = comment,
+                                 PasswordSalt = passwordSalt,
+                                 Password = encryptedPassword
+                             };
 
-            conference.AddAttendee(person);
+		    conference.AddAttendee(person);
 
 		    return person;
 		}
@@ -59,6 +59,6 @@ namespace CodeCampServer.Model.Impl
                 conf = _conferenceRepository.GetMostRecentConference(_clock.GetCurrentTime());
 
             return conf;
-        }
-    }
+        }	  
+	}
 }

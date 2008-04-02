@@ -16,6 +16,7 @@ namespace CodeCampServer.UnitTests.Model
 	    private IConferenceRepository _conferenceRepository;
 	    private IPersonRepository _personRepository;
 	    private ILoginService _loginService;
+	    private ICryptoUtil _cryptoUtil;
 
 	    [SetUp]
         public void Setup()
@@ -24,11 +25,12 @@ namespace CodeCampServer.UnitTests.Model
 			_conferenceRepository = _mocks.CreateMock<IConferenceRepository>();
 		    _personRepository = _mocks.CreateMock<IPersonRepository>();
 	        _loginService = _mocks.DynamicMock<ILoginService>();
+	        _cryptoUtil = _mocks.DynamicMock<ICryptoUtil>();
         }
 
         private IConferenceService getService(IClock clock)
         {
-            return new ConferenceService(_conferenceRepository, _personRepository, _loginService, clock);
+            return new ConferenceService(_conferenceRepository, _cryptoUtil, clock);            
         }
 
 	    [Test]
@@ -75,7 +77,6 @@ namespace CodeCampServer.UnitTests.Model
             Assert.That(conf, Is.EqualTo(nextConference));
 
             _mocks.VerifyAll();
-	    }
-
+	    }      
 	}
 }

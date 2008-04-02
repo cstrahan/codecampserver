@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;
+using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
 using CodeCampServer.Website;
@@ -22,8 +23,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		private IAuthenticationService _authenticationService;
 	    private IAuthorizationService _authorizationService;
 	    private TempDataDictionary _tempData;
+	    private ICryptoUtil _cryptoUtil;
 
-		[SetUp]
+	    [SetUp]
 		public void Setup()
 		{
 			_mocks = new MockRepository();
@@ -31,6 +33,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_authenticationService = _mocks.DynamicMock<IAuthenticationService>();
 		    _authorizationService = _mocks.DynamicMock<IAuthorizationService>();
 		    _personRepository = _mocks.DynamicMock<IPersonRepository>();
+	        _cryptoUtil = _mocks.DynamicMock<ICryptoUtil>();
             _tempData = new TempDataDictionary(_mocks.FakeHttpContext("~/login"));
 		}
 
@@ -42,8 +45,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			public string RedirectUrl;
 		    public RouteValueDictionary RedirectToActionValues;		                
 		    
-			public TestingLoginController(ILoginService loginService, IPersonRepository personRepository, IAuthenticationService authenticationService, IAuthorizationService authorizationService)
-				: base(loginService, personRepository, authenticationService, authorizationService)
+			public TestingLoginController(ILoginService loginService, IPersonRepository personRepository, IAuthenticationService authenticationService, IAuthorizationService authorizationService, ICryptoUtil cryptoUtil)
+				: base(loginService, personRepository, authenticationService, authorizationService, cryptoUtil)
 			{
 			}
 
@@ -74,7 +77,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 	    private TestingLoginController getController()
 	    {
-	        var controller = new TestingLoginController(_loginService, _personRepository, _authenticationService, _authorizationService);
+	        var controller = new TestingLoginController(_loginService, _personRepository, _authenticationService, _authorizationService, _cryptoUtil);
 	        controller.TempData = _tempData;
 
 	        return controller;

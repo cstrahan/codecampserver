@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CodeCampServer.Model.Domain;
 using NHibernate;
+using NHibernate.Expression;
 
 namespace CodeCampServer.DataAccess.Impl
 {
@@ -68,5 +69,20 @@ namespace CodeCampServer.DataAccess.Impl
 			session.SaveOrUpdate(conference);
 			session.Flush();
 		}
+
+	    public bool ConferenceExists(string name, string key)
+	    {
+	        var session = getSession();
+            var query = session.CreateQuery(
+                "select count(*) from Conference c where c.Name like :name OR c.Key like :key");
+	        query.SetString("name", name);
+	        query.SetString("key", key);
+
+	        query.SetMaxResults(1);
+
+	        var result = query.UniqueResult();
+
+	        return (long)result > 0;
+	    }
 	}
 }

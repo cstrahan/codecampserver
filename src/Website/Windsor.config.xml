@@ -16,9 +16,13 @@
                type="CodeCampServer.Website.HttpContextProvider, CodeCampServer.Website" />               
 
 		<component id="session-builder"
-				   service="CodeCampServer.DataAccess.ISessionBuilder, CodeCampServer.DataAccess"
-				   type="CodeCampServer.DataAccess.Impl.HybridSessionBuilder, CodeCampServer.DataAccess"
-				   lifestyle="singleton" />
+				       service="CodeCampServer.DataAccess.ISessionBuilder, CodeCampServer.DataAccess"
+				       type="CodeCampServer.DataAccess.Impl.HybridSessionBuilder, CodeCampServer.DataAccess"
+				       lifestyle="singleton" />
+
+    <component id="crypto-util"
+               service="CodeCampServer.Model.ICryptoUtil, CodeCampServer.Model"
+               type="CodeCampServer.Model.Impl.CryptoUtil, CodeCampServer.Model" />
 
 		<!-- services -->
 		<component id="login-service"
