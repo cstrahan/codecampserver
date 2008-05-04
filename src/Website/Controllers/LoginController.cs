@@ -1,7 +1,9 @@
 ﻿using System.Security;
+using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
+using MvcContrib.Filters;
 
 namespace CodeCampServer.Website.Controllers
 {
@@ -12,49 +14,43 @@ namespace CodeCampServer.Website.Controllers
 	    private readonly IAuthenticationService _authenticationService;
 	    private readonly ICryptoUtil _cryptoUtil;
 
-	    public LoginController(ILoginService loginService, IPersonRepository personRepository, IAuthenticationService authenticationService, IAuthorizationService authService, ICryptoUtil _cryptoUtil) 
+	    public LoginController(ILoginService loginService, IPersonRepository personRepository, IAuthenticationService authenticationService, IAuthorizationService authService, ICryptoUtil cryptoUtil) 
             :base(authService)
 		{
 			_loginService = loginService;
-	        this._cryptoUtil = _cryptoUtil;
+	        _cryptoUtil = cryptoUtil;
 	        _personRepository = personRepository;
 		    _authenticationService = authenticationService;           
 		}
 
-		public void Index()
+		public ActionResult Index()
 		{
-		    var numberOfUsers = getNumberOfUsers();
-		    ViewData["ShowFirstTimeRegisterLink"] = (numberOfUsers == 0);
+		    var numberOfUsers = getNumberOfUsers();            
+		    ViewData["ShowFirstTimeRegisterLink"] = (numberOfUsers == 0);            
 
-			RenderView("loginform", ViewData);
+			return RenderView("loginform");
 		}
 
-	    private int getNumberOfUsers()
-	    {
-	        return _personRepository.GetNumberOfUsers();
-	    }
-
-	    public void Process(string email, string password, string redirectUrl)
+	    public ActionResult Process(string email, string password, string redirectUrl)
 		{
 			if (_loginService.VerifyAccount(email, password))
 			{
 			    var person = _personRepository.FindByEmail(email);
 				_authenticationService.SignIn(person);
-				Redirect(redirectUrl ?? "~/default.aspx");
+
+                if(redirectUrl != null)
+			        return new UrlRedirectResult(redirectUrl);
+
+			    return RedirectToAction("current", "conference");
 			}
-			else
-			{
-			    TempData[TempDataKeys.Error] = "Invalid login.";
-				RedirectToAction("index");
-			}
+
+            //login failed
+	        TempData[TempDataKeys.Error] = "Invalid login";            
+	        return RedirectToAction("index");
 		}
 
-		public virtual void Redirect(string url)
-		{
-			Response.Redirect(url);
-		}
-
-        public void CreateAdminAccount(string firstName, string lastName, string email, string password, string passwordConfirm)
+        [PostOnly]
+	    public ActionResult CreateAdminAccount(string firstName, string lastName, string email, string password, string passwordConfirm)
         {
             if (getNumberOfUsers() > 0)
             {
@@ -72,14 +68,12 @@ namespace CodeCampServer.Website.Controllers
                 TempData[TempDataKeys.Error] = task.ErrorMessage;
             }
         	  
-            RedirectToAction("index");
+            return RedirectToAction("index");
         }
-	}
 
-    public interface ITask
-    {
-        void Execute();
-        bool Success { get; }
-        string ErrorMessage { get;}
-    }
+	    private int getNumberOfUsers()
+	    {
+	        return _personRepository.GetNumberOfUsers();
+	    }
+	}
 }

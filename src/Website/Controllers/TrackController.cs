@@ -1,4 +1,5 @@
-﻿using CodeCampServer.Model;
+﻿using System.Web.Mvc;
+using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Presentation;
 using CodeCampServer.Model.Security;
@@ -21,14 +22,14 @@ namespace CodeCampServer.Website.Controllers
             _clock = clock;
         }
 
-        public void List(string conferenceKey)
+        public ActionResult List(string conferenceKey)
         {
-            Conference conference = _conferenceService.GetConference(conferenceKey);
-            Track[] tracks = _trackRepository.GetTracksFor(conference);
+            var conference = _conferenceService.GetConference(conferenceKey);
+            var tracks = _trackRepository.GetTracksFor(conference);
             ViewData.Add(new Schedule(conference, _clock, null, _trackRepository));
             ViewData.Add(tracks);
 
-            RenderView("List", ViewData);
+            return RenderView();
         }
     }
 }

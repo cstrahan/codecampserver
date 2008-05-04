@@ -78,10 +78,39 @@ namespace CodeCampServer.Model.Domain
             return speaker;
         }
 
-
         public override string ToString()
         {
             return Contact.FullName;
+        }
+
+        public virtual bool Equals(Person person)
+        {
+            if (person == null) return false; 
+            if (!Equals(_contact, person.Contact)) return false;
+            if (!Equals(_comment, person._comment)) return false;
+            if (!Equals(_password, person._password)) return false;
+            if (!Equals(_passwordSalt, person._passwordSalt)) return false;
+            if (!Equals(_website, person._website)) return false;
+            if (!Equals(_isAdministrator, person._isAdministrator)) return false;
+            return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj)) return true;
+            return Equals(obj as Person);
+        }
+
+        public override int GetHashCode()
+        {
+            var result = 14;
+            result = 29*result + (_contact.GetHashCode());
+            result = 29*result + (_comment != null ? _comment.GetHashCode() : 0);
+            result = 29*result + (_password != null ? _password.GetHashCode() : 0);
+            result = 29*result + (_passwordSalt != null ? _passwordSalt.GetHashCode() : 0);
+            result = 29*result + (_website != null ? _website.GetHashCode() : 0);
+            result = 29*result + _isAdministrator.GetHashCode();
+            return result;
         }
     }
 }

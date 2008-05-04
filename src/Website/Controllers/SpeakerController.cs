@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
@@ -6,68 +6,56 @@ using CodeCampServer.Model.Exceptions;
 using CodeCampServer.Model.Presentation;
 using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Views;
+using MvcContrib.Attributes;
+using MvcContrib.Filters;
 
 namespace CodeCampServer.Website.Controllers
 {
     public class SpeakerController : Controller
     {
-        private readonly IConferenceService _conferenceService;
-        private readonly IPersonRepository _personRepository;
         private readonly IClock _clock;
-        private IUserSession _userSession;
+        private readonly IUserSession _userSession;
+        private readonly IConferenceRepository _conferenceRepository;
 
-        public SpeakerController(IConferenceService conferenceService,
-                                 IPersonRepository personRepository,
-                                 IAuthorizationService authorizationService,
-                                 IClock clock, IUserSession userSession)
+        public SpeakerController(IConferenceRepository conferenceRepository, IAuthorizationService authorizationService, IUserSession userSession, IClock clock)
             : base(authorizationService)
-        {
-            _conferenceService = conferenceService;
-            _personRepository = personRepository;
+        {            
+            _conferenceRepository = conferenceRepository;
             _clock = clock;
             _userSession = userSession;
         }
 
-        public void Index(string conferenceKey)
+        [DefaultAction]
+        public ActionResult List(string conferenceKey, int? page, int? perPage)
         {
-            RedirectToAction(new RouteValueDictionary(new
-                                                          {
-                                                              Controller = "conference",
-                                                              Action = "details",
-                                                              conferenceKey = conferenceKey
-                                                          }));
-        }
+            var effectivePage = page.GetValueOrDefault(0);
+            var effectivePerPage = perPage.GetValueOrDefault(20);
 
-        public void List(string conferenceKey, int? page, int? perPage)
-        {
-            int effectivePage = page.GetValueOrDefault(0);
-            int effectivePerPage = perPage.GetValueOrDefault(20);
-
-            Conference conference = _conferenceService.GetConference(conferenceKey);
+            var conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
             var scheduledConference = new Schedule(conference, _clock, null, null);
-            IEnumerable<Speaker> speakers = conference.GetSpeakers();
-            var speakerListings = new SpeakerListingCollection(speakers);
+            var speakers = conference.GetSpeakers();            
 
             ViewData.Add(scheduledConference);
-            ViewData.Add(speakerListings);
+            ViewData.Add(speakers);
             ViewData.Add("page", effectivePage);
             ViewData.Add("perPage", effectivePerPage);
 
-            RenderView("List");
+            return RenderView();
         }
 
-        public void View(string conferenceKey, string speakerId)
+        public ActionResult View(string conferenceKey, string speakerId)
         {
-            Conference conference = _conferenceService.GetConference(conferenceKey);
-            Speaker speaker = conference.GetSpeakerByKey(speakerId);
+            var conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
+            var speaker = conference.GetSpeakerByKey(speakerId);
             ViewData.Add(speaker);
-            RenderView("view");
+            return RenderView();
         }
 
-        public void Edit(string conferenceKey)
+        [RequireLogin]
+        public ActionResult Edit(string conferenceKey)
         {
-            Conference conference = _conferenceService.GetConference(conferenceKey);
-            Person person = _userSession.GetLoggedInPerson();
+            var conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
+            var person = _userSession.GetLoggedInPerson();
 
             Speaker speaker = null;
             if (person != null)
@@ -76,39 +64,30 @@ namespace CodeCampServer.Website.Controllers
             if (speaker != null)
             {
                 ViewData.Add(speaker);
-                RenderView("edit", ViewData);
+                return RenderView();
             }
-            else
-            {
-                RedirectToAction(new RouteValueDictionary(new
-                                                              {
-                                                                  Controller = "login",
-                                                                  Action = "Index"
-                                                              }));
-            }
+                        
+            return RedirectToAction(new RouteValueDictionary(new { Controller = "login", Action = "Index" }));
         }
-
-        public void Save(string conferenceKey, string displayName, string firstName, string lastName, string website,
-                         string comment, string profile, string avatarUrl)
+        
+        [RequireLogin]
+        [PostOnly]
+        public ActionResult Save(string conferenceKey, string speakerKey, string bio, string avatarUrl)
         {
-            Person user = _userSession.GetLoggedInPerson();
+            var person = _userSession.GetLoggedInPerson();
             try
             {
-                //TODO:  replace this with conference.AddSpeaker
-                //_speakerService.SaveSpeaker(user.Contact.Email, firstName, lastName, website, comment, displayName, profile, avatarUrl);
+                var conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
+                conference.AddSpeaker(person, speakerKey, bio, avatarUrl);                
 
-                TempData["message"] = "Profile saved";
-                RedirectToAction(new RouteValueDictionary(new
-                                                              {
-                                                                  Action = "view",
-                                                                  conferenceKey = conferenceKey,
-                                                                  speakerId = displayName
-                                                              }));
+                TempData[TempDataKeys.Message] = "Profile saved";
+                return RedirectToAction(new RouteValueDictionary(new { Action = "view", conferenceKey, speakerId = speakerKey }));
             }
             catch (DataValidationException ex)
             {
-                TempData["error"] = ex.Message;
-                RedirectToAction("edit");
+                TempData[TempDataKeys.Error] = "Error saving your speaker record.  The error has been logged.";
+                Log.Error(this, "Error saving speaker.", ex);             
+                return RedirectToAction("edit");
             }
         }
     }

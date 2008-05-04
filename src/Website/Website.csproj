@@ -103,9 +103,13 @@
     </Compile>
     <Compile Include="AuthenticationModule.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminOnlyAttribute.cs" />
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\AuthorizationFilterAttribute.cs" />
     <Compile Include="Controllers\CreateAdminAccountTask.cs" />
+    <Compile Include="Controllers\ITask.cs" />
+    <Compile Include="Controllers\UrlRedirectResult.cs" />
+    <Compile Include="Controllers\RequireLoginAttribute.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="Controllers\SponsorComponentController.cs" />
@@ -113,7 +117,9 @@
     <Compile Include="Controllers\TrackController.cs" />
     <Compile Include="Helpers\ConferenceServiceHelper.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
+    <Compile Include="Helpers\IoC.cs" />
     <Compile Include="Helpers\LinkHelpers.cs" />
+    <Compile Include="Helpers\RedirectHelper.cs" />
     <Compile Include="Helpers\RouteHelpers.cs" />
     <Compile Include="Helpers\ViewPageHelpers.cs" />
     <Compile Include="HttpContextProvider.cs" />

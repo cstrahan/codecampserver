@@ -4,6 +4,7 @@ using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Views;
+using MvcContrib.Filters;
 
 namespace CodeCampServer.Website.Controllers
 {
@@ -21,75 +22,75 @@ namespace CodeCampServer.Website.Controllers
             _clock = clock;
         }
 
-        public void New(string conferenceKey)
+        [AdminOnly]
+        public ActionResult New(string conferenceKey)
         {
-            // TODO IAuthorizationService check
             ViewData.Add(new Sponsor());
-            RenderView("Edit");
+            return RenderView("Edit");
         }
 
-        public void Delete(string conferenceKey, string sponsorName)
-        {
-            // TODO IAuthorizationService check
-            Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
-            Sponsor sponsorToDelete = conference.GetSponsor(sponsorName);
+        [AdminOnly]
+        public ActionResult Delete(string conferenceKey, string sponsorName)
+        {            
+            var conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
+            var sponsorToDelete = conference.GetSponsor(sponsorName);
             if (sponsorToDelete != null)
             {
                 conference.RemoveSponsor(sponsorToDelete);
                 _conferenceRepository.Save(conference);
             }
-            Sponsor[] sponsors = conference.GetSponsors();
+            
+            var sponsors = conference.GetSponsors();
             ViewData.Add(sponsors);
-            RenderView("List");
+            return RenderView("List");
         }
 
 
-        public void List(string conferenceKey)
+        public ActionResult List(string conferenceKey)
         {
-            Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
-            Sponsor[] sponsors = conference.GetSponsors();
+            var conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
+            var sponsors = conference.GetSponsors();
             ViewData.Add(sponsors);
-            RenderView("List");
+            return RenderView();
         }
 
-        public void Edit(string conferenceKey, string sponsorName)
+        [AdminOnly]
+        public ActionResult Edit(string conferenceKey, string sponsorName)
         {
-            // TODO IAuthorizationService check
-            Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
-            Sponsor sponsor = conference.GetSponsor(sponsorName);
+            var conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
+            var sponsor = conference.GetSponsor(sponsorName);
             if (sponsor != null)
             {
                 ViewData.Add(sponsor);
-                RenderView("edit");
-            }
-            else
-            {
-                RedirectToAction("List", "Sponsor");
-            }
+                return RenderView();
+            }            
+            
+            return RedirectToAction("List");
         }
 
-        public void Save(string conferenceKey, string oldName, string name, string level, string logoUrl, string website,
+        [AdminOnly]
+        [PostOnly]
+        //TODO: update this to accept a sponsor id to avoid the quirky new/updated logic
+        public ActionResult Save(string conferenceKey, string oldName, string name, string level, string logoUrl, string website,
                          string firstName, string lastName, string email)
-        {
-            // TODO IAuthorizationService check
-            Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
-            SponsorLevel sponsorLevel = (SponsorLevel) Enum.Parse(typeof (SponsorLevel), level);
+        {            
+            var conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
+            var sponsorLevel = (SponsorLevel) Enum.Parse(typeof (SponsorLevel), level);
 
-            Sponsor oldSponsor = conference.GetSponsor(oldName);
-            Sponsor sponsor = new Sponsor(name, logoUrl, website, firstName, lastName, email, sponsorLevel);
+            var oldSponsor = conference.GetSponsor(oldName);
+            var sponsor = new Sponsor(name, logoUrl, website, firstName, lastName, email, sponsorLevel);
             
             if (oldSponsor != null)
             {
                 conference.RemoveSponsor(oldSponsor);
                 _conferenceRepository.Save(conference);
             }
-            conference.AddSponsor(sponsor);
 
+            conference.AddSponsor(sponsor);
             _conferenceRepository.Save(conference);
-            
-            Sponsor[] sponsors = conference.GetSponsors();
-            ViewData.Add(sponsors);
-            RenderView("list");
+
+            TempData[TempDataKeys.Message] = "The sponsor was saved.";
+            return RedirectToAction("list");
         }
     }
 }

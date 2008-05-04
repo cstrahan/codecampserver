@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Web.Routing;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
@@ -37,67 +35,21 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _tempData = new TempDataDictionary(_mocks.FakeHttpContext("~/login"));
 		}
 
-		private class TestingLoginController : LoginController
-		{
-			public string ActualViewName;
-			public string ActualMasterName;
-			public object ActualViewData;
-			public string RedirectUrl;
-		    public RouteValueDictionary RedirectToActionValues;		                
-		    
-			public TestingLoginController(ILoginService loginService, IPersonRepository personRepository, IAuthenticationService authenticationService, IAuthorizationService authorizationService, ICryptoUtil cryptoUtil)
-				: base(loginService, personRepository, authenticationService, authorizationService, cryptoUtil)
-			{
-			}
-
-		    public IDictionary<string, object> ActualViewDataAsDictionary
-		    {
-                get { return (IDictionary<string, object>) ActualViewData; }
-		    }
-
-			public override void Redirect(string url)
-			{
-				RedirectUrl = url;
-			}
-
-			protected override void RenderView(string viewName,
-			                                   string masterName,
-			                                   object viewData)
-			{
-				ActualViewName = viewName;
-				ActualMasterName = masterName;
-				ActualViewData = viewData;
-			}
-
-            protected override void RedirectToAction(RouteValueDictionary values)
-            {
-                RedirectToActionValues = values;   
-            }
-		}
-
-	    private TestingLoginController getController()
-	    {
-	        var controller = new TestingLoginController(_loginService, _personRepository, _authenticationService, _authorizationService, _cryptoUtil);
-	        controller.TempData = _tempData;
-
-	        return controller;
-	    }
-
 	    [Test]
 		public void LoginActionShouldRenderIndexView()
 		{
 			var controller = getController();
-			controller.Index();
+	        var actionResult = controller.Index() as RenderViewResult;
 
-			Assert.That(controller.ActualViewName, Is.EqualTo("loginform"));
+            Assert.That(actionResult, Is.Not.Null, "a view should have been rendered");
+	        Assert.That(actionResult.ViewName, Is.EqualTo("loginform"));
 		}
 
 	    [Test]
         public void LoginActionShouldCheckNumberOfRegisteredUsers()
     	{
             var controller = getController();
-            Expect.Call(_personRepository.GetNumberOfUsers()).Return(44);
-            
+            Expect.Call(_personRepository.GetNumberOfUsers()).Return(44);            
             _mocks.ReplayAll();
 	        
             controller.Index();
@@ -108,25 +60,25 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	    [Test]
 	    public void LoginActionShouldSetFirstTimeRegisterWhenNoUsersArePresent()
 	    {
-            SetupResult.For(_personRepository.GetNumberOfUsers()).Return(0);
-            var controller = getController();
-            _mocks.ReplayAll();
-	        
-            controller.Index();
+	        var controller = getController();
+	        SetupResult.For(_personRepository.GetNumberOfUsers()).Return(0);
+	        _mocks.ReplayAll();
 
-	        Assert.That(controller.ActualViewDataAsDictionary.Get<bool>("ShowFirstTimeRegisterLink"), Is.True);
+	        controller.Index();
+
+	        Assert.That(controller.ViewData.Get<bool>("ShowFirstTimeRegisterLink"), Is.True);
 	    }
 
-        [Test]
+	    [Test]
         public void LoginActionShouldNotSetFirstTimeRegisterWhenUsersArePresent()
         {
-            SetupResult.For(_personRepository.GetNumberOfUsers()).Return(1);
-            var controller = getController();
-            _mocks.ReplayAll();
+	        var controller = getController();
+	        SetupResult.For(_personRepository.GetNumberOfUsers()).Return(1);
+	        _mocks.ReplayAll();
             
             controller.Index();
 
-            Assert.That(controller.ActualViewDataAsDictionary.Get<bool>("ShowFirstTimeRegisterLink"), Is.False);
+            Assert.That(controller.ViewData.Get<bool>("ShowFirstTimeRegisterLink"), Is.False);
         }
 
 	    [Test, ExpectedException(typeof(SecurityException))]
@@ -139,21 +91,22 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	        controller.CreateAdminAccount("test", "user", "email@email.com", "pwd", "pwd");
 	    }
 
-        [Test]
-        public void CreateAdminAccountVerifiesEmailAndPasswordExist()
+	    [Test]
+        public void CreateAdminAccountSetsErrorMessageAndRedirectsBackToIndexIfEmailOrPasswordIsNotSet()
         {
             SetupResult.For(_personRepository.GetNumberOfUsers()).Return(0);
 
             var controller = getController();
             _mocks.ReplayAll();
-            
-            controller.CreateAdminAccount("fname", "lname", null, null, null);
 
-            Assert.That(controller.TempData["error"], Is.Not.Null);
-            Assert.That(controller.RedirectToActionValues["action"], Is.EqualTo("index"));
+	        var actionResult = controller.CreateAdminAccount("fname", "lname", null, null, null) as ActionRedirectResult;
+
+	        Assert.That(controller.TempData["error"], Is.Not.Null);
+	        Assert.That(actionResult, Is.Not.Null, "should have redirected");
+	        Assert.That(actionResult.Values["action"], Is.EqualTo("index"));
         }
-        
-		[Test]
+
+	    [Test]
 		public void ProcessLoginShouldRedirectToReturnUrlOnSuccess()
 		{		    
 			const string email = "brownie@brownie.com.au";
@@ -163,11 +116,13 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             var controller = getController();
 			_mocks.ReplayAll();
 
-			controller.Process(email, password, returnUrl);
-			Assert.That(controller.RedirectUrl, Is.EqualTo(returnUrl));
+	        var actionResult = controller.Process(email, password, returnUrl) as UrlRedirectResult;
+
+            Assert.That(actionResult, Is.Not.Null, "should have redirected to a url");
+	        Assert.That(actionResult.Url, Is.EqualTo(returnUrl));
 		}
 
-		[Test]
+	    [Test]
 		public void ProcessLoginShouldRedirectToIndexOnFailureWithError()
 		{
 		    const string email = "brownie@brownie.com.au";
@@ -176,14 +131,15 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		    var controller = getController();
 		    
             _mocks.ReplayAll();
-			
-            controller.Process(email, password, "");
 
-            Assert.That(controller.RedirectToActionValues["action"], Is.EqualTo("index"));
+	        var actionResult = controller.Process(email, password, "") as ActionRedirectResult;
+
+            Assert.That(actionResult, Is.Not.Null, "should have redirected to an action");
+	        Assert.That(actionResult.Values["action"], Is.EqualTo("index"));
 			Assert.That(controller.TempData[TempDataKeys.Error], Is.Not.Null);
 		}
 
-        [Test]
+	    [Test]
         public void ProcessLoginShouldRedirectToDefaultPageOnSuccessAndNullReturnUrl()
         {
             SetupResult.For(_loginService.VerifyAccount(null, null))
@@ -192,8 +148,19 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             var controller = getController();
             _mocks.ReplayAll();
 
-            controller.Process("brownie@brownie.com.au", "password", null);
-            Assert.That(controller.RedirectUrl, Is.EqualTo("~/default.aspx"));
+	        var actionResult = controller.Process("brownie@brownie.com.au", "password", null) as ActionRedirectResult;
+            Assert.That(actionResult, Is.Not.Null, "should have redirected to a url");
+	        Assert.That(actionResult.Values["controller"].ToString().ToLower(), Is.EqualTo("conference"));
+	        Assert.That(actionResult.Values["action"].ToString().ToLower(), Is.EqualTo("current"));
         }
+
+	    private LoginController getController()
+	    {
+	        return new LoginController(_loginService, _personRepository, _authenticationService, _authorizationService,
+	                                   _cryptoUtil)
+	                   {
+	                       TempData = _tempData
+                       };	        
+	    }
 	}
 }

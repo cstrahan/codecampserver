@@ -1,3 +1,4 @@
+using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Presentation;
@@ -26,12 +27,13 @@ namespace CodeCampServer.Website.Controllers
             _trackRepository = trackRepository;
         }
 
-        public void Index(string conferenceKey)
+        public ActionResult Index(string conferenceKey)
         {
             var conference = _conferenceService.GetConference(conferenceKey);
             var schedule = new Schedule(conference, _clock, _timeSlotRepository, _trackRepository);
             ViewData.Add(schedule);
-            RenderView("View");
+            
+            return RenderView("View");
         }
     }
 }

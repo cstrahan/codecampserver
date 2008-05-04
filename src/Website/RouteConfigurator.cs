@@ -7,15 +7,15 @@ namespace CodeCampServer.Website
 	{
 		public virtual void RegisterRoutes()
 		{		    
-			RouteCollection routes = RouteTable.Routes;        
+			var routes = RouteTable.Routes;        
 
 			routes.Add(new Route("login/{action}",
 			                     new RouteValueDictionary(new {Controller = "login", Action = "index"}),
 			                     new MvcRouteHandler()));
 
-            routes.Add(new Route("conference/{action}",
-                                 new RouteValueDictionary(new {Controller="Conference", Action="index"}), 
-                                 new MvcRouteHandler()));
+            routes.Add(new Route("conference/new",
+                                 new RouteValueDictionary(new {Controller="Conference", Action="new"}), 
+                                 new MvcRouteHandler()));            
 
             routes.Add(new Route("admin/{action}",
                                  new RouteValueDictionary(new{Controller="Admin", Action="index"}),
@@ -27,12 +27,12 @@ namespace CodeCampServer.Website
 
 
 		    routes.Add(new Route("{conferenceKey}/speakers/{action}",
-                                new RouteValueDictionary(new {controller = "speaker", action = "list"}),
+                                new RouteValueDictionary(new {action = "list", controller = "speaker"}),
                                 new MvcRouteHandler()));
 
-                routes.Add(new Route("{conferenceKey}/schedule/{action}",
-                                    new RouteValueDictionary(new { controller = "schedule", action = "index" }),
-                                    new MvcRouteHandler()));
+            routes.Add(new Route("{conferenceKey}/schedule/{action}",
+                                new RouteValueDictionary(new {action = "index", controller = "schedule"}),
+                                new MvcRouteHandler()));
 
 		    routes.Add(new Route("{conferenceKey}/sessions/{action}",
 		                        new RouteValueDictionary(new {Controller = "session", Action = "list"}),
@@ -47,7 +47,7 @@ namespace CodeCampServer.Website
 		                        new MvcRouteHandler()));
 
             routes.Add(new Route("{conferenceKey}/{action}",
-                                new RouteValueDictionary(new { controller = "conference", action = "index" }),
+                                new RouteValueDictionary(new {action = "index", controller = "conference"}),
                                 new MvcRouteHandler()));
 
 		    routes.Add(new Route("Default.aspx",

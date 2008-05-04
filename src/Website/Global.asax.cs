@@ -6,6 +6,7 @@ using Castle.Core;
 using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
 using CodeCampServer.Model;
+using MvcContrib.Castle;
 using MvcContrib.ControllerFactories;
 
 namespace CodeCampServer.Website
@@ -41,6 +42,7 @@ namespace CodeCampServer.Website
             _container = new WindsorContainer(configInterpreter);
             initializeComponents();
 
+            
             ControllerBuilder.Current.SetControllerFactory(typeof(WindsorControllerFactory));
 
             _initiliazed = true;
@@ -56,8 +58,7 @@ namespace CodeCampServer.Website
 
         private void initializeComponents()
         {            
-            _container.AddComponent("route-configurator", typeof (IRouteConfigurator), typeof (RouteConfigurator));                        
-            //_container.AddComponent("httpcontext", typeof(HttpContextBase), delegate() { return HttpContext.Current; });
+            _container.AddComponent("route-configurator", typeof (IRouteConfigurator), typeof (RouteConfigurator));                                    
 
             //add all controllers
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes())

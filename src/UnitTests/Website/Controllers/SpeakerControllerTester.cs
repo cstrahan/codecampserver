@@ -1,225 +1,154 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
-using System.Web.Routing;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
-using CodeCampServer.Model.Exceptions;
 using CodeCampServer.Model.Impl;
-using CodeCampServer.Model.Presentation;
 using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Controllers;
 using CodeCampServer.Website.Views;
-using System.Web;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
-using Controller=System.Web.Mvc.Controller;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {
     [TestFixture]
     public class SpeakerControllerTester
     {
-        private MockRepository _mocks;
-        private IConferenceService _conferenceService;
+        private MockRepository _mocks;        
         private IPersonRepository _personRepository;
+        private IConferenceRepository _conferenceRepository;
         private IAuthorizationService _authorizationService;
-        private Conference _conference;
         private IUserSession _userSession;
-
-        private class TestingSpeakerController : SpeakerController
-        {
-            public string ActualViewName;
-            public string ActualMasterName;
-            public object ActualViewData;
-            public RouteValueDictionary RedirectToActionValues;
-            public static TempDataDictionary ActualTempData;
-
-            public void CreateTempData(HttpContextBase context)
-            {
-                ActualTempData = new TempDataDictionary(context);
-                PropertyInfo property = typeof (Controller).GetProperty("TempData");
-                property.SetValue(this, ActualTempData, null);
-            }
-
-            public TestingSpeakerController(IConferenceService conferenceService, IPersonRepository personRepository,
-                                            IAuthorizationService authorizationService, IClock clock,
-                                            IUserSession userSession)
-                : base(conferenceService, personRepository, authorizationService, clock, userSession)
-            {
-            }
-
-            protected override void RenderView(string viewName, string masterName, object viewData)
-            {
-                if (viewData == null)
-                    viewData = ViewData;
-
-                ActualViewName = viewName;
-                ActualMasterName = masterName;
-                ActualViewData = viewData;
-            }
-
-            protected override void RedirectToAction(RouteValueDictionary values)
-            {
-                RedirectToActionValues = values;
-            }
-        }
+        private Conference _conference;
 
         [SetUp]
         public void Setup()
         {
             _mocks = new MockRepository();
-            _conferenceService = _mocks.CreateMock<IConferenceService>();
+            _conferenceRepository = _mocks.CreateMock<IConferenceRepository>();
             _authorizationService = _mocks.CreateMock<IAuthorizationService>();
             _personRepository = _mocks.CreateMock<IPersonRepository>();
             _userSession = _mocks.CreateMock<IUserSession>();
             _conference = new Conference("austincodecamp2008", "Austin Code Camp");
         }
-
-        private TestingSpeakerController GetController()
+        
+        private SpeakerController createSpeakerController()
         {
-            HttpContextBase context = _mocks.FakeHttpContext("~/speaker");
-            TestingSpeakerController controller = new TestingSpeakerController(_conferenceService, _personRepository,
-                                                                               _authorizationService, new ClockStub(),
-                                                                               _userSession);
-            controller.CreateTempData(context);
-
-            return controller;
-        }
-
-        [Test]
-        public void IndexShouldRedirectToConferenceDetails()
-        {
-            TestingSpeakerController controller = GetController();
-            controller.Index("austincodecamp2008");
-
-            Assert.That(controller.RedirectToActionValues, Is.Not.Null);
-            Assert.That(controller.RedirectToActionValues["Controller"], Is.EqualTo("conference"));
-            Assert.That(controller.RedirectToActionValues["Action"], Is.EqualTo("details"));
+            return new SpeakerController(_conferenceRepository, _authorizationService, _userSession, new ClockStub());
         }
 
         [Test]
         public void ShouldViewSpeakerByDisplayName()
         {
-            Speaker speaker = getSpeaker();
-            SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
+            var speaker = getSpeaker();
+            SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008"))
                 .Return(_conference);
-
-            _conference.AddSpeaker(speaker.Person, speaker.SpeakerKey, speaker.Bio, speaker.AvatarUrl);
-                        
+            _conference.AddSpeaker(speaker.Person, speaker.SpeakerKey, speaker.Bio, speaker.AvatarUrl);                        
             _mocks.ReplayAll();
 
-            TestingSpeakerController controller = GetController();
-            controller.View("austincodecamp2008", speaker.SpeakerKey);
-
-            Speaker viewDataSpeakerProfile = controller.ViewData.Get<Speaker>();
+            var controller = createSpeakerController();
+            var result = controller.View("austincodecamp2008", speaker.SpeakerKey) as RenderViewResult;
+            var viewDataSpeakerProfile = controller.ViewData.Get<Speaker>();
 
             Assert.That(viewDataSpeakerProfile, Is.Not.Null);
             Assert.That(viewDataSpeakerProfile, Is.EqualTo(speaker));
-            Assert.That(controller.ActualViewName, Is.EqualTo("view"));
+            Assert.That(result, Is.Not.Null, "Expected RenderViewResult, but was not");
+            Assert.That(result.ViewName, Is.Null, "expected default view");
         }
 
         [Test]
         public void EditSpeakerShouldGetSpeakerData()
         {
-            Speaker speaker = getSpeaker();
+            var speaker = getSpeaker();
             _conference.AddSpeaker(speaker.Person, speaker.SpeakerKey, speaker.Bio, speaker.AvatarUrl);
+
             SetupResult.For(_userSession.GetLoggedInPerson()).Return(speaker.Person);
-            SetupResult.For(_conferenceService.GetConference(null)).IgnoreArguments().Return(_conference);
+            SetupResult.For(_conferenceRepository.GetConferenceByKey(null)).IgnoreArguments().Return(_conference);
             
             _mocks.ReplayAll();
 
-            TestingSpeakerController controller = GetController();
-            controller.Edit("conf123");
+            var controller = createSpeakerController();
+            var actionResult = controller.Edit("conf123") as RenderViewResult;
 
-            Assert.That(controller.ActualViewName, Is.EqualTo("edit"));
-            Speaker viewDataSpeakerProfile = controller.ViewData.Get<Speaker>();
-
-            Assert.That(speaker, Is.EqualTo(viewDataSpeakerProfile));
+            Assert.That(actionResult, Is.Not.Null);
+            Assert.That(actionResult.ViewName, Is.Null, "expected default view");
             
+            var viewDataSpeakerProfile = controller.ViewData.Get<Speaker>();
+            Assert.That(speaker, Is.EqualTo(viewDataSpeakerProfile));            
         }
 
         [Test]
         public void EditProfileShouldReturnLoginWhenNoSpeaker()
         {
-            SetupResult.For(_conferenceService.GetConference(null)).IgnoreArguments().Return(_conference);
+            SetupResult.For(_conferenceRepository.GetConferenceByKey(null)).IgnoreArguments().Return(_conference);
             SetupResult.For(_userSession.GetLoggedInPerson()).Return(null);
             _mocks.ReplayAll();
 
-            TestingSpeakerController controller = GetController();
-            controller.Edit("conf123");
-            Assert.That(controller.RedirectToActionValues, Is.Not.Null);
-            Assert.That(controller.RedirectToActionValues["Controller"], Is.EqualTo("login"));
-        }
-
-        [Test, Explicit]
-        public void SaveSpeakerReturnSaveExceptionMessageOnExceptionAndReturnToEditAction()
-        {
-            Speaker savedSpeaker = getSpeaker();
+            var controller = createSpeakerController();
+            var actionResult = controller.Edit("conf123") as ActionRedirectResult;
             
-            _userSession = new UserSessionStub(savedSpeaker.Person);
-
-            string validationMessage = "Validation Error";
-//			SetupResult.For(
-//                _speakerService.SaveSpeaker("brownie@brownie.com.au", "Andrew", "Browne", "http://blog.brownie.com.au", "A comment",
-//				                     "AndrewBrowne", "Info about how important I am to go here.",
-//				                     "http://blog.brownie.com.au/avatar.jpg"))
-//				.Throw(new DataValidationException(validationMessage));
-            _mocks.ReplayAll();
-
-            TestingSpeakerController controller = GetController();
-            controller.Save(_conference.Key, "AndrewBrowne", "Andrew", "Browne", "http://blog.brownie.com.au",
-                            "A comment",
-                            "Info about how important I am to go here.", "http://blog.brownie.com.au/avatar.jpg");
-
-            Assert.That(controller.RedirectToActionValues["Action"], Is.EqualTo("edit"));
-            string viewDataMessage = controller.TempData["error"] as string;
-            Assert.AreEqual(validationMessage, viewDataMessage);
+            Assert.That(actionResult, Is.Not.Null);
+            Assert.That(actionResult.Values["controller"].ToString().ToLower(), Is.EqualTo("login"));
+            Assert.That(actionResult.Values["action"].ToString().ToLower(), Is.EqualTo("index"));
         }
 
-        [Test, Explicit]
+        //TODO:  rewrite this test
+//        [Test, Explicit]
+//        public void SaveSpeakerReturnSaveExceptionMessageOnExceptionAndReturnToEditAction()
+//        {
+//            Speaker savedSpeaker = getSpeaker();
+//            
+//            _userSession = new UserSessionStub(savedSpeaker.Person);
+//
+//            string validationMessage = "Validation Error";
+//			SetupResult.For(                               
+//				.Throw(new DataValidationException(validationMessage));
+//            _mocks.ReplayAll();
+//
+//            var controller = createSpeakerController();
+//            controller.Save(_conference.Key, "AndrewBrowne", "Andrew", "Browne", "http://blog.brownie.com.au",
+//                            "A comment",
+//                            "Info about how important I am to go here.", "http://blog.brownie.com.au/avatar.jpg");
+//
+//            Assert.That(controller.RedirectToActionValues["Action"], Is.EqualTo("edit"));
+//            string viewDataMessage = controller.TempData["error"] as string;
+//            Assert.AreEqual(validationMessage, viewDataMessage);
+//        }
+
+        [Test]
         public void ShouldListSpeakersForAConference()
-        {
-            SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
-                .Return(_conference);
+        {            
+            var p = new Person("joe", "dimaggio", "jd@baseball.com");
+            var p2 = new Person("marilyn", "monroe", "m@m.com");
 
-//			Speaker speaker1 =
-//				new Speaker("Andrew", "Browne", "http://blog.brownie.com.au", "the comment", _conference,
-//				            "brownie@brownie.com.au", "AndrewBrowne", "http://blog.brownie.com.au/avatar.jpg",
-//				            "Info about how important I am to go here.", "password", "salt");
-//
-//			Speaker speaker2 =
-//				new Speaker("Some", "Person", "http://blog.brownie.com.au", "the comment", _conference,
-//				            "brownie@brownie.com.au", "AndrewBrowne", "http://blog.brownie.com.au/avatar.jpg",
-//				            "Info about how important I am to go here.", "password", "salt");
+            _conference.AddSpeaker(p, "joedimaggio", "bio here...", "avatar.jpg");
+            _conference.AddSpeaker(p2, "marilynmonroe", "bio here...", "avatar.jpg");
 
-//			Speaker[] toReturn =
-//				new Speaker[] {speaker1, speaker2};
-//            SetupResult.For(_speakerService.GetSpeakers(_conference, 0, 2)).Return(toReturn);
-//			_mocks.ReplayAll();
-//
-//			TestingSpeakerController controller = GetController();
-//			controller.List("austincodecamp2008", 0, 2);
-//
-//			Assert.That(controller.ActualViewName, Is.EqualTo("List"));
-//            SmartBag viewData = (controller.ActualViewData as SmartBag);
-//
-//			Assert.That(viewData, Is.Not.Null);
-//			Assert.That(viewData.Get<Schedule>(), Is.Not.Null);
-//            Assert.That(viewData.Get<SpeakerListingCollection>(), Is.Not.Null);
-//            Assert.That(viewData.Get<Schedule>().Conference, Is.EqualTo(_conference));
-//
-//            List<SpeakerListing> list = new List<SpeakerListing>(viewData.Get<SpeakerListingCollection>());
-//			Assert.That(list.Count, Is.EqualTo(2));
-//			Assert.That(list[0].Name, Is.EqualTo("Andrew Browne"));
-//			Assert.That(list[1].Name, Is.EqualTo("Some Person"));
+            using (_mocks.Record())
+            {
+                SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008"))
+                    .IgnoreArguments()
+                    .Return(_conference);
+            }
+
+            using(_mocks.Playback())
+            {
+                var controller = createSpeakerController();
+                var actionResult = controller.List("austinCodeCamp2008", 0, 0) as RenderViewResult;
+
+                Assert.That(actionResult, Is.Not.Null);
+                Assert.That(actionResult.ViewName, Is.Null, "expected default view");
+
+                var speakersPassedtoView = controller.ViewData.Get<Speaker[]>();
+                Assert.That(speakersPassedtoView, Is.Not.Null);
+                Assert.That(speakersPassedtoView.Length, Is.EqualTo(2));
+            }
         }
 
         private Speaker getSpeaker()
         {
-            return new Speaker(new Person("Andrew", "Browne", "brownie@brownie.com.au"), "SavedSpeaker",
-                               "Info about how important I am to go here.", "http://blog.brownie.com.au/avatar.jpg");
+            var person = new Person("joe", "blow", "jb@aol.com");
+            return new Speaker(person, "jb", "bio", "avatar.jpg");
         }
     }
 }

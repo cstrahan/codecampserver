@@ -12,16 +12,16 @@ namespace CodeCampServer.Website.Controllers
 		protected Controller(IAuthorizationService authorizationService)
 		{
 			_authorizationService = authorizationService;
-		}
+		}        
         
-		protected override void OnActionExecuting(FilterExecutingContext filterContext)
+		protected override void OnActionExecuting(ActionExecutingContext filterContext)
 		{            
 			if (_authorizationService.IsAdministrator)
 			{
 				ViewData.Add("ShouldRenderAdminPanel", true);
 			}
             PreparePageTitle();
-
+            
 			base.OnActionExecuting(filterContext);
 		}
         

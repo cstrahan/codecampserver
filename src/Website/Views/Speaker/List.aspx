@@ -14,10 +14,10 @@
 
 <ul>
 <% var conference = ViewData.Get<Schedule>(); %>
-<% foreach (SpeakerListing speaker in ViewData.Get<SpeakerListingCollection>()) { %>
+<% foreach (var speaker in ViewData.Get<Speaker[]>()) { %>
     <li>
         <span class="speaker-name">
-        <%=Html.ActionLink<SpeakerController>(c=>c.View(conference.Key, speaker.Key), speaker.DisplayName) %>
+        <%=Html.ActionLink<SpeakerController>(c=>c.View(conference.Key, speaker.SpeakerKey), speaker.GetName()) %>
         </span>        
     </li>
 <% } %>

@@ -46,7 +46,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         }
 
         [Test]
-        public void OnPreActionShouldSetSmartBagDataToRenderAdminPanelWhenTheUserIsAnAdmin()
+        public void OnPreActionShouldSetViewDataToRenderAdminPanelWhenTheUserIsAnAdmin()
         {
             SetupResult.For(_authorizationService.IsAdministrator).Return(true);
             _mocks.ReplayAll();
@@ -54,6 +54,6 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             foo.Bar();
 
             Assert.That(foo.ViewData.ContainsKey("ShouldRenderAdminPanel"));
-        }
+        }        
     }
 }

@@ -14,7 +14,9 @@
 .error
 {
 	font-weight: bold;
-	color: Red;
+	color: white;
+	background-color: Red;
+	padding:1px;
 }
 
 .notice
@@ -128,4 +130,16 @@ div.admin-panel h3
 {
 	background-color: #000;
 	color: #fff;	
+}
+
+table tr th
+{
+	background-color: #333;
+	color: #eee;
+	padding: 2px;
+}
+
+table tr td
+{	
+	padding: 5px;
 }

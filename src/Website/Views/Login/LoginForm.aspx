@@ -9,7 +9,9 @@ Title="CodeCampServer - Login" %>
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
     <% if(TempData.ContainsKey(TempDataKeys.Error)) { %>
+        <p>
         <span class="error"><%=TempData[TempDataKeys.Error]%></span>
+        </p>
     <% } %>
 
     <% if(ViewData.GetOrDefault("ShowFirstTimeRegisterLink", false)) { %>
@@ -50,22 +52,21 @@ Title="CodeCampServer - Login" %>
     <% } else { %>
 
     <div style="text-align:center">
-		<h3>Login</h3>
 		<% using (Html.Form("login", "process")) { %>
-		<table style="text-align:left">
-			<tr>
-				<td>Email:</td>
-				<td><%=Html.TextBox("email", 50) %></td>
-			</tr>
-			<tr>
-				<td>Password:</td>
-				<td><%=Html.Password("password", 50)%></td>
-			</tr>
-			<tr>
-			    <td></td>
-			    <td><%=Html.SubmitButton("Login") %></td>
-			</tr>
-        </table>
+		<fieldset>
+		    <legend>Login</legend>
+		    
+		    <label for='email'>Email</label>
+		    <%=Html.TextBox("email", 50, 100) %>
+		    
+		    <label for="password">Password</label>
+		    <%=Html.Password("password", 50) %>
+		    
+		    <div class="button-row">
+		    <%=Html.SubmitButton("Login") %>
+		    </div>
+		</fieldset>
+			
         <% } %>
     </div>
     

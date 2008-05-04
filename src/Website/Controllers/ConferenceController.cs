@@ -1,148 +1,169 @@
 using System;
 using System.Collections.Generic;
+using System.Web.Mvc;
 using System.Web.Routing;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Presentation;
 using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Views;
+using MvcContrib.Attributes;
+using MvcContrib.Filters;
 
 namespace CodeCampServer.Website.Controllers
 {
     public class ConferenceController : Controller
     {
-        private readonly IAuthorizationService _authService;
+        private IClock _clock;        
         private readonly IConferenceService _conferenceService;
-        private IClock _clock;
-        private IConferenceRepository _conferenceRepository;
+        private readonly IConferenceRepository _conferenceRepository;
 
         public ConferenceController(IConferenceRepository conferenceRepository, IConferenceService conferenceService, IAuthorizationService authService, IClock clock) : base(authService)
         {
             _conferenceRepository = conferenceRepository;
-            _conferenceService = conferenceService;
-            _authService = authService;
+            _conferenceService = conferenceService;            
             _clock = clock;
         }
 
-        private Schedule getScheduledConference(string conferenceKey)
-        {
-            Conference conference = _conferenceService.GetConference(conferenceKey);
-            return new Schedule(conference, _clock, null, null);
-        }
-
-        public void Index()
-        {
-            RedirectToAction("details");
-        }        
-        
-        public void Details(string conferenceKey)
+        [DefaultAction]
+        public ActionResult Details(string conferenceKey)
         {
             Schedule conference = getScheduledConference(conferenceKey);
             ViewData.Add(conference);
-            RenderView("details", ViewData);
+
+            return RenderView();            
         }
 
-        public void Current()
+        public ActionResult Current()
         {
-            Conference conference = _conferenceService.GetCurrentConference();
+            var conference = _conferenceService.GetCurrentConference();
 
+            //if there are no conferences, then this is likely an admin setting the
+            //site up for the first time
             if (conference == null)
-                RedirectToAction("index", "admin");
-            else
-                RedirectToAction(new RouteValueDictionary(
-                                     new {controller = "conference", action = "details", conferenceKey = conference.Key})
-                    );
+                return RedirectToAction("index", "admin");
+                
+            return RedirectToAction(
+                new RouteValueDictionary(
+                    new {controller = "conference", action = "details", conferenceKey = conference.Key}
+                )
+            );
         }
 
-        public void List()
+        [AdminOnly]
+        public ActionResult List()
         {
-            RequireAdmin();
-            IEnumerable<Conference> conferences = _conferenceService.GetAllConferences();
+            var conferences = _conferenceService.GetAllConferences();
             ViewData.Add(conferences);
-            RenderView("List", ViewData);
+            return RenderView();
         }
 
-        private void RequireAdmin()
+        public ActionResult PleaseRegister(string conferenceKey)
         {
-            if (! _authService.IsAdministrator)
-            {
-                RedirectToAction("index", "Login");
-            }
-        }
-
-        public void PleaseRegister(string conferenceKey)
-        {
-            Schedule conference = getScheduledConference(conferenceKey);
+            var conference = getScheduledConference(conferenceKey);
             ViewData.Add(conference);
-            RenderView("registerform", ViewData);
+            return RenderView("registerform");            
         }
 
-        public void Register(string conferenceKey, string firstName, string lastName, string email, string website,
+        public ActionResult Register(string conferenceKey, string firstName, string lastName, string email, string website,
                              string comment, string password)
         {
             try
             {
-                Conference conference = _conferenceService.GetConference(conferenceKey);
-                Person person = _conferenceService.RegisterAttendee(firstName, lastName, email, website, comment,
+                //register the attendee
+                var conference = _conferenceService.GetConference(conferenceKey);
+                var person = _conferenceService.RegisterAttendee(firstName, lastName, email, website, comment,
                                                                     conference, password);
 
-                //sign in the person
-
+                //sign them in
                 ViewData.Add(person).Add(new Schedule(conference, _clock, null, null));
-                RenderView("registerconfirm", ViewData);
+                return RenderView("registerconfirm");
             }
             catch (Exception exc)
             {
-                TempData["error"] = "An error occurred while registering your account.";
+                TempData[TempDataKeys.Error] = "An error occurred while registering your account.";
                 Log.Error(this, "An error occcurred while registering a user", exc);
-                RenderView("pleaseregister");
+                return RenderView("pleaseregister");
             }
         }
 
-        public void ListAttendees(string conferenceKey, int? page, int? perPage)
+        public ActionResult ListAttendees(string conferenceKey, int? page, int? perPage)
         {
-            int effectivePage = page.GetValueOrDefault(0);
-            int effectivePerPage = perPage.GetValueOrDefault(20);
+            var effectivePage = page.GetValueOrDefault(0);
+            var effectivePerPage = perPage.GetValueOrDefault(20);
 
-            Conference conference = _conferenceService.GetConference(conferenceKey);
-            Person[] attendees = conference.GetAttendees();
+            var conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
+            var attendees = conference.GetAttendees();
 
             //TODO: implement paging for attendee listing
             //List<Person> pageOfAttendees = new List<Person>(attendees).GetRange(effectivePage * effectivePerPage, effectivePerPage);
 
-            AttendeeListing[] listings = getListingsFromAttendees(attendees);
+            var listings = getListingsFromAttendees(attendees);
 
             ViewData
                 .Add(new Schedule(conference, _clock, null, null))
                 .Add(listings);
-            RenderView("listattendees", ViewData);
+
+            return RenderView();
         }
 
-        [AuthorizationFilter(AllowRoles = "Administrator,Organizer")]
-        public void New()
+        [AdminOnly]
+        public ActionResult New()
         {
             ViewData.Add(new Conference());
-            RenderView("Edit");
+            return RenderView("edit");
         }
 
-        [AuthorizationFilter(AllowRoles = "Administrator,Organizer")]
-        public void Save(string conf_name, string conf_key, DateTime conf_start, DateTime? conf_end, string conf_desc)
+        [AdminOnly]
+        [PostOnly]
+        public ActionResult Save(string conf_name, string conf_key, DateTime conf_start, DateTime? conf_end, string conf_desc)
         {
             if(_conferenceRepository.ConferenceExists(conf_name, conf_key))
             {
                 TempData[TempDataKeys.Error] = "A conference has already been created with that name or key";
             }
 
-            Conference conf = new Conference(conf_key, conf_name);
-            conf.StartDate = conf_start;
-            conf.EndDate = conf.EndDate;
+            var conf = new Conference(conf_key, conf_name) {StartDate = conf_start, EndDate = conf_start};
 
+            try
+            {
+                _conferenceRepository.Save(conf);
+                TempData[TempDataKeys.Message] = "The conference was created successfully.";
+                return RedirectToAction("list");
+            }
+            catch(Exception exc)
+            {
+                Log.Error("Error saving conference.", exc);
+                TempData[TempDataKeys.Error] = "There was an error saving the conference.  The error was: " + exc;
+                ViewData.Add("conference", conf);
+                return RenderView("edit");
+            }
+            
+        }
+
+        [AdminOnly]
+        public ActionResult Edit(string conferenceKey)
+        {
+            var conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
+            if(conference == null)
+            {
+                TempData[TempDataKeys.Error] = "Conference not found.";
+                return RedirectToAction("current", "conference");
+            }
+
+            return RenderView("edit");            
+        }
+
+        private Schedule getScheduledConference(string conferenceKey)
+        {
+            var conference = _conferenceService.GetConference(conferenceKey);
+            return new Schedule(conference, _clock, null, null);
         }
 
         private AttendeeListing[] getListingsFromAttendees(Person[] attendees)
         {
             var listings = new List<AttendeeListing>();
-            foreach (Person attendee in attendees)
+            foreach (var attendee in attendees)
             {
                 listings.Add(new AttendeeListing(attendee));
             }

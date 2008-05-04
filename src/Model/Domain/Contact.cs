@@ -1,6 +1,8 @@
+using System;
+
 namespace CodeCampServer.Model.Domain
 {
-    public class Contact
+    public class Contact : IEquatable<Contact>
     {
         private string _firstName = string.Empty;
         private string _lastName = string.Empty;
@@ -27,6 +29,29 @@ namespace CodeCampServer.Model.Domain
         public virtual string FullName
         {
             get { return _firstName + " " + _lastName; }
+        }
+
+        public virtual bool Equals(Contact contact)
+        {
+            if (contact == null) return false;
+            if (!Equals(_firstName, contact._firstName)) return false;
+            if (!Equals(_lastName, contact._lastName)) return false;
+            if (!Equals(_email, contact._email)) return false;
+            return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj)) return true;
+            return Equals(obj as Contact);
+        }
+
+        public override int GetHashCode()
+        {
+            int result = _firstName != null ? _firstName.GetHashCode() : 0;
+            result = 29*result + (_lastName != null ? _lastName.GetHashCode() : 0);
+            result = 29*result + (_email != null ? _email.GetHashCode() : 0);
+            return result;
         }
     }
 }

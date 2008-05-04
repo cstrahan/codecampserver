@@ -101,15 +101,7 @@ namespace CodeCampServer.UnitTests
         {
             get { throw new NotImplementedException(); }
         }
-
-        /// <summary>
-        /// Not Implemented
-        /// </summary>
-        public override HttpStaticObjectsCollection StaticObjects
-        {
-            get { throw new NotImplementedException(); }
-        }
-
+        
         /// <summary>
         /// Not Implemented
         /// </summary>

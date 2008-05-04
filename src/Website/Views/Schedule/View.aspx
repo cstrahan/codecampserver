@@ -12,7 +12,7 @@
 	    <% ScheduleListing[] schedule = conference.GetScheduleListings(); %>
 	    <% TrackListing[] tracks = conference.GetTrackListings(); %>
 		<h1><%= conference.Name %> Schedule</h1>
-			<table cellpadding="2" cellspacing="0" width="100%">
+			<table>
 				<tr class="header-row">
 				    <th></th>
 				    <% foreach (TrackListing track in tracks)
@@ -22,10 +22,10 @@
 				</tr>
 				<% foreach (ScheduleListing listing in schedule) { %>
 				<tr>
-					<td style="vertical-align:top"><%=listing.StartTime %> - <%=listing.EndTime %><br /><%= listing.Purpose %></td>
+					<td><%=listing.StartTime %> - <%=listing.EndTime %><br /><%= listing.Purpose %></td>
 					<% foreach (TrackListing track in tracks)
 					{ %>
-					<td style="vertical-align:top">
+					<td>
 					   <% SessionListing session = listing[track];
                           if (session != null)
                           { %>

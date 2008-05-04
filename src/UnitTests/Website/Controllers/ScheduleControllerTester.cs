@@ -27,9 +27,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         [SetUp]
         public void Setup()
         {
-            _mocks = new MockRepository();
-            //We use RhinoMocks to create mock objects for our
-            //controller dependencies.
+            _mocks = new MockRepository();            
             _service = _mocks.CreateMock<IConferenceService>();
             _trackRepository = _mocks.CreateMock<ITrackRepository>();
             _timeSlotRepository = _mocks.CreateMock<ITimeSlotRepository>();
@@ -51,39 +49,34 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         [Test]
         public void ScheduleShouldGetConferenceByKeyAndSendScheduleToTheView()
         {
-            //We set up canned results and expectations on our mocks.
-            SetupResult.For(_service.GetConference("austincodecamp2008"))
-                .Return(_conference);
-            SetupResult.For(_timeSlotRepository.GetTimeSlotsFor(_conference))
-                .Return(_timeSlots);
-            //When the IViewEngine instance is called, we save off the 
-            //ViewContext object that is passed along.  We do this so that
-            //later we can examine it.
+            SetupResult.For(_service.GetConference("austincodecamp2008")).Return(_conference);
+            SetupResult.For(_timeSlotRepository.GetTimeSlotsFor(_conference)).Return(_timeSlots);
+        
+
             ViewContext actualViewContext = null;
             Expect.Call(() => _viewEngine.RenderView(null)).IgnoreArguments()
                 .Do(new Action<ViewContext>(
                         context => { actualViewContext = context; }));
 
             var authorizationService = _mocks.DynamicMock<IAuthorizationService>();
-
-            //switching our MockRepository to replay mode.  Now our dynamic
-            //mocks are ready to be used.
+            
             _mocks.ReplayAll();
 
-            var controller = new ScheduleController(_service, new ClockStub(),
-                                                    _timeSlotRepository, _trackRepository,
-                                                    authorizationService);
-            controller.ViewEngine = _viewEngine;
-            //ControllerContext must be stubbed in the current build.
-            controller.ControllerContext = new ControllerContextStub(controller);
-            controller.Index("austincodecamp2008");
+            var controller = createController(authorizationService);
+            var actionResult = controller.Index("austincodecamp2008") as RenderViewResult;
 
-            //These asserts ensure our controller action did the right thing.
-            Assert.That(actualViewContext.ViewName, Is.EqualTo("View"));
+            Assert.That(actionResult, Is.Not.Null);
+            Assert.That(actionResult.ViewName, Is.EqualTo("View"));
             Assert.That(controller.ViewData, Is.Not.Null);
             Assert.That(controller.ViewData.Contains<Schedule>());
-            Assert.That(controller.ViewData.Get<Schedule>().Name,
-                        Is.EqualTo("Austin Code Camp"));
+            Assert.That(controller.ViewData.Get<Schedule>().Name, Is.EqualTo("Austin Code Camp"));
+        }
+
+        private ScheduleController createController(IAuthorizationService authorizationService)
+        {
+            return new ScheduleController(_service, new ClockStub(),
+                                          _timeSlotRepository, _trackRepository,
+                                          authorizationService);
         }
     }
 }

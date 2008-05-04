@@ -34,6 +34,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\castle\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\castle\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="MvcContrib, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\mvccontrib\MvcContrib.dll</HintPath>
@@ -104,7 +112,9 @@
     <Compile Include="Model\SessionServiceTester.cs" />
     <Compile Include="Model\UserSessionTester.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="TestHelperExtensions.cs" />
     <Compile Include="Website\ControllerContextStub.cs" />
+    <Compile Include="Website\Controllers\AdminControllerTester.cs" />
     <Compile Include="Website\Controllers\ApplicationControllerTests.cs" />
     <Compile Include="Website\Controllers\ConferenceControllerTester.cs" />
     <Compile Include="Website\Controllers\ScheduleControllerTester.cs" />

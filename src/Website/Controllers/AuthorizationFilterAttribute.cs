@@ -19,7 +19,7 @@ namespace CodeCampServer.Website.Controllers
             return false;
         }
 
-        public override void OnActionExecuting(FilterExecutingContext filterContext)
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if(!filterContext.HttpContext.User.Identity.IsAuthenticated)
             {

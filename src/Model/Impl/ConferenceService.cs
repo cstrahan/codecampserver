@@ -21,7 +21,7 @@ namespace CodeCampServer.Model.Impl
 			return _conferenceRepository.GetConferenceByKey(conferenceKey);
 		}
 
-		public IEnumerable<Conference> GetAllConferences()
+		public Conference[] GetAllConferences()
 		{
 			return _conferenceRepository.GetAllConferences();
 		}

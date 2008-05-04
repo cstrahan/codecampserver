@@ -1,26 +1,30 @@
-﻿using CodeCampServer.Model;
+﻿using System.Web.Mvc;
+using CodeCampServer.Model;
 using CodeCampServer.Model.Security;
+using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.Website.Controllers
 {    
-    [AuthorizationFilter(AllowRoles="Administrator,Organizer", Order=1)]
+    [AdminOnly]
     public class AdminController : Controller
     {
-        private IConferenceService _conferenceService;        
+        private readonly IConferenceService _conferenceService;        
 
         public AdminController(IAuthorizationService authorizationService, IConferenceService conferenceService) : base(authorizationService)
         {
             _conferenceService = conferenceService;
         }
         
-        public void Index()
-        {
-            RenderView("Index");            
+        public ActionResult Index()
+        {            
+            var conferences = _conferenceService.GetAllConferences();
+            ViewData.Add(conferences);
+            return RenderView();
         }
         
-        public void Schedule()
-        {                          
-            RenderView("Schedule");
+        public ActionResult Schedule()
+        {
+            return RenderView();
         }
     }
 }

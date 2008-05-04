@@ -12,14 +12,13 @@ namespace CodeCampServer.DataAccess.Impl
 		{
 		}
 
-		public IEnumerable<Conference> GetAllConferences()
+		public Conference[] GetAllConferences()
 		{
-			ISession session = getSession();
-			IQuery query = session.CreateQuery("from Conference");
+			var session = getSession();
+			var query = session.CreateQuery("from Conference");
 
-			IEnumerable<Conference> result = query.List<Conference>();
-
-			return result;
+			var result = query.List<Conference>();
+		    return new List<Conference>(result).ToArray();
 		}
 
 		public Conference GetConferenceByKey(string key)
