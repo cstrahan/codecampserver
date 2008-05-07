@@ -17,7 +17,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
     public class ScheduleControllerTester
     {
         private MockRepository _mocks;
-        private IConferenceService _service;
+        private IConferenceRepository _conferenceRepository;
         private ITimeSlotRepository _timeSlotRepository;
 	    private ITrackRepository _trackRepository;
         private Conference _conference;
@@ -27,8 +27,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         [SetUp]
         public void Setup()
         {
-            _mocks = new MockRepository();            
-            _service = _mocks.CreateMock<IConferenceService>();
+            _mocks = new MockRepository();
+            _conferenceRepository = _mocks.CreateMock<IConferenceRepository>();
             _trackRepository = _mocks.CreateMock<ITrackRepository>();
             _timeSlotRepository = _mocks.CreateMock<ITimeSlotRepository>();
             _viewEngine = _mocks.CreateMock<IViewEngine>();
@@ -49,7 +49,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         [Test]
         public void ScheduleShouldGetConferenceByKeyAndSendScheduleToTheView()
         {
-            SetupResult.For(_service.GetConference("austincodecamp2008")).Return(_conference);
+            SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
             SetupResult.For(_timeSlotRepository.GetTimeSlotsFor(_conference)).Return(_timeSlots);
         
 
@@ -74,7 +74,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
         private ScheduleController createController(IAuthorizationService authorizationService)
         {
-            return new ScheduleController(_service, new ClockStub(),
+            return new ScheduleController(_conferenceRepository, new ClockStub(),
                                           _timeSlotRepository, _trackRepository,
                                           authorizationService);
         }

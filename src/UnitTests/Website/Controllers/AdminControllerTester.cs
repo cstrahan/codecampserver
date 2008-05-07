@@ -13,21 +13,21 @@ namespace CodeCampServer.UnitTests.Website.Controllers
     {
         private MockRepository _mocks;
         private IAuthorizationService _authorizationService;
-        private IConferenceService _conferenceService;
+        private IConferenceRepository _conferenceRepository;
 
         [SetUp]
         public void SetUp()
         {
             _mocks = new MockRepository();
             _authorizationService = _mocks.DynamicMock<IAuthorizationService>();
-            _conferenceService = _mocks.DynamicMock<IConferenceService>();
+            _conferenceRepository = _mocks.CreateMock<IConferenceRepository>();
         }
 
         [Test]
         public void IndexActionLoadsConferences()
         {
             SetupResult.For(_authorizationService.IsAdministrator).Return(true);
-            Expect.Call(_conferenceService.GetAllConferences()).Return(new Conference[] {});
+            Expect.Call(_conferenceRepository.GetAllConferences()).Return(new Conference[] {});
 
             _mocks.ReplayAll();
 
@@ -39,7 +39,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
         private AdminController getController()
         {
-            var controller = new AdminController(_authorizationService, _conferenceService)
+            var controller = new AdminController(_authorizationService, _conferenceRepository)
                        {                           
                            ViewEngine = new ViewEngineStub()
                        };

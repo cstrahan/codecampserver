@@ -12,7 +12,6 @@ namespace CodeCampServer.UnitTests.Model
 	public class ConferenceServiceTester
 	{
 	    private MockRepository _mocks;	    
-	    private Conference _expectedConference;
 	    private IConferenceRepository _conferenceRepository;
 	    private IPersonRepository _personRepository;
 	    private ILoginService _loginService;
@@ -32,21 +31,6 @@ namespace CodeCampServer.UnitTests.Model
         {
             return new ConferenceService(_conferenceRepository, _cryptoUtil, clock);            
         }
-
-	    [Test]
-		public void ShouldGetConferenceByKey()
-		{
-	        IConferenceService service = getService(null);
-
-            _expectedConference = new Conference();
-            SetupResult.For(_conferenceRepository.GetConferenceByKey("foo")).Return(_expectedConference);
-            _mocks.ReplayAll();
-		
-			var actualConference = service.GetConference("foo");
-			Assert.That(actualConference, Is.EqualTo(_expectedConference));
-
-            _mocks.VerifyAll();
-		}
         
 	    [Test]
 	    public void CurrentConferenceShouldGetNextUpcomingConferenceIfThereIsOneOtherwiseMostRecent()

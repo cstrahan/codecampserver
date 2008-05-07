@@ -9,19 +9,19 @@ namespace CodeCampServer.Website.Controllers
 {
     public class ScheduleController : Controller
     {
-        private readonly IConferenceService _conferenceService;
+        private readonly IConferenceRepository _conferenceRepository;
         private readonly IClock _clock;
         private readonly ITimeSlotRepository _timeSlotRepository;
         private readonly ITrackRepository _trackRepository;
 
-        public ScheduleController(IConferenceService conferenceService,
+        public ScheduleController(IConferenceRepository conferenceRepository,
                                   IClock clock,
                                   ITimeSlotRepository timeSlotRepository,
                                   ITrackRepository trackRepository,
                                   IAuthorizationService authorizationService)
             : base(authorizationService)
         {
-            _conferenceService = conferenceService;
+            _conferenceRepository = conferenceRepository;
             _clock = clock;
             _timeSlotRepository = timeSlotRepository;
             _trackRepository = trackRepository;
@@ -29,7 +29,7 @@ namespace CodeCampServer.Website.Controllers
 
         public ActionResult Index(string conferenceKey)
         {
-            var conference = _conferenceService.GetConference(conferenceKey);
+            var conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
             var schedule = new Schedule(conference, _clock, _timeSlotRepository, _trackRepository);
             ViewData.Add(schedule);
             

@@ -16,16 +16,6 @@ namespace CodeCampServer.Model.Impl
 		    _clock = clock;
 		}
 
-		public Conference GetConference(string conferenceKey)
-		{
-			return _conferenceRepository.GetConferenceByKey(conferenceKey);
-		}
-
-		public Conference[] GetAllConferences()
-		{
-			return _conferenceRepository.GetAllConferences();
-		}
-
 		public Person[] GetAttendees(Conference conference, int page, int perPage)
 		{
 		    return conference.GetAttendees();

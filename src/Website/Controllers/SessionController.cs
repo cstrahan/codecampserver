@@ -11,15 +11,15 @@ namespace CodeCampServer.Website.Controllers
 {
 	public class SessionController : Controller
 	{
-		private readonly IConferenceService _conferenceService;
 		private readonly ISessionService _sessionService;
 		private readonly IUserSession _userSession;
 	    private readonly IPersonRepository _personRepository;
+	    private readonly IConferenceRepository _conferenceRepository;
 
-	    public SessionController(IConferenceService conferenceService, ISessionService sessionService, IPersonRepository personRepository, IAuthorizationService authorizationService, IUserSession userSession)
+	    public SessionController(IConferenceRepository conferenceRepository, ISessionService sessionService, IPersonRepository personRepository, IAuthorizationService authorizationService, IUserSession userSession)
 			: base(authorizationService)
 		{
-			_conferenceService = conferenceService;
+	        _conferenceRepository = conferenceRepository;
 			_sessionService = sessionService;
 	        _personRepository = personRepository;
 	        _userSession = userSession;
@@ -58,7 +58,7 @@ namespace CodeCampServer.Website.Controllers
         
 	    public ActionResult Proposed(string conferenceKey)
 		{
-			var conference = _conferenceService.GetConference(conferenceKey);
+			var conference = getConferenceByKey(conferenceKey);
 			var sessions = _sessionService.GetProposedSessions(conference);
 			ViewData.Add(conference);
 			ViewData.Add(sessions);
@@ -71,8 +71,13 @@ namespace CodeCampServer.Website.Controllers
 	        var p = _userSession.GetLoggedInPerson();
 	        if(p == null) return null;
 
-	        var conf = _conferenceService.GetConference(conferenceKey);
+	        var conf = getConferenceByKey(conferenceKey);
 	        return p.GetSpeakerProfileFor(conf);
 	    }
+
+        private Conference getConferenceByKey(string conferenceKey)
+        {
+            return _conferenceRepository.GetConferenceByKey(conferenceKey);
+        }
 	}
 }

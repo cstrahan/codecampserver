@@ -53,7 +53,7 @@ namespace CodeCampServer.Website.Controllers
         [AdminOnly]
         public ActionResult List()
         {
-            var conferences = _conferenceService.GetAllConferences();
+            var conferences = _conferenceRepository.GetAllConferences();
             ViewData.Add(conferences);
             return RenderView();
         }
@@ -71,7 +71,7 @@ namespace CodeCampServer.Website.Controllers
             try
             {
                 //register the attendee
-                var conference = _conferenceService.GetConference(conferenceKey);
+                var conference = getConferenceByKey(conferenceKey);
                 var person = _conferenceService.RegisterAttendee(firstName, lastName, email, website, comment,
                                                                     conference, password);
 
@@ -92,7 +92,7 @@ namespace CodeCampServer.Website.Controllers
             var effectivePage = page.GetValueOrDefault(0);
             var effectivePerPage = perPage.GetValueOrDefault(20);
 
-            var conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
+            var conference = getConferenceByKey(conferenceKey);
             var attendees = conference.GetAttendees();
 
             //TODO: implement paging for attendee listing
@@ -144,7 +144,7 @@ namespace CodeCampServer.Website.Controllers
         [AdminOnly]
         public ActionResult Edit(string conferenceKey)
         {
-            var conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
+            var conference = getConferenceByKey(conferenceKey);
             if(conference == null)
             {
                 TempData[TempDataKeys.Error] = "Conference not found.";
@@ -154,9 +154,14 @@ namespace CodeCampServer.Website.Controllers
             return RenderView("edit");            
         }
 
+        private Conference getConferenceByKey(string conferenceKey)
+        {
+            return _conferenceRepository.GetConferenceByKey(conferenceKey);
+        }
+
         private Schedule getScheduledConference(string conferenceKey)
         {
-            var conference = _conferenceService.GetConference(conferenceKey);
+            var conference = getConferenceByKey(conferenceKey);
             return new Schedule(conference, _clock, null, null);
         }
 

@@ -39,7 +39,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         public void ListAsAdminShouldRenderListViewWithAllConferences()
         {
             var conferences = new List<Conference>(new[] { _conference });
-            SetupResult.For(_service.GetAllConferences()).Return(conferences.ToArray());
+            SetupResult.For(_conferenceRepository.GetAllConferences()).Return(conferences.ToArray());
             SetupResult.For(_authService.IsAdministrator).Return(true);
             _mocks.ReplayAll();
 
@@ -57,7 +57,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	    [Test]
 		public void ShouldGetConferenceToShowDetails()
 		{
-			SetupResult.For(_service.GetConference("austincodecamp2008")).Return(_conference);
+			SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
 			_mocks.ReplayAll();
 
 	        var controller = getController();
@@ -75,7 +75,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	    [Test]
 		public void ShouldGetConferenceForTheRegistrationForm()
 		{
-			SetupResult.For(_service.GetConference("austincodecamp2008"))
+			SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008"))
 				.Return(_conference);
 			_mocks.ReplayAll();
 
@@ -94,7 +94,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void ShouldRegisterANewAttendee()
 		{
             var controller = getController();
-			SetupResult.For(_service.GetConference("austincodecamp2008")).Return(_conference);
+			SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
 			var actualAttendee = new Person();
 
             using(_mocks.Record())

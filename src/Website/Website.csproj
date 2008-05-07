@@ -115,7 +115,6 @@
     <Compile Include="Controllers\SponsorComponentController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\TrackController.cs" />
-    <Compile Include="Helpers\ConferenceServiceHelper.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\IoC.cs" />
     <Compile Include="Helpers\LinkHelpers.cs" />

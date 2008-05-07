@@ -16,18 +16,18 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	public class SessionControllerTester
 	{
 		private MockRepository _mocks;
-		private IConferenceService _conferenceService;
 		private ISessionService _sessionService;
 		private IPersonRepository _personRepository;
 		private IUserSession _userSession;
 		private IAuthorizationService _authorizationService;
 		private Conference _conference;
+	    private IConferenceRepository _conferenceRepository;
 
 		[SetUp]
 		public void Setup()
 		{
 			_mocks = new MockRepository();
-			_conferenceService = _mocks.CreateMock<IConferenceService>();
+		    _conferenceRepository = _mocks.CreateMock<IConferenceRepository>();
 			_authorizationService = _mocks.CreateMock<IAuthorizationService>();
 			_sessionService = _mocks.CreateMock<ISessionService>();
 			_personRepository = _mocks.DynamicMock<IPersonRepository>();
@@ -43,7 +43,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		    var expectedSpeaker = new Speaker(person, "brubble", "bio", "avatar");
 		    _conference.AddSpeaker(person, expectedSpeaker.SpeakerKey, expectedSpeaker.Bio, expectedSpeaker.AvatarUrl);
 
-		    SetupResult.For(_conferenceService.GetConference("austincodecamp2008")).Return(_conference);
+		    SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
 		    Expect.Call(_userSession.GetLoggedInPerson()).Return(expectedSpeaker.Person);
 		    _mocks.ReplayAll();
 
@@ -60,7 +60,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void CreateActionShouldRedirectToLoginIfUserIsNotASpeaker()
 		{
 	        var controller = createController();
-	        SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
+	        SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008"))
 				.Return(_conference);
 	        Expect.Call(_userSession.GetLoggedInPerson()).Return(null);
 	        _mocks.ReplayAll();
@@ -82,7 +82,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 	        var actualSession = new Session(_conference, new Person(), "title", "abstract") {Track = track};
 
-	        SetupResult.For(_conferenceService.GetConference(null)).IgnoreArguments().Return(_conference);
+	        SetupResult.For(_conferenceRepository.GetConferenceByKey(null)).IgnoreArguments().Return(_conference);
 	        SetupResult.For(_personRepository.FindByEmail(null)).IgnoreArguments().Return(speaker);
 	        Expect.Call(_sessionService.CreateSession(null, actualSession.Speaker, actualSession.Title, 
                     actualSession.Abstract,actualSession.Track))
@@ -111,7 +111,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void ProposedActionShouldShowProposedSessions()
 		{
 			IEnumerable<Session> sessions = new List<Session>();
-			SetupResult.For(_conferenceService.GetConference("austincodecamp2008"))
+			SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008"))
 				.Return(_conference);
 			Expect.Call(_sessionService.GetProposedSessions(_conference))
 				.Return(sessions);
@@ -128,7 +128,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	    private SessionController createController()
 	    {
 	        var fakeHttpContext = _mocks.FakeHttpContext("~/sessions");        
-	        var controller = new SessionController(_conferenceService, _sessionService, _personRepository,
+	        var controller = new SessionController(_conferenceRepository, _sessionService, _personRepository,
 	                                               _authorizationService, _userSession);
 	        controller.ControllerContext = new ControllerContext(fakeHttpContext, new RouteData(), controller);
             return controller;
