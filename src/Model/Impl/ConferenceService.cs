@@ -35,7 +35,7 @@ namespace CodeCampServer.Model.Impl
                              };
 
 		    conference.AddAttendee(person);
-
+		    _conferenceRepository.Save(conference);
 		    return person;
 		}
 

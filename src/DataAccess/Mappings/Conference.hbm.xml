@@ -41,7 +41,7 @@
       </composite-element>
     </set>
 
-    <set name="Attendees" table="Attendance" lazy="true">
+    <set name="Attendees" table="Attendance" lazy="true" cascade="save-update">
       <key column="ConferenceId" />
       <many-to-many class="Person" column="PersonId" />
     </set>

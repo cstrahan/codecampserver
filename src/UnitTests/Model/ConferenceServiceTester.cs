@@ -31,6 +31,23 @@ namespace CodeCampServer.UnitTests.Model
         {
             return new ConferenceService(_conferenceRepository, _cryptoUtil, clock);            
         }
+
+        [Test]
+        public void RegisterAttendeeShouldAddAttendeeToConferenceAndSaveConference()
+        {
+            ClockStub clockStub = new ClockStub(new DateTime(2008, 2, 15));
+            IConferenceService service = getService(clockStub);
+            var conference = _mocks.CreateMock<Conference>();
+
+            Expect.Call(_cryptoUtil.CreateSalt()).Return(null);
+            Expect.Call(() => conference.AddAttendee(null)).IgnoreArguments();
+            Expect.Call(() => _conferenceRepository.Save(conference));
+            _mocks.ReplayAll();
+
+            var person = service.RegisterAttendee("", "", "", "", "", conference, "");
+            
+            _mocks.VerifyAll();
+        }
         
 	    [Test]
 	    public void CurrentConferenceShouldGetNextUpcomingConferenceIfThereIsOneOtherwiseMostRecent()

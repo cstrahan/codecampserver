@@ -12,7 +12,7 @@ AutoEventWireup="true" Inherits="System.Web.Mvc.ViewPage"
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 	<div>
 		<h3></h3>
-		<% using (Html.Form("register", "conference")) { %>    
+		<% using (Html.Form("conference", "register")) { %>    
 			
 		<fieldset>
 		    <legend>Register for <%=getConference().Name %></legend>
