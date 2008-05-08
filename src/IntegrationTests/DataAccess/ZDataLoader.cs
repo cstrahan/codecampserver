@@ -31,16 +31,22 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                             StartDate = new DateTime(2008, 11, 26, 19, 30, 00)
                         };
 
-                var sponsor =
+                var microsoft =
                     new Sponsor("Microsoft",
                                 "http://www.microsoft.com/presspass/images/gallery/logos/thumbnails/mslogo-1.gif",
                                 "http://microsoft.com/", "Bill", "Gates", "billg@microsoft.com", SponsorLevel.Platinum);
-                var sponsor2 =
-                    new Sponsor("Central Market", "http://www.centralmarket.com/images/about/cmILoveFood.jpg",
-                                "http://www.centralmarket.com/", "H. E.", "Butts", "owner@centralmarket.com", SponsorLevel.Gold);
+                
+                var visualsvn = new Sponsor("VisualSVN", "/content/images/sponsors/visualsvn.png", "http://www.visualsvn.com/",
+                                           "Visual", "SVN", "sales@visualsvn.com", SponsorLevel.Platinum);
 
-                codeCamp2008.AddSponsor(sponsor);
-                codeCamp2008.AddSponsor(sponsor2);
+                var centralmarket =
+                    new Sponsor("Central Market", "http://www.centralmarket.com/images/about/cmILoveFood.jpg",
+                                "http://www.centralmarket.com/", "H. E.", "Butts", 
+                                "owner@centralmarket.com", SponsorLevel.Gold);
+
+                codeCamp2008.AddSponsor(microsoft);
+                codeCamp2008.AddSponsor(centralmarket);
+                codeCamp2008.AddSponsor(visualsvn);
 
                 session.SaveOrUpdate(codeCamp2008);
                 transaction.Commit();

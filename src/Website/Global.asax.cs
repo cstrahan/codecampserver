@@ -7,7 +7,7 @@ using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
 using CodeCampServer.Model;
 using MvcContrib.Castle;
-using MvcContrib.ControllerFactories;
+using MvcContrib.ExtendedComponentController;
 
 namespace CodeCampServer.Website
 {
@@ -15,9 +15,11 @@ namespace CodeCampServer.Website
     {
         public const string WindsorConfigFilename = @"Windsor.config.xml";
 
-        private IWindsorContainer _container;
         private static readonly object _lockDummy = new object();
+        private IWindsorContainer _container;
         private bool _initiliazed;
+
+        #region IContainerAccessor Members
 
         public IWindsorContainer Container
         {
@@ -36,14 +38,18 @@ namespace CodeCampServer.Website
             }
         }
 
+        #endregion
+
         private void InitializeWindsor()
         {
             var configInterpreter = new XmlInterpreter(WindsorConfigFilename);
             _container = new WindsorContainer(configInterpreter);
             initializeComponents();
 
-            
-            ControllerBuilder.Current.SetControllerFactory(typeof(WindsorControllerFactory));
+
+            ControllerBuilder.Current.SetControllerFactory(typeof (WindsorControllerFactory));
+            ComponentControllerBuilder.Current.SetComponentControllerFactory(
+                new IoCComponentControllerFactory(new WindsorDependencyResolver(_container)));
 
             _initiliazed = true;
         }
@@ -52,18 +58,26 @@ namespace CodeCampServer.Website
         {
             Log.EnsureInitialized();
             InitializeWindsor();
-                        
+
             setupRoutes();
         }
 
         private void initializeComponents()
-        {            
-            _container.AddComponent("route-configurator", typeof (IRouteConfigurator), typeof (RouteConfigurator));                                    
+        {
+            _container.AddComponent("route-configurator", typeof (IRouteConfigurator), typeof (RouteConfigurator));
+
+            // TODO: windsor mass component registration
+            // http://www.kenegozi.com/Blog/2008/03/01/windsor-mass-component-registration.aspx
+            // http://mikehadlow.blogspot.com/2008/04/problems-with-mvc-framework.html
 
             //add all controllers
-            foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
+            foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
             {
-                if (typeof(IController).IsAssignableFrom(type))
+                if (typeof (IController).IsAssignableFrom(type))
+                {
+                    _container.AddComponentWithLifestyle(type.Name.ToLower(), type, LifestyleType.Transient);
+                }
+                if (typeof (ComponentController).IsAssignableFrom(type))
                 {
                     _container.AddComponentWithLifestyle(type.Name.ToLower(), type, LifestyleType.Transient);
                 }
@@ -75,5 +89,5 @@ namespace CodeCampServer.Website
             var configurator = _container.Resolve<IRouteConfigurator>();
             configurator.RegisterRoutes();
         }
-    }   
+    }
 }

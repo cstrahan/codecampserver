@@ -102,6 +102,13 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AuthenticationModule.cs" />
+    <Compile Include="Components\SponsorComponent\Views\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\SponsorComponent\Views\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdminOnlyAttribute.cs" />
     <Compile Include="Controllers\Controller.cs" />
@@ -115,6 +122,7 @@
     <Compile Include="Controllers\SponsorComponentController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\TrackController.cs" />
+    <Compile Include="Helpers\ComponentControllerBase.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\IoC.cs" />
     <Compile Include="Helpers\LinkHelpers.cs" />
@@ -201,6 +209,8 @@
     <Content Include="Windsor.config.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Components\SponsorComponent\Views\List.aspx" />
+    <Content Include="Content\images\sponsors\visualsvn.png" />
     <Content Include="Views\Layouts\Admin.Master" />
   </ItemGroup>
   <ItemGroup>

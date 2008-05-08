@@ -206,6 +206,7 @@ a:hover {
 
 #sidebar li li {
 	padding-left: 20px;
+	margin-bottom: 10px;
 	border-bottom: 1px dotted #7B9418;
 }
 
@@ -213,6 +214,10 @@ a:hover {
 	margin: 0;
 	padding: 5px 0 0 20px;
 	background: url(../images/TwoColumn/img06.jpg) no-repeat left 80%;
+}
+
+#sidebar a img {
+	border-style: none;
 }
 
 #sidebar a {

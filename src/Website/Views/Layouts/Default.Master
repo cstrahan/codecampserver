@@ -1,4 +1,5 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
+﻿<%@ Import Namespace="MvcContrib.UI.Html"%>
+<%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
 <%@ Import namespace="CodeCampServer.Website.Views"%>
 <%@ Import Namespace="CodeCampServer.Website.Helpers" %>
 <%@ Import namespace="CodeCampServer.Website.Controllers"%>
@@ -59,24 +60,8 @@
             <% } %>
             <p></p>
                    
-		    <ul>		        
+            <%= Html.RenderComponent2<SponsorComponentController>(x=>x.List(conferenceKey, SponsorLevel.Platinum)) %>
 		    
-			    <li>
-				    <h2>Gold Sponsors</h2>
-				    <ul>
-					    <li><a href="#">Microsoft</a></li>
-					    <li><a href="#">company XYZ</a></li>
-					    <li><a href="#">tech solutions inc.</a></li>					
-				    </ul>
-			    </li>
-			    <li>
-				    <h2>Platinum Sponsors</h2>
-				    <ul>
-					    <li><a href="#">geocities</a></li>
-					    <li><a href="#">another company</a></li>
-				    </ul>
-			    </li>
-		    </ul>
 	    </div>
     </div>
 	
