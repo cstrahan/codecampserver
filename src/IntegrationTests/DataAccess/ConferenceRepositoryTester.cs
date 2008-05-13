@@ -138,7 +138,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             IConferenceRepository repository = new ConferenceRepository(_sessionBuilder);
             repository.Save(conf);
             Assert.AreNotEqual(Guid.Empty, conf.Id, "Primary key should have been set");
-            using (ISession session = _sessionBuilder.GetSession(Database.Default))
+            using (ISession session = _sessionBuilder.GetSession())
             {
                 session.Clear();
                 Conference confFromDb = session.Get<Conference>(conf.Id);
@@ -154,7 +154,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             Sponsor sponsor = GetSponsor("test");
             conf.AddSponsor(sponsor);
             repository.Save(conf);
-            using (ISession session = _sessionBuilder.GetSession(Database.Default))
+            using (ISession session = _sessionBuilder.GetSession())
             {
                 session.Clear();
                 Conference confFromDb = session.Get<Conference>(conf.Id);
@@ -173,14 +173,14 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             conf.AddSponsor(sponsorToDelete);
             conf.AddSponsor(sponsorToKeep);
             repository.Save(conf);
-            using (ISession session = _sessionBuilder.GetSession(Database.Default))
+            using (ISession session = _sessionBuilder.GetSession())
             {
                 session.Clear();
                 Conference confFromDb = session.Get<Conference>(conf.Id);
                 confFromDb.RemoveSponsor(sponsorToDelete);
                 repository.Save(confFromDb);
             }
-            using (ISession session = _sessionBuilder.GetSession(Database.Default))
+            using (ISession session = _sessionBuilder.GetSession())
             {
                 session.Clear();
                 Conference confFromDb = session.Get<Conference>(conf.Id);
@@ -202,7 +202,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 
             Sponsor editedSponsor;
 
-            using (ISession session = _sessionBuilder.GetSession(Database.Default))
+            using (ISession session = _sessionBuilder.GetSession())
             {
                 session.Clear();
                 Conference confToEdit = session.Get<Conference>(conf.Id);
@@ -212,7 +212,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 repository.Save(confToEdit);
             }
 
-            using (ISession session = _sessionBuilder.GetSession(Database.Default))
+            using (ISession session = _sessionBuilder.GetSession())
             {
                 session.Clear();
                 Conference editedConf = session.Get<Conference>(conf.Id);

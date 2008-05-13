@@ -22,13 +22,13 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 
         public static void recreateDatabase(Database selectedDatabase)
         {
-            var exporter = new SchemaExport(_sessionBuilder.GetConfiguration(selectedDatabase));
+            var exporter = new SchemaExport(_sessionBuilder.GetConfiguration());
             exporter.Execute(false, true, false, true);
         }
 
         protected void resetSession()
         {
-            HybridSessionBuilder.ResetSession(Database.Default);
+            HybridSessionBuilder.ResetSession();
         }
     }
 }

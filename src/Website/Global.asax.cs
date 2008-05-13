@@ -6,6 +6,7 @@ using Castle.Core;
 using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
 using CodeCampServer.Model;
+using CodeCampServer.Website.Helpers;
 using MvcContrib.Castle;
 using MvcContrib.ExtendedComponentController;
 
@@ -13,7 +14,7 @@ namespace CodeCampServer.Website
 {
     public class Global : HttpApplication, IContainerAccessor
     {
-        public const string WindsorConfigFilename = @"Windsor.config.xml";
+        public const string WindsorConfigFilename = @"bin\Windsor.config.xml";
 
         private static readonly object _lockDummy = new object();
         private IWindsorContainer _container;
@@ -45,6 +46,7 @@ namespace CodeCampServer.Website
             var configInterpreter = new XmlInterpreter(WindsorConfigFilename);
             _container = new WindsorContainer(configInterpreter);
             initializeComponents();
+            IoC.InitializeWith(_container);
 
 
             ControllerBuilder.Current.SetControllerFactory(typeof (WindsorControllerFactory));

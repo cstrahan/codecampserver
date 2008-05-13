@@ -11,54 +11,45 @@ namespace CodeCampServer.DataAccess.Impl
 {
     public class HybridSessionBuilder : ISessionBuilder
     {
-        private readonly IDictionary<Database, ISessionFactory> _sessionFactories = new Dictionary<Database, ISessionFactory>();
+        private static ISessionFactory _sessionFactory;
         private static ISession _currentSession;
 
-        public ISession GetSession(Database selectedDatabase)
+        public ISession GetSession()
         {
-            ISessionFactory factory = getSessionFactory(selectedDatabase);
-        	ISession session = getExistingOrNewSession(factory);
-			Log.Debug(this, "Using ISession " + session.GetHashCode());
-			return session;
+            ISessionFactory factory = getSessionFactory();
+            ISession session = getExistingOrNewSession(factory);
+            Log.Debug(this, "Using ISession " + session.GetHashCode());
+            return session;
         }
 
-        private ISessionFactory getSessionFactory(Database selectedDatabase)
+        private ISessionFactory getSessionFactory()
         {
-            if(!_sessionFactories.ContainsKey(selectedDatabase))
+            if (_sessionFactory == null)
             {
-                Configuration configuration = GetConfiguration(selectedDatabase);
-                _sessionFactories.Add(selectedDatabase, configuration.BuildSessionFactory());
+                Configuration configuration = GetConfiguration();
+                _sessionFactory = configuration.BuildSessionFactory();
             }
 
-            return _sessionFactories[selectedDatabase];
+            return _sessionFactory;
         }
 
-        Configuration ISessionBuilder.GetConfiguration(Database selectedDatabase)
+        public Configuration GetConfiguration()
         {
-            Configuration configuration = GetConfiguration(selectedDatabase);
-            return configuration;
-        }
-
-        private static Configuration GetConfiguration(Database selectedDatabase)
-        {
-            string configFile = string.Format("nhibernate-{0}.cfg.xml", selectedDatabase.ToString().ToLower());
-        	string configPath = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
-        	                                 configFile);
             Configuration configuration = new Configuration();
-			configuration.Configure(configPath);
+            configuration.Configure();
             return configuration;
         }
 
         private ISession getExistingOrNewSession(ISessionFactory factory)
         {
-            if(HttpContext.Current != null)
+            if (HttpContext.Current != null)
             {
                 ISession session = GetExistingWebSession();
                 if (session == null)
                 {
                     session = openSessionAndAddToContext(factory);
                 }
-                else if(!session.IsOpen)
+                else if (!session.IsOpen)
                 {
                     session = openSessionAndAddToContext(factory);
                 }
@@ -66,11 +57,11 @@ namespace CodeCampServer.DataAccess.Impl
                 return session;
             }
 
-            if(_currentSession == null)
+            if (_currentSession == null)
             {
                 _currentSession = factory.OpenSession();
             }
-            else if(!_currentSession.IsOpen)
+            else if (!_currentSession.IsOpen)
             {
                 _currentSession = factory.OpenSession();
             }
@@ -91,10 +82,10 @@ namespace CodeCampServer.DataAccess.Impl
             return session;
         }
 
-        public static void ResetSession(Database selectedDatabase)
+        public static void ResetSession()
         {
             HybridSessionBuilder builder = new HybridSessionBuilder();
-            builder.GetSession(selectedDatabase).Dispose();
+            builder.GetSession().Dispose();
         }
     }
 }

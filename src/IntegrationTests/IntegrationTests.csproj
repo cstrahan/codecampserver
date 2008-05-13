@@ -83,14 +83,12 @@
     <Compile Include="Mappings\PersonMappingTester.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Website\Log4Net.config">
-      <Link>Log4Net.config</Link>
+    <Content Include="..\hibernate.cfg.xml">
+      <Link>hibernate.cfg.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\Website\nhibernate-default.cfg.xml">
-      <Link>nhibernate-default.cfg.xml</Link>
+    </Content>
+    <Content Include="..\Log4Net.config">
+      <Link>Log4Net.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

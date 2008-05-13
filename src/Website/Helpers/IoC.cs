@@ -18,7 +18,10 @@ namespace CodeCampServer.Website.Helpers
 
         private static void EnsureInitialized()
         {
-            if (_container == null) throw new InitializationException("You must initialize IoC before using it.");
+            if (_container == null)
+            {
+                throw new InitializationException("You must initialize IoC before using it.");
+            }
         }
 
         public static T Resolve<T>()

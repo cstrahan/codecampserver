@@ -13,7 +13,7 @@ namespace CodeCampServer.DataAccess.Impl
         
         protected ISession getSession()
         {
-            ISession session = _sessionBuilder.GetSession(Database.Default);
+            ISession session = _sessionBuilder.GetSession();
             return session;
         }
 

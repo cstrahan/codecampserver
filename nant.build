@@ -37,7 +37,7 @@
 	<target name="builddatabase" depends="config, init, drop-database, create-database" />
 
 	<target name="config" description="Generates necessary config files based on local settings">
-		<copy file="config\nhibernate-default.cfg.xml.template" tofile="src\website\nhibernate-default.cfg.xml">
+		<copy file="config\hibernate.cfg.xml.template" tofile="src\hibernate.cfg.xml">
 			<filterchain>
 				<replacetokens>
 					<token key="SERVER" value="${database.server}" />
