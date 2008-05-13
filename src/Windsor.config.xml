@@ -10,19 +10,19 @@
 		<component id="clock"
 				   service="CodeCampServer.Model.IClock, CodeCampServer.Model"
 				   type="CodeCampServer.Model.Impl.SystemClock, CodeCampServer.Model" />
-   
-    <component id="httpcontext-provider"
-               service="CodeCampServer.Website.IHttpContextProvider, CodeCampServer.Website"
-               type="CodeCampServer.Website.HttpContextProvider, CodeCampServer.Website" />               
+
+		<component id="httpcontext-provider"
+				   service="CodeCampServer.Website.IHttpContextProvider, CodeCampServer.Website"
+				   type="CodeCampServer.Website.HttpContextProvider, CodeCampServer.Website" />
 
 		<component id="session-builder"
 				       service="CodeCampServer.DataAccess.ISessionBuilder, CodeCampServer.DataAccess"
 				       type="CodeCampServer.DataAccess.Impl.HybridSessionBuilder, CodeCampServer.DataAccess"
 				       lifestyle="singleton" />
 
-    <component id="crypto-util"
-               service="CodeCampServer.Model.ICryptoUtil, CodeCampServer.Model"
-               type="CodeCampServer.Model.Impl.CryptoUtil, CodeCampServer.Model" />
+		<component id="crypto-util"
+				   service="CodeCampServer.Model.ICryptoUtil, CodeCampServer.Model"
+				   type="CodeCampServer.Model.Impl.CryptoUtil, CodeCampServer.Model" />
 
 		<!-- services -->
 		<component id="login-service"
@@ -71,10 +71,10 @@
 				   type="CodeCampServer.DataAccess.Impl.TimeSlotRepository, CodeCampServer.DataAccess"
 				   lifestyle="transient"/>
 
-    <component id="track-repository"
-				   service="CodeCampServer.Model.Domain.ITrackRepository, CodeCampServer.Model"
-				   type="CodeCampServer.DataAccess.Impl.TrackRepository, CodeCampServer.DataAccess"
-				   lifestyle="transient"/>
+		<component id="track-repository"
+					   service="CodeCampServer.Model.Domain.ITrackRepository, CodeCampServer.Model"
+					   type="CodeCampServer.DataAccess.Impl.TrackRepository, CodeCampServer.DataAccess"
+					   lifestyle="transient"/>
 
 	</components>
 </configuration>

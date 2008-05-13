@@ -59,6 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Database\Update\0001_Addwebuser.sql" />
+    <None Include="Database\Update\0002_MainTables.sql" />
+    <None Include="Database\Update\0003_ExtendPersonCommentColumn.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
