@@ -10,6 +10,8 @@
 	<property name="company.name" value="${project::get-name()}"/>
 	<property name="bin.dir" value="bin" />
 	<property name="build.base" value="build"/>
+	<property name="dir.publish" value="${build.base}\publish"/>
+	<property name="dir.package" value="${build.base}\package"/>
 	<property name="results.dir" value="${build.base}\results" />
 	<property name="version.major" value="1"/>
 	<property name="version.minor" value="0"/>
@@ -180,15 +182,74 @@
 		</nunit2>
 	</target>
 
-	<target name="package">
-		<zip zipfile="${build.base}/${project::get-name()}.zip" includeemptydirs="false" >
+	<target name="package" depends="config">
+		<copy todir="${dir.publish}\website" includeemptydirs="false">
 			<fileset basedir="${website.dir}">
 				<exclude name="**/*.cs"/>
 				<exclude name="**/*.csproj*"/>
 				<exclude name="**/obj/**"/>
 				<include name="**/*.*"/>
 			</fileset>
+		</copy>
+		<copy todir="${dir.publish}\database" includeemptydirs="false">
+			<fileset basedir="src\DataAccess\Database">
+				<include name="**/*.sql" />
+			</fileset>
+		</copy>
+		<copy todir="${dir.publish}\nant" includeemptydirs="false">
+			<fileset basedir="bin\nant">
+				<include name="**" />
+			</fileset>
+		</copy>
+		<copy file="nant.build" todir="${dir.publish}"/>
+		<copy todir="${dir.publish}">
+			<fileset basedir="deploy\">
+				<include name="**" />
+			</fileset>
+		</copy>
+
+		<xmlpoke
+			file="${dir.publish}\website\Web.config"
+			xpath="/configuration/system.web/trace/@enabled"
+			value="false" />
+
+		<delete file="${dir.package}/${project::get-name()}Package.zip" />
+		<mkdir dir="${dir.package}"/>
+		<zip zipfile="${dir.package}/${project::get-name()}Package.zip">
+			<fileset basedir="${dir.publish}">
+				<include name="**" />
+			</fileset>
 		</zip>
 	</target>
 
+	<target name="deploy">
+		<property name="database.script.directory" value="database" />
+
+		<call target="updateDatabase"/>
+
+		<delete dir="${dir.hosting}\website\" includeemptydirs="true"/>
+
+		<copy todir="${dir.hosting}\website" overwrite="true">
+			<fileset basedir="website">
+				<include name="**" />
+			</fileset>
+		</copy>
+
+
+		<echo message="deploy dir: ${dir.hosting}"/>
+		<xmlpoke
+			file="${dir.hosting}\website\Web.config"
+			xpath='/configuration/appSettings/add[@key="yourkey"]/@value'
+			value="yourvalue"
+		/>
+
+<!--		<xmlpoke file="${dir.hosting}\website\bin\hibernate.cfg.xml"-->
+<!--					 xpath="//*/hbm:property[@name='connection.connection_string']"-->
+<!--			 value="Data Source=${database.server};Initial Catalog=${database.name};User ID=${database.username};Password=${database.password}">-->
+<!--			<namespaces>-->
+<!--				<namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2" />-->
+<!--			</namespaces>-->
+<!--		</xmlpoke>-->
+
+	</target>
 </project>
