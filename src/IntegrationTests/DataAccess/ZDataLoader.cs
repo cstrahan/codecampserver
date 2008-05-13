@@ -26,10 +26,8 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 crypto.HashPassword(pwd, salt);
                 session.SaveOrUpdate(admin);
 
-                var codeCamp2008 = new Conference("austincodecamp2008", "Austin Code Camp 2008")
-                        {
-                            StartDate = new DateTime(2008, 11, 26, 19, 30, 00)
-                        };
+                var codeCamp2008 = new Conference("austincodecamp2008", "Austin Code Camp 2008");
+                codeCamp2008.StartDate = new DateTime(2008, 11, 26, 19, 30, 00);
 
                 var microsoft =
                     new Sponsor("Microsoft",
@@ -103,7 +101,6 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 
                 session.SaveOrUpdate(person1);
                 session.SaveOrUpdate(person2);                
-
                 session.SaveOrUpdate(codeCamp2008);
                 session.SaveOrUpdate(session1);
                 session.SaveOrUpdate(session2);
@@ -116,6 +113,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 session.SaveOrUpdate(slot2);
                 session.SaveOrUpdate(slot2_3break);
                 session.SaveOrUpdate(slot3);
+
                 transaction.Commit();
 
                 IConferenceService service = getConferenceService();
