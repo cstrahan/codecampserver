@@ -31,8 +31,8 @@ namespace CodeCampServer.Website.Controllers
         [DefaultAction]
         public ActionResult Details(string conferenceKey)
         {
-            Schedule conference = getScheduledConference(conferenceKey);
-            ViewData.Add(conference);
+            Schedule schedule = getScheduledConference(conferenceKey);
+            ViewData.Add(schedule);
 
             return RenderView();
         }

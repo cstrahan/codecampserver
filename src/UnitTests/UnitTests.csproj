@@ -121,6 +121,7 @@
     <Compile Include="Website\Controllers\SponsorControllerTester.cs" />
     <Compile Include="Website\HttpContextStub.cs" />
     <Compile Include="Website\ResponseWriteStub.cs" />
+    <Compile Include="Website\RoutesTester.cs" />
     <Compile Include="Website\ViewEngineStub.cs" />
     <Compile Include="Website\Views\ViewDataExtensionsTester.cs" />
   </ItemGroup>

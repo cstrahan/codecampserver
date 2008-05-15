@@ -48,8 +48,6 @@ namespace CodeCampServer.Website
             initializeComponents();
             IoC.InitializeWith(_container);
 
-
-            ControllerBuilder.Current.SetControllerFactory(typeof (WindsorControllerFactory));
             ComponentControllerBuilder.Current.SetComponentControllerFactory(
                 new IoCComponentControllerFactory(new WindsorDependencyResolver(_container)));
 
@@ -60,6 +58,7 @@ namespace CodeCampServer.Website
         {
             Log.EnsureInitialized();
             InitializeWindsor();
+            ControllerBuilder.Current.SetControllerFactory(typeof(WindsorControllerFactory));
 
             setupRoutes();
         }
