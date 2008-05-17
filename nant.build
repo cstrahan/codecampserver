@@ -34,9 +34,9 @@
 		<include buildfile="config\local-properties.xml" />
 	</if>
 
-	<target name="build" depends="config, clean, version, init, commonassemblyinfo, compile, move-for-test, rebuildDatabase, test"/>
+	<target name="build" depends="config, clean, version, init, commonassemblyinfo, compile, move-for-test, dropDatabase, createDatabase, test"/>
 	<target name="cruise" depends="config, build, package"/>
-	<target name="builddatabase" depends="config, init, rebuildDatabase" />
+	<target name="builddatabase" depends="config, init, dropDatabase, createDatabase" />
 
 	<target name="config" description="Generates necessary config files based on local settings">
 		<copy file="config\hibernate.cfg.xml.template" tofile="src\hibernate.cfg.xml">
