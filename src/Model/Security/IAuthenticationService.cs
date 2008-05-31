@@ -6,5 +6,6 @@ namespace CodeCampServer.Model.Security
 	{
 		void SignIn(Person person);
         string GetActiveUserName();
+	    void SignOut();
 	}
 }

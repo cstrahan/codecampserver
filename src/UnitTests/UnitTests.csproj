@@ -112,6 +112,7 @@
     <Compile Include="Website\ControllerContextStub.cs" />
     <Compile Include="Website\Controllers\AdminControllerTester.cs" />
     <Compile Include="Website\Controllers\ApplicationControllerTests.cs" />
+    <Compile Include="Website\Controllers\behaves_like_mock_test.cs" />
     <Compile Include="Website\Controllers\ConferenceControllerTester.cs" />
     <Compile Include="Website\Controllers\ScheduleControllerTester.cs" />
     <Compile Include="Website\Controllers\LoginControllerTester.cs" />

@@ -18,6 +18,7 @@ namespace CodeCampServer.Model.Domain
         private ISet<Sponsor> _sponsors = new HashedSet<Sponsor>();
         private ISet<Person> _attendees = new HashedSet<Person>();
         private ISet<Speaker> _speakers = new HashedSet<Speaker>();
+        private bool _publiclyVisible;
 
         public Conference()
         {
@@ -74,6 +75,12 @@ namespace CodeCampServer.Model.Domain
         {
             get { return _maxAttendees; }
             set { _maxAttendees = value; }
+        }
+
+        public virtual bool PubliclyVisible
+        {
+            get { return _publiclyVisible; }
+            set { _publiclyVisible = value; }
         }
 
         //public virtual TimeSlot AddTimeSlot(DateTime startTime, DateTime endTime, string purpose)

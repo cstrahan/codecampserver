@@ -4,6 +4,7 @@ using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Controllers;
 using NUnit.Framework;
+using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
@@ -24,17 +25,15 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         }
 
         [Test]
-        public void IndexActionLoadsConferences()
+        public void IndexActionRendersDefaultView()
         {
-            SetupResult.For(_authorizationService.IsAdministrator).Return(true);
-            Expect.Call(_conferenceRepository.GetAllConferences()).Return(new Conference[] {});
-
-            _mocks.ReplayAll();
-
             var controller = getController();
-            controller.Index();
+            var result = controller.Index() as RenderViewResult;
 
-            _mocks.VerifyAll();            
+            if(result == null) 
+                Assert.Fail("expected renderview");
+
+            Assert.That(result.ViewName, Is.Null);
         }
 
         private AdminController getController()

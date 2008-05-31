@@ -19,9 +19,10 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             {
                 var transaction = session.BeginTransaction();
 
+                
                 var admin = new Person("Admin", "", "admin@admin.com");                                
                 var pwd = "admin";
-                CryptoUtil crypto = new CryptoUtil();
+                var crypto = new CryptoUtil();
                 var salt = crypto.CreateSalt();
                 crypto.HashPassword(pwd, salt);
                 session.SaveOrUpdate(admin);

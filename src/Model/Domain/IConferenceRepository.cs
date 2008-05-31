@@ -12,5 +12,6 @@ namespace CodeCampServer.Model.Domain
 		Conference GetById(Guid id);
 		void Save(Conference conference);
 	    bool ConferenceExists(string name, string key);
+	    bool ConferenceKeyAvailable(string key);
 	}
 }

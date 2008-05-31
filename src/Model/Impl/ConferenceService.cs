@@ -42,11 +42,15 @@ namespace CodeCampServer.Model.Impl
         public Conference GetCurrentConference()
         {
             //try to get the next conference
-            Conference conf = _conferenceRepository.GetFirstConferenceAfterDate(_clock.GetCurrentTime());
+            var conf = _conferenceRepository.GetFirstConferenceAfterDate(_clock.GetCurrentTime());
 
-            //if there isn't one, get the most recent one
-            if (conf == null)
+            //if there isn't one (or if it isn't public yet), get the most recent one
+            if (conf == null || !conf.PubliclyVisible)
                 conf = _conferenceRepository.GetMostRecentConference(_clock.GetCurrentTime());
+
+            //if this one isn't public, can't return
+            if (!conf.PubliclyVisible)
+                return null;
 
             return conf;
         }	  

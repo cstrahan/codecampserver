@@ -8,6 +8,9 @@
   <property name="database.server" value="localhost\sqlexpress"/>
 	<property name="database.name" value="${project::get-name()}"/>
 	
+	<!-- deployment settings -->
+	<property name="dir.hosting" value="c:\codecampserver" />
+	
 	<!-- logging/debug settings -->
 	<property name="debug.show_sql" value="false" />
 	

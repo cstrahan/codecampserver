@@ -14,8 +14,9 @@ namespace CodeCampServer.Website.Controllers
 {
     public class ConferenceController : Controller
     {
-        private IClock _clock;
+        private readonly IClock _clock;
         private readonly IConferenceService _conferenceService;
+        private readonly IAuthorizationService _authService;
         private readonly IConferenceRepository _conferenceRepository;
 
         public ConferenceController(IConferenceRepository conferenceRepository,
@@ -25,16 +26,28 @@ namespace CodeCampServer.Website.Controllers
         {
             _conferenceRepository = conferenceRepository;
             _conferenceService = conferenceService;
+            _authService = authService;
             _clock = clock;
         }
 
         [DefaultAction]
         public ActionResult Details(string conferenceKey)
         {
-            Schedule schedule = getScheduledConference(conferenceKey);
+            var schedule = getScheduledConference(conferenceKey);
+
+            //if this conference is still hidden from the public, then only show it to administrators
+            if(!schedule.Conference.PubliclyVisible && !_authService.IsAdministrator)
+                return RedirectToAction("current");
+
             ViewData.Add(schedule);
 
             return RenderView();
+        }
+
+        public ActionResult KeyCheck(string conferenceKey)
+        {
+            var result = _conferenceRepository.ConferenceKeyAvailable(conferenceKey);
+            return new JsonResult( string.Format("{{{0}}}", result.ToString().ToLower()));
         }
 
         public ActionResult Current()
@@ -55,7 +68,7 @@ namespace CodeCampServer.Website.Controllers
 
         [AdminOnly]
         public ActionResult List()
-        {
+        {          
             var conferences = _conferenceRepository.GetAllConferences();
             ViewData.Add(conferences);
             return RenderView();
@@ -128,7 +141,7 @@ namespace CodeCampServer.Website.Controllers
                 TempData[TempDataKeys.Error] = "A conference has already been created with that name or key";
             }
 
-            var conf = new Conference(conf_key, conf_name) {StartDate = conf_start, EndDate = conf_start};
+            var conf = new Conference(conf_key, conf_name) {StartDate = conf_start, EndDate = conf_start, Description=conf_desc};
 
             try
             {
@@ -155,6 +168,7 @@ namespace CodeCampServer.Website.Controllers
                 return RedirectToAction("current", "conference");
             }
 
+            ViewData.Add(conference);
             return RenderView("edit");
         }
 

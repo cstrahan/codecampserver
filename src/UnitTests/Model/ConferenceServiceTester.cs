@@ -35,8 +35,8 @@ namespace CodeCampServer.UnitTests.Model
         [Test]
         public void RegisterAttendeeShouldAddAttendeeToConferenceAndSaveConference()
         {
-            ClockStub clockStub = new ClockStub(new DateTime(2008, 2, 15));
-            IConferenceService service = getService(clockStub);
+            var clockStub = new ClockStub(new DateTime(2008, 2, 15));
+            var service = getService(clockStub);
             var conference = _mocks.CreateMock<Conference>();
 
             Expect.Call(_cryptoUtil.CreateSalt()).Return(null);
@@ -52,25 +52,28 @@ namespace CodeCampServer.UnitTests.Model
 	    [Test]
 	    public void CurrentConferenceShouldGetNextUpcomingConferenceIfThereIsOneOtherwiseMostRecent()
 	    {	        
-            Conference oldConference = new Conference("old-conf", "old conference");
-            oldConference.StartDate = new DateTime(2007, 7, 1);
-	        Conference nextConference = new Conference("new-conf", "new conference");
-            oldConference.StartDate = new DateTime(2008, 10, 1);
+            var oldConference = new Conference("old-conf", "old conference") {StartDate = new DateTime(2007, 7, 1), PubliclyVisible=true};
+            var nextConference = new Conference("new-conf", "new conference") { StartDate = new DateTime(2008, 10, 1), PubliclyVisible = true };
 
-            Expect.Call(_conferenceRepository.GetFirstConferenceAfterDate(new DateTime())).IgnoreArguments()
+	        Expect.Call(_conferenceRepository.GetFirstConferenceAfterDate(new DateTime()))
+                .IgnoreArguments()
                 .Return(null);
-            Expect.Call(_conferenceRepository.GetMostRecentConference(new DateTime())).IgnoreArguments()
+
+            Expect.Call(_conferenceRepository.GetMostRecentConference(new DateTime()))
+                .IgnoreArguments()
                 .Return(oldConference);
-	        Expect.Call(_conferenceRepository.GetFirstConferenceAfterDate(new DateTime())).IgnoreArguments()
+	        
+            Expect.Call(_conferenceRepository.GetFirstConferenceAfterDate(new DateTime()))
+                .IgnoreArguments()
 	            .Return(nextConference);
 
             _mocks.ReplayAll();
 
-            ClockStub clockStub = new ClockStub(new DateTime(2008, 2, 15));
-	        IConferenceService service = getService(clockStub);
+            var clockStub = new ClockStub(new DateTime(2008, 2, 15));
+	        var service = getService(clockStub);
 	        
             //first one should not have a future conference
-            Conference conf = service.GetCurrentConference();
+            var conf = service.GetCurrentConference();
             Assert.That(conf, Is.EqualTo(oldConference));
 
             //this one should have a future conference

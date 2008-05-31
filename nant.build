@@ -2,7 +2,8 @@
 <!--EXTERNAL_PROPERTIES: usdDatabaseVersion-->
 <!--EXTERNAL_PROPERTIES: CCNetLabel-->
 <project name="CodeCampServer" default="build" xmlns="http://nant.sf.net/release/0.85/nant.xsd">
-	<property name="solution.dir" value="src"/>
+	<property name="solution.dir" value="src" />
+	<property name="config.dir" value="config" />
 	<property name="solution.file" value="${solution.dir}/${project::get-name()}.sln"/>
 	<property name="database.script.directory" value="${solution.dir}/DataAccess/Database"/>
 	<property name="website.dir" value="${solution.dir}/Website"/>
@@ -38,7 +39,7 @@
 	<target name="cruise" depends="config, build, package"/>
 	<target name="builddatabase" depends="config, init, dropDatabase, createDatabase" />
 
-	<target name="config" description="Generates necessary config files based on local settings">
+	<target name="config" description="Generates necessary config files based on local settings">    
 		<copy file="config\hibernate.cfg.xml.template" tofile="src\hibernate.cfg.xml">
 			<filterchain>
 				<replacetokens>
@@ -206,7 +207,7 @@
 			<fileset basedir="deploy\">
 				<include name="**" />
 			</fileset>
-		</copy>
+		</copy>		
 
 		<xmlpoke
 			file="${dir.publish}\website\Web.config"
@@ -237,11 +238,11 @@
 
 
 		<echo message="deploy dir: ${dir.hosting}"/>
-		<xmlpoke
+<!--		<xmlpoke
 			file="${dir.hosting}\website\Web.config"
 			xpath='/configuration/appSettings/add[@key="yourkey"]/@value'
 			value="yourvalue"
-		/>
+		/> -->
 
 <!--		<xmlpoke file="${dir.hosting}\website\bin\hibernate.cfg.xml"-->
 <!--					 xpath="//*/hbm:property[@name='connection.connection_string']"-->

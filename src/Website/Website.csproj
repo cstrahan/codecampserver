@@ -111,6 +111,7 @@
     <Compile Include="Controllers\AuthorizationFilterAttribute.cs" />
     <Compile Include="Controllers\CreateAdminAccountTask.cs" />
     <Compile Include="Controllers\ITask.cs" />
+    <Compile Include="Controllers\JsonResult.cs" />
     <Compile Include="Controllers\UrlRedirectResult.cs" />
     <Compile Include="Controllers\RequireLoginAttribute.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
@@ -217,6 +218,9 @@
       <Link>Log4Net.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\js\jquery.validate.min.js" />
+    <Content Include="Content\js\ui.datepicker.css" />
+    <Content Include="Content\js\ui.datepicker.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

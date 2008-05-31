@@ -14,6 +14,9 @@
     <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/style-2column.css") %>" />
     <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/master.css") %>" />
     <script type="text/javascript" src="<%= ResolveUrl("~/content/js/jquery.js") %>"></script>
+    <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/js/ui.datepicker.css") %>" />
+    <script type="text/javascript" src="<%= ResolveUrl("~/content/js/ui.datepicker.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/content/js/jquery.validate.min.js") %>"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -39,7 +42,8 @@
 	    </div>
 	    <div id="login">
 	        <%  if (Context.User.Identity.IsAuthenticated) { %>
-	        Logged in as: <%=Context.User.Identity.Name %>
+	        Logged in as: <%=Context.User.Identity.Name %><br />
+	        <%= Html.ActionLink<LoginController>(c=>c.Logout(), "Log out") %>
 	        <% } %>
 	    </div>
     </div>

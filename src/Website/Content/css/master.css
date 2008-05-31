@@ -19,6 +19,10 @@
 	padding:1px;
 }
 
+label.formError {
+	color: Red;
+}
+
 .notice
 {
 	margin: 10px;

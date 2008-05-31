@@ -16,6 +16,8 @@
     <property name="EndDate" />
     <property name="SponsorInfo" column="SponsorInfo" length="4000"/>
     <property name="MaxAttendees" type="Int32" not-null="true"/>
+    <property name="PubliclyVisible" not-null="true" />
+              
     <component name="Location" class="Location">
       <property name="Name" column="LocationName" length="25"/>
       <property name="Address1" length="50" />

@@ -4,8 +4,6 @@
 <div class="admin-panel">
     <h3>Administration</h3>
     <ul>
-        <li><%= Html.ActionLink<ConferenceController>(c=>c.List(), "Conferences") %></li>        
-        <li><%= Html.ActionLink<AdminController>(c=>c.Index(), "Site Admins") %></li>
-        
+        <%=Html.ActionLink<ConferenceController>(c=>c.List(), "Manage Conferences") %>
     </ul>
 </div>

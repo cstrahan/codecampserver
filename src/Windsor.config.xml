@@ -7,56 +7,56 @@
 
 	<components>
 		<!-- general -->
-		<component id="clock"
+		<component id="IClock"
 				   service="CodeCampServer.Model.IClock, CodeCampServer.Model"
 				   type="CodeCampServer.Model.Impl.SystemClock, CodeCampServer.Model" />
 
-		<component id="httpcontext-provider"
+		<component id="IHttpContextProvider"
 				   service="CodeCampServer.Website.IHttpContextProvider, CodeCampServer.Website"
 				   type="CodeCampServer.Website.HttpContextProvider, CodeCampServer.Website" />
 
-		<component id="session-builder"
+		<component id="ISessionBuilder"
 				       service="CodeCampServer.DataAccess.ISessionBuilder, CodeCampServer.DataAccess"
 				       type="CodeCampServer.DataAccess.Impl.HybridSessionBuilder, CodeCampServer.DataAccess"
 				       lifestyle="singleton" />
 
-		<component id="crypto-util"
+		<component id="ICryptoUtil"
 				   service="CodeCampServer.Model.ICryptoUtil, CodeCampServer.Model"
 				   type="CodeCampServer.Model.Impl.CryptoUtil, CodeCampServer.Model" />
 
 		<!-- services -->
-		<component id="login-service"
+		<component id="ILoginService"
 				   service="CodeCampServer.Model.Domain.ILoginService, CodeCampServer.Model"
 				   type="CodeCampServer.Model.Impl.LoginService, CodeCampServer.Model"
 				   lifestyle="transient" />
 
-		<component id="user-session"
+		<component id="IUserSession"
 				 service="CodeCampServer.Model.IUserSession, CodeCampServer.Model"
 				 type="CodeCampServer.Model.Impl.UserSession, CodeCampServer.Model"
 				 lifestyle="transient" />
 
-		<component id="authorization-service"
+		<component id="IAuthorizationService"
 				   service="CodeCampServer.Model.Security.IAuthorizationService, CodeCampServer.Model"
 				   type="CodeCampServer.Website.Security.AuthorizationService, CodeCampServer.Website"
 				   lifestyle="transient" />
 
-		<component id="authentication-service"
+		<component id="IAuthenticationService"
 				   service="CodeCampServer.Model.Security.IAuthenticationService, CodeCampServer.Model"
 				   type="CodeCampServer.Website.Security.AuthenticationService, CodeCampServer.Website"
 				   lifestyle="transient" />
 
-		<component id="conference-service"
+		<component id="IConferenceService"
 				   service="CodeCampServer.Model.IConferenceService, CodeCampServer.Model"
 				   type="CodeCampServer.Model.Impl.ConferenceService, CodeCampServer.Model"
 				   lifestyle="transient"/>
 
 		<!-- repositories -->
-		<component id="conference-repository"
+		<component id="IConferenceRepository"
 				   service="CodeCampServer.Model.Domain.IConferenceRepository, CodeCampServer.Model"
 				   type="CodeCampServer.DataAccess.Impl.ConferenceRepository, CodeCampServer.DataAccess"
 				   lifestyle="transient"/>
 
-		<component id="person-repository"
+		<component id="IPersonRepository"
 				   service="CodeCampServer.Model.Domain.IPersonRepository, CodeCampServer.Model"
 				   type="CodeCampServer.DataAccess.Impl.PersonRepository, CodeCampServer.DataAccess"
 				   lifestyle="transient"/>
@@ -66,12 +66,12 @@
 				   type="CodeCampServer.DataAccess.Impl.SessionRepository, CodeCampServer.DataAccess"
 				   lifestyle="transient"/>
 
-		<component id="timeslot-repository"
+		<component id="ITimeSlotRepository"
 				   service="CodeCampServer.Model.Domain.ITimeSlotRepository, CodeCampServer.Model"
 				   type="CodeCampServer.DataAccess.Impl.TimeSlotRepository, CodeCampServer.DataAccess"
 				   lifestyle="transient"/>
 
-		<component id="track-repository"
+		<component id="ITrackRepository"
 					   service="CodeCampServer.Model.Domain.ITrackRepository, CodeCampServer.Model"
 					   type="CodeCampServer.DataAccess.Impl.TrackRepository, CodeCampServer.DataAccess"
 					   lifestyle="transient"/>

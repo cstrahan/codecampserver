@@ -36,5 +36,10 @@ namespace CodeCampServer.Website.Security
         {
             return _httpContextProvider.GetCurrentHttpContext().User.Identity.Name;
         }
+
+	    public void SignOut()
+	    {
+	        FormsAuthentication.SignOut();
+	    }
 	}
 }

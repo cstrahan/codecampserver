@@ -11,8 +11,11 @@
     <title>Code Camp Server - Admin</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/style-2column.css") %>" />
-    <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/master.css") %>" />
+    <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/master.css") %>" />    
     <script type="text/javascript" src="<%= ResolveUrl("~/content/js/jquery.js") %>"></script>
+    <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/js/ui.datepicker.css") %>" />
+    <script type="text/javascript" src="<%= ResolveUrl("~/content/js/ui.datepicker.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/content/js/jquery.validate.min.js") %>"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>

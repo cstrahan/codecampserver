@@ -19,7 +19,7 @@ namespace CodeCampServer.UnitTests.Website
             Assert.That(routeData.GetRequiredString("action"), Is.EqualTo("details"));
             Assert.That(routeData.Values["conferenceKey"], Is.EqualTo("austincodecamp2008"));
         }
-
+     
         [Test]
         public void Login()
         {

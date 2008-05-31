@@ -31,12 +31,13 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _service = _mocks.CreateMock<IConferenceService>();
             _authService = _mocks.DynamicMock<IAuthorizationService>();
             _conferenceRepository = _mocks.DynamicMock<IConferenceRepository>();
-            _conference = new Conference("austincodecamp2008", "Austin Code Camp");
+            _conference = new Conference("austincodecamp2008", "Austin Code Camp") {PubliclyVisible=true};
         }
 
         [Test]
         public void ShouldGetConferenceToShowDetails()
         {
+
             SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008"))
                 .Return(_conference);
             _mocks.ReplayAll();
@@ -47,13 +48,15 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
             var actionResult = controller.Details("austincodecamp2008") as RenderViewResult;
 
-            Assert.That(actionResult, Is.Not.Null, "expected a renderview");
+            if(actionResult == null)
+                Assert.Fail("expected a renderview");
+
             Assert.That(actionResult.ViewName, Is.Null);
 
             var schedule = controller.ViewData.Get<Schedule>();
             Assert.That(schedule, Is.Not.Null);
             Assert.That(schedule.Conference, Is.EqualTo(_conference));
-        }
+        }        
 
         [Test]
         public void ListAsAdminShouldRenderListViewWithAllConferences()
@@ -66,7 +69,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             var controller = getController();
             var actionResult = controller.List() as RenderViewResult;
 
-            Assert.That(actionResult, Is.Not.Null, "expected RenderViewResult");
+            if(actionResult == null)
+                Assert.Fail("expected RenderViewResult");
             Assert.That(actionResult.ViewName, Is.Null);
 
             var actualConferences = controller.ViewData.Get<Conference[]>();
@@ -84,7 +88,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             var controller = getController();
             var actionResult = controller.PleaseRegister("austincodecamp2008") as RenderViewResult;
 
-            Assert.That(actionResult, Is.Not.Null, "expected a renderview");
+            if(actionResult == null) 
+                Assert.Fail("expected a renderview");
             Assert.That(actionResult.ViewName, Is.EqualTo("registerform"));
 
             var actualViewData = controller.ViewData.Get<Schedule>();
@@ -113,7 +118,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
                                                        "lastname", "email", "website", "comment", "password") as
                                    RenderViewResult;
 
-                Assert.That(actionResult, Is.Not.Null, "expected a renderview");
+                if(actionResult == null)
+                    Assert.Fail("expected a renderview");
                 Assert.That(actionResult.ViewName, Is.EqualTo("registerconfirm"));
 
                 var schedule = controller.ViewData.Get<Schedule>();
@@ -143,7 +149,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
             var actionResult = controller.ListAttendees("austincodecamp2008", 0, 2) as RenderViewResult;
 
-            Assert.That(actionResult, Is.Not.Null, "expected a renderview");
+            if(actionResult == null)
+                Assert.Fail("expected a renderview");
             Assert.That(actionResult.ViewName, Is.Null);
 
             var attendeeListings = controller.ViewData.Get<AttendeeListing[]>();
@@ -163,7 +170,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             var controller = getController();
             var actionResult = controller.New() as RenderViewResult;
 
-            Assert.That(actionResult, Is.Not.Null, "expected a renderview");
+            if(actionResult == null)
+                Assert.Fail("expected a renderview");
             Assert.That(controller.ViewData.Contains<Conference>());
             Assert.That(actionResult.ViewName.ToLower(), Is.EqualTo("edit"));
         }
@@ -213,6 +221,72 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
             return new ConferenceController(_conferenceRepository, _service, _authService, new ClockStub())
                        {TempData = new TempDataDictionary(fakeContext)};
+        }
+    }
+
+    [TestFixture]
+    public class when_requesting_conference_details_with_a_private_conference_as_anonymous_user : behaves_like_conference_controller_test
+    {
+        public override void Setup()
+        {
+            base.Setup();
+            SetupResult.For(_conferenceRepository.GetConferenceByKey(null)).IgnoreArguments().Return(
+                new Conference("test", "test") {PubliclyVisible = false}
+                );
+            SetupResult.For(_authService.IsAdministrator).Return(false);
+            _mocks.ReplayAll();
+        }  
+
+        [Test]
+        public void should_redirect_to_current_conference()
+        {
+            var result = _conferenceController.Details(null) as ActionRedirectResult;
+
+            if(result == null)
+                Assert.Fail("expected redirect");
+            Assert.That(result.Values["action"], Is.EqualTo("current"));
+        }
+    }
+
+    [TestFixture]
+    public class when_requesting_conference_details_with_a_private_conference_as_admin : behaves_like_conference_controller_test
+    {
+        public override void Setup()
+        {
+            base.Setup();
+            SetupResult.For(_conferenceRepository.GetConferenceByKey(null)).IgnoreArguments().Return(
+                new Conference("test", "test") { PubliclyVisible = false }
+                );
+            SetupResult.For(_authService.IsAdministrator).Return(true);
+            _mocks.ReplayAll();
+        }
+
+        [Test]
+        public void should_render_details_view()
+        {
+            var result = _conferenceController.Details(null) as RenderViewResult;
+
+            if (result == null)
+                Assert.Fail("expected renderview result");
+            Assert.That(result.ViewName, Is.Null, "should have rendered default view");
+        }
+    }
+
+    public abstract class behaves_like_conference_controller_test : behaves_like_mock_test
+    {
+        protected IConferenceService _service;
+        protected IAuthorizationService _authService;        
+        protected IConferenceRepository _conferenceRepository;
+        protected ConferenceController _conferenceController;
+
+        public override void Setup()
+        {
+            base.Setup();
+            _service = _mocks.DynamicMock<IConferenceService>();
+            _authService = _mocks.DynamicMock<IAuthorizationService>();
+            _conferenceRepository = _mocks.DynamicMock<IConferenceRepository>();
+
+            _conferenceController = new ConferenceController(_conferenceRepository, _service, _authService, new ClockStub());
         }
     }
 }

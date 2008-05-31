@@ -71,6 +71,12 @@ namespace CodeCampServer.Website.Controllers
             return RedirectToAction("index");
         }
 
+        public ActionResult Logout()
+        {
+            _authenticationService.SignOut();
+            return RedirectToAction("index", "home");
+        }
+
 	    private int getNumberOfUsers()
 	    {
 	        return _personRepository.GetNumberOfUsers();

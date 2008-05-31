@@ -1,8 +1,6 @@
 ﻿using System.Web.Mvc;
-using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
-using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.Website.Controllers
 {    
@@ -17,9 +15,7 @@ namespace CodeCampServer.Website.Controllers
         }
         
         public ActionResult Index()
-        {
-            var conferences = _conferenceRepository.GetAllConferences();
-            ViewData.Add(conferences);
+        {            
             return RenderView();
         }
         
