@@ -6,6 +6,11 @@ namespace CodeCampServer.Website.Views
 {
     public static class ViewDataExtensions
     {
+        public static bool ContainsDataItem(this ViewDataDictionary viewData, string key)
+        {
+            return viewData.ContainsKey(key);
+        }
+
         /// <summary>
         /// Adds an object using the type as the dictionary key
         /// </summary>
@@ -94,12 +99,12 @@ namespace CodeCampServer.Website.Views
 
         //ViewData extensions
 
-        public static T Get<T>(this ViewData bag)
+        public static T Get<T>(this ViewDataDictionary bag)
         {
             return bag.Get<T>(getKey(typeof(T)));
         }
 
-        public static T GetOrDefault<T>(this ViewData bag, string key, T defaultValue)
+        public static T GetOrDefault<T>(this ViewDataDictionary bag, string key, T defaultValue)
         {
             if (bag.ContainsDataItem(key))
                 return (T)bag[key];
@@ -107,7 +112,7 @@ namespace CodeCampServer.Website.Views
             return defaultValue;
         }
 
-        public static object Get(this ViewData bag, Type type)
+        public static object Get(this ViewDataDictionary bag, Type type)
         {
             if (!bag.ContainsDataItem(getKey(type)))
             {
@@ -118,17 +123,17 @@ namespace CodeCampServer.Website.Views
             return bag[getKey(type)];
         }
 
-        public static bool Contains<T>(this ViewData bag)
+        public static bool Contains<T>(this ViewDataDictionary bag)
         {
             return bag.ContainsDataItem(getKey(typeof(T)));
         }
 
-        public static bool Contains(this ViewData bag, Type keyType)
+        public static bool Contains(this ViewDataDictionary bag, Type keyType)
         {
             return bag.ContainsDataItem(getKey(keyType));
         }
 
-        public static T Get<T>(this ViewData bag, string key)
+        public static T Get<T>(this ViewDataDictionary bag, string key)
         {
             if (!bag.ContainsDataItem(key))
             {

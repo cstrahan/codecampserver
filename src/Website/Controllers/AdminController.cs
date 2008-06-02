@@ -16,12 +16,12 @@ namespace CodeCampServer.Website.Controllers
         
         public ActionResult Index()
         {            
-            return RenderView();
+            return View();
         }
         
         public ActionResult Schedule()
         {
-            return RenderView();
+            return View();
         }
     }
 }

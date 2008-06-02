@@ -46,7 +46,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
                                                       _service, _authService,
                                                       new ClockStub());
 
-            var actionResult = controller.Details("austincodecamp2008") as RenderViewResult;
+            var actionResult = controller.Details("austincodecamp2008") as ViewResult;
 
             if(actionResult == null)
                 Assert.Fail("expected a renderview");
@@ -67,10 +67,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _mocks.ReplayAll();
 
             var controller = getController();
-            var actionResult = controller.List() as RenderViewResult;
+            var actionResult = controller.List() as ViewResult;
 
             if(actionResult == null)
-                Assert.Fail("expected RenderViewResult");
+                Assert.Fail("expected ViewResult");
             Assert.That(actionResult.ViewName, Is.Null);
 
             var actualConferences = controller.ViewData.Get<Conference[]>();
@@ -86,7 +86,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _mocks.ReplayAll();
 
             var controller = getController();
-            var actionResult = controller.PleaseRegister("austincodecamp2008") as RenderViewResult;
+            var actionResult = controller.PleaseRegister("austincodecamp2008") as ViewResult;
 
             if(actionResult == null) 
                 Assert.Fail("expected a renderview");
@@ -116,7 +116,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             {
                 var actionResult = controller.Register("austincodecamp2008", "firstname",
                                                        "lastname", "email", "website", "comment", "password") as
-                                   RenderViewResult;
+                                   ViewResult;
 
                 if(actionResult == null)
                     Assert.Fail("expected a renderview");
@@ -147,7 +147,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
             _mocks.ReplayAll();
 
-            var actionResult = controller.ListAttendees("austincodecamp2008", 0, 2) as RenderViewResult;
+            var actionResult = controller.ListAttendees("austincodecamp2008", 0, 2) as ViewResult;
 
             if(actionResult == null)
                 Assert.Fail("expected a renderview");
@@ -168,7 +168,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         public void NewActionShouldRenderEditViewWithNewConference()
         {
             var controller = getController();
-            var actionResult = controller.New() as RenderViewResult;
+            var actionResult = controller.New() as ViewResult;
 
             if(actionResult == null)
                 Assert.Fail("expected a renderview");
@@ -240,7 +240,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         [Test]
         public void should_redirect_to_current_conference()
         {
-            var result = _conferenceController.Details(null) as ActionRedirectResult;
+            var result = _conferenceController.Details(null) as RedirectToRouteResult;
 
             if(result == null)
                 Assert.Fail("expected redirect");
@@ -264,7 +264,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         [Test]
         public void should_render_details_view()
         {
-            var result = _conferenceController.Details(null) as RenderViewResult;
+            var result = _conferenceController.Details(null) as ViewResult;
 
             if (result == null)
                 Assert.Fail("expected renderview result");

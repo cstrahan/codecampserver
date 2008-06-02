@@ -58,7 +58,7 @@ namespace CodeCampServer.Website
         {
             Log.EnsureInitialized();
             InitializeWindsor();
-            ControllerBuilder.Current.SetControllerFactory(typeof(WindsorControllerFactory));
+            ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(_container));
 
             setupRoutes();
         }

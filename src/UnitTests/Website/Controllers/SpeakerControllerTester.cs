@@ -38,7 +38,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         }
 
         [Test]
-        public void ShouldViewSpeakerByDisplayName()
+        public void ShouldViewSpeakerDetailsByDisplayName()
         {
             var speaker = getSpeaker();
             SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008"))
@@ -47,12 +47,12 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _mocks.ReplayAll();
 
             var controller = createSpeakerController();
-            var result = controller.View("austincodecamp2008", speaker.SpeakerKey) as RenderViewResult;
+            var result = controller.Details("austincodecamp2008", speaker.SpeakerKey) as ViewResult;
             var viewDataSpeakerProfile = controller.ViewData.Get<Speaker>();
 
             Assert.That(viewDataSpeakerProfile, Is.Not.Null);
             Assert.That(viewDataSpeakerProfile, Is.EqualTo(speaker));
-            Assert.That(result, Is.Not.Null, "Expected RenderViewResult, but was not");
+            Assert.That(result, Is.Not.Null, "Expected ViewResult, but was not");
             Assert.That(result.ViewName, Is.Null, "expected default view");
         }
 
@@ -68,7 +68,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _mocks.ReplayAll();
 
             var controller = createSpeakerController();
-            var actionResult = controller.Edit("conf123") as RenderViewResult;
+            var actionResult = controller.Edit("conf123") as ViewResult;
 
             Assert.That(actionResult, Is.Not.Null);
             Assert.That(actionResult.ViewName, Is.Null, "expected default view");
@@ -85,7 +85,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _mocks.ReplayAll();
 
             var controller = createSpeakerController();
-            var actionResult = controller.Edit("conf123") as ActionRedirectResult;
+            var actionResult = controller.Edit("conf123") as RedirectToRouteResult;
             
             Assert.That(actionResult, Is.Not.Null);
             Assert.That(actionResult.Values["controller"].ToString().ToLower(), Is.EqualTo("login"));
@@ -134,7 +134,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             using(_mocks.Playback())
             {
                 var controller = createSpeakerController();
-                var actionResult = controller.List("austinCodeCamp2008", 0, 0) as RenderViewResult;
+                var actionResult = controller.List("austinCodeCamp2008", 0, 0) as ViewResult;
 
                 Assert.That(actionResult, Is.Not.Null);
                 Assert.That(actionResult.ViewName, Is.Null, "expected default view");

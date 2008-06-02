@@ -63,7 +63,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _mocks.ReplayAll();
 
             var controller = createController(authorizationService);
-            var actionResult = controller.Index("austincodecamp2008") as RenderViewResult;
+            var actionResult = controller.Index("austincodecamp2008") as ViewResult;
 
             Assert.That(actionResult, Is.Not.Null);
             Assert.That(actionResult.ViewName, Is.EqualTo("View"));

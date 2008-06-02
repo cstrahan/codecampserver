@@ -28,7 +28,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         public void IndexActionRendersDefaultView()
         {
             var controller = getController();
-            var result = controller.Index() as RenderViewResult;
+            var result = controller.Index() as ViewResult;
 
             if(result == null) 
                 Assert.Fail("expected renderview");

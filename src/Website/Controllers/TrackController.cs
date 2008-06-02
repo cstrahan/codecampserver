@@ -29,7 +29,7 @@ namespace CodeCampServer.Website.Controllers
             ViewData.Add(new Schedule(conference, _clock, null, _trackRepository));
             ViewData.Add(tracks);
 
-            return RenderView();
+            return View();
         }
     }
 }

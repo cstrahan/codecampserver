@@ -1,18 +1,15 @@
-﻿using System.Web;
-using System.Web.Mvc;
-using CodeCampServer.Model;
-using CodeCampServer.Model.Domain;
+﻿using CodeCampServer.Model.Domain;
 using CodeCampServer.Website.Helpers;
 
 namespace CodeCampServer.Website.Controllers
 {
     public class SponsorComponentController : ComponentControllerBase
     {
-        private IConferenceRepository _conferenceRepository;
+        private readonly IConferenceRepository _conferenceRepository;
 
-        public SponsorComponentController(IConferenceRepository _conferenceRepository)
+        public SponsorComponentController(IConferenceRepository conferenceRepository)
         {
-            this._conferenceRepository = _conferenceRepository;
+            _conferenceRepository = conferenceRepository;
         }
 
         public void List(string key, SponsorLevel level)

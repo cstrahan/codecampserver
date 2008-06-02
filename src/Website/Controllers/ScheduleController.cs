@@ -33,7 +33,7 @@ namespace CodeCampServer.Website.Controllers
             var schedule = new Schedule(conference, _clock, _timeSlotRepository, _trackRepository);
             ViewData.Add(schedule);
             
-            return RenderView("View");
+            return View("View");
         }
     }
 }

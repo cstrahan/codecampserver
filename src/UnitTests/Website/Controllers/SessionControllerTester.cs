@@ -47,9 +47,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		    Expect.Call(_userSession.GetLoggedInPerson()).Return(expectedSpeaker.Person);
 		    _mocks.ReplayAll();
 
-		    var actionResult = controller.Create("austincodecamp2008") as RenderViewResult;
+		    var actionResult = controller.Create("austincodecamp2008") as ViewResult;
 
-            Assert.That(actionResult, Is.Not.Null, "expected RenderViewResult");
+            if(actionResult == null)
+                Assert.Fail("expected ViewResult");
 		    Assert.That(actionResult.ViewName, Is.Null);
 			Assert.That(controller.ViewData.Get<Speaker>(), Is.EqualTo(expectedSpeaker));
 
@@ -65,9 +66,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	        Expect.Call(_userSession.GetLoggedInPerson()).Return(null);
 	        _mocks.ReplayAll();
 
-	        var actionResult = controller.Create("austincodecamp2008") as ActionRedirectResult;
+	        var actionResult = controller.Create("austincodecamp2008") as RedirectToRouteResult;
 
-            Assert.That(actionResult, Is.Not.Null, "should have redirected");
+            if (actionResult == null)
+                Assert.Fail("should have redirected");
 	        Assert.That(actionResult.Values["Controller"], Is.EqualTo("login"));            
 		}
 
@@ -91,9 +93,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	        _mocks.ReplayAll();
 
 	        var actionResult =
-		        controller.CreateNew("austincodecamp2008", "test@aol.com", "title", "abstract") as RenderViewResult;
+		        controller.CreateNew("austincodecamp2008", "test@aol.com", "title", "abstract") as ViewResult;
 
-            Assert.That(actionResult, Is.Not.Null, "expected RenderViewResult");
+            if(actionResult == null)
+                Assert.Fail("expected ViewResult");
 
 		    Assert.That(actionResult.ViewName, Is.EqualTo("CreateConfirm"));
 			
@@ -118,9 +121,11 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_mocks.ReplayAll();
 
 		    var controller = createController();
-		    var actionResult = controller.Proposed("austincodecamp2008") as RenderViewResult;
+		    var actionResult = controller.Proposed("austincodecamp2008") as ViewResult;
 
-            Assert.That(actionResult, Is.Not.Null, "expected RenderViewResult");
+            if (actionResult == null)
+                Assert.Fail("expected ViewResult");
+
 		    Assert.That(actionResult.ViewName, Is.Null);			
 			Assert.That(controller.ViewData.Get<IEnumerable<Session>>(), Is.SameAs(sessions));
 		}

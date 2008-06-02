@@ -5,7 +5,7 @@
 <h2>Platinum Sponsors</h2>
 <ul>
 
-<% foreach (var sponsor in ViewData) { %>
+<% foreach (var sponsor in ViewData.Model) { %>
 
 <li>
 

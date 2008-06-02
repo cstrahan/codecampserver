@@ -5,10 +5,9 @@ namespace CodeCampServer.Website.Helpers
     public class ComponentControllerBase : ComponentController
     {
         public ComponentControllerBase()
-            : base()
         {
         }
-
+        
         public ComponentControllerBase(ViewContext viewContext)
             : base(viewContext)
         {

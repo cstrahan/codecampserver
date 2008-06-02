@@ -49,7 +49,7 @@ namespace CodeCampServer.Model.Impl
                 conf = _conferenceRepository.GetMostRecentConference(_clock.GetCurrentTime());
 
             //if this one isn't public, can't return
-            if (!conf.PubliclyVisible)
+            if (conf == null || !conf.PubliclyVisible)
                 return null;
 
             return conf;

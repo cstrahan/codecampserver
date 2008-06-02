@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using System.Web.Routing;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Exceptions;
@@ -40,15 +39,15 @@ namespace CodeCampServer.Website.Controllers
             ViewData.Add("page", effectivePage);
             ViewData.Add("perPage", effectivePerPage);
 
-            return RenderView();
+            return View();
         }
 
-        public ActionResult View(string conferenceKey, string speakerId)
+        public ActionResult Details(string conferenceKey, string speakerId)
         {
             var conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
             var speaker = conference.GetSpeakerByKey(speakerId);
             ViewData.Add(speaker);
-            return RenderView();
+            return View();
         }
 
         [RequireLogin]
@@ -64,10 +63,10 @@ namespace CodeCampServer.Website.Controllers
             if (speaker != null)
             {
                 ViewData.Add(speaker);
-                return RenderView();
+                return View();
             }
-                        
-            return RedirectToAction(new RouteValueDictionary(new { Controller = "login", Action = "Index" }));
+
+            return RedirectToAction("index", "login");
         }
         
         [RequireLogin]
@@ -81,7 +80,7 @@ namespace CodeCampServer.Website.Controllers
                 conference.AddSpeaker(person, speakerKey, bio, avatarUrl);                
 
                 TempData[TempDataKeys.Message] = "Profile saved";
-                return RedirectToAction(new RouteValueDictionary(new { Action = "view", conferenceKey, speakerId = speakerKey }));
+                return RedirectToAction("view", new { conferenceKey=conferenceKey, speakerId = speakerKey });
             }
             catch (DataValidationException ex)
             {

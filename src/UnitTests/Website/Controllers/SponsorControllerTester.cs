@@ -48,7 +48,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
             var controller = GetController();
 
-            var actionResult = controller.Delete(_conference.Key, "name") as RenderViewResult;
+            var actionResult = controller.Delete(_conference.Key, "name") as ViewResult;
 
             Assert.That(controller.ViewData.Contains<Sponsor[]>());
             
@@ -69,7 +69,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _mocks.ReplayAll();
 
             var controller = GetController();
-            var actionResult = controller.Edit("austincodecamp2008", "test") as RenderViewResult;
+            var actionResult = controller.Edit("austincodecamp2008", "test") as ViewResult;
 
             var viewDataSponsor = controller.ViewData.Get<Sponsor>();
             Assert.That(viewDataSponsor, Is.Not.Null);
@@ -85,7 +85,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _mocks.ReplayAll();
 
             var controller = GetController();
-            var actionResult = controller.Edit("austincodecamp2008", null) as ActionRedirectResult;
+            var actionResult = controller.Edit("austincodecamp2008", null) as RedirectToRouteResult;
 
             Assert.That(actionResult, Is.Not.Null, "Should have returned action");            
             Assert.That(actionResult.Values["action"].ToString().ToLower(), Is.EqualTo("list"));
@@ -102,10 +102,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         public void NewActionShouldRenderEditViewWithNewSponsor()
         {
             var controller = GetController();
-            var actionResult = controller.New(_conference.Key) as RenderViewResult;
+            var actionResult = controller.New(_conference.Key) as ViewResult;
 
             Assert.That(controller.ViewData.Contains<Sponsor>());
-            Assert.That(actionResult, Is.Not.Null, "should have returned RenderViewResult");
+            Assert.That(actionResult, Is.Not.Null, "should have returned ViewResult");
             Assert.That(actionResult.ViewName, Is.EqualTo("Edit"));
         }
 
@@ -122,10 +122,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
             var controller = GetController();
             var actionResult = controller.Save(_conference.Key, "name", "edited name", "Gold", "", "", "", "", "")
-                as ActionRedirectResult;
+                as RedirectToRouteResult;
 
             //check redirect
-            Assert.That(actionResult, Is.Not.Null, "Should have returned ActionRedirectResult");
+            Assert.That(actionResult, Is.Not.Null, "Should have returned RedirectToRouteResult");
             Assert.That(actionResult.Values["action"], Is.EqualTo("list"));
 
             //check success message
@@ -145,9 +145,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _mocks.ReplayAll();
 
             var controller = GetController();
-            var actionResult = controller.List("austincodecamp2008") as RenderViewResult;
+            var actionResult = controller.List("austincodecamp2008") as ViewResult;
 
-            Assert.That(actionResult, Is.Not.Null, "should have returned RenderViewResult");
+            Assert.That(actionResult, Is.Not.Null, "should have returned ViewResult");
             Assert.That(actionResult.ViewName, Is.Null);
 
             Assert.That(controller.ViewData, Is.Not.Null);

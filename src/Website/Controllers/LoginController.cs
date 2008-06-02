@@ -28,7 +28,7 @@ namespace CodeCampServer.Website.Controllers
 		    var numberOfUsers = getNumberOfUsers();            
 		    ViewData["ShowFirstTimeRegisterLink"] = (numberOfUsers == 0);            
 
-			return RenderView("loginform");
+			return View("loginform");
 		}
 
 	    public ActionResult Process(string email, string password, string redirectUrl)

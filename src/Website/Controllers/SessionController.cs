@@ -32,15 +32,13 @@ namespace CodeCampServer.Website.Controllers
 		    var speaker = getLoggedInSpeaker(conferenceKey);
             if (speaker == null)
             {                
-                return RedirectToAction( new {
-                    controller = "login",
-                    action = "index",
+                return RedirectToAction( "index", "login", new { 
                     redirectUrl = ControllerContext.HttpContext.Request.Url.PathAndQuery
                 });
             }
 			
 		    ViewData.Add(speaker);
-			return RenderView();
+			return View();
 		}
 
         //TODO:  change this action to just be 'create'
@@ -53,7 +51,7 @@ namespace CodeCampServer.Website.Controllers
 		    var session = _sessionService.CreateSession(null, person, title, @abstract, null);
 			ViewData.Add(session);
 
-            return RenderView("CreateConfirm");
+            return View("CreateConfirm");
 		}
         
 	    public ActionResult Proposed(string conferenceKey)
@@ -63,7 +61,7 @@ namespace CodeCampServer.Website.Controllers
 			ViewData.Add(conference);
 			ViewData.Add(sessions);
 
-			return RenderView();
+			return View();
 		}
 
 	    private Speaker getLoggedInSpeaker(string conferenceKey)

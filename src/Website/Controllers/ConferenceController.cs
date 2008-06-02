@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Web.Routing;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Presentation;
@@ -41,7 +40,7 @@ namespace CodeCampServer.Website.Controllers
 
             ViewData.Add(schedule);
 
-            return RenderView();
+            return View();
         }
 
         public ActionResult KeyCheck(string conferenceKey)
@@ -59,11 +58,7 @@ namespace CodeCampServer.Website.Controllers
             if (conference == null)
                 return RedirectToAction("index", "admin");
 
-            return RedirectToAction(
-                new RouteValueDictionary(
-                    new {controller = "conference", action = "details", conferenceKey = conference.Key}
-                    )
-                );
+            return RedirectToAction("details", "conference", new {conferenceKey = conference.Key});
         }
 
         [AdminOnly]
@@ -71,14 +66,14 @@ namespace CodeCampServer.Website.Controllers
         {          
             var conferences = _conferenceRepository.GetAllConferences();
             ViewData.Add(conferences);
-            return RenderView();
+            return View();
         }
 
         public ActionResult PleaseRegister(string conferenceKey)
         {
             var conference = getScheduledConference(conferenceKey);
             ViewData.Add(conference);
-            return RenderView("registerform");
+            return View("registerform");
         }
 
         public ActionResult Register(string conferenceKey, string firstName, string lastName, string email,
@@ -94,13 +89,13 @@ namespace CodeCampServer.Website.Controllers
 
                 //sign them in
                 ViewData.Add(person).Add(new Schedule(conference, _clock, null, null));
-                return RenderView("registerconfirm");
+                return View("registerconfirm");
             }
             catch (Exception exc)
             {
                 TempData[TempDataKeys.Error] = "An error occurred while registering your account.";
                 Log.Error(this, "An error occcurred while registering a user", exc);
-                return RenderView("pleaseregister");
+                return View("pleaseregister");
             }
         }
 
@@ -121,14 +116,14 @@ namespace CodeCampServer.Website.Controllers
                 .Add(new Schedule(conference, _clock, null, null))
                 .Add(listings);
 
-            return RenderView();
+            return View();
         }
 
         [AdminOnly]
         public ActionResult New()
         {
             ViewData.Add(new Conference());
-            return RenderView("edit");
+            return View("edit");
         }
 
         [AdminOnly]
@@ -154,7 +149,7 @@ namespace CodeCampServer.Website.Controllers
                 Log.Error("Error saving conference.", exc);
                 TempData[TempDataKeys.Error] = "There was an error saving the conference.  The error was: " + exc;
                 ViewData.Add("conference", conf);
-                return RenderView("edit");
+                return View("edit");
             }
         }
 
@@ -169,7 +164,7 @@ namespace CodeCampServer.Website.Controllers
             }
 
             ViewData.Add(conference);
-            return RenderView("edit");
+            return View("edit");
         }
 
         private Conference getConferenceByKey(string conferenceKey)

@@ -9,15 +9,10 @@ namespace CodeCampServer.Website.Helpers
         public static ActionResult RedirectToLogin(HttpRequestBase request)
         {
             var url = request.Url.PathAndQuery;
-            return new ActionRedirectResult(
-                new RouteValueDictionary(new
-                                             {
-                                                 controller = "login",
-                                                 action = "index",
-                                                 redirectUrl = url
-                                             }
-                    )
-                );
+
+            return new RedirectToRouteResult(new RouteValueDictionary(new {
+                controller = "login", action = "index", redirectUrl = url
+            }));
         }
     }
 }

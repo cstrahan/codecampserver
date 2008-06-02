@@ -52,9 +52,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             LoginController controller = getController();
             _mocks.ReplayAll();
 
-            var actionResult = controller.CreateAdminAccount("fname", "lname", null, null, null) as ActionRedirectResult;
+            var actionResult = controller.CreateAdminAccount("fname", "lname", null, null, null) as RedirectToRouteResult;
 
-            if(actionResult == null) Assert.Fail("expected action redirect result");
+            if(actionResult == null) 
+                Assert.Fail("expected action redirect result");
             Assert.That(controller.TempData["error"], Is.Not.Null);
             Assert.That(actionResult, Is.Not.Null, "should have redirected");
             Assert.That(actionResult.Values["action"], Is.EqualTo("index"));
@@ -98,7 +99,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         public void LoginActionShouldRenderIndexView()
         {
             var controller = getController();
-            var actionResult = controller.Index() as RenderViewResult;
+            var actionResult = controller.Index() as ViewResult;
 
             if(actionResult == null) Assert.Fail("a view should have been rendered");
             Assert.That(actionResult.ViewName, Is.EqualTo("loginform"));
@@ -125,9 +126,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             LoginController controller = getController();
             _mocks.ReplayAll();
 
-            var actionResult = controller.Process("brownie@brownie.com.au", "password", null) as ActionRedirectResult;
+            var actionResult = controller.Process("brownie@brownie.com.au", "password", null) as RedirectToRouteResult;
             
-            if(actionResult == null) Assert.Fail("expected actionredirectresult");
+            if(actionResult == null) Assert.Fail("expected RedirectToRouteResult");
             
             Assert.That(actionResult.Values["controller"].ToString().ToLower(), Is.EqualTo("conference"));
             Assert.That(actionResult.Values["action"].ToString().ToLower(), Is.EqualTo("current"));
@@ -143,7 +144,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
             _mocks.ReplayAll();
 
-            var actionResult = controller.Process(email, password, "") as ActionRedirectResult;
+            var actionResult = controller.Process(email, password, "") as RedirectToRouteResult;
 
             if(actionResult == null) Assert.Fail("should have redirected to an action");
             Assert.That(actionResult.Values["action"], Is.EqualTo("index"));
@@ -186,7 +187,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         [Test]
         public void should_redirect_to_home_page()
         {
-            var result = _loginController.Logout() as ActionRedirectResult;
+            var result = _loginController.Logout() as RedirectToRouteResult;
             if(result == null)
                 Assert.Fail("Expected a redirect result");
             

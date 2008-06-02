@@ -57,10 +57,10 @@ Title="CodeCampServer - Login" %>
 		    <legend>Login</legend>
 		    
 		    <label for='email'>Email</label>
-		    <%=Html.TextBox("email", 50, 100) %>
+		    <%=Html.TextBox("email", new { size=50, maxlength=100 }) %>
 		    
 		    <label for="password">Password</label>
-		    <%=Html.Password("password", 50) %>
+		    <%=Html.Password("password", new { size = 50, maxlength = 100 })%>
 		    
 		    <div class="button-row">
 		    <%=Html.SubmitButton("Login") %>

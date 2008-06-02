@@ -26,7 +26,7 @@ namespace CodeCampServer.Website.Controllers
         public ActionResult New(string conferenceKey)
         {
             ViewData.Add(new Sponsor());
-            return RenderView("Edit");
+            return View("Edit");
         }
 
         [AdminOnly]
@@ -42,7 +42,7 @@ namespace CodeCampServer.Website.Controllers
             
             var sponsors = conference.GetSponsors();
             ViewData.Add(sponsors);
-            return RenderView("List");
+            return View("List");
         }
 
 
@@ -51,7 +51,7 @@ namespace CodeCampServer.Website.Controllers
             var conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
             var sponsors = conference.GetSponsors();
             ViewData.Add(sponsors);
-            return RenderView();
+            return View();
         }
 
         [AdminOnly]
@@ -62,7 +62,7 @@ namespace CodeCampServer.Website.Controllers
             if (sponsor != null)
             {
                 ViewData.Add(sponsor);
-                return RenderView();
+                return View();
             }            
             
             return RedirectToAction("List");
