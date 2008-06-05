@@ -253,6 +253,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>xcopy /y "..\..\DataAccess\bin\$(ConfigurationName)\*.dll" .\</PostBuildEvent>
+    <PostBuildEvent>xcopy /y "..\..\DataAccess\bin\$(ConfigurationName)\*.dll" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
 </Project>
