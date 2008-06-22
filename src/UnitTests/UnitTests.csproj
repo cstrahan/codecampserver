@@ -105,6 +105,7 @@
     <Compile Include="Model\Presentation\ScheduleListingTester.cs" />
     <Compile Include="Model\Presentation\ScheduledConferenceTester.cs" />
     <Compile Include="Model\UserSessionTester.cs" />
+    <Compile Include="NUnitSpecExtensions.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="TestHelperExtensions.cs" />
     <Compile Include="Website\ControllerContextStub.cs" />
