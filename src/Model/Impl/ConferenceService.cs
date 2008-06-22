@@ -6,13 +6,13 @@ namespace CodeCampServer.Model.Impl
 	public class ConferenceService : IConferenceService
 	{
 		private readonly IConferenceRepository _conferenceRepository;
-	    private readonly ICryptoUtil _cryptoUtil;
+	    private readonly ICryptographer _cryptographer;
 	    private readonly IClock _clock;
 
-		public ConferenceService(IConferenceRepository conferenceRepository, ICryptoUtil cryptoUtil, IClock clock)
+		public ConferenceService(IConferenceRepository conferenceRepository, ICryptographer cryptographer, IClock clock)
 		{
 			_conferenceRepository = conferenceRepository;
-		    _cryptoUtil = cryptoUtil;
+		    _cryptographer = cryptographer;
 		    _clock = clock;
 		}
 
@@ -23,8 +23,8 @@ namespace CodeCampServer.Model.Impl
 		
 		public Person RegisterAttendee(string firstName, string lastName, string emailAddress, string website, string comment, Conference conference, string cleartextPassword)
 		{
-		    var passwordSalt = _cryptoUtil.CreateSalt();
-			var encryptedPassword = _cryptoUtil.HashPassword(cleartextPassword, passwordSalt);
+		    var passwordSalt = _cryptographer.CreateSalt();
+			var encryptedPassword = _cryptographer.HashPassword(cleartextPassword, passwordSalt);
 
             var person = new Person(firstName, lastName, emailAddress)
                              {

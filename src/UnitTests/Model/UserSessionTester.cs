@@ -17,7 +17,7 @@ namespace CodeCampServer.UnitTests.Model
 		{
 			var currentUser = new Person();
 			var mocks = new MockRepository();
-			var service = mocks.CreateMock<IAuthenticationService>();
+			var service = mocks.CreateMock<IAuthenticator>();
 			var personRepository = mocks.CreateMock<IPersonRepository>();
 			SetupResult.For(service.GetActiveIdentity()).Return(new GenericIdentity("foo"));
 			SetupResult.For(personRepository.FindByEmail("foo")).Return(currentUser);
@@ -32,7 +32,7 @@ namespace CodeCampServer.UnitTests.Model
 		public void GetLoggedInSpeakerReturnsNullOnNoUser()
 		{
 			var mocks = new MockRepository();
-			var authService = mocks.CreateMock<IAuthenticationService>();
+			var authService = mocks.CreateMock<IAuthenticator>();
 			var personRepository = mocks.CreateMock<IPersonRepository>();
 
 			IUserSession userSession = new UserSession(authService, personRepository);

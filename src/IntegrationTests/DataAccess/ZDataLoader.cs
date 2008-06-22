@@ -123,7 +123,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 		{
 			return new ConferenceService(
 				new ConferenceRepository(new HybridSessionBuilder()),
-				new CryptoUtil(),
+				new Cryptographer(),
 				new SystemClock()
 				);
 		}
@@ -145,7 +145,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 
 		private static void SetPassword(Person person, string password)
 		{
-			var cryptographyService = new CryptoUtil();
+			var cryptographyService = new Cryptographer();
 			person.PasswordSalt = cryptographyService.CreateSalt();
 			person.Password = cryptographyService.HashPassword(password, person.PasswordSalt);
 		}

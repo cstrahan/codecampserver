@@ -11,13 +11,13 @@ namespace CodeCampServer.Website.Controllers
 		private readonly string _email;
 		private readonly string _password;
 		private readonly string _passwordConfirm;
-		private readonly ICryptoUtil _cryptoUtil;
+		private readonly ICryptographer _cryptographer;
 
-		public CreateAdminAccountTask(IPersonRepository repository, ICryptoUtil cryptoUtil, string name, string lastName,
+		public CreateAdminAccountTask(IPersonRepository repository, ICryptographer cryptographer, string name, string lastName,
 		                              string email, string password, string passwordConfirm)
 		{
 			_repository = repository;
-			_cryptoUtil = cryptoUtil;
+			_cryptographer = cryptographer;
 			_firstName = name;
 			_lastName = lastName;
 			_email = email;
@@ -30,8 +30,8 @@ namespace CodeCampServer.Website.Controllers
 			if (!Validate()) return;
 
 			var person = new Person(_firstName, _lastName, _email);
-			person.PasswordSalt = _cryptoUtil.CreateSalt();
-			person.Password = _cryptoUtil.HashPassword(_password, person.PasswordSalt);
+			person.PasswordSalt = _cryptographer.CreateSalt();
+			person.Password = _cryptographer.HashPassword(_password, person.PasswordSalt);
 			person.IsAdministrator = true;
 
 			_repository.Save(person);

@@ -1,6 +1,6 @@
 namespace CodeCampServer.Model
 {
-    public interface ICryptoUtil
+    public interface ICryptographer
     {
         string CreateSalt();
         string HashPassword(string pwd, string salt);

@@ -130,7 +130,7 @@
     <Compile Include="IHttpContextProvider.cs" />
     <Compile Include="IRouteConfigurator.cs" />
     <Compile Include="Controllers\SessionController.cs" />
-    <Compile Include="Security\AuthenticationService.cs" />
+    <Compile Include="Security\Authenticator.cs" />
     <Compile Include="Controllers\ConferenceController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">

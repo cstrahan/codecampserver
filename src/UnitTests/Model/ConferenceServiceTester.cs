@@ -15,7 +15,7 @@ namespace CodeCampServer.UnitTests.Model
 		private IConferenceRepository _conferenceRepository;
 		private IPersonRepository _personRepository;
 		private IUserSession _userSession;
-		private ICryptoUtil _cryptoUtil;
+		private ICryptographer _cryptographer;
 
 		[SetUp]
 		public void Setup()
@@ -24,12 +24,12 @@ namespace CodeCampServer.UnitTests.Model
 			_conferenceRepository = _mocks.CreateMock<IConferenceRepository>();
 			_personRepository = _mocks.CreateMock<IPersonRepository>();
 			_userSession = _mocks.DynamicMock<IUserSession>();
-			_cryptoUtil = _mocks.DynamicMock<ICryptoUtil>();
+			_cryptographer = _mocks.DynamicMock<ICryptographer>();
 		}
 
 		private IConferenceService getService(IClock clock)
 		{
-			return new ConferenceService(_conferenceRepository, _cryptoUtil, clock);
+			return new ConferenceService(_conferenceRepository, _cryptographer, clock);
 		}
 
 		[Test]
@@ -39,7 +39,7 @@ namespace CodeCampServer.UnitTests.Model
 			IConferenceService service = getService(clockStub);
 			var conference = _mocks.CreateMock<Conference>();
 
-			Expect.Call(_cryptoUtil.CreateSalt()).Return(null);
+			Expect.Call(_cryptographer.CreateSalt()).Return(null);
 			Expect.Call(() => conference.AddAttendee(null)).IgnoreArguments();
 			Expect.Call(() => _conferenceRepository.Save(conference));
 			_mocks.ReplayAll();

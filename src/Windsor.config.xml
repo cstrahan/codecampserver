@@ -20,9 +20,9 @@
 				       type="CodeCampServer.DataAccess.Impl.HybridSessionBuilder, CodeCampServer.DataAccess"
 				       lifestyle="singleton" />
 
-		<component id="ICryptoUtil"
-				   service="CodeCampServer.Model.ICryptoUtil, CodeCampServer.Model"
-				   type="CodeCampServer.Model.Impl.CryptoUtil, CodeCampServer.Model" />
+		<component id="ICryptographer"
+				   service="CodeCampServer.Model.ICryptographer, CodeCampServer.Model"
+				   type="CodeCampServer.Model.Impl.Cryptographer, CodeCampServer.Model" />
 
 		<!-- services -->
 		<component id="IUserSession"
@@ -30,9 +30,9 @@
 				 type="CodeCampServer.Model.Impl.UserSession, CodeCampServer.Model"
 				 lifestyle="transient" />
 
-		<component id="IAuthenticationService"
-				   service="CodeCampServer.Model.Security.IAuthenticationService, CodeCampServer.Model"
-				   type="CodeCampServer.Website.Security.AuthenticationService, CodeCampServer.Website"
+		<component id="IAuthenticator"
+				   service="CodeCampServer.Model.Security.IAuthenticator, CodeCampServer.Model"
+				   type="CodeCampServer.Website.Security.Authenticator, CodeCampServer.Website"
 				   lifestyle="transient" />
 
 		<component id="IConferenceService"

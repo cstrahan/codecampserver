@@ -296,7 +296,15 @@
     </Naming>
   </CodeStyleSettings>
   <SharedSolutionTemplateManager>
-    <LiveTemplates />
+    <LiveTemplates>
+      <Template uid="9385cb44-b637-4085-baad-40c19e656ca0" text="[Test]&#xD;&#xA;public void $NAME$()&#xD;&#xA;{&#xD;&#xA;	$END$&#xD;&#xA;}" shortcut="pvt" description="Test Method" reformat="true" shortenQualifiedReferences="true">
+        <Categories />
+        <Variables>
+          <Variable name="NAME" expression="" initialRange="0" />
+        </Variables>
+        <CustomProperties />
+      </Template>
+    </LiveTemplates>
     <Surrounds />
     <FileTemplates>
       <Template uid="91720a66-54dd-4bc6-a9f8-0a6ea096db03" text="using NUnit.Framework;&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;  [TestFixture]&#xD;&#xA;  public class $NAME$&#xD;&#xA;  {&#xD;&#xA;    $END$&#xD;&#xA;  }&#xD;&#xA;}" shortcut="" description="NUnit Fixture" reformat="true" shortenQualifiedReferences="true">

@@ -11,16 +11,16 @@ namespace CodeCampServer.Website.Controllers
 	public class LoginController : Controller
 	{
 		private readonly IPersonRepository _personRepository;
-		private readonly IAuthenticationService _authenticationService;
-		private readonly ICryptoUtil _cryptoUtil;
+		private readonly IAuthenticator _authenticator;
+		private readonly ICryptographer _cryptographer;
 
 		public LoginController(IUserSession userSession, IPersonRepository personRepository,
-		                       IAuthenticationService authenticationService, ICryptoUtil cryptoUtil)
+		                       IAuthenticator authenticator, ICryptographer cryptographer)
 			: base(userSession)
 		{
-			_cryptoUtil = cryptoUtil;
+			_cryptographer = cryptographer;
 			_personRepository = personRepository;
-			_authenticationService = authenticationService;
+			_authenticator = authenticator;
 		}
 
 		public ActionResult Index()
@@ -34,9 +34,9 @@ namespace CodeCampServer.Website.Controllers
 		public ActionResult Process(string email, string password, string redirectUrl)
 		{
 			Person person = _personRepository.FindByEmail(email);
-			if (person != null && _authenticationService.VerifyAccount(person, password))
+			if (person != null && _authenticator.VerifyAccount(person, password))
 			{
-				_authenticationService.SignIn(person);
+				_authenticator.SignIn(person);
 
 				if (redirectUrl != null)
 					return new UrlRedirectResult(redirectUrl);
@@ -59,7 +59,7 @@ namespace CodeCampServer.Website.Controllers
 					"This action is only valid when there are no registered users in the system.");
 			}
 
-			var task = new CreateAdminAccountTask(_personRepository, _cryptoUtil, firstName,
+			var task = new CreateAdminAccountTask(_personRepository, _cryptographer, firstName,
 			                                      lastName, email, password, passwordConfirm);
 
 			task.Execute();
@@ -74,7 +74,7 @@ namespace CodeCampServer.Website.Controllers
 
 		public ActionResult Logout()
 		{
-			_authenticationService.SignOut();
+			_authenticator.SignOut();
 			return RedirectToAction("index", "home");
 		}
 

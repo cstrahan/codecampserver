@@ -3,7 +3,7 @@ using CodeCampServer.Model.Domain;
 
 namespace CodeCampServer.Model.Security
 {
-	public interface IAuthenticationService
+	public interface IAuthenticator
 	{
 		void SignIn(Person person);
 		IIdentity GetActiveIdentity();

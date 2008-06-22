@@ -7,18 +7,18 @@ namespace CodeCampServer.Model.Impl
 {
 	public class UserSession : IUserSession
 	{
-		private readonly IAuthenticationService _authenticationService;
+		private readonly IAuthenticator _authenticator;
 		private readonly IPersonRepository _personRepository;
 
-		public UserSession(IAuthenticationService authenticationService, IPersonRepository personRepository)
+		public UserSession(IAuthenticator authenticator, IPersonRepository personRepository)
 		{
-			_authenticationService = authenticationService;
+			_authenticator = authenticator;
 			_personRepository = personRepository;
 		}
 
 		public virtual Person GetLoggedInPerson()
 		{
-			IIdentity identity = _authenticationService.GetActiveIdentity();
+			IIdentity identity = _authenticator.GetActiveIdentity();
 			if (!identity.IsAuthenticated)
 			{
 				return null;

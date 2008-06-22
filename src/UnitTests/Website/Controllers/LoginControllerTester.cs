@@ -18,25 +18,25 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		private MockRepository _mocks;
 		private IPersonRepository _personRepository;
 		private IUserSession _userSession;
-		private IAuthenticationService _authenticationService;
+		private IAuthenticator _authenticator;
 		private TempDataDictionary _tempData;
-		private ICryptoUtil _cryptoUtil;
+		private ICryptographer _cryptographer;
 
 		[SetUp]
 		public void Setup()
 		{
 			_mocks = new MockRepository();
 			_userSession = _mocks.CreateMock<IUserSession>();
-			_authenticationService = _mocks.DynamicMock<IAuthenticationService>();
+			_authenticator = _mocks.DynamicMock<IAuthenticator>();
 			_personRepository = _mocks.DynamicMock<IPersonRepository>();
-			_cryptoUtil = _mocks.DynamicMock<ICryptoUtil>();
+			_cryptographer = _mocks.DynamicMock<ICryptographer>();
 			_tempData = new TempDataDictionary(_mocks.FakeHttpContext("~/login"));
 		}
 
 		private LoginController getController()
 		{
-			return new LoginController(_userSession, _personRepository, _authenticationService,
-			                           _cryptoUtil)
+			return new LoginController(_userSession, _personRepository, _authenticator,
+			                           _cryptographer)
 			       	{
 			       		TempData = _tempData
 			       	};
@@ -119,7 +119,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void ProcessLoginShouldRedirectToDefaultPageOnSuccessAndNullReturnUrl()
 		{
 			SetupResult.For(_personRepository.FindByEmail("brownie@brownie.com.au")).Return(new Person());
-			SetupResult.For(_authenticationService.VerifyAccount((Person)null, null))
+			SetupResult.For(_authenticator.VerifyAccount((Person)null, null))
 				.IgnoreArguments()
 				.Return(true);
 			LoginController controller = getController();
@@ -140,7 +140,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			const string password = "nothing";
 			var person = new Person();
 			SetupResult.For(_personRepository.FindByEmail("brownie@brownie.com.au")).Return(person);
-			SetupResult.For(_authenticationService.VerifyAccount(person, password)).Return(false);
+			SetupResult.For(_authenticator.VerifyAccount(person, password)).Return(false);
 			LoginController controller = getController();
 
 			_mocks.ReplayAll();
@@ -160,7 +160,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			const string returnUrl = "http://testurl/";
 			var person = new Person();
 			SetupResult.For(_personRepository.FindByEmail("brownie@brownie.com.au")).Return(person);
-			SetupResult.For(_authenticationService.VerifyAccount(person, password)).Return(true);
+			SetupResult.For(_authenticator.VerifyAccount(person, password)).Return(true);
 			LoginController controller = getController();
 			_mocks.ReplayAll();
 
@@ -177,7 +177,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public override void Setup()
 		{
 			base.Setup();
-			Expect.Call(() => _authenticationService.SignOut());
+			Expect.Call(() => _authenticator.SignOut());
 			_mocks.ReplayAll();
 		}
 
@@ -201,17 +201,17 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 	public class behaves_like_login_controller_test : behaves_like_mock_test
 	{
-		protected IAuthenticationService _authenticationService;
+		protected IAuthenticator _authenticator;
 		protected LoginController _loginController;
 
 		public override void Setup()
 		{
 			base.Setup();
-			_authenticationService = _mocks.DynamicMock<IAuthenticationService>();
+			_authenticator = _mocks.DynamicMock<IAuthenticator>();
 
 			_loginController = new LoginController(_mocks.Stub<IUserSession>(),
-			                                       _mocks.Stub<IPersonRepository>(), _authenticationService,
-			                                       _mocks.Stub<ICryptoUtil>());
+			                                       _mocks.Stub<IPersonRepository>(), _authenticator,
+			                                       _mocks.Stub<ICryptographer>());
 		}
 	}
 }

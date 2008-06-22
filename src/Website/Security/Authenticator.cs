@@ -8,16 +8,16 @@ using CodeCampServer.Model.Security;
 
 namespace CodeCampServer.Website.Security
 {
-	public class AuthenticationService : IAuthenticationService
+	public class Authenticator : IAuthenticator
 	{
 		private readonly IClock _clock;
 		private readonly IHttpContextProvider _httpContextProvider;
-		private readonly ICryptoUtil _cryptoUtil;
+		private readonly ICryptographer _cryptographer;
 
-		public AuthenticationService(IClock clock, IHttpContextProvider httpContextProvider, ICryptoUtil cryptoUtil)
+		public Authenticator(IClock clock, IHttpContextProvider httpContextProvider, ICryptographer cryptographer)
 		{
 			_clock = clock;
-			_cryptoUtil = cryptoUtil;
+			_cryptographer = cryptographer;
 			_httpContextProvider = httpContextProvider;
 		}
 
@@ -49,7 +49,7 @@ namespace CodeCampServer.Website.Security
 
 		public bool VerifyAccount(Person person, string password)
 		{
-			string passwordHash = _cryptoUtil.HashPassword(password, person.PasswordSalt);
+			string passwordHash = _cryptographer.HashPassword(password, person.PasswordSalt);
 			return passwordHash == person.Password;
 		}
 	}

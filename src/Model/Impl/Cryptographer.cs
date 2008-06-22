@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CodeCampServer.Model.Impl
 {
-	public class CryptoUtil : ICryptoUtil
+	public class Cryptographer : ICryptographer
 	{
 		/// <summary>
 		/// Create salt for encrypting user passwords.  

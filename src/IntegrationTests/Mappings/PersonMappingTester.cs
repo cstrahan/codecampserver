@@ -32,7 +32,7 @@ namespace CodeCampServer.IntegrationTests.Mappings
         {
             var person = new Person("hank", "williams", "hankw@aol.com");
 
-            var util = new CryptoUtil();
+            var util = new Cryptographer();
             person.PasswordSalt = util.CreateSalt();
             person.Password = util.HashPassword("apples", person.PasswordSalt);
 

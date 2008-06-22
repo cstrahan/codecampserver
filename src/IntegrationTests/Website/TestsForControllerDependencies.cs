@@ -1,4 +1,3 @@
-using System.Web.Mvc;
 using CodeCampServer.Website;
 using CodeCampServer.Website.Controllers;
 using CodeCampServer.Website.Helpers;
