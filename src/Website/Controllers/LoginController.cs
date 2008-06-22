@@ -12,12 +12,14 @@ namespace CodeCampServer.Website.Controllers
 	{
 		private readonly IPersonRepository _personRepository;
 		private readonly IAuthenticator _authenticator;
+		private readonly IUserSession _userSesssion;
 		private readonly ICryptographer _cryptographer;
 
 		public LoginController(IUserSession userSession, IPersonRepository personRepository,
 		                       IAuthenticator authenticator, ICryptographer cryptographer)
 			: base(userSession)
 		{
+			this._userSesssion = userSession;
 			_cryptographer = cryptographer;
 			_personRepository = personRepository;
 			_authenticator = authenticator;
@@ -45,7 +47,7 @@ namespace CodeCampServer.Website.Controllers
 			}
 
 			//login failed
-			TempData[TempDataKeys.Error] = "Invalid login";
+			_userSesssion.PushUserMessage(new FlashMessage(FlashMessage.MessageType.Error, "Invalid login"));
 			return RedirectToAction("index");
 		}
 
@@ -66,7 +68,7 @@ namespace CodeCampServer.Website.Controllers
 
 			if (!task.Success)
 			{
-				TempData[TempDataKeys.Error] = task.ErrorMessage;
+				_userSesssion.PushUserMessage(new FlashMessage(FlashMessage.MessageType.Error, task.ErrorMessage));
 			}
 
 			return RedirectToAction("index");

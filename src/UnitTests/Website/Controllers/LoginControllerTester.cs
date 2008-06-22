@@ -1,9 +1,9 @@
+using System;
 using System.Security;
 using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
-using CodeCampServer.Website;
 using CodeCampServer.Website.Controllers;
 using CodeCampServer.Website.Views;
 using NUnit.Framework;
@@ -15,78 +15,61 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	[TestFixture]
 	public class LoginControllerTester
 	{
-		private MockRepository _mocks;
 		private IPersonRepository _personRepository;
 		private IUserSession _userSession;
 		private IAuthenticator _authenticator;
-		private TempDataDictionary _tempData;
 		private ICryptographer _cryptographer;
 
 		[SetUp]
 		public void Setup()
 		{
-			_mocks = new MockRepository();
-			_userSession = _mocks.CreateMock<IUserSession>();
-			_authenticator = _mocks.DynamicMock<IAuthenticator>();
-			_personRepository = _mocks.DynamicMock<IPersonRepository>();
-			_cryptographer = _mocks.DynamicMock<ICryptographer>();
-			_tempData = new TempDataDictionary(_mocks.FakeHttpContext("~/login"));
+			_userSession = MockRepository.GenerateMock<IUserSession>();
+			_authenticator = MockRepository.GenerateStub<IAuthenticator>();
+			_personRepository = MockRepository.GenerateStub<IPersonRepository>();
+			_cryptographer = MockRepository.GenerateStub<ICryptographer>();
 		}
 
 		private LoginController getController()
 		{
 			return new LoginController(_userSession, _personRepository, _authenticator,
-			                           _cryptographer)
-			       	{
-			       		TempData = _tempData
-			       	};
+			                           _cryptographer);
 		}
 
 		[Test]
 		public void CreateAdminAccountSetsErrorMessageAndRedirectsBackToIndexIfEmailOrPasswordIsNotSet()
 		{
-			SetupResult.For(_personRepository.GetNumberOfUsers()).Return(0);
+			_personRepository.Stub(r => r.GetNumberOfUsers()).Return(0);
+			FlashMessage message = null;
+			_userSession.Stub(s => s.PushUserMessage(null)).IgnoreArguments().Do(new Action<FlashMessage>(m => message = m));
 
 			LoginController controller = getController();
-			_mocks.ReplayAll();
 
 			var actionResult = controller.CreateAdminAccount("fname", "lname", null, null, null) as RedirectToRouteResult;
 
 			if (actionResult == null)
 				Assert.Fail("expected action redirect result");
-			Assert.That(controller.TempData["error"], Is.Not.Null);
+
 			Assert.That(actionResult, Is.Not.Null, "should have redirected");
 			Assert.That(actionResult.Values["action"], Is.EqualTo("index"));
+			Assert.That(message, Is.Not.Null);
+			Assert.That(message.Type, Is.EqualTo(FlashMessage.MessageType.Error));
+			Assert.That(message.Message, Is.EqualTo("Email and Password are required"));
 		}
 
 		[Test, ExpectedException(typeof (SecurityException))]
 		public void CreateAdminAccountThrowsSecurityErrorIfCalledWhenUsersArePresent()
 		{
-			SetupResult.For(_personRepository.GetNumberOfUsers()).Return(1);
+			_personRepository.Stub(r => r.GetNumberOfUsers()).Return(1);
 			LoginController controller = getController();
-			_mocks.ReplayAll();
 
 			controller.CreateAdminAccount("test", "user", "email@email.com", "pwd", "pwd");
-		}
-
-		[Test]
-		public void LoginActionShouldCheckNumberOfRegisteredUsers()
-		{
-			LoginController controller = getController();
-			Expect.Call(_personRepository.GetNumberOfUsers()).Return(44);
-			_mocks.ReplayAll();
-
-			controller.Index();
-
-			_mocks.VerifyAll();
 		}
 
 		[Test]
 		public void LoginActionShouldNotSetFirstTimeRegisterWhenUsersArePresent()
 		{
 			LoginController controller = getController();
-			SetupResult.For(_personRepository.GetNumberOfUsers()).Return(1);
-			_mocks.ReplayAll();
+			_personRepository.Stub(r => r.GetNumberOfUsers()).Return(1);
 
 			controller.Index();
 
@@ -107,8 +90,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void LoginActionShouldSetFirstTimeRegisterWhenNoUsersArePresent()
 		{
 			LoginController controller = getController();
-			SetupResult.For(_personRepository.GetNumberOfUsers()).Return(0);
-			_mocks.ReplayAll();
+			_personRepository.Stub(r => r.GetNumberOfUsers()).Return(0);
 
 			controller.Index();
 
@@ -118,12 +100,11 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		[Test]
 		public void ProcessLoginShouldRedirectToDefaultPageOnSuccessAndNullReturnUrl()
 		{
-			SetupResult.For(_personRepository.FindByEmail("brownie@brownie.com.au")).Return(new Person());
-			SetupResult.For(_authenticator.VerifyAccount((Person)null, null))
+			_personRepository.Stub(r => r.FindByEmail("brownie@brownie.com.au")).Return(new Person());
+			_authenticator.Stub(a => a.VerifyAccount(null, null))
 				.IgnoreArguments()
 				.Return(true);
 			LoginController controller = getController();
-			_mocks.ReplayAll();
 
 			var actionResult = controller.Process("brownie@brownie.com.au", "password", null) as RedirectToRouteResult;
 
@@ -139,17 +120,20 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			const string email = "brownie@brownie.com.au";
 			const string password = "nothing";
 			var person = new Person();
-			SetupResult.For(_personRepository.FindByEmail("brownie@brownie.com.au")).Return(person);
-			SetupResult.For(_authenticator.VerifyAccount(person, password)).Return(false);
-			LoginController controller = getController();
+			_personRepository.Stub(r => r.FindByEmail("brownie@brownie.com.au")).Return(person);
+			_authenticator.Stub(r => r.VerifyAccount(person, password)).Return(false);
+			FlashMessage message = null;
+			_userSession.Stub(s => s.PushUserMessage(null)).IgnoreArguments().Do(new Action<FlashMessage>(m => message = m));
 
-			_mocks.ReplayAll();
+			LoginController controller = getController();
 
 			var actionResult = controller.Process(email, password, "") as RedirectToRouteResult;
 
 			if (actionResult == null) Assert.Fail("should have redirected to an action");
 			Assert.That(actionResult.Values["action"], Is.EqualTo("index"));
-			Assert.That(controller.TempData[TempDataKeys.Error], Is.Not.Null);
+			Assert.That(message, Is.Not.Null);
+			Assert.That(message.Type, Is.EqualTo(FlashMessage.MessageType.Error));
+			Assert.That(message.Message, Is.EqualTo("Invalid login"));
 		}
 
 		[Test]
@@ -159,10 +143,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			const string password = "nothing";
 			const string returnUrl = "http://testurl/";
 			var person = new Person();
-			SetupResult.For(_personRepository.FindByEmail("brownie@brownie.com.au")).Return(person);
-			SetupResult.For(_authenticator.VerifyAccount(person, password)).Return(true);
+			_personRepository.Stub(r => r.FindByEmail("brownie@brownie.com.au")).Return(person);
+			_authenticator.Stub(r => r.VerifyAccount(person, password)).Return(true);
 			LoginController controller = getController();
-			_mocks.ReplayAll();
 
 			var actionResult = controller.Process(email, password, returnUrl) as UrlRedirectResult;
 
