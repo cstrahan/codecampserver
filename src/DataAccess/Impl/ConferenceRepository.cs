@@ -13,25 +13,19 @@ namespace CodeCampServer.DataAccess.Impl
 
 		public Conference[] GetAllConferences()
 		{
-			var session = getSession();
-			var query = session.CreateQuery("from Conference");
+			ISession session = getSession();
+			IQuery query = session.CreateQuery("from Conference");
 
-			var result = query.List<Conference>();
-		    return new List<Conference>(result).ToArray();
+			IList<Conference> result = query.List<Conference>();
+			return new List<Conference>(result).ToArray();
 		}
 
 		public Conference GetConferenceByKey(string key)
 		{
 			ISession session = getSession();
-			string hql =
-				@"from Conference c where c.Key = ?";
-			IQuery query = session.CreateQuery(hql);
-			query.SetParameter(0, key);
-			Conference result = query.UniqueResult<Conference>();
-            if(result == null)
-            {
-                throw new ObjectNotFoundException(key, typeof(Conference));
-            }
+			const string hql = @"from Conference c where c.Key = :key";
+			IQuery query = session.CreateQuery(hql).SetString("key", key);
+			var result = query.UniqueResult<Conference>();
 
 			return result;
 		}
@@ -42,18 +36,18 @@ namespace CodeCampServer.DataAccess.Impl
 			IQuery query = session.CreateQuery("from Conference e where e.StartDate >= ? order by e.StartDate asc");
 			query.SetParameter(0, date);
 			query.SetMaxResults(1);
-			Conference matchingConference = query.UniqueResult<Conference>();
+			var matchingConference = query.UniqueResult<Conference>();
 			return matchingConference;
 		}
 
-        public Conference GetMostRecentConference(DateTime date)
-        {
-            ISession session = getSession();
-            IQuery query = session.CreateQuery("from Conference c where c.EndDate <= ? order by c.EndDate desc");
-            query.SetParameter(0, date);
-            query.SetMaxResults(1);
-            return query.UniqueResult<Conference>();
-        }
+		public Conference GetMostRecentConference(DateTime date)
+		{
+			ISession session = getSession();
+			IQuery query = session.CreateQuery("from Conference c where c.EndDate <= ? order by c.EndDate desc");
+			query.SetParameter(0, date);
+			query.SetMaxResults(1);
+			return query.UniqueResult<Conference>();
+		}
 
 		public Conference GetById(Guid id)
 		{
@@ -68,29 +62,29 @@ namespace CodeCampServer.DataAccess.Impl
 			session.Flush();
 		}
 
-	    public bool ConferenceExists(string name, string key)
-	    {
-	        var session = getSession();
-            var query = session.CreateQuery(
-                "select count(*) from Conference c where c.Name like :name OR c.Key like :key");
-	        query.SetString("name", name);
-	        query.SetString("key", key);
+		public bool ConferenceExists(string name, string key)
+		{
+			ISession session = getSession();
+			IQuery query = session.CreateQuery(
+				"select count(*) from Conference c where c.Name like :name OR c.Key like :key");
+			query.SetString("name", name);
+			query.SetString("key", key);
 
-	        query.SetMaxResults(1);
+			query.SetMaxResults(1);
 
-	        var result = query.UniqueResult();
+			object result = query.UniqueResult();
 
-	        return (long)result > 0;
-	    }
+			return (long) result > 0;
+		}
 
-	    public bool ConferenceKeyAvailable(string key)
-	    {
-	        var session = getSession();
-	        var query = session.CreateQuery("select count(*) from Conference c where c.Key like :key");
-	        query.SetString("key", key);
+		public bool ConferenceKeyAvailable(string key)
+		{
+			ISession session = getSession();
+			IQuery query = session.CreateQuery("select count(*) from Conference c where c.Key like :key");
+			query.SetString("key", key);
 
-	        var result = query.UniqueResult();
-	        return (long)result == 0;
-	    }
+			object result = query.UniqueResult();
+			return (long) result == 0;
+		}
 	}
 }

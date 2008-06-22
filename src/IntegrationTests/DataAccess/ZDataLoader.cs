@@ -122,7 +122,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 		private static IConferenceService getConferenceService()
 		{
 			return new ConferenceService(
-				new ConferenceRepository(_sessionBuilder),
+				new ConferenceRepository(new HybridSessionBuilder()),
 				new CryptoUtil(),
 				new SystemClock()
 				);
@@ -153,7 +153,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 		[Test, Category("CreateSchema"), Explicit]
 		public void RecreateDatabaseSchema()
 		{
-			recreateDatabase(Database.Default);
+			recreateDatabase();
 		}
 	}
 }

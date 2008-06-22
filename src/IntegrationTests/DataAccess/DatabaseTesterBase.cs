@@ -1,34 +1,25 @@
-using CodeCampServer.DataAccess;
 using CodeCampServer.DataAccess.Impl;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 
 namespace CodeCampServer.IntegrationTests.DataAccess
 {
-    public class DatabaseTesterBase : RepositoryBase
-    {
-        protected static ISessionBuilder _sessionBuilder = new HybridSessionBuilder();
+	public class DatabaseTesterBase : RepositoryBase
+	{
+		public DatabaseTesterBase() : base(new HybridSessionBuilder())
+		{
+		}
 
-        public DatabaseTesterBase()
-            : base(_sessionBuilder)
-        {
-        }
+		[SetUp]
+		public virtual void Setup()
+		{
+			recreateDatabase();
+		}
 
-        [SetUp]
-        public virtual void Setup()
-        {
-            recreateDatabase(Database.Default);
-        }
-
-        public static void recreateDatabase(Database selectedDatabase)
-        {
-            var exporter = new SchemaExport(_sessionBuilder.GetConfiguration());
-            exporter.Execute(false, true, false, true);
-        }
-
-        protected static void resetSession()
-        {
-            HybridSessionBuilder.ResetSession();
-        }
-    }
+		public static void recreateDatabase()
+		{
+			var exporter = new SchemaExport(new HybridSessionBuilder().GetConfiguration());
+			exporter.Execute(false, true, false, true);
+		}
+	}
 }

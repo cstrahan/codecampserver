@@ -81,11 +81,5 @@ namespace CodeCampServer.DataAccess.Impl
             HttpContext.Current.Items.Add(GetType().FullName, session);
             return session;
         }
-
-        public static void ResetSession()
-        {
-            HybridSessionBuilder builder = new HybridSessionBuilder();
-            builder.GetSession().Dispose();
-        }
     }
 }
