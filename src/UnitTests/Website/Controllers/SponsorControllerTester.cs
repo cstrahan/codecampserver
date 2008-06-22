@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Impl;
-using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Controllers;
 using CodeCampServer.Website.Views;
 using NUnit.Framework;
@@ -18,7 +18,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         private MockRepository _mocks;
         private IConferenceRepository _conferenceRepository;
         private Conference _conference;
-        private IAuthorizationService _authorizationService;
+        private IUserSession userSession;
         private TempDataDictionary _tempData;
 
 
@@ -27,7 +27,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         {
             _mocks = new MockRepository();
             _conferenceRepository = _mocks.CreateMock<IConferenceRepository>();
-            _authorizationService = _mocks.CreateMock<IAuthorizationService>();
+            userSession = _mocks.CreateMock<IUserSession>();
             _conference = new Conference("austincodecamp2008", "Austin Code Camp");
             _tempData = new TempDataDictionary(_mocks.FakeHttpContext("~/sponsors"));
         }
@@ -63,7 +63,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         public void EditSponsorShouldGetSponsorData()
         {
             _conference.AddSponsor(new Sponsor("test", "", "", "", "", "", SponsorLevel.Gold));
-            SetupResult.For(_authorizationService.IsAdministrator).Return(true);
+            SetupResult.For(userSession.IsAdministrator).Return(true);
             SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
 
             _mocks.ReplayAll();
@@ -81,7 +81,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         public void EditSponsorShouldRedirectToListWhenNoSponsor()
         {
             SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
-            SetupResult.For(_authorizationService.IsAdministrator).Return(true);
+            SetupResult.For(userSession.IsAdministrator).Return(true);
             _mocks.ReplayAll();
 
             var controller = GetController();
@@ -162,7 +162,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
         private SponsorController GetController()
         {
-            return new SponsorController(_conferenceRepository, _authorizationService, new ClockStub())
+            return new SponsorController(_conferenceRepository, userSession)
                        {
                            TempData = _tempData
                        };

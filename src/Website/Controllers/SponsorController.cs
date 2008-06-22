@@ -2,24 +2,18 @@
 using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
-using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Views;
 using MvcContrib.Filters;
 
 namespace CodeCampServer.Website.Controllers
 {
-	public class SponsorController : System.Web.Mvc.Controller
+	public class SponsorController : Controller
 	{
 		private readonly IConferenceRepository _conferenceRepository;
-		private IAuthorizationService _authorizationService;
-		private IClock _clock;
 
-		public SponsorController(IConferenceRepository conferenceRepository, IAuthorizationService authorizationService,
-		                         IClock clock)
+		public SponsorController(IConferenceRepository conferenceRepository, IUserSession userSession) : base(userSession)
 		{
 			_conferenceRepository = conferenceRepository;
-			_authorizationService = authorizationService;
-			_clock = clock;
 		}
 
 		[AdminOnly]

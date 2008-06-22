@@ -1,18 +1,14 @@
 ﻿using System.Web.Mvc;
-using CodeCampServer.Model.Domain;
-using CodeCampServer.Model.Security;
+using CodeCampServer.Model;
 
 namespace CodeCampServer.Website.Controllers
 {
 	[AdminOnly]
 	public class AdminController : Controller
 	{
-		private readonly IConferenceRepository _conferenceRepository;
-
-		public AdminController(IAuthorizationService authorizationService, IConferenceRepository conferenceRepository)
-			: base(authorizationService)
+		public AdminController(IUserSession userSession)
+			: base(userSession)
 		{
-			_conferenceRepository = conferenceRepository;
 		}
 
 		public ActionResult Index()

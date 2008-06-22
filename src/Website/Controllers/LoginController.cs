@@ -4,22 +4,20 @@ using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
 using MvcContrib.Filters;
+using IUserSession=CodeCampServer.Model.IUserSession;
 
 namespace CodeCampServer.Website.Controllers
 {
 	public class LoginController : Controller
 	{
-		private readonly ILoginService _loginService;
 		private readonly IPersonRepository _personRepository;
 		private readonly IAuthenticationService _authenticationService;
 		private readonly ICryptoUtil _cryptoUtil;
 
-		public LoginController(ILoginService loginService, IPersonRepository personRepository,
-		                       IAuthenticationService authenticationService, IAuthorizationService authService,
-		                       ICryptoUtil cryptoUtil)
-			: base(authService)
+		public LoginController(IUserSession userSession, IPersonRepository personRepository,
+		                       IAuthenticationService authenticationService, ICryptoUtil cryptoUtil)
+			: base(userSession)
 		{
-			_loginService = loginService;
 			_cryptoUtil = cryptoUtil;
 			_personRepository = personRepository;
 			_authenticationService = authenticationService;
@@ -35,9 +33,9 @@ namespace CodeCampServer.Website.Controllers
 
 		public ActionResult Process(string email, string password, string redirectUrl)
 		{
-			if (_loginService.VerifyAccount(email, password))
+			Person person = _personRepository.FindByEmail(email);
+			if (person != null && _authenticationService.VerifyAccount(person, password))
 			{
-				Person person = _personRepository.FindByEmail(email);
 				_authenticationService.SignIn(person);
 
 				if (redirectUrl != null)

@@ -1,5 +1,4 @@
 using System;
-using CodeCampServer.DataAccess;
 using CodeCampServer.DataAccess.Impl;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
@@ -25,6 +24,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 
 				var codeCamp2008 = new Conference("austincodecamp2008", "Austin Code Camp 2008");
 				codeCamp2008.StartDate = new DateTime(2008, 11, 26, 19, 30, 00);
+				codeCamp2008.PubliclyVisible = true;
 
 				var microsoft =
 					new Sponsor("Microsoft",

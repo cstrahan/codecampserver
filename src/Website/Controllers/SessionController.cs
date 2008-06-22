@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
-using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Views;
 using MvcContrib.Filters;
 
@@ -10,18 +9,17 @@ namespace CodeCampServer.Website.Controllers
 {
 	public class SessionController : Controller
 	{
-		private readonly ISessionService _sessionService;
+		private readonly ISessionRepository _sessionRepository;
 		private readonly IUserSession _userSession;
 		private readonly IPersonRepository _personRepository;
 		private readonly IConferenceRepository _conferenceRepository;
 
-		public SessionController(IConferenceRepository conferenceRepository, ISessionService sessionService,
-		                         IPersonRepository personRepository, IAuthorizationService authorizationService,
-		                         IUserSession userSession)
-			: base(authorizationService)
+		public SessionController(IConferenceRepository conferenceRepository, ISessionRepository sessionRepository,
+		                         IPersonRepository personRepository, IUserSession userSession)
+			: base(userSession)
 		{
 			_conferenceRepository = conferenceRepository;
-			_sessionService = sessionService;
+			_sessionRepository = sessionRepository;
 			_personRepository = personRepository;
 			_userSession = userSession;
 		}
@@ -50,7 +48,8 @@ namespace CodeCampServer.Website.Controllers
 		{
 			Person person = _personRepository.FindByEmail(speakerEmail);
 
-			Session session = _sessionService.CreateSession(null, person, title, @abstract, null);
+			Session session = new Session(null, person, title, @abstract, null);
+			_sessionRepository.Save(session);
 			ViewData.Add(session);
 
 			return View("CreateConfirm");
@@ -59,7 +58,7 @@ namespace CodeCampServer.Website.Controllers
 		public ActionResult Proposed(string conferenceKey)
 		{
 			Conference conference = getConferenceByKey(conferenceKey);
-			IEnumerable<Session> sessions = _sessionService.GetProposedSessions(conference);
+			IEnumerable<Session> sessions = _sessionRepository.GetProposedSessions(conference);
 			ViewData.Add(conference);
 			ViewData.Add(sessions);
 

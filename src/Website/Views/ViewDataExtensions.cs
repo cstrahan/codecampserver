@@ -4,6 +4,7 @@ using System.Web.Mvc;
 
 namespace CodeCampServer.Website.Views
 {
+	[Obsolete("Use ViewDataExtensions from MvcContrib instead")]
 	public static class ViewDataExtensions
 	{
 		public static bool ContainsDataItem(this ViewDataDictionary viewData, string key)

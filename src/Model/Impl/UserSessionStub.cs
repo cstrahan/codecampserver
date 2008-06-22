@@ -2,18 +2,18 @@ using CodeCampServer.Model.Domain;
 
 namespace CodeCampServer.Model.Impl
 {
-	public class UserSessionStub : IUserSession
+	public class UserSessionStub : UserSession
 	{
-	    private readonly Person _person;
+		private readonly Person _person;
 
-	    public UserSessionStub(Person person)
+		public UserSessionStub(Person person) : base(null, null)
 		{
-		    _person = person;
+			_person = person;
 		}
 
-	    public Person GetLoggedInPerson()
-	    {
-	        return _person;
-	    }
+		public override Person GetLoggedInPerson()
+		{
+			return _person;
+		}
 	}
 }

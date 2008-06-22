@@ -2,7 +2,6 @@ using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Presentation;
-using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.Website.Controllers
@@ -18,8 +17,8 @@ namespace CodeCampServer.Website.Controllers
 		                          IClock clock,
 		                          ITimeSlotRepository timeSlotRepository,
 		                          ITrackRepository trackRepository,
-		                          IAuthorizationService authorizationService)
-			: base(authorizationService)
+		                          IUserSession userSession)
+			: base(userSession)
 		{
 			_conferenceRepository = conferenceRepository;
 			_clock = clock;

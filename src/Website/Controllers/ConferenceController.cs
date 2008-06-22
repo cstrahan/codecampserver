@@ -4,10 +4,10 @@ using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Presentation;
-using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Views;
 using MvcContrib.Attributes;
 using MvcContrib.Filters;
+using IUserSession=CodeCampServer.Model.IUserSession;
 
 namespace CodeCampServer.Website.Controllers
 {
@@ -15,17 +15,17 @@ namespace CodeCampServer.Website.Controllers
 	{
 		private readonly IClock _clock;
 		private readonly IConferenceService _conferenceService;
-		private readonly IAuthorizationService _authService;
+		private readonly IUserSession _userSession;
 		private readonly IConferenceRepository _conferenceRepository;
 
 		public ConferenceController(IConferenceRepository conferenceRepository,
 		                            IConferenceService conferenceService,
-		                            IAuthorizationService authService,
-		                            IClock clock) : base(authService)
+		                            IUserSession userSession,
+		                            IClock clock) : base(userSession)
 		{
 			_conferenceRepository = conferenceRepository;
 			_conferenceService = conferenceService;
-			_authService = authService;
+			_userSession = userSession;
 			_clock = clock;
 		}
 
@@ -35,8 +35,8 @@ namespace CodeCampServer.Website.Controllers
 			Schedule schedule = getScheduledConference(conferenceKey);
 
 			//if this conference is still hidden from the public, then only show it to administrators
-			if (!schedule.Conference.PubliclyVisible && !_authService.IsAdministrator)
-				return RedirectToAction("current");
+			if (!schedule.Conference.PubliclyVisible && !_userSession.IsAdministrator)
+				return RedirectToAction("current", "conference");
 
 			ViewData.Add(schedule);
 

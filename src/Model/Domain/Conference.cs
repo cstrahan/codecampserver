@@ -160,9 +160,9 @@ namespace CodeCampServer.Model.Domain
             return new List<Person>(_attendees).ToArray();
         }
 
-        public virtual void AddSpeaker(Person speaker, string speakerKey, string bio, string avatarUrl)
+        public virtual void AddSpeaker(Person person, string speakerKey, string bio, string avatarUrl)
         {
-            _speakers.Add(new Speaker(speaker, speakerKey, bio, avatarUrl));
+            _speakers.Add(new Speaker(person, speakerKey, bio, avatarUrl));
         }
 
         public virtual Speaker[] GetSpeakers()

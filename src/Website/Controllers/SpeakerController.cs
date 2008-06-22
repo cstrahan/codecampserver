@@ -1,9 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
-using CodeCampServer.Model.Exceptions;
 using CodeCampServer.Model.Presentation;
-using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Views;
 using MvcContrib.Attributes;
 using MvcContrib.Filters;
@@ -16,9 +15,9 @@ namespace CodeCampServer.Website.Controllers
 		private readonly IUserSession _userSession;
 		private readonly IConferenceRepository _conferenceRepository;
 
-		public SpeakerController(IConferenceRepository conferenceRepository, IAuthorizationService authorizationService,
+		public SpeakerController(IConferenceRepository conferenceRepository,
 		                         IUserSession userSession, IClock clock)
-			: base(authorizationService)
+			: base(userSession)
 		{
 			_conferenceRepository = conferenceRepository;
 			_clock = clock;
@@ -48,7 +47,7 @@ namespace CodeCampServer.Website.Controllers
 			Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
 			Speaker speaker = conference.GetSpeakerByKey(speakerId);
 			ViewData.Add(speaker);
-			return View();
+			return View("view");
 		}
 
 		[RequireLogin]
@@ -83,7 +82,7 @@ namespace CodeCampServer.Website.Controllers
 				TempData[TempDataKeys.Message] = "Profile saved";
 				return RedirectToAction("view", new {conferenceKey, speakerId = speakerKey});
 			}
-			catch (DataValidationException ex)
+			catch (Exception ex)
 			{
 				TempData[TempDataKeys.Error] = "Error saving your speaker record.  The error has been logged.";
 				Log.Error(this, "Error saving speaker.", ex);

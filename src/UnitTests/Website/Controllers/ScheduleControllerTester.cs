@@ -10,6 +10,7 @@ using CodeCampServer.Website.Views;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
+using IUserSession=CodeCampServer.Model.IUserSession;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {
@@ -58,7 +59,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
                 .Do(new Action<ViewContext>(
                         context => { actualViewContext = context; }));
 
-            var authorizationService = _mocks.DynamicMock<IAuthorizationService>();
+            var authorizationService = _mocks.DynamicMock<IUserSession>();
             
             _mocks.ReplayAll();
 
@@ -72,11 +73,11 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             Assert.That(controller.ViewData.Get<Schedule>().Name, Is.EqualTo("Austin Code Camp"));
         }
 
-        private ScheduleController createController(IAuthorizationService authorizationService)
+        private ScheduleController createController(IUserSession userSession)
         {
             return new ScheduleController(_conferenceRepository, new ClockStub(),
                                           _timeSlotRepository, _trackRepository,
-                                          authorizationService);
+                                          userSession);
         }
     }
 }

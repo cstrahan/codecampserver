@@ -4,7 +4,7 @@ namespace CodeCampServer.Model.Presentation
 {
 	public class AttendeeListing
 	{
-		private Person _attendee;
+		private readonly Person _attendee;
 
 		public AttendeeListing(Person attendee)
 		{

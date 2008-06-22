@@ -2,8 +2,8 @@
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Presentation;
-using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Views;
+using IUserSession=CodeCampServer.Model.IUserSession;
 
 namespace CodeCampServer.Website.Controllers
 {
@@ -14,8 +14,8 @@ namespace CodeCampServer.Website.Controllers
 		private readonly IClock _clock;
 
 		public TrackController(ITrackRepository trackRepository, IConferenceRepository conferenceRepository, IClock clock,
-		                       IAuthorizationService authorizationService)
-			: base(authorizationService)
+		                       IUserSession userSession)
+			: base(userSession)
 		{
 			_trackRepository = trackRepository;
 			_conferenceRepository = conferenceRepository;

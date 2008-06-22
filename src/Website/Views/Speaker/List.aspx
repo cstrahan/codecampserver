@@ -17,7 +17,7 @@
 <% foreach (var speaker in ViewData.Get<Speaker[]>()) { %>
     <li>
         <span class="speaker-name">
-        <%=Html.ActionLink<SpeakerController>(c=>c.View(conference.Key, speaker.SpeakerKey), speaker.GetName()) %>
+        <%=Html.ActionLink<SpeakerController>(c=>c.Details(conference.Key, speaker.SpeakerKey), speaker.GetName()) %>
         </span>        
     </li>
 <% } %>

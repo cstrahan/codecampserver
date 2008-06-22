@@ -25,20 +25,10 @@
 				   type="CodeCampServer.Model.Impl.CryptoUtil, CodeCampServer.Model" />
 
 		<!-- services -->
-		<component id="ILoginService"
-				   service="CodeCampServer.Model.Domain.ILoginService, CodeCampServer.Model"
-				   type="CodeCampServer.Model.Impl.LoginService, CodeCampServer.Model"
-				   lifestyle="transient" />
-
 		<component id="IUserSession"
 				 service="CodeCampServer.Model.IUserSession, CodeCampServer.Model"
 				 type="CodeCampServer.Model.Impl.UserSession, CodeCampServer.Model"
 				 lifestyle="transient" />
-
-		<component id="IAuthorizationService"
-				   service="CodeCampServer.Model.Security.IAuthorizationService, CodeCampServer.Model"
-				   type="CodeCampServer.Website.Security.AuthorizationService, CodeCampServer.Website"
-				   lifestyle="transient" />
 
 		<component id="IAuthenticationService"
 				   service="CodeCampServer.Model.Security.IAuthenticationService, CodeCampServer.Model"

@@ -1,22 +1,32 @@
 ﻿using System.Web.Mvc;
+using System.Web.Routing;
+using CodeCampServer.Model;
 using CodeCampServer.Model.Presentation;
-using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Views;
 
 namespace CodeCampServer.Website.Controllers
 {
 	public abstract class Controller : System.Web.Mvc.Controller
 	{
-		private readonly IAuthorizationService _authorizationService;
+		private readonly IUserSession _userSession;
 
-		protected Controller(IAuthorizationService authorizationService)
+		protected Controller(IUserSession userSession)
 		{
-			_authorizationService = authorizationService;
+			_userSession = userSession;
 		}
 
 		protected override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-			if (_authorizationService.IsAdministrator)
+			if (filterContext != null)
+			{
+				var controller = (System.Web.Mvc.Controller) filterContext.Controller;
+				RouteData routeData = controller.ControllerContext.RouteData;
+				object actionName = routeData.Values["action"];
+				object controllerName = routeData.Values["controller"];
+				Log.Debug(this, string.Format("Executing action:{0} on controller:{1}", actionName, controllerName));
+			}
+			
+			if (_userSession.IsAdministrator)
 			{
 				ViewData.Add("ShouldRenderAdminPanel", true);
 			}

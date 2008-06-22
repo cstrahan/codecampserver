@@ -102,7 +102,6 @@
     <Compile Include="Model\Domain\EntityTesterBase.cs" />
     <Compile Include="Model\Domain\SessionTester.cs" />
     <Compile Include="Model\Domain\SpeakerTester.cs" />
-    <Compile Include="Model\LoginServiceTester.cs" />
     <Compile Include="Model\Presentation\ScheduleListingTester.cs" />
     <Compile Include="Model\Presentation\ScheduledConferenceTester.cs" />
     <Compile Include="Model\SessionServiceTester.cs" />
@@ -111,7 +110,7 @@
     <Compile Include="TestHelperExtensions.cs" />
     <Compile Include="Website\ControllerContextStub.cs" />
     <Compile Include="Website\Controllers\AdminControllerTester.cs" />
-    <Compile Include="Website\Controllers\ApplicationControllerTests.cs" />
+    <Compile Include="Website\Controllers\ApplicationControllerTester.cs" />
     <Compile Include="Website\Controllers\behaves_like_mock_test.cs" />
     <Compile Include="Website\Controllers\ConferenceControllerTester.cs" />
     <Compile Include="Website\Controllers\ScheduleControllerTester.cs" />
@@ -121,6 +120,7 @@
     <Compile Include="Website\Controllers\SponsorComponentControllerTester.cs" />
     <Compile Include="Website\Controllers\SponsorControllerTester.cs" />
     <Compile Include="Website\HttpContextStub.cs" />
+    <Compile Include="Website\HttpRequestStub.cs" />
     <Compile Include="Website\ResponseWriteStub.cs" />
     <Compile Include="Website\RoutesTester.cs" />
     <Compile Include="Website\ViewEngineStub.cs" />

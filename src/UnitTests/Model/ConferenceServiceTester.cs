@@ -11,76 +11,78 @@ namespace CodeCampServer.UnitTests.Model
 	[TestFixture]
 	public class ConferenceServiceTester
 	{
-	    private MockRepository _mocks;	    
-	    private IConferenceRepository _conferenceRepository;
-	    private IPersonRepository _personRepository;
-	    private ILoginService _loginService;
-	    private ICryptoUtil _cryptoUtil;
+		private MockRepository _mocks;
+		private IConferenceRepository _conferenceRepository;
+		private IPersonRepository _personRepository;
+		private IUserSession _userSession;
+		private ICryptoUtil _cryptoUtil;
 
-	    [SetUp]
-        public void Setup()
-        {
-            _mocks = new MockRepository();			
+		[SetUp]
+		public void Setup()
+		{
+			_mocks = new MockRepository();
 			_conferenceRepository = _mocks.CreateMock<IConferenceRepository>();
-		    _personRepository = _mocks.CreateMock<IPersonRepository>();
-	        _loginService = _mocks.DynamicMock<ILoginService>();
-	        _cryptoUtil = _mocks.DynamicMock<ICryptoUtil>();
-        }
+			_personRepository = _mocks.CreateMock<IPersonRepository>();
+			_userSession = _mocks.DynamicMock<IUserSession>();
+			_cryptoUtil = _mocks.DynamicMock<ICryptoUtil>();
+		}
 
-        private IConferenceService getService(IClock clock)
-        {
-            return new ConferenceService(_conferenceRepository, _cryptoUtil, clock);            
-        }
+		private IConferenceService getService(IClock clock)
+		{
+			return new ConferenceService(_conferenceRepository, _cryptoUtil, clock);
+		}
 
-        [Test]
-        public void RegisterAttendeeShouldAddAttendeeToConferenceAndSaveConference()
-        {
-            var clockStub = new ClockStub(new DateTime(2008, 2, 15));
-            var service = getService(clockStub);
-            var conference = _mocks.CreateMock<Conference>();
+		[Test]
+		public void RegisterAttendeeShouldAddAttendeeToConferenceAndSaveConference()
+		{
+			var clockStub = new ClockStub(new DateTime(2008, 2, 15));
+			IConferenceService service = getService(clockStub);
+			var conference = _mocks.CreateMock<Conference>();
 
-            Expect.Call(_cryptoUtil.CreateSalt()).Return(null);
-            Expect.Call(() => conference.AddAttendee(null)).IgnoreArguments();
-            Expect.Call(() => _conferenceRepository.Save(conference));
-            _mocks.ReplayAll();
+			Expect.Call(_cryptoUtil.CreateSalt()).Return(null);
+			Expect.Call(() => conference.AddAttendee(null)).IgnoreArguments();
+			Expect.Call(() => _conferenceRepository.Save(conference));
+			_mocks.ReplayAll();
 
-            var person = service.RegisterAttendee("", "", "", "", "", conference, "");
-            
-            _mocks.VerifyAll();
-        }
-        
-	    [Test]
-	    public void CurrentConferenceShouldGetNextUpcomingConferenceIfThereIsOneOtherwiseMostRecent()
-	    {	        
-            var oldConference = new Conference("old-conf", "old conference") {StartDate = new DateTime(2007, 7, 1), PubliclyVisible=true};
-            var nextConference = new Conference("new-conf", "new conference") { StartDate = new DateTime(2008, 10, 1), PubliclyVisible = true };
+			Person person = service.RegisterAttendee("", "", "", "", "", conference, "");
 
-	        Expect.Call(_conferenceRepository.GetFirstConferenceAfterDate(new DateTime()))
-                .IgnoreArguments()
-                .Return(null);
+			_mocks.VerifyAll();
+		}
 
-            Expect.Call(_conferenceRepository.GetMostRecentConference(new DateTime()))
-                .IgnoreArguments()
-                .Return(oldConference);
-	        
-            Expect.Call(_conferenceRepository.GetFirstConferenceAfterDate(new DateTime()))
-                .IgnoreArguments()
-	            .Return(nextConference);
+		[Test]
+		public void CurrentConferenceShouldGetNextUpcomingConferenceIfThereIsOneOtherwiseMostRecent()
+		{
+			var oldConference = new Conference("old-conf", "old conference")
+			                    	{StartDate = new DateTime(2007, 7, 1), PubliclyVisible = true};
+			var nextConference = new Conference("new-conf", "new conference")
+			                     	{StartDate = new DateTime(2008, 10, 1), PubliclyVisible = true};
 
-            _mocks.ReplayAll();
+			Expect.Call(_conferenceRepository.GetFirstConferenceAfterDate(new DateTime()))
+				.IgnoreArguments()
+				.Return(null);
 
-            var clockStub = new ClockStub(new DateTime(2008, 2, 15));
-	        var service = getService(clockStub);
-	        
-            //first one should not have a future conference
-            var conf = service.GetCurrentConference();
-            Assert.That(conf, Is.EqualTo(oldConference));
+			Expect.Call(_conferenceRepository.GetMostRecentConference(new DateTime()))
+				.IgnoreArguments()
+				.Return(oldConference);
 
-            //this one should have a future conference
-            conf = service.GetCurrentConference();
-            Assert.That(conf, Is.EqualTo(nextConference));
+			Expect.Call(_conferenceRepository.GetFirstConferenceAfterDate(new DateTime()))
+				.IgnoreArguments()
+				.Return(nextConference);
 
-            _mocks.VerifyAll();
-	    }      
+			_mocks.ReplayAll();
+
+			var clockStub = new ClockStub(new DateTime(2008, 2, 15));
+			IConferenceService service = getService(clockStub);
+
+			//first one should not have a future conference
+			Conference conf = service.GetCurrentConference();
+			Assert.That(conf, Is.EqualTo(oldConference));
+
+			//this one should have a future conference
+			conf = service.GetCurrentConference();
+			Assert.That(conf, Is.EqualTo(nextConference));
+
+			_mocks.VerifyAll();
+		}
 	}
 }

@@ -138,7 +138,6 @@
     </Compile>
     <Compile Include="Models\Conference\ListAttendeesViewData.cs" />
     <Compile Include="RouteConfigurator.cs" />
-    <Compile Include="Security\AuthorizationService.cs" />
     <Compile Include="TempDataKeys.cs" />
     <Compile Include="Views\ViewDataExtensions.cs" />
   </ItemGroup>
