@@ -26,7 +26,7 @@ namespace CodeCampServer.IntegrationTests.DataAccess
             exporter.Execute(false, true, false, true);
         }
 
-        protected void resetSession()
+        protected static void resetSession()
         {
             HybridSessionBuilder.ResetSession();
         }

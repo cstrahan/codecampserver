@@ -1,0 +1,29 @@
+<Configuration>
+  <CodeAnnotations>
+    <Namespace>JetBrains.Annotations</Namespace>
+    <DefaultNamespace>JetBrains.Annotations</DefaultNamespace>
+  </CodeAnnotations>
+  <SharedSolutionTemplateManager>
+    <LiveTemplates />
+    <Surrounds />
+    <FileTemplates>
+      <Template uid="91720a66-54dd-4bc6-a9f8-0a6ea096db03" text="using NUnit.Framework;&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;  [TestFixture]&#xD;&#xA;  public class $NAME$&#xD;&#xA;  {&#xD;&#xA;    $END$&#xD;&#xA;  }&#xD;&#xA;}" shortcut="" description="NUnit Fixture" reformat="true" shortenQualifiedReferences="true">
+        <Context>
+          <ProjectLanguageContext language="CSharp" />
+        </Context>
+        <Categories>
+          <Category name="Shared Solution Templates" />
+        </Categories>
+        <Variables>
+          <Variable name="NAMESPACE" expression="fileDefaultNamespace()" initialRange="-1" />
+          <Variable name="NAME" expression="getFileNameWithoutExtension()" initialRange="-1" />
+        </Variables>
+        <CustomProperties>
+          <Property key="FileName" value="SomethingTester" />
+          <Property key="Extension" value="cs" />
+          <Property key="ValidateFileName" value="False" />
+        </CustomProperties>
+      </Template>
+    </FileTemplates>
+  </SharedSolutionTemplateManager>
+</Configuration>

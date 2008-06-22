@@ -2,8 +2,8 @@ using System.Web;
 
 namespace CodeCampServer.Website
 {
-    public interface IHttpContextProvider
-    {
-        HttpContextBase GetCurrentHttpContext();
-    }
+	public interface IHttpContextProvider
+	{
+		HttpContextBase GetCurrentHttpContext();
+	}
 }
