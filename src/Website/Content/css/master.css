@@ -6,17 +6,22 @@
 	color: #345;
 }
 
+.flash
+{
+	margin-bottom: 2px;
+	padding: 4px;
+	border: solid 1px black;
+}
 .message
 {
-	color: #FF0000;
+	background-color: #0F0;
+	color: Black;
 }
 
 .error
 {
-	font-weight: bold;
-	color: white;
-	background-color: Red;
-	padding:1px;
+	background-color: #FF6666;
+	color: Black;
 }
 
 label.formError {

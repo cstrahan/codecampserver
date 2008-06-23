@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Web.Mvc;
@@ -105,8 +104,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_conference.AddSponsor(new Sponsor("name2", "logourl2", "website2", "", "", "", SponsorLevel.Bronze));
 
 			_conferenceRepository.Stub(r => r.GetConferenceByKey("austincodecamp2008")).Return(_conference);
-			FlashMessage message = null;
-			_userSession.Stub(s => s.PushUserMessage(null)).IgnoreArguments().Do(new Action<FlashMessage>(m => message = m));
+			_userSession.Expect(s => s.PushUserMessage(FlashMessage.MessageType.Message, "The sponsor was saved"));
 
 			SponsorController controller = getController();
 			var actionResult = controller.Save(_conference.Key, "name", "edited name", "Gold", "", "", "", "", "")
@@ -118,10 +116,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			Assert.That(actionResult, Is.Not.Null, "Should have returned RedirectToRouteResult");
 			Assert.That(actionResult.RedirectsToAction("list"));
 
-			//check success message
-			Assert.That(message, Is.Not.Null);
-			Assert.That(message.Type, Is.EqualTo(FlashMessage.MessageType.Message));
-			Assert.That(message.Message, Is.EqualTo("The sponsor was saved"));
+			_userSession.VerifyAllExpectations();
 		}
 
 		[Test]

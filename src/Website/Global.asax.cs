@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Castle.Core;
 using CodeCampServer.Model;
 using CodeCampServer.Website.Helpers;
+using CodeCampServer.Website.Impl;
 using MvcContrib.Castle;
 using MvcContrib.ExtendedComponentController;
 

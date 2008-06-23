@@ -6,7 +6,7 @@ namespace CodeCampServer.Model
 	{
 		Person GetLoggedInPerson();
 		bool IsAdministrator { get; }
-		void PushUserMessage(FlashMessage message);
-		FlashMessage PopUserMessage();
+		void PushUserMessage(FlashMessage.MessageType messageType, string message);
+		FlashMessage[] PopUserMessages();
 	}
 }

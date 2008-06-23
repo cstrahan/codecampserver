@@ -1,6 +1,6 @@
 using System.Web;
 using System.Web.Routing;
-using CodeCampServer.Website;
+using CodeCampServer.Website.Impl;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;

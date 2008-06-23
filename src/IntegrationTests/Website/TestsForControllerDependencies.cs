@@ -9,7 +9,7 @@ namespace CodeCampServer.IntegrationTests.Website
 	public class TestsForControllerDependencies
 	{
 		[Test]
-		public void CanCreateConferenceController()
+		public void CanCreateAllControllers()
 		{
 			Global.RegisterMvcTypes();
 			IoC.Resolve<AdminController>();
@@ -21,6 +21,7 @@ namespace CodeCampServer.IntegrationTests.Website
 			IoC.Resolve<SponsorComponentController>();
 			IoC.Resolve<SponsorController>();
 			IoC.Resolve<TrackController>();
+			IoC.Resolve<SponsorComponentController>();
 		}
 	}
 }

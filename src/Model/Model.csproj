@@ -83,8 +83,6 @@
     <Compile Include="Impl\ConferenceService.cs" />
     <Compile Include="Impl\Cryptographer.cs" />
     <Compile Include="Impl\SystemClock.cs" />
-    <Compile Include="Impl\UserSession.cs" />
-    <Compile Include="Impl\UserSessionStub.cs" />
     <Compile Include="IUserSession.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Presentation\AttendeeListing.cs" />

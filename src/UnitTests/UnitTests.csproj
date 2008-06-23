@@ -113,6 +113,7 @@
     <Compile Include="Website\Controllers\ApplicationControllerTester.cs" />
     <Compile Include="Website\Controllers\behaves_like_mock_test.cs" />
     <Compile Include="Website\Controllers\ConferenceControllerTester.cs" />
+    <Compile Include="Website\Controllers\FlashMessageComponentTester.cs" />
     <Compile Include="Website\Controllers\ScheduleControllerTester.cs" />
     <Compile Include="Website\Controllers\LoginControllerTester.cs" />
     <Compile Include="Website\Controllers\SessionControllerTester.cs" />

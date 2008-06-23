@@ -8,6 +8,7 @@ using CodeCampServer.Model.Security;
 using CodeCampServer.Website;
 using CodeCampServer.Website.Controllers;
 using CodeCampServer.Website.Helpers;
+using CodeCampServer.Website.Impl;
 using CodeCampServer.Website.Security;
 using NUnit.Framework;
 
@@ -55,12 +56,12 @@ namespace CodeCampServer.UnitTests
 				get { throw new System.NotImplementedException(); }
 			}
 
-			public void PushUserMessage(FlashMessage message)
+			public void PushUserMessage(FlashMessage.MessageType messageType, string message)
 			{
 				throw new System.NotImplementedException();
 			}
 
-			public FlashMessage PopUserMessage()
+			public FlashMessage[] PopUserMessages()
 			{
 				throw new System.NotImplementedException();
 			}

@@ -290,7 +290,7 @@
       <DefaultExceptionName>e</DefaultExceptionName>
       <PreferLongerNames>False</PreferLongerNames>
       <Field prefix="_" suffix="" />
-      <StaticField prefix="" suffix="" />
+      <StaticField prefix="_" suffix="" />
       <Parameter prefix="" suffix="" />
       <LocalVariable prefix="" suffix="" />
     </Naming>

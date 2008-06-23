@@ -47,7 +47,7 @@ namespace CodeCampServer.Website.Controllers
 			}
 
 			//login failed
-			_userSesssion.PushUserMessage(new FlashMessage(FlashMessage.MessageType.Error, "Invalid login"));
+			_userSesssion.PushUserMessage(FlashMessage.MessageType.Error, "Invalid login");
 			return RedirectToAction("index");
 		}
 
@@ -68,7 +68,7 @@ namespace CodeCampServer.Website.Controllers
 
 			if (!task.Success)
 			{
-				_userSesssion.PushUserMessage(new FlashMessage(FlashMessage.MessageType.Error, task.ErrorMessage));
+				_userSesssion.PushUserMessage(FlashMessage.MessageType.Error, task.ErrorMessage);
 			}
 
 			return RedirectToAction("index");

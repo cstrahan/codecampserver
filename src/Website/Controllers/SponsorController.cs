@@ -86,7 +86,7 @@ namespace CodeCampServer.Website.Controllers
 			conference.AddSponsor(sponsor);
 			_conferenceRepository.Save(conference);
 
-			_userSession.PushUserMessage(new FlashMessage(FlashMessage.MessageType.Message, "The sponsor was saved"));
+			_userSession.PushUserMessage(FlashMessage.MessageType.Message, "The sponsor was saved");
 			return RedirectToAction("list");
 		}
 	}

@@ -13,7 +13,7 @@
 
 		<component id="IHttpContextProvider"
 				   service="CodeCampServer.Website.IHttpContextProvider, CodeCampServer.Website"
-				   type="CodeCampServer.Website.HttpContextProvider, CodeCampServer.Website" />
+				   type="CodeCampServer.Website.Impl.HttpContextProvider, CodeCampServer.Website" />
 
 		<component id="ISessionBuilder"
 				       service="CodeCampServer.DataAccess.ISessionBuilder, CodeCampServer.DataAccess"
@@ -27,7 +27,7 @@
 		<!-- services -->
 		<component id="IUserSession"
 				 service="CodeCampServer.Model.IUserSession, CodeCampServer.Model"
-				 type="CodeCampServer.Model.Impl.UserSession, CodeCampServer.Model"
+				 type="CodeCampServer.Website.Impl.UserSession, CodeCampServer.Website"
 				 lifestyle="transient" />
 
 		<component id="IAuthenticator"

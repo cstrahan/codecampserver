@@ -110,6 +110,7 @@
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\AuthorizationFilterAttribute.cs" />
     <Compile Include="Controllers\CreateAdminAccountTask.cs" />
+    <Compile Include="Controllers\FlashMessageComponent.cs" />
     <Compile Include="Controllers\ITask.cs" />
     <Compile Include="Controllers\JsonResult.cs" />
     <Compile Include="Controllers\UrlRedirectResult.cs" />
@@ -126,8 +127,9 @@
     <Compile Include="Helpers\RedirectHelper.cs" />
     <Compile Include="Helpers\RouteHelpers.cs" />
     <Compile Include="Helpers\ViewPageHelpers.cs" />
-    <Compile Include="HttpContextProvider.cs" />
+    <Compile Include="Impl\HttpContextProvider.cs" />
     <Compile Include="IHttpContextProvider.cs" />
+    <Compile Include="Impl\UserSession.cs" />
     <Compile Include="IRouteConfigurator.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Security\Authenticator.cs" />
@@ -137,7 +139,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Conference\ListAttendeesViewData.cs" />
-    <Compile Include="RouteConfigurator.cs" />
+    <Compile Include="Impl\RouteConfigurator.cs" />
     <Compile Include="TempDataKeys.cs" />
     <Compile Include="Views\ViewDataExtensions.cs" />
   </ItemGroup>
@@ -217,6 +219,7 @@
       <Link>Log4Net.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Components\FlashMessageComponent\Views\List.aspx" />
     <Content Include="Content\js\jquery.validate.min.js" />
     <Content Include="Content\js\ui.datepicker.css" />
     <Content Include="Content\js\ui.datepicker.js" />

@@ -39,8 +39,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void CreateAdminAccountSetsErrorMessageAndRedirectsBackToIndexIfEmailOrPasswordIsNotSet()
 		{
 			_personRepository.Stub(r => r.GetNumberOfUsers()).Return(0);
-			FlashMessage message = null;
-			_userSession.Stub(s => s.PushUserMessage(null)).IgnoreArguments().Do(new Action<FlashMessage>(m => message = m));
+			_userSession.Expect(s => s.PushUserMessage(FlashMessage.MessageType.Error, "Email and Password are required"));
 
 			LoginController controller = getController();
 
@@ -51,9 +50,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 			Assert.That(actionResult, Is.Not.Null, "should have redirected");
 			Assert.That(actionResult.Values["action"], Is.EqualTo("index"));
-			Assert.That(message, Is.Not.Null);
-			Assert.That(message.Type, Is.EqualTo(FlashMessage.MessageType.Error));
-			Assert.That(message.Message, Is.EqualTo("Email and Password are required"));
+			_userSession.VerifyAllExpectations();
 		}
 
 		[Test, ExpectedException(typeof (SecurityException))]
@@ -122,8 +119,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			var person = new Person();
 			_personRepository.Stub(r => r.FindByEmail("brownie@brownie.com.au")).Return(person);
 			_authenticator.Stub(r => r.VerifyAccount(person, password)).Return(false);
-			FlashMessage message = null;
-			_userSession.Stub(s => s.PushUserMessage(null)).IgnoreArguments().Do(new Action<FlashMessage>(m => message = m));
+			_userSession.Expect(s => s.PushUserMessage(FlashMessage.MessageType.Error, "Invalid login"));
 
 			LoginController controller = getController();
 
@@ -131,9 +127,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 			if (actionResult == null) Assert.Fail("should have redirected to an action");
 			Assert.That(actionResult.Values["action"], Is.EqualTo("index"));
-			Assert.That(message, Is.Not.Null);
-			Assert.That(message.Type, Is.EqualTo(FlashMessage.MessageType.Error));
-			Assert.That(message.Message, Is.EqualTo("Invalid login"));
+
+			_userSession.VerifyAllExpectations();
 		}
 
 		[Test]
