@@ -10,10 +10,12 @@ namespace CodeCampServer.Website.Controllers
 	public class SponsorController : Controller
 	{
 		private readonly IConferenceRepository _conferenceRepository;
+		private readonly IUserSession _userSession;
 
 		public SponsorController(IConferenceRepository conferenceRepository, IUserSession userSession) : base(userSession)
 		{
 			_conferenceRepository = conferenceRepository;
+			_userSession = userSession;
 		}
 
 		[AdminOnly]
@@ -84,7 +86,7 @@ namespace CodeCampServer.Website.Controllers
 			conference.AddSponsor(sponsor);
 			_conferenceRepository.Save(conference);
 
-			TempData[TempDataKeys.Message] = "The sponsor was saved.";
+			_userSession.PushUserMessage(new FlashMessage(FlashMessage.MessageType.Message, "The sponsor was saved"));
 			return RedirectToAction("list");
 		}
 	}

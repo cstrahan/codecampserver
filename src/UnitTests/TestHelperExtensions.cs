@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Web.Mvc;
 using Castle.Windsor;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
@@ -8,6 +9,7 @@ using CodeCampServer.Website;
 using CodeCampServer.Website.Controllers;
 using CodeCampServer.Website.Helpers;
 using CodeCampServer.Website.Security;
+using NUnit.Framework;
 
 namespace CodeCampServer.UnitTests
 {
@@ -34,6 +36,11 @@ namespace CodeCampServer.UnitTests
 			IoC.Reset();
 
 			return attributes.Length > 0;
+		}
+
+		public static bool RedirectsToAction(this RedirectToRouteResult result, string action)
+		{
+			return result.Values["action"].ToString().ToLower().Equals(action.ToLower());
 		}
 
 		public class FakeUserSession : IUserSession

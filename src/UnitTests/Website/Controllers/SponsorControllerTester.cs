@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
-using CodeCampServer.Model.Impl;
 using CodeCampServer.Website.Controllers;
 using CodeCampServer.Website.Views;
 using NUnit.Framework;
@@ -12,160 +12,140 @@ using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {
-    [TestFixture]
-    public class SponsorControllerTester
-    {
-        private MockRepository _mocks;
-        private IConferenceRepository _conferenceRepository;
-        private Conference _conference;
-        private IUserSession userSession;
-        private TempDataDictionary _tempData;
+	[TestFixture]
+	public class SponsorControllerTester
+	{
+		[SetUp]
+		public void Setup()
+		{
+			_userSession = MockRepository.GenerateMock<IUserSession>();
+			_conferenceRepository = MockRepository.GenerateStub<IConferenceRepository>();
+			_conference = new Conference("austincodecamp2008", "Austin Code Camp");
+		}
 
+		private Conference _conference;
+		private IUserSession _userSession;
+		private IConferenceRepository _conferenceRepository;
 
-        [SetUp]
-        public void Setup()
-        {
-            _mocks = new MockRepository();
-            _conferenceRepository = _mocks.CreateMock<IConferenceRepository>();
-            userSession = _mocks.CreateMock<IUserSession>();
-            _conference = new Conference("austincodecamp2008", "Austin Code Camp");
-            _tempData = new TempDataDictionary(_mocks.FakeHttpContext("~/sponsors"));
-        }
+		private SponsorController getController()
+		{
+			return new SponsorController(_conferenceRepository, _userSession);
+		}
 
-        [Test]
-        public void DeleteShouldRemoveSponsorAndRenderList()
-        {
-            var sponsorToDelete = new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum);
-            var sponsor = new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum);
-            _conference.AddSponsor(sponsor);
-            _conference.AddSponsor(sponsorToDelete);
-            
-            
-            SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
-            Expect.Call(() => _conferenceRepository.Save(_conference));            
-            _mocks.ReplayAll();
+		[Test]
+		public void DeleteShouldRemoveSponsorAndRenderList()
+		{
+			var sponsorToDelete = new Sponsor("delete", "logourl", "website", "", "", "", SponsorLevel.Platinum);
+			var sponsor = new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum);
+			_conference.AddSponsor(sponsor);
+			_conference.AddSponsor(sponsorToDelete);
+			_conferenceRepository.Stub(r => r.GetConferenceByKey("austincodecamp2008")).Return(_conference);
 
+			SponsorController controller = getController();
+			var actionResult = controller.Delete(_conference.Key, "delete") as ViewResult;
 
-            var controller = GetController();
+			_conferenceRepository.AssertWasCalled(r => r.Save(_conference));
+			Assert.That(controller.ViewData.Contains<Sponsor[]>());
+			var sponsors = new List<Sponsor>(controller.ViewData.Get<Sponsor[]>());
+			Assert.That(sponsors.Contains(sponsorToDelete), Is.False);
+			Assert.That(sponsors.Contains(sponsor));
+			Assert.That(actionResult, Is.Not.Null);
+			Assert.That(actionResult.ViewName, Is.EqualTo("List"));
+		}
 
-            var actionResult = controller.Delete(_conference.Key, "name") as ViewResult;
+		[Test]
+		public void EditSponsorShouldBeMarkedAsAdminOnly()
+		{
+			MethodInfo method = typeof (SponsorController).GetMethod("Edit");
+			Assert.That(method.HasAdminOnlyAttribute());
+		}
 
-            Assert.That(controller.ViewData.Contains<Sponsor[]>());
-            
-            var sponsors = new List<Sponsor>(controller.ViewData.Get<Sponsor[]>());
-            Assert.That(sponsors.Contains(sponsorToDelete), Is.False);
+		[Test]
+		public void EditSponsorShouldGetSponsorData()
+		{
+			_conference.AddSponsor(new Sponsor("test", "", "", "", "", "", SponsorLevel.Gold));
+			_conferenceRepository.Stub(r => r.GetConferenceByKey("austincodecamp2008")).Return(_conference);
 
-            Assert.That(actionResult, Is.Not.Null);
-            Assert.That(actionResult.ViewName, Is.EqualTo("List"));
-        }
+			SponsorController controller = getController();
+			var actionResult = controller.Edit("austincodecamp2008", "test") as ViewResult;
 
-        [Test]
-        public void EditSponsorShouldGetSponsorData()
-        {
-            _conference.AddSponsor(new Sponsor("test", "", "", "", "", "", SponsorLevel.Gold));
-            SetupResult.For(userSession.IsAdministrator).Return(true);
-            SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
+			var viewDataSponsor = controller.ViewData.Get<Sponsor>();
+			Assert.That(viewDataSponsor, Is.Not.Null);
+			Assert.That(viewDataSponsor.Name, Is.EqualTo("test"));
+			Assert.That(actionResult.ViewName, Is.Null);
+		}
 
-            _mocks.ReplayAll();
+		[Test]
+		public void EditSponsorShouldRedirectToListWhenNoSponsor()
+		{
+			_conferenceRepository.Stub(r => r.GetConferenceByKey("austincodecamp2008")).Return(_conference);
 
-            var controller = GetController();
-            var actionResult = controller.Edit("austincodecamp2008", "test") as ViewResult;
+			SponsorController controller = getController();
+			var actionResult = controller.Edit("austincodecamp2008", null) as RedirectToRouteResult;
 
-            var viewDataSponsor = controller.ViewData.Get<Sponsor>();
-            Assert.That(viewDataSponsor, Is.Not.Null);
-            Assert.That(viewDataSponsor.Name, Is.EqualTo("test"));
-            Assert.That(actionResult.ViewName, Is.Null);
-        }
+			Assert.That(actionResult, Is.Not.Null, "Should have returned action");
+			Assert.That(actionResult.RedirectsToAction("list"));
+		}
 
-        [Test]
-        public void EditSponsorShouldRedirectToListWhenNoSponsor()
-        {
-            SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
-            SetupResult.For(userSession.IsAdministrator).Return(true);
-            _mocks.ReplayAll();
+		[Test]
+		public void NewActionShouldRenderEditViewWithNewSponsor()
+		{
+			SponsorController controller = getController();
+			var actionResult = controller.New(_conference.Key) as ViewResult;
 
-            var controller = GetController();
-            var actionResult = controller.Edit("austincodecamp2008", null) as RedirectToRouteResult;
+			Assert.That(controller.ViewData.Contains<Sponsor>());
+			Assert.That(actionResult, Is.Not.Null, "should have returned ViewResult");
+			Assert.That(actionResult.ViewName, Is.EqualTo("Edit"));
+		}
 
-            Assert.That(actionResult, Is.Not.Null, "Should have returned action");            
-            Assert.That(actionResult.Values["action"].ToString().ToLower(), Is.EqualTo("list"));
-        }
+		[Test]
+		public void SaveShouldProperlyEditExistingSponsor()
+		{
+			_conference.AddSponsor(new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum));
+			_conference.AddSponsor(new Sponsor("name2", "logourl2", "website2", "", "", "", SponsorLevel.Bronze));
 
-        [Test]
-        public void EditSponsorShouldBeMarkedAsAdminOnly()
-        {            
-            var method = typeof (SponsorController).GetMethod("Edit");
-            Assert.That(method.HasAdminOnlyAttribute());
-        }
+			_conferenceRepository.Stub(r => r.GetConferenceByKey("austincodecamp2008")).Return(_conference);
+			FlashMessage message = null;
+			_userSession.Stub(s => s.PushUserMessage(null)).IgnoreArguments().Do(new Action<FlashMessage>(m => message = m));
 
-        [Test]
-        public void NewActionShouldRenderEditViewWithNewSponsor()
-        {
-            var controller = GetController();
-            var actionResult = controller.New(_conference.Key) as ViewResult;
+			SponsorController controller = getController();
+			var actionResult = controller.Save(_conference.Key, "name", "edited name", "Gold", "", "", "", "", "")
+			                   as RedirectToRouteResult;
 
-            Assert.That(controller.ViewData.Contains<Sponsor>());
-            Assert.That(actionResult, Is.Not.Null, "should have returned ViewResult");
-            Assert.That(actionResult.ViewName, Is.EqualTo("Edit"));
-        }
+			_conferenceRepository.AssertWasCalled(r => r.Save(_conference));
 
-        [Test]
-        public void SaveShouldProperlyEditExistingSponsor()
-        {
-            _conference.AddSponsor(new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum));
-            _conference.AddSponsor(new Sponsor("name2", "logourl2", "website2", "", "", "", SponsorLevel.Bronze));
+			//check redirect
+			Assert.That(actionResult, Is.Not.Null, "Should have returned RedirectToRouteResult");
+			Assert.That(actionResult.RedirectsToAction("list"));
 
-            SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
-            Expect.Call(() => _conferenceRepository.Save(_conference)).Repeat.Twice();
+			//check success message
+			Assert.That(message, Is.Not.Null);
+			Assert.That(message.Type, Is.EqualTo(FlashMessage.MessageType.Message));
+			Assert.That(message.Message, Is.EqualTo("The sponsor was saved"));
+		}
 
-            _mocks.ReplayAll();
+		[Test]
+		public void ShouldListSponsorsForAConference()
+		{
+			_conference.AddSponsor(new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum));
+			_conference.AddSponsor(new Sponsor("name2", "logourl2", "website2", "", "", "", SponsorLevel.Bronze));
 
-            var controller = GetController();
-            var actionResult = controller.Save(_conference.Key, "name", "edited name", "Gold", "", "", "", "", "")
-                as RedirectToRouteResult;
+			_conferenceRepository.Stub(r => r.GetConferenceByKey("austincodecamp2008")).Return(_conference);
 
-            //check redirect
-            Assert.That(actionResult, Is.Not.Null, "Should have returned RedirectToRouteResult");
-            Assert.That(actionResult.Values["action"], Is.EqualTo("list"));
+			SponsorController controller = getController();
+			var actionResult = controller.List("austincodecamp2008") as ViewResult;
 
-            //check success message
-            Assert.That(controller.TempData.ContainsKey("message"));
+			Assert.That(actionResult, Is.Not.Null, "should have returned ViewResult");
+			Assert.That(actionResult.ViewName, Is.Null);
 
-            _mocks.VerifyAll();
-        }
-        
-        [Test]
-        public void ShouldListSponsorsForAConference()
-        {
-            _conference.AddSponsor(new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum));
-            _conference.AddSponsor(new Sponsor("name2", "logourl2", "website2", "", "", "", SponsorLevel.Bronze));
+			Assert.That(controller.ViewData, Is.Not.Null);
+			Assert.That(controller.ViewData.Contains<Sponsor[]>());
 
-            SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
-
-            _mocks.ReplayAll();
-
-            var controller = GetController();
-            var actionResult = controller.List("austincodecamp2008") as ViewResult;
-
-            Assert.That(actionResult, Is.Not.Null, "should have returned ViewResult");
-            Assert.That(actionResult.ViewName, Is.Null);
-
-            Assert.That(controller.ViewData, Is.Not.Null);
-            Assert.That(controller.ViewData.Contains<Sponsor[]>());
-
-            var sponsors = controller.ViewData.Get<Sponsor[]>();
-            Assert.That(sponsors[0].Level, Is.EqualTo(SponsorLevel.Platinum));
-            Assert.That(sponsors[1].Level, Is.EqualTo(SponsorLevel.Bronze));
-            Assert.That(sponsors[0].Name, Is.EqualTo("name"));
-            Assert.That(sponsors[1].Name, Is.EqualTo("name2"));
-        }
-
-        private SponsorController GetController()
-        {
-            return new SponsorController(_conferenceRepository, userSession)
-                       {
-                           TempData = _tempData
-                       };
-        }
-    }
+			var sponsors = controller.ViewData.Get<Sponsor[]>();
+			Assert.That(sponsors[0].Level, Is.EqualTo(SponsorLevel.Platinum));
+			Assert.That(sponsors[1].Level, Is.EqualTo(SponsorLevel.Bronze));
+			Assert.That(sponsors[0].Name, Is.EqualTo("name"));
+			Assert.That(sponsors[1].Name, Is.EqualTo("name2"));
+		}
+	}
 }
