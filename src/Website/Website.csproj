@@ -130,11 +130,7 @@
     </Compile>
     <Compile Include="Models\Conference\ListAttendeesViewData.cs" />
     <Compile Include="Impl\RouteConfigurator.cs" />
-    <Compile Include="TempDataKeys.cs" />
-    <Compile Include="Views\Shared\Sponsors.ascx.cs">
-      <DependentUpon>Sponsors.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Include="TempDataKeys.cs" />    
     <Compile Include="Views\ViewDataExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
