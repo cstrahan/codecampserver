@@ -1,5 +1,0 @@
-This routedebug dll has been modified to allow for an HttpModule.   with this you can append ?routedebug to any url and get the route information matching the current url.
-
-See details here:  http://flux88.com/DebuggingRoutes.aspx
-
--Ben

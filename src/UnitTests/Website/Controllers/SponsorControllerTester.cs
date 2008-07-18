@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Web.Mvc;
@@ -32,7 +33,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		}
 
 		[Test]
-		public void DeleteShouldRemoveSponsorAndRenderList()
+		public void DeleteShouldRemoveSponsorAndRedirectToList()
 		{
 			var sponsorToDelete = new Sponsor("delete", "logourl", "website", "", "", "", SponsorLevel.Platinum);
 			var sponsor = new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum);
@@ -41,15 +42,18 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_conferenceRepository.Stub(r => r.GetConferenceByKey("austincodecamp2008")).Return(_conference);
 
 			SponsorController controller = getController();
-			var actionResult = controller.Delete(_conference.Key, "delete") as ViewResult;
+		    var actionResult = controller.Delete(_conference.Key, "delete") as RedirectToRouteResult;
 
 			_conferenceRepository.AssertWasCalled(r => r.Save(_conference));
-			Assert.That(controller.ViewData.Contains<Sponsor[]>());
-			var sponsors = new List<Sponsor>(controller.ViewData.Get<Sponsor[]>());
-			Assert.That(sponsors.Contains(sponsorToDelete), Is.False);
+
+		    var sponsors = new List<Sponsor>(_conference.GetSponsors());
+			
+            Assert.That(sponsors.Contains(sponsorToDelete), Is.False);
 			Assert.That(sponsors.Contains(sponsor));
-			Assert.That(actionResult, Is.Not.Null);
-			Assert.That(actionResult.ViewName, Is.EqualTo("List"));
+			
+            Assert.That(actionResult, Is.Not.Null);			
+            Assert.That(actionResult.Values["action"], Is.EqualTo("list"));
+            Assert.That(actionResult.Values["conferenceKey"], Is.EqualTo(_conference.Key));
 		}
 
 		[Test]

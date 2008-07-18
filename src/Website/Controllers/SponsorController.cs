@@ -36,9 +36,7 @@ namespace CodeCampServer.Website.Controllers
 				_conferenceRepository.Save(conference);
 			}
 
-			Sponsor[] sponsors = conference.GetSponsors();
-			ViewData.Add(sponsors);
-			return View("List");
+		    return RedirectToAction("list", new {conferenceKey = conferenceKey});
 		}
 
 

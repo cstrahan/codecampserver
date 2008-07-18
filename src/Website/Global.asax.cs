@@ -7,7 +7,6 @@ using CodeCampServer.Model;
 using CodeCampServer.Website.Helpers;
 using CodeCampServer.Website.Impl;
 using MvcContrib.Castle;
-using MvcContrib.ExtendedComponentController;
 
 namespace CodeCampServer.Website
 {
@@ -17,10 +16,10 @@ namespace CodeCampServer.Website
 		{
 			Log.EnsureInitialized();
 			RegisterMvcTypes();
-			ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(IoC.GetContainer()));
-			ComponentControllerBuilder.Current.SetComponentControllerFactory(
-				new IoCComponentControllerFactory(new WindsorDependencyResolver(IoC.GetContainer())));
 
+			ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(IoC.GetContainer()));
+            ControllerBuilder.Current.DefaultNamespaces.Add("CodeCampServer.Website.Controllers");
+			
 			setupRoutes();
 		}
 
@@ -38,11 +37,7 @@ namespace CodeCampServer.Website
 				if (typeof (IController).IsAssignableFrom(type))
 				{
 					IoC.Register(type.Name.ToLower(), type, LifestyleType.Transient);
-				}
-				if (typeof (ComponentController).IsAssignableFrom(type))
-				{
-					IoC.Register(type.Name.ToLower(), type, LifestyleType.Transient);
-				}
+				}				                
 			}
 		}
 

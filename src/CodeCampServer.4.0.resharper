@@ -9,8 +9,8 @@
     </ExternalPath>
     <CSharp>
       <FormatSettings>
-        <INSERT_TABS>True</INSERT_TABS>
-        <INDENT_SIZE>2</INDENT_SIZE>
+        <INSERT_TABS>False</INSERT_TABS>
+        <INDENT_SIZE>4</INDENT_SIZE>
         <CONTINUOUS_INDENT_MULTIPLIER>1</CONTINUOUS_INDENT_MULTIPLIER>
         <SPACE_BEFORE_METHOD_CALL_PARENTHESES>False</SPACE_BEFORE_METHOD_CALL_PARENTHESES>
         <SPACE_BEFORE_EMPTY_METHOD_CALL_PARENTHESES>False</SPACE_BEFORE_EMPTY_METHOD_CALL_PARENTHESES>
@@ -207,11 +207,16 @@
         <MandatoryImports length="0" />
         <KeepNontrivialAlias>True</KeepNontrivialAlias>
       </UsingsSettings>
+      <Naming2>
+        <ExceptionName />
+        <LongerNamesFirst>False</LongerNamesFirst>
+        <OverrideDefaultSettings>False</OverrideDefaultSettings>
+      </Naming2>
     </CSharp>
     <VB>
       <FormatSettings>
-        <INSERT_TABS>True</INSERT_TABS>
-        <INDENT_SIZE>2</INDENT_SIZE>
+        <INSERT_TABS>False</INSERT_TABS>
+        <INDENT_SIZE>4</INDENT_SIZE>
         <SPACE_BEFORE_INVOCATION_PARENTHESES>True</SPACE_BEFORE_INVOCATION_PARENTHESES>
         <SPACE_BEFORE_EMPTY_INVOCATION_PARENTHESES>False</SPACE_BEFORE_EMPTY_INVOCATION_PARENTHESES>
         <SPACE_BEFORE_METHOD_PARENTHESES>True</SPACE_BEFORE_METHOD_PARENTHESES>
@@ -294,6 +299,11 @@
       <Parameter prefix="" suffix="" />
       <LocalVariable prefix="" suffix="" />
     </Naming>
+    <Naming2>
+      <ExceptionName />
+      <LongerNamesFirst>False</LongerNamesFirst>
+      <OverrideDefaultSettings>False</OverrideDefaultSettings>
+    </Naming2>
   </CodeStyleSettings>
   <SharedSolutionTemplateManager>
     <LiveTemplates>

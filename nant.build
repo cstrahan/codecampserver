@@ -40,7 +40,7 @@
 	<target name="builddatabase" depends="config, init, dropDatabase, createDatabase" />
 
 	<target name="config" description="Generates necessary config files based on local settings">    
-		<copy file="config\hibernate.cfg.xml.template" tofile="src\hibernate.cfg.xml">
+		<copy file="config\hibernate.cfg.xml.template" tofile="src\hibernate.cfg.xml" overwrite="true">
 			<filterchain>
 				<replacetokens>
 					<token key="SERVER" value="${database.server}" />

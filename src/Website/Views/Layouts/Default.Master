@@ -1,9 +1,11 @@
-﻿<%@ Import Namespace="MvcContrib.UI.Html"%>
+﻿<%@ Import Namespace="Microsoft.Web.Mvc"%>
+<%@ Import Namespace="MvcContrib.UI.Html"%>
 <%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
 <%@ Import namespace="CodeCampServer.Website.Views"%>
 <%@ Import Namespace="CodeCampServer.Website.Helpers" %>
 <%@ Import namespace="CodeCampServer.Website.Controllers"%>
 <%@ Import namespace="System.Web.Mvc"%>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -51,7 +53,7 @@
     <div id="page">
         <div id="content">            
             <div class="prop"></div>
-            <%=Html.RenderComponent2<FlashMessageComponent>(c => c.GetMessages()) %>
+            <% Html.RenderAction<FlashMessageComponentController>(c => c.GetMessages()); %>
             <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server" />                                                    
         </div>   
     
@@ -65,7 +67,7 @@
             <% } %>
             <p></p>
                    
-            <%= Html.RenderComponent2<SponsorComponentController>(x=>x.List(conferenceKey, SponsorLevel.Platinum)) %>
+            <% Html.RenderAction<SponsorComponentController>(x => x.List(conferenceKey, SponsorLevel.Platinum)); %>
 		    
 	    </div>
     </div>

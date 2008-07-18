@@ -219,7 +219,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			HttpContextBase fakeContext = _mocks.FakeHttpContext("~/conferences");
 
 			return new ConferenceController(_conferenceRepository, _service, _authSession, new ClockStub())
-			       	{TempData = new TempDataDictionary(fakeContext)};
+			       	{TempData = new TempDataDictionary()};
 		}
 	}
 

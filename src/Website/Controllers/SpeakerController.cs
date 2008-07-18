@@ -50,7 +50,7 @@ namespace CodeCampServer.Website.Controllers
 			return View("view");
 		}
 
-		[RequireLogin]
+		[Authorize]
 		public ActionResult Edit(string conferenceKey)
 		{
 			Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
@@ -69,7 +69,7 @@ namespace CodeCampServer.Website.Controllers
 			return RedirectToAction("index", "login");
 		}
 
-		[RequireLogin]
+        [Authorize]
 		[PostOnly]
 		public ActionResult Save(string conferenceKey, string speakerKey, string bio, string avatarUrl)
 		{

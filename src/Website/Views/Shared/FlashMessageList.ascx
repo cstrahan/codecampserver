@@ -1,8 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" 
-Inherits="System.Web.Mvc.ViewPage" %>
-<%@ Import Namespace="System.Collections.Generic"%>
+﻿<%@ Import Namespace="System.Collections.Generic"%>
 <%@ Import Namespace="CodeCampServer.Model"%>
 <%@ Import Namespace="MvcContrib"%>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl" %>
 
 <p>
 	<asp:placeholder id="flash" runat="server" />

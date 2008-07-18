@@ -50,6 +50,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\nhibernate\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\system.web.mvc\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="MvcContrib, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\mvccontrib\MvcContrib.dll</HintPath>
@@ -57,10 +61,6 @@
     <Reference Include="MvcContrib.Castle, Version=0.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\mvccontrib\MvcContrib.Castle.dll</HintPath>
-    </Reference>
-    <Reference Include="RouteDebug, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\system.web.mvc\RouteDebug.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -98,29 +98,19 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AuthenticationModule.cs" />
-    <Compile Include="Components\SponsorComponent\Views\List.aspx.cs">
-      <DependentUpon>List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Components\SponsorComponent\Views\List.aspx.designer.cs">
-      <DependentUpon>List.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdminOnlyAttribute.cs" />
     <Compile Include="Controllers\Controller.cs" />
-    <Compile Include="Controllers\AuthorizationFilterAttribute.cs" />
     <Compile Include="Controllers\CreateAdminAccountTask.cs" />
-    <Compile Include="Controllers\FlashMessageComponent.cs" />
+    <Compile Include="Controllers\FlashMessageComponentController.cs" />
     <Compile Include="Controllers\ITask.cs" />
     <Compile Include="Controllers\JsonResult.cs" />
     <Compile Include="Controllers\UrlRedirectResult.cs" />
-    <Compile Include="Controllers\RequireLoginAttribute.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="Controllers\SponsorComponentController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\TrackController.cs" />
-    <Compile Include="Helpers\ComponentControllerBase.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\IoC.cs" />
     <Compile Include="Helpers\LinkHelpers.cs" />
@@ -141,6 +131,10 @@
     <Compile Include="Models\Conference\ListAttendeesViewData.cs" />
     <Compile Include="Impl\RouteConfigurator.cs" />
     <Compile Include="TempDataKeys.cs" />
+    <Compile Include="Views\Shared\Sponsors.ascx.cs">
+      <DependentUpon>Sponsors.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Views\ViewDataExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -188,7 +182,6 @@
     <Content Include="Views\Session\Proposed.aspx" />
     <Content Include="Views\Schedule\Edit.aspx" />
     <Content Include="Views\Shared\AdminControlPanel.ascx" />
-    <Content Include="Views\Shared\Sponsor.ascx" />
     <Content Include="Views\Speaker\Edit.aspx" />
     <Content Include="Views\Conference\Details.aspx" />
     <Content Include="Views\Conference\Edit.aspx" />
@@ -206,7 +199,6 @@
       <Link>Windsor.config.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Components\SponsorComponent\Views\List.aspx" />
     <Content Include="Content\images\sponsors\visualsvn.png" />
     <Content Include="Views\Layouts\Admin.Master" />
   </ItemGroup>
@@ -219,10 +211,11 @@
       <Link>Log4Net.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Components\FlashMessageComponent\Views\List.aspx" />
     <Content Include="Content\js\jquery.validate.min.js" />
     <Content Include="Content\js\ui.datepicker.css" />
     <Content Include="Content\js\ui.datepicker.js" />
+    <Content Include="Views\Shared\FlashMessageList.ascx" />
+    <Content Include="Views\Shared\SponsorList.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

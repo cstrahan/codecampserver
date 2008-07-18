@@ -25,7 +25,7 @@ namespace CodeCampServer.Website.Controllers
 		}
 
 		//TODO:  change this action to just be 'new'
-		[RequireLogin]
+		[Authorize]
 		public ActionResult Create(string conferenceKey)
 		{
 			Speaker speaker = getLoggedInSpeaker(conferenceKey);
@@ -42,7 +42,7 @@ namespace CodeCampServer.Website.Controllers
 		}
 
 		//TODO:  change this action to just be 'create'
-		[RequireLogin]
+		[Authorize]
 		[PostOnly]
 		public ActionResult CreateNew(string conferenceKey, string speakerEmail, string title, string @abstract)
 		{

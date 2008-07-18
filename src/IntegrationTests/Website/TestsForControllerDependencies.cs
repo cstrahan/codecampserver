@@ -18,10 +18,8 @@ namespace CodeCampServer.IntegrationTests.Website
 			IoC.Resolve<ScheduleController>();
 			IoC.Resolve<SessionController>();
 			IoC.Resolve<SpeakerController>();
-			IoC.Resolve<SponsorComponentController>();
 			IoC.Resolve<SponsorController>();
-			IoC.Resolve<TrackController>();
-			IoC.Resolve<SponsorComponentController>();
+			IoC.Resolve<TrackController>();			
 		}
 	}
 }

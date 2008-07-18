@@ -1,22 +1,24 @@
-﻿using CodeCampServer.Model.Domain;
-using CodeCampServer.Website.Helpers;
+﻿using System.Web.Mvc;
+using CodeCampServer.Model;
+using CodeCampServer.Model.Domain;
+using MvcContrib;
 
 namespace CodeCampServer.Website.Controllers
 {
-	public class SponsorComponentController : ComponentControllerBase
+	public class SponsorComponentController : Controller
 	{
 		private readonly IConferenceRepository _conferenceRepository;
 
-		public SponsorComponentController(IConferenceRepository conferenceRepository)
+		public SponsorComponentController(IConferenceRepository conferenceRepository, IUserSession session) : base(session)
 		{
 			_conferenceRepository = conferenceRepository;
 		}
 
-		public void List(string key, SponsorLevel level)
+		public ViewResult List(string key, SponsorLevel level)
 		{
 			Conference conference = _conferenceRepository.GetConferenceByKey(key);
 			Sponsor[] sponsors = conference.GetSponsors(level);
-			RenderView("List", sponsors);
+			return View("SponsorList", sponsors);
 		}
 	}
 }
