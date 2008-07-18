@@ -128,23 +128,40 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		{
 			_conference.AddSponsor(new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum));
 			_conference.AddSponsor(new Sponsor("name2", "logourl2", "website2", "", "", "", SponsorLevel.Bronze));
-
 			_conferenceRepository.Stub(r => r.GetConferenceByKey("austincodecamp2008")).Return(_conference);
 
 			SponsorController controller = getController();
-			var actionResult = controller.List("austincodecamp2008") as ViewResult;
+			var actionResult = controller.List("austincodecamp2008", null, null) as ViewResult;
 
 			Assert.That(actionResult, Is.Not.Null, "should have returned ViewResult");
 			Assert.That(actionResult.ViewName, Is.Null);
 
-			Assert.That(controller.ViewData, Is.Not.Null);
-			Assert.That(controller.ViewData.Contains<Sponsor[]>());
-
-			var sponsors = controller.ViewData.Get<Sponsor[]>();
+			var sponsors = controller.ViewData.Model as Sponsor[];
+			Assert.That(sponsors, Is.Not.Null);
 			Assert.That(sponsors[0].Level, Is.EqualTo(SponsorLevel.Platinum));
 			Assert.That(sponsors[1].Level, Is.EqualTo(SponsorLevel.Bronze));
 			Assert.That(sponsors[0].Name, Is.EqualTo("name"));
 			Assert.That(sponsors[1].Name, Is.EqualTo("name2"));
+		}
+
+		[Test]
+		public void ShouldListSponsorsByLevelForAConferenceWithPartial()
+		{
+			_conference.AddSponsor(new Sponsor("name", "logourl", "website", "", "", "", SponsorLevel.Platinum));
+			_conference.AddSponsor(new Sponsor("name2", "logourl2", "website2", "", "", "", SponsorLevel.Bronze));
+			_conferenceRepository.Stub(r => r.GetConferenceByKey("austincodecamp2008")).Return(_conference);
+
+			SponsorController controller = getController();
+			var actionResult = controller.List("austincodecamp2008", true, SponsorLevel.Platinum) as ViewResult;
+
+			Assert.That(actionResult, Is.Not.Null, "should have returned ViewResult");
+			Assert.That(actionResult.ViewName, Is.EqualTo("SponsorList"));
+
+			var sponsors = controller.ViewData.Model as Sponsor[];
+			Assert.That(sponsors, Is.Not.Null);
+			Assert.That(sponsors.Length, Is.EqualTo(1));
+			Assert.That(sponsors[0].Level, Is.EqualTo(SponsorLevel.Platinum));
+			Assert.That(sponsors[0].Name, Is.EqualTo("name"));
 		}
 	}
 }

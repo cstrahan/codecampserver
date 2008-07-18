@@ -39,12 +39,12 @@ namespace CodeCampServer.Website.Controllers
 		    return RedirectToAction("list", new {conferenceKey = conferenceKey});
 		}
 
-
-		public ActionResult List(string conferenceKey)
+		public ActionResult List(string conferenceKey, bool? partial, SponsorLevel? level)
 		{
 			Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
-			Sponsor[] sponsors = conference.GetSponsors();
-			ViewData.Add(sponsors);
+			Sponsor[] sponsors = level.HasValue ? conference.GetSponsors(level.Value) : conference.GetSponsors();
+			ViewData.Model = sponsors;
+			if (partial.GetValueOrDefault()) return View("SponsorList");
 			return View();
 		}
 

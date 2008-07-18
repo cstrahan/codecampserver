@@ -34,7 +34,7 @@
     		    <li><%=Html.ActionLink<ConferenceController>(c => c.Details(conferenceKey), "Home") %></li>
     		    <li><%=Html.ActionLink<ScheduleController>(c => c.Index(conferenceKey), "Schedule") %></li>
     		    <li><%=Html.ActionLink<SpeakerController>(c => c.List(conferenceKey,0,20), "Speakers") %></li>
-    		    <li><%=Html.ActionLink<SponsorController>(c => c.List(conferenceKey), "Sponsors") %></li>    				  
+    		    <li><%=Html.ActionLink<SponsorController>(c => c.List(conferenceKey, false, null), "Sponsors") %></li>    				  
 
 	        <%  if (!Context.User.Identity.IsAuthenticated) { %>
 	            <li><%=Html.ActionLink<ConferenceController>(c => c.PleaseRegister(conferenceKey), "Register!") %></li>
@@ -67,7 +67,7 @@
             <% } %>
             <p></p>
                    
-            <% Html.RenderAction<SponsorComponentController>(x => x.List(conferenceKey, SponsorLevel.Platinum)); %>
+            <% Html.RenderAction<SponsorController>(x => x.List(conferenceKey, true, SponsorLevel.Platinum)); %>
 		    
 	    </div>
     </div>

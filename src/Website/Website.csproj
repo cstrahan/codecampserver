@@ -108,7 +108,6 @@
     <Compile Include="Controllers\UrlRedirectResult.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
-    <Compile Include="Controllers\SponsorComponentController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\TrackController.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
@@ -130,7 +129,7 @@
     </Compile>
     <Compile Include="Models\Conference\ListAttendeesViewData.cs" />
     <Compile Include="Impl\RouteConfigurator.cs" />
-    <Compile Include="TempDataKeys.cs" />    
+    <Compile Include="TempDataKeys.cs" />
     <Compile Include="Views\ViewDataExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

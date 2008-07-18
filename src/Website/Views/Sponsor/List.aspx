@@ -5,7 +5,7 @@ Inherits="System.Web.Mvc.ViewPage" Title="Sponsor List" %>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 <ul class="sponsors">
-<% foreach (Sponsor sponsor in ViewData.Get<Sponsor[]>()) { %>
+<% foreach (Sponsor sponsor in (Sponsor[]) ViewData.Model) { %>
     <li>
         <div class="<%=sponsor.Level.ToString()%> sponsor">
             <a href='<%=sponsor.Website %>'>

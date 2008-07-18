@@ -119,7 +119,6 @@
     <Compile Include="Website\Controllers\LoginControllerTester.cs" />
     <Compile Include="Website\Controllers\SessionControllerTester.cs" />
     <Compile Include="Website\Controllers\SpeakerControllerTester.cs" />
-    <Compile Include="Website\Controllers\SponsorComponentControllerTester.cs" />
     <Compile Include="Website\Controllers\SponsorControllerTester.cs" />
     <Compile Include="Website\HttpContextStub.cs" />
     <Compile Include="Website\HttpRequestStub.cs" />

@@ -17,14 +17,7 @@ namespace CodeCampServer.Website.Controllers
 
 		protected override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-			if (filterContext != null)
-			{
-				var controller = (System.Web.Mvc.Controller) filterContext.Controller;
-				RouteData routeData = controller.ControllerContext.RouteData;
-				object actionName = routeData.Values["action"];
-				object controllerName = routeData.Values["controller"];
-				Log.Debug(this, string.Format("Executing action:{0} on controller:{1}", actionName, controllerName));
-			}
+			LogAction(filterContext);
 			
 			if (_userSession.IsAdministrator)
 			{
@@ -33,6 +26,18 @@ namespace CodeCampServer.Website.Controllers
 			PreparePageTitle();
 
 			base.OnActionExecuting(filterContext);
+		}
+
+		private void LogAction(ActionExecutingContext filterContext)
+		{
+			if (filterContext != null)
+			{
+				var controller = (System.Web.Mvc.Controller) filterContext.Controller;
+				RouteData routeData = controller.ControllerContext.RouteData;
+				object actionName = routeData.Values["action"];
+				object controllerName = routeData.Values["controller"];
+				Log.Debug(this, string.Format("Executing action:{0} on controller:{1}", actionName, controllerName));
+			}
 		}
 
 		private void PreparePageTitle()
