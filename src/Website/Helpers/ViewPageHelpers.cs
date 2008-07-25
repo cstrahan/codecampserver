@@ -33,5 +33,26 @@ namespace CodeCampServer.Website.Helpers
 		{
 			return masterPage.ViewContext.TempData["message"] != null;
 		}
+
+        public static string Stylesheet(this ViewMasterPage masterPage, string cssFile)
+        {
+            string cssPath = cssFile.Contains("~") ? cssFile : "~/content/css/" + cssFile;
+
+            return string.Format("<link type=\"text/css\" rel=\"stylesheet\" href=\"{0}\" />\n",
+                                 masterPage.ResolveUrl(cssPath));
+        }
+
+        public static string ScriptInclude(this ViewMasterPage masterPage, string jsFile)
+        {
+            string jsPath = jsFile.Contains("~") ? jsFile : "~/content/js/" + jsFile;
+            return string.Format("<script type=\"text/javascript\" src=\"{0}\" ></script>\n",
+                                 masterPage.ResolveUrl(jsPath));
+        }
+
+        public static string Favicon(this ViewMasterPage masterPage)
+        {
+            string path = masterPage.ResolveUrl("~/favicon.ico");
+            return string.Format("<link rel=\"shortcut icon\" href=\"{0}\" />\n", path);
+        }
 	}
 }

@@ -7,7 +7,7 @@ namespace CodeCampServer.Website.Impl
 	{
 		public virtual void RegisterRoutes()
 		{
-			RouteCollection routes = RouteTable.Routes;
+			var routes = RouteTable.Routes;           
 
 			routes.MapRoute("login", "login/{action}", new {controller = "login", action = "index"});
 

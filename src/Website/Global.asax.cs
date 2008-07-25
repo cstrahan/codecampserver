@@ -22,6 +22,18 @@ namespace CodeCampServer.Website
 			
 			setupRoutes();
 		}
+        
+        protected void Application_BeginRequest(Object sender, EventArgs e)
+        {            
+            //take out any .mvc extension so we don't need two sets of routes
+            var app = sender as HttpApplication;
+            if (app != null)
+            {
+                string url = app.Request.Url.PathAndQuery;
+                if(url.Contains(".mvc"))
+                    app.Context.RewritePath(url.Replace(".mvc", ""));                
+            }
+        }
 
 		public static void RegisterMvcTypes()
 		{
@@ -37,7 +49,7 @@ namespace CodeCampServer.Website
 				if (typeof (IController).IsAssignableFrom(type))
 				{
 					IoC.Register(type.Name.ToLower(), type, LifestyleType.Transient);
-				}				                
+				}
 			}
 		}
 

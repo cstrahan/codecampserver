@@ -14,7 +14,7 @@
 <br />
 <%=Html.ActionLink<ScheduleController>(c => c.Index(conference.Key), "Schedule") %>
 <br />
-<%=Html.ActionLink<ConferenceController>(c => c.ListAttendees(conference.Key,0,20), "List Attendees") %>
+<%=Html.ActionLink<ConferenceController>(c => c.ListAttendees(conference.Key), "List Attendees") %>
 </div>
 </asp:Content>
 

@@ -1,6 +1,6 @@
-﻿<%@ Import Namespace="Microsoft.Web.Mvc"%>
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<%@ Import Namespace="Microsoft.Web.Mvc"%>
 <%@ Import Namespace="MvcContrib.UI.Html"%>
-<%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
 <%@ Import namespace="CodeCampServer.Website.Views"%>
 <%@ Import Namespace="CodeCampServer.Website.Helpers" %>
 <%@ Import namespace="CodeCampServer.Website.Controllers"%>
@@ -13,12 +13,18 @@
 <head runat="server">
     <title><%= ViewData.GetOrDefault("PageTitle", "Code Camp Server") %></title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/style-2column.css") %>" />
-    <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/css/master.css") %>" />
-    <script type="text/javascript" src="<%= ResolveUrl("~/content/js/jquery.js") %>"></script>
-    <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/content/js/ui.datepicker.css") %>" />
-    <script type="text/javascript" src="<%= ResolveUrl("~/content/js/ui.datepicker.js") %>"></script>
-    <script type="text/javascript" src="<%= ResolveUrl("~/content/js/jquery.validate.min.js") %>"></script>
+    
+    <%= this.Stylesheet("style-2column.css") %>
+    <%= this.Stylesheet("master.css") %>
+    <%= this.Stylesheet("~/content/js/ui.datepicker.css") %>
+    
+    <%= this.ScriptInclude("jquery.js") %>
+    <%= this.ScriptInclude("ui.datepicker.js") %>
+    <%= this.ScriptInclude("ui.datepicker.js") %>
+    <%= this.ScriptInclude("jquery.validate.min.js") %>
+    
+    <%= this.Favicon() %>
+          
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -34,7 +40,8 @@
     		    <li><%=Html.ActionLink<ConferenceController>(c => c.Details(conferenceKey), "Home") %></li>
     		    <li><%=Html.ActionLink<ScheduleController>(c => c.Index(conferenceKey), "Schedule") %></li>
     		    <li><%=Html.ActionLink<SpeakerController>(c => c.List(conferenceKey,0,20), "Speakers") %></li>
-    		    <li><%=Html.ActionLink<SponsorController>(c => c.List(conferenceKey, false, null), "Sponsors") %></li>    				  
+    		    <li><%=Html.ActionLink<ConferenceController>(c => c.ListAttendees(conferenceKey), "Attendees") %></li>
+    		    <li><%=Html.ActionLink<SponsorController>(c => c.List(conferenceKey, false, null), "Sponsors") %></li>    		    
 
 	        <%  if (!Context.User.Identity.IsAuthenticated) { %>
 	            <li><%=Html.ActionLink<ConferenceController>(c => c.PleaseRegister(conferenceKey), "Register!") %></li>

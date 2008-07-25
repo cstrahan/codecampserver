@@ -22,11 +22,16 @@ namespace CodeCampServer.Website.Controllers
 			if (_userSession.IsAdministrator)
 			{
 				ViewData.Add("ShouldRenderAdminPanel", true);
-			}
-			PreparePageTitle();
+			}			
 
 			base.OnActionExecuting(filterContext);
 		}
+
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            PreparePageTitle();
+            base.OnActionExecuted(filterContext);
+        }
 
 		private void LogAction(ActionExecutingContext filterContext)
 		{

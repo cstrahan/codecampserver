@@ -7,7 +7,6 @@ using CodeCampServer.Model.Presentation;
 using CodeCampServer.Website.Views;
 using MvcContrib.Attributes;
 using MvcContrib.Filters;
-using IUserSession=CodeCampServer.Model.IUserSession;
 
 namespace CodeCampServer.Website.Controllers
 {
@@ -99,16 +98,10 @@ namespace CodeCampServer.Website.Controllers
 			}
 		}
 
-		public ActionResult ListAttendees(string conferenceKey, int? page, int? perPage)
-		{
-			int effectivePage = page.GetValueOrDefault(0);
-			int effectivePerPage = perPage.GetValueOrDefault(20);
-
+		public ActionResult ListAttendees(string conferenceKey)
+		{			
 			Conference conference = getConferenceByKey(conferenceKey);
-			Person[] attendees = conference.GetAttendees();
-
-			//TODO: implement paging for attendee listing
-			//List<Person> pageOfAttendees = new List<Person>(attendees).GetRange(effectivePage * effectivePerPage, effectivePerPage);
+			Person[] attendees = conference.GetAttendees();	
 
 			AttendeeListing[] listings = getListingsFromAttendees(attendees);
 

@@ -31,7 +31,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		{
 			return new SponsorController(_conferenceRepository, _userSession);
 		}
-
+        
 		[Test]
 		public void DeleteShouldRemoveSponsorAndRedirectToList()
 		{

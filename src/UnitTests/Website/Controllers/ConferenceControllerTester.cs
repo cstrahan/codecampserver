@@ -146,7 +146,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 			_mocks.ReplayAll();
 
-			var actionResult = controller.ListAttendees("austincodecamp2008", 0, 2) as ViewResult;
+			var actionResult = controller.ListAttendees("austincodecamp2008") as ViewResult;
 
 			if (actionResult == null)
 				Assert.Fail("expected a renderview");

@@ -69,7 +69,6 @@ a:hover {
 
 /* Logo */
 #logo {
-	float: left;
 	padding: 40px 0 0 0;
 }
 
@@ -101,13 +100,14 @@ a:hover {
 }
 
 /* Menu */
-#menu {
-	float: right;
+#menu {	
 }
 
-#menu ul {
+#menu ul 
+{	
+	float: right;
 	margin: 0px;
-	padding: 93px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
 	list-style: none;
 }
 
@@ -118,10 +118,10 @@ a:hover {
 #menu a {
 	display: block;
 	float: left;
-	margin-left: 20px;
+	margin-left: 10px;
 	text-decoration: none;
 	text-transform: lowercase;
-	font-size: 1.36em;
+	font-size: 1.2em;
 	color: #FFFFFF;
 }
 
