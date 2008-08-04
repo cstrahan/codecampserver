@@ -77,7 +77,7 @@ namespace CodeCampServer.Website.Controllers
 		public ActionResult Logout()
 		{
 			_authenticator.SignOut();
-			return RedirectToAction("conference", "current");
+			return RedirectToAction("current", "conference");
 		}
 
 		private int getNumberOfUsers()
