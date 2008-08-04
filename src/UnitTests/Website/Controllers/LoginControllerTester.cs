@@ -172,8 +172,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			if (result == null)
 				Assert.Fail("Expected a redirect result");
 
-			Assert.That(result.Values["controller"], Is.EqualTo("home"));
-			Assert.That(result.Values["action"], Is.EqualTo("index"));
+			Assert.That(result.Values["controller"], Is.EqualTo("conference"));
+			Assert.That(result.Values["action"], Is.EqualTo("current"));
 		}
 	}
 
