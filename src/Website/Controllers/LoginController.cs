@@ -8,7 +8,7 @@ using IUserSession=CodeCampServer.Model.IUserSession;
 
 namespace CodeCampServer.Website.Controllers
 {
-	public class LoginController : Controller
+	public class LoginController : BaseController
 	{
 		private readonly IPersonRepository _personRepository;
 		private readonly IAuthenticator _authenticator;
@@ -77,7 +77,7 @@ namespace CodeCampServer.Website.Controllers
 		public ActionResult Logout()
 		{
 			_authenticator.SignOut();
-			return RedirectToAction("index", "home");
+			return RedirectToAction("conference", "current");
 		}
 
 		private int getNumberOfUsers()
