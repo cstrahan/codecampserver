@@ -8,7 +8,7 @@ using IUserSession=CodeCampServer.Model.IUserSession;
 
 namespace CodeCampServer.Website.Controllers
 {
-	public class LoginController : BaseController
+	public class LoginController : Controller
 	{
 		private readonly IPersonRepository _personRepository;
 		private readonly IAuthenticator _authenticator;
