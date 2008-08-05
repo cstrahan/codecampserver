@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Admin.Master" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewPage" Title="Code Camp Server" %>
 <%@ Import Namespace="System.Collections.Generic"%>
 <%@ Import Namespace="CodeCampServer.Website.Controllers"%>
-<%@ Import namespace="CodeCampServer.Website.Views"%>
+<%@ Import namespace="MvcContrib"%>
 <%@ Import namespace="CodeCampServer.Model.Domain"%>
 <%@ Import Namespace="System.Web.Mvc" %>
 

@@ -1,7 +1,7 @@
 ?<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/TwoColumn.Master" 
 AutoEventWireup="true" 
 Inherits="System.Web.Mvc.ViewPage" Title="Edit Schedule" %>
-<%@ Import namespace="CodeCampServer.Website.Views"%>
+<%@ Import namespace="MvcContrib"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">

@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
     Inherits="System.Web.Mvc.ViewPage" Title="Edit Speaker" %>
-<%@ Import namespace="CodeCampServer.Website.Views"%>
+<%@ Import Namespace="Microsoft.Web.Mvc"%>
+<%@ Import namespace="MvcContrib"%>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <% Speaker speaker = ViewData.Get<Speaker>(); %>
     <% using (Html.Form("save", "speaker")) { %>    

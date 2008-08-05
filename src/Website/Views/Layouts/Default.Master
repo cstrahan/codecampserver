@@ -1,7 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
 <%@ Import Namespace="MvcContrib.UI.Html"%>
-<%@ Import namespace="CodeCampServer.Website.Views"%>
+<%@ Import namespace="MvcContrib"%>
 <%@ Import Namespace="CodeCampServer.Website.Helpers" %>
 <%@ Import namespace="CodeCampServer.Website.Controllers"%>
 <%@ Import namespace="System.Web.Mvc"%>

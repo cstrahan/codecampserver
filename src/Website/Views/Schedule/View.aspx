@@ -4,7 +4,7 @@
 
 <%@ Import Namespace="MvcContrib" %>
 <%@ Import Namespace="System.Collections.Generic" %>
-<%@ Import Namespace="CodeCampServer.Website.Views" %>
+<%@ Import Namespace="MvcContrib" %>
 <%@ Import Namespace="CodeCampServer.Model.Presentation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

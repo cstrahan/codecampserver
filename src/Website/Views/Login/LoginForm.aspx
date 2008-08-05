@@ -3,7 +3,7 @@ AutoEventWireup="true"  Inherits="System.Web.Mvc.ViewPage"
 Title="CodeCampServer - Login" %>
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
 <%@ Import namespace="CodeCampServer.Website"%>
-<%@ Import namespace="CodeCampServer.Website.Views"%>
+<%@ Import namespace="MvcContrib"%>
 <%@ Import namespace="CodeCampServer.Website.Controllers"%>
 <%@ Import namespace="System.Web.Mvc"%>
 

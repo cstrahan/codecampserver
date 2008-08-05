@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
     Inherits="System.Web.Mvc.ViewPage" Title="CodeCampServer - View Conferences" %>
 <%@ Import Namespace="CodeCampServer.Website.Controllers"%>
-<%@ Import namespace="CodeCampServer.Website.Views"%>
+<%@ Import namespace="MvcContrib"%>
 
 <asp:Content ContentPlaceHolderID="head" runat="server">
   <script type="text/javascript">    
