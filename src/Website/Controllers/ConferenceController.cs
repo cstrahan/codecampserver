@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Presentation;
-using CodeCampServer.Website.Views;
+using MvcContrib;
 using MvcContrib.Attributes;
 using MvcContrib.Filters;
 

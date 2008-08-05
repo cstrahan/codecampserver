@@ -130,7 +130,6 @@
     <Compile Include="Models\Conference\ListAttendeesViewData.cs" />
     <Compile Include="Impl\RouteConfigurator.cs" />
     <Compile Include="TempDataKeys.cs" />
-    <Compile Include="Views\ViewDataExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />

@@ -3,7 +3,7 @@ using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Impl;
 using CodeCampServer.Website.Controllers;
-using CodeCampServer.Website.Views;
+using MvcContrib;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
-using CodeCampServer.Website.Views;
+using MvcContrib;
 using MvcContrib.Filters;
 
 namespace CodeCampServer.Website.Controllers
