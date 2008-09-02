@@ -1,10 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<configuration>
+<configuration xmlns="CCWindowsSchema"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="CCWindowsSchema ..\bin\castle\windsor.xsd">
+
 	<facilities>
 		<facility id="factory.support"
 				  type="Castle.Facilities.FactorySupport.FactorySupportFacility, Castle.MicroKernel" />
 	</facilities>
-
+  
 	<components>
 		<!-- general -->
 		<component id="IClock"
