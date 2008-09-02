@@ -10,7 +10,7 @@ using MvcContrib.Filters;
 
 namespace CodeCampServer.Website.Controllers
 {
-	public class ConferenceController : Controller
+	public class ConferenceController : BaseController
 	{
 		private readonly IClock _clock;
 		private readonly IConferenceService _conferenceService;
@@ -29,7 +29,7 @@ namespace CodeCampServer.Website.Controllers
 		}
 
 		[DefaultAction]
-		public ActionResult Details(string conferenceKey)
+		public ActionResult Index(string conferenceKey)
 		{
 			Schedule schedule = getScheduledConference(conferenceKey);
 
@@ -45,7 +45,7 @@ namespace CodeCampServer.Website.Controllers
 		public ActionResult KeyCheck(string conferenceKey)
 		{
 			bool result = _conferenceRepository.ConferenceKeyAvailable(conferenceKey);
-			return new JsonResult(string.Format("{{{0}}}", result.ToString().ToLower()));
+		    return Json(result);			
 		}
 
 		public ActionResult Current()
@@ -57,10 +57,10 @@ namespace CodeCampServer.Website.Controllers
 			if (conference == null)
 				return RedirectToAction("index", "admin");
 
-			return RedirectToAction("details", "conference", new {conferenceKey = conference.Key});
+			return RedirectToAction("index", "conference", new {conferenceKey = conference.Key});
 		}
 
-		[AdminOnly]
+		[Authorize(Roles="Administrator")]
 		public ActionResult List()
 		{
 			Conference[] conferences = _conferenceRepository.GetAllConferences();
@@ -112,14 +112,14 @@ namespace CodeCampServer.Website.Controllers
 			return View();
 		}
 
-		[AdminOnly]
+        [Authorize(Roles = "Administrator")]
 		public ActionResult New()
 		{
 			ViewData.Add(new Conference());
 			return View("edit");
 		}
 
-		[AdminOnly]
+        [Authorize(Roles = "Administrator")]
 		[PostOnly]
 		public ActionResult Save(string conf_name, string conf_key, DateTime conf_start, DateTime? conf_end,
 		                         string conf_desc)
@@ -147,7 +147,7 @@ namespace CodeCampServer.Website.Controllers
 			}
 		}
 
-		[AdminOnly]
+        [Authorize(Roles = "Administrator")]
 		public ActionResult Edit(string conferenceKey)
 		{
 			Conference conference = getConferenceByKey(conferenceKey);

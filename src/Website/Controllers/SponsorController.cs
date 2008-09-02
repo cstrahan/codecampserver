@@ -3,11 +3,12 @@ using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using MvcContrib;
+using Microsoft.Web.Mvc;
 using MvcContrib.Filters;
 
 namespace CodeCampServer.Website.Controllers
 {
-	public class SponsorController : Controller
+	public class SponsorController : BaseController
 	{
 		private readonly IConferenceRepository _conferenceRepository;
 		private readonly IUserSession _userSession;
@@ -18,14 +19,14 @@ namespace CodeCampServer.Website.Controllers
 			_userSession = userSession;
 		}
 
-		[AdminOnly]
+        [Authorize(Roles = "Administrator")]
 		public ActionResult New(string conferenceKey)
 		{
 			ViewData.Add(new Sponsor());
 			return View("Edit");
 		}
 
-		[AdminOnly]
+        [Authorize(Roles = "Administrator")]
 		public ActionResult Delete(string conferenceKey, string sponsorName)
 		{
 			Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
@@ -48,7 +49,8 @@ namespace CodeCampServer.Website.Controllers
 			return View();
 		}
 
-		[AdminOnly]
+        [HandleError(View="DisplayError")]
+        [Authorize(Roles = "Administrator")]
 		public ActionResult Edit(string conferenceKey, string sponsorName)
 		{
 			Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
@@ -62,8 +64,8 @@ namespace CodeCampServer.Website.Controllers
 			return RedirectToAction("List");
 		}
 
-		[AdminOnly]
-		[PostOnly]
+        [Authorize(Roles = "Administrator")]
+		[RequireHttpMethod("POST")]
 		//TODO: update this to accept a sponsor id to avoid the quirky new/updated logic
 		public ActionResult Save(string conferenceKey, string oldName, string name, string level, string logoUrl,
 		                         string website,

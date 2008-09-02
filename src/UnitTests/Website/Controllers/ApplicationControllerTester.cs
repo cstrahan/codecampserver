@@ -1,6 +1,7 @@
 ﻿using CodeCampServer.Model;
 using CodeCampServer.Website.Controllers;
 using NUnit.Framework;
+using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
@@ -10,7 +11,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	{
 		private IUserSession _userSession;
 
-		private class FooController : Controller
+		private class FooController : BaseController
 		{
 			public FooController(IUserSession userSession) : base(userSession)
 			{
@@ -29,7 +30,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void Setup()
 		{
 			_mocks = new MockRepository();
-			_userSession = _mocks.CreateMock<IUserSession>();
+			_userSession = _mocks.StrictMock<IUserSession>();
 		}
 
 		[Test]
@@ -53,6 +54,19 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			foo.Bar();
 
 			Assert.That(foo.ViewData.ContainsKey("ShouldRenderAdminPanel"));
+            Assert.That(foo.ViewData["ShouldRenderAdminPanel"], Is.True);
 		}
+
+        [Test]
+        public void OnPreActionShouldSetViewDataToNOTRenderAdminPanelWhenTheUserIsNotAnAdmin()
+        {
+            SetupResult.For(_userSession.IsAdministrator).Return(false);
+            _mocks.ReplayAll();
+
+            var foo = new FooController(_userSession);
+            foo.Bar();
+
+            Assert.That(foo.ViewData["ShouldRenderAdminPanel"], Is.Null);
+        }
 	}
 }

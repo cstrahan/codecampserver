@@ -21,8 +21,8 @@ namespace CodeCampServer.UnitTests.Model
 		public void Setup()
 		{
 			_mocks = new MockRepository();
-			_conferenceRepository = _mocks.CreateMock<IConferenceRepository>();
-			_personRepository = _mocks.CreateMock<IPersonRepository>();
+			_conferenceRepository = _mocks.StrictMock<IConferenceRepository>();
+			_personRepository = _mocks.StrictMock<IPersonRepository>();
 			_userSession = _mocks.DynamicMock<IUserSession>();
 			_cryptographer = _mocks.DynamicMock<ICryptographer>();
 		}
@@ -37,7 +37,7 @@ namespace CodeCampServer.UnitTests.Model
 		{
 			var clockStub = new ClockStub(new DateTime(2008, 2, 15));
 			IConferenceService service = getService(clockStub);
-			var conference = _mocks.CreateMock<Conference>();
+			var conference = _mocks.StrictMock<Conference>();
 
 			Expect.Call(_cryptographer.CreateSalt()).Return(null);
 			Expect.Call(() => conference.AddAttendee(null)).IgnoreArguments();

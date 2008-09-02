@@ -152,28 +152,30 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 	[TestFixture]
 	public class when_logging_out : behaves_like_login_controller_test
 	{
-		public override void Setup()
-		{
-			base.Setup();
-			Expect.Call(() => _authenticator.SignOut());
-			_mocks.ReplayAll();
-		}
+	    private ActionResult _result;
 
-		[Test]
+	    public override void Setup()
+        {
+            base.Setup();
+
+            _authenticator.Expect(x => x.SignOut());
+            _result = _loginController.Logout();
+        }
+
+	    [Test]
 		public void should_sign_out_from_authentication_service()
 		{
-			_loginController.Logout();
+            _authenticator.VerifyAllExpectations();	        
 		}
 
 		[Test]
 		public void should_redirect_to_home_page()
 		{
-			var result = _loginController.Logout() as RedirectToRouteResult;
-			if (result == null)
-				Assert.Fail("Expected a redirect result");
+            Assert.That(_result, Is.InstanceOfType(typeof(RedirectToRouteResult)));
 
-			Assert.That(result.Values["controller"], Is.EqualTo("conference"));
-			Assert.That(result.Values["action"], Is.EqualTo("current"));
+		    var redirectResult = (RedirectToRouteResult) _result;
+			Assert.That(redirectResult.Values["controller"], Is.EqualTo("conference"));
+            Assert.That(redirectResult.Values["action"], Is.EqualTo("current"));
 		}
 	}
 
@@ -185,11 +187,12 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public override void Setup()
 		{
 			base.Setup();
-			_authenticator = _mocks.DynamicMock<IAuthenticator>();
+			_authenticator = Mock<IAuthenticator>();
 
-			_loginController = new LoginController(_mocks.Stub<IUserSession>(),
-			                                       _mocks.Stub<IPersonRepository>(), _authenticator,
-			                                       _mocks.Stub<ICryptographer>());
+			_loginController = new LoginController(Stub<IUserSession>(),
+			                                       Stub<IPersonRepository>(), 
+                                                   _authenticator,
+			                                       Stub<ICryptographer>());
 		}
 	}
 }

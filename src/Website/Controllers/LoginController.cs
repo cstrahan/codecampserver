@@ -4,11 +4,10 @@ using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Security;
 using MvcContrib.Filters;
-using IUserSession=CodeCampServer.Model.IUserSession;
 
 namespace CodeCampServer.Website.Controllers
 {
-	public class LoginController : Controller
+	public class LoginController : BaseController
 	{
 		private readonly IPersonRepository _personRepository;
 		private readonly IAuthenticator _authenticator;
@@ -63,11 +62,10 @@ namespace CodeCampServer.Website.Controllers
 
 			var task = new CreateAdminAccountTask(_personRepository, _cryptographer, firstName,
 			                                      lastName, email, password, passwordConfirm);
-
 			task.Execute();
 
 			if (!task.Success)
-			{
+			{                
 				_userSesssion.PushUserMessage(FlashMessage.MessageType.Error, task.ErrorMessage);
 			}
 

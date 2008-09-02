@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
 	Inherits="System.Web.Mvc.ViewPage" Title="Untitled Page" %>
-<%@ Import namespace="MvcContrib"%>
+<%@ Import namespace="CodeCampServer.Website.Views"%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 

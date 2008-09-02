@@ -7,7 +7,7 @@ using IUserSession=CodeCampServer.Model.IUserSession;
 
 namespace CodeCampServer.Website.Controllers
 {
-	public class TrackController : Controller
+	public class TrackController : BaseController
 	{
 		private readonly ITrackRepository _trackRepository;
 		private readonly IConferenceRepository _conferenceRepository;

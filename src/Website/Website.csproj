@@ -99,12 +99,11 @@
     </Compile>
     <Compile Include="AuthenticationModule.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\AdminOnlyAttribute.cs" />
-    <Compile Include="Controllers\Controller.cs" />
+    <Compile Include="Controllers\AttendeeController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CreateAdminAccountTask.cs" />
     <Compile Include="Controllers\FlashMessageComponentController.cs" />
     <Compile Include="Controllers\ITask.cs" />
-    <Compile Include="Controllers\JsonResult.cs" />
     <Compile Include="Controllers\UrlRedirectResult.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
@@ -114,6 +113,7 @@
     <Compile Include="Helpers\IoC.cs" />
     <Compile Include="Helpers\LinkHelpers.cs" />
     <Compile Include="Helpers\RedirectHelper.cs" />
+    <Compile Include="Helpers\ReflectionExtensions.cs" />
     <Compile Include="Helpers\RouteHelpers.cs" />
     <Compile Include="Helpers\ViewPageHelpers.cs" />
     <Compile Include="Impl\HttpContextProvider.cs" />
@@ -177,9 +177,9 @@
     <Content Include="Views\Schedule\Edit.aspx" />
     <Content Include="Views\Shared\AdminControlPanel.ascx" />
     <Content Include="Views\Speaker\Edit.aspx" />
-    <Content Include="Views\Conference\Details.aspx" />
+    <Content Include="Views\Conference\Index.aspx" />
     <Content Include="Views\Conference\Edit.aspx" />
-    <Content Include="Views\Conference\ListAttendees.aspx" />
+    <Content Include="Views\Attendees\List.aspx" />
     <Content Include="Views\Schedule\View.aspx" />
     <Content Include="Views\Speaker\View.aspx" />
     <Content Include="Views\Speaker\List.aspx" />

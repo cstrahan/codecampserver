@@ -59,7 +59,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         public void EditSponsorShouldBeMarkedAsAdminOnly()
         {
             MethodInfo method = typeof (SponsorController).GetMethod("Edit");
-            Assert.That(method.HasAdminOnlyAttribute());
+            Assert.That(method.HasAdminAuthorizationAttribute());
         }
 
         [Test]

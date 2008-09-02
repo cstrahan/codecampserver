@@ -91,6 +91,7 @@
     <Compile Include="Presentation\Schedule.cs" />
     <Compile Include="Presentation\ScheduleListing.cs" />
     <Compile Include="Presentation\TrackListing.cs" />
+    <Compile Include="ReflectionExtensions.cs" />
     <Compile Include="Security\IAuthenticator.cs" />
     <Compile Include="Domain\Track.cs" />
   </ItemGroup>

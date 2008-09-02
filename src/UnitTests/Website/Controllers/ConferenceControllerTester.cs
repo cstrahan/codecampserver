@@ -28,7 +28,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void Setup()
 		{
 			_mocks = new MockRepository();
-			_service = _mocks.CreateMock<IConferenceService>();
+			_service = _mocks.StrictMock<IConferenceService>();
 			_authSession = _mocks.DynamicMock<IUserSession>();
 			_conferenceRepository = _mocks.DynamicMock<IConferenceRepository>();
 			_conference = new Conference("austincodecamp2008", "Austin Code Camp") {PubliclyVisible = true};
@@ -45,7 +45,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			                                          _service, _authSession,
 			                                          new ClockStub());
 
-			var actionResult = controller.Details("austincodecamp2008") as ViewResult;
+			var actionResult = controller.Index("austincodecamp2008") as ViewResult;
 
 			if (actionResult == null)
 				Assert.Fail("expected a renderview");
@@ -230,17 +230,15 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public override void Setup()
 		{
 			base.Setup();
-			SetupResult.For(_conferenceRepository.GetConferenceByKey(null)).IgnoreArguments().Return(
-				new Conference("test", "test") {PubliclyVisible = false}
-				);
-			SetupResult.For(_userSession.IsAdministrator).Return(false);
-			_mocks.ReplayAll();
+		    var conference = new Conference("test", "test") {PubliclyVisible = false};
+		    _conferenceRepository.Stub(x => x.GetConferenceByKey(null)).IgnoreArguments().Return(conference);
+			_userSession.Stub(x => x.IsAdministrator).Return(false);
 		}
 
 		[Test]
 		public void should_redirect_to_current_conference()
 		{
-			var result = _conferenceController.Details(null) as RedirectToRouteResult;
+			var result = _conferenceController.Index(null) as RedirectToRouteResult;
 
 			if (result == null)
 				Assert.Fail("expected redirect");
@@ -255,17 +253,16 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public override void Setup()
 		{
 			base.Setup();
-			SetupResult.For(_conferenceRepository.GetConferenceByKey(null)).IgnoreArguments().Return(
-				new Conference("test", "test") {PubliclyVisible = false}
-				);
-			SetupResult.For(_userSession.IsAdministrator).Return(true);
-			_mocks.ReplayAll();
+            
+		    var conference = new Conference("test", "test") {PubliclyVisible = false};
+		    _conferenceRepository.Stub(x => x.GetConferenceByKey(null)).IgnoreArguments().Return(conference);
+		    _userSession.Stub(x => x.IsAdministrator).Return(true);
 		}
 
 		[Test]
 		public void should_render_details_view()
 		{
-			var result = _conferenceController.Details(null) as ViewResult;
+			var result = _conferenceController.Index(null) as ViewResult;
 
 			if (result == null)
 				Assert.Fail("expected renderview result");
@@ -283,9 +280,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public override void Setup()
 		{
 			base.Setup();
-			_service = _mocks.DynamicMock<IConferenceService>();
-			_userSession = _mocks.DynamicMock<IUserSession>();
-			_conferenceRepository = _mocks.DynamicMock<IConferenceRepository>();
+			_service = Mock<IConferenceService>();
+			_userSession = Mock<IUserSession>();
+			_conferenceRepository = Mock<IConferenceRepository>();
 
 			_conferenceController = new ConferenceController(_conferenceRepository, _service, _userSession, new ClockStub());
 		}

@@ -7,7 +7,7 @@ using MvcContrib.Filters;
 
 namespace CodeCampServer.Website.Controllers
 {
-	public class SessionController : Controller
+	public class SessionController : BaseController
 	{
 		private readonly ISessionRepository _sessionRepository;
 		private readonly IUserSession _userSession;

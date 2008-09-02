@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace CodeCampServer.Website.Helpers
 {
@@ -34,24 +35,36 @@ namespace CodeCampServer.Website.Helpers
 			return masterPage.ViewContext.TempData["message"] != null;
 		}
 
-        public static string Stylesheet(this ViewMasterPage masterPage, string cssFile)
+        public static string ResolveUrl(this HtmlHelper html, string relativeUrl)
+        {
+            if (relativeUrl == null)
+                return null;
+                        
+            if (! relativeUrl.StartsWith("~"))
+                return relativeUrl;
+
+            var basePath = html.ViewContext.HttpContext.Request.ApplicationPath;
+            string url = basePath + relativeUrl.Substring(1);
+            return url.Replace("//", "/");     
+        }
+
+        public static string Stylesheet(this HtmlHelper html, string cssFile)
         {
             string cssPath = cssFile.Contains("~") ? cssFile : "~/content/css/" + cssFile;
-
-            return string.Format("<link type=\"text/css\" rel=\"stylesheet\" href=\"{0}\" />\n",
-                                 masterPage.ResolveUrl(cssPath));
+            string url = ResolveUrl(html, cssPath);
+            return string.Format("<link type=\"text/css\" rel=\"stylesheet\" href=\"{0}\" />\n", url);
         }
 
-        public static string ScriptInclude(this ViewMasterPage masterPage, string jsFile)
+        public static string ScriptInclude(this HtmlHelper html, string jsFile)
         {
             string jsPath = jsFile.Contains("~") ? jsFile : "~/content/js/" + jsFile;
-            return string.Format("<script type=\"text/javascript\" src=\"{0}\" ></script>\n",
-                                 masterPage.ResolveUrl(jsPath));
+            string url = ResolveUrl(html, jsPath);
+            return string.Format("<script type=\"text/javascript\" src=\"{0}\" ></script>\n", url);
         }
 
-        public static string Favicon(this ViewMasterPage masterPage)
+        public static string Favicon(this HtmlHelper html)
         {
-            string path = masterPage.ResolveUrl("~/favicon.ico");
+            string path = ResolveUrl(html, "~/favicon.ico");
             return string.Format("<link rel=\"shortcut icon\" href=\"{0}\" />\n", path);
         }
 	}

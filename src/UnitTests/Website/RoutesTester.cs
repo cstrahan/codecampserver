@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Routing;
 using CodeCampServer.Website.Impl;
@@ -10,52 +11,43 @@ namespace CodeCampServer.UnitTests.Website
 	[TestFixture]
 	public class RoutesTester
 	{
-		[Test]
-		public void Conference()
+	    private void AssertRoute(string virtualPath, string expectedController, string expectedAction)
+	    {
+	        AssertRoute(virtualPath, expectedController, expectedAction, new Dictionary<string, string>());
+	    }
+
+	    private void AssertRoute(string virtualPath, string expectedController, string expectedAction, IDictionary<string,string> expectedTokens)
+        {
+            var routeData = getMatchingRouteData(virtualPath);
+
+            Assert.That(routeData.GetRequiredString("controller"), Is.EqualTo(expectedController));
+            Assert.That(routeData.GetRequiredString("action"), Is.EqualTo(expectedAction));
+            foreach (var pair in expectedTokens)
+            {
+                Assert.That(routeData.GetRequiredString(pair.Key), Is.EqualTo(pair.Value));
+            }
+        }	
+
+	    [Test]
+		public void TestSiteRoutes()
 		{
-			RouteData routeData = getMatchingRouteData("~/austincodecamp2008");
+	        AssertRoute("~/austinCodeCamp2008", "conference", "index",
+	            new Dictionary<string, string> {{"conferenceKey", "austinCodeCamp2008"}});
 
-			Assert.That(routeData.GetRequiredString("controller"), Is.EqualTo("conference"));
-			Assert.That(routeData.GetRequiredString("action"), Is.EqualTo("details"));
-			Assert.That(routeData.Values["conferenceKey"], Is.EqualTo("austincodecamp2008"));
-		}
+	        AssertRoute("~/login", "login", "index");
+	        AssertRoute("~/conference/new", "conference", "new");
+	        AssertRoute("~/conference/current", "conference", "current");
+	        AssertRoute("~/admin", "admin", "index");
+	        AssertRoute("~/houstonTechFest/sessions/add", "sessions", "add",
+                new Dictionary<string,string> {{"conferenceKey", "houstonTechFest"}});
 
-		[Test]
-		public void Login()
-		{
-			RouteData routeData = getMatchingRouteData("~/login");
 
-			Assert.That(routeData.GetRequiredString("controller"), Is.EqualTo("login"));
-			Assert.That(routeData.GetRequiredString("action"), Is.EqualTo("index"));
-		}
-
-		[Test]
-		public void NewConference()
-		{
-			RouteData routeData = getMatchingRouteData("~/conference/new");
-
-			Assert.That(routeData.GetRequiredString("controller"), Is.EqualTo("conference"));
-			Assert.That(routeData.GetRequiredString("action"), Is.EqualTo("new"));
-		}
-
-		[Test]
-		public void Admin()
-		{
-			RouteData routeData = getMatchingRouteData("~/admin");
-
-			Assert.That(routeData.GetRequiredString("controller"), Is.EqualTo("admin"));
-			Assert.That(routeData.GetRequiredString("action"), Is.EqualTo("index"));
-		}
-
-		[Test]
-		public void Speaker()
-		{
-			RouteData routeData = getMatchingRouteData("~/myconf/speaker/jeffreypalermo");
-
-			Assert.That(routeData.GetRequiredString("controller"), Is.EqualTo("speaker"));
-			Assert.That(routeData.GetRequiredString("action"), Is.EqualTo("view"));
-			Assert.That(routeData.Values["conferenceKey"], Is.EqualTo("myconf"));
-			Assert.That(routeData.Values["speakerId"], Is.EqualTo("jeffreypalermo"));
+            AssertRoute("~/myconf/speaker/jeffreypalermo", "speaker", "show", 
+                new Dictionary<string, string>
+                    {
+                        {"id", "jeffreypalermo"},
+                        {"conferenceKey", "myconf"}
+                    });
 		}
 
 		private static RouteData getMatchingRouteData(string appRelativeUrl)
@@ -65,7 +57,7 @@ namespace CodeCampServer.UnitTests.Website
 			configurator.RegisterRoutes();
 
 			RouteData routeData;
-			var mocks = new MockRepository();
+			var mocks = new MockRepository();		   
 			var httpContext = mocks.DynamicMock<HttpContextBase>();
 			var request = mocks.DynamicMock<HttpRequestBase>();
 

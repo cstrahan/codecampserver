@@ -14,16 +14,16 @@
     <title><%= ViewData.GetOrDefault("PageTitle", "Code Camp Server") %></title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     
-    <%= this.Stylesheet("style-2column.css") %>
-    <%= this.Stylesheet("master.css") %>
-    <%= this.Stylesheet("~/content/js/ui.datepicker.css") %>
+    <%= Html.Stylesheet("style-2column.css") %>
+    <%= Html.Stylesheet("master.css")%>
+    <%= Html.Stylesheet("~/content/js/ui.datepicker.css")%>
     
-    <%= this.ScriptInclude("jquery.js") %>
-    <%= this.ScriptInclude("ui.datepicker.js") %>
-    <%= this.ScriptInclude("ui.datepicker.js") %>
-    <%= this.ScriptInclude("jquery.validate.min.js") %>
+    <%= Html.ScriptInclude("jquery.js")%>
+    <%= Html.ScriptInclude("ui.datepicker.js")%>
+    <%= Html.ScriptInclude("ui.datepicker.js")%>
+    <%= Html.ScriptInclude("jquery.validate.min.js")%>
     
-    <%= this.Favicon() %>
+    <%= Html.Favicon()%>
           
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -35,18 +35,18 @@
 		    <p>Powered by <a href="http://codecampserver.org">Code Camp Server</a></p>
 	    </div>
 	    <div id="menu">
-    		<ul>     		    
+    		<ul>
     		    <% var conferenceKey = "austinCodeCamp2008"; %>
-    		    <li><%=Html.ActionLink<ConferenceController>(c => c.Details(conferenceKey), "Home") %></li>
+    		    <li><%=Html.ActionLink<ConferenceController>(c => c.Index(conferenceKey), "Home") %></li>
     		    <li><%=Html.ActionLink<ScheduleController>(c => c.Index(conferenceKey), "Schedule") %></li>
-    		    <li><%=Html.ActionLink<SpeakerController>(c => c.List(conferenceKey,0,20), "Speakers") %></li>
+    		    <li><%=Html.ActionLink<SpeakerController>(c => c.List(conferenceKey), "Speakers") %></li>
     		    <li><%=Html.ActionLink<ConferenceController>(c => c.ListAttendees(conferenceKey), "Attendees") %></li>
     		    <li><%=Html.ActionLink<SponsorController>(c => c.List(conferenceKey, false, null), "Sponsors") %></li>    		    
 
 	        <%  if (!Context.User.Identity.IsAuthenticated) { %>
 	            <li><%=Html.ActionLink<ConferenceController>(c => c.PleaseRegister(conferenceKey), "Register!") %></li>
 	            <li><%=Html.ActionLink<LoginController>(c => c.Index(), "Login") %></li>                                	            
-	        <% } %>	        
+	        <% } %>
 	    	</ul>
 	    </div>
 	    <div id="login">

@@ -1,4 +1,5 @@
-﻿<%@ Import Namespace="MvcContrib"%>
+﻿<%@ Import Namespace="Microsoft.Web.Mvc"%>
+<%@ Import Namespace="MvcContrib"%>
 <%@ Import Namespace="System.Collections.Generic"%>
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl" %>
 <ul>
@@ -11,7 +12,7 @@
 <li>
 
 <a href='<%= sponsor.Website %>'>
-<img alt='<%=sponsor.Name %> logo' height="100px" width="100px" src='<%= sponsor.LogoUrl %>' /><br />
+    <img src='<%= sponsor.LogoUrl %>' alt='<%= sponsor.Name %>' />    
     <%=sponsor.Name %>
 </a>
 

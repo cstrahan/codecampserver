@@ -6,12 +6,12 @@ using MvcContrib;
 
 namespace CodeCampServer.Website.Controllers
 {
-    public class ScheduleController : Controller
-    {
-        private readonly IConferenceRepository _conferenceRepository;
-        private readonly IClock _clock;
-        private readonly ITimeSlotRepository _timeSlotRepository;
-        private readonly ITrackRepository _trackRepository;
+	public class ScheduleController : BaseController
+	{
+		private readonly IConferenceRepository _conferenceRepository;
+		private readonly IClock _clock;
+		private readonly ITimeSlotRepository _timeSlotRepository;
+		private readonly ITrackRepository _trackRepository;
 
         public ScheduleController(IConferenceRepository conferenceRepository,
                                   IClock clock,

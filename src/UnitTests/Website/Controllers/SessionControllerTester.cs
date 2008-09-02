@@ -27,10 +27,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         public void Setup()
         {
             _mocks = new MockRepository();
-            _conferenceRepository = _mocks.CreateMock<IConferenceRepository>();
-            _sessionRepository = _mocks.CreateMock<ISessionRepository>();
+            _conferenceRepository = _mocks.StrictMock<IConferenceRepository>();
+            _sessionRepository = _mocks.StrictMock<ISessionRepository>();
             _personRepository = _mocks.DynamicMock<IPersonRepository>();
-            _userSession = _mocks.CreateMock<IUserSession>();
+            _userSession = _mocks.StrictMock<IUserSession>();
             _conference = new Conference("austincodecamp2008", "Austin Code Camp");
         }
 
@@ -81,8 +81,6 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             SessionController controller = createController();
             var personSpeaking = new Person("Jeffrey", "Palermo", "e@mail.com");
             _conference.AddSpeaker(personSpeaking, "key", "bio", "avatar");
-
-            var track = new Track("Misc");
 
             Session actualSession = null;
 

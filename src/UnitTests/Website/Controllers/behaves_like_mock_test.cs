@@ -10,13 +10,21 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         [SetUp]
         public virtual void Setup()
         {
-            _mocks = new MockRepository();
         }
 
         [TearDown]
         public virtual void TearDown()
         {
-            _mocks.VerifyAll();
         }
+
+        protected T Mock<T>()
+        {
+            return MockRepository.GenerateMock<T>();
+        }
+
+        protected T Stub<T>()
+        {
+            return MockRepository.GenerateStub<T>();
+        }        
     }
 }

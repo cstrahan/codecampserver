@@ -5,7 +5,7 @@ using CodeCampServer.Website.Helpers;
 namespace CodeCampServer.Website.Controllers
 {
 	// feel free to rename this if you have a better convention
-	public class FlashMessageComponentController : Controller
+	public class FlashMessageComponentController : BaseController
 	{
 		private readonly IUserSession _session;
 

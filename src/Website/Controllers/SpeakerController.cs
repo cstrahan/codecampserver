@@ -9,7 +9,7 @@ using MvcContrib.Filters;
 
 namespace CodeCampServer.Website.Controllers
 {
-	public class SpeakerController : Controller
+	public class SpeakerController : BaseController
 	{
 		private readonly IClock _clock;
 		private readonly IUserSession _userSession;
@@ -25,20 +25,15 @@ namespace CodeCampServer.Website.Controllers
 		}
 
 		[DefaultAction]
-		public ActionResult List(string conferenceKey, int? page, int? perPage)
-		{
-			int effectivePage = page.GetValueOrDefault(0);
-			int effectivePerPage = perPage.GetValueOrDefault(20);
-
+		public ActionResult List(string conferenceKey)
+		{			
 			Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
 			var scheduledConference = new Schedule(conference, _clock, null, null);
 			Speaker[] speakers = conference.GetSpeakers();
 
 			ViewData.Add(scheduledConference);
 			ViewData.Add(speakers);
-			ViewData.Add("page", effectivePage);
-			ViewData.Add("perPage", effectivePerPage);
-
+		
 			return View();
 		}
 

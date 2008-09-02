@@ -12,18 +12,16 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 {
 	[TestFixture]
 	public class SpeakerControllerTester
-	{
-		private MockRepository _mocks;
+	{		
 		private IConferenceRepository _conferenceRepository;
 		private IUserSession _userSession;
 		private Conference _conference;
 
 		[SetUp]
 		public void Setup()
-		{
-			_mocks = new MockRepository();
-			_conferenceRepository = _mocks.CreateMock<IConferenceRepository>();
-			_userSession = _mocks.CreateMock<IUserSession>();
+		{			
+			_conferenceRepository = MockRepository.GenerateMock<IConferenceRepository>();
+            _userSession = MockRepository.GenerateMock<IUserSession>();
 			_conference = new Conference("austincodecamp2008", "Austin Code Camp");
 		}
 
@@ -36,10 +34,11 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		public void ShouldViewSpeakerDetailsByDisplayName()
 		{
 			Speaker speaker = getSpeaker();
-			SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008"))
-				.Return(_conference);
-			_conference.AddSpeaker(speaker.Person, speaker.SpeakerKey, speaker.Bio, speaker.AvatarUrl);
-			_mocks.ReplayAll();
+
+            _conferenceRepository.Stub(x => x.GetConferenceByKey("austincodecamp2008")).Return(_conference);
+			
+            _conference.AddSpeaker(speaker.Person, speaker.SpeakerKey, speaker.Bio, speaker.AvatarUrl);
+			
 
 			SpeakerController controller = createSpeakerController();
 			var result = controller.Details("austincodecamp2008", speaker.SpeakerKey) as ViewResult;
@@ -47,7 +46,10 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 			Assert.That(viewDataSpeakerProfile, Is.Not.Null);
 			Assert.That(viewDataSpeakerProfile, Is.EqualTo(speaker));
-			Assert.That(result, Is.Not.Null, "Expected ViewResult, but was not");
+
+            if(result == null)
+                Assert.Fail("Expected ViewResult");
+
 			Assert.That(result.ViewName, Is.EqualTo("view"));
 		}
 
@@ -57,10 +59,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			Speaker speaker = getSpeaker();
 			_conference.AddSpeaker(speaker.Person, speaker.SpeakerKey, speaker.Bio, speaker.AvatarUrl);
 
-			SetupResult.For(_userSession.GetLoggedInPerson()).Return(speaker.Person);
-			SetupResult.For(_conferenceRepository.GetConferenceByKey(null)).IgnoreArguments().Return(_conference);
-
-			_mocks.ReplayAll();
+		    _userSession.Stub(x => x.GetLoggedInPerson()).Return(speaker.Person);
+			_conferenceRepository.Stub(x => x.GetConferenceByKey(null)).IgnoreArguments().Return(_conference);
+			
 
 			SpeakerController controller = createSpeakerController();
 			var actionResult = controller.Edit("conf123") as ViewResult;
@@ -75,9 +76,8 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		[Test]
 		public void EditProfileShouldReturnLoginWhenNoSpeaker()
 		{
-			SetupResult.For(_conferenceRepository.GetConferenceByKey(null)).IgnoreArguments().Return(_conference);
-			SetupResult.For(_userSession.GetLoggedInPerson()).Return(null);
-			_mocks.ReplayAll();
+			_conferenceRepository.Stub(x=>x.GetConferenceByKey(null)).IgnoreArguments().Return(_conference);
+			_userSession.Stub(x=>x.GetLoggedInPerson()).Return(null);
 
 			SpeakerController controller = createSpeakerController();
 			var actionResult = controller.Edit("conf123") as RedirectToRouteResult;
@@ -118,26 +118,18 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 			_conference.AddSpeaker(p, "joedimaggio", "bio here...", "avatar.jpg");
 			_conference.AddSpeaker(p2, "marilynmonroe", "bio here...", "avatar.jpg");
+			
+		    _conferenceRepository.Stub(x => x.GetConferenceByKey("austinCodeCamp2008")).Return(_conference);
 
-			using (_mocks.Record())
-			{
-				SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008"))
-					.IgnoreArguments()
-					.Return(_conference);
-			}
+            SpeakerController controller = createSpeakerController();
+			var actionResult = controller.List("austinCodeCamp2008" ) as ViewResult;
 
-			using (_mocks.Playback())
-			{
-				SpeakerController controller = createSpeakerController();
-				var actionResult = controller.List("austinCodeCamp2008", 0, 0) as ViewResult;
+			Assert.That(actionResult, Is.Not.Null);
+			Assert.That(actionResult.ViewName, Is.Null, "expected default view");
 
-				Assert.That(actionResult, Is.Not.Null);
-				Assert.That(actionResult.ViewName, Is.Null, "expected default view");
-
-				var speakersPassedtoView = controller.ViewData.Get<Speaker[]>();
-				Assert.That(speakersPassedtoView, Is.Not.Null);
-				Assert.That(speakersPassedtoView.Length, Is.EqualTo(2));
-			}
+			var speakersPassedtoView = controller.ViewData.Get<Speaker[]>();
+			Assert.That(speakersPassedtoView, Is.Not.Null);
+			Assert.That(speakersPassedtoView.Length, Is.EqualTo(2));
 		}
 
 		private Speaker getSpeaker()

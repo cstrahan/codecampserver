@@ -1,12 +1,9 @@
 ﻿using System.Web.Mvc;
 using CodeCampServer.Model;
-using CodeCampServer.Model.Domain;
-using CodeCampServer.Model.Security;
 using CodeCampServer.Website.Controllers;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
-using IUserSession=CodeCampServer.Model.IUserSession;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
 {
@@ -15,14 +12,12 @@ namespace CodeCampServer.UnitTests.Website.Controllers
     {
         private MockRepository _mocks;
         private IUserSession userSession;
-        private IConferenceRepository _conferenceRepository;
 
         [SetUp]
         public void SetUp()
         {
             _mocks = new MockRepository();
             userSession = _mocks.DynamicMock<IUserSession>();
-            _conferenceRepository = _mocks.CreateMock<IConferenceRepository>();
         }
 
         [Test]

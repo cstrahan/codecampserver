@@ -3,8 +3,8 @@ using CodeCampServer.Model;
 
 namespace CodeCampServer.Website.Controllers
 {
-	[AdminOnly]
-	public class AdminController : Controller
+	[Authorize(Roles="Administrator")]
+	public class AdminController : BaseController
 	{
 		public AdminController(IUserSession userSession)
 			: base(userSession)
