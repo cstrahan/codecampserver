@@ -65,13 +65,12 @@ namespace CodeCampServer.Model.Domain
 			return string.Format("{0} {1}", contact.FirstName, contact.LastName);
 		}
 
-		public virtual Speaker GetSpeakerProfileFor(Conference conference)
-		{
-			Speaker[] speakers = conference.GetSpeakers();
-			Speaker speaker = Array.Find(speakers,
-			                             aSpeaker => Equals(aSpeaker.Person));
-			return speaker;
-		}
+        public virtual Speaker GetSpeakerProfileFor(Conference conference)
+        {
+            Speaker[] speakers = conference.GetSpeakers();
+            Speaker speaker = Array.Find(speakers, s => this.Equals(s.Person));
+            return speaker;
+        }
 
 		public override string ToString()
 		{

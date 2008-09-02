@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Iesi.Collections.Generic;
 
 namespace CodeCampServer.Model.Domain
@@ -13,11 +12,11 @@ namespace CodeCampServer.Model.Domain
         private DateTime? _startDate;
         private DateTime? _endDate;
         private string _sponsorInfo;
-        private Location _location = new Location();
+        private readonly Location _location = new Location();
         private int _maxAttendees;
-        private ISet<Sponsor> _sponsors = new HashedSet<Sponsor>();
-        private ISet<Person> _attendees = new HashedSet<Person>();
-        private ISet<Speaker> _speakers = new HashedSet<Speaker>();
+        private readonly ISet<Sponsor> _sponsors = new HashedSet<Sponsor>();
+        private readonly ISet<Person> _attendees = new HashedSet<Person>();
+        private readonly ISet<Speaker> _speakers = new HashedSet<Speaker>();
         private bool _publiclyVisible;
 
         public Conference()
@@ -118,14 +117,14 @@ namespace CodeCampServer.Model.Domain
         public virtual Sponsor[] GetSponsors()
         {
             Sponsor[] result = new List<Sponsor>(_sponsors).ToArray();
-            Array.Sort(result, delegate(Sponsor x, Sponsor y) { return y.Level.CompareTo(x.Level); });
+            Array.Sort(result, (x, y) => y.Level.CompareTo(x.Level));
             return result;
         }
 
         public virtual Sponsor[] GetSponsors(SponsorLevel level)
         {
-            List<Sponsor> sponsors = new List<Sponsor>(_sponsors);
-            return sponsors.FindAll(delegate(Sponsor item) { return item.Level == level; }).ToArray();
+            var sponsors = new List<Sponsor>(_sponsors);
+            return sponsors.FindAll(item => item.Level == level).ToArray();
         }
 
         public virtual void AddSponsor(Sponsor sponsor)
@@ -135,9 +134,8 @@ namespace CodeCampServer.Model.Domain
 
         public virtual Sponsor GetSponsor(string sponsorName)
         {
-            return
-                new List<Sponsor>(_sponsors).Find(
-                    delegate(Sponsor sponsor) { return sponsor.Name.ToLower() == sponsorName.ToLower(); });
+            return new List<Sponsor>(_sponsors)
+                .Find(sponsor => sponsor.Name.ToLower() == sponsorName.ToLower());
         }
 
         public virtual void RemoveSponsor(Sponsor sponsor)
@@ -172,10 +170,7 @@ namespace CodeCampServer.Model.Domain
 
         public virtual Speaker GetSpeakerByKey(string id)
         {
-            return Array.Find(GetSpeakers(), delegate(Speaker speaker)
-                                                 {
-                                                     return (speaker.SpeakerKey == id);                                                     
-                                                 });
+            return Array.Find(GetSpeakers(), speaker => (speaker.SpeakerKey == id));
         }
     }
 }
