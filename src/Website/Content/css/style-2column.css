@@ -141,7 +141,7 @@ a:hover {
 #content {
 	float: left;
 	width: 590px;
-	margin-right: 240px;		
+	padding-right: 240px;		
 }
 
 #content .prop 

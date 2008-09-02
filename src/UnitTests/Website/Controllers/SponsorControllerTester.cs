@@ -142,6 +142,22 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             Assert.That(sponsors[0].Name, Is.EqualTo("name"));
             Assert.That(sponsors[1].Name, Is.EqualTo("name2"));
         }
+        
+        [Test]
+        public void ShouldListZeroSponsorsOnEmptyRepository()
+        {
+            _conferenceRepository.Stub(r => r.GetConferenceByKey("austincodecamp2008")).Return(null);
+            SponsorController controller = getController();
+            
+            var actionResult = controller.List("austincodecamp2008", null, null) as ViewResult;
+
+            Assert.That(actionResult, Is.Not.Null, "should have returned ViewResult");
+            Assert.That(actionResult.ViewName, Is.Null);
+
+            var sponsors = controller.ViewData.Model as Sponsor[];
+            Assert.That(sponsors, Is.Not.Null, "should have returned sponsors array");
+            Assert.That(sponsors.Length, Is.EqualTo(0), "should have returned zero-length sponsors array");
+        }
 
         [Test]
         public void ShouldListSponsorsByLevelForAConferenceWithPartial()

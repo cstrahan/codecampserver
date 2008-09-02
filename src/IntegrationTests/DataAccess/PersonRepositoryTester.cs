@@ -38,7 +38,6 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 Assert.That(rehydratedPerson.Contact.LastName, Is.EqualTo("Browne"));
             }
         }
-
         [Test]
         public void ShouldGetNumberOfUsers()
         {            
@@ -65,12 +64,31 @@ namespace CodeCampServer.IntegrationTests.DataAccess
         {
             using(ISession session = getSession())
             {
-                Person p = new Person("test", "person", "");
+                Person p = new Person("test", "person", "person@person.com");
                 p.Website = "http://test";
                 p.Comment = "test comment";
                 session.SaveOrUpdate(p);
                 session.Flush();
             }
+        }
+
+        [Test]
+        public void ShouldFindPersonByEmail()
+        {
+            insertTestPerson();
+            IPersonRepository repository = new PersonRepository(_sessionBuilder);
+            Person rehydratedPerson = repository.FindByEmail("person@person.com");
+            Assert.That(rehydratedPerson != null);
+            Assert.That(rehydratedPerson.Contact.FirstName, Is.EqualTo("test"));
+            Assert.That(rehydratedPerson.Contact.LastName, Is.EqualTo("person"));
+        }
+        [Test]
+        public void ShouldNotFindPersonByFullName()
+        {
+            insertTestPerson();
+            IPersonRepository repository = new PersonRepository(_sessionBuilder);
+            Person rehydratedPerson = repository.FindByEmail("test person");
+            Assert.That(rehydratedPerson == null);
         }
     }
 }

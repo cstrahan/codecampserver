@@ -59,22 +59,22 @@
             
             <label for="conf_name">Name</label>
             <% var  conference = ViewData.Get<Conference>();%>
-            <%= Html.TextBox("conf_name", conference.Name ?? "", 40, 100, new { @class="required"}) %>
+            <%= Html.TextBox("conf_name", conference.Name ?? "", new { @class="required", size="40", maxLength="100"}) %>
             <span class="info">The name of the conference.</span>
             
             <label for="conf_key">Unique Key</label>
-            <%= Html.TextBox("conf_key", conference.Key ?? "", 25, 25, new { @class="required uniqueKey" })%>
+            <%= Html.TextBox("conf_key", conference.Key ?? "", new { @class = "required uniqueKey", size = "25", maxLength = "25" })%>
             <span class="info">A unique name to identify the conference.  Will be used in a url, so it must not contain illegal characters such as spaces or symbols.</span>
             
             <label for="conf_start">Starts</label>        
             <%= Html.TextBox("conf_start", conference.StartDate.HasValue ? 
                           conference.StartDate.Value.ToShortDateString() : "",
-                          25, 10, new { @class = "required" })%>
+                                          new { @class = "required", size = "25", maxLength = "10" })%>
             
             <label for="conf_end">Ends</label>        
             <%= Html.TextBox("conf_end", conference.EndDate.HasValue ? 
               conference.EndDate.Value.ToShortDateString() : "",
-                                        25, 10, new { @class = "required" })%>
+                                          new { @class = "required", size = "25", maxLength = "10" })%>
             
             <label for="conf_descr">Description</label>
             <%= Html.TextArea("conf_descr", conference.Description ?? "", 7, 60, new { @class = "required" })%>

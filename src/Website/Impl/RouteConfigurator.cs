@@ -7,10 +7,13 @@ namespace CodeCampServer.Website.Impl
 	{
 		public virtual void RegisterRoutes()
 		{
-			var routes = RouteTable.Routes;           
+			var routes = RouteTable.Routes;
+
+            routes.MapRoute("speakers", "{conferenceKey}/speakers",
+                new{controller="speaker", action="list"});
 
             routes.MapRoute("speaker", "{conferenceKey}/speaker/{id}",
-                new { controller="speaker", action="show" });
+                new { controller="speaker", action="show" });            
 
 		    routes.MapRoute("confkey", "{conferenceKey}/{controller}/{action}/{id}",
                 new { controller="conference", action="index", id=(string)null },

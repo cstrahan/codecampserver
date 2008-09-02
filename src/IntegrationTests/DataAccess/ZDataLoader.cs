@@ -18,8 +18,8 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 			{
 				ITransaction transaction = session.BeginTransaction();
 
-				var admin = new Person("Admin", "", "admin@admin.com");
-				SetPassword(admin, "admin");
+				var admin = new Person("Admin", "", "admin@admin.com") {IsAdministrator = true};
+			    SetPassword(admin, "admin");
 				session.SaveOrUpdate(admin);
 
 				var codeCamp2008 = new Conference("austincodecamp2008", "Austin Code Camp 2008");

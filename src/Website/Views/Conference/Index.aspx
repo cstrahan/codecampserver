@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
 	Inherits="System.Web.Mvc.ViewPage" %>
-<%@ Import namespace="CodeCampServer.Website.Views"%>
+<%@ Import Namespace="MvcContrib"%>
+<%@ Import Namespace="System.Collections.Generic"%>
 <%@ Import namespace="CodeCampServer.Website.Controllers"%>
 <%@ Import namespace="CodeCampServer.Model.Presentation"%>
 <%@ Import namespace="CodeCampServer.Model.Domain"%>
@@ -9,7 +10,7 @@
 <asp:Content ContentPlaceHolderID="SidebarContentPlaceHolder" ID="SidebarContent" runat="server">
 
 <div>
-<%Schedule conference = ViewData.Get<Schedule>(); %>
+<% var conference = ViewData.Get<Schedule>(); %>
 <%=Html.ActionLink<ConferenceController>(c => c.PleaseRegister(conference.Key), "Register Now!") %>
 <br />
 <%=Html.ActionLink<ScheduleController>(c => c.Index(conference.Key), "Schedule") %>

@@ -64,12 +64,18 @@ namespace CodeCampServer.Website.Controllers
 			                                      lastName, email, password, passwordConfirm);
 			task.Execute();
 
-			if (!task.Success)
-			{                
-				_userSesssion.PushUserMessage(FlashMessage.MessageType.Error, task.ErrorMessage);
-			}
+            if (task.Success)
+            {
+                Person person = _personRepository.FindByEmail(email);
+                if (person != null && _authenticator.VerifyAccount(person, password))
+                {
+                    _authenticator.SignIn(person);
+                    return RedirectToAction("index", "admin");
+                }
+            }
+		    _userSesssion.PushUserMessage(FlashMessage.MessageType.Error, task.ErrorMessage);
+		    return RedirectToAction("index", "login");
 
-			return RedirectToAction("index");
 		}
 
 		public ActionResult Logout()

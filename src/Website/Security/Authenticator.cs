@@ -29,7 +29,7 @@ namespace CodeCampServer.Website.Security
 			DateTime expires = issued.AddMinutes(30);
 			string roles = user.IsAdministrator ? "Administrator" : "User";
 
-			var ticket = new FormsAuthenticationTicket(1, user.GetName(), issued, expires, false, roles);
+			var ticket = new FormsAuthenticationTicket(1, user.Contact.Email, issued, expires, false, roles);
 			string encryptedTicket = FormsAuthentication.Encrypt(ticket);
 			var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket)
 			                 	{Expires = ticket.Expiration};

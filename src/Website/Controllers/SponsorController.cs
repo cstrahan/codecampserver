@@ -42,7 +42,8 @@ namespace CodeCampServer.Website.Controllers
 
 		public ActionResult List(string conferenceKey, bool? partial, SponsorLevel? level)
 		{
-			Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
+            Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey) ??
+                                    new Conference(conferenceKey, conferenceKey);
 			Sponsor[] sponsors = level.HasValue ? conference.GetSponsors(level.Value) : conference.GetSponsors();
 			ViewData.Model = sponsors;
 			if (partial.GetValueOrDefault()) return View("SponsorList");
