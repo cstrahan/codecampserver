@@ -104,6 +104,7 @@
     <Compile Include="Model\Domain\SpeakerTester.cs" />
     <Compile Include="Model\Presentation\ScheduleListingTester.cs" />
     <Compile Include="Model\Presentation\ScheduledConferenceTester.cs" />
+    <Compile Include="Specification.cs" />
     <Compile Include="Website\Controllers\AttendeeControllerTester.cs" />
     <Compile Include="Website\HttpSessionStateStub.cs" />
     <Compile Include="Website\UserSessionTester.cs" />
