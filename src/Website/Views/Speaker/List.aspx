@@ -6,6 +6,7 @@
 <%@ Import Namespace="CodeCampServer.Model.Presentation" %>
 <%@ Import Namespace="System.Collections.Generic" %>
 <%@ Import Namespace="System.Web.Mvc" %>
+<%@ Import Namespace="Microsoft.Web.Mvc" %>
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">

@@ -63,12 +63,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_conferenceRepository.Stub(x => x.GetConferenceByKey(null)).IgnoreArguments().Return(_conference);
 			
 
-			SpeakerController controller = createSpeakerController();
-			var actionResult = controller.Edit("conf123") as ViewResult;
-
-			Assert.That(actionResult, Is.Not.Null);
-			Assert.That(actionResult.ViewName, Is.Null, "expected default view");
-
+			var controller = createSpeakerController();
+			controller.Edit("conf123").ShouldRenderDefaultView();
+			
 			var viewDataSpeakerProfile = controller.ViewData.Get<Speaker>();
 			Assert.That(speaker, Is.EqualTo(viewDataSpeakerProfile));
 		}
@@ -79,39 +76,12 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			_conferenceRepository.Stub(x=>x.GetConferenceByKey(null)).IgnoreArguments().Return(_conference);
 			_userSession.Stub(x=>x.GetLoggedInPerson()).Return(null);
 
-			SpeakerController controller = createSpeakerController();
-			var actionResult = controller.Edit("conf123") as RedirectToRouteResult;
-
-			Assert.That(actionResult, Is.Not.Null);
-			Assert.That(actionResult.Values["controller"].ToString().ToLower(), Is.EqualTo("login"));
-			Assert.That(actionResult.Values["action"].ToString().ToLower(), Is.EqualTo("index"));
+			var controller = createSpeakerController();
+		    controller.Edit("conf123").ShouldRedirectTo("login", "index");
 		}
 
-		//TODO:  rewrite this test
-//        [Test, Explicit]
-//        public void SaveSpeakerReturnSaveExceptionMessageOnExceptionAndReturnToEditAction()
-//        {
-//            Speaker savedSpeaker = getSpeaker();
-//            
-//            _userSession = new UserSessionStub(savedSpeaker.Person);
-//
-//            string validationMessage = "Validation Error";
-//			SetupResult.For(                               
-//				.Throw(new DataValidationException(validationMessage));
-//            _mocks.ReplayAll();
-//
-//            var controller = createSpeakerController();
-//            controller.Save(_conference.Key, "AndrewBrowne", "Andrew", "Browne", "http://blog.brownie.com.au",
-//                            "A comment",
-//                            "Info about how important I am to go here.", "http://blog.brownie.com.au/avatar.jpg");
-//
-//            Assert.That(controller.RedirectToActionValues["Action"], Is.EqualTo("edit"));
-//            string viewDataMessage = controller.TempData["error"] as string;
-//            Assert.AreEqual(validationMessage, viewDataMessage);
-//        }
-
 		[Test]
-		public void ShouldListSpeakersForAConference()
+		public void list_action_should_fetch_speakers_and_render_default_view()
 		{
 			var p = new Person("joe", "dimaggio", "jd@baseball.com");
 			var p2 = new Person("marilyn", "monroe", "m@m.com");
@@ -121,12 +91,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			
 		    _conferenceRepository.Stub(x => x.GetConferenceByKey("austinCodeCamp2008")).Return(_conference);
 
-            SpeakerController controller = createSpeakerController();
-			var actionResult = controller.List("austinCodeCamp2008" ) as ViewResult;
-
-			Assert.That(actionResult, Is.Not.Null);
-			Assert.That(actionResult.ViewName, Is.Null, "expected default view");
-
+            var controller = createSpeakerController();
+			controller.List("austinCodeCamp2008").ShouldRenderDefaultView();
+			
 			var speakersPassedtoView = controller.ViewData.Get<Speaker[]>();
 			Assert.That(speakersPassedtoView, Is.Not.Null);
 			Assert.That(speakersPassedtoView.Length, Is.EqualTo(2));

@@ -6,7 +6,7 @@ namespace CodeCampServer.UnitTests
 {
     public delegate void MethodThatThrows();
 
-    public static class MbUnitSpecExtensions
+    public static class SpecExtensions
     {
         public static void ShouldBeFalse(this bool condition)
         {

@@ -3,8 +3,6 @@ using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using MvcContrib;
-using Microsoft.Web.Mvc;
-using MvcContrib.Filters;
 
 namespace CodeCampServer.Website.Controllers
 {
@@ -37,7 +35,7 @@ namespace CodeCampServer.Website.Controllers
 				_conferenceRepository.Save(conference);
 			}
 
-		    return RedirectToAction("list", new {conferenceKey = conferenceKey});
+		    return RedirectToAction("list", new {conferenceKey});
 		}
 
 		public ActionResult List(string conferenceKey, bool? partial, SponsorLevel? level)
@@ -66,7 +64,7 @@ namespace CodeCampServer.Website.Controllers
 		}
 
         [Authorize(Roles = "Administrator")]
-		[RequireHttpMethod("POST")]
+        [AcceptVerbs("POST")]		
 		//TODO: update this to accept a sponsor id to avoid the quirky new/updated logic
 		public ActionResult Save(string conferenceKey, string oldName, string name, string level, string logoUrl,
 		                         string website,

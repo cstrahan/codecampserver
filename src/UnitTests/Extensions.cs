@@ -6,8 +6,7 @@ using System.Web.Routing;
 using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests
-{
-	[Obsolete("Use new RhionMocks syntax instead and don't fake TempData")]
+{	
 	public static class Extensions
 	{
 		public static HttpContextBase FakeHttpContext(this MockRepository mocks)

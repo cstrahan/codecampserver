@@ -1,7 +1,8 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
     Inherits="System.Web.Mvc.ViewPage" Title="CodeCampServer - View Conferences" %>
 <%@ Import Namespace="CodeCampServer.Website.Controllers"%>
-<%@ Import namespace="MvcContrib"%>
+<%@ Import namespace="MvcContrib" %>
+<%@ Import namespace="Microsoft.Web.Mvc" %>
 
 <asp:Content ContentPlaceHolderID="head" runat="server">
   <script type="text/javascript">    
@@ -29,13 +30,12 @@
         <% foreach(var conference in ViewData.Get<Conference[]>()) {%>
         
         <tr>
-            <td><%= Html.ActionLink<ConferenceController>(c => c.Details(conference.Key), conference.Name) %></td>
+            <td><%= Html.ActionLink<ConferenceController>(c => c.Index(conference.Key), conference.Name) %></td>
             <td><%= conference.StartDate.Value.ToShortDateString() %></td>
             <td><%= conference.EndDate.HasValue ? 
                     conference.EndDate.Value.ToShortDateString() 
                     : conference.StartDate.Value.ToShortDateString() %></td>
-            <td><%= Html.CheckBox("displayed", "", "", conference.PubliclyVisible, new { disabled="true" }) %></td>
-            
+            <td><%= Html.CheckBox("displayed", conference.PubliclyVisible, new{disabled="true"}) %></td>            
             <td><%= Html.ActionLink<ConferenceController>(c => c.Edit(conference.Key), "Edit") %></td>
             
         </tr>

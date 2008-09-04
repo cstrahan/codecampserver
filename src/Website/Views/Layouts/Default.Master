@@ -36,7 +36,7 @@
 	    </div>
 	    <div id="menu">
     		<ul>
-    		    <% var conferenceKey = "austinCodeCamp2008"; %>
+    		    <% var conferenceKey = "austinCodeCamp2008"; %>    		    
     		    <li><%=Html.ActionLink<ConferenceController>(c => c.Index(conferenceKey), "Home") %></li>
     		    <li><%=Html.ActionLink<ScheduleController>(c => c.Index(conferenceKey), "Schedule") %></li>
     		    <li><%=Html.ActionLink<SpeakerController>(c => c.List(conferenceKey), "Speakers") %></li>
@@ -70,7 +70,7 @@
             <p></p>
             
             <% if (ViewData.GetOrDefault("ShouldRenderAdminPanel", false)) { %>            
-                <%= Html.RenderUserControl("~/Views/Shared/AdminControlPanel.ascx") %>            
+                <% Html.RenderPartial("AdminControlPanel"); %>
             <% } %>
             <p></p>
                    

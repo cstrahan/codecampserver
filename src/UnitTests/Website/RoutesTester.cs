@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Web;
 using System.Web.Routing;
 using CodeCampServer.Website.Impl;
@@ -11,44 +10,29 @@ namespace CodeCampServer.UnitTests.Website
 	[TestFixture]
 	public class RoutesTester
 	{
-	    private void AssertRoute(string virtualPath, string expectedController, string expectedAction)
-	    {
-	        AssertRoute(virtualPath, expectedController, expectedAction, new Dictionary<string, string>());
-	    }
-
-	    private void AssertRoute(string virtualPath, string expectedController, string expectedAction, IDictionary<string,string> expectedTokens)
-        {
-            var routeData = getMatchingRouteData(virtualPath);
-
-            Assert.That(routeData.GetRequiredString("controller"), Is.EqualTo(expectedController));
-            Assert.That(routeData.GetRequiredString("action"), Is.EqualTo(expectedAction));
-            foreach (var pair in expectedTokens)
-            {
-                Assert.That(routeData.GetRequiredString(pair.Key), Is.EqualTo(pair.Value));
-            }
-        }	
-
 	    [Test]
 		public void TestSiteRoutes()
 		{
-	        AssertRoute("~/austinCodeCamp2008", "conference", "index",
-	            new Dictionary<string, string> {{"conferenceKey", "austinCodeCamp2008"}});
+	        RequestFor("~/austinCodeCamp2008").ShouldMatchController("conference").AndAction("index")
+	            .WithRouteValue("conferenceKey", "austinCodeCamp2008");
 
-	        AssertRoute("~/login", "login", "index");
-	        AssertRoute("~/conference/new", "conference", "new");
-	        AssertRoute("~/conference/current", "conference", "current");
-	        AssertRoute("~/admin", "admin", "index");
-	        AssertRoute("~/houstonTechFest/sessions/add", "sessions", "add",
-                new Dictionary<string,string> {{"conferenceKey", "houstonTechFest"}});
+            RequestFor("~/login").ShouldMatchController("login").AndAction("index");
+            RequestFor("~/conference/new").ShouldMatchController("conference").AndAction("new");
+	        RequestFor("~/conference/current").ShouldMatchController("conference").AndAction("current");
+	        RequestFor("~/admin").ShouldMatchController("admin").AndAction("index");
+	        RequestFor("~/houstonTechFest/sessions/add").ShouldMatchController("sessions").AndAction("add")
+                .WithRouteValue("conferenceKey", "houstonTechFest");
 
-
-            AssertRoute("~/myconf/speaker/jeffreypalermo", "speaker", "show", 
-                new Dictionary<string, string>
-                    {
-                        {"id", "jeffreypalermo"},
-                        {"conferenceKey", "myconf"}
-                    });
+	        RequestFor("~/myconf/speaker/jeffreypalermo").ShouldMatchController("speaker").AndAction("show")
+	            .WithRouteValue("id", "jeffreypalermo")
+	            .WithRouteValue("conferenceKey", "myconf");            
 		}
+
+        private IRouteOptions RequestFor(string url)
+        {
+            var routeData = getMatchingRouteData(url);
+            return new RouteOptions(routeData);
+        }
 
 		private static RouteData getMatchingRouteData(string appRelativeUrl)
 		{
@@ -74,9 +58,50 @@ namespace CodeCampServer.UnitTests.Website
 			using (mocks.Playback())
 			{
 				routeData = RouteTable.Routes.GetRouteData(httpContext);
-			}
+            }
 
 			return routeData;
-		}
+		}        
 	}
+
+    public interface IRouteOptions
+    {
+        IRouteOptions ShouldMatchController(string controller);
+        IRouteOptions AndAction(string action);
+        IRouteOptions WithRouteValue(string key, string value);
+    }
+
+    public class RouteOptions : IRouteOptions
+    {
+        private readonly RouteData _routeData;
+
+        public RouteOptions(RouteData routeData)
+        {
+            _routeData = routeData;
+        }
+
+        private void AssertStringsEquivalent(string actual, string expected)
+        {
+            Assert.That(string.Compare(expected, actual, true), Is.EqualTo(0),
+                        string.Format("Expected {0} but was {1}", expected, actual));
+        }
+
+        public IRouteOptions ShouldMatchController(string controller)
+        {
+            AssertStringsEquivalent(_routeData.Values["controller"].ToString(), controller);            
+            return this;
+        }        
+
+        public IRouteOptions AndAction(string action)
+        {
+            AssertStringsEquivalent(_routeData.Values["action"].ToString(), action);
+            return this;
+        }
+
+        public IRouteOptions WithRouteValue(string key, string value)
+        {
+            AssertStringsEquivalent(_routeData.Values[key].ToString(), value);
+            return this;
+        }
+    }
 }

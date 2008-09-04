@@ -46,7 +46,7 @@ namespace CodeCampServer.UnitTests
 
         public T StrictMock<T>()
         {
-            return Mocks.CreateMock<T>();
+            return Mocks.StrictMock<T>();
         }
 
         public T Stub<T>()

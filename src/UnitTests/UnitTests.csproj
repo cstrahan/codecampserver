@@ -104,11 +104,12 @@
     <Compile Include="Model\Domain\SpeakerTester.cs" />
     <Compile Include="Model\Presentation\ScheduleListingTester.cs" />
     <Compile Include="Model\Presentation\ScheduledConferenceTester.cs" />
+    <Compile Include="MvcTestExtensions.cs" />
+    <Compile Include="SpecExtensions.cs" />
     <Compile Include="Specification.cs" />
     <Compile Include="Website\Controllers\AttendeeControllerTester.cs" />
     <Compile Include="Website\HttpSessionStateStub.cs" />
     <Compile Include="Website\UserSessionTester.cs" />
-    <Compile Include="NUnitSpecExtensions.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="TestHelperExtensions.cs" />
     <Compile Include="Website\ControllerContextStub.cs" />
@@ -126,7 +127,6 @@
     <Compile Include="Website\HttpRequestStub.cs" />
     <Compile Include="Website\ResponseWriteStub.cs" />
     <Compile Include="Website\RoutesTester.cs" />
-    <Compile Include="Website\ViewEngineStub.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

@@ -9,7 +9,7 @@
       <generator class="guid.comb" />
     </id>
 
-    <property name="Key" column="ConferenceKey" length="25" not-null="true"/>
+    <property name="Key" column="ConferenceKey" length="25" not-null="true" unique="true" />
     <property name="Name" column="ConferenceName" length="200" not-null="true"/>
     <property name="Description" not-null="false"/>
     <property name="StartDate" />

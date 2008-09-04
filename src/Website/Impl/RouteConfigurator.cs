@@ -16,8 +16,12 @@ namespace CodeCampServer.Website.Impl
                 new { controller="speaker", action="show" });            
 
 		    routes.MapRoute("confkey", "{conferenceKey}/{controller}/{action}/{id}",
-                new { controller="conference", action="index", id=(string)null },
-                new { conferenceKey="(?!conference|admin|login).*"});
+                new { action="index", id=(string)null },
+                new { controller="(?!conference).*", conferenceKey="(?!conference|admin|login).*"});
+
+		    routes.MapRoute("confKey2", "{conferenceKey}/{action}",
+		        new {controller = "conference", action = "index"},
+                new {conferenceKey="(?!conference|admin|login).*"});
             
             routes.MapRoute("standard", "{controller}/{action}/{id}",
                 new { controller="conference", action="index", id=(string)null });

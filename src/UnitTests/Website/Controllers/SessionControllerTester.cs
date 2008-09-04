@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Website.Controllers;
@@ -16,7 +13,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
     [TestFixture]
     public class SessionControllerTester
     {
-        private MockRepository _mocks;
+        private const string CONFERENCE_KEY = "austincodecamp2008";
         private ISessionRepository _sessionRepository;
         private IPersonRepository _personRepository;
         private IUserSession _userSession;
@@ -26,114 +23,91 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         [SetUp]
         public void Setup()
         {
-            _mocks = new MockRepository();
-            _conferenceRepository = _mocks.StrictMock<IConferenceRepository>();
-            _sessionRepository = _mocks.StrictMock<ISessionRepository>();
-            _personRepository = _mocks.DynamicMock<IPersonRepository>();
-            _userSession = _mocks.StrictMock<IUserSession>();
-            _conference = new Conference("austincodecamp2008", "Austin Code Camp");
+            _conferenceRepository = MockRepository.GenerateMock<IConferenceRepository>();
+            _sessionRepository = MockRepository.GenerateMock<ISessionRepository>();
+            _personRepository = MockRepository.GenerateMock<IPersonRepository>();
+            _userSession = MockRepository.GenerateMock<IUserSession>();
+            _conference = new Conference(CONFERENCE_KEY, "Austin Code Camp");
+
+            _conferenceRepository.Stub(x => x.GetConferenceByKey(CONFERENCE_KEY)).Return(_conference);
         }
 
         [Test]
         public void CreateActionShouldContainSpeakerListingCollectionAndRenderNewView()
         {
-            SessionController controller = createController();
+            var controller = createSessionController();
             var person = new Person("Barney", "Rubble", "brubble@aol.com");
             var expectedSpeaker = new Speaker(person, "brubble", "bio", "avatar");
             _conference.AddSpeaker(person, expectedSpeaker.SpeakerKey, expectedSpeaker.Bio, expectedSpeaker.AvatarUrl);
+            
+            _userSession.Expect(x=>x.GetLoggedInPerson()).Return(expectedSpeaker.Person);            
 
-            SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008")).Return(_conference);
-            Expect.Call(_userSession.GetLoggedInPerson()).Return(expectedSpeaker.Person);
-            _mocks.ReplayAll();
+            controller.Create(CONFERENCE_KEY).ShouldRenderDefaultView();
 
-            var actionResult = controller.Create("austincodecamp2008") as ViewResult;
-
-            if (actionResult == null)
-                Assert.Fail("expected ViewResult");
-            Assert.That(actionResult.ViewName, Is.Null);
             Assert.That(controller.ViewData.Get<Speaker>(), Is.EqualTo(expectedSpeaker));
 
-            _mocks.VerifyAll();
+            _userSession.VerifyAllExpectations();
         }
 
         [Test]
         public void CreateActionShouldRedirectToLoginIfUserIsNotASpeaker()
-        {
-            SessionController controller = createController();
+        {            
+            var controller = createSessionController();
             controller.ControllerContext = new ControllerContextStub(controller,
                                                                      new HttpContextStub(
                                                                          new HttpRequestStub(
-                                                                             new Uri("http://x/path?query=x"))));
-            SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008"))
-                .Return(_conference);
-            Expect.Call(_userSession.GetLoggedInPerson()).Return(null);
-            _mocks.ReplayAll();
+                                                                             new Uri("http://x/path?query=x"))));                        
+            _userSession.Expect(x=>x.GetLoggedInPerson()).Return(null);
 
-            var actionResult = (RedirectToRouteResult) controller.Create("austincodecamp2008");
-
-            Assert.That(actionResult.Values["Controller"], Is.EqualTo("login"));
-            Assert.That(actionResult.Values["redirecturl"], Is.EqualTo("/path?query=x"));
+            controller.Create(CONFERENCE_KEY).ShouldRedirectTo("login", "index")
+                .WithValue("redirectUrl", "/path?query=x");
         }
 
         [Test]
         public void CreateNewActionShouldCreateNewSession()
         {
-            SessionController controller = createController();
+            var controller = createSessionController();
             var personSpeaking = new Person("Jeffrey", "Palermo", "e@mail.com");
             _conference.AddSpeaker(personSpeaking, "key", "bio", "avatar");
 
             Session actualSession = null;
 
-            SetupResult.For(_conferenceRepository.GetConferenceByKey(null)).IgnoreArguments().Return(_conference);
-            SetupResult.For(_personRepository.FindByEmail(null)).IgnoreArguments().Return(personSpeaking);
-            _sessionRepository.Save(null);
-            LastCall.IgnoreArguments().Do(new Action<Session>(x => actualSession = x));
-            _mocks.ReplayAll();
+            _conferenceRepository.Stub(x=>x.GetConferenceByKey(null)).IgnoreArguments().Return(_conference);
+            _personRepository.Stub(x=>x.FindByEmail(null)).IgnoreArguments().Return(personSpeaking);
+            _sessionRepository.Expect(x => x.Save(null)).IgnoreArguments()
+                .Do(new Action<Session>(x=> actualSession = x));
+            
+            controller.CreateNew(CONFERENCE_KEY, "test@aol.com", "title", "abstract").ShouldRenderView("CreateConfirm");
 
-            var actionResult =
-                controller.CreateNew("austincodecamp2008", "test@aol.com", "title", "abstract") as ViewResult;
-
-            if (actionResult == null)
-                Assert.Fail("expected ViewResult");
-
-            Assert.That(actionResult.ViewName, Is.EqualTo("CreateConfirm"));
+            controller.ViewData.Contains<Session>().ShouldBeTrue();
 
             var session = controller.ViewData.Get<Session>();
-            Assert.IsNotNull(session);
             Assert.That(session, Is.EqualTo(actualSession));
             Assert.That(session.Speaker, Is.EqualTo(personSpeaking));
             Assert.That(session.Title, Is.EqualTo("title"));
             Assert.That(session.Abstract, Is.EqualTo("abstract"));
 
-            _mocks.VerifyAll();
+            _sessionRepository.VerifyAllExpectations();            
         }
 
         [Test]
         public void ProposedActionShouldShowProposedSessions()
         {
-            IEnumerable<Session> sessions = new List<Session>();
-            SetupResult.For(_conferenceRepository.GetConferenceByKey("austincodecamp2008"))
+            var sessions = new List<Session>();
+            _conferenceRepository.Stub(x=>x.GetConferenceByKey(CONFERENCE_KEY))
                 .Return(_conference);
-            Expect.Call(_sessionRepository.GetProposedSessions(_conference))
+            _sessionRepository.Expect(x=>x.GetProposedSessions(_conference))
                 .Return(sessions);
-            _mocks.ReplayAll();
 
-            SessionController controller = createController();
-            var actionResult = controller.Proposed("austincodecamp2008") as ViewResult;
-
-            if (actionResult == null)
-                Assert.Fail("expected ViewResult");
-
-            Assert.That(actionResult.ViewName, Is.Null);
+            var controller = createSessionController();
+            controller.Proposed(CONFERENCE_KEY).ShouldRenderDefaultView();
+            
             Assert.That(controller.ViewData.Get<IEnumerable<Session>>(), Is.SameAs(sessions));
         }
 
-        private SessionController createController()
-        {
-            HttpContextBase fakeHttpContext = _mocks.FakeHttpContext("~/sessions");
-            var controller = new SessionController(_conferenceRepository, _sessionRepository, _personRepository,
-                                                   _userSession);
-            controller.ControllerContext = new ControllerContext(fakeHttpContext, new RouteData(), controller);
+        private SessionController createSessionController()
+        {            
+            var controller = new SessionController(_conferenceRepository, _sessionRepository, _personRepository, _userSession);
             return controller;
         }
     }

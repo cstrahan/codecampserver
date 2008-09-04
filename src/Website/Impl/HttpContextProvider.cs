@@ -6,7 +6,7 @@ namespace CodeCampServer.Website.Impl
 	{
 		public HttpContextBase GetCurrentHttpContext()
 		{
-			return new HttpContextWrapper2(HttpContext.Current);
+			return new HttpContextWrapper(HttpContext.Current);
 		}
 
 		public HttpSessionStateBase GetHttpSession()

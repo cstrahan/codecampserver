@@ -12,7 +12,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
     [TestFixture]
     public class when_listing_attendees : behaves_like_mock_test
     {
-        private AttendeeController _controller;
+        private AttendeesController _controller;
         private IUserSession _userSession;
         private IConferenceRepository _conferenceRepository;
         private ActionResult _result;
@@ -23,7 +23,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
             _userSession = Mock<IUserSession>();
             _conferenceRepository = Mock<IConferenceRepository>();
-            _controller = new AttendeeController(_userSession, _conferenceRepository);
+            _controller = new AttendeesController(_userSession, _conferenceRepository);
 
             var conference = new Conference("houstonTechFest", "Houston Tech Fest");
             _conferenceRepository.Expect(x => x.GetConferenceByKey("houstonTechFest")).Return(conference);
@@ -40,9 +40,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         [Test]
         public void should_render_default_view()
         {            
-            var viewResult = _result as ViewResult;
-            Assert.That(viewResult, Is.Not.Null);
-            Assert.That(viewResult.ViewName, Is.Null);
+            _result.ShouldRenderDefaultView();            
         }
 
         [Test]

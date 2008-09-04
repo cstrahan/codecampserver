@@ -45,7 +45,7 @@ namespace CodeCampServer.Website.Controllers
 		public ActionResult KeyCheck(string conferenceKey)
 		{
 			bool result = _conferenceRepository.ConferenceKeyAvailable(conferenceKey);
-		    return Json(result);			
+		    return Json(result);
 		}
 
 		public ActionResult Current()
@@ -121,20 +121,38 @@ namespace CodeCampServer.Website.Controllers
 
         [Authorize(Roles = "Administrator")]
 		[PostOnly]
-		public ActionResult Save(string conf_name, string conf_key, DateTime conf_start, DateTime? conf_end,
-		                         string conf_desc)
+		public ActionResult Save(Guid conf_id, string conf_name, string conf_key, DateTime conf_start, DateTime? conf_end, string conf_desc, bool conf_enabled)
 		{
-			if (_conferenceRepository.ConferenceExists(conf_name, conf_key))
-			{
-				TempData[TempDataKeys.Error] = "A conference has already been created with that name or key";
-			}
+            Conference conference;
+            if(conf_id == Guid.Empty)
+            {
+                if (_conferenceRepository.ConferenceExists(conf_name, conf_key))
+                {
+                    TempData[TempDataKeys.Error] = "A conference has already been created with that name or key";
+                    return RedirectToAction("edit");
+                }
 
-			var conf = new Conference(conf_key, conf_name)
-			           	{StartDate = conf_start, EndDate = conf_start, Description = conf_desc};
+                conference = new Conference();
+            }
+            else
+            {
+                conference = _conferenceRepository.GetById(conf_id);
+                if(conference == null)
+                {
+                    TempData[TempDataKeys.Error] = "Conference not found.";
+                    return RedirectToAction("list");
+                }
+            }
+
+
+            conference.StartDate = conf_start;
+            conference.EndDate = conf_end.HasValue ? conf_end : conf_start;           
+            conference.Description = conf_desc;
+            conference.PubliclyVisible = conf_enabled;            
 
 			try
 			{
-				_conferenceRepository.Save(conf);
+				_conferenceRepository.Save(conference);
 				TempData[TempDataKeys.Message] = "The conference was created successfully.";
 				return RedirectToAction("list");
 			}
@@ -142,7 +160,7 @@ namespace CodeCampServer.Website.Controllers
 			{
 				Log.Error("Error saving conference.", exc);
 				TempData[TempDataKeys.Error] = "There was an error saving the conference.  The error was: " + exc;
-				ViewData.Add("conference", conf);
+				ViewData.Add("conference", conference);
 				return View("edit");
 			}
 		}

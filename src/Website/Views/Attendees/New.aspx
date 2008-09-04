@@ -1,6 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" 
-AutoEventWireup="true" Inherits="System.Web.Mvc.ViewPage"
- Title="Register for conference" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewPage" Title="Register for conference" %>
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
 <%@ Import namespace="MvcContrib"%>
 <%@ Import namespace="CodeCampServer.Model.Presentation"%>
@@ -13,7 +11,7 @@ AutoEventWireup="true" Inherits="System.Web.Mvc.ViewPage"
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 	<div>
 		<h3></h3>
-		<% using (Html.Form("conference", "register")) { %>    
+		<% using (Html.Form("attendees", "create")) { %>    
 			
 		<fieldset>
 		    <legend>Register for <%=getConference().Name %></legend>

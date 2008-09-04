@@ -46,26 +46,6 @@ namespace CodeCampServer.Website.Helpers
             var basePath = html.ViewContext.HttpContext.Request.ApplicationPath;
             string url = basePath + relativeUrl.Substring(1);
             return url.Replace("//", "/");     
-        }
-
-        public static string Stylesheet(this HtmlHelper html, string cssFile)
-        {
-            string cssPath = cssFile.Contains("~") ? cssFile : "~/content/css/" + cssFile;
-            string url = ResolveUrl(html, cssPath);
-            return string.Format("<link type=\"text/css\" rel=\"stylesheet\" href=\"{0}\" />\n", url);
-        }
-
-        public static string ScriptInclude(this HtmlHelper html, string jsFile)
-        {
-            string jsPath = jsFile.Contains("~") ? jsFile : "~/content/js/" + jsFile;
-            string url = ResolveUrl(html, jsPath);
-            return string.Format("<script type=\"text/javascript\" src=\"{0}\" ></script>\n", url);
-        }
-
-        public static string Favicon(this HtmlHelper html)
-        {
-            string path = ResolveUrl(html, "~/favicon.ico");
-            return string.Format("<link rel=\"shortcut icon\" href=\"{0}\" />\n", path);
-        }
+        }    
 	}
 }

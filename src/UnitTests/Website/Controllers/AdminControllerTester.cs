@@ -1,8 +1,6 @@
-﻿using System.Web.Mvc;
-using CodeCampServer.Model;
+﻿using CodeCampServer.Model;
 using CodeCampServer.Website.Controllers;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.Website.Controllers
@@ -10,35 +8,24 @@ namespace CodeCampServer.UnitTests.Website.Controllers
     [TestFixture]
     public class AdminControllerTester
     {
-        private MockRepository _mocks;
-        private IUserSession userSession;
+        private IUserSession _userSession;
 
         [SetUp]
         public void SetUp()
-        {
-            _mocks = new MockRepository();
-            userSession = _mocks.DynamicMock<IUserSession>();
+        {            
+            _userSession = MockRepository.GenerateStub<IUserSession>();
         }
 
         [Test]
         public void IndexActionRendersDefaultView()
         {
             var controller = getController();
-            var result = controller.Index() as ViewResult;
-
-            if(result == null) 
-                Assert.Fail("expected renderview");
-
-            Assert.That(result.ViewName, Is.Null);
+            controller.Index().ShouldRenderDefaultView();            
         }
 
         private AdminController getController()
         {
-            var controller = new AdminController(userSession)
-                       {                           
-                           ViewEngine = new ViewEngineStub()
-                       };
-
+            var controller = new AdminController(_userSession);                  
             controller.ControllerContext = new ControllerContextStub(controller);
             return controller;
         }

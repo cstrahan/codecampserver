@@ -5,11 +5,11 @@ using MvcContrib;
 
 namespace CodeCampServer.Website.Controllers
 {    
-    public class AttendeeController : BaseController
+    public class AttendeesController : BaseController
     {
         private readonly IConferenceRepository _conferenceRepository;
 
-        public AttendeeController(IUserSession userSession, IConferenceRepository conferenceRepository) : 
+        public AttendeesController(IUserSession userSession, IConferenceRepository conferenceRepository) : 
             base(userSession)
         {
             _conferenceRepository = conferenceRepository;
@@ -23,5 +23,13 @@ namespace CodeCampServer.Website.Controllers
             ViewData.Add(attendees);
             return View();
         }
+
+        public ActionResult New(string conferenceKey)
+        {            
+            ViewData.Add(new Person());
+
+            return View();
+        }
+
     }
 }
