@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewPage" MasterPageFile="~/Views/Layouts/Admin.Master" %>
 <%@ Import namespace="CodeCampServer.Website.Controllers"%>
+<%@ Import namespace="Microsoft.Web.Mvc" %>
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 

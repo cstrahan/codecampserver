@@ -121,6 +121,7 @@
     <Compile Include="Impl\UserSession.cs" />
     <Compile Include="IRouteConfigurator.cs" />
     <Compile Include="Controllers\SessionController.cs" />
+    <Compile Include="Models\ConferenceModelBinder.cs" />
     <Compile Include="Security\Authenticator.cs" />
     <Compile Include="Controllers\ConferenceController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -130,6 +131,10 @@
     <Compile Include="Models\Conference\ListAttendeesViewData.cs" />
     <Compile Include="Impl\RouteConfigurator.cs" />
     <Compile Include="TempDataKeys.cs" />
+    <Compile Include="Views\Conference\Edit.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -139,6 +144,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{C0D2E9CB-D10B-496B-85A1-96023D622860}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{5D1C1E7E-AD24-41D1-9C15-5BC4ED0FD3EC}</Project>
       <Name>Model</Name>

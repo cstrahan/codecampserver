@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Presentation;
+using CodeCampServer.Website.Models;
 using MvcContrib;
 using MvcContrib.Attributes;
 using MvcContrib.Filters;
@@ -114,41 +115,32 @@ namespace CodeCampServer.Website.Controllers
 
         [Authorize(Roles = "Administrator")]
 		public ActionResult New()
-		{
-			ViewData.Add(new Conference());
-			return View("edit");
+		{			
+			return View("edit", new Conference());
 		}
 
-        [Authorize(Roles = "Administrator")]
+	    [Authorize(Roles = "Administrator")]
+	    public ActionResult Edit(string conferenceKey)
+	    {
+	        var conference = getConferenceByKey(conferenceKey);
+	        if (conference == null)
+	        {
+	            TempData[TempDataKeys.Error] = "Conference not found.";
+	            return RedirectToAction("current", "conference");
+	        }
+	        
+	        return View("edit", conference);
+	    }
+
+	    [Authorize(Roles = "Administrator")]
 		[PostOnly]
-		public ActionResult Save(Guid conf_id, string conf_name, string conf_key, DateTime conf_start, DateTime? conf_end, string conf_desc, bool conf_enabled)
+		public ActionResult Save([ModelBinder(typeof(ConferenceModelBinder))] Conference conference)
 		{
-            Conference conference;
-            if(conf_id == Guid.Empty)
+            if(conference == null)
             {
-                if (_conferenceRepository.ConferenceExists(conf_name, conf_key))
-                {
-                    TempData[TempDataKeys.Error] = "A conference has already been created with that name or key";
-                    return RedirectToAction("edit");
-                }
-
-                conference = new Conference();
+                TempData[TempDataKeys.Error] = "Conference not found.";
+                return RedirectToAction("list");                
             }
-            else
-            {
-                conference = _conferenceRepository.GetById(conf_id);
-                if(conference == null)
-                {
-                    TempData[TempDataKeys.Error] = "Conference not found.";
-                    return RedirectToAction("list");
-                }
-            }
-
-
-            conference.StartDate = conf_start;
-            conference.EndDate = conf_end.HasValue ? conf_end : conf_start;           
-            conference.Description = conf_desc;
-            conference.PubliclyVisible = conf_enabled;            
 
 			try
 			{
@@ -165,21 +157,7 @@ namespace CodeCampServer.Website.Controllers
 			}
 		}
 
-        [Authorize(Roles = "Administrator")]
-		public ActionResult Edit(string conferenceKey)
-		{
-			Conference conference = getConferenceByKey(conferenceKey);
-			if (conference == null)
-			{
-				TempData[TempDataKeys.Error] = "Conference not found.";
-				return RedirectToAction("current", "conference");
-			}
-
-			ViewData.Add(conference);
-			return View("edit");
-		}
-
-		private Conference getConferenceByKey(string conferenceKey)
+	    private Conference getConferenceByKey(string conferenceKey)
 		{
 			return _conferenceRepository.GetConferenceByKey(conferenceKey);
 		}

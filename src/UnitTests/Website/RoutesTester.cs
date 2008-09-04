@@ -23,6 +23,10 @@ namespace CodeCampServer.UnitTests.Website
 	        RequestFor("~/houstonTechFest/sessions/add").ShouldMatchController("sessions").AndAction("add")
                 .WithRouteValue("conferenceKey", "houstonTechFest");
 
+            //TODO: this route fails the test
+	        /*RequestFor("~/dallasCodeCamp/edit").ShouldMatchController("conference").AndAction("Edit").WithRouteValue(
+	            "conferenceKey", "dallasCodeCamp");*/
+
 	        RequestFor("~/myconf/speaker/jeffreypalermo").ShouldMatchController("speaker").AndAction("show")
 	            .WithRouteValue("id", "jeffreypalermo")
 	            .WithRouteValue("conferenceKey", "myconf");            

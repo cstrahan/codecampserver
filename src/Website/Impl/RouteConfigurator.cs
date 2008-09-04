@@ -15,6 +15,7 @@ namespace CodeCampServer.Website.Impl
             routes.MapRoute("speaker", "{conferenceKey}/speaker/{id}",
                 new { controller="speaker", action="show" });            
 
+            //TODO: this route is interfering with some URLS that we want
 		    routes.MapRoute("confkey", "{conferenceKey}/{controller}/{action}/{id}",
                 new { action="index", id=(string)null },
                 new { controller="(?!conference).*", conferenceKey="(?!conference|admin|login).*"});

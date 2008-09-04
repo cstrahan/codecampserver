@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
 using CodeCampServer.Model.Impl;
 using CodeCampServer.Model.Presentation;
-using CodeCampServer.Website;
 using CodeCampServer.Website.Controllers;
 using MvcContrib;
 using NUnit.Framework;
@@ -116,33 +114,14 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 			controller.New().ShouldRenderView("edit");
             Assert.That(controller.ViewData.Contains<Conference>());
 		}
-
-		[Test]
-		public void SaveActionShouldVerifyUniquenessOfNameAndKey()
-		{
-			var controller = createConferenceController();
-			_conferenceRepository.Expect(x => x.ConferenceExists("conference", "conf")).Return(true);
-
-		    controller.Save(Guid.Empty, "conference", "conf", DateTime.Parse("Dec 12 2007"), null, null, true);			
-		}
-
-		[Test]
-		public void SaveWithPreExistingKeySetsErrorMessageToTempData()
-		{
-			var controller = createConferenceController();
-			_conferenceRepository.Stub(x=>x.ConferenceExists("conference", "conf")).Return(true);
-
-			controller.Save(Guid.Empty, "conference", "conf", DateTime.Parse("Dec 12 2007"), null, null, true);
-			Assert.That(controller.TempData.ContainsKey(TempDataKeys.Error));
-		}
-
+	
 		[Test]
 		public void SaveCallsConferenceRepositorySave()
 		{
 			var controller = createConferenceController();
 			_conferenceRepository.Stub(x=>x.ConferenceExists("conference", "conf")).Return(false);                        
 
-			controller.Save(Guid.Empty, "conference", "conf", DateTime.Parse("Dec 12 2007"), null, null, true);
+			controller.Save( new Conference() );
 
 			_conferenceRepository.AssertWasCalled(x => x.Save(null), x => x.IgnoreArguments());
 		}
