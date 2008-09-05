@@ -112,7 +112,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		{
 			var controller = createConferenceController();
 			controller.New().ShouldRenderView("edit");
-            Assert.That(controller.ViewData.Contains<Conference>());
+            Assert.That(controller.ViewData.Model, Is.InstanceOfType(typeof(Conference)));
 		}
 	
 		[Test]

@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewPage" Title="Register for conference" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Default.Master" AutoEventWireup="true" 
+	Inherits="System.Web.Mvc.ViewPage" Title="Register for conference" %>
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
 <%@ Import namespace="MvcContrib"%>
 <%@ Import namespace="CodeCampServer.Model.Presentation"%>

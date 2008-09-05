@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Admin.Master" AutoEventWireup="true" Inherits="CodeCampServer.Website.Views.Conference.Edit" Title="Code Camp Server" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Layouts/Admin.Master" AutoEventWireup="true" 
+Inherits="CodeCampServer.Website.Views.Conference.Edit" Title="Code Camp Server" %>
 <%@ Import Namespace="System.Collections.Generic"%>
 <%@ Import Namespace="CodeCampServer.Website.Controllers"%>
 <%@ Import namespace="MvcContrib"%>
