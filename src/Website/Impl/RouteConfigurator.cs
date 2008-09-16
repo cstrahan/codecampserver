@@ -13,7 +13,12 @@ namespace CodeCampServer.Website.Impl
                 new{controller="speaker", action="list"});
 
             routes.MapRoute("speaker", "{conferenceKey}/speaker/{id}",
-                new { controller="speaker", action="show" });            
+                new { controller="speaker", action="details" });
+
+            //TODO: this route smells as it lists all of our actions.  needed to avoid the interference from the route below
+            routes.MapRoute("conference", "{conferenceKey}/{action}/{id}",
+                new { action = "index", id = (string)null, controller="conference" },
+                new { action = "edit|PleaseRegister|Register|current", conferenceKey = "(?!conference|admin|login).*" });
 
             //TODO: this route is interfering with some URLS that we want
 		    routes.MapRoute("confkey", "{conferenceKey}/{controller}/{action}/{id}",

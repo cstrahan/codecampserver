@@ -40,7 +40,7 @@
     		    <li><%=Html.ActionLink<ConferenceController>(c => c.Index(conferenceKey), "Home") %></li>
     		    <li><%=Html.ActionLink<ScheduleController>(c => c.Index(conferenceKey), "Schedule") %></li>
     		    <li><%=Html.ActionLink<SpeakerController>(c => c.List(conferenceKey), "Speakers") %></li>
-    		    <li><%=Html.ActionLink<ConferenceController>(c => c.ListAttendees(conferenceKey), "Attendees") %></li>
+    		    <li><%=Html.ActionLink<AttendeesController>(c => c.List(conferenceKey), "Attendees") %></li>
     		    <li><%=Html.ActionLink<SponsorController>(c => c.List(conferenceKey, false, null), "Sponsors") %></li>    		    
 
 	        <%  if (!Context.User.Identity.IsAuthenticated) { %>

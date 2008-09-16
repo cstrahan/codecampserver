@@ -1,6 +1,8 @@
 using System.Web.Mvc;
 using CodeCampServer.Model;
 using CodeCampServer.Model.Domain;
+using CodeCampServer.Model.Impl;
+using CodeCampServer.Model.Presentation;
 using CodeCampServer.Website.Controllers;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
@@ -23,7 +25,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
             _userSession = Mock<IUserSession>();
             _conferenceRepository = Mock<IConferenceRepository>();
-            _controller = new AttendeesController(_userSession, _conferenceRepository);
+            _controller = new AttendeesController(_userSession, _conferenceRepository, new ClockStub());
 
             var conference = new Conference("houstonTechFest", "Houston Tech Fest");
             _conferenceRepository.Expect(x => x.GetConferenceByKey("houstonTechFest")).Return(conference);
@@ -48,6 +50,13 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         {
             var viewResult = (ViewResult) _result;
             Assert.That(viewResult.ViewData.Get<Person[]>(), Is.Not.Null);
+        }
+
+        [Test]
+        public void schedule_should_be_added_to_view_data()
+        {
+            var viewResult = (ViewResult)_result;
+            Assert.That(viewResult.ViewData.Get<Schedule>(), Is.Not.Null);
         }
     }
 }

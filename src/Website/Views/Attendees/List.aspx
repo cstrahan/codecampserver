@@ -5,13 +5,17 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
 <h3>Attendee List for <%= ViewData.Get<Schedule>().Name %></h3>
-<%
-	attendeeGrid.DataSource = ViewData.Get<AttendeeListing[]>();
-	attendeeGrid.DataBind();
-%>
 
-<asp:DataGrid ID="attendeeGrid" runat="server" />
-
+<ul>
+<% foreach (var person in ViewData.Get<Person[]>()) { %>
+    <li>
+        <span class="attendee-name">
+            <%= person.Contact.FullName %>
+        </span>        
+    </li>
+<% } %>
+</ul>
+    
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="SidebarContentPlaceHolder" runat="server">
