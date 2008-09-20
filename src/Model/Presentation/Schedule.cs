@@ -10,8 +10,8 @@ namespace CodeCampServer.Model.Presentation
 		private readonly IClock _clock;
 		private readonly ITimeSlotRepository _timeSlotRepository;
 		private readonly ITrackRepository _trackRepository;
-
-		public Schedule(Conference conference, IClock clock, ITimeSlotRepository timeSlotRepository,
+	    
+        public Schedule(Conference conference, IClock clock, ITimeSlotRepository timeSlotRepository,
 		                ITrackRepository trackRepository)
 		{
 			_conference = conference;
@@ -41,6 +41,20 @@ namespace CodeCampServer.Model.Presentation
 				return days;
 			}
 		}
+
+        public bool IsActive
+        {
+            get
+            {
+                if (_clock.GetCurrentTime() <= _conference.EndDate)
+                    return true;
+
+                if (_conference.EndDate == null)
+                    return true;
+
+                return false;
+            }
+        }
 
 		public DateTime StartDate
 		{

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Model;
@@ -67,6 +68,17 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 		    controller.ViewData.Get<Schedule>().Conference.ShouldEqual(_conference);					
 		}
 
+        [Test]
+        public void ShouldGetStopRegistrationAfterEvent()
+        {
+            _conference.EndDate = new DateTime(1999,1,2);
+            var controller = createConferenceController();
+            controller.PleaseRegister(CONFERENCE_KEY).ShouldRenderView("cannotregister");
+
+            controller.ViewData.Contains<Schedule>().ShouldBeTrue();
+            controller.ViewData.Get<Schedule>().Conference.ShouldEqual(_conference);
+        }
+
 		[Test]
 		public void ShouldRegisterANewAttendee()
 		{
@@ -128,7 +140,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
 
 		private ConferenceController createConferenceController()
 		{
-			return new ConferenceController(_conferenceRepository, _service, _authSession, new ClockStub())
+			return new ConferenceController(_conferenceRepository, _service, _authSession, new ClockStub(new DateTime(2000,1,1)))
 			       	{TempData = new TempDataDictionary()};
 		}
 	}

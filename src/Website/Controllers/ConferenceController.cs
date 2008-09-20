@@ -71,9 +71,15 @@ namespace CodeCampServer.Website.Controllers
 
 		public ActionResult PleaseRegister(string conferenceKey)
 		{
-			Schedule conference = getScheduledConference(conferenceKey);
-			ViewData.Add(conference);
-			return View("registerform");
+			Schedule schedule = getScheduledConference(conferenceKey);
+            ViewData.Add(schedule);
+
+            if (!schedule.IsActive)
+            {
+                return View("cannotregister");
+            }
+		    
+            return View("registerform");
 		}
 
 		public ActionResult Register(string conferenceKey, string firstName, string lastName, string email,

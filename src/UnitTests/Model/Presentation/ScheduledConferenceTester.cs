@@ -58,5 +58,48 @@ namespace CodeCampServer.UnitTests.Model.Presentation
 
 			Assert.That(schedule.DaysUntilStart, Is.Null);
 		}
+
+        [Test]
+        public void ShouldBeActiveBeforeEndDateHasPassed()
+        {
+            Conference conference = new Conference();
+            conference.EndDate = new DateTime(2000, 1, 1);
+            Schedule schedule = new Schedule(
+                conference, new ClockStub(new DateTime(1999, 12, 31)), null, null);
+
+            Assert.That(schedule.IsActive, Is.True);
+        }
+
+        [Test]
+        public void ShouldBeInActiveAfterEndDateHasPassed()
+        {
+            Conference conference = new Conference();
+            conference.EndDate = new DateTime(1999, 12, 31);
+            Schedule schedule = new Schedule(
+                conference, new ClockStub(new DateTime(2000, 1, 1)), null, null);
+
+            Assert.That(schedule.IsActive, Is.False);
+        }
+
+        [Test]
+        public void ShouldBeActiveIfEndDateIsNull()
+        {
+            Conference conference = new Conference();
+            Schedule schedule = new Schedule(
+                conference, new ClockStub(new DateTime(2000, 1, 1)), null, null);
+
+            Assert.That(schedule.IsActive, Is.True);
+        }
+
+        [Test]
+        public void ShouldBeActiveIfEndDateIsToday()
+        {
+            Conference conference = new Conference();
+            conference.EndDate = new DateTime(2000, 1, 1);
+            Schedule schedule = new Schedule(
+                conference, new ClockStub(new DateTime(2000, 1, 1)), null, null);
+
+            Assert.That(schedule.IsActive, Is.True);
+        }
 	}
 }
