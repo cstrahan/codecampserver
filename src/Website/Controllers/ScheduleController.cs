@@ -76,7 +76,7 @@ namespace CodeCampServer.Website.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        public ActionResult Remove(string conferenceKey, Guid trackId, Guid timeSlotId, Guid sessionId)
+        public ActionResult RemoveSession(string conferenceKey, Guid trackId, Guid timeSlotId, Guid sessionId)
         {
             Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
 
@@ -92,7 +92,7 @@ namespace CodeCampServer.Website.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        public ActionResult Add(string conferenceKey, Guid trackId, Guid timeSlotId, Guid sessionId)
+        public ActionResult AddSession(string conferenceKey, Guid trackId, Guid timeSlotId, Guid sessionId)
         {
             Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
 
@@ -107,5 +107,16 @@ namespace CodeCampServer.Website.Controllers
 
             return RedirectToAction("Edit", new { conferenceKey = conferenceKey, trackId = trackId, timeSlotId = timeSlotId });
         }
-    }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AddTimeSlot(string conferenceKey, DateTime startTime, DateTime endTime, string purpose)
+	    {
+            Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
+
+            TimeSlot timeSlot = new TimeSlot(conference, startTime, endTime, purpose);
+            _timeSlotRepository.Save(timeSlot);
+
+	        return RedirectToAction("Index");
+	    }
+	}
 }

@@ -21,6 +21,8 @@
     <%= Html.ScriptInclude("jquery.js")%>
     <%= Html.ScriptInclude("ui.datepicker.js")%>
     <%= Html.ScriptInclude("ui.datepicker.js")%>
+    <%= Html.ScriptInclude("jquery.timePicker.js")%>
+    <%= Html.Stylesheet("~/content/js/timePicker.css")%>
     <%= Html.ScriptInclude("jquery.validate.min.js")%>
     
     <%= Html.Favicon()%>

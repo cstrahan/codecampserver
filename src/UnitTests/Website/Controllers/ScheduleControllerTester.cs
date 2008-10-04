@@ -134,7 +134,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         }
 
         [Test]
-        public void remove_should_remove_session_and_redirect_to_edit()
+        public void removesession_should_remove_session_and_redirect_to_edit()
         {
             var controller = createScheduleController();
 
@@ -146,14 +146,14 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _timeSlotRepository.Stub(x => x.GetTimeSlotsFor(_conference)).Return(new[] { _timeSlot });
             _timeSlotRepository.Expect(x => x.Save(_timeSlot));
 
-            controller.Remove(CONFERENCE_KEY, Guid.NewGuid(), TIMESLOT_GUID, sessionId).ShouldRedirectTo("Edit");
+            controller.RemoveSession(CONFERENCE_KEY, Guid.NewGuid(), TIMESLOT_GUID, sessionId).ShouldRedirectTo("Edit");
 
             _timeSlotRepository.VerifyAllExpectations();
             Assert.AreEqual(0, _timeSlot.GetSessions().Length);
         }
 
         [Test]
-        public void add_should_add_session_and_redirect_to_edit()
+        public void addsession_should_add_session_and_redirect_to_edit()
         {
             var controller = createScheduleController();
 
@@ -165,11 +165,33 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _timeSlotRepository.Stub(x => x.GetTimeSlotsFor(_conference)).Return(new[] { _timeSlot });
             _timeSlotRepository.Expect(x => x.Save(_timeSlot));
 
-            controller.Add(CONFERENCE_KEY, Guid.NewGuid(), TIMESLOT_GUID, sessionId).ShouldRedirectTo("Edit");
+            controller.AddSession(CONFERENCE_KEY, Guid.NewGuid(), TIMESLOT_GUID, sessionId).ShouldRedirectTo("Edit");
 
             _timeSlotRepository.VerifyAllExpectations();
             Assert.AreEqual(1, _timeSlot.GetSessions().Length);
             Assert.AreEqual(unallocatedSession, _timeSlot.GetSessions()[0]);
+        }
+
+        [Test]
+        public void add_timeslot_should_add_timeslot_and_redirect_to_index()
+        {
+            var controller = createScheduleController();
+
+            DateTime startTime = DateTime.Now;
+            DateTime endTime = DateTime.Now.AddHours(1);
+
+            _conferenceRepository.Stub(x => x.GetConferenceByKey(CONFERENCE_KEY)).Return(_conference);
+
+            _timeSlotRepository.Expect(x => x.Save(new TimeSlot())).Callback(
+                new Delegates.Function<bool, TimeSlot>(x => x.StartTime == startTime
+                    && x.EndTime == endTime
+                    && x.Purpose == "Morning Session 2"
+                    && x.Conference == _conference
+                    ));
+
+            controller.AddTimeSlot(CONFERENCE_KEY, startTime, endTime, "Morning Session 2").ShouldRedirectTo("Index");
+
+            _timeSlotRepository.VerifyAllExpectations();
         }
 
         private ScheduleController createScheduleController()

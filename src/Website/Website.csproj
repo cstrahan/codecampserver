@@ -214,7 +214,9 @@
       <Link>Log4Net.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\js\jquery.timePicker.js" />
     <Content Include="Content\js\jquery.validate.min.js" />
+    <Content Include="Content\js\timePicker.css" />
     <Content Include="Content\js\ui.datepicker.css" />
     <Content Include="Content\js\ui.datepicker.js" />
     <Content Include="Views\Attendees\New.aspx" />

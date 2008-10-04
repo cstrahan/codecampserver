@@ -19,7 +19,7 @@
 		<% Track track = ViewData.Get<Track>(); %>
 		<% Session[] allocatedSessions = ViewData.Get<Session[]>("AllocatedSessions"); %>
 		<% Session[] unallocatedSessions = ViewData.Get<Session[]>("UnallocatedSessions"); %>
-		<%= Html.ActionLink<ScheduleController>((c => c.Index(conference.Key)), "Session List") %>
+		<%= Html.ActionLink<ScheduleController>((c => c.Index(conference.Key)), "« Session List")%>
 		<h1>
 		    Edit Session
 		    <br />
@@ -32,7 +32,7 @@
 		        <li>
 		            <%= session.Title %>
 		            <% var sessionId = session.Id; %>
-		            <%= Html.ActionLink<ScheduleController>((c => c.Remove(conference.Key, track.Id, timeslot.Id, sessionId)), "Remove")%>
+		            <%= Html.ActionLink<ScheduleController>((c => c.RemoveSession(conference.Key, track.Id, timeslot.Id, sessionId)), "Remove")%>
 		        </li>
 		    <%} %>
 		</ul>
@@ -43,7 +43,7 @@
 		        <li>
 		            <%= session.Title %>
 		            <% var sessionId = session.Id; %>
-		            <%= Html.ActionLink<ScheduleController>((c => c.Add(conference.Key, track.Id, timeslot.Id, sessionId)), "Add")%>    
+		            <%= Html.ActionLink<ScheduleController>((c => c.AddSession(conference.Key, track.Id, timeslot.Id, sessionId)), "Add")%>    
 		        </li>
 		    <%} %>
 		</ul>
