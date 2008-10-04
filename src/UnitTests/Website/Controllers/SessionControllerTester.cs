@@ -93,7 +93,7 @@ namespace CodeCampServer.UnitTests.Website.Controllers
         [Test]
         public void ProposedActionShouldShowProposedSessions()
         {
-            var sessions = new List<Session>();
+            var sessions = new Session[0];
             _conferenceRepository.Stub(x=>x.GetConferenceByKey(CONFERENCE_KEY))
                 .Return(_conference);
             _sessionRepository.Expect(x=>x.GetProposedSessions(_conference))

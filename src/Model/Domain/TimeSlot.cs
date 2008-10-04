@@ -59,6 +59,11 @@ namespace CodeCampServer.Model.Domain
         {
             _sessions.Add(session);
         }
+        
+        public virtual void RemoveSession(Session session)
+        {
+            _sessions.Remove(session);
+        }
 
     	public virtual Session[] GetSessions()
     	{

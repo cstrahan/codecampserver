@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
@@ -38,6 +39,47 @@ namespace CodeCampServer.IntegrationTests.DataAccess
                 Assert.That(rehydratedSession.Abstract, Is.EqualTo("abstract"));
 				Assert.That(rehydratedSession.Track, Is.Null);
             }
+        }
+
+        [Test]
+        public void ShouldGetUnallocatedApprovedSessions()
+        {
+            Conference conference = new Conference("austincodecamp", "");
+            Person speaker = new Person("first", "last", "email@email.com");
+
+            // Make one session and approve it so it will be returned
+            Session approvedSession = new Session(conference, speaker, "Unallocated", "Abstract");
+            approvedSession.IsApproved = true;
+
+            // Make one session uannproved so it won't be returned 
+            Session proposedSession = new Session(conference, speaker, "Proposed", "Abstract");
+            proposedSession.IsApproved = false;
+            
+            // Make one session and approve it and allocate it so it won't be returned
+            Session approvedAllocatedSession = new Session(conference, speaker, "Allocated", "Abstract");
+            approvedAllocatedSession.IsApproved = true;
+
+            TimeSlot timeSlot = new TimeSlot(conference, DateTime.Now, DateTime.Now.AddHours(1), "Session");
+            timeSlot.AddSession(approvedAllocatedSession);
+
+            using (NHibernate.ISession dataSession = getSession())
+            {
+                dataSession.SaveOrUpdate(conference);
+                dataSession.SaveOrUpdate(speaker);
+                dataSession.SaveOrUpdate(proposedSession);
+                dataSession.SaveOrUpdate(approvedSession);
+                dataSession.SaveOrUpdate(approvedAllocatedSession);
+                dataSession.SaveOrUpdate(timeSlot);
+                dataSession.Flush();
+            }
+
+            ISessionRepository repository = new SessionRepository(_sessionBuilder);
+            List<Session> sessions = new List<Session>(repository.GetUnallocatedApprovedSessions(conference));
+            // Make sure we only got the one Proposed session
+            Assert.That(sessions.Count, Is.EqualTo(1));
+            Assert.That(sessions[0].Title, Is.EqualTo("Unallocated"));
+            // Ensure conference is retrieved as well
+            Assert.IsNotNull(sessions[0].Conference);
         }
 
         [Test]

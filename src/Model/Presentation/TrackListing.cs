@@ -17,6 +17,11 @@ namespace CodeCampServer.Model.Presentation
             get { return _track.Name; }
         }
 
+        public Guid Id
+        {
+            get { return _track.Id; }
+        }
+
         public override bool Equals(object obj)
         {
             return Equals(obj as TrackListing);

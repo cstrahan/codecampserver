@@ -31,7 +31,13 @@ namespace CodeCampServer.UnitTests.Website
 
 	        RequestFor("~/myconf/speaker/jeffreypalermo").ShouldMatchController("speaker").AndAction("details")
 	            .WithRouteValue("id", "jeffreypalermo")
-	            .WithRouteValue("conferenceKey", "myconf");            
+	            .WithRouteValue("conferenceKey", "myconf");
+
+	        RequestFor("~/myconf/schedule/Edit/41c0f584-69a3-4d4b-b1ea-9b1f017bf387/7db897d7-8f0a-47ee-abf4-9b1f017bf388").
+                ShouldMatchController("schedule").AndAction("edit")
+	            .WithRouteValue("conferenceKey", "myconf")
+                .WithRouteValue("trackId", "41c0f584-69a3-4d4b-b1ea-9b1f017bf387")
+                .WithRouteValue("timeslotId", "7db897d7-8f0a-47ee-abf4-9b1f017bf388");
 		}
 
         private IRouteOptions RequestFor(string url)

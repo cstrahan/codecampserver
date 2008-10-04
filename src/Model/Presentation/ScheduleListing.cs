@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CodeCampServer.Model.Domain;
 
@@ -21,6 +22,11 @@ namespace CodeCampServer.Model.Presentation
 				_sessionsByTrack.Add(new TrackListing(session.Track), new SessionListing(session));
 			}
 		}
+
+	    public Guid Id
+	    {
+            get { return _timeSlot.Id; }
+	    }
 
 		public string StartTime
 		{

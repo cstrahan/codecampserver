@@ -5,6 +5,7 @@ namespace CodeCampServer.Model.Domain
     public interface ISessionRepository
 	{
 	    void Save(Session session);
-        IEnumerable<Session> GetProposedSessions(Conference conference);
+        Session[] GetProposedSessions(Conference conference);
+        Session[] GetUnallocatedApprovedSessions(Conference conference);
 	}
 }

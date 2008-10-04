@@ -184,7 +184,6 @@
     <Content Include="Views\Conference\List.aspx" />
     <Content Include="Views\Login\LoginForm.aspx" />
     <Content Include="Views\Session\Proposed.aspx" />
-    <Content Include="Views\Schedule\Edit.aspx" />
     <Content Include="Views\Shared\AdminControlPanel.ascx" />
     <Content Include="Views\Speaker\Edit.aspx" />
     <Content Include="Views\Conference\Index.aspx" />
@@ -222,6 +221,8 @@
     <Content Include="Views\Conference\CannotRegister.aspx" />
     <Content Include="Views\Shared\FlashMessageList.ascx" />
     <Content Include="Views\Shared\SponsorList.ascx" />
+    <Content Include="Views\Schedule\Edit.aspx" />
+    <Content Include="Views\Schedule\EditView.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

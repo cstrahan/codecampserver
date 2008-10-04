@@ -15,6 +15,10 @@ namespace CodeCampServer.Website.Impl
             routes.MapRoute("speaker", "{conferenceKey}/speaker/{id}",
                 new { controller="speaker", action="details" });
 
+            // TODO: See if we can generalise this
+            routes.MapRoute("editschedulesession", "{conferenceKey}/schedule/Edit/{trackId}/{timeslotId}",
+                new { controller = "schedule", action = "Edit" });
+
             //TODO: this route smells as it lists all of our actions.  needed to avoid the interference from the route below
             routes.MapRoute("conference", "{conferenceKey}/{action}/{id}",
                 new { action = "index", id = (string)null, controller="conference" },

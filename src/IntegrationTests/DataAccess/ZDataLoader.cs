@@ -77,14 +77,14 @@ namespace CodeCampServer.IntegrationTests.DataAccess
 				codeCamp2008.AddSpeaker(person2, "fsinatra", "bio", "avatar");
 
 				var session1 = new Session(codeCamp2008, person1, "Domain-driven design explored",
-				                           "In this session we'll explore Domain-driven design", track1);
+				                           "In this session we'll explore Domain-driven design", track1){ IsApproved = true };
 				var session2 = new Session(codeCamp2008, person1, "Advanced NHibernate",
-				                           "In this session we'll explore Advanced NHibernate", track1);
+                                           "In this session we'll explore Advanced NHibernate", track1) { IsApproved = true };
 				var session3 = new Session(codeCamp2008, person2, "NHibernate for Beginners",
-				                           "In this session we'll help Aaron Lerch understand NHibernate", track2);
+                                           "In this session we'll help Aaron Lerch understand NHibernate", track2) { IsApproved = true };
 				var session4 = new Session(codeCamp2008, person2, "Extreme Programming: a primer",
 				                           "In this session we'll provide a primer on XP",
-				                           track1);
+                                           track1) { IsApproved = true };
 
 				slot1.AddSession(session1);
 				slot2.AddSession(session2);
