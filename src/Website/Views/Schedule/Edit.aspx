@@ -17,7 +17,7 @@
         <% Schedule conference = ViewData.Get<Schedule>(); %>
 		<% TimeSlot timeslot = ViewData.Get<TimeSlot>(); %>
 		<% Track track = ViewData.Get<Track>(); %>
-		<% Session[] allocatedSessions = ViewData.Get<Session[]>("AllocatedSessions"); %>
+		<% Session allocatedSession = ViewData.Get<Session>("AllocatedSession"); %>
 		<% Session[] unallocatedSessions = ViewData.Get<Session[]>("UnallocatedSessions"); %>
 		<%= Html.ActionLink<ScheduleController>((c => c.Index(conference.Key)), "« Session List")%>
 		<h1>
@@ -26,17 +26,16 @@
 			<%= track.Name %> Track
 			<br />
 			<%= timeslot.StartTime.ToString("hh:mm tt") %>-<%= timeslot.EndTime.ToString("hh:mm tt")%></h1>	
-		<h3>Allocated Sessions</h3>
-		<ul>
-		    <% foreach (Session session in allocatedSessions) { %>
-		        <li>
-		            <%= session.Title %>
-		            <% var sessionId = session.Id; %>
-		            <%= Html.ActionLink<ScheduleController>((c => c.RemoveSession(conference.Key, track.Id, timeslot.Id, sessionId)), "Remove")%>
-		        </li>
-		    <%} %>
-		</ul>
 		
+		<% if (allocatedSession != null) {%>
+		<h3>Allocated Session:</h3>
+		<ul>
+	        <li>
+	            <%= allocatedSession.Title%>
+	            <%= Html.ActionLink<ScheduleController>((c => c.RemoveSession(conference.Key, track.Id, timeslot.Id, allocatedSession.Id)), "Remove")%>
+	        </li>
+		</ul>
+		<% } else { %>
 		<h3>Unallocated Sessions</h3>
 		<ul>
 		    <% foreach (Session session in unallocatedSessions) { %>
@@ -47,6 +46,7 @@
 		        </li>
 		    <%} %>
 		</ul>
+		<% } %>
 	</div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="SidebarContentPlaceHolder" 

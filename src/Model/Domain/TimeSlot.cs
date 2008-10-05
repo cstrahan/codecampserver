@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Iesi.Collections.Generic;
 using System.Collections.Generic;
 
@@ -57,6 +58,11 @@ namespace CodeCampServer.Model.Domain
 
         public virtual void AddSession(Session session)
         {
+            Session sessionInSameTrack = _sessions.FirstOrDefault(s => s.Track == session.Track);
+
+            if(sessionInSameTrack != null)
+                throw new InvalidOperationException("Cannot have two sessions in the same track at the same time.");
+
             _sessions.Add(session);
         }
         

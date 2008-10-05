@@ -18,11 +18,25 @@ namespace CodeCampServer.UnitTests.Model.Domain
         {
             Conference conference = new Conference();
             TimeSlot slot = new TimeSlot() { Conference = conference };
+
+            Track track = new Track(conference, "Track Name");
+
             slot.AddSession(new Session(conference, new Person(), "Session 1", "Session 1 abstract"));
-            slot.AddSession(new Session(conference, new Person(), "Session 2", "Session 2 abstract"));
+            slot.AddSession(new Session(conference, new Person(), "Session 2", "Session 2 abstract", track));
 
             Session[] sessions = slot.GetSessions();
             Assert.That(sessions.Length, Is.EqualTo(2));
+        }
+
+        [Test, ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Cannot have two sessions in the same track at the same time.")]
+        public void ShouldOnlyBeAbleToAddOneSessionFromEachTrack()
+        {
+            Conference conference = new Conference();
+            TimeSlot slot = new TimeSlot() { Conference = conference };
+            Track track = new Track(conference, "Track Name");
+
+            slot.AddSession(new Session(conference, new Person(), "Session 1", "Session 1 abstract", track));
+            slot.AddSession(new Session(conference, new Person(), "Session 2", "Session 2 abstract", track));
         }
 
         [Test]
@@ -34,7 +48,8 @@ namespace CodeCampServer.UnitTests.Model.Domain
             Session session1 = new Session(conference, new Person(), "Session 1", "Session 1 abstract");
             slot.AddSession(session1);
 
-            var session2 = new Session(conference, new Person(), "Session 2", "Session 2 abstract");
+            Track track = new Track(conference, "Track Name");
+            var session2 = new Session(conference, new Person(), "Session 2", "Session 2 abstract", track);
             slot.AddSession(session2);
 
             slot.RemoveSession(session1);

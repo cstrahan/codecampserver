@@ -124,10 +124,9 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             controller.ViewData.Contains<TimeSlot>().ShouldBeTrue();
             controller.ViewData.Get<TimeSlot>().ShouldEqual(_timeSlot);
 
-            controller.ViewData.ContainsKey("AllocatedSessions").ShouldBeTrue();
-            controller.ViewData.Get<Session[]>("AllocatedSessions").ShouldContain(allocatedSession);
-            Assert.AreEqual(1, controller.ViewData.Get<Session[]>("AllocatedSessions").Length);
-
+            controller.ViewData.ContainsKey("AllocatedSession").ShouldBeTrue();
+            controller.ViewData.Get<Session>("AllocatedSession").ShouldEqual(allocatedSession);
+            
             controller.ViewData.ContainsKey("UnallocatedSessions").ShouldBeTrue();
             controller.ViewData.Get<Session[]>("UnallocatedSessions").ShouldContain(unallocatedSession);
             Assert.AreEqual(1, controller.ViewData.Get<Session[]>("UnallocatedSessions").Length);

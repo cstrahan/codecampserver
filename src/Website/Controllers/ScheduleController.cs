@@ -65,8 +65,8 @@ namespace CodeCampServer.Website.Controllers
             TimeSlot timeSlot = timeSlots.FirstOrDefault(t => t.Id == timeSlotId);
             ViewData.Add(timeSlot);
 
-            ViewData.Add("AllocatedSessions",
-                timeSlot.GetSessions().Where(s => s.Track == track).ToArray());
+            ViewData.Add("AllocatedSession",
+                timeSlot.GetSessions().FirstOrDefault(s => s.Track == track));
 
             Session[] unallocated = _sessionRepository.GetUnallocatedApprovedSessions(conference);
             ViewData.Add("UnallocatedSessions",
