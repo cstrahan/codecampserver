@@ -113,10 +113,21 @@ namespace CodeCampServer.Website.Controllers
 	    {
             Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
 
-            TimeSlot timeSlot = new TimeSlot(conference, startTime, endTime, purpose);
+            var timeSlot = new TimeSlot(conference, startTime, endTime, purpose);
             _timeSlotRepository.Save(timeSlot);
 
 	        return RedirectToAction("Index");
+	    }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AddTrack(string conferenceKey, string description)
+	    {
+            Conference conference = _conferenceRepository.GetConferenceByKey(conferenceKey);
+
+            var track = new Track(conference, description);
+            _trackRepository.Save(track);
+
+            return RedirectToAction("Index");
 	    }
 	}
 }

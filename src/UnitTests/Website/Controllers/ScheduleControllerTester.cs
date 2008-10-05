@@ -194,6 +194,24 @@ namespace CodeCampServer.UnitTests.Website.Controllers
             _timeSlotRepository.VerifyAllExpectations();
         }
 
+        [Test]
+        public void add_track_should_add_track_and_redirect_to_index()
+        {
+            var controller = createScheduleController();
+
+            _conferenceRepository.Stub(x => x.GetConferenceByKey(CONFERENCE_KEY)).Return(_conference);
+
+            _trackRepository.Expect(x => x.Save(new Track())).Callback(
+                new Delegates.Function<bool, Track>(x => 
+                        x.Name == "New Track"
+                        && x.Conference == _conference
+                    ));
+
+            controller.AddTrack(CONFERENCE_KEY, "New Track").ShouldRedirectTo("Index");
+
+            _trackRepository.VerifyAllExpectations();
+        }
+
         private ScheduleController createScheduleController()
         {
             return new ScheduleController(_conferenceRepository, new ClockStub(),

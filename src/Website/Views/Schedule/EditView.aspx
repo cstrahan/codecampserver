@@ -23,6 +23,14 @@
                     EndTime: "Required"
                 }
             });
+
+            $("form#add_track").validate({
+                errorContainer: '#errors',
+                errorClass: "formError",
+                messages: {
+                    Description: "Required"
+                }
+            });
         });
     </script>
 
@@ -79,11 +87,12 @@
             <% } %>
         </table>
     </div>
+    
     <div style="padding: 10px">
         <h1>
             Add Session</h1>
         <form method="post" id="add_session" action='<%= Url.Action("AddTimeSlot") %>'>
-        <fieldset>
+        <fieldset style="float: none">
             <label for="purpose">
                 Purpose</label>
             <%=Html.TextBox("purpose", new { @class = "required", size = "25", maxLength = "100" })%>
@@ -95,7 +104,23 @@
             <%=Html.TextBox("EndTime", new { @class = "required", size = "10", maxLength = "10" })%>
             <%=Html.Hidden("conferenceKey", conference.Key)%>
             <div class="button-row">
-                <%=Html.SubmitButton("Save", "Save")%>
+                <%=Html.SubmitButton("Add", "Add")%>
+            </div>
+        </fieldset>
+        </form>
+    </div>
+    
+    <div style="padding: 10px">
+        <h1>
+            Add Track</h1>
+        <form method="post" id="add_track" action='<%= Url.Action("AddTrack") %>'>
+        <fieldset style="float: none">
+            <label for="description">
+                Description</label>
+            <%=Html.TextBox("description", new { @class = "required", size = "25", maxLength = "100" })%>
+            <%=Html.Hidden("conferenceKey", conference.Key)%>
+            <div class="button-row">
+                <%=Html.SubmitButton("Add", "Add")%>
             </div>
         </fieldset>
         </form>
