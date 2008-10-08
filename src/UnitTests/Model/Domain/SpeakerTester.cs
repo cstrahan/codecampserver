@@ -32,5 +32,13 @@ namespace CodeCampServer.UnitTests.Model.Domain
 
             Assert.That(speaker, Is.Not.EqualTo(speaker2));
         }
+
+        [Test]
+        public void GetHashCodeShouldThrowExceptionOnNullProperties()
+        {
+            Person person = new Person();
+            Speaker speaker = new Speaker(person, null, null, null);
+            speaker.GetHashCode();
+        }
     }
 }

@@ -66,9 +66,9 @@ namespace CodeCampServer.Model.Domain
         public override int GetHashCode()
         {
             int result = _person.GetHashCode();
-            result = 29*result + _speakerKey.GetHashCode();
-            result = 29*result + _bio.GetHashCode();
-            result = 29*result + _avatarUrl.GetHashCode();
+            result = 29 * result + (_speakerKey != null ? _speakerKey.GetHashCode() : 0);
+            result = 29 * result + (_bio != null ? _bio.GetHashCode() : 0);
+            result = 29 * result + (_avatarUrl != null ? _avatarUrl.GetHashCode() : 0); 
             return result;
         }
 
