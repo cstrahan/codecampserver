@@ -1,1 +1,0 @@
-nant\nant.exe deploy &*

@@ -1,1 +1,0 @@
-TestDriver.exe -d . & pause
