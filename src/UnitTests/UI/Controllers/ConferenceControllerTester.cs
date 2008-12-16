@@ -59,10 +59,28 @@ namespace CodeCampServer.UnitTests.UI.Controllers
             return new ConferenceController(_conferenceRepository);
         }
 
+        private ConferenceForm CreateConferenceForm()
+        {
+            return new ConferenceForm
+                       {
+                           Id = conference.Id,
+                           Name = "Austin Code Camp",
+                           Description = "This is a code camp!",
+                           StartDate = "12/2/2008",
+                           EndDate = "12/3/2008",
+                           LocationName = "St Edwards Professional Education Center",
+                           Address = "1234 Main St",
+                           City = "Austin",
+                           Region = "Texas",
+                           PostalCode = "78787",
+                           PhoneNumber = "512-555-1234"
+                       };
+        }
+
         [Test]
         public void Save_should_a_valid_user()
         {
-            var form = new ConferenceForm {Id = conference.Id, Name = "Austin Code Camp"};
+            ConferenceForm form = CreateConferenceForm();
 
             _conferenceRepository.Stub(c => c.GetById(conference.Id)).Return(conference);
 
@@ -73,6 +91,15 @@ namespace CodeCampServer.UnitTests.UI.Controllers
                 .ToAction<ConferenceController>(a => a.Index());
 
             conference.Name.ShouldEqual("Austin Code Camp");
+            conference.Description.ShouldEqual("This is a code camp!");
+            conference.StartDate.ShouldEqual(DateTime.Parse("12/2/2008"));
+            conference.EndDate.ShouldEqual(DateTime.Parse("12/3/2008"));
+            conference.LocationName.ShouldEqual("St Edwards Professional Education Center");
+            conference.Address.ShouldEqual("1234 Main St");
+            conference.City.ShouldEqual("Austin");
+            conference.Region.ShouldEqual("Texas");
+            conference.PostalCode.ShouldEqual("78787");
+            conference.PhoneNumber.ShouldEqual("512-555-1234");
 
             _conferenceRepository.AssertWasCalled(r => r.Save(conference));
         }

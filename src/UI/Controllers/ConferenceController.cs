@@ -26,7 +26,9 @@ namespace CodeCampServer.UI.Controllers
             {
                 return RedirectToAction<ConferenceController>(c => c.Edit());
             }
-            return View();
+            var conferenceDtos =AutoMapper.Map(conferences, typeof (Conference[]), typeof (ConferenceForm[]), typeof (Conference),
+                           typeof (ConferenceForm));
+            return View(conferenceDtos);
         }
 
         public ActionResult Edit()
@@ -51,6 +53,16 @@ namespace CodeCampServer.UI.Controllers
             {
                 var conference = _repository.GetById(form.Id);
                 conference.Name = form.Name;
+                conference.Description = form.Description;
+                conference.LocationName = form.LocationName;
+                conference.City = form.City;
+                conference.Address = form.Address;
+                conference.City = form.City;
+                conference.Region = form.Region;
+                conference.PostalCode = form.PostalCode;
+                conference.PhoneNumber = form.PhoneNumber;
+                conference.StartDate = Convert.ToDateTime(form.StartDate);
+                conference.EndDate = Convert.ToDateTime(form.EndDate);
                 _repository.Save(conference);
                 return RedirectToAction<ConferenceController>(c => c.Index());
             }

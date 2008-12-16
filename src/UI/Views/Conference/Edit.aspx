@@ -37,8 +37,15 @@
 			        <th class="w50p">
                 	    <%=InputFor<ConferenceForm>(a => a.Id)%>            	
 					    <div><%=InputFor<ConferenceForm>(a => a.Name)%></div>
+					    <div><%=InputFor<ConferenceForm>(a => a.Description)%></div>
 					    <div><%=InputFor<ConferenceForm>(a => a.StartDate)%></div>
 					    <div><%=InputFor<ConferenceForm>(a => a.EndDate)%></div>
+					    <div><%=InputFor<ConferenceForm>(a => a.LocationName)%></div>
+					    <div><%=InputFor<ConferenceForm>(a => a.Address)%></div>
+					    <div><%=InputFor<ConferenceForm>(a => a.City)%></div>
+					    <div><%=InputFor<ConferenceForm>(a => a.Region)%></div>
+					    <div><%=InputFor<ConferenceForm>(a => a.PostalCode)%></div>
+					    <div><%=InputFor<ConferenceForm>(a => a.PhoneNumber)%></div>
 			        </th>
 			        <th class="w50p">
 				        <div></div>

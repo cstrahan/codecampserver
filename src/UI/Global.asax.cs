@@ -19,7 +19,13 @@ namespace CodeCampServer.UI
 				"{controller}/{action}", // URL with parameters
 				new {controller = "home", action = "index"} // Parameter defaults
 				);
-		}
+        
+            routes.MapRoute(
+                "DefaultWithParam", // Route name
+                "{controller}/{action}/{id}", // URL with parameters
+                new { controller = "home", action = "index" } // Parameter defaults
+                );
+        }
 
 		protected void Application_Start()
 		{
