@@ -55,8 +55,8 @@
 	<property name="ui.url" value="http://localhost:${ui.port}"/>
 	<property name="webout.txt" value="${dir.results}/webout.txt"/>
 	<property name="httpwait.txt" value="${dir.results}/httpwait.txt"/>
-
-  <property name="svnargs" value="--username TODO --password TODO --non-interactive --no-auth-cache" />
+<!-- --username TODO --password TODO --non-interactive --no-auth-cache -->
+  <property name="svnargs" value=" --non-interactive " />
 
   <!-- ******************** -->
 	<!-- Master Build Targets -->
