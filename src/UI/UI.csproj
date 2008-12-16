@@ -187,6 +187,8 @@
     <Compile Include="Helpers\ViewPage\InputBuilders\UserDropDownBuilder.cs" />
     <Compile Include="Helpers\ViewPage\InputBuilders\YesNoRadioInputBuilder.cs" />
     <Compile Include="Helpers\ViewPage\InputElementAuthority.cs" />
+    <Compile Include="Controllers\ConferenceController.cs" />
+    <Compile Include="Models\Forms\ConferenceForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\hibernate.cfg.xml">
@@ -237,6 +239,8 @@
     <Content Include="scripts\jquery.meiomask.js" />
     <Content Include="Views\Admin\EditAdminPassword.aspx" />
     <Content Include="Views\Admin\Index.aspx" />
+    <Content Include="Views\Conference\Edit.aspx" />
+    <Content Include="Views\Conference\Index.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Shared\Modal.Master" />
     <None Include="xhtml1-transitional.dtd">

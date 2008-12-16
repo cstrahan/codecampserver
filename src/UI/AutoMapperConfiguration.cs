@@ -27,9 +27,11 @@ namespace CodeCampServer.UI.Models
                                                 });
 
 
-            IValueResolver resolver= new NullValueResolver();
+            
             AutoMapper.Configure<User, UserForm>()
                 .ForDtoMember(u => u.Password, o => o.ResolveUsing(new NullValueResolver()));
+            
+            AutoMapper.Configure<Conference, ConferenceForm>();
         }
     }
 

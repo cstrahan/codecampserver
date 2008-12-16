@@ -10,6 +10,7 @@ namespace CodeCampServer.UI.Models.Forms
         public string Name { get; set; }
 
         [BetterValidateNonEmpty("Email")]
+        [BetterValidateEmail("Email")]
         public string EmailAddress { get; set; }
 
         [Hidden]
