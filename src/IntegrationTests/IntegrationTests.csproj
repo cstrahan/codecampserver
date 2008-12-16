@@ -120,7 +120,9 @@
     </Compile>
     <Compile Include="Core\SystemTimeTester.cs" />
     <Compile Include="DatabaseConnectionTester.cs" />
+    <Compile Include="Infrastructure\DataAccess\ConferenceRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\DataTestBase.cs" />
+    <Compile Include="Infrastructure\DataAccess\Mappings\ConferenceMappingsTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\UserMappingsTester.cs" />
     <Compile Include="Infrastructure\DataAccess\UserRepositoryTester.cs" />
     <Compile Include="Infrastructure\UI\Controllers\DependencyRegistrarTester.cs" />

@@ -56,7 +56,9 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Domain\IConferencerRepository.cs" />
     <Compile Include="Domain\IUserRepository.cs" />
+    <Compile Include="Domain\Model\Conference.cs" />
     <Compile Include="Domain\Model\User.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
