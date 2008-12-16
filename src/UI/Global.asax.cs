@@ -15,12 +15,6 @@ namespace CodeCampServer.UI
 			routes.MapRoute("Home", "home", new {controller = "home", action = "index"});
             
 			routes.MapRoute(
-				"Enumerations", // Route name
-				"Enumerations", // URL with parameters
-				new {controller = "enumeration", action = "viewenumerations"} // Parameter defaults
-				);
-
-			routes.MapRoute(
 				"Default", // Route name
 				"{controller}/{action}", // URL with parameters
 				new {controller = "home", action = "index"} // Parameter defaults
@@ -30,6 +24,7 @@ namespace CodeCampServer.UI
 		protected void Application_Start()
 		{
 			RegisterRoutes(RouteTable.Routes);
+            AutoMapperConfiguration.Configure();
 		}
 	}
 }

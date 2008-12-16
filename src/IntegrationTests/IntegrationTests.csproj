@@ -72,11 +72,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\nunit\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Oracle.DataAccess, Version=10.2.0.100, Culture=neutral, PublicKeyToken=89b483f429c47342">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\oracle\Oracle.DataAccess.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Rhino.Mocks, Version=3.4.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\rhinomocks\Rhino.Mocks.dll</HintPath>

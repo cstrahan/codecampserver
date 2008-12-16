@@ -72,6 +72,8 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			           	{
 			           		Username = "username",
 			           		EmailAddress = "user@example.com",
+                            HashedPassword = "hash",
+                            Name = "admin"
 			           	};
 
 
@@ -85,7 +87,9 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				Assert.That(rehydratedUser.Id, Is.EqualTo(user.Id));
 				Assert.That(rehydratedUser.EmailAddress, Is.EqualTo(user.EmailAddress));
 				Assert.That(rehydratedUser.Username, Is.EqualTo(user.Username));
-			}
+                Assert.That(rehydratedUser.Name, Is.EqualTo(user.Name));
+                Assert.That(rehydratedUser.HashedPassword, Is.EqualTo(user.HashedPassword));
+            }
 		}
 
 		[Test]

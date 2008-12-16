@@ -15,5 +15,7 @@
 
 		<property name="EmailAddress" length="100"/>
 
-	</class>
+    <property name="HashedPassword" length="100"/>
+
+  </class>
 </hibernate-mapping>

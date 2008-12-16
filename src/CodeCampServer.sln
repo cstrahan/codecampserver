@@ -41,6 +41,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nant Configuration", "Nant Configuration", "{A56B2DC5-02C4-4A7B-850B-6D87AA9E5C9C}"
 	ProjectSection(SolutionItems) = preProject
 		..\build.bat = ..\build.bat
+		..\nant.build = ..\nant.build
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyResolution", "DependencyResolution\DependencyResolution.csproj", "{3A222037-75A5-4DFF-BA27-9487BF3A8536}"

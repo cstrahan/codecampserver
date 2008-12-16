@@ -1,6 +1,5 @@
 using System;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.Core.Domain
 {

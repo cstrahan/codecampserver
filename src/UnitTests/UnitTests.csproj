@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\mvccontrib\MvcContrib.dll</HintPath>
     </Reference>
+    <Reference Include="MvcContrib.TestHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\mvccontrib\MvcContrib.TestHelper.dll</HintPath>
+    </Reference>
     <Reference Include="NBehave.Spec.Framework, Version=0.4.0.0, Culture=neutral, PublicKeyToken=d421feca0f4a05f6, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\nbehave\NBehave.Spec.Framework.dll</HintPath>
@@ -108,6 +112,10 @@
     </Compile>
     <Compile Include="MvcMockHelpers.cs" />
     <Compile Include="TestBase.cs" />
+    <Compile Include="UI\Automap\AutoMapperDtoTester.cs" />
+    <Compile Include="UI\Automap\TestAutoMapper.cs" />
+    <Compile Include="UI\Controllers\AdminControllerTester.cs" />
+    <Compile Include="UI\Controllers\TestControllerBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

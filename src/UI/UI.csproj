@@ -1,4 +1,4 @@
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -107,80 +107,86 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AutoMapperConfiguration.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SmartController.cs" />
     <Compile Include="css\CSSIdentifiers.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Filters\BaseActionFilter.cs" />
-    <Compile Include="Filters\ValidateModelAttribute.cs" />
+    <Compile Include="Helpers\Filters\BaseActionFilter.cs" />
+    <Compile Include="Helpers\Filters\ValidateModelAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ISubController.cs" />
-    <Compile Include="ModelStateExtensions.cs" />
-    <Compile Include="Models\Forms\Attributes\ShowAsRequiredAttribute.cs" />
-    <Compile Include="Models\Forms\Attributes\UserDropDownAttribute.cs" />
-    <Compile Include="Models\Forms\Attributes\HiddenAttribute.cs" />
-    <Compile Include="Models\Forms\Attributes\LabelAttribute.cs" />
-    <Compile Include="Models\AutoMap\AttributeExtensions.cs" />
-    <Compile Include="Models\AutoMap\IValueFormatter.cs" />
-    <Compile Include="Models\AutoMap\AutoMapper.cs" />
-    <Compile Include="Models\AutoMap\IMappingExpression.cs" />
-    <Compile Include="Models\AutoMap\IValueResolver.cs" />
-    <Compile Include="Models\AutoMap\MappingExpression.cs" />
-    <Compile Include="Models\AutoMap\MethodMember.cs" />
-    <Compile Include="Models\AutoMap\ModelResolver.cs" />
-    <Compile Include="Models\AutoMap\PropertyMap.cs" />
-    <Compile Include="Models\AutoMap\PropertyMember.cs" />
-    <Compile Include="Models\AutoMap\ReflectionHelper.cs" />
-    <Compile Include="Models\AutoMap\ResolutionContext.cs" />
-    <Compile Include="Models\AutoMap\TypeMap.cs" />
-    <Compile Include="Models\AutoMap\TypeMapFactory.cs" />
-    <Compile Include="Models\AutoMap\TypeMember.cs" />
-    <Compile Include="Models\AutoMap\ValueFormatter.cs" />
-    <Compile Include="Models\ICustomFormatterExpression.cs" />
-    <Compile Include="Models\Validation\Attributes\BetterValidateIntegerAttribute.cs" />
-    <Compile Include="Models\Validation\Attributes\BetterValidateNotEmptyAttribute.cs" />
-    <Compile Include="Models\Validation\Attributes\BetterValidateDateAttribute.cs" />
-    <Compile Include="Models\Validation\Attributes\BetterValidateDateTimeAttribute.cs" />
-    <Compile Include="Models\Validation\Attributes\BetterValidateDecimalAttribute.cs" />
-    <Compile Include="Models\Validation\Attributes\BetterValidateEmailAttribute.cs" />
-    <Compile Include="Models\Validation\Validators\DateNotInFutureValidator.cs" />
-    <Compile Include="Models\Validation\Attributes\ValidateDateNotInFutureAttribute.cs" />
-    <Compile Include="MvcHelperExtensions.cs" />
-    <Compile Include="PrimitiveExtensions.cs" />
+    <Compile Include="Helpers\ISubController.cs" />
+    <Compile Include="Helpers\ModelStateExtensions.cs" />
+    <Compile Include="Helpers\Attributes\ShowAsRequiredAttribute.cs" />
+    <Compile Include="Helpers\Attributes\UserDropDownAttribute.cs" />
+    <Compile Include="Helpers\Attributes\HiddenAttribute.cs" />
+    <Compile Include="Helpers\Attributes\LabelAttribute.cs" />
+    <Compile Include="Helpers\AutoMap\AttributeExtensions.cs" />
+    <Compile Include="Helpers\AutoMap\IValueFormatter.cs" />
+    <Compile Include="Helpers\AutoMap\AutoMapper.cs" />
+    <Compile Include="Helpers\AutoMap\IMappingExpression.cs" />
+    <Compile Include="Helpers\AutoMap\IValueResolver.cs" />
+    <Compile Include="Helpers\AutoMap\MappingExpression.cs" />
+    <Compile Include="Helpers\AutoMap\MethodMember.cs" />
+    <Compile Include="Helpers\AutoMap\ModelResolver.cs" />
+    <Compile Include="Helpers\AutoMap\PropertyMap.cs" />
+    <Compile Include="Helpers\AutoMap\PropertyMember.cs" />
+    <Compile Include="Helpers\AutoMap\ReflectionHelper.cs" />
+    <Compile Include="Helpers\AutoMap\ResolutionContext.cs" />
+    <Compile Include="Helpers\AutoMap\TypeMap.cs" />
+    <Compile Include="Helpers\AutoMap\TypeMapFactory.cs" />
+    <Compile Include="Helpers\AutoMap\TypeMember.cs" />
+    <Compile Include="Helpers\AutoMap\ValueFormatter.cs" />
+    <Compile Include="Helpers\AutoMap\ICustomFormatterExpression.cs" />
+    <Compile Include="Helpers\Validation\Attributes\BetterValidateIntegerAttribute.cs" />
+    <Compile Include="Helpers\Validation\Attributes\BetterValidateNotEmptyAttribute.cs" />
+    <Compile Include="Helpers\Validation\Attributes\BetterValidateDateAttribute.cs" />
+    <Compile Include="Helpers\Validation\Attributes\BetterValidateDateTimeAttribute.cs" />
+    <Compile Include="Helpers\Validation\Attributes\BetterValidateDecimalAttribute.cs" />
+    <Compile Include="Helpers\Validation\Attributes\BetterValidateEmailAttribute.cs" />
+    <Compile Include="Helpers\Validation\Validators\DateNotInFutureValidator.cs" />
+    <Compile Include="Helpers\Validation\Attributes\ValidateDateNotInFutureAttribute.cs" />
+    <Compile Include="Helpers\MvcHelperExtensions.cs" />
+    <Compile Include="Helpers\PrimitiveExtensions.cs" />
     <Content Include="scripts\DetentionFacility\Detail.js" />
-    <Compile Include="SubController.cs" />
-    <Compile Include="InputTextExtensions.cs" />
-    <Compile Include="UrlHelperExtensions.cs" />
-    <Compile Include="ViewDataExtensions.cs" />
-    <Compile Include="ViewPage\BaseInputCreator.cs" />
-    <Compile Include="ViewPage\BaseViewPageT.cs">
+    <Compile Include="Helpers\SubController.cs" />
+    <Compile Include="Helpers\InputTextExtensions.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Helpers\ViewPage\DisplayErrorMessages.cs" />
+    <Compile Include="Helpers\ViewPage\IDisplayErrorMessages.cs" />
+    <Compile Include="Models\Forms\AdminForm.cs" />
+    <Compile Include="Helpers\UrlHelperExtensions.cs" />
+    <Compile Include="Helpers\ViewDataExtensions.cs" />
+    <Compile Include="Helpers\ViewPage\BaseInputCreator.cs" />
+    <Compile Include="Helpers\ViewPage\BaseViewPageT.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPage\BaseViewUserControlT.cs">
+    <Compile Include="Helpers\ViewPage\BaseViewUserControlT.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPage\InputBuilders\CheckboxInputBuilder.cs" />
-    <Compile Include="ViewPage\InputBuilders\DateInputBuilder.cs" />
-    <Compile Include="ViewPage\InputBuilders\HiddenInputBuilder.cs" />
-    <Compile Include="ViewPage\IInputBuilder.cs" />
-    <Compile Include="ViewPage\InputBuilder.cs" />
-    <Compile Include="ViewPage\BaseViewPage.cs">
+    <Compile Include="Helpers\ViewPage\InputBuilders\CheckboxInputBuilder.cs" />
+    <Compile Include="Helpers\ViewPage\InputBuilders\DateInputBuilder.cs" />
+    <Compile Include="Helpers\ViewPage\InputBuilders\HiddenInputBuilder.cs" />
+    <Compile Include="Helpers\ViewPage\IInputBuilder.cs" />
+    <Compile Include="Helpers\ViewPage\InputBuilder.cs" />
+    <Compile Include="Helpers\ViewPage\BaseViewPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPage\BaseViewUserControl.cs">
+    <Compile Include="Helpers\ViewPage\BaseViewUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPage\IInputBuilderFactory.cs" />
-    <Compile Include="ViewPage\IInputElementAuthority.cs" />
-    <Compile Include="ViewPage\InputBuilderFactory.cs" />
-    <Compile Include="ViewPage\InputBuilders\NullInputBuilder.cs" />
-    <Compile Include="ViewPage\InputBuilders\TextBoxInputBuilder.cs" />
-    <Compile Include="ViewPage\InputBuilders\UserDropDownBuilder.cs" />
-    <Compile Include="ViewPage\InputBuilders\YesNoRadioInputBuilder.cs" />
+    <Compile Include="Helpers\ViewPage\IInputBuilderFactory.cs" />
+    <Compile Include="Helpers\ViewPage\IInputElementAuthority.cs" />
+    <Compile Include="Helpers\ViewPage\InputBuilderFactory.cs" />
+    <Compile Include="Helpers\ViewPage\InputBuilders\NullInputBuilder.cs" />
+    <Compile Include="Helpers\ViewPage\InputBuilders\TextBoxInputBuilder.cs" />
+    <Compile Include="Helpers\ViewPage\InputBuilders\UserDropDownBuilder.cs" />
+    <Compile Include="Helpers\ViewPage\InputBuilders\YesNoRadioInputBuilder.cs" />
+    <Compile Include="Helpers\ViewPage\InputElementAuthority.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\hibernate.cfg.xml">
@@ -209,7 +215,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Microsoft.WebApplication.targets" />
     <Content Include="css\datePicker.css" />
     <Content Include="css\jqModal.css" />
     <Content Include="css\jquery.autocomplete.css" />
@@ -230,6 +235,9 @@
     <Content Include="scripts\jquery.form.js" />
     <Content Include="scripts\jquery.maskedinput-1.1.4.pack.js" />
     <Content Include="scripts\jquery.meiomask.js" />
+    <Content Include="Views\Admin\EditAdminPassword.aspx" />
+    <Content Include="Views\Admin\Index.aspx" />
+    <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Shared\Modal.Master" />
     <None Include="xhtml1-transitional.dtd">
     </None>
@@ -305,7 +313,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\AutoMap\CustomMappings\" />
+    <Folder Include="Helpers\AutoMap\CustomMappings\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

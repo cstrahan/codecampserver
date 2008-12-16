@@ -42,7 +42,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
         protected virtual void DeleteAllObjects()
         {
-            TestHelper.DeleteAllObjects();
+            TestHelper.DeleteAllObjects();            
         }
 
         protected void PersistEntities(params PersistentObject[] entities)
