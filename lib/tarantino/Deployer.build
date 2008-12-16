@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--EXTERNAL_PROPERTIES: application;environment;url;zip.file;username;password;revision;-->
+<project name="Deployer" default="deploy" xmlns="http://nant.sf.net/release/0.85-rc4/nant.xsd">
+
+	<target name="deploy">
+
+		<property name="defined.revision" value="${revision}" />
+
+		<property name="svnArgs" value="--username ${username} --password ${password} --non-interactive --no-auth-cache" />
+
+		<if test="${defined.revision==''}">
+			<exec program="Subversion/svn.exe" commandline="info ${url} ${svnArgs} --xml" output="svninfo.xml" append="false" verbose="false"/>
+			<xmlpeek file="svninfo.xml" xpath="/info/entry/commit/@revision" property="defined.revision"/>
+		</if>
+
+		<echo message="Working Revision Number: ${defined.revision}" />
+
+		<property name="revision.dir" value="packages/${application}/${defined.revision}" />
+
+		<if test="${not directory::exists(revision.dir)}">
+			<delete dir="Application" failonerror="false" />
+			<exec program="Subversion/svn.exe" workingdir="." commandline="checkout ${svnArgs} ${url}@${defined.revision} Application" verbose="true" />
+
+			<mkdir dir="packages/${application}" />
+
+			<delete dir="${revision.dir}" failonerror="false" />
+
+			<unzip zipfile="Application/${zip.file}.zip" todir="${revision.dir}" />
+		</if>
+
+		<exec program="${revision.dir}/${environment}.bat" workingdir="${revision.dir}" verbose="true" />
+	</target>
+
+</project>

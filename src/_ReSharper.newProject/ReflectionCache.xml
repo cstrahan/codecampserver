@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Assemblies Version="1073741836">
+  <Assembly Name="Microsoft.SqlServer.ConnectionInfo, Version=9.0.242.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Image="2a2fd5d5-26d2-4d30-bdd0-7c987ab6bce8" Timestamp="633638756300190000" />
+  <Assembly Name="Microsoft.SqlServer.Smo, Version=9.0.242.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Image="4c45c1f0-2bdd-4bc4-b6c0-a240a8bd4fe7" Timestamp="633638756299690000" />
+  <Assembly Name="NHibernate.JetDriver, Version=2.0.0.1001, Culture=neutral" Image="a2ec0c19-5012-44bc-a4c5-2fd98e475395" Timestamp="633638755853190000" />
+  <Assembly Name="Tarantino.UnitTests, Version=1.0.99.0, Culture=neutral" Image="35ab31e0-27bc-4b00-b918-7ac6f9ce337d" Timestamp="633638756299840000" />
+  <Assembly Name="Microsoft.Web.Mvc, Version=1.0.0.0, Culture=neutral" Image="9d268cec-a2ab-4438-9a30-c92045dff240" Timestamp="633638756400320000" />
+  <Assembly Name="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Image="000856f1-b74a-48c7-b80b-b01a0831cbc9" Timestamp="633300805580000000" XmlDocIndexTimestamp="633265978000000000" />
+  <Assembly Name="Tjoc.Web.Validator, Version=0.0.0.0, Culture=neutral" Image="13f2a175-6965-4672-b6a4-f6bc26916e65" Timestamp="633638756733850000" />
+  <Assembly Name="Naak.HtmlRules, Version=1.0.0.0, Culture=neutral" Image="60ee642a-a88a-49ef-9491-65c76e57cc54" Timestamp="633638756733650000" />
+  <Assembly Name="Aga.Controls, Version=1.6.1.0, Culture=neutral, PublicKeyToken=fcc90fbf924463a3" Image="757f27bd-afd0-4344-b56f-20676a449b8e" Timestamp="633645289927320000" />
+  <Assembly Name="Gallio, Version=0.0.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e" Image="dd78414e-5a42-4bae-91b7-46832b4333d8" Timestamp="633645289925470000" XmlDocIndexTimestamp="633649678649600000" />
+  <Assembly Name="Gallio.Ambience, Version=0.0.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e" Image="593238b8-6040-44f7-a3ac-900e90c7ed02" Timestamp="633645289929720000" />
+  <Assembly Name="Gallio.Icarus, Version=0.0.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e" Image="529f8b96-0106-4b7e-b629-275d9ea0c2d4" Timestamp="633645289930900000" />
+  <Assembly Name="Gallio.MSBuildTasks, Version=0.0.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e" Image="d50ea01f-8e42-4d21-89fd-28d45438ba3b" Timestamp="633645289929740000" XmlDocIndexTimestamp="633649678648790000" />
+  <Assembly Name="Gallio.NAntTasks, Version=0.0.0.0, Culture=neutral" Image="d47dad80-4190-4ebe-bba5-582d0be290e3" Timestamp="633645289926110000" XmlDocIndexTimestamp="633649678648810000" />
+  <Assembly Name="Gallio.PowerShellCommands, Version=0.0.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e" Image="297b4363-730a-4a89-a4c5-e0f46c0236e3" Timestamp="633645289929800000" XmlDocIndexTimestamp="633649678649260000" />
+  <Assembly Name="Gallio.Reports, Version=0.0.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e" Image="c3a7f8d4-6748-4d22-8bc1-2f4525f0a1bb" Timestamp="633645289929490000" XmlDocIndexTimestamp="633649678649540000" />
+  <Assembly Name="Gallio.UI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e" Image="2f79745b-08d2-4c84-b5dd-56f275a8d117" Timestamp="633645289930290000" XmlDocIndexTimestamp="633649678649590000" />
+  <Assembly Name="Gallio.XmlSerializers, Version=0.0.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e" Image="cf3d1c34-a482-48be-848e-f7579c9c2642" Timestamp="633645289930360000" />
+  <Assembly Name="Gallio35, Version=0.0.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e" Image="8a35b7fe-6cdb-4a25-8c7c-a50a8271bb4c" Timestamp="633645289926170000" XmlDocIndexTimestamp="633649678652190000" />
+  <Assembly Name="Interop.SHDocVw, Version=1.1.0.0, Culture=neutral" Image="39c410b2-34ef-45c4-9eed-d664cdd8de8d" Timestamp="633638755890580000" />
+  <Assembly Name="MbUnit, Version=0.0.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e" Image="f7aa0a01-4a21-404a-a77c-99b2b3bdaea4" Timestamp="633645289927450000" XmlDocIndexTimestamp="633649678653660000" />
+  <Assembly Name="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" Image="cf1609fc-009a-4167-9b91-12d58d2736ba" Timestamp="633638755890520000" />
+</Assemblies>

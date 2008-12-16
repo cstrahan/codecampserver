@@ -1,0 +1,46 @@
+﻿.searchWithReflectionButton
+{
+	background: url(../Images/Buttons/SearchButtonWithReflection.png) no-repeat;
+	width: 149px;
+	height: 69px;
+	text-indent: -3000px;
+	overflow: hidden;
+	display: block;
+	margin: 110px 0 0 20px;
+	position: relative;
+}
+
+.manageFacilitiesWithReflectionButton
+{
+	background: url(../Images/Buttons/ManageFacilitiesButtonWithReflection.png) no-repeat;
+	width: 149px;
+	height: 69px;
+	text-indent: -3000px;
+	overflow: hidden;
+	display: block;
+	margin: 10px 0 0 20px;
+	position: relative;
+}
+
+.openButton
+{
+	background: url(../Images/Buttons/OpenButton.png) no-repeat;
+	width: 72px;
+	height: 23px;
+	text-indent: -3000px;
+	overflow: hidden;
+	display: block;
+	margin: 0px 13px 3px 0px;
+	z-index: 9;
+}
+
+.topOfPageButton
+{
+	background: url(../Images/Buttons/TopOfPageButton.jpg) no-repeat;
+	width: 130px;
+	height: 26px;
+	text-indent: -3000px;
+	overflow: hidden;
+	display: block;
+	margin: 5px 0px;
+}

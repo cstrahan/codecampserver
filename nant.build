@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXTERNAL_PROPERTIES: usdDatabaseVersion, CCNetLabel-->
+<project name="CodeCampServer" xmlns="http://nant.sf.net/schemas/nant.xsd">
+
+	<!-- ************** -->
+	<!-- Initialization -->
+	<!-- ************** -->
+	<include buildfile="common.build"/>
+	<loadtasks assembly="lib/nantcontrib-0.85/bin/NAnt.Contrib.Tasks.dll" />
+  <loadtasks assembly="lib\ncover\Build Task Plugins\NCoverExplorer.NAntTasks.dll" />
+  <loadtasks assembly="lib\ndepend\nant\NDepend.Build.NAntTasks.dll" />
+  <loadtasks assembly="lib\gallio\Gallio.NAntTasks.dll" />
+
+	<!-- ***************** -->
+	<!-- Master Properties -->
+	<!-- ***************** -->
+	<property name="company.name" value=""/>
+
+	<!-- Version settings -->
+	<property name="svn.executable" value="lib/subversion/svn.exe" dynamic="true" if="${not property::exists('svn.executable')}" />
+	<property name="revisionnumber" value="9999" dynamic="true"/>
+	<property name="revisionnumber" value="${CCNetLabel}" if="${property::exists('CCNetLabel')}"/>
+	<property name="project.fullversion" value="1.0.${revisionnumber}.0" dynamic="true"/>
+	<property name="project.config" value="release"/>
+
+	<!-- Folder references -->
+	<property name="dir.solution" value="src"/>
+	<property name="dir.ui" value="${dir.solution}/UI"/>
+	<property name="dir.build" value="build" dynamic="true"/>
+	<property name="dir.test" value="${dir.build}/${nant.settings.currentframework}-${project.config}"/>
+	<property name="dir.package" value="${dir.build}/package"/>
+	<property name="dir.results" value="${dir.build}/results"/>
+	<property name="dir.installerpackage" value="latestVersion" />
+
+	<property name="package.file.name" value="${dir.installerpackage}/${project::get-name()}Package.zip" />
+  
+
+	<!-- Compilation settings -->
+	<property name="nant.settings.currentframework" value="net-3.5" />
+	<property name="file.solution" value="${dir.solution}/${project::get-name()}.sln"/>
+
+	<!-- Database migration settings -->
+	<property name="database.script.directory" value="${dir.solution}/Infrastructure/Database" />
+  <property name="database.import.script.directory" value="${dir.solution}/Infrastructure/ImportDatabase" />
+  <property name="database.server" value="localhost\sqlexpress" overwrite="false"/>
+	<property name="database.name" value="${project::get-name()}" overwrite="false"/>
+	<property name="database.integrated" value="true" overwrite="false" />
+	<property name="database.username" value="dbuser" overwrite="false"/>
+	<property name="database.password" value="P@ssword1" overwrite="false"/>
+
+	<!-- Testing settings -->
+	<property name="assembly.unittests" value="${project::get-name()}.UnitTests.dll"/>
+	<property name="assembly.integrationtests" value="${project::get-name()}.IntegrationTests.dll"/>
+	<property name="ui.port" value="8083"/>
+	<property name="ui.url" value="http://localhost:${ui.port}"/>
+	<property name="webout.txt" value="${dir.results}/webout.txt"/>
+	<property name="httpwait.txt" value="${dir.results}/httpwait.txt"/>
+
+  <property name="svnargs" value="--username TODO --password TODO --non-interactive --no-auth-cache" />
+
+  <!-- ******************** -->
+	<!-- Master Build Targets -->
+	<!-- ******************** -->
+	<target name="build" depends="init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test"/>
+	<target name="newCruise" depends="revert, init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, coverage, analyze, package, commitPackage"/>
+
+	<!-- ********************* -->
+	<!-- NUnit Testing Targets -->
+	<!-- ********************* -->
+	<target name="move-for-test">
+		<copy todir="${dir.test}" flatten="true">
+			<fileset basedir="${dir.solution}">
+				<include name="/**/bin/${project.config}/**" />
+				<include name="/**/UI/bin/**" />
+				<include name="*.config"/>
+				<include name="*.cfg.xml"/>
+			</fileset>
+		</copy>
+	</target>
+
+  <target name="test">
+		<delete dir="${dir.results}" if="${directory::exists('${dir.results}')}" />
+		<mkdir dir="${dir.results}"/>
+
+		<nunit2 failonerror="true" verbose="true">
+			<formatter type="Xml" outputdir="${dir.results}" usefile="true" extension=".xml"/>
+			<formatter type="Plain" />
+			<test assemblyname="${dir.test}/${assembly.unittests}"/>
+		</nunit2>
+
+		<nunit2 failonerror="true" verbose="true">
+			<formatter type="Xml" outputdir="${dir.results}" usefile="true" extension=".xml"/>
+			<formatter type="Plain" />
+			<test assemblyname="${dir.test}/${assembly.integrationtests}">
+				<categories>
+					<exclude name="DataLoader"/>
+				</categories>
+			</test>
+		</nunit2>
+
+		<nunit2 failonerror="true" verbose="true">
+			<formatter type="Plain" />
+			<test assemblyname="${dir.test}/${assembly.integrationtests}">
+				<categories>
+					<include name="DataLoader"/>
+					<exclude name="*"/>
+				</categories>
+			</test>
+		</nunit2>
+	</target>
+
+	<target name="integration-tests">
+		<nunit2 failonerror="true" verbose="true">
+			<formatter type="Xml" outputdir="${dir.results}" usefile="true" extension=".xml"/>
+			<formatter type="Plain" />
+			<test assemblyname="${dir.test}/${assembly.integrationtests}">
+				<categories>
+					<exclude name="DataLoader"/>
+					<exclude name="SchemaExport"/>
+				</categories>
+			</test>
+		</nunit2>
+
+		<nunit2 failonerror="true" verbose="true">
+			<formatter type="Xml" outputdir="${dir.results}" usefile="true" extension=".xml"/>
+			<formatter type="Plain" />
+			<test assemblyname="${dir.test}/${assembly.integrationtests}">
+				<categories>
+					<include name="DataLoader"/>
+					<exclude name="*"/>
+				</categories>
+			</test>
+		</nunit2>
+	</target>
+
+	<!-- ********************************** -->
+	<!-- Database Change Management Targets -->
+	<!-- ********************************** -->
+	<target name="reset-database" depends="dropDatabase, createDatabase,  move-for-test">
+		<nunit2 failonerror="true" verbose="true">
+			<formatter type="Plain" />
+			<test assemblyname="${dir.test}/${assembly.integrationtests}">
+				<categories>
+					<include name="DataLoader"/>
+					<exclude name="*"/>
+				</categories>
+			</test>
+		</nunit2>
+	</target>
+
+  <target name="generate-import-change-script">
+    <exec
+      program="c:\program files (x86)\red gate\SQL Compare 7\SQLCompare.exe"
+      commandline="/f /v /server1:${database.server} /server2:${database.server} /database1:${database.name}ImportSchema /database2:${database.name}Import /scriptfile:${database.import.script.directory}/Update/_New_Script.sql /o:ii,ik /exclude:Table:usd_AppliedDatabaseScript"
+      failonerror="false  "
+      />
+  </target>
+
+
+	<!-- **************************** -->
+	<!-- Deployment Packaging Targets -->
+	<!-- **************************** -->
+	<target name="package">
+		<delete dir="${dir.package}" if="${directory::exists('${dir.package}')}" />
+		<mkdir dir="${dir.package}"/>
+
+		<copy todir="${dir.package}\website" includeemptydirs="false">
+			<fileset basedir="${dir.solution}\UI">
+				<include name="images\**"/>
+				<include name="css\**"/>
+				<exclude name="**\*.cs"/>
+				<exclude name="**\*.csproj"/>
+				<include name="**\**"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${dir.package}\database" includeemptydirs="false">
+			<fileset basedir="${dir.solution}\IntegrationTests\bin\${project.config}">
+				<include name="**\**"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${dir.package}\database" includeemptydirs="false">
+			<fileset basedir="${dir.solution}\UITests\bin\${project.config}">
+				<include name="**\**"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${dir.package}\database" includeemptydirs="false">
+			<fileset basedir="${dir.solution}\RegressionTests\bin\${project.config}">
+				<include name="**\**"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${dir.package}\database" includeemptydirs="false">
+			<fileset basedir="${dir.solution}\UserImporter\bin\${project.config}">
+				<include name="**\**"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${dir.package}\database" includeemptydirs="false">
+			<fileset basedir="lib\aspnetmvc">
+				<include name="**\**"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${dir.package}\database" includeemptydirs="false">
+			<fileset basedir="${dir.solution}\Infrastructure\Database">
+				<include name="**\*.sql"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${dir.package}\importDatabase" includeemptydirs="false">
+			<fileset basedir="${dir.solution}\Infrastructure\ImportDatabase">
+				<include name="**\*.sql"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${dir.package}\nant" includeemptydirs="false">
+			<fileset basedir="${nant::get-base-directory()}">
+				<include name="**" />
+			</fileset>
+		</copy>
+
+		<copy todir="${dir.package}">
+			<fileset basedir="deployment">
+				<include name="**" />
+			</fileset>
+		</copy>
+
+		<exec program="${svn.executable}" workingdir="." commandline="up LatestVersion ${svnargs}" verbose="true" />
+
+		<delete file="${package.file.name}" />
+		<zip zipfile="${package.file.name}">
+			<fileset basedir="${dir.package}">
+				<include name="**" />
+			</fileset>
+		</zip>
+	</target>
+
+	<target name="commitPackage" depends="package">
+		<exec program="${svn.executable}" workingdir="." commandline="ci latestVersion ${svnargs} -m&quot;automatic check-in&quot;" verbose="true"  />
+	</target>
+
+	<!-- ********************* -->
+	<!-- Code Analysis Targets -->
+	<!-- ********************* -->
+	<target name="analyze">
+		<exec program="lib\ndepend\NDepend.Console.exe">
+			<arg value="${directory::get-current-directory()}\lib\ndepend\${project::get-name()}.xml" />
+		</exec>
+	</target>
+
+	<target name="coverage">
+		<ncover
+      assemblyList="${project::get-name()}.Core;${project::get-name()}.DependencyResolution;${project::get-name()}.Infrastructure;${project::get-name()}.UI"
+      coverageFile="${dir.results}\coverage.xml"
+      program="lib\ncover\NCover.Console.exe"
+      commandLineExe="lib\nant\nant.exe"
+      commandLineArgs="-buildfile:nant.build test"
+      >
+
+		</ncover>
+
+		<ncoverexplorer program="lib\ncover\ncoverexplorer.console.exe"
+                        projectName="${project::get-name()}"
+                        outputDir="${dir.results}"
+                        satisfactoryCoverage="99"
+                        reportType="ModuleClassSummary"
+                        xmlReportName="CoverageSummary.xml"
+                        htmlReportName="CoverageSummary.html">
+			<fileset>
+				<include name="${dir.results}\coverage.xml" />
+			</fileset>
+		</ncoverexplorer>
+	</target>
+
+	<!-- ******************************* -->
+	<!-- Regression Test Suite Execution -->
+	<!-- ******************************* -->
+
+	<!-- Called from the build server to run regression test -->
+	<target name="new-cruise-uitest" depends="init, uitest.init">
+		<echo message="Unpacking ${project::get-name()}..." />
+		<unzip zipfile="${package.file.name}" todir="${dir.build}" />
+
+		<echo message="SQL Server - Deploying to UITest" />
+		<exec program="lib\Tarantino\Tarantino.Deployer.Console.exe" workingdir="lib\Tarantino\" commandline="Deploy ${project::get-name()} UITestSqlServer Current" verbose="true" />
+
+		<property name="ui.test.dir" value="${dir.build}/database" />
+		<call target="regressionTest" />
+
+		<foreach item="Line" in="lib\Tarantino\TarantinoDeploymentRevisionNumber.txt" property="revisionNumber">
+			<echo message="Record deploying revision ${revisionNumber} to UITest" />
+			<exec program="lib\Tarantino\Tarantino.Deployer.Console.exe" workingdir="lib\Tarantino\" commandline="Certify ${project::get-name()} UITestSqlServer ${revisionNumber}" verbose="true" />
+		</foreach>
+
+	</target>
+
+	<!-- Called locally to run regression test -->
+	<target name="new-uitest" depends=" uitest.init, spinup-casini, wait-on-web-server-ready, regressionTest"/>
+
+	<!-- Waits on web server to initialize before executing WATiN tests -->
+	<target name="wait-on-web-server-ready" >
+		<mkdir dir="${dir.results}" failonerror="false" />
+		<get src="${ui.url}/login/login?username=system&amp;password=system" dest="${httpwait.txt}" usetimestamp="true"/>
+	</target>
+
+	<!-- Start ASP.NET development web server for smoke test execution on local development workstation -->
+	<target name="spinup-casini" >
+		<exec
+			program="lib\cassini\ConsoleCassini-v35.exe" workingdir="." commandline="${dir.ui} ${ui.port}"
+			verbose="true" output="${webout.txt}" pidproperty="webserver.pid" spawn="true"/>
+		<echo message="Spwned webserver with PID=${webserver.pid}"/>
+		<sleep seconds="1"/>
+	</target>
+
+	<!-- Initialize WATiN attributes -->
+	<target name="uitest.init">
+		<property name="ui.port" value="80"/>
+		<property name="ui.url" value="http://localhost:${ui.port}"/>
+
+		<property name="ui.test.dir" value="${dir.test}" />
+
+		<setenv name="SITE" value="${ui.url}"/>
+	</target>
+
+	<!-- Close all IE instances between regression test suite executions -->
+	<target name="closeAllBrowserWindows">		<echo message="Closing all dangling browser instances."/>
+		<exec program="taskkill" commandline=" /F /IM iexplore.exe" failonerror="false"/>
+	</target>
+
+	<!-- Actually executes WATiN tests -->
+	<target name="regressionTest">
+		<trycatch>
+			<try>
+				<gallio verbose="true" report-directory="${dir.results}" report-types="html;xml-inline" filter="CategoryName:Smoke" runner-type="IsolatedAppDomain" echo-results="false">
+					<assemblies>
+						<include name="${ui.test.dir}/${project::get-name()}.RegressionTests.dll" />
+					</assemblies>
+				</gallio>
+				<gallio verbose="true" report-directory="${dir.results}" report-types="html;xml-inline" filter="not CategoryName:Smoke" runner-type="IsolatedAppDomain" echo-results="false" >
+					<assemblies>
+						<include name="${ui.test.dir}/${project::get-name()}.RegressionTests.dll" />
+					</assemblies>
+				</gallio>
+			</try>
+			<catch>
+				<property name="test.failure" value="true"/>
+			</catch>
+		</trycatch>
+
+		<call target="closeAllBrowserWindows"/>
+
+		<fail if="${property::exists('test.failure')}" message="Failure occured in testing"/>
+	</target>
+</project>

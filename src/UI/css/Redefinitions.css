@@ -1,0 +1,35 @@
+body
+{
+	background-color: #003399;
+	color: #666666;
+	font-family: Verdana;
+	font-size: 70%;
+}
+
+h1
+{
+	font-size: 1.4em;
+}
+
+p
+{
+	line-height: 1.5em;
+}
+
+h2
+{
+	margin: 5px;
+	font-size: 1.3em;
+}
+
+th
+{
+	text-align: center;
+	font-weight: normal;
+}
+
+td
+{
+	text-align: center;
+}
+

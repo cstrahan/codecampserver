@@ -1,0 +1,119 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EEAB1926-A203-4888-8174-6909AF64BDAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{17767200-EC17-4BF2-A5FD-9D47756B64FA}"
+	ProjectSection(SolutionItems) = preProject
+		..\config\ccnet.config = ..\config\ccnet.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Schemas", "Schemas", "{DDDE9E45-DC42-468E-8143-6F01F314A1B4}"
+	ProjectSection(SolutionItems) = preProject
+		..\config\ccnet.config = ..\config\ccnet.config
+		..\lib\nant\nant.xsd = ..\lib\nant\nant.xsd
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{9C81B684-40CC-472A-804D-7C0F963315F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{FBE3CFE2-CAC1-4652-9F49-18F35B65123D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{9AA9FD4D-58F4-4148-9376-EE09868E2B73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{C01DA28B-6F9D-4378-A2DA-884DDFD224B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{98200972-A038-4DA8-8917-CBC4895175DC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FBE3CFE2-CAC1-4652-9F49-18F35B65123D} = {FBE3CFE2-CAC1-4652-9F49-18F35B65123D}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{F4B43E07-16C4-45B3-8A20-0FFE5EDDE16B}"
+	ProjectSection(SolutionItems) = preProject
+		..\deployment\AcceptanceSQL.bat = ..\deployment\AcceptanceSQL.bat
+		..\deployment\CommonDeploy.bat = ..\deployment\CommonDeploy.bat
+		..\deployment\Demo.bat = ..\deployment\Demo.bat
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NHibernate Configuration", "NHibernate Configuration", "{D88FC825-374D-4CC6-8E1C-2F28F9E20635}"
+	ProjectSection(SolutionItems) = preProject
+		sqlserver.hibernate.cfg.xml = sqlserver.hibernate.cfg.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nant Configuration", "Nant Configuration", "{A56B2DC5-02C4-4A7B-850B-6D87AA9E5C9C}"
+	ProjectSection(SolutionItems) = preProject
+		..\build.bat = ..\build.bat
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyResolution", "DependencyResolution\DependencyResolution.csproj", "{3A222037-75A5-4DFF-BA27-9487BF3A8536}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tarantino Deployer", "Tarantino Deployer", "{2FC852F2-EFCC-4427-9BC0-93FABA0EA23E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegressionTests", "RegressionTests\RegressionTests.csproj", "{781401FD-3E99-450D-A2E5-FB8B8B5DF42D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Batch Files", "Batch Files", "{2033A310-EFBA-4097-B96B-5B165FEB4D8E}"
+	ProjectSection(SolutionItems) = preProject
+		..\Click To Build.bat = ..\Click To Build.bat
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		AutomatedDebug|Any CPU = AutomatedDebug|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9C81B684-40CC-472A-804D-7C0F963315F5}.AutomatedDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C81B684-40CC-472A-804D-7C0F963315F5}.AutomatedDebug|Any CPU.Build.0 = Debug|Any CPU
+		{9C81B684-40CC-472A-804D-7C0F963315F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C81B684-40CC-472A-804D-7C0F963315F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C81B684-40CC-472A-804D-7C0F963315F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C81B684-40CC-472A-804D-7C0F963315F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBE3CFE2-CAC1-4652-9F49-18F35B65123D}.AutomatedDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBE3CFE2-CAC1-4652-9F49-18F35B65123D}.AutomatedDebug|Any CPU.Build.0 = Debug|Any CPU
+		{FBE3CFE2-CAC1-4652-9F49-18F35B65123D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBE3CFE2-CAC1-4652-9F49-18F35B65123D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBE3CFE2-CAC1-4652-9F49-18F35B65123D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBE3CFE2-CAC1-4652-9F49-18F35B65123D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AA9FD4D-58F4-4148-9376-EE09868E2B73}.AutomatedDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AA9FD4D-58F4-4148-9376-EE09868E2B73}.AutomatedDebug|Any CPU.Build.0 = Debug|Any CPU
+		{9AA9FD4D-58F4-4148-9376-EE09868E2B73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AA9FD4D-58F4-4148-9376-EE09868E2B73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AA9FD4D-58F4-4148-9376-EE09868E2B73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AA9FD4D-58F4-4148-9376-EE09868E2B73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C01DA28B-6F9D-4378-A2DA-884DDFD224B1}.AutomatedDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C01DA28B-6F9D-4378-A2DA-884DDFD224B1}.AutomatedDebug|Any CPU.Build.0 = Debug|Any CPU
+		{C01DA28B-6F9D-4378-A2DA-884DDFD224B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C01DA28B-6F9D-4378-A2DA-884DDFD224B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C01DA28B-6F9D-4378-A2DA-884DDFD224B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C01DA28B-6F9D-4378-A2DA-884DDFD224B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98200972-A038-4DA8-8917-CBC4895175DC}.AutomatedDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98200972-A038-4DA8-8917-CBC4895175DC}.AutomatedDebug|Any CPU.Build.0 = Debug|Any CPU
+		{98200972-A038-4DA8-8917-CBC4895175DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98200972-A038-4DA8-8917-CBC4895175DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98200972-A038-4DA8-8917-CBC4895175DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98200972-A038-4DA8-8917-CBC4895175DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A222037-75A5-4DFF-BA27-9487BF3A8536}.AutomatedDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A222037-75A5-4DFF-BA27-9487BF3A8536}.AutomatedDebug|Any CPU.Build.0 = Debug|Any CPU
+		{3A222037-75A5-4DFF-BA27-9487BF3A8536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A222037-75A5-4DFF-BA27-9487BF3A8536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A222037-75A5-4DFF-BA27-9487BF3A8536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A222037-75A5-4DFF-BA27-9487BF3A8536}.Release|Any CPU.Build.0 = Release|Any CPU
+		{781401FD-3E99-450D-A2E5-FB8B8B5DF42D}.AutomatedDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{781401FD-3E99-450D-A2E5-FB8B8B5DF42D}.AutomatedDebug|Any CPU.Build.0 = Debug|Any CPU
+		{781401FD-3E99-450D-A2E5-FB8B8B5DF42D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{781401FD-3E99-450D-A2E5-FB8B8B5DF42D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{781401FD-3E99-450D-A2E5-FB8B8B5DF42D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{781401FD-3E99-450D-A2E5-FB8B8B5DF42D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{17767200-EC17-4BF2-A5FD-9D47756B64FA} = {EEAB1926-A203-4888-8174-6909AF64BDAF}
+		{DDDE9E45-DC42-468E-8143-6F01F314A1B4} = {EEAB1926-A203-4888-8174-6909AF64BDAF}
+		{F4B43E07-16C4-45B3-8A20-0FFE5EDDE16B} = {EEAB1926-A203-4888-8174-6909AF64BDAF}
+		{D88FC825-374D-4CC6-8E1C-2F28F9E20635} = {EEAB1926-A203-4888-8174-6909AF64BDAF}
+		{A56B2DC5-02C4-4A7B-850B-6D87AA9E5C9C} = {EEAB1926-A203-4888-8174-6909AF64BDAF}
+		{2FC852F2-EFCC-4427-9BC0-93FABA0EA23E} = {EEAB1926-A203-4888-8174-6909AF64BDAF}
+		{2033A310-EFBA-4097-B96B-5B165FEB4D8E} = {EEAB1926-A203-4888-8174-6909AF64BDAF}
+	EndGlobalSection
+EndGlobal

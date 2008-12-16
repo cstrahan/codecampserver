@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{781401FD-3E99-450D-A2E5-FB8B8B5DF42D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CodeCampServer.RegressionTests</RootNamespace>
+    <AssemblyName>CodeCampServer.RegressionTests</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aga.Controls, Version=1.6.1.0, Culture=neutral, PublicKeyToken=fcc90fbf924463a3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\gallio\Aga.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Gallio, Version=3.0.4.485, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\gallio\Gallio.dll</HintPath>
+    </Reference>
+    <Reference Include="Gallio.Ambience, Version=3.0.5.546, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\gallio\Gallio.Ambience.dll</HintPath>
+    </Reference>
+    <Reference Include="Gallio.Icarus, Version=3.0.5.546, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\gallio\Gallio.Icarus.exe</HintPath>
+    </Reference>
+    <Reference Include="Gallio.MsBuildTasks, Version=3.0.5.546, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\gallio\Gallio.MsBuildTasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Gallio.NAntTasks, Version=3.0.5.546, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\gallio\Gallio.NAntTasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Gallio.PowerShellCommands, Version=3.0.5.546, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\gallio\Gallio.PowerShellCommands.dll</HintPath>
+    </Reference>
+    <Reference Include="Gallio.Reports, Version=3.0.5.546, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\gallio\Gallio.Reports.dll</HintPath>
+    </Reference>
+    <Reference Include="Gallio.UI, Version=3.0.5.546, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\gallio\Gallio.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Gallio.XmlSerializers, Version=3.0.5.546, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\gallio\Gallio.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="Gallio35, Version=3.0.5.546, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\gallio\Gallio35.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.SHDocVw, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\watin\Interop.SHDocVw.dll</HintPath>
+    </Reference>
+    <Reference Include="MbUnit, Version=3.0.4.485, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\gallio\MbUnit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\watin\Microsoft.mshtml.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.1.0.1001, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\nhibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Caches.SysCache, Version=2.0.0.1001, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\nhibernate\NHibernate.Caches.SysCache.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.4.6.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\nunit\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=2.5.0.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\structuremap\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Tarantino.Core, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\tarantino\Tarantino.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Tarantino.Infrastructure, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\tarantino\Tarantino.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="WatiN.Core, Version=1.2.1.4000, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\watin\WatiN.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyFixture.cs" />
+    <Compile Include="TestHelpers\BaseClassLibraryExtensions.cs" />
+    <Compile Include="TestHelpers\DataCreationHelper.cs" />
+    <Compile Include="TestHelpers\ObjectMother.cs" />
+    <Compile Include="TestHelpers\DataSelfDeletingOnDisposalContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ExecutionSteps.cs" />
+    <Compile Include="TestHelpers\ResourcePool.cs" />
+    <Compile Include="TestHelpers\CSSClassMapper.cs" />
+    <Compile Include="TestHelpers\SmartWatiN\Checkable.cs" />
+    <Compile Include="Web\DataDrivenWebTestBase.cs" />
+    <Compile Include="TestHelpers\SmartWatiN\HasAttrCompare.cs" />
+    <Compile Include="TestHelpers\SmartWatiN\NamesCompare.cs" />
+    <Compile Include="TestHelpers\SmartWatiN\SmartCheckBox.cs" />
+    <Compile Include="TestHelpers\SmartWatiN\SmartIE.cs" />
+    <Compile Include="TestHelpers\SmartWatiN\SmartTextField.cs" />
+    <Compile Include="TestHelpers\SmartWatiN\SmartWatinElements.cs" />
+    <Compile Include="Web\Smoke\SmokeNavigate.cs" />
+    <Compile Include="TestHelpers\SmartWatiN\SortBy.cs" />
+    <Compile Include="Web\UIConstants.cs" />
+    <Compile Include="TestHelpers\SmartWatiN\Until.cs" />
+    <Compile Include="Web\WebTest.cs" />
+    <Compile Include="TestHelpers\SmartWatiN\Where.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\StructureMap.config">
+      <Link>StructureMap.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="App.config" />
+    <None Include="xhtml1-strict.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{9C81B684-40CC-472A-804D-7C0F963315F5}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DependencyResolution\DependencyResolution.csproj">
+      <Project>{3A222037-75A5-4DFF-BA27-9487BF3A8536}</Project>
+      <Name>DependencyResolution</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IntegrationTests\IntegrationTests.csproj">
+      <Project>{9AA9FD4D-58F4-4148-9376-EE09868E2B73}</Project>
+      <Name>IntegrationTests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UI\UI.csproj">
+      <Project>{98200972-A038-4DA8-8917-CBC4895175DC}</Project>
+      <Name>UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\hibernate.cfg.xml">
+      <Link>hibernate.cfg.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

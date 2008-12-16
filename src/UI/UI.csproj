@@ -1,0 +1,341 @@
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{98200972-A038-4DA8-8917-CBC4895175DC}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CodeCampServer.UI</RootNamespace>
+    <AssemblyName>CodeCampServer.UI</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Components.Validator, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\castle\Castle.Components.Validator.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\aspnetmvc\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcContrib, Version=0.0.1.168, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\mvccontrib\MvcContrib.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.4.6.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\nunit\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.DataAccess, Version=10.2.0.100, Culture=neutral, PublicKeyToken=89b483f429c47342">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\oracle\Oracle.DataAccess.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\structuremap\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Abstractions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\aspnetmvc\System.Web.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\aspnetmvc\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\aspnetmvc\System.Web.Routing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="Tarantino.Core, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\tarantino\Tarantino.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Tarantino.Infrastructure, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\tarantino\Tarantino.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Tjoc.Web.Validator, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\naak\Tjoc.Web.Validator.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AutoMapperConfiguration.cs" />
+    <Compile Include="Controllers\SmartController.cs" />
+    <Compile Include="css\CSSIdentifiers.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Filters\BaseActionFilter.cs" />
+    <Compile Include="Filters\ValidateModelAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ISubController.cs" />
+    <Compile Include="ModelStateExtensions.cs" />
+    <Compile Include="Models\Forms\Attributes\ShowAsRequiredAttribute.cs" />
+    <Compile Include="Models\Forms\Attributes\UserDropDownAttribute.cs" />
+    <Compile Include="Models\Forms\Attributes\HiddenAttribute.cs" />
+    <Compile Include="Models\Forms\Attributes\LabelAttribute.cs" />
+    <Compile Include="Models\AutoMap\AttributeExtensions.cs" />
+    <Compile Include="Models\AutoMap\IValueFormatter.cs" />
+    <Compile Include="Models\AutoMap\AutoMapper.cs" />
+    <Compile Include="Models\AutoMap\IMappingExpression.cs" />
+    <Compile Include="Models\AutoMap\IValueResolver.cs" />
+    <Compile Include="Models\AutoMap\MappingExpression.cs" />
+    <Compile Include="Models\AutoMap\MethodMember.cs" />
+    <Compile Include="Models\AutoMap\ModelResolver.cs" />
+    <Compile Include="Models\AutoMap\PropertyMap.cs" />
+    <Compile Include="Models\AutoMap\PropertyMember.cs" />
+    <Compile Include="Models\AutoMap\ReflectionHelper.cs" />
+    <Compile Include="Models\AutoMap\ResolutionContext.cs" />
+    <Compile Include="Models\AutoMap\TypeMap.cs" />
+    <Compile Include="Models\AutoMap\TypeMapFactory.cs" />
+    <Compile Include="Models\AutoMap\TypeMember.cs" />
+    <Compile Include="Models\AutoMap\ValueFormatter.cs" />
+    <Compile Include="Models\ICustomFormatterExpression.cs" />
+    <Compile Include="Models\Validation\Attributes\BetterValidateIntegerAttribute.cs" />
+    <Compile Include="Models\Validation\Attributes\BetterValidateNotEmptyAttribute.cs" />
+    <Compile Include="Models\Validation\Attributes\BetterValidateDateAttribute.cs" />
+    <Compile Include="Models\Validation\Attributes\BetterValidateDateTimeAttribute.cs" />
+    <Compile Include="Models\Validation\Attributes\BetterValidateDecimalAttribute.cs" />
+    <Compile Include="Models\Validation\Attributes\BetterValidateEmailAttribute.cs" />
+    <Compile Include="Models\Validation\Validators\DateNotInFutureValidator.cs" />
+    <Compile Include="Models\Validation\Attributes\ValidateDateNotInFutureAttribute.cs" />
+    <Compile Include="MvcHelperExtensions.cs" />
+    <Compile Include="PrimitiveExtensions.cs" />
+    <Content Include="scripts\DetentionFacility\Detail.js" />
+    <Compile Include="SubController.cs" />
+    <Compile Include="InputTextExtensions.cs" />
+    <Compile Include="UrlHelperExtensions.cs" />
+    <Compile Include="ViewDataExtensions.cs" />
+    <Compile Include="ViewPage\BaseInputCreator.cs" />
+    <Compile Include="ViewPage\BaseViewPageT.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPage\BaseViewUserControlT.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPage\InputBuilders\CheckboxInputBuilder.cs" />
+    <Compile Include="ViewPage\InputBuilders\DateInputBuilder.cs" />
+    <Compile Include="ViewPage\InputBuilders\HiddenInputBuilder.cs" />
+    <Compile Include="ViewPage\IInputBuilder.cs" />
+    <Compile Include="ViewPage\InputBuilder.cs" />
+    <Compile Include="ViewPage\BaseViewPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPage\BaseViewUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPage\IInputBuilderFactory.cs" />
+    <Compile Include="ViewPage\IInputElementAuthority.cs" />
+    <Compile Include="ViewPage\InputBuilderFactory.cs" />
+    <Compile Include="ViewPage\InputBuilders\NullInputBuilder.cs" />
+    <Compile Include="ViewPage\InputBuilders\TextBoxInputBuilder.cs" />
+    <Compile Include="ViewPage\InputBuilders\UserDropDownBuilder.cs" />
+    <Compile Include="ViewPage\InputBuilders\YesNoRadioInputBuilder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\hibernate.cfg.xml">
+      <Link>hibernate.cfg.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Web.config" />
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Log4Net.config">
+      <Link>Log4Net.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{9C81B684-40CC-472A-804D-7C0F963315F5}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{FBE3CFE2-CAC1-4652-9F49-18F35B65123D}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Microsoft.WebApplication.targets" />
+    <Content Include="css\datePicker.css" />
+    <Content Include="css\jqModal.css" />
+    <Content Include="css\jquery.autocomplete.css" />
+    <Content Include="images\Buttons\addnew.gif" />
+    <Content Include="images\Buttons\bluebuttoncenter.gif" />
+    <Content Include="images\Buttons\bluebuttonleft.gif" />
+    <Content Include="images\Buttons\bluebuttonright.gif" />
+    <Content Include="images\Buttons\edit.gif" />
+    <Content Include="images\Buttons\save.gif" />
+    <Content Include="images\icons\calendar.png" />
+    <Content Include="images\icons\exclamation.png" />
+    <Content Include="images\icons\i-icon.gif" />
+    <Content Include="scripts\date.js" />
+    <Content Include="scripts\jqModal.js" />
+    <Content Include="scripts\jquery.autocomplete.pack.js" />
+    <Content Include="scripts\jquery.bgiframe.min.js" />
+    <Content Include="scripts\jquery.datePicker.js" />
+    <Content Include="scripts\jquery.form.js" />
+    <Content Include="scripts\jquery.maskedinput-1.1.4.pack.js" />
+    <Content Include="scripts\jquery.meiomask.js" />
+    <Content Include="Views\Shared\Modal.Master" />
+    <None Include="xhtml1-transitional.dtd">
+    </None>
+    <Content Include="css\Baseline.css" />
+    <Content Include="css\Buttons.css" />
+    <Content Include="css\Classes.css" />
+    <Content Include="css\GenericClasses.css" />
+    <Content Include="css\Ids.css" />
+    <Content Include="css\jquery.cluetip.css" />
+    <Content Include="css\Menu.css" />
+    <Content Include="css\Redefinitions.css" />
+    <Content Include="images\Buttons\Button.jpg" />
+    <Content Include="images\Buttons\EnterButton.jpg" />
+    <Content Include="images\Buttons\LoginButton.png" />
+    <Content Include="images\Buttons\ManageFacilitiesButtonWithReflection.png" />
+    <Content Include="images\Buttons\OpenButton.png" />
+    <Content Include="images\Buttons\SearchButton.jpg" />
+    <Content Include="images\Buttons\SearchButtonWithReflection.png" />
+    <Content Include="images\Buttons\TopOfPageButton.jpg" />
+    <Content Include="images\icons\black.gif" />
+    <Content Include="images\icons\DropDownGrayArrow.gif" />
+    <Content Include="images\icons\ChevronExpand.gif" />
+    <Content Include="images\icons\gray.gif" />
+    <Content Include="images\icons\Icon.gif" />
+    <Content Include="images\icons\JuvenileNoPicIcon.gif" />
+    <Content Include="images\icons\JuvenileViewIcon.gif" />
+    <Content Include="images\icons\Lblue.gif" />
+    <Content Include="images\icons\Lgray.gif" />
+    <Content Include="images\icons\PersonIcon.gif" />
+    <Content Include="images\icons\Rblue.gif" />
+    <Content Include="images\icons\RedBangIcon.gif" />
+    <Content Include="images\icons\Rgray.gif" />
+    <Content Include="images\indicator.gif" />
+    <Content Include="images\layout\Arrow.jpg" />
+    <Content Include="images\layout\BlueBackground.png" />
+    <Content Include="images\layout\ContentBackground.gif" />
+    <Content Include="images\layout\GrayBackground.png" />
+    <Content Include="images\layout\logo.png" />
+    <Content Include="images\layout\Percent.jpg" />
+    <Content Include="images\layout\SearchHeadingBackground.gif" />
+    <Content Include="images\samples\JuvenileSmallThumbnail.gif" />
+    <Content Include="images\samples\JuvenileThumbnail.gif" />
+    <Content Include="images\Text\Alcohol-DrugUse.gif" />
+    <Content Include="images\Text\Angry-Irritable.gif" />
+    <Content Include="images\Text\Attitudes.gif" />
+    <Content Include="images\Text\Correctional.gif" />
+    <Content Include="images\Text\Defensiveness.gif" />
+    <Content Include="images\Text\Depressed-Anxious.gif" />
+    <Content Include="images\Text\FaceValidAlcohol.gif" />
+    <Content Include="images\Text\FaceValidOtherDrugs.gif" />
+    <Content Include="images\Text\Family-FriendsRisk.gif" />
+    <Content Include="images\Text\ObviousAttributes.gif" />
+    <Content Include="images\Text\SecondaryClassification.gif" />
+    <Content Include="images\Text\Somatic-Complaints.gif" />
+    <Content Include="images\Text\SubtleAttributes.gif" />
+    <Content Include="images\Text\Suicidal-Ideation.gif" />
+    <Content Include="images\Text\SupplementalAddiction.gif" />
+    <Content Include="images\Text\Symptoms.gif" />
+    <Content Include="images\Text\Thought-Disturbance.gif" />
+    <Content Include="images\Text\Traumatic-Experiences.gif" />
+    <Content Include="images\Text\ValidityCheck.gif" />
+    <Content Include="scripts\jquery-1.2.6.min.js" />
+    <Content Include="scripts\jquery.cascade.ext.js" />
+    <Content Include="scripts\jquery.cascade.js" />
+    <Content Include="scripts\jquery.cluetip.js" />
+    <Content Include="scripts\jquery.dimensions-1.2.js" />
+    <Content Include="scripts\jquery.hoverIntent.minified.js" />
+    <Content Include="scripts\jquery.mask.js" />
+    <Content Include="scripts\jquery.templating.js" />
+    <Content Include="Views\Shared\404.ascx" />
+    <Content Include="Views\Shared\Main.Master" />
+    <Content Include="Views\Shared\Empty.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\AutoMap\CustomMappings\" />
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(ProjectDir)\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>8082</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y "..\..\Infrastructure\bin\$(ConfigurationName)\*.dll" ".\"</PostBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

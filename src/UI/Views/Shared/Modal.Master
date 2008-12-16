@@ -1,0 +1,12 @@
+<%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage"
+	MasterPageFile="~/Views/Shared/Main.Master" %>
+
+<asp:Content ContentPlaceHolderID="Stylesheets" runat="server">
+	<asp:ContentPlaceHolder ID="Stylesheets" runat="server" />
+</asp:Content>
+<asp:Content ContentPlaceHolderID="Main" runat="server">
+	<asp:ContentPlaceHolder ID="Main" runat="server" />
+</asp:Content>
+<asp:Content ContentPlaceHolderID="Footer" runat="server">
+	
+</asp:Content>

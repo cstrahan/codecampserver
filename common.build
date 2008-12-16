@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd">
+
+	<target name="init" description="Initializes build properties">
+		<delete dir="${dir.build}" failonerror="false" includeemptydirs="true" />
+		<mkdir dir="${dir.build}" />
+		<echo message="Current Directory: ${project::get-base-directory()}"/>
+	</target>
+
+	<target name="revert">
+		<echo message="Executing ${svn.executable} revert . -R" />
+		<exec program="${svn.executable}" commandline="revert . -R" />
+	</target>
+
+	<target name="commonassemblyinfo">
+
+    
+    <exec failonerror="false" program="${svn.executable}" commandline="info LatestVersion --xml --revision HEAD ${svnargs}" output="svninfo.xml" append="false" verbose="false"/>
+    <xmlpeek failonerror="false" file="svninfo.xml" xpath="/info/entry/@revision" property="revisionnumber"/>
+    
+    <property name="revisionnumber" value="${int::parse(revisionnumber) + 1}"/>
+		<echo message="Current SVN Revision: ${revisionnumber}"/>
+				
+		<echo message="MARKING THIS BUILD AS VERSION ${project.fullversion}" />
+		<delete file="${dir.solution}/CommonAssemblyInfo.cs" failonerror="false"/>
+		<asminfo output="${dir.solution}/CommonAssemblyInfo.cs" language="CSharp">
+			<imports>
+				<import namespace="System" />
+				<import namespace="System.Reflection" />
+				<import namespace="System.Runtime.InteropServices" />
+			</imports>
+			<attributes>
+				<attribute type="ComVisibleAttribute" value="false" />
+				<attribute type="AssemblyVersionAttribute" value="${project.fullversion}" />
+				<attribute type="AssemblyFileVersionAttribute" value="${project.fullversion}" />
+				<attribute type="AssemblyCopyrightAttribute" value="Copyright Â© ${company.name} ${datetime::get-year(datetime::now())}" />
+				<attribute type="AssemblyProductAttribute" value="${project::get-name()}" />
+				<attribute type="AssemblyCompanyAttribute" value="${company.name}" />
+				<attribute type="AssemblyConfigurationAttribute" value="${project.config}" />
+				<attribute type="AssemblyInformationalVersionAttribute" value="${project.fullversion}" />
+			</attributes>
+			<references>
+				<include name="System.dll" />
+			</references>
+		</asminfo>
+	</target>
+
+	<target name="compile" depends="init">
+		<echo message="Build Directory is ${dir.build}" />
+		<exec program="${framework::get-framework-directory(framework::get-target-framework())}\msbuild.exe"
+				  commandline="${file.solution} /t:Clean /p:Configuration=${project.config} /v:q" workingdir="." />
+		<exec program="${framework::get-framework-directory(framework::get-target-framework())}\msbuild.exe"
+				  commandline="${file.solution} /t:Rebuild /p:Configuration=${project.config} /v:q" workingdir="." />
+		<echo message="asp-compile" /> 
+		<exec basedir="."
+				  program="${framework::get-tool-path('aspnet_compiler.exe')}"
+				  commandline="-nologo -v / -p ${dir.ui}"
+				  workingdir="."
+				  failonerror="true"
+            />
+	</target>
+
+  <target name="genschema">
+    <nantschema output="${dir.solution}/nant.xsd" target-ns="http://nant.sf.net/schemas/nant.xsd"/>
+  </target>
+
+	<!-- Database change management -->
+	<target name="rebuildDatabase" depends="dropDatabase, createDatabase" />
+
+	<target name="updateDatabase">
+		<property name="action" value="Update" />
+		<call target="manageSqlDatabase" />
+	</target>
+
+	<target name="createDatabase">
+		<property name="action" value="Create" />
+		<call target="manageSqlDatabase" />
+	</target>
+
+	<target name="dropDatabase">
+		<property name="action" value="Drop" />
+		<call target="manageSqlDatabase" failonerror="false"/>
+	</target>
+
+	<target name="manageSqlDatabase">
+		<manageSqlDatabase
+			scriptDirectory="${database.script.directory}"
+			action="${action}"
+			server="${database.server}"
+			integratedAuthentication="${database.integrated}"
+			database="${database.name}"
+      username="${database.username}"
+      password="${database.password}"
+		/>
+
+		<if test="${action != 'Drop'}">
+			<echo message="Current Database Version: ${usdDatabaseVersion}" />
+		</if>
+
+	</target>
+
+  <target name="check-projects-for-default-namespace">
+    <foreach item="Folder" in="src" property="foldername">
+      <in>
+        <items>
+          <include name="**" />
+
+        </items>
+      </in>
+      <do>
+        <echo message="${foldername}" />
+        <property name="folder" value="${path::get-file-name-without-extension(foldername)}"/>
+        <if test="${folder!='_ReSharper' and folder!=''}">
+          <!-- Check the namespace -->
+          <xmlpeek
+          file="src\${folder}\${folder}.csproj"
+          xpath="/x:Project/x:PropertyGroup/x:RootNamespace"
+          property="projectNamespace">
+            <namespaces>
+              <namespace prefix="x" uri="http://schemas.microsoft.com/developer/msbuild/2003" />
+            </namespaces>
+          </xmlpeek>
+          <if test="${projectNamespace!=project::get-name()+'.'+folder}">
+            <echo>Namespace for ${folder} is ${projectNamespace} should be ${project::get-name()+'.'+folder}</echo>
+            <xmlpoke
+              file="src\${folder}\${folder}.csproj"
+              value="${project::get-name()+'.'+folder}"
+              xpath="/x:Project/x:PropertyGroup/x:RootNamespace">
+              <namespaces>
+                <namespace prefix="x" uri="http://schemas.microsoft.com/developer/msbuild/2003" />
+              </namespaces>
+            </xmlpoke>
+          </if>
+
+          <!-- Check the assemblyname -->
+          <xmlpeek
+          file="src\${folder}\${folder}.csproj"
+          xpath="/x:Project/x:PropertyGroup/x:AssemblyName"
+          property="projectAssemblyName">
+            <namespaces>
+              <namespace prefix="x" uri="http://schemas.microsoft.com/developer/msbuild/2003" />
+            </namespaces>
+          </xmlpeek>
+          <if test="${projectAssemblyName!=project::get-name()+'.'+folder}">
+            <echo>AssemblyName for ${folder} is ${projectAssemblyName} should be ${project::get-name()+'.'+folder}</echo>
+            <xmlpoke
+              file="src\${folder}\${folder}.csproj"
+              value="${project::get-name()+'.'+folder}"
+              xpath="/x:Project/x:PropertyGroup/x:AssemblyName">
+              <namespaces>
+                <namespace prefix="x" uri="http://schemas.microsoft.com/developer/msbuild/2003" />
+              </namespaces>
+            </xmlpoke>
+          </if>
+
+        </if>
+      </do>
+    </foreach>
+  </target>
+
+
+  <target name="set-defaults-in-nhibernate-config">
+          <xmlpeek
+          file="src\hibernate.cfg.xml"
+          xpath="/x:hibernate-configuration/x:session-factory/x:mapping/@assembly"
+          property="assembly">
+            <namespaces>
+              <namespace prefix="x" uri="urn:nhibernate-configuration-2.2" />
+            </namespaces>
+          </xmlpeek>
+          <if test="${assembly!=project::get-name()+'.Infrastructure'}">
+            <echo>The nhibernate mapping file does not specify ${project::get-name()+'.Infrastructure'}</echo>
+            <xmlpoke
+            file="src\hibernate.cfg.xml"
+            xpath="/x:hibernate-configuration/x:session-factory/x:mapping/@assembly"
+              value="${project::get-name()+'.Infrastructure'}">
+              <namespaces>
+                <namespace prefix="x" uri="urn:nhibernate-configuration-2.2" />
+              </namespaces>
+            </xmlpoke>
+          </if>
+    
+    <xmlpoke file="src/hibernate.cfg.xml" xpath="//*/hbm:property[@name='connection.connection_string']" value="server=.\SQLExpress;database=${project::get-name()};Integrated Security=true;">
+      <namespaces>
+        <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
+      </namespaces>
+    </xmlpoke>
+  </target>
+</project>
