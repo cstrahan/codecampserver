@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" Inherits="CodeCampServer.UI.ViewPage.BaseViewPage"%>
-<%@ Import Namespace="CodeCampServer.UI.CSS"%>
+
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">

@@ -3,7 +3,7 @@
 <%@ Import Namespace="System.Web.Mvc" %>
 <%@ Import Namespace="System.Web.Mvc.Html"%>
 <%@ Import Namespace="CodeCampServer.UI"%>
-<%@ Import Namespace="CodeCampServer.UI.CSS"%>
+
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms" %>
 <%@ Import Namespace="CodeCampServer.UI.Controllers" %>
 

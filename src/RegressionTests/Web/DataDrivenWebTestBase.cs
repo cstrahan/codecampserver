@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CodeCampServer.DependencyResolution;
+using CodeCampServer.RegressionTests.Web;
 using MbUnit.Framework;
+using RegressionTests;
 using RegressionTests.TestHelpers;
 using Tarantino.Core.Commons.Model;
 
-namespace RegressionTests.Web
+namespace CodeCampServer.RegressionTests.Web
 {
 	[TestFixture, Category("WatiN")]
 	public abstract class DataDrivenWebTestBase : WebTest

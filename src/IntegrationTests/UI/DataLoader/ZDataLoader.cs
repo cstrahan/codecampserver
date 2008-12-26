@@ -4,7 +4,7 @@ using NUnit.Framework;
 using StructureMap;
 using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
 
-namespace CodeCampServer.IntegrationTests.DataLoader
+namespace CodeCampServer.IntegrationTests.UI.DataLoader
 {
 	[TestFixture]
 	public class ZDataLoader 

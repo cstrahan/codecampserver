@@ -1,6 +1,6 @@
 using System;
 
-namespace RegressionTests.Web
+namespace CodeCampServer.RegressionTests.Web
 {
 	public static class UIConstants
 	{
@@ -11,8 +11,8 @@ namespace RegressionTests.Web
 		{
 			get
 			{
-				string jcmsSite = Environment.GetEnvironmentVariable("JCMS_SITE") ?? DEFAULT_URL;
-				return jcmsSite;
+				string site = Environment.GetEnvironmentVariable("SITE") ?? DEFAULT_URL;
+				return site;
 			}
 		}
 

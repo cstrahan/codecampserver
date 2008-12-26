@@ -4,7 +4,7 @@ using CodeCampServer.UI.Models;
 using CodeCampServer.UI.Models.AutoMap;
 using NUnit.Framework;
 
-namespace Cuc.Jcms.UnitTests.UI.Models
+namespace CodeCampServer.UnitTests.UI.Automap
 {
 	[TestFixture]
 	public class AutoMapperDtoTester

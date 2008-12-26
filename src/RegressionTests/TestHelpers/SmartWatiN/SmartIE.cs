@@ -1,10 +1,9 @@
-using System;
+using CodeCampServer.RegressionTests.Web;
 using MbUnit.Framework;
-using mshtml;
-using RegressionTests.Web;
+using SHDocVw;
 using WatiN.Core;
 
-namespace RegressionTests.TestHelpers.SmartWatiN
+namespace CodeCampServer.RegressionTests.TestHelpers.SmartWatiN
 {
 	public class SmartIE : IE
 	{
@@ -12,10 +11,10 @@ namespace RegressionTests.TestHelpers.SmartWatiN
 		{
 		}
 
-		public SmartIE(SHDocVw.InternetExplorer ie): base(ie)
+		public SmartIE(InternetExplorer ie) : base(ie)
 		{
-            
 		}
+
 		public override void WaitForComplete()
 		{
 			base.WaitForComplete();
@@ -30,7 +29,6 @@ namespace RegressionTests.TestHelpers.SmartWatiN
 
 	public class IEFactory
 	{
-        
 		public static readonly IeResourcePool pool = new IeResourcePool();
 
 		public static void Release(IE ie)
@@ -39,7 +37,7 @@ namespace RegressionTests.TestHelpers.SmartWatiN
 		}
 
 		public static IE GetInternetExplorer()
-		{            
+		{
 			return pool.Get();
 		}
 	}

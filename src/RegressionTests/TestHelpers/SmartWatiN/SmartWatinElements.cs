@@ -3,16 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using CodeCampServer.UI.CSS;
+using CodeCampServer.RegressionTests.Web;
 using MbUnit.Framework;
 using mshtml;
+using RegressionTests;
 using RegressionTests.Web;
 using WatiN.Core;
 using WatiN.Core.Exceptions;
 using WatiN.Core.Interfaces;
 using AttributeConstraint=WatiN.Core.Constraints.AttributeConstraint;
 
-namespace RegressionTests.TestHelpers.SmartWatiN
+namespace CodeCampServer.RegressionTests.TestHelpers.SmartWatiN
 {
 	public static class ElementExtensions
 	{
@@ -424,8 +425,9 @@ namespace RegressionTests.TestHelpers.SmartWatiN
 		                                                                string currentSortingIdentifier,
 		                                                                string nonCurrentSortingIdentifier, string dateFormat)
 		{
-			Element[] currentRecords = elements.Where(CSSIdentifiers.END_DATE).IsEqualTo("Current");
-			Element[] otherRecords = elements.Where(CSSIdentifiers.END_DATE).IsNotEqualTo("Current");
+			var enddate = "enddate";
+			Element[] currentRecords = elements.Where(enddate).IsEqualTo("Current");
+			Element[] otherRecords = elements.Where(enddate).IsNotEqualTo("Current");
 
 			Element[] sortedCurrentRecords = currentRecords.SortBy(currentSortingIdentifier).Ascending();
 			Element[] sortedOtherRecords =

@@ -1,22 +1,18 @@
 using System.Reflection;
 using CodeCampServer.UI.Views;
 
-namespace Cuc.Jcms.UI.ViewPage
+namespace CodeCampServer.UI.Helpers.ViewPage
 {
-    public class InputElementAuthority : IInputElementAuthority
-    {
-        #region IInputElementAuthority Members
+	public class InputElementAuthority : IInputElementAuthority
+	{
+		public bool Permits(PropertyInfo propertyInfo)
+		{
+			return true;
+		}
 
-        public bool Permits(PropertyInfo propertyInfo)
-        {
-            return true;
-        }
-
-        public bool Forbids(PropertyInfo propertyInfo)
-        {
-            return !Permits(propertyInfo);
-        }
-
-        #endregion
-    }
+		public bool Forbids(PropertyInfo propertyInfo)
+		{
+			return !Permits(propertyInfo);
+		}
+	}
 }

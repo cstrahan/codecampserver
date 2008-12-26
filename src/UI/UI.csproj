@@ -109,7 +109,6 @@
     <Compile Include="AutoMapperConfiguration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SmartController.cs" />
-    <Compile Include="css\CSSIdentifiers.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
