@@ -74,7 +74,7 @@ namespace CodeCampServer.IntegrationTests
 
 		public static void DeleteAllObjects()
 		{
-//			RecreateDatabase();
+			RecreateDatabase();
 		}
 
 		public static void EnsureDatabaseRecreated()
