@@ -241,6 +241,7 @@
     <Content Include="Views\Conference\Edit.aspx" />
     <Content Include="Views\Conference\Index.aspx" />
     <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Shared\AdminMenu.ascx" />
     <Content Include="Views\Shared\Modal.Master" />
     <None Include="xhtml1-transitional.dtd">
     </None>

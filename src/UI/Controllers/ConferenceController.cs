@@ -24,24 +24,24 @@ namespace CodeCampServer.UI.Controllers
             Conference[] conferences = _repository.GetAll();
             if (conferences.Length < 1)
             {
-                return RedirectToAction<ConferenceController>(c => c.Edit());
+                return RedirectToAction<ConferenceController>(c => c.New());
             }
             var conferenceDtos =AutoMapper.Map(conferences, typeof (Conference[]), typeof (ConferenceForm[]), typeof (Conference),
                            typeof (ConferenceForm));
             return View(conferenceDtos);
         }
 
-        public ActionResult Edit()
+        public ActionResult Edit(Guid Id)
         {
-            Conference conference = _repository.GetAll().FirstOrDefault();
+            Conference conference = _repository.GetById(Id);
 
             if (conference == null)
             {
-                conference = new Conference {StartDate = SystemTime.Now(), EndDate = SystemTime.Now()};
-                _repository.Save(conference);
+                ModelState.AddModelError("message","Conference has been deleted.");
+                return RedirectToAction<ConferenceController>(c => c.Index());
             }
 
-            object form = AutoMapper.Map(conference, typeof (Conference), typeof (ConferenceForm));
+            ConferenceForm form = (ConferenceForm) AutoMapper.Map(conference, typeof(Conference), typeof(ConferenceForm));
 
             return View(form);
         }
@@ -67,6 +67,14 @@ namespace CodeCampServer.UI.Controllers
                 return RedirectToAction<ConferenceController>(c => c.Index());
             }
             return View("Edit");
+        }
+
+        public ActionResult New()
+        {
+            var conference = new Conference {StartDate = SystemTime.Now(), EndDate = SystemTime.Now()};
+            _repository.Save(conference);
+            ConferenceForm form = (ConferenceForm) AutoMapper.Map(conference, typeof(Conference), typeof(ConferenceForm));
+           return View("Edit",conference);
         }
     }
 }

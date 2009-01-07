@@ -26,7 +26,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
         [Test]
         public void Edit_should_render_the_edit_view()
         {
-            ActionResult result = controllerUnderTest.Edit();
+            ActionResult result = controllerUnderTest.Edit(Guid.Empty);
             result
                 .AssertViewRendered()
                 .ForView(DEFAULT_VIEW)
@@ -41,7 +41,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
         {
             ActionResult result = controllerUnderTest.Index();
 
-            result.AssertActionRedirect().ToAction<ConferenceController>(a => a.Edit());
+            result.AssertActionRedirect().ToAction<ConferenceController>(a => a.New());
         }
     }
 

@@ -16,6 +16,7 @@ namespace CodeCampServer.UI.ViewPage
 
         public BaseViewPage()
         {
+           
             _inputBuilderFactory = ObjectFactory.GetInstance<IInputBuilderFactory>();
             _securityContext = ObjectFactory.GetInstance<ISecurityContext>();
             _displayErrorMessages = ObjectFactory.GetInstance<IDisplayErrorMessages>();
