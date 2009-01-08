@@ -29,7 +29,7 @@ namespace CodeCampServer.Core.Services.Updaters
 		public UpdateResult<TModel, TMessage> WithMessage(Expression<Func<TMessage, object>> messageExpression, string message)
 		{
 			string key = UINameHelper.BuildNameFrom(messageExpression);
-			
+
 			if (_messages.ContainsKey(key))
 			{
 				var strings = new List<string>(_messages[key]) {message};
@@ -39,7 +39,7 @@ namespace CodeCampServer.Core.Services.Updaters
 			{
 				_messages.Add(key, new[] {message});
 			}
-			
+
 			return this;
 		}
 

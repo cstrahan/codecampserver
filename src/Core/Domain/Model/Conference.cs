@@ -33,5 +33,10 @@ namespace CodeCampServer.Core.Domain.Model
         {
             _attendees.Remove(attendee);
         }
+
+		 public virtual Attendee GetAttendee(Guid attendeeId)
+		 {
+		 	return _attendees.SingleOrDefault(x => x.Id == attendeeId);
+		 }
     }
 }

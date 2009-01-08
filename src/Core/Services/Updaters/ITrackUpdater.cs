@@ -3,8 +3,7 @@ using CodeCampServer.Core.Messages;
 
 namespace CodeCampServer.Core.Services.Updaters
 {
-	public interface ITrackUpdater
+	public interface ITrackUpdater : IModelUpdater<Track, ITrackMessage>
 	{
-		UpdateResult<Track, ITrackMessage> UpdateFromMessage(ITrackMessage message);
 	}
 }

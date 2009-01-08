@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C01DA28B-6F9D-4378-A2DA-884DDFD224B1}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -111,6 +111,8 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Common\UINameHelperTester.cs" />
+    <Compile Include="Core\Domain\Model\ConferenceTester.cs" />
+    <Compile Include="Core\Services\Updaters\AttendeeUpdaterTester.cs" />
     <Compile Include="Core\Services\Updaters\ConferenceUpdaterTester.cs" />
     <Compile Include="Core\Services\Updaters\ModelUpdaterTester.cs" />
     <Compile Include="Core\Services\Updaters\SessionUpdaterTester.cs" />

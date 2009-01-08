@@ -186,6 +186,7 @@
     <Compile Include="Models\Forms\ConferenceForm.cs" />
     <Compile Include="Controllers\NewsletterController.cs" />
     <Compile Include="Models\Forms\SpeakerForm.cs" />
+    <Compile Include="Models\Forms\TimeSlotForm.cs" />
     <Compile Include="Models\Forms\TrackForm.cs" />
   </ItemGroup>
   <ItemGroup>

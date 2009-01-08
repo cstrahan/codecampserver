@@ -6,4 +6,4 @@ namespace CodeCampServer.Core.Services.Updaters
 	public interface ISpeakerUpdater : IModelUpdater<Speaker, ISpeakerMessage>
 	{
 	}
-}
+	}

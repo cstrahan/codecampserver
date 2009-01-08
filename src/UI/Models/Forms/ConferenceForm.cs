@@ -1,11 +1,12 @@
 using System;
 using Castle.Components.Validator;
+using CodeCampServer.Core.Messages;
 using CodeCampServer.UI.Models.Forms.Attributes;
 using CodeCampServer.UI.Models.Validation.Attributes;
 
 namespace CodeCampServer.UI.Models.Forms
 {
-    public class ConferenceForm
+    public class ConferenceForm : IConferenceMessage
     {
         [BetterValidateNonEmpty("Conference Key")]
         [ValidateRegExp(@"^[A-Za-z0-9\-]+$", "Key should only contain letters, numbers, and hypens.")]
