@@ -1,10 +1,14 @@
 using System;
+using System.Linq;
+using Iesi.Collections.Generic;
 using Tarantino.Core.Commons.Model;
 
 namespace CodeCampServer.Core.Domain.Model
 {
-    public class Conference:PersistentObject
+    public class Conference : PersistentObject
     {
+        private readonly ISet<Attendee> _attendees = new HashedSet<Attendee>();
+        public virtual string ConferenceKey { get; set; }
         public virtual string Name { get; set; }
         public virtual string Description { get; set; }
         public virtual DateTime StartDate { get; set; }
@@ -14,6 +18,16 @@ namespace CodeCampServer.Core.Domain.Model
         public virtual string City { get; set; }
         public virtual string Region { get; set; }
         public virtual string PostalCode { get; set; }
-        public virtual string PhoneNumber { get; set; }        
+        public virtual string PhoneNumber { get; set; }
+
+        public virtual Attendee[] Attendees
+        {
+            get { return _attendees.ToArray(); }
+        }
+
+        public virtual void AddAttendee(Attendee attendee)
+        {
+            _attendees.Add(attendee);
+        }
     }
 }

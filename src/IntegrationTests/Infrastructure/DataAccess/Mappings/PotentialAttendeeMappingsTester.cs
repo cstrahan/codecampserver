@@ -14,10 +14,10 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 		{
 
 
-			var attendee = new PotentialAttendee()
+			var attendee = new Attendee()
 			           	{
 			           		EmailAddress = "jdoe@abc.com",
-			           		Name = "sdf",
+			           		FirstName = "sdf",
                             
 			           	};
 

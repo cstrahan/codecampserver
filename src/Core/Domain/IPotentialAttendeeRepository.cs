@@ -5,8 +5,9 @@ namespace CodeCampServer.Core.Domain
 {
     public interface IPotentialAttendeeRepository
     {
-        void Save(PotentialAttendee potentialAttendee);
-        PotentialAttendee GetById(Guid id);
-        PotentialAttendee[] GetAll();
+        void Save(Attendee attendee);
+        Attendee GetById(Guid id);
+        Attendee[] GetAll();
+        Attendee GetByEmail(string email);
     }
 }

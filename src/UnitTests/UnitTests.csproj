@@ -116,6 +116,7 @@
     <Compile Include="UI\Automap\TestAutoMapper.cs" />
     <Compile Include="UI\Controllers\AdminControllerTester.cs" />
     <Compile Include="UI\Controllers\ConferenceControllerTester.cs" />
+    <Compile Include="UI\Controllers\NewsletterControllerTester.cs" />
     <Compile Include="UI\Controllers\TestControllerBase.cs" />
   </ItemGroup>
   <ItemGroup>

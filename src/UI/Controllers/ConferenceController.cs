@@ -37,7 +37,7 @@ namespace CodeCampServer.UI.Controllers
 
             if (conference == null)
             {
-                ModelState.AddModelError("message","Conference has been deleted.");
+                TempData.Add("message","Conference has been deleted.");
                 return RedirectToAction<ConferenceController>(c => c.Index());
             }
 
@@ -63,6 +63,7 @@ namespace CodeCampServer.UI.Controllers
                 conference.PhoneNumber = form.PhoneNumber;
                 conference.StartDate = Convert.ToDateTime(form.StartDate);
                 conference.EndDate = Convert.ToDateTime(form.EndDate);
+                conference.ConferenceKey = form.ConferenceKey;
                 _repository.Save(conference);
                 return RedirectToAction<ConferenceController>(c => c.Index());
             }
@@ -74,7 +75,7 @@ namespace CodeCampServer.UI.Controllers
             var conference = new Conference {StartDate = SystemTime.Now(), EndDate = SystemTime.Now()};
             _repository.Save(conference);
             ConferenceForm form = (ConferenceForm) AutoMapper.Map(conference, typeof(Conference), typeof(ConferenceForm));
-           return View("Edit",conference);
+           return View("Edit",form);
         }
     }
 }

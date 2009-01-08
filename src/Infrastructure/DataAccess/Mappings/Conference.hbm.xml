@@ -7,8 +7,9 @@
 		<cache usage="read-write"/>
 		<id name="Id" column="Id" type="Guid">
 			<generator class="guid.comb"/>
-		</id>
-		<property name="Name" length="100"/>
+		</id>    
+    <property name="ConferenceKey" length="100"/>
+    <property name="Name" length="100"/>
     <property name="Description" length="300"/>
     <property name="StartDate" />
     <property name="EndDate" />
@@ -18,5 +19,9 @@
     <property name="Region" />
     <property name="PostalCode" />
     <property name="PhoneNumber" />
+    <set name="Attendees" access="field.camelcase-underscore">
+      <key column="ConferenceId" />
+      <one-to-many class="Attendee" />
+    </set>
   </class>
 </hibernate-mapping>

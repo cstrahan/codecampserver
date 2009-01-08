@@ -24,20 +24,17 @@ namespace CodeCampServer.UnitTests.UI.Controllers
         }
 
         [Test]
-        public void Edit_should_render_the_edit_view()
+        public void Edit_should_redirect_to_the_index_with_a_message()
         {
             ActionResult result = controllerUnderTest.Edit(Guid.Empty);
-            result
-                .AssertViewRendered()
-                .ForView(DEFAULT_VIEW)
-                .WithViewData<ConferenceForm>()
-                .ShouldNotBeNull();
+            result.AssertActionRedirect().ToAction<ConferenceController>(e => e.Index());
+            controllerUnderTest.TempData["Message"].ShouldEqual("Conference has been deleted.");
 
-            conferenceRepository.AssertWasCalled(r => r.Save(null), o => o.IgnoreArguments());
+            
         }
 
         [Test]
-        public void Index_action_should_redirect_to_edit_when_conference_does_not_exist()
+        public void Index_action_should_redirect_to_new_when_conference_does_not_exist()
         {
             ActionResult result = controllerUnderTest.Index();
 
@@ -73,7 +70,8 @@ namespace CodeCampServer.UnitTests.UI.Controllers
                            City = "Austin",
                            Region = "Texas",
                            PostalCode = "78787",
-                           PhoneNumber = "512-555-1234"
+                           PhoneNumber = "512-555-1234",
+                           ConferenceKey = "AustinCodeCamp2008"
                        };
         }
 
@@ -100,7 +98,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
             conference.Region.ShouldEqual("Texas");
             conference.PostalCode.ShouldEqual("78787");
             conference.PhoneNumber.ShouldEqual("512-555-1234");
-
+            conference.ConferenceKey.ShouldEqual("AustinCodeCamp2008");
             _conferenceRepository.AssertWasCalled(r => r.Save(conference));
         }
     }

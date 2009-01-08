@@ -19,7 +19,8 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
         public void Save(Conference conference)
         {
             ISession session = GetSession();
-            ITransaction transaction = session.BeginTransaction();
+            ITransaction transaction = session.BeginTransaction();   
+            
             session.SaveOrUpdate(conference);
             transaction.Commit();
         }

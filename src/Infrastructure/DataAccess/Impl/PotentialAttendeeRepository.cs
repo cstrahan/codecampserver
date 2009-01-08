@@ -15,25 +15,29 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
         {
         }
 
-        public void Save(PotentialAttendee potentialAttendee)
+        public void Save(Attendee attendee)
         {
             ISession session = GetSession();
             ITransaction transaction = session.BeginTransaction();
-            session.SaveOrUpdate(potentialAttendee);
+            session.SaveOrUpdate(attendee);
             transaction.Commit();
         }
 
-        public PotentialAttendee GetById(Guid id)
+        public Attendee GetById(Guid id)
         {
-            return GetSession().Load<PotentialAttendee>(id);
+            return GetSession().Load<Attendee>(id);
         }
 
-        public PotentialAttendee[] GetAll()
+        public Attendee[] GetAll()
         {
             ISession session = GetSession();
-            IQuery query = session.CreateQuery("from PotentialAttendee");
-            return query.List<PotentialAttendee>().ToArray();
+            IQuery query = session.CreateQuery("from Attendee");
+            return query.List<Attendee>().ToArray();
         }
 
+        public Attendee GetByEmail(string email)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
