@@ -9,8 +9,8 @@ namespace CodeCampServer.Core.Domain.Model
 		private readonly ISet<Attendee> _attendees = new HashedSet<Attendee>();
 		public virtual string Name { get; set; }
 		public virtual string Description { get; set; }
-		public virtual DateTime StartDate { get; set; }
-		public virtual DateTime EndDate { get; set; }
+		public virtual DateTime? StartDate { get; set; }
+		public virtual DateTime? EndDate { get; set; }
 		public virtual string LocationName { get; set; }
 		public virtual string Address { get; set; }
 		public virtual string City { get; set; }

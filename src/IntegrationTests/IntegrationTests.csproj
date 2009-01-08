@@ -121,6 +121,7 @@
     <Compile Include="Core\SystemTimeTester.cs" />
     <Compile Include="DatabaseConnectionTester.cs" />
     <Compile Include="Infrastructure\DataAccess\ConferenceRepositoryTester.cs" />
+    <Compile Include="Infrastructure\DataAccess\KeyedRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\SessionMappingsTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\SpeakerMappingsTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\TimeSlotMappingTester.cs" />
@@ -129,7 +130,11 @@
     <Compile Include="Infrastructure\DataAccess\Mappings\ConferenceMappingsTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\AttendeeMappingsTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\UserMappingsTester.cs" />
+    <Compile Include="Infrastructure\DataAccess\RepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\SessionRepositoryTester.cs" />
+    <Compile Include="Infrastructure\DataAccess\SpeakerRepositoryTester.cs" />
+    <Compile Include="Infrastructure\DataAccess\TimeSlotRepositoryTester.cs" />
+    <Compile Include="Infrastructure\DataAccess\TrackRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\UserRepositoryTester.cs" />
     <Compile Include="Infrastructure\UI\Controllers\DependencyRegistrarTester.cs" />
     <Compile Include="TestHelper.cs" />

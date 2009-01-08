@@ -31,7 +31,7 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 			}
 		}
 
-		public T[] GetAll()
+		public virtual T[] GetAll()
 		{
 			ISession session = GetSession();
 			ICriteria criteria = session.CreateCriteria(typeof (T));

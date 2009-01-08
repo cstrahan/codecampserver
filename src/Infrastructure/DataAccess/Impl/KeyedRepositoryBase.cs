@@ -12,7 +12,7 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 		{
 		}
 
-		public T GetByKey(string key)
+		public virtual T GetByKey(string key)
 		{
 			return GetSession().CreateCriteria(typeof (T)).Add(Restrictions.Eq("Key", key)).UniqueResult<T>();
 		}
