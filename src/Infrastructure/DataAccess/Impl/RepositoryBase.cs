@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using CodeCampServer.Core.Domain;
 using NHibernate;
 using Tarantino.Core.Commons.Model;
@@ -16,7 +17,8 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 
 		public virtual T GetById(Guid id)
 		{
-			return GetSession().Load<T>(id);
+			ISession session = GetSession();
+			return session.Load<T>(id);
 		}
 
 		public virtual void Save(T entity)
@@ -27,6 +29,13 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 				session.SaveOrUpdate(entity);
 				tx.Commit();
 			}
+		}
+
+		public T[] GetAll()
+		{
+			ISession session = GetSession();
+			ICriteria criteria = session.CreateCriteria(typeof (T));
+			return criteria.List<T>().ToArray();
 		}
 	}
 }

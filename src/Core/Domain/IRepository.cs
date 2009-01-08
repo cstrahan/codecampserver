@@ -8,6 +8,7 @@ namespace CodeCampServer.Core.Domain
 	{
 		T GetById(Guid id);
 		void Save(T entity);
+		T[] GetAll();
 	}
 
 	public interface IKeyedRepository<T> : IRepository<T> where T : KeyedObject

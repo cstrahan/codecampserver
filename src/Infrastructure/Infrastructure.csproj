@@ -97,6 +97,7 @@
     <Compile Include="DataAccess\Impl\KeyedRepositoryBase.cs" />
     <Compile Include="DataAccess\Impl\RepositoryBase.cs" />
     <Compile Include="DataAccess\Impl\SessionRepository.cs" />
+    <Compile Include="DataAccess\Impl\SpeakerRepository.cs" />
     <Compile Include="DataAccess\Impl\TimeSlotRepository.cs" />
     <Compile Include="DataAccess\Impl\TrackRepository.cs" />
     <Compile Include="DataAccess\Impl\UserRepository.cs" />
