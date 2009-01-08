@@ -1,11 +1,17 @@
 using System;
+using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Messages;
 
 namespace CodeCampServer.UI.Models.Forms
 {
-    public class AttendeeForm
+    public class AttendeeForm : IAttendeeMessage
     {
         public Guid ConferenceID { get; set; }
-        public string Email { get; set; }
-        public string Name{ get; set;}
+        public Guid? AttendeeID{ get; set;}
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string EmailAddress { get; set; }
+        public AttendanceStatus Status { get; set; }
+        public string Webpage { get; set; }
     }
 }
