@@ -40,7 +40,8 @@ namespace CodeCampServer.Core.Services.Updaters
 		{
 			if (SpeakerKeyAlreadyExists(message))
 			{
-				return new UpdateResult<Speaker, ISpeakerMessage>(false).WithMessage(x => x.Key, "This speaker key already exists");
+				return new UpdateResult<Speaker, ISpeakerMessage>(false)
+					.WithMessage(x => x.Key, "This speaker key already exists");
 			}
 			return base.PreValidate(message);
 		}
