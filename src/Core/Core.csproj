@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9C81B684-40CC-472A-804D-7C0F963315F5}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -75,8 +75,12 @@
     <Compile Include="Domain\Model\Track.cs" />
     <Compile Include="Domain\Model\User.cs" />
     <Compile Include="Messages\ISessionMessage.cs" />
+    <Compile Include="Services\IAuthenticationService.cs" />
+    <Compile Include="Services\ICryptographer.cs" />
     <Compile Include="Services\Updaters\AttendeeUpdater.cs" />
     <Compile Include="Messages\IConferenceMessage.cs" />
+    <Compile Include="Services\Impl\AuthenticationService.cs" />
+    <Compile Include="Services\Impl\Cryptographer.cs" />
     <Compile Include="Services\Updaters\IConferenceUpdater.cs" />
     <Compile Include="Services\Updaters\IModelUpdater.cs" />
     <Compile Include="Messages\ISpeakerMessage.cs" />
