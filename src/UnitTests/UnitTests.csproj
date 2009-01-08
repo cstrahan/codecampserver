@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C01DA28B-6F9D-4378-A2DA-884DDFD224B1}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -112,6 +112,7 @@
     </Compile>
     <Compile Include="Core\Common\UINameHelperTester.cs" />
     <Compile Include="Core\Domain\Model\ConferenceTester.cs" />
+    <Compile Include="Core\Domain\ValidationResultTester.cs" />
     <Compile Include="Core\Services\Updaters\AttendeeUpdaterTester.cs" />
     <Compile Include="Core\Services\Updaters\ConferenceUpdaterTester.cs" />
     <Compile Include="Core\Services\Updaters\TimeSlotUpdaterTester.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Core\Services\Updaters\SessionUpdaterTester.cs" />
     <Compile Include="Core\Services\Updaters\SpeakerUpdaterTester.cs" />
     <Compile Include="Core\Services\Updaters\TrackUpdaterTester.cs" />
+    <Compile Include="Extensions\StopGapNBehaveExtensions.cs" />
     <Compile Include="MvcMockHelpers.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="UI\Automap\AutoMapperDtoTester.cs" />

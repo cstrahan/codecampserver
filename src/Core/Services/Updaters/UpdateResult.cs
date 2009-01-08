@@ -52,5 +52,10 @@ namespace CodeCampServer.Core.Services.Updaters
 		{
 			return GetMessages(UINameHelper.BuildNameFrom(messageExpression));
 		}
+
+		public IDictionary<string, string[]> GetAllMessages()
+		{
+			return new Dictionary<string, string[]>(_messages);
+		}
 	}
 }
