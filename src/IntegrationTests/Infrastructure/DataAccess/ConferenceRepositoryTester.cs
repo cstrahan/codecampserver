@@ -12,7 +12,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 	[TestFixture]
 	public class ConferenceRepositoryTester : KeyedRepositoryTester<Conference, ConferenceRepository>
 	{
-		private Conference CreateConference()
+		private static Conference CreateConference()
 		{
 			var conference = new Conference
 			                 	{
@@ -40,14 +40,14 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 			IConferenceRepository repository = new ConferenceRepository(new HybridSessionBuilder());
 			repository.Save(conference);
-			conference.RemoveAttendee(conference.Attendees[0]);
+			conference.RemoveAttendee(conference.GetAttendees()[0]);
 			repository.Save(conference);
 
 			Conference rehydratedConference;
 			using (ISession session = GetSession())
 			{
 				rehydratedConference = session.Load<Conference>(conference.Id);
-				rehydratedConference.Attendees.Length.ShouldEqual(0);
+				rehydratedConference.GetAttendees().Length.ShouldEqual(0);
 			}
 		}
 
@@ -55,16 +55,16 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		public void Should_update_an_attendee()
 		{
 			Conference conference = CreateConference();
-			conference.Attendees[0].Status = AttendanceStatus.NotAttending;
+			conference.GetAttendees()[0].Status = AttendanceStatus.NotAttending;
 
 			IConferenceRepository repository = new ConferenceRepository(new HybridSessionBuilder());
 
 			repository.Save(conference);
-			conference.Attendees[0].Status = AttendanceStatus.Confirmed;
+			conference.GetAttendees()[0].Status = AttendanceStatus.Confirmed;
 			repository.Save(conference);
 
 			Conference rehydratedConference = repository.GetById(conference.Id);
-			rehydratedConference.Attendees[0].Status.ShouldEqual(
+			rehydratedConference.GetAttendees()[0].Status.ShouldEqual(
 				AttendanceStatus.Confirmed);
 		}
 

@@ -23,7 +23,7 @@ namespace CodeCampServer.UI.Controllers
 		public ActionResult Save(AttendeeForm attendeeForm)
 		{
 			Conference conference = _conferenceRepository.GetById(attendeeForm.ConferenceID);
-			Attendee existingEntry = conference.Attendees.Where(a => a.EmailAddress == attendeeForm.EmailAddress).SingleOrDefault();
+			Attendee existingEntry = conference.GetAttendees().Where(a => a.EmailAddress == attendeeForm.EmailAddress).SingleOrDefault();
 			if (existingEntry == null)
 			{
 				conference.AddAttendee(new Attendee {EmailAddress = attendeeForm.EmailAddress, FirstName = attendeeForm.FirstName});

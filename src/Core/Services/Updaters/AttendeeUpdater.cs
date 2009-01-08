@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Messages;
@@ -20,7 +19,39 @@ namespace CodeCampServer.Core.Services.Updaters
 			get { return _repository; }
 		}
 
-		public new UpdateResult<Conference, IAttendeeMessage> UpdateFromMessage(IAttendeeMessage message)
+		protected override Guid GetIdFromMessage(IAttendeeMessage message)
+		{
+			return message.ConferenceID;
+		}
+
+		protected override void UpdateModel(IAttendeeMessage message, Conference model)
+		{
+			Attendee attendee;
+
+			if (MessageRepresentsAnAlreadyAttendingAttendee(message, model))
+			{
+				attendee = model.GetAttendee(message.AttendeeID.Value);
+			}
+			else
+			{
+				attendee = new Attendee();
+			}
+
+			attendee.EmailAddress = message.EmailAddress;
+			attendee.FirstName = message.FirstName;
+			attendee.LastName = message.LastName;
+			attendee.Status = message.Status;
+			attendee.Webpage = message.Webpage;
+
+			model.AddAttendee(attendee);
+		}
+
+		private static bool MessageRepresentsAnAlreadyAttendingAttendee(IAttendeeMessage message, Conference conference)
+		{
+			return message.AttendeeID.HasValue && conference.IsAttending(message.AttendeeID.Value);
+		}
+
+		protected override UpdateResult<Conference, IAttendeeMessage> PreValidate(IAttendeeMessage message)
 		{
 			Conference conference = _repository.GetById(message.ConferenceID);
 			var result = new UpdateResult<Conference, IAttendeeMessage>(false);
@@ -31,32 +62,12 @@ namespace CodeCampServer.Core.Services.Updaters
 				return result;
 			}
 
-			if (message.AttendeeID == null &&
-			    conference.Attendees.Where(c => c.EmailAddress == message.EmailAddress).FirstOrDefault() != null)
+			if (message.AttendeeID == null && conference.IsAttending(message.EmailAddress))
 			{
 				result.WithMessage(c => c.EmailAddress, "Attended is already registered for this conference.");
 				return result;
 			}
-			return new UpdateResult<Conference, IAttendeeMessage>(true, conference);
-		}
-
-		protected override Guid GetIdFromMessage(IAttendeeMessage message)
-		{
-			return message.ConferenceID;
-		}
-
-		protected override void UpdateModel(IAttendeeMessage message, Conference model)
-		{
-			var attendee = new Attendee
-			               	{
-			               		EmailAddress = message.EmailAddress,
-			               		FirstName = message.FirstName,
-			               		LastName = message.LastName,
-			               		Status = message.Status,
-			               		Webpage = message.Webpage
-			               	};
-
-			model.AddAttendee(attendee);
+			return base.PreValidate(message);
 		}
 	}
 }

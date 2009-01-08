@@ -12,7 +12,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 	[TestFixture]
 	public class AttendeeUpdaterTester : TestBase
 	{
-		[Test, Ignore("todo")]
+		[Test]
 		public void Should_update_an_existing_attendee()
 		{
 			var message = S<IAttendeeMessage>();
@@ -22,9 +22,8 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			message.LastName = "last";
 			message.Webpage = "http://myhomepage.com";
 
-
 			var conference = new Conference();
-			conference.AddAttendee(new Attendee { Id = message.AttendeeID.Value, Status = AttendanceStatus.NotAttending });
+			conference.AddAttendee(new Attendee {Id = message.AttendeeID.Value, Status = AttendanceStatus.NotAttending});
 
 			var repository = M<IConferenceRepository>();
 			repository.Stub(r => r.GetById(Guid.Empty)).IgnoreArguments().Return(conference);
@@ -34,13 +33,12 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			result.Successful.ShouldBeTrue();
 
-			Attendee attendee = result.Model.Attendees[0];
+			Attendee attendee = result.Model.GetAttendees()[0];
 
 			attendee.Status.ShouldEqual(AttendanceStatus.Confirmed);
 			attendee.FirstName.ShouldEqual("first");
 			attendee.LastName.ShouldEqual("last");
 			attendee.Webpage.ShouldEqual("http://myhomepage.com");
-
 
 			repository.AssertWasCalled(r => r.Save(conference));
 		}
@@ -59,7 +57,11 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			result.Successful.ShouldBeFalse();
 			result.GetMessages(m => m.ConferenceID)[0].ShouldEqual("Conference does not exist.");
 
-			repository.AssertWasCalled(r => r.GetById(Guid.Empty), opt => opt.IgnoreArguments());
+			repository.AssertWasCalled(r => r.GetById(Guid.Empty), opt =>
+			                                                       	{
+			                                                       		opt.IgnoreArguments();
+			                                                       		opt.Repeat.Twice();
+			                                                       	});
 		}
 
 		[Test]
@@ -71,7 +73,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			var repository = M<IConferenceRepository>();
 			var conference = new Conference();
-			conference.AddAttendee(new Attendee { EmailAddress = foo.EmailAddress });
+			conference.AddAttendee(new Attendee {EmailAddress = foo.EmailAddress});
 			repository.Stub(r => r.GetById(foo.ConferenceID)).Return(conference);
 
 			IAttendeeUpdater updater = new AttendeeUpdater(repository);
@@ -79,7 +81,11 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			result.Successful.ShouldBeFalse();
 			result.GetMessages(m => m.EmailAddress)[0].ShouldEqual("Attended is already registered for this conference.");
 
-			repository.AssertWasCalled(r => r.GetById(Guid.Empty), opt => opt.IgnoreArguments());
+			repository.AssertWasCalled(r => r.GetById(Guid.Empty), opt =>
+			                                                       	{
+			                                                       		opt.IgnoreArguments();
+			                                                       		opt.Repeat.Twice();
+			                                                       	});
 		}
 	}
 }
