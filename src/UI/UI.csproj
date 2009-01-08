@@ -187,9 +187,9 @@
     <Compile Include="Helpers\ViewPage\InputBuilders\YesNoRadioInputBuilder.cs" />
     <Compile Include="Helpers\ViewPage\InputElementAuthority.cs" />
     <Compile Include="Controllers\ConferenceController.cs" />
+    <Compile Include="Models\Forms\AttendeeForm.cs" />
     <Compile Include="Models\Forms\ConferenceForm.cs" />
     <Compile Include="Controllers\NewsletterController.cs" />
-    <Compile Include="Controllers\PotentialAttendeeForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\hibernate.cfg.xml">
