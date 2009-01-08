@@ -32,6 +32,18 @@ namespace CodeCampServer.Core.Services.Updaters
                 result.WithMessage(c => c.EmailAddress, "Attended is already registered for this conference.");
                 return result;
             }
+
+        	var attendee = conference.Attendees.First(a => a.Id == message.AttendeeID);
+        	attendee.Status = message.Status;
+        	attendee.FirstName = message.FirstName;
+        	attendee.LastName = message.LastName;
+        	attendee.Webpage = message.Webpage;
+			
+			conference.RemoveAttendee(attendee);
+			conference.AddAttendee(attendee);
+
+			_repository.Save(conference);
+			
             return new UpdateResult<Conference, IAttendeeMessage>(true,conference);
         }
     }
