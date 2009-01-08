@@ -13,7 +13,7 @@ namespace CodeCampServer.Core.Services.Impl
 
 		public bool PasswordMatches(User user, string password)
 		{
-			string passwordHash = _cryptographer.ComputeHash(password + user.PasswordSalt);
+			string passwordHash = _cryptographer.GetPasswordHash(password, user.PasswordSalt);
 			return passwordHash.Equals(user.PasswordHash);
 		}
 	}

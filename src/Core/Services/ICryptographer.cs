@@ -4,5 +4,6 @@ namespace CodeCampServer.Core.Services
 	{
 		string CreateSalt();
 		string ComputeHash(string valueToHash);
+		string GetPasswordHash(string password, string salt);
 	}
 }

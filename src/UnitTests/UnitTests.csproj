@@ -120,6 +120,7 @@
     <Compile Include="Core\Services\Updaters\SessionUpdaterTester.cs" />
     <Compile Include="Core\Services\Updaters\SpeakerUpdaterTester.cs" />
     <Compile Include="Core\Services\Updaters\TrackUpdaterTester.cs" />
+    <Compile Include="Core\Services\Updaters\UserUpdaterTester.cs" />
     <Compile Include="Extensions\StopGapNBehaveExtensions.cs" />
     <Compile Include="MvcMockHelpers.cs" />
     <Compile Include="TestBase.cs" />

@@ -35,5 +35,10 @@ namespace CodeCampServer.Core.Services.Impl
 
 			return Convert.ToBase64String(hash);
 		}
+
+		public string GetPasswordHash(string password, string salt)
+		{
+			return ComputeHash(password + salt);
+		}
 	}
 }

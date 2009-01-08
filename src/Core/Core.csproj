@@ -71,6 +71,7 @@
     <Compile Include="Domain\Model\Conference.cs" />
     <Compile Include="Domain\Model\Enumerations\SessionLevel.cs" />
     <Compile Include="Domain\Model\Attendee.cs" />
+    <Compile Include="Domain\Model\IHasNaturalKey.cs" />
     <Compile Include="Domain\Model\KeyedObject.cs" />
     <Compile Include="Domain\Model\Session.cs" />
     <Compile Include="Domain\Model\Speaker.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Domain\Model\Track.cs" />
     <Compile Include="Domain\Model\User.cs" />
     <Compile Include="Messages\ISessionMessage.cs" />
+    <Compile Include="Messages\IUserMessage.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\ICryptographer.cs" />
     <Compile Include="Services\Updaters\Impl\AttendeeUpdater.cs" />
@@ -97,11 +99,13 @@
     <Compile Include="Services\Updaters\ITimeSlotMessage.cs" />
     <Compile Include="Services\Updaters\ITimeSlotUpdater.cs" />
     <Compile Include="Services\Updaters\ITrackUpdater.cs" />
+    <Compile Include="Services\Updaters\IUserUpdater.cs" />
     <Compile Include="Services\Updaters\Impl\ModelUpdater.cs" />
     <Compile Include="Services\Updaters\Impl\SessionUpdater.cs" />
     <Compile Include="Services\Updaters\Impl\SpeakerUpdater.cs" />
     <Compile Include="Services\Updaters\Impl\TrackUpdater.cs" />
     <Compile Include="Services\Updaters\UpdateResult.cs" />
+    <Compile Include="Services\Updaters\UserUpdater.cs" />
     <Compile Include="SystemTime.cs" />
   </ItemGroup>
   <ItemGroup>
