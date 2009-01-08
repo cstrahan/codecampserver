@@ -11,95 +11,91 @@ using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
-    public class When_a_conference_does_not_exist : TestControllerBase<ConferenceController>
-    {
-        private IConferenceRepository conferenceRepository;
+	public class ConferenceControllerTester : TestControllerBase
+	{
+		[Test]
+		public void
+			When_a_conference_does_not_exist_Edit_should_redirect_to_the_index_with_a_message
+			()
+		{
+			var repository = S<IConferenceRepository>();
+			repository.Stub(repo => repo.GetAll()).Return(new Conference[0]);
 
-        protected override ConferenceController CreateController()
-        {
-            conferenceRepository = Mock<IConferenceRepository>();
-            conferenceRepository.Stub(repo => repo.GetAll()).Return(new Conference[0]);
+			var controller = new ConferenceController(repository);
 
-            return new ConferenceController(conferenceRepository);
-        }
+			ActionResult result = controller.Edit(Guid.Empty);
+			result.AssertActionRedirect().ToAction<ConferenceController>(e => e.Index());
+			controller.TempData["Message"].ShouldEqual(
+				"Conference has been deleted.");
+		}
 
-        [Test]
-        public void Edit_should_redirect_to_the_index_with_a_message()
-        {
-            ActionResult result = controllerUnderTest.Edit(Guid.Empty);
-            result.AssertActionRedirect().ToAction<ConferenceController>(e => e.Index());
-            controllerUnderTest.TempData["Message"].ShouldEqual("Conference has been deleted.");
+		[Test]
+		public void
+			When_a_conference_does_not_exist_Index_action_should_redirect_to_new_when_conference_does_not_exist
+			()
+		{
+			var repository = S<IConferenceRepository>();
+			repository.Stub(repo => repo.GetAll()).Return(new Conference[0]);
 
-            
-        }
+			var controller = new ConferenceController(repository);
 
-        [Test]
-        public void Index_action_should_redirect_to_new_when_conference_does_not_exist()
-        {
-            ActionResult result = controllerUnderTest.Index();
+			ActionResult result = controller.Index();
 
-            result.AssertActionRedirect().ToAction<ConferenceController>(a => a.New());
-        }
-    }
+			result.AssertActionRedirect().ToAction<ConferenceController>(a => a.New());
+		}
 
-    public class When_a_conference_exists : TestControllerBase<ConferenceController>
-    {
-        private IConferenceRepository _conferenceRepository;
-        private Conference conference;
+		private ConferenceForm CreateConferenceForm(Guid id)
+		{
+			return new ConferenceForm
+			       	{
+			       		Id = id,
+			       		Name = "Austin Code Camp",
+			       		Description = "This is a code camp!",
+			       		StartDate = "12/2/2008",
+			       		EndDate = "12/3/2008",
+			       		LocationName = "St Edwards Professional Education Center",
+			       		Address = "1234 Main St",
+			       		City = "Austin",
+			       		Region = "Texas",
+			       		PostalCode = "78787",
+			       		PhoneNumber = "512-555-1234",
+			       		Key = "AustinCodeCamp2008"
+			       	};
+		}
 
-        protected override ConferenceController CreateController()
-        {
-            conference = new Conference {Name = "Austin Code Camp", Id = Guid.NewGuid()};
-            _conferenceRepository = Mock<IConferenceRepository>();
-            _conferenceRepository.Stub(repo => repo.GetAll()).Return(new[] {conference});
+		[Test]
+		public void When_a_conference_exists_Save_should_a_valid_user()
+		{
+			var conference = new Conference
+			                 	{Name = "Austin Code Camp", Id = Guid.NewGuid()};
+			var repository = S<IConferenceRepository>();
+			repository.Stub(repo => repo.GetAll()).Return(new[] {conference});
 
-            return new ConferenceController(_conferenceRepository);
-        }
+			var controller = new ConferenceController(repository);
 
-        private ConferenceForm CreateConferenceForm()
-        {
-            return new ConferenceForm
-                       {
-                           Id = conference.Id,
-                           Name = "Austin Code Camp",
-                           Description = "This is a code camp!",
-                           StartDate = "12/2/2008",
-                           EndDate = "12/3/2008",
-                           LocationName = "St Edwards Professional Education Center",
-                           Address = "1234 Main St",
-                           City = "Austin",
-                           Region = "Texas",
-                           PostalCode = "78787",
-                           PhoneNumber = "512-555-1234",
-                           Key = "AustinCodeCamp2008"
-                       };
-        }
+			ConferenceForm form = CreateConferenceForm(conference.Id);
 
-        [Test]
-        public void Save_should_a_valid_user()
-        {
-            ConferenceForm form = CreateConferenceForm();
+			repository.Stub(c => c.GetById(conference.Id)).Return(conference);
 
-            _conferenceRepository.Stub(c => c.GetById(conference.Id)).Return(conference);
+			ActionResult result = controller.Save(form);
 
-            ActionResult result = controllerUnderTest.Save(form);
+			result
+				.AssertActionRedirect()
+				.ToAction<ConferenceController>(a => a.Index());
 
-            result
-                .AssertActionRedirect()
-                .ToAction<ConferenceController>(a => a.Index());
-
-            conference.Name.ShouldEqual("Austin Code Camp");
-            conference.Description.ShouldEqual("This is a code camp!");
-            conference.StartDate.ShouldEqual(DateTime.Parse("12/2/2008"));
-            conference.EndDate.ShouldEqual(DateTime.Parse("12/3/2008"));
-            conference.LocationName.ShouldEqual("St Edwards Professional Education Center");
-            conference.Address.ShouldEqual("1234 Main St");
-            conference.City.ShouldEqual("Austin");
-            conference.Region.ShouldEqual("Texas");
-            conference.PostalCode.ShouldEqual("78787");
-            conference.PhoneNumber.ShouldEqual("512-555-1234");
-            conference.Key.ShouldEqual("AustinCodeCamp2008");
-            _conferenceRepository.AssertWasCalled(r => r.Save(conference));
-        }
-    }
+			conference.Name.ShouldEqual("Austin Code Camp");
+			conference.Description.ShouldEqual("This is a code camp!");
+			conference.StartDate.ShouldEqual(DateTime.Parse("12/2/2008"));
+			conference.EndDate.ShouldEqual(DateTime.Parse("12/3/2008"));
+			conference.LocationName.ShouldEqual(
+				"St Edwards Professional Education Center");
+			conference.Address.ShouldEqual("1234 Main St");
+			conference.City.ShouldEqual("Austin");
+			conference.Region.ShouldEqual("Texas");
+			conference.PostalCode.ShouldEqual("78787");
+			conference.PhoneNumber.ShouldEqual("512-555-1234");
+			conference.Key.ShouldEqual("AustinCodeCamp2008");
+			repository.AssertWasCalled(r => r.Save(conference));
+		}
+	}
 }
