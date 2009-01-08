@@ -94,6 +94,8 @@
     <Compile Include="DataAccess\IDatabaseDeleter.cs" />
     <Compile Include="DataAccess\IdCacheInterceptor.cs" />
     <Compile Include="DataAccess\Impl\ConferenceRepository.cs" />
+    <Compile Include="DataAccess\Impl\KeyedRepositoryBase.cs" />
+    <Compile Include="DataAccess\Impl\RepositoryBase.cs" />
     <Compile Include="DataAccess\Impl\SessionRepository.cs" />
     <Compile Include="DataAccess\Impl\TimeSlotRepository.cs" />
     <Compile Include="DataAccess\Impl\TrackRepository.cs" />

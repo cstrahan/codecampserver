@@ -21,7 +21,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 			              		Level = SessionLevel.L100,
 			              		MaterialsUrl = "url",
 			              		RoomNumber = "200",
-			              		SessionKey = "key",
+			              		Key = "key",
 			              		Speaker = speaker,
 			              		TimeSlot = timeslot,
 			              		Title = "title",

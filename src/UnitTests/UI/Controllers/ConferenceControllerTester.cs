@@ -71,7 +71,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
                            Region = "Texas",
                            PostalCode = "78787",
                            PhoneNumber = "512-555-1234",
-                           ConferenceKey = "AustinCodeCamp2008"
+                           Key = "AustinCodeCamp2008"
                        };
         }
 
@@ -98,7 +98,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
             conference.Region.ShouldEqual("Texas");
             conference.PostalCode.ShouldEqual("78787");
             conference.PhoneNumber.ShouldEqual("512-555-1234");
-            conference.ConferenceKey.ShouldEqual("AustinCodeCamp2008");
+            conference.Key.ShouldEqual("AustinCodeCamp2008");
             _conferenceRepository.AssertWasCalled(r => r.Save(conference));
         }
     }

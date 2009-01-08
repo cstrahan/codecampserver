@@ -16,7 +16,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 			              		FirstName = "first",
 			              		LastName = "last",
 			              		JobTitle = "title",
-			              		SpeakerKey = "key",
+			              		Key = "key",
 			              		WebsiteUrl = "url"
 			              	};
 

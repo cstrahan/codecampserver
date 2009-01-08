@@ -129,6 +129,7 @@
     <Compile Include="Infrastructure\DataAccess\Mappings\ConferenceMappingsTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\AttendeeMappingsTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\UserMappingsTester.cs" />
+    <Compile Include="Infrastructure\DataAccess\SessionRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\UserRepositoryTester.cs" />
     <Compile Include="Infrastructure\UI\Controllers\DependencyRegistrarTester.cs" />
     <Compile Include="TestHelper.cs" />

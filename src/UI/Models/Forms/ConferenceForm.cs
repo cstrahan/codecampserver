@@ -9,7 +9,7 @@ namespace CodeCampServer.UI.Models.Forms
     {
         [BetterValidateNonEmpty("Conference Key")]
         [ValidateRegExp(@"^[A-Za-z0-9\-]+$", "Key should only contain letters, numbers, and hypens.")]
-        public string ConferenceKey { get; set; }
+        public string Key { get; set; }
 
         public Guid Id { get; set; }
 

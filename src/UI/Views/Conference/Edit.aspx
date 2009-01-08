@@ -37,7 +37,7 @@
 			        <th class="w50p">
                 	    <%=InputFor<ConferenceForm>(a => a.Id)%>            	
 					    <div><%=InputFor<ConferenceForm>(a => a.Name)%></div>
-					    <div><%=InputFor<ConferenceForm>(a => a.ConferenceKey)%></div>
+					    <div><%=InputFor<ConferenceForm>(a => a.Key)%></div>
 					    <div><%=InputFor<ConferenceForm>(a => a.Description)%></div>
 					    <div><%=InputFor<ConferenceForm>(a => a.StartDate)%></div>
 					    <div><%=InputFor<ConferenceForm>(a => a.EndDate)%></div>

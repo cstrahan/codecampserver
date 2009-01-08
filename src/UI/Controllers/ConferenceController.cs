@@ -63,7 +63,7 @@ namespace CodeCampServer.UI.Controllers
 				conference.PhoneNumber = form.PhoneNumber;
 				conference.StartDate = Convert.ToDateTime(form.StartDate);
 				conference.EndDate = Convert.ToDateTime(form.EndDate);
-				conference.ConferenceKey = form.ConferenceKey;
+				conference.Key = form.Key;
 				_repository.Save(conference);
 				return RedirectToAction<ConferenceController>(c => c.Index());
 			}

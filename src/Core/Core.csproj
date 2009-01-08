@@ -57,6 +57,7 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Domain\IConferencerRepository.cs" />
+    <Compile Include="Domain\IRepository.cs" />
     <Compile Include="Domain\ISessionRepository.cs" />
     <Compile Include="Domain\ITimeSlotRepository.cs" />
     <Compile Include="Domain\ITrackRepository.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Domain\Model\Conference.cs" />
     <Compile Include="Domain\Model\Enumerations\SessionLevel.cs" />
     <Compile Include="Domain\Model\Attendee.cs" />
+    <Compile Include="Domain\Model\KeyedObject.cs" />
     <Compile Include="Domain\Model\Session.cs" />
     <Compile Include="Domain\Model\Speaker.cs" />
     <Compile Include="Domain\Model\TimeSlot.cs" />
