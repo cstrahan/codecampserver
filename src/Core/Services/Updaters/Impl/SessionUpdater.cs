@@ -2,8 +2,9 @@ using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Messages;
+using CodeCampServer.Core.Services.Updaters.Impl;
 
-namespace CodeCampServer.Core.Services.Updaters
+namespace CodeCampServer.Core.Services.Updaters.Impl
 {
 	public class SessionUpdater : ModelUpdater<Session, ISessionMessage>,
 	                              ISessionUpdater

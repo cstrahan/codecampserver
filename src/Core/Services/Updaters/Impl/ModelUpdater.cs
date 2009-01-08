@@ -2,7 +2,7 @@ using System;
 using CodeCampServer.Core.Domain;
 using Tarantino.Core.Commons.Model;
 
-namespace CodeCampServer.Core.Services.Updaters
+namespace CodeCampServer.Core.Services.Updaters.Impl
 {
 	public abstract class ModelUpdater<TModel, TMessage> : IModelUpdater<TModel, TMessage>
 		where TModel : PersistentObject, new()

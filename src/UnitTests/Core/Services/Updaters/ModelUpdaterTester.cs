@@ -1,4 +1,4 @@
-using CodeCampServer.Core.Services.Updaters;
+using CodeCampServer.Core.Services.Updaters.Impl;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Tarantino.Core.Commons.Model;

@@ -7,7 +7,6 @@ namespace CodeCampServer.Core.Domain.Model
 	public class Conference : KeyedObject
 	{
 		private readonly IList<Attendee> _attendees = new List<Attendee>();
-		public virtual string ConferenceKey { get; set; }
 		public virtual string Name { get; set; }
 		public virtual string Description { get; set; }
 		public virtual DateTime? StartDate { get; set; }

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9C81B684-40CC-472A-804D-7C0F963315F5}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -78,7 +78,7 @@
     <Compile Include="Messages\ISessionMessage.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\ICryptographer.cs" />
-    <Compile Include="Services\Updaters\AttendeeUpdater.cs" />
+    <Compile Include="Services\Updaters\Impl\AttendeeUpdater.cs" />
     <Compile Include="Messages\IConferenceMessage.cs" />
     <Compile Include="Services\Impl\AuthenticationService.cs" />
     <Compile Include="Services\Impl\Cryptographer.cs" />
@@ -89,15 +89,16 @@
     <Compile Include="Messages\IAttendeeMessage.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="Services\Updaters\Impl\ConferenceUpdater.cs" />
     <Compile Include="Services\Updaters\ISessionUpdater.cs" />
     <Compile Include="Services\Updaters\ISpeakerUpdater.cs" />
     <Compile Include="Services\Updaters\ITimeSlotMessage.cs" />
     <Compile Include="Services\Updaters\ITimeSlotUpdater.cs" />
     <Compile Include="Services\Updaters\ITrackUpdater.cs" />
-    <Compile Include="Services\Updaters\ModelUpdater.cs" />
-    <Compile Include="Services\Updaters\SessionUpdater.cs" />
-    <Compile Include="Services\Updaters\SpeakerUpdater.cs" />
-    <Compile Include="Services\Updaters\TrackUpdater.cs" />
+    <Compile Include="Services\Updaters\Impl\ModelUpdater.cs" />
+    <Compile Include="Services\Updaters\Impl\SessionUpdater.cs" />
+    <Compile Include="Services\Updaters\Impl\SpeakerUpdater.cs" />
+    <Compile Include="Services\Updaters\Impl\TrackUpdater.cs" />
     <Compile Include="Services\Updaters\UpdateResult.cs" />
     <Compile Include="SystemTime.cs" />
   </ItemGroup>

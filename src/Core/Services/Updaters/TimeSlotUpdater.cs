@@ -1,10 +1,11 @@
 using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Services.Updaters.Impl;
 
 namespace CodeCampServer.Core.Services.Updaters
 {
-	public class TimeSlotUpdater:ModelUpdater<TimeSlot,ITimeSlotMessage>,ITimeSlotUpdater
+	public class TimeSlotUpdater : ModelUpdater<TimeSlot, ITimeSlotMessage>, ITimeSlotUpdater
 	{
 		private readonly ITimeSlotRepository _repository;
 		private readonly IConferenceRepository _conferenceRepository;
@@ -24,14 +25,14 @@ namespace CodeCampServer.Core.Services.Updaters
 		{
 			return message.Id;
 		}
-		
+
 		protected override UpdateResult<TimeSlot, ITimeSlotMessage> PreValidate(ITimeSlotMessage message)
 		{
 			var failureResult = new UpdateResult<TimeSlot, ITimeSlotMessage>(false);
 			bool messageHasFailedValidation = false;
 
-			DateTime result;			
-			if(!DateTime.TryParse(message.StartTime,out result) )
+			DateTime result;
+			if (!DateTime.TryParse(message.StartTime, out result))
 			{
 				messageHasFailedValidation = true;
 				failureResult.WithMessage(m => m.StartTime, "Is not a valid Date and Time.");

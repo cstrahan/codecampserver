@@ -3,6 +3,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Messages;
 using CodeCampServer.Core.Services.Updaters;
+using CodeCampServer.Core.Services.Updaters.Impl;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;

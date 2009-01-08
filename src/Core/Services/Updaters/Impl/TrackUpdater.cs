@@ -3,7 +3,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Messages;
 
-namespace CodeCampServer.Core.Services.Updaters
+namespace CodeCampServer.Core.Services.Updaters.Impl
 {
 	public class TrackUpdater : ModelUpdater<Track, ITrackMessage>, ITrackUpdater
 	{

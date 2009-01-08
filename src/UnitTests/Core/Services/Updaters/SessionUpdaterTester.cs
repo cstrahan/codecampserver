@@ -4,6 +4,7 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.Core.Messages;
 using CodeCampServer.Core.Services.Updaters;
+using CodeCampServer.Core.Services.Updaters.Impl;
 using CodeCampServer.UnitTests;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
