@@ -57,6 +57,7 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Common\UINameHelper.cs" />
+    <Compile Include="Services\Updaters\TimeSlotUpdater.cs" />
     <Compile Include="Domain\IConferencerRepository.cs" />
     <Compile Include="Domain\IKeyedRepository.cs" />
     <Compile Include="Domain\IRepository.cs" />
