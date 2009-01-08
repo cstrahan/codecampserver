@@ -11,7 +11,7 @@ using StructureMap;
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
 	[TestFixture]
-    public class ConferenceRepositoryTester : KeyedRepositoryTester<Conference, ConferenceRepository>
+	public class ConferenceRepositoryTester : KeyedRepositoryTester<Conference, ConferenceRepository>
 	{
 		private Conference CreateConference()
 		{

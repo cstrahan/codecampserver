@@ -56,6 +56,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Common\UINameHelper.cs" />
     <Compile Include="Domain\IConferencerRepository.cs" />
     <Compile Include="Domain\IRepository.cs" />
     <Compile Include="Domain\ISessionRepository.cs" />
@@ -72,13 +73,15 @@
     <Compile Include="Domain\Model\TimeSlot.cs" />
     <Compile Include="Domain\Model\Track.cs" />
     <Compile Include="Domain\Model\User.cs" />
+    <Compile Include="IModelUpdater.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="Services\Updaters\ModelUpdater.cs" />
+    <Compile Include="Services\Updaters\UpdateResult.cs" />
     <Compile Include="SystemTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
