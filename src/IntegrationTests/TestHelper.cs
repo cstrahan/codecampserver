@@ -1,6 +1,5 @@
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
-using StructureMap;
 using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
 
 namespace CodeCampServer.IntegrationTests
@@ -44,14 +43,14 @@ namespace CodeCampServer.IntegrationTests
 		[Test, Explicit("To output and apply the schema export script")]
 		public void ExportSchema()
 		{
-			new SchemaExport(getSessionBuilder().GetConfiguration())
+			new SchemaExport(GetSessionBuilder().GetConfiguration())
 				.Create(true, true);
 		}
 
 		[Test, Explicit("To drop the database")]
 		public void DropSchema()
 		{
-			new SchemaExport(getSessionBuilder().GetConfiguration()).Drop(true, true);
+			new SchemaExport(GetSessionBuilder().GetConfiguration()).Drop(true, true);
 		}
 
 		[Test, Explicit("To drop the database")]
@@ -62,14 +61,14 @@ namespace CodeCampServer.IntegrationTests
 
 		private static void RecreateDatabase()
 		{
-			ISessionBuilder sessionBuilder = getSessionBuilder();
+			ISessionBuilder sessionBuilder = GetSessionBuilder();
 			var exporter = new SchemaExport(sessionBuilder.GetConfiguration());
 			exporter.Execute(false, true, false, false);
 		}
 
-		private static ISessionBuilder getSessionBuilder()
+		private static ISessionBuilder GetSessionBuilder()
 		{
-			return ObjectFactory.GetInstance<ISessionBuilder>();
+			return new HybridSessionBuilder();
 		}
 
 		public static void DeleteAllObjects()
@@ -85,6 +84,5 @@ namespace CodeCampServer.IntegrationTests
 				_databaseRecreated = true;
 			}
 		}
-
 	}
 }

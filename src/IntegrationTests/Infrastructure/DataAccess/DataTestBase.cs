@@ -1,8 +1,6 @@
 using CodeCampServer.DependencyResolution;
-using CodeCampServer.Infrastructure.DataAccess;
 using NHibernate;
 using NUnit.Framework;
-using StructureMap;
 using Tarantino.Core.Commons.Model;
 using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
 using Tarantino.Infrastructure.Commons.DataAccess.Repositories;
@@ -12,22 +10,15 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 	[TestFixture]
 	public abstract class DataTestBase : RepositoryBase
 	{
-		#region Setup/Teardown
-
 		[SetUp]
 		public virtual void Setup()
 		{
 			DependencyRegistrar.EnsureDependenciesRegistered();
 			EnsureDatabaseRecreated();
 			DeleteAllObjects();
-
-			IdCacheInterceptor.ResetState();
-			IdCacheInterceptor.Enabled = false;
 		}
 
-		#endregion
-
-		protected DataTestBase() : base(ObjectFactory.GetInstance<ISessionBuilder>())
+		protected DataTestBase() : base(new HybridSessionBuilder())
 		{
 		}
 
@@ -64,6 +55,11 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				session.SaveOrUpdate(entity);
 				session.Flush();
 			}
+		}
+
+		protected ISessionBuilder GetSessionBuilder()
+		{
+			return new HybridSessionBuilder();
 		}
 	}
 }

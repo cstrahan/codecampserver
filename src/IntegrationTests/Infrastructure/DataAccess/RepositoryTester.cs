@@ -2,14 +2,14 @@ using CodeCampServer.Core.Domain;
 using NBehave.Spec.NUnit;
 using NHibernate;
 using NUnit.Framework;
-using StructureMap;
 using Tarantino.Core.Commons.Model;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
 	[TestFixture]
-	public abstract class RepositoryTester<T, TRepository> : DataTestBase where T : PersistentObject, new()
-	                                                                      where TRepository : IRepository<T>
+	public abstract class RepositoryTester<T, TRepository> : DataTestBase
+		where T : PersistentObject, new()
+		where TRepository : IRepository<T>
 	{
 		[Test]
 		public virtual void Should_get_by_id()
@@ -19,11 +19,13 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			var three = new T();
 			PersistEntities(one, two, three);
 
-			var repository = ObjectFactory.GetInstance<TRepository>();
+			var repository = CreateRepository();
 
 			T returnedFromDatabase = repository.GetById(one.Id);
 			returnedFromDatabase.ShouldEqual(one);
 		}
+
+		protected abstract TRepository CreateRepository();
 
 		[Test]
 		public virtual void Should_get_all()
@@ -33,7 +35,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			var three = new T();
 			PersistEntities(one, two, three);
 
-			var repository = ObjectFactory.GetInstance<TRepository>();
+			var repository = CreateRepository();
 
 			T[] all = repository.GetAll();
 			all.Length.ShouldEqual(3);
@@ -43,7 +45,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		public virtual void Should_save_one()
 		{
 			var one = new T();
-			var repository = ObjectFactory.GetInstance<TRepository>();
+			var repository = CreateRepository();
 			repository.Save(one);
 
 			GetSession().Dispose();

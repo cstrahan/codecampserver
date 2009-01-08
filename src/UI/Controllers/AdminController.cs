@@ -48,7 +48,7 @@ namespace CodeCampServer.UI.Controllers
 				User user = _userRepository.GetById(form.Id);
 				if (user != null)
 				{
-					user.HashedPassword = form.Password;
+					user.PasswordHash = form.Password;
 					user.EmailAddress = form.EmailAddress;
 					user.Name = form.Name;
 					_userRepository.Save(user);

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{98200972-A038-4DA8-8917-CBC4895175DC}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -46,12 +46,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\nunit\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Oracle.DataAccess, Version=10.2.0.100, Culture=neutral, PublicKeyToken=89b483f429c47342">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\oracle\Oracle.DataAccess.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="StructureMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="StructureMap, Version=2.5.0.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\structuremap\StructureMap.dll</HintPath>
     </Reference>
@@ -344,9 +339,6 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

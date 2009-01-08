@@ -5,7 +5,6 @@ using NBehave.Spec.NUnit;
 using NHibernate;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
-using StructureMap;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
@@ -38,7 +37,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				session.Flush();
 			}
 
-			var repository = (UserRepository) ObjectFactory.GetInstance<IUserRepository>();
+			var repository = (UserRepository) CreateRepository();
 			User employee = repository.GetByUserName("bsimpson");
 
 			Assert.That(employee.Id, Is.EqualTo(two.Id));
@@ -52,13 +51,18 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			var user1 = new User {Name = "test2"};
 			var user2 = new User();
 			PersistEntities(user, user1, user2);
-			IUserRepository repository = ObjectFactory.GetInstance<UserRepository>();
+			IUserRepository repository = CreateRepository();
 
 			User[] users = repository.GetLikeLastNameStart("test");
 
 			users.Length.ShouldEqual(2);
 			users[0].ShouldEqual(user);
 			users[1].ShouldEqual(user1);
+		}
+
+		protected override UserRepository CreateRepository()
+		{
+			return new UserRepository(GetSessionBuilder());
 		}
 	}
 }

@@ -12,19 +12,16 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 		[Test]
 		public void Should_map_user()
 		{
-
-
 			var user = new User
 			           	{
 			           		EmailAddress = "jdoe@abc.com",
 			           		Name = "sdf",
-                            
 			           		Username = "jdoe",
+										PasswordHash = "foo",
+										PasswordSalt = "bar"
 			           	};
 
 			AssertObjectCanBePersisted(user);
-
-		
 		}
 
 		[Test]
@@ -41,14 +38,18 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 
 			ISession session2 = GetSession();
 			var result =
-				session2.CreateQuery("from User u where u.Username = ?").SetString(0, "foo").SetCacheable(true).UniqueResult<User>();
+				session2.CreateQuery("from User u where u.Username = ?").SetString(0,
+				                                                                   "foo").
+					SetCacheable(true).UniqueResult<User>();
 			IDbCommand command = session2.Connection.CreateCommand();
 			command.CommandText = "delete from Users";
 			command.ExecuteNonQuery();
 			session2.Dispose();
 
 			var result2 =
-				GetSession().CreateQuery("from User u where u.Username = ?").SetString(0, "foo").SetCacheable(true).UniqueResult
+				GetSession().CreateQuery("from User u where u.Username = ?").SetString(0,
+				                                                                       "foo")
+					.SetCacheable(true).UniqueResult
 					<User>();
 			Assert.That(result2, Is.EqualTo(result));
 			Assert.That(result2, Is.Not.SameAs(result));
