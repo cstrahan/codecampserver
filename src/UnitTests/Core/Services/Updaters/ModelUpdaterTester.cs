@@ -32,7 +32,13 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void With_message_should_add_message()
 		{
-			ModelUpdater<Model, Message>.Fail().WithMessage(x => x.Foo, "bar").Messages["Foo"].ShouldEqual("bar");
+			ModelUpdater<Model, Message>.Fail().WithMessage(x => x.Foo, "bar").GetMessages("Foo").ShouldEqual(new[]{"bar"});
+		}
+
+		[Test]
+		public void With_message_again_should_add_another_message()
+		{
+			ModelUpdater<Model, Message>.Fail().WithMessage(x => x.Foo, "bar").WithMessage(x => x.Foo, "baz").GetMessages("Foo").ShouldEqual(new[] { "bar", "baz" });
 		}
 	}
 }

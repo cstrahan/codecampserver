@@ -112,6 +112,7 @@
     </Compile>
     <Compile Include="Core\Common\UINameHelperTester.cs" />
     <Compile Include="Core\Services\Updaters\ModelUpdaterTester.cs" />
+    <Compile Include="Core\Services\Updaters\SpeakerUpdaterTester.cs" />
     <Compile Include="MvcMockHelpers.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="UI\Automap\AutoMapperDtoTester.cs" />

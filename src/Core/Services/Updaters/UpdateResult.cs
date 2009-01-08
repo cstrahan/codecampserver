@@ -6,8 +6,7 @@ using Tarantino.Core.Commons.Model;
 
 namespace CodeCampServer.Core.Services.Updaters
 {
-	public class UpdateResult<TModel, TMessage>
-		where TModel : PersistentObject
+	public class UpdateResult<TModel, TMessage> where TModel : PersistentObject
 	{
 		public bool Successful { get; private set; }
 		public TModel Model { get; private set; }
@@ -24,19 +23,34 @@ namespace CodeCampServer.Core.Services.Updaters
 			Model = model;
 		}
 
-		private readonly IDictionary<string, string> _messages = new Dictionary<string, string>();
+		private readonly IDictionary<string, string[]> _messages = new Dictionary<string, string[]>();
 
-		[Obsolete("This property should be refactored to a method that returns an array")]
-		public IDictionary<string, string> Messages
-		{
-			get { return new Dictionary<string, string>(_messages); }
-		}
 
 		public UpdateResult<TModel, TMessage> WithMessage(Expression<Func<TMessage, object>> messageExpression, string message)
 		{
 			string key = UINameHelper.BuildNameFrom(messageExpression);
-			_messages.Add(key, message);
+			
+			if (_messages.ContainsKey(key))
+			{
+				var strings = new List<string>(_messages[key]) {message};
+				_messages[key] = strings.ToArray();
+			}
+			else
+			{
+				_messages.Add(key, new[] {message});
+			}
+			
 			return this;
+		}
+
+		public string[] GetMessages(string key)
+		{
+			return _messages[key];
+		}
+
+		public string[] GetMessages(Expression<Func<TMessage, object>> messageExpression)
+		{
+			return GetMessages(UINameHelper.BuildNameFrom(messageExpression));
 		}
 	}
 }

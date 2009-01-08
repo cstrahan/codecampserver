@@ -73,10 +73,14 @@
     <Compile Include="Domain\Model\TimeSlot.cs" />
     <Compile Include="Domain\Model\Track.cs" />
     <Compile Include="Domain\Model\User.cs" />
-    <Compile Include="IModelUpdater.cs" />
+    <Compile Include="Services\Updaters\IModelUpdater.cs" />
+    <Compile Include="Messages\ISpeakerMessage.cs" />
+    <Compile Include="Messages\ITrackMessage.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="Services\Updaters\ISpeakerUpdater.cs" />
     <Compile Include="Services\Updaters\ModelUpdater.cs" />
+    <Compile Include="Services\Updaters\SpeakerUpdater.cs" />
     <Compile Include="Services\Updaters\UpdateResult.cs" />
     <Compile Include="SystemTime.cs" />
   </ItemGroup>
