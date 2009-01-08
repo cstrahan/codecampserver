@@ -19,9 +19,9 @@
     <property name="Region" />
     <property name="PostalCode" />
     <property name="PhoneNumber" />
-    <set name="Attendees" access="field.camelcase-underscore" cascade="all" >
+    <bag name="Attendees" access="field.camelcase-underscore" cascade="all-delete-orphan" >
       <key column="ConferenceId"  />
       <one-to-many class="Attendee" />
-    </set>
+    </bag>
   </class>
 </hibernate-mapping>

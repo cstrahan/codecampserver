@@ -5,35 +5,15 @@ using CodeCampServer.Infrastructure.DataAccess.Impl;
 using NBehave.Spec.NUnit;
 using NHibernate;
 using NUnit.Framework;
+using NUnit.Framework.SyntaxHelpers;
 using StructureMap;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
 	[TestFixture]
-	public class ConferenceRepositoryTester : RepositoryTester<Conference, ConferenceRepository>
+    public class ConferenceRepositoryTester : KeyedRepositoryTester<Conference, ConferenceRepository>
 	{
-		[Test]
-		public void Should_remove_an_attendee_from_its_collection()
-		{
-			Conference conference = CreateConference();
-			conference.Attendees[0].Status = AttendanceStatus.NotAttending;
-
-			var repository = ObjectFactory.GetInstance<IConferenceRepository>();
-
-			repository.Save(conference);
-
-			Conference rehydratedConference;
-			using (ISession session = GetSession())
-			{
-				rehydratedConference = session.Load<Conference>(conference.Id);
-				rehydratedConference.Attendees[0].Status = AttendanceStatus.Confirmed;
-				session.SaveOrUpdate(rehydratedConference);
-				rehydratedConference = session.Load<Conference>(conference.Id);
-			}
-			rehydratedConference.Attendees[0].Status.ShouldEqual(AttendanceStatus.Confirmed);
-		}
-
-		private static Conference CreateConference()
+		private Conference CreateConference()
 		{
 			var conference = new Conference
 			                 	{
@@ -51,5 +31,49 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			conference.AddAttendee(new Attendee {EmailAddress = "werwer@asdfasd.com"});
 			return conference;
 		}
-	}
+
+		
+
+        [Test]
+        public void Should_update_an_attendee()
+		{
+			Conference conference = CreateConference();
+			conference.Attendees[0].Status = AttendanceStatus.NotAttending;
+
+			var repository = ObjectFactory.GetInstance<IConferenceRepository>();
+
+			repository.Save(conference);
+            conference.Attendees[0].Status = AttendanceStatus.Confirmed;
+            repository.Save(conference);
+            Conference rehydratedConference;
+			using (ISession session = GetSession())
+			{
+				rehydratedConference = session.Load<Conference>(conference.Id);
+                rehydratedConference.Attendees[0].Status.ShouldEqual(AttendanceStatus.Confirmed);
+            }
+		}
+        [Test]
+        public void Should_remove_an_attendee_from_its_collection()
+        {
+            Conference conference = CreateConference();
+
+            var repository = ObjectFactory.GetInstance<IConferenceRepository>();
+            repository.Save(conference);
+            conference.RemoveAttendee(conference.Attendees[0]);
+            repository.Save(conference);
+
+            Conference rehydratedConference;
+            using (ISession session = GetSession())
+            {
+                rehydratedConference = session.Load<Conference>(conference.Id);
+                rehydratedConference.Attendees.Length.ShouldEqual(0);
+            }
+        }
+    }
 }
+
+
+
+
+
+
