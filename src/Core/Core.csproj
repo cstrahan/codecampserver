@@ -56,7 +56,6 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Domain\IPotentialAttendeeRepository.cs" />
     <Compile Include="Domain\IConferencerRepository.cs" />
     <Compile Include="Domain\IUserRepository.cs" />
     <Compile Include="Domain\Model\AttendanceStatus.cs" />

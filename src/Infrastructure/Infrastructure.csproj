@@ -94,7 +94,6 @@
     <Compile Include="DataAccess\IDatabaseDeleter.cs" />
     <Compile Include="DataAccess\IdCacheInterceptor.cs" />
     <Compile Include="DataAccess\Impl\ConferenceRepository.cs" />
-    <Compile Include="DataAccess\Impl\PotentialAttendeeRepository.cs" />
     <Compile Include="DataAccess\Impl\UserRepository.cs" />
     <Compile Include="UI\Services\AssemblyVersion.cs" />
     <Compile Include="UI\Services\IAssemblyVersion.cs" />
@@ -125,7 +124,7 @@
     <EmbeddedResource Include="DataAccess\Mappings\Conference.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataAccess\Mappings\PotentialAttendee.hbm.xml" />
+    <EmbeddedResource Include="DataAccess\Mappings\Attendee.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

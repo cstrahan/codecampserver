@@ -19,8 +19,8 @@
     <property name="Region" />
     <property name="PostalCode" />
     <property name="PhoneNumber" />
-    <set name="Attendees" access="field.camelcase-underscore">
-      <key column="ConferenceId" />
+    <set name="Attendees" access="field.camelcase-underscore" cascade="all" >
+      <key column="ConferenceId"  />
       <one-to-many class="Attendee" />
     </set>
   </class>
