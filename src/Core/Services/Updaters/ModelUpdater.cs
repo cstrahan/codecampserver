@@ -7,7 +7,7 @@ namespace CodeCampServer.Core.Services.Updaters
 	public abstract class ModelUpdater<TModel, TMessage> : IModelUpdater<TModel, TMessage>
 		where TModel : PersistentObject, new()
 	{
-		public abstract IRepository<TModel> Repository { get; }
+		protected abstract IRepository<TModel> Repository { get; }
 
 		public virtual UpdateResult<TModel, TMessage> UpdateFromMessage(TMessage message)
 		{

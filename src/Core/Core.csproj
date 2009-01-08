@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="Common\UINameHelper.cs" />
     <Compile Include="Domain\IConferencerRepository.cs" />
+    <Compile Include="Domain\IKeyedRepository.cs" />
     <Compile Include="Domain\IRepository.cs" />
     <Compile Include="Domain\ISessionRepository.cs" />
     <Compile Include="Domain\ITimeSlotRepository.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Domain\Model\TimeSlot.cs" />
     <Compile Include="Domain\Model\Track.cs" />
     <Compile Include="Domain\Model\User.cs" />
+    <Compile Include="Messages\ISessionMessage.cs" />
     <Compile Include="Services\Updaters\ConferneceUpdater.cs" />
     <Compile Include="Services\Updaters\IConferneceUpdater.cs" />
     <Compile Include="Services\Updaters\IModelUpdater.cs" />
@@ -81,9 +83,11 @@
     <Compile Include="Messages\IAttendeeMessage.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="Services\Updaters\ISessionUpdater.cs" />
     <Compile Include="Services\Updaters\ISpeakerUpdater.cs" />
     <Compile Include="Services\Updaters\ITrackUpdater.cs" />
     <Compile Include="Services\Updaters\ModelUpdater.cs" />
+    <Compile Include="Services\Updaters\SessionUpdater.cs" />
     <Compile Include="Services\Updaters\SpeakerUpdater.cs" />
     <Compile Include="Services\Updaters\TrackUpdater.cs" />
     <Compile Include="Services\Updaters\UpdateResult.cs" />

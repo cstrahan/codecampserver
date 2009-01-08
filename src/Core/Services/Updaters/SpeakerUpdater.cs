@@ -14,7 +14,7 @@ namespace CodeCampServer.Core.Services.Updaters
 			_repository = repository;
 		}
 
-		public override IRepository<Speaker> Repository
+		protected override IRepository<Speaker> Repository
 		{
 			get { return _repository; }
 		}
