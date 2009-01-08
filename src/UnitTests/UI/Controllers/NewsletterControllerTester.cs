@@ -4,7 +4,6 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Models.Forms;
-using CodeCampServer.UI.UI.Controllers;
 using MvcContrib.TestHelper;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;

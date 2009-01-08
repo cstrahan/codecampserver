@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+									namespace="CodeCampServer.Core.Domain.Model"
+									assembly="CodeCampServer.Core">
+
+	<class name="TimeSlot" table="TimeSlots">
+		<cache usage="read-write"/>
+		<id name="Id" column="Id" type="Guid">
+			<generator class="guid.comb"/>
+		</id>
+		<property name="StartTime"/>
+		<property name="EndTime"/>
+		<many-to-one name="Conference"/>
+	</class>
+</hibernate-mapping>

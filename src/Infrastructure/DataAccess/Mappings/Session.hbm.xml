@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+									namespace="CodeCampServer.Core.Domain.Model"
+									assembly="CodeCampServer.Core">
+
+	<class name="Session" table="Sessions">
+		<cache usage="read-write"/>
+		<id name="Id" column="Id" type="Guid">
+			<generator class="guid.comb"/>
+		</id>
+		<property name="SessionKey" length="25"/>
+		<many-to-one name="Track" />
+		<many-to-one name="TimeSlot" />
+		<many-to-one name="Speaker" />
+		<many-to-one name="Conference" />
+		<property name="Level" type="Tarantino.Infrastructure.Commons.DataAccess.ORMapper.EnumerationType`1[[CodeCampServer.Core.Domain.Model.Enumerations.SessionLevel, CodeCampServer.Core]], Tarantino.Infrastructure"/>
+		<property name="RoomNumber" length="50"/>
+		<property name="Title" length="255"/>
+		<property name="Abstract" length="2000"/>
+		<property name="MaterialsUrl" length="1000"/>
+	</class>
+</hibernate-mapping>

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FBE3CFE2-CAC1-4652-9F49-18F35B65123D}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -94,6 +94,9 @@
     <Compile Include="DataAccess\IDatabaseDeleter.cs" />
     <Compile Include="DataAccess\IdCacheInterceptor.cs" />
     <Compile Include="DataAccess\Impl\ConferenceRepository.cs" />
+    <Compile Include="DataAccess\Impl\SessionRepository.cs" />
+    <Compile Include="DataAccess\Impl\TimeSlotRepository.cs" />
+    <Compile Include="DataAccess\Impl\TrackRepository.cs" />
     <Compile Include="DataAccess\Impl\UserRepository.cs" />
     <Compile Include="UI\Services\AssemblyVersion.cs" />
     <Compile Include="UI\Services\IAssemblyVersion.cs" />
@@ -125,6 +128,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DataAccess\Mappings\Attendee.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataAccess\Mappings\Track.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataAccess\Mappings\TimeSlot.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataAccess\Mappings\Speaker.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataAccess\Mappings\Session.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
