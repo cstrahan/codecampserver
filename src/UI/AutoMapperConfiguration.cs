@@ -35,8 +35,7 @@ namespace CodeCampServer.UI.Models
 			                                                    o => o.ResolveUsing(new NullValueResolver()));
 
 			AutoMapper.Configure<TimeSlot, TimeSlotForm>();
-
-
+			AutoMapper.Configure<Speaker, SpeakerForm>();
 		}
 	}
 

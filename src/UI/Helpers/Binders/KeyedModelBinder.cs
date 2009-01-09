@@ -1,4 +1,5 @@
 using System;
+using System.Data.SqlTypes;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
@@ -23,12 +24,15 @@ namespace CodeCampServer.UI.Helpers.Binders
 			try
 			{
 				ValueProviderResult value = GetRequestValue(bindingContext, bindingContext.ModelName);
-				string attemptedValue = value.AttemptedValue;
 
-				if (string.IsNullOrEmpty(attemptedValue)) return base.BindModel(bindingContext);
 
-				TEntity match = _repository.GetByKey(attemptedValue);
-				return new ModelBinderResult(match);
+				if (value == null || string.IsNullOrEmpty(value.AttemptedValue)) return base.BindModel(bindingContext);
+				
+				TEntity match = _repository.GetByKey(value.AttemptedValue);
+				if(match!=null)
+					return new ModelBinderResult(match);
+				else					
+					return base.BindModel(bindingContext);
 			}
 			catch (Exception ex)
 			{

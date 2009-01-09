@@ -54,8 +54,8 @@ namespace CodeCampServer.UI.Controllers
 			return View("edit");
 		}
 
-		[ValidateModel(typeof (TrackForm))]
-		public ActionResult Save([Bind(Prefix = "")] TimeSlotForm form, Conference conference)
+		[ValidateModel(typeof(TimeSlotForm))]
+		public ActionResult Save([Bind(Prefix = "")]TimeSlotForm form, Conference conference)
 		{
 			return ProcessSave(form, () => RedirectToAction<TimeSlotController>(c => c.Index(conference)));
 		}

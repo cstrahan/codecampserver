@@ -15,8 +15,9 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 
 	}
 
-	public class ControllerEditView : BaseViewPage<ConferenceForm> { }
+	public class ConferenceEditView : BaseViewPage<ConferenceForm> { }
 
 	public class SessionEditView : BaseViewPage<SessionForm>{}
 	public class SessionIndexView : BaseViewPage<SessionForm[]>{}
+	public class SpeakerEditView : BaseViewPage<SpeakerForm> { }
 }

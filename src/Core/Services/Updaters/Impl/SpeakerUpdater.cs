@@ -49,7 +49,8 @@ namespace CodeCampServer.Core.Services.Updaters.Impl
 
 		private bool SpeakerKeyAlreadyExists(ISpeakerMessage message)
 		{
-			return ((ISpeakerRepository) Repository).GetByKey(message.Key) != null;
+			Speaker speaker = ((ISpeakerRepository) Repository).GetByKey(message.Key);
+			return speaker != null && speaker.Id!=message.Id;
 		}
 	}
 }

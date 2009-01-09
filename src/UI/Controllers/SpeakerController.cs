@@ -45,7 +45,7 @@ namespace CodeCampServer.UI.Controllers
 			return View();			
 		}
 
-		public ActionResult Save(SpeakerForm form)
+		public ActionResult Save([Bind(Prefix = "")]SpeakerForm form)
 		{
 			return ProcessSave(form,()=>RedirectToAction<SpeakerController>(c => c.Index()));
 		}

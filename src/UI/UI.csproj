@@ -264,6 +264,8 @@
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Conference\Edit.aspx" />
     <Content Include="Views\Conference\Index.aspx" />
+    <Content Include="Views\Speaker\Edit.aspx" />
+    <Content Include="Views\Speaker\Index.aspx" />
     <Content Include="Views\Session\Edit.aspx" />
     <Content Include="Views\Session\Index.aspx" />
     <Content Include="Views\TimeSlot\Edit.aspx" />
