@@ -1,7 +1,6 @@
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Models.AutoMap;
 using CodeCampServer.UI.Models.Forms;
-using CodeCampServer.UI.Models.ViewModels;
 
 namespace CodeCampServer.UI.Models
 {
@@ -31,13 +30,13 @@ namespace CodeCampServer.UI.Models
 
 			AutoMapper.Configure<Conference, ConferenceForm>();
 
-			AutoMapper.Configure<Track, TrackViewModel>();
-
 			AutoMapper.Configure<Track, TrackForm>();
 			AutoMapper.Configure<User, UserForm>().ForDtoMember(f => f.ConfirmPassword,
 			                                                    o => o.ResolveUsing(new NullValueResolver()));
 
 			AutoMapper.Configure<TimeSlot, TimeSlotForm>();
+
+
 		}
 	}
 

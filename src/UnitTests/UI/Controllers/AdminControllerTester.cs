@@ -4,6 +4,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Messages;
 using CodeCampServer.Core.Services.Updaters;
+using CodeCampServer.Infrastructure.UI.Services.Impl;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Models.Forms;
 using MvcContrib.TestHelper;
@@ -17,9 +18,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 	public class AdminControllerTester : TestControllerBase
 	{
 		[Test]
-		public void
-			When_an_admin_object_does_not_exist_Contoller_should_redirect_to_admin_password_form_when_there_are_zero_users
-			()
+		public void When_an_admin_object_does_not_exist_Contoller_should_redirect_to_admin_password_form_when_there_are_zero_users()
 		{
 			var repository = S<IUserRepository>();
 			repository.Stub(repo => repo.GetByUserName("admin")).Return(null);
@@ -41,7 +40,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var controller = new AdminController(repository, S<IUserUpdater>());
 			var result = controller.Edit(null);
-			result.AssertViewRendered().ForView(DEFAULT_VIEW);
+			result.AssertViewRendered().ForView(ViewNames.Default);
 			result.ViewData.Get<User>().ShouldNotBeNull();
 		}
 

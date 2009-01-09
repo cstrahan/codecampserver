@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
@@ -20,10 +21,10 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		public void Index_should_put_tracks_for_conference_in_viewdata()
 		{
 			var conference = new Conference();
-			var repository = M<ITrackRepository>();
+			var repository = S<ITrackRepository>();
 			var tracks = new[] {new Track()};
 			repository.Stub(x => x.GetAllForConference(conference)).Return(tracks);
-			var controller = new TrackController(repository, M<ITrackUpdater>());
+			var controller = new TrackController(repository, S<ITrackUpdater>());
 
 			ViewResult result = controller.Index(conference);
 
@@ -35,7 +36,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		public void Edit_should_but_track_in_viewdata()
 		{
 			var track = new Track();
-			var controller = new TrackController(M<ITrackRepository>(), M<ITrackUpdater>());
+			var controller = new TrackController(S<ITrackRepository>(), S<ITrackUpdater>());
 
 			ViewResult edit = controller.Edit(track);
 
@@ -44,12 +45,12 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		}
 
 		[Test]
-		public void Save_test_a_vaild_save()
+		public void Save_test_a_valid_save()
 		{
 			var form = new TrackForm();
 			var updater = M<ITrackUpdater>();
 			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Track, ITrackMessage>.Success());
-			var controller = new TrackController(M<ITrackRepository>(), updater);
+			var controller = new TrackController(S<ITrackRepository>(), updater);
 
 			var result = (RedirectToRouteResult) controller.Save(form);
 
@@ -57,14 +58,13 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		}
 
 		[Test]
-		public void Save_test_a_invaild_save()
+		public void Save_test_an_invaliSSd_save()
 		{
 			var form = new TrackForm();
 			var updater = M<ITrackUpdater>();
 			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Track, ITrackMessage>.Fail().WithMessage(
 			                                                    	x => x.Name, "Some Message"));
-			var controller = new TrackController(M<ITrackRepository>(), updater);
-
+			var controller = new TrackController(S<ITrackRepository>(), updater);
 
 			var result = (ViewResult) controller.Save(form);
 			result.ViewData.ModelState.ContainsKey("Name").ShouldBeTrue();
@@ -74,10 +74,11 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void New_should_but_a_new_track_form_on_model_and_render_edit_view()
 		{
-			var controller = new TrackController(M<ITrackRepository>(), M<ITrackUpdater>());
-			ViewResult result = controller.New();
+			var controller = new TrackController(S<ITrackRepository>(), S<ITrackUpdater>());
+			var conference = new Conference {Id = Guid.NewGuid(), Key = "foo"};
+			ViewResult result = controller.New(conference);
 			result.ViewName.ShouldEqual("Edit");
-			result.ViewData.Model.ShouldEqual(new TrackForm());
+			result.ViewData.Model.ShouldEqual(new TrackForm {ConferenceId = conference.Id, ConferenceKey = "foo"});
 		}
 
 		[Test]
@@ -85,8 +86,8 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var conference = new Conference {Key = "foo"};
 			var track = new Track {Conference = conference};
-			var repository = M<ITrackRepository>();
-			var controller = new TrackController(repository, M<ITrackUpdater>());
+			var repository = S<ITrackRepository>();
+			var controller = new TrackController(repository, S<ITrackUpdater>());
 
 			RedirectToRouteResult result = controller.Delete(track);
 

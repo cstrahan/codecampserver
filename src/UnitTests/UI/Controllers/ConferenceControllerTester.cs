@@ -17,9 +17,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 	public class ConferenceControllerTester : TestControllerBase
 	{
 		[Test]
-		public void
-			When_a_conference_does_not_exist_Edit_should_redirect_to_the_index_with_a_message
-			()
+		public void When_a_conference_does_not_exist_Edit_should_redirect_to_the_index_with_a_message()
 		{
 			var repository = S<IConferenceRepository>();
 			repository.Stub(repo => repo.GetAll()).Return(new Conference[0]);

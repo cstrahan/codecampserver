@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Infrastructure.UI.Services.Impl;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Models.Forms;
 using MvcContrib.TestHelper;
@@ -25,7 +26,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			ActionResult result = controller.Index();
 
-			result.AssertViewRendered().ForView(DEFAULT_VIEW);
+			result.AssertViewRendered().ForView(ViewNames.Default);
 		}
 
 		[Test]

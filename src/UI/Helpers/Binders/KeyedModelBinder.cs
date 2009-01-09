@@ -25,7 +25,7 @@ namespace CodeCampServer.UI.Helpers.Binders
 				ValueProviderResult value = GetRequestValue(bindingContext, bindingContext.ModelName);
 				string attemptedValue = value.AttemptedValue;
 
-				if (attemptedValue == "") return new ModelBinderResult(default(TEntity));
+				if (string.IsNullOrEmpty(attemptedValue)) return base.BindModel(bindingContext);
 
 				TEntity match = _repository.GetByKey(attemptedValue);
 				return new ModelBinderResult(match);

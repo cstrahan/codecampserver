@@ -1,4 +1,3 @@
-using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
@@ -6,12 +5,11 @@ using CodeCampServer.Core.Services.Updaters;
 using CodeCampServer.UI.Filters;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Models.Forms;
-using CodeCampServer.UI.Models.ViewModels;
 using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public class TimeSlotController:SaveController<TimeSlot,ITimeSlotMessage>
+	public class TimeSlotController : SaveController<TimeSlot, ITimeSlotMessage>
 	{
 		private readonly ITimeSlotRepository _repository;
 		private readonly ITimeSlotUpdater _updater;
@@ -27,37 +25,37 @@ namespace CodeCampServer.UI.Controllers
 			return _updater;
 		}
 
-		[AutoMappedToModelFilter(typeof(TimeSlot), typeof(TimeSlotForm))]
+		[AutoMappedToModelFilter(typeof (TimeSlot), typeof (TimeSlotForm))]
 		public ActionResult Edit(TimeSlot timeslot)
 		{
-			if(timeslot==null)
+			if (timeslot == null)
 			{
 				TempData.Add("message", "Time slot has been deleted.");
-				return RedirectToAction<TimeSlotController>(c => c.Index(null));				
+				return RedirectToAction<TimeSlotController>(c => c.Index(null));
 			}
 			ViewData.Add(timeslot);
 			return View();
 		}
 
-		[AutoMappedToModelFilter(typeof(TimeSlot[]), typeof(TimeSlotForm[]))]
+		[AutoMappedToModelFilter(typeof (TimeSlot[]), typeof (TimeSlotForm[]))]
 		public ActionResult Index(Conference conference)
 		{
-			var timeslots = _repository.GetAllForConference(conference);
+			TimeSlot[] timeslots = _repository.GetAllForConference(conference);
 			ViewData.Add(timeslots);
-			ViewData.Add("conferenceKey",conference.Key);
+			ViewData.Add("conferenceKey", conference.Key);
 			return View();
 		}
 
-		[AutoMappedToModelFilter(typeof(TimeSlot), typeof(TimeSlotForm))]
+		[AutoMappedToModelFilter(typeof (TimeSlot), typeof (TimeSlotForm))]
 		public ActionResult New(Conference conference)
 		{
-			var timeSlot = new TimeSlot() {Conference = conference};
+			var timeSlot = new TimeSlot {Conference = conference};
 			ViewData.Add(timeSlot);
 			return View("edit");
 		}
 
-		[ValidateModel(typeof(TrackForm))]
-		public ActionResult Save([Bind(Prefix = "")]TimeSlotForm form, Conference conference)
+		[ValidateModel(typeof (TrackForm))]
+		public ActionResult Save([Bind(Prefix = "")] TimeSlotForm form, Conference conference)
 		{
 			return ProcessSave(form, () => RedirectToAction<TimeSlotController>(c => c.Index(conference)));
 		}

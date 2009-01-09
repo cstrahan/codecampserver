@@ -2,16 +2,17 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Messages;
 using CodeCampServer.Core.Services.Updaters;
 using CodeCampServer.Core.Services.Updaters.Impl;
+using CodeCampServer.Infrastructure.UI.Services.Impl;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Models.Forms;
+using MvcContrib;
 using MvcContrib.TestHelper;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
-using MvcContrib;
+
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
 	public class TimeSlotControllerTester : TestControllerBase
@@ -21,21 +22,18 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var controller = new TimeSlotController(null, null);
 
-			var conference = new Conference(){Id = Guid.NewGuid()};
+			var conference = new Conference {Id = Guid.NewGuid()};
 
 			ActionResult result = controller.New(conference);
-			
+
 			result
 				.AssertViewRendered()
 				.ForView("edit")
 				.ViewData.Get<TimeSlot>().Conference.Id.ShouldEqual(conference.Id);
-			
 		}
 
 		[Test]
-		public void
-			When_a_timeslot_does_not_exist_Edit_should_redirect_to_the_index_with_a_message
-			()
+		public void When_a_timeslot_does_not_exist_Edit_should_redirect_to_the_index_with_a_message()
 		{
 			var controller = new TimeSlotController(null, null);
 
@@ -45,9 +43,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		}
 
 		[Test]
-		public void
-		    When_a_timeslot_exists_Index_action_should_bind_the_tracks_for_a_conference
-		    ()
+		public void When_a_timeslot_exists_Index_action_should_bind_the_tracks_for_a_conference()
 		{
 			var conference = new Conference();
 
@@ -55,14 +51,13 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			repository.Stub(repo => repo.GetAllForConference(conference)).Return(new TimeSlot[1]);
 
 			var controller = new TimeSlotController(repository, null);
-			
+
 			ActionResult result = controller.Index(conference);
 
 			result
 				.AssertViewRendered()
-				.ForView(DEFAULT_VIEW)
+				.ForView(ViewNames.Default)
 				.ViewData.Get<TimeSlot[]>().Length.ShouldEqual(1);
-				
 		}
 
 		[Test]
@@ -71,16 +66,16 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var form = new TimeSlotForm();
 
 			var updater = S<ITimeSlotUpdater>();
-			updater.Stub(u => u.UpdateFromMessage(null)).IgnoreArguments().Return(TimeSlotUpdater.Success());
+			updater.Stub(u => u.UpdateFromMessage(null)).IgnoreArguments().Return(
+				ModelUpdater<TimeSlot, ITimeSlotMessage>.Success());
 
 			var controller = new TimeSlotController(null, updater);
 			var conference = new Conference();
-			controller.Save(form,conference)
+			controller.Save(form, conference)
 				.AssertActionRedirect()
 				.ToAction<TimeSlotController>(a => a.Index(conference));
 
 			updater.AssertWasCalled(u => u.UpdateFromMessage(form));
 		}
-
 	}
 }

@@ -6,12 +6,11 @@ using CodeCampServer.Core.Services.Updaters;
 using CodeCampServer.UI.Filters;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Models.Forms;
-using CodeCampServer.UI.Models.ViewModels;
 using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
-	[RequiresConferenceFilter]	
+	[RequiresConferenceFilter]
 	public class TrackController : SaveController<Track, ITrackMessage>
 	{
 		private readonly ITrackRepository _trackRepository;
@@ -24,12 +23,13 @@ namespace CodeCampServer.UI.Controllers
 			_trackUpdater = trackUpdater;
 		}
 
-		public ViewResult New()
+		public ViewResult New(Conference conference)
 		{
-			return View("Edit", new TrackForm());
+			var model = new TrackForm {ConferenceId = conference.Id, ConferenceKey = conference.Key};
+			return View("Edit", model);
 		}
 
-		[AutoMappedToModelFilter(typeof (Track[]), typeof (TrackViewModel[]))]
+		[AutoMappedToModelFilter(typeof (Track[]), typeof (TrackForm[]))]
 		public ViewResult Index(Conference conference)
 		{
 			Track[] tracks = _trackRepository.GetAllForConference(conference);
