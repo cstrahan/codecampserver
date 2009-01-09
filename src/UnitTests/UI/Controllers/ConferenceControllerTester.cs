@@ -2,6 +2,9 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Messages;
+using CodeCampServer.Core.Services.Updaters;
+using CodeCampServer.Core.Services.Updaters.Impl;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Models.Forms;
 using MvcContrib.TestHelper;
@@ -21,7 +24,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<IConferenceRepository>();
 			repository.Stub(repo => repo.GetAll()).Return(new Conference[0]);
 
-			var controller = new ConferenceController(repository);
+			var controller = new ConferenceController(repository, null);
 
 			ActionResult result = controller.Edit(Guid.Empty);
 			result.AssertActionRedirect().ToAction<ConferenceController>(e => e.Index());
@@ -37,65 +40,29 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<IConferenceRepository>();
 			repository.Stub(repo => repo.GetAll()).Return(new Conference[0]);
 
-			var controller = new ConferenceController(repository);
+			var controller = new ConferenceController(repository, null);
 
 			ActionResult result = controller.Index();
 
 			result.AssertActionRedirect().ToAction<ConferenceController>(a => a.New());
 		}
-
-		private ConferenceForm CreateConferenceForm(Guid id)
-		{
-			return new ConferenceForm
-			       	{
-			       		Id = id,
-			       		Name = "Austin Code Camp",
-			       		Description = "This is a code camp!",
-			       		StartDate = "12/2/2008",
-			       		EndDate = "12/3/2008",
-			       		LocationName = "St Edwards Professional Education Center",
-			       		Address = "1234 Main St",
-			       		City = "Austin",
-			       		Region = "Texas",
-			       		PostalCode = "78787",
-			       		PhoneNumber = "512-555-1234",
-			       		Key = "AustinCodeCamp2008"
-			       	};
-		}
+		
 
 		[Test]
-		public void When_a_conference_exists_Save_should_a_valid_user()
+		public void When_a_conference_exists_Save_should_update_the_confernce()
 		{
-			var conference = new Conference
-			                 	{Name = "Austin Code Camp", Id = Guid.NewGuid()};
-			var repository = S<IConferenceRepository>();
-			repository.Stub(repo => repo.GetAll()).Return(new[] {conference});
+			var form = new ConferenceForm();
 
-			var controller = new ConferenceController(repository);
+			var updater = S<IConferenceUpdater>();
+			updater.Stub(u => u.UpdateFromMessage(null)).IgnoreArguments().Return(ConferenceUpdater.Success());
 
-			ConferenceForm form = CreateConferenceForm(conference.Id);
-
-			repository.Stub(c => c.GetById(conference.Id)).Return(conference);
-
-			ActionResult result = controller.Save(form);
-
-			result
+			var controller = new ConferenceController(null,updater);
+	
+			controller.Save(form)
 				.AssertActionRedirect()
 				.ToAction<ConferenceController>(a => a.Index());
 
-			conference.Name.ShouldEqual("Austin Code Camp");
-			conference.Description.ShouldEqual("This is a code camp!");
-			conference.StartDate.ShouldEqual(DateTime.Parse("12/2/2008"));
-			conference.EndDate.ShouldEqual(DateTime.Parse("12/3/2008"));
-			conference.LocationName.ShouldEqual(
-				"St Edwards Professional Education Center");
-			conference.Address.ShouldEqual("1234 Main St");
-			conference.City.ShouldEqual("Austin");
-			conference.Region.ShouldEqual("Texas");
-			conference.PostalCode.ShouldEqual("78787");
-			conference.PhoneNumber.ShouldEqual("512-555-1234");
-			conference.Key.ShouldEqual("AustinCodeCamp2008");
-			repository.AssertWasCalled(r => r.Save(conference));
+			updater.AssertWasCalled(u => u.UpdateFromMessage(form));
 		}
 	}
 }

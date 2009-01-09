@@ -52,7 +52,8 @@ namespace CodeCampServer.Core.Services.Updaters.Impl
 
 		private bool ConferenceKeyAlreadyExists(IConferenceMessage message)
 		{
-			return ((IKeyedRepository<Conference>) Repository).GetByKey(message.Key) != null;
+			Conference conference = ((IKeyedRepository<Conference>) Repository).GetByKey(message.Key);
+			return conference != null && conference.Id!=message.Id;
 		}
 	}
 }

@@ -3,19 +3,23 @@ using System.Web.Mvc;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Messages;
+using CodeCampServer.Core.Services.Updaters;
 using CodeCampServer.UI.Filters;
 using CodeCampServer.UI.Models.AutoMap;
 using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public class ConferenceController : SmartController
+	public class ConferenceController : SaveController<Conference, IConferenceMessage>
 	{
 		private readonly IConferenceRepository _repository;
+		private readonly IConferenceUpdater _updater;
 
-		public ConferenceController(IConferenceRepository repository)
+		public ConferenceController(IConferenceRepository repository, IConferenceUpdater updater)
 		{
 			_repository = repository;
+			_updater = updater;
 		}
 
 		public ActionResult Index()
@@ -25,10 +29,10 @@ namespace CodeCampServer.UI.Controllers
 			{
 				return RedirectToAction<ConferenceController>(c => c.New());
 			}
-			object conferenceDtos = AutoMapper.Map(conferences, typeof (Conference[]), typeof (ConferenceForm[]),
+			object conferenceListDto = AutoMapper.Map(conferences, typeof (Conference[]), typeof (ConferenceForm[]),
 			                                       typeof (Conference),
 			                                       typeof (ConferenceForm));
-			return View(conferenceDtos);
+			return View(conferenceListDto);
 		}
 
 		public ActionResult Edit(Guid Id)
@@ -49,25 +53,7 @@ namespace CodeCampServer.UI.Controllers
 		[ValidateModel(typeof (ConferenceForm))]
 		public ActionResult Save([Bind(Prefix = "")] ConferenceForm form)
 		{
-			if (ModelState.IsValid)
-			{
-				Conference conference = _repository.GetById(form.Id);
-				conference.Name = form.Name;
-				conference.Description = form.Description;
-				conference.LocationName = form.LocationName;
-				conference.City = form.City;
-				conference.Address = form.Address;
-				conference.City = form.City;
-				conference.Region = form.Region;
-				conference.PostalCode = form.PostalCode;
-				conference.PhoneNumber = form.PhoneNumber;
-				conference.StartDate = Convert.ToDateTime(form.StartDate);
-				conference.EndDate = Convert.ToDateTime(form.EndDate);
-				conference.Key = form.Key;
-				_repository.Save(conference);
-				return RedirectToAction<ConferenceController>(c => c.Index());
-			}
-			return View("Edit");
+			return ProcessSave(form, () => RedirectToAction<ConferenceController>(c => c.Index()));
 		}
 
 		public ActionResult New()
@@ -76,6 +62,11 @@ namespace CodeCampServer.UI.Controllers
 			_repository.Save(conference);
 			var form = (ConferenceForm) AutoMapper.Map(conference, typeof (Conference), typeof (ConferenceForm));
 			return View("Edit", form);
+		}
+
+		protected override IModelUpdater<Conference, IConferenceMessage> Updater
+		{
+			get { return _updater; }
 		}
 	}
 }

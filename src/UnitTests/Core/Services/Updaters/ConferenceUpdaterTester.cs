@@ -61,11 +61,13 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			                 		City = "Austin",
 			                 		Region = "Tx",
 			                 		PostalCode = "78234",
-			                 		PhoneNumber = "512-555-1234"
+			                 		PhoneNumber = "512-555-1234",
+			                 		Key = "Key",
+									Id = Guid.NewGuid()
 			                 	};
 
 			var message = S<IConferenceMessage>();
-			message.Id = Guid.Empty;
+			message.Id = conference.Id;
 			message.Key = "key";
 			message.Description = "desc";
 			message.LocationName = "location";
@@ -78,6 +80,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			var repository = S<IConferenceRepository>();
 			repository.Stub(x => x.GetById(message.Id)).Return(conference);
+			repository.Stub(x => x.GetByKey(message.Key)).Return(conference);
 			var updater = new ConferenceUpdater(repository);
 
 			UpdateResult<Conference, IConferenceMessage> result = updater.UpdateFromMessage(message);
@@ -98,7 +101,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		}
 
 		[Test]
-		public void Should_not_add_new_speaker_if_key_already_exists()
+		public void Should_not_add_new_conference_if_key_already_exists()
 		{
 			var message = S<IConferenceMessage>();
 			message.Id = Guid.NewGuid();
