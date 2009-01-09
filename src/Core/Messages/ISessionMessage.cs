@@ -4,7 +4,7 @@ using CodeCampServer.Core.Domain.Model.Enumerations;
 
 namespace CodeCampServer.Core.Messages
 {
-	public interface ISessionMessage
+	public interface ISessionMessage : IFormMessage
 	{
 		Guid Id { get; set; }
 		string Key { get; set; }

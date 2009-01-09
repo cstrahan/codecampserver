@@ -5,6 +5,7 @@ using CodeCampServer.UI.Helpers.ViewPage.InputBuilders;
 using CodeCampServer.UI.Models.Forms.Attributes;
 using CodeCampServer.UI.Views;
 using CodeCampServer.UI.Models.AutoMap;
+using Tarantino.Core.Commons.Model;
 
 namespace CodeCampServer.UI.Helpers.ViewPage
 {
@@ -34,6 +35,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 
 			if (inputBuilder.PropertyInfo.PropertyType == typeof (bool?))
 				return new YesNoRadioInputBuilder(inputBuilder);
+
 
 
 			if ((inputBuilder.PropertyInfo.HasCustomAttribute<ValidateDateAttribute>()) ||

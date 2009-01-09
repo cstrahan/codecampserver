@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using Castle.Components.Validator;
 using CodeCampServer.Core.Messages;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
@@ -8,7 +7,7 @@ using CodeCampServer.UI.Models.Validation.Attributes;
 
 namespace CodeCampServer.UI.Models.Forms
 {
-	public class UserForm : EditForm, IUserMessage
+	public class UserForm : EditForm<UserForm>, IUserMessage
 	{
 		[BetterValidateNonEmpty("Name")]
 		public string Name { get; set; }

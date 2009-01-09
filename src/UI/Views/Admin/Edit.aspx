@@ -1,5 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Modal.Master" AutoEventWireup="true" 
-Inherits="CodeCampServer.UI.Views.AdminEditView"%>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
+Inherits="CodeCampServer.UI.Helpers.ViewPage.AdminEditView"%>
 <%@ Import Namespace="MvcContrib" %>
 <%@ Import Namespace="System.Web.Mvc" %>
 <%@ Import Namespace="System.Web.Mvc.Html"%>
