@@ -112,6 +112,7 @@
     </Compile>
     <Compile Include="Core\Common\UINameHelperTester.cs" />
     <Compile Include="Core\Domain\Model\ConferenceTester.cs" />
+    <Compile Include="Core\Domain\Model\Enumerations\EnumerationHelperTester.cs" />
     <Compile Include="Core\Domain\ValidationResultTester.cs" />
     <Compile Include="Core\Services\Updaters\AttendeeUpdaterTester.cs" />
     <Compile Include="Core\Services\Updaters\ConferenceUpdaterTester.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="TestBase.cs" />
     <Compile Include="UI\Automap\AutoMapperDtoTester.cs" />
     <Compile Include="UI\Automap\TestAutoMapper.cs" />
+    <Compile Include="UI\BinderTester.cs" />
     <Compile Include="UI\Controllers\AdminControllerTester.cs" />
     <Compile Include="UI\Controllers\ConferenceControllerTester.cs" />
     <Compile Include="UI\Controllers\NewsletterControllerTester.cs" />
@@ -132,6 +134,8 @@
     <Compile Include="UI\Controllers\TrackControllerTester.cs" />
     <Compile Include="UI\Helpers\Filters\AutoMappedFilterAttributeTester.cs" />
     <Compile Include="UI\Helpers\Filters\FilterAttributeTester.cs" />
+    <Compile Include="UI\KeyedModelBinderTester.cs" />
+    <Compile Include="UI\ModelBinderTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

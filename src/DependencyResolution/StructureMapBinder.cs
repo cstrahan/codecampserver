@@ -18,7 +18,7 @@ namespace CodeCampServer.DependencyResolution
 
 		private static bool ShouldBuildInstanceFromStructureMap(Type type)
 		{
-			return (type.IsInterface || (typeof(IController)).IsAssignableFrom(type));
+			return (type.IsInterface || (typeof (IController)).IsAssignableFrom(type));
 		}
 	}
 }

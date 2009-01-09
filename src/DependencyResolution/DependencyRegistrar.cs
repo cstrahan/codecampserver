@@ -18,25 +18,30 @@ namespace CodeCampServer.DependencyResolution
 			Logger.Debug(this, "Registering types with StructureMap");
 
 			ObjectFactory.Initialize(x =>
-											 {
-												 x.Scan(y =>
-														  {
-															  y.AssemblyContainingType<DependencyRegistry>();
-															  y.AssemblyContainingType<NaakRegistry>();
-															  y.AssemblyContainingType<CoreDependencyRegistry>();
-															  y.AssemblyContainingType<InfrastructureDependencyRegistry>();
-														  });
-												 x.AddRegistry<CastleValidatorRegistry>();
-											 });
+			                         	{
+			                         		x.Scan(y =>
+			                         		       	{
+			                         		       		y.AssemblyContainingType<DependencyRegistry>();
+			                         		       		y.AssemblyContainingType<NaakRegistry>();
+			                         		       		y.AssemblyContainingType<CoreDependencyRegistry>();
+			                         		       		y.AssemblyContainingType<InfrastructureDependencyRegistry>();
+			                         		       	});
+			                         		x.AddRegistry<CastleValidatorRegistry>();
+			                         	});
 
 			ControllerBuilder.Current.SetControllerFactory(new ControllerFactory());
 
-			ModelBinders.DefaultBinder = new StructureMapBinder();
+			ModelBinders.DefaultBinder = new SmartBinder();
 		}
 
 		public T Resolve<T>()
 		{
 			return ObjectFactory.GetInstance<T>();
+		}
+
+		public static object Resolve(Type modelType)
+		{
+			return ObjectFactory.GetInstance(modelType);
 		}
 
 		public static bool Registered<T>()
