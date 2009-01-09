@@ -79,5 +79,20 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			result.ViewName.ShouldEqual("Edit");
 			result.ViewData.Model.ShouldEqual(new TrackForm());
 		}
+
+		[Test]
+		public void Delete_should_delete_a_track_and_render_index()
+		{
+			var conference = new Conference {Key = "foo"};
+			var track = new Track {Conference = conference};
+			var repository = M<ITrackRepository>();
+			var controller = new TrackController(repository, M<ITrackUpdater>());
+
+			RedirectToRouteResult result = controller.Delete(track);
+
+			repository.AssertWasCalled(x => x.Delete(track));
+			result.RedirectsTo<TrackController>(x => x.Index(null)).ShouldBeTrue();
+			result.Values["conference"].ShouldEqual("foo");
+		}
 	}
 }

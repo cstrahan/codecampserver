@@ -37,5 +37,15 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 			ICriteria criteria = session.CreateCriteria(typeof (T));
 			return criteria.List<T>().ToArray();
 		}
+
+		public virtual void Delete(T entity)
+		{
+			using (ISession session = GetSession())
+			using (ITransaction tx = session.BeginTransaction())
+			{
+				session.Delete(entity);
+				tx.Commit();
+			}
+		}
 	}
 }

@@ -13,7 +13,9 @@
 	
 	<% foreach (var track in ViewData.Model) { %>
 		
-		<p class="trackname"><a href="<%= Url.Action<TrackController>(t => t.Edit(null), new{track = track.Id}).ToXHTMLLink() %>"><%= track.Name %></a></p>
+		<p class="trackname"><a href="<%= Url.Action<TrackController>(t => t.Edit(null), new{track = track.Id}).ToXHTMLLink() %>"><%= track.Name %></a>
+		&nbsp;
+		<a href="<%= Url.Action<TrackController>(t => t.Delete(null), new{track = track.Id}).ToXHTMLLink() %>"><img src="/images/Buttons/delete_icon.gif" /></a></p>
 	
 	<% } %>
 	

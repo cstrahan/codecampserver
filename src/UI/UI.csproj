@@ -240,6 +240,7 @@
     <Content Include="images\Buttons\bluebuttoncenter.gif" />
     <Content Include="images\Buttons\bluebuttonleft.gif" />
     <Content Include="images\Buttons\bluebuttonright.gif" />
+    <Content Include="images\Buttons\delete_icon.gif" />
     <Content Include="images\Buttons\edit.gif" />
     <Content Include="images\Buttons\save.gif" />
     <Content Include="images\icons\calendar.png" />
@@ -275,7 +276,6 @@
     <Content Include="images\Buttons\Button.jpg" />
     <Content Include="images\Buttons\EnterButton.jpg" />
     <Content Include="images\Buttons\LoginButton.png" />
-    <Content Include="images\Buttons\ManageFacilitiesButtonWithReflection.png" />
     <Content Include="images\Buttons\OpenButton.png" />
     <Content Include="images\Buttons\SearchButton.jpg" />
     <Content Include="images\Buttons\SearchButtonWithReflection.png" />
@@ -285,8 +285,6 @@
     <Content Include="images\icons\ChevronExpand.gif" />
     <Content Include="images\icons\gray.gif" />
     <Content Include="images\icons\Icon.gif" />
-    <Content Include="images\icons\JuvenileNoPicIcon.gif" />
-    <Content Include="images\icons\JuvenileViewIcon.gif" />
     <Content Include="images\icons\Lblue.gif" />
     <Content Include="images\icons\Lgray.gif" />
     <Content Include="images\icons\PersonIcon.gif" />

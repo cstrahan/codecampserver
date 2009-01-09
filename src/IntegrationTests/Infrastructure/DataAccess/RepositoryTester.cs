@@ -56,5 +56,25 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				reloaded.Id.ShouldEqual(one.Id);
 			}
 		}
+
+		[Test]
+		public virtual void Should_delete()
+		{
+			var one = new T();
+			var two = new T();
+			var three = new T();
+			PersistEntities(one, two, three);
+
+			var repository = CreateRepository();
+
+			repository.Delete(one);
+			
+			GetSession().Dispose();
+
+			T[] all = repository.GetAll();
+			CollectionAssert.DoesNotContain(all, one);
+			CollectionAssert.Contains(all, two);
+			CollectionAssert.Contains(all, three);
+		}
 	}
 }

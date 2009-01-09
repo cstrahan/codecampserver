@@ -50,6 +50,12 @@ namespace CodeCampServer.UI.Controllers
 			return ProcessSave(trackForm, () => RedirectToAction<TrackController>(x => x.Index(null), new {conference = trackForm.ConferenceKey}));
 		}
 
+		public RedirectToRouteResult Delete(Track track)
+		{
+			_trackRepository.Delete(track);
+			return RedirectToAction<TrackController>(x => x.Index(null), new {conference = track.Conference.Key});
+		}
+
 		protected override IModelUpdater<Track, ITrackMessage> Updater
 		{
 			get { return _trackUpdater; }
