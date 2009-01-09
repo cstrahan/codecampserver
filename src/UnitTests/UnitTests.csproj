@@ -130,6 +130,7 @@
     <Compile Include="UI\BinderTester.cs" />
     <Compile Include="UI\Controllers\AdminControllerTester.cs" />
     <Compile Include="UI\Controllers\ConferenceControllerTester.cs" />
+    <Compile Include="UI\Controllers\SpeakersControllerTester.cs" />
     <Compile Include="UI\Controllers\TimeSlotControllerTester.cs" />
     <Compile Include="UI\Controllers\NewsletterControllerTester.cs" />
     <Compile Include="UI\Controllers\RedirectToRouteExtensions.cs" />

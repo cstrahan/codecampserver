@@ -28,7 +28,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			result
 				.AssertViewRendered()
 				.ForView("edit")
-				.WithViewData<TimeSlotForm>().ConferenceId.ShouldEqual(conference.Id);
+				.ViewData.Get<TimeSlot>().Conference.Id.ShouldEqual(conference.Id);
 			
 		}
 

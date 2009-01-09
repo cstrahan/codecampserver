@@ -104,7 +104,6 @@
     <Compile Include="AutoMapperConfiguration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SaveController.cs" />
-    <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SmartController.cs" />
     <Compile Include="Controllers\TrackController.cs" />
     <Compile Include="Default.aspx.cs">
@@ -204,6 +203,7 @@
     <Compile Include="Models\Forms\TrackForm.cs" />
     <Compile Include="Models\ViewModels\TrackViewModel.cs" />
     <Compile Include="RouteConfigurator.cs" />
+    <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="Views\BaseViewPages.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -341,6 +341,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Helpers\AutoMap\CustomMappings\" />
     <Folder Include="Properties\" />
+    <Folder Include="UI\Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(ProjectDir)\Microsoft.WebApplication.targets" />

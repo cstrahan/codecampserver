@@ -1,7 +1,9 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage"%>
+<%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
-
+<%@ Import Namespace="MvcContrib"%>
+<%@ Import Namespace="CodeCampServer.UI"%>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 <% Html.RenderPartial("AdminMenu"); %>
   <%var conferences = (ConferenceForm[])ViewData.Model; %>
@@ -24,7 +26,7 @@
        foreach (var conference in conferences)
 		{%>
 		  <tr class="">
-				<td><a class="" href="/conference/edit/<%=conference.Id%>" title="View Conference <%= counter + 1 %>">Edit</a></td>				
+				<td><a class="" href="<%=Url.Action<ConferenceController>(c=>c.Edit(conference.Id),new{Id=conference.Id})%>" title="View Conference <%= counter + 1 %>">Edit</a></td>				
 				<td class="w30p tal"><strong><%= conference.Name%></strong></td>
 				<td><%= conference.StartDate%> To <%= conference.EndDate%></td>
 				<td class="w20p"><%= conference.LocationName%><br />

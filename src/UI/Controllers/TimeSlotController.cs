@@ -44,13 +44,16 @@ namespace CodeCampServer.UI.Controllers
 		{
 			var timeslots = _repository.GetAllForConference(conference);
 			ViewData.Add(timeslots);
+			ViewData.Add("conferenceKey",conference.Key);
 			return View();
 		}
 
+		[AutoMappedToModelFilter(typeof(TimeSlot), typeof(TimeSlotForm))]
 		public ActionResult New(Conference conference)
 		{
-			var form = new TimeSlotForm() {ConferenceId = conference.Id};
-			return View("edit",form);
+			var timeSlot = new TimeSlot() {Conference = conference};
+			ViewData.Add(timeSlot);
+			return View("edit");
 		}
 
 		[ValidateModel(typeof(TrackForm))]
