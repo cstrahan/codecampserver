@@ -108,6 +108,7 @@
     <Compile Include="Services\Updaters\UpdateResult.cs" />
     <Compile Include="Services\Updaters\UserUpdater.cs" />
     <Compile Include="SystemTime.cs" />
+    <Compile Include="Domain\Model\ValueObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

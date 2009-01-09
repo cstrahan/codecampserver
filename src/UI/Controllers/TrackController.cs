@@ -1,4 +1,3 @@
-using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
@@ -15,12 +14,18 @@ namespace CodeCampServer.UI.Controllers
 	public class TrackController : SaveController<Track, ITrackMessage>
 	{
 		private readonly ITrackRepository _trackRepository;
+
 		private readonly ITrackUpdater _trackUpdater;
 
 		public TrackController(ITrackRepository trackRepository, ITrackUpdater trackUpdater)
 		{
 			_trackRepository = trackRepository;
 			_trackUpdater = trackUpdater;
+		}
+
+		public ViewResult New()
+		{
+			return View("Edit", new TrackForm());
 		}
 
 		[AutoMappedToModelFilter(typeof (Track[]), typeof (TrackViewModel[]))]
@@ -38,7 +43,7 @@ namespace CodeCampServer.UI.Controllers
 			return View();
 		}
 
-		[ValidateModel(typeof(TrackForm))]
+		[ValidateModel(typeof (TrackForm))]
 		public ActionResult Save([Bind(Prefix = "")] TrackForm trackForm)
 		{
 			return ProcessSave(trackForm, () => RedirectToAction<TrackController>(x => x.Index(null), new {conference = trackForm.ConferenceKey}));

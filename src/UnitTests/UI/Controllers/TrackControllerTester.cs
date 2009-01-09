@@ -70,5 +70,14 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			result.ViewData.ModelState.ContainsKey("Name").ShouldBeTrue();
 			result.ViewName.ShouldEqual("Edit");
 		}
+
+		[Test]
+		public void New_should_but_a_new_track_form_on_model_and_render_edit_view()
+		{
+			var controller = new TrackController(M<ITrackRepository>(), M<ITrackUpdater>());
+			ViewResult result = controller.New();
+			result.ViewName.ShouldEqual("Edit");
+			result.ViewData.Model.ShouldEqual(new TrackForm());
+		}
 	}
 }

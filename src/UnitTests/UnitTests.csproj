@@ -113,6 +113,7 @@
     <Compile Include="Core\Common\UINameHelperTester.cs" />
     <Compile Include="Core\Domain\Model\ConferenceTester.cs" />
     <Compile Include="Core\Domain\Model\Enumerations\EnumerationHelperTester.cs" />
+    <Compile Include="Core\Domain\Model\ValueObjectTester.cs" />
     <Compile Include="Core\Domain\ValidationResultTester.cs" />
     <Compile Include="Core\Services\Updaters\AttendeeUpdaterTester.cs" />
     <Compile Include="Core\Services\Updaters\ConferenceUpdaterTester.cs" />
