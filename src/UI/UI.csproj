@@ -325,6 +325,7 @@
     <Content Include="Views\Shared\404.ascx" />
     <Content Include="Views\Shared\Main.Master" />
     <Content Include="Views\Shared\Empty.ascx" />
+    <Content Include="Views\Track\Edit.aspx" />
     <Content Include="Views\Track\Index.aspx" />
   </ItemGroup>
   <ItemGroup>

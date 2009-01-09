@@ -1,9 +1,12 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Messages;
 using CodeCampServer.Core.Services.Updaters;
+using CodeCampServer.Core.Services.Updaters.Impl;
 using CodeCampServer.Infrastructure.UI.Services.Impl;
 using CodeCampServer.UI.Controllers;
+using CodeCampServer.UI.Models.Forms;
 using MvcContrib;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -22,10 +25,50 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			repository.Stub(x => x.GetAllForConference(conference)).Return(tracks);
 			var controller = new TrackController(repository, M<ITrackUpdater>());
 
-			var result = (ViewResult) controller.Index(conference);
+			ViewResult result = controller.Index(conference);
 
 			result.ViewData.Get<Track[]>().ShouldEqual(tracks);
 			result.ViewName.ShouldEqual(ViewNames.Default);
+		}
+
+		[Test]
+		public void Edit_should_but_track_in_viewdata()
+		{
+			var track = new Track();
+			var controller = new TrackController(M<ITrackRepository>(), M<ITrackUpdater>());
+
+			ViewResult edit = controller.Edit(track);
+
+			edit.ViewData.Get<Track>().ShouldEqual(track);
+			edit.ViewName.ShouldEqual(ViewNames.Default);
+		}
+
+		[Test]
+		public void Save_test_a_vaild_save()
+		{
+			var form = new TrackForm();
+			var updater = M<ITrackUpdater>();
+			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Track, ITrackMessage>.Success());
+			var controller = new TrackController(M<ITrackRepository>(), updater);
+
+			var result = (RedirectToRouteResult) controller.Save(form);
+
+			result.RedirectsTo<TrackController>(x => x.Index(null)).ShouldBeTrue();
+		}
+
+		[Test]
+		public void Save_test_a_invaild_save()
+		{
+			var form = new TrackForm();
+			var updater = M<ITrackUpdater>();
+			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Track, ITrackMessage>.Fail().WithMessage(
+			                                                    	x => x.Name, "Some Message"));
+			var controller = new TrackController(M<ITrackRepository>(), updater);
+
+
+			var result = (ViewResult) controller.Save(form);
+			result.ViewData.ModelState.ContainsKey("Name").ShouldBeTrue();
+			result.ViewName.ShouldEqual("Edit");
 		}
 	}
 }

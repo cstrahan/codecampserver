@@ -130,6 +130,7 @@
     <Compile Include="UI\Controllers\AdminControllerTester.cs" />
     <Compile Include="UI\Controllers\ConferenceControllerTester.cs" />
     <Compile Include="UI\Controllers\NewsletterControllerTester.cs" />
+    <Compile Include="UI\Controllers\RedirectToRouteExtensions.cs" />
     <Compile Include="UI\Controllers\TestControllerBase.cs" />
     <Compile Include="UI\Controllers\TrackControllerTester.cs" />
     <Compile Include="UI\Helpers\Filters\AutoMappedFilterAttributeTester.cs" />

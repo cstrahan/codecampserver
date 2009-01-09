@@ -1,10 +1,12 @@
-using System.EnterpriseServices;
+using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Messages;
 using CodeCampServer.Core.Services.Updaters;
+using CodeCampServer.UI.Filters;
 using CodeCampServer.UI.Helpers.Filters;
+using CodeCampServer.UI.Models.Forms;
 using CodeCampServer.UI.Models.ViewModels;
 using MvcContrib;
 
@@ -21,12 +23,25 @@ namespace CodeCampServer.UI.Controllers
 			_trackUpdater = trackUpdater;
 		}
 
-		[AutoMappedToModelFilter(typeof(Track[]), typeof(TrackViewModel[]))]
-		public ActionResult Index(Conference conference)
+		[AutoMappedToModelFilter(typeof (Track[]), typeof (TrackViewModel[]))]
+		public ViewResult Index(Conference conference)
 		{
 			Track[] tracks = _trackRepository.GetAllForConference(conference);
 			ViewData.Add(tracks);
 			return View();
+		}
+
+		[AutoMappedToModelFilter(typeof (Track), typeof (TrackForm))]
+		public ViewResult Edit(Track track)
+		{
+			ViewData.Add(track);
+			return View();
+		}
+
+		[ValidateModel(typeof(TrackForm))]
+		public ActionResult Save([Bind(Prefix = "")] TrackForm trackForm)
+		{
+			return ProcessSave(trackForm, () => RedirectToAction<TrackController>(x => x.Index(null), new {conference = trackForm.ConferenceKey}));
 		}
 
 		protected override IModelUpdater<Track, ITrackMessage> Updater

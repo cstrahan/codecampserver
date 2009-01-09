@@ -1,6 +1,5 @@
 using System;
 using System.Web.Mvc;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
 using CodeCampServer.UI.Helpers.Binders;
@@ -19,7 +18,7 @@ namespace CodeCampServer.DependencyResolution
 				return BindFromContainer(bindingContext);
 			}
 
-			if (ShouldBuildInstanceFromKeyedModelBinder(bindingContext))
+			if (ShouldBuildInstanceFromKeyedModelBinder(bindingContext.ModelType))
 			{
 				return BindUsingKeyedModelBinder(bindingContext);
 			}
@@ -70,11 +69,9 @@ namespace CodeCampServer.DependencyResolution
 			return binder.BindModel(bindingContext);
 		}
 
-		private static bool ShouldBuildInstanceFromKeyedModelBinder(ModelBindingContext bindingContext)
+		private static bool ShouldBuildInstanceFromKeyedModelBinder(Type modelType)
 		{
-			ValueProviderResult value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
-
-			return typeof (KeyedObject).IsAssignableFrom(bindingContext.ModelType);
+			return typeof (KeyedObject).IsAssignableFrom(modelType);
 		}
 
 		private static bool ShouldBuildInstanceForEnumeration(Type modelType)
