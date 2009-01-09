@@ -7,6 +7,21 @@ namespace CodeCampServer.Core.Common
 {
 	public static class ReflectionHelper
 	{
+		public static MethodInfo[] GetPublicNoArgMethods(this Type type)
+		{
+			return type.GetMethods(BindingFlags.Public | BindingFlags.Instance)
+				.Where(m => (m.ReturnType != null) && (m.GetParameters().Length == 0) && (m.MemberType == MemberTypes.Method))
+				.ToArray();
+		}
+
+		public static PropertyInfo[] GetPublicGetProperties(this Type type)
+		{
+			return type.FindMembers(MemberTypes.Property, BindingFlags.Public | BindingFlags.Instance,
+															(m, f) => ((PropertyInfo)m).CanRead, null)
+				.Cast<PropertyInfo>()
+				.ToArray();
+		}
+
 		public static MethodInfo FindModelMethodByName(MethodInfo[] getMethods, string nameToSearch)
 		{
 			string getName = "Get" + nameToSearch;
@@ -48,30 +63,6 @@ namespace CodeCampServer.Core.Common
 			}
 
 			return null;
-		}
-	}
-}
-
-namespace Cuc.Jcms.Core.Common
-{
-	namespace ReflectionExtensions
-	{
-		public static class ReflectionHelper
-		{
-			public static MethodInfo[] GetPublicNoArgMethods(this Type type)
-			{
-				return type.GetMethods(BindingFlags.Public | BindingFlags.Instance)
-					.Where(m => (m.ReturnType != null) && (m.GetParameters().Length == 0) && (m.MemberType == MemberTypes.Method))
-					.ToArray();
-			}
-
-			public static PropertyInfo[] GetPublicGetProperties(this Type type)
-			{
-				return type.FindMembers(MemberTypes.Property, BindingFlags.Public | BindingFlags.Instance,
-				                        (m, f) => ((PropertyInfo) m).CanRead, null)
-					.Cast<PropertyInfo>()
-					.ToArray();
-			}
 		}
 	}
 }

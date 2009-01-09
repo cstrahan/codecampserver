@@ -1,15 +1,16 @@
 using CodeCampServer.Core.Domain;
-using CodeCampServer.Core.Domain.Model;
 using NHibernate.Criterion;
 using Tarantino.Core.Commons.Model;
 using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Impl
 {
-	public class KeyedRepository<T> : RepositoryBase<T>, IKeyedRepository<T>
-		where T : PersistentObject, IHasNaturalKey
+	public abstract class KeyedRepository<T> : RepositoryBase<T>, IKeyedRepository<T>
+		where T : PersistentObject
 	{
-		public KeyedRepository(ISessionBuilder sessionFactory)
+		protected const string KEY_NAME = "Key";
+
+		protected KeyedRepository(ISessionBuilder sessionFactory)
 			: base(sessionFactory)
 		{
 		}
@@ -23,9 +24,6 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 					UniqueResult<T>();
 		}
 
-		protected virtual string GetEntityNaturalKeyName()
-		{
-			return "Key";
-		}
+		protected abstract string GetEntityNaturalKeyName();
 	}
 }

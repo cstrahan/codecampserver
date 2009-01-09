@@ -9,5 +9,10 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 		public ConferenceRepository(ISessionBuilder sessionFactory) : base(sessionFactory)
 		{
 		}
+
+		protected override string GetEntityNaturalKeyName()
+		{
+			return KEY_NAME;
+		}
 	}
 }

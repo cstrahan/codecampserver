@@ -1,7 +1,8 @@
 using System.Text;
 using CodeCampServer.Core;
+using CodeCampServer.UI.Helpers.ViewPage;
 
-namespace CodeCampServer.UI.ViewPage.InputBuilders
+namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {
 	internal class YesNoRadioInputBuilder : BaseInputCreator
 	{

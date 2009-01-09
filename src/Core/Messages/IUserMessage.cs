@@ -2,7 +2,7 @@ using System;
 
 namespace CodeCampServer.Core.Messages
 {
-	public interface IUserMessage
+	public interface IUserMessage : IFormMessage
 	{
 		Guid Id { get; set; }
 		string Name { get; set; }

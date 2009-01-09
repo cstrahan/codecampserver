@@ -1,6 +1,6 @@
 using Castle.Components.Validator;
 
-namespace CodeCampServer.UI.Models.Validation.Attributes
+namespace CodeCampServer.UI.Helpers.Validation.Attributes
 {
 	public class BetterValidateNonEmptyAttribute : ValidateNonEmptyAttribute
 	{

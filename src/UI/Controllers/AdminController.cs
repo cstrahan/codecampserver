@@ -1,33 +1,42 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Messages;
+using CodeCampServer.Core.Services.Updaters;
 using CodeCampServer.UI.Filters;
-using CodeCampServer.UI.Models.AutoMap;
+using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Models.Forms;
+using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public class AdminController : SmartController
+	public class AdminController : SaveController<User, IUserMessage>
 	{
 		private readonly IUserRepository _userRepository;
+		private readonly IUserUpdater _updater;
 
-		public AdminController(IUserRepository userRepository)
+		public AdminController(IUserRepository userRepository, IUserUpdater updater)
 		{
 			_userRepository = userRepository;
+			_updater = updater;
 		}
 
-		public ActionResult EditAdminPassword()
+		[AutoMappedToModelFilter(typeof (User), typeof (UserForm))]
+		public ViewResult Edit(User user)
 		{
-			User user = _userRepository.GetByUserName("admin");
 			if (user == null)
 			{
+				var allUsers = _userRepository.GetAll();
+				if(allUsers.Length > 0)
+				{
+					return Edit(allUsers[0]);
+				}
+
 				user = new User {Username = "admin"};
-				_userRepository.Save(user);
 			}
 
-			object form = AutoMapper.Map(user, typeof (User), typeof (UserForm));
-
-			return View(form);
+			ViewData.Add(user);
+			return View();
 		}
 
 		public ActionResult Index()
@@ -35,28 +44,20 @@ namespace CodeCampServer.UI.Controllers
 			User user = _userRepository.GetByUserName("admin");
 			if (user == null)
 			{
-				return RedirectToAction<AdminController>(c => c.EditAdminPassword());
+				return RedirectToAction<AdminController>(c => c.Edit(null));
 			}
 			return View();
 		}
 
-		[ValidateModel(typeof (UserForm))]
+		[ValidateModel(typeof(UserForm))]
 		public ActionResult Save([Bind(Prefix = "")] UserForm form)
 		{
-			if (ModelState.IsValid)
-			{
-				User user = _userRepository.GetById(form.Id);
-				if (user != null)
-				{
-					user.PasswordHash = form.Password;
-					user.EmailAddress = form.EmailAddress;
-					user.Name = form.Name;
-					_userRepository.Save(user);
-					return RedirectToAction<AdminController>(c => c.Index());
-				}
-			}
+			return ProcessSave(form, () => RedirectToAction<AdminController>(c => c.Index()));
+		}
 
-			return View("EditAdminPassword");
+		protected override IModelUpdater<User, IUserMessage> Updater
+		{
+			get { return _updater; }
 		}
 	}
 }

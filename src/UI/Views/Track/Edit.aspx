@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.TrackEdit"%>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
+Inherits="CodeCampServer.UI.Helpers.ViewPage.TrackEdit"%>
 <%@ Import Namespace="MvcContrib" %>
 <%@ Import Namespace="System.Web.Mvc" %>
 <%@ Import Namespace="System.Web.Mvc.Html"%>

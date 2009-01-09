@@ -2,10 +2,12 @@ using System.Linq;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Controllers
 {
+	[RequiresConferenceFilter]
 	public class NewsletterController : Controller
 	{
 		private readonly IConferenceRepository _conferenceRepository;

@@ -6,11 +6,13 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Messages;
 using CodeCampServer.Core.Services.Updaters;
 using CodeCampServer.UI.Filters;
+using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Models.AutoMap;
 using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Controllers
 {
+	[RequiresConferenceFilter]
 	public class ConferenceController : SaveController<Conference, IConferenceMessage>
 	{
 		private readonly IConferenceRepository _repository;

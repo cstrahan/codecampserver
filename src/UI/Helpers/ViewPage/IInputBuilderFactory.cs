@@ -1,4 +1,6 @@
-namespace CodeCampServer.UI.ViewPage
+using CodeCampServer.UI.Helpers.ViewPage;
+
+namespace CodeCampServer.UI.Helpers.ViewPage
 {
 	public interface IInputBuilderFactory
 	{

@@ -1,6 +1,7 @@
 using System.Web.Mvc.Html;
+using CodeCampServer.UI.Helpers.ViewPage;
 
-namespace CodeCampServer.UI.ViewPage.InputBuilders
+namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {
 	public class CheckboxInputBuilder : BaseInputCreator
 	{

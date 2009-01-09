@@ -21,11 +21,12 @@ namespace CodeCampServer.UI.Helpers.Binders
 			try
 			{
 				ValueProviderResult value = GetRequestValue(bindingContext, bindingContext.ModelName);
+				if (value == null) return new ModelBinderResult(default(TEntity));
+
 				string attemptedValue = value.AttemptedValue;
-
 				if (attemptedValue == "") return new ModelBinderResult(default(TEntity));
+				
 				var matchId = new Guid(attemptedValue);
-
 				TEntity match = _repository.GetById(matchId);
 				return new ModelBinderResult(match);
 			}

@@ -1,7 +1,7 @@
 using System;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Messages;
-using CodeCampServer.UI.Models.Validation.Attributes;
+using CodeCampServer.UI.Helpers.Validation.Attributes;
 
 namespace CodeCampServer.UI.Models.Forms
 {

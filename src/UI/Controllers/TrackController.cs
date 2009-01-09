@@ -11,6 +11,7 @@ using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
+	[RequiresConferenceFilter]	
 	public class TrackController : SaveController<Track, ITrackMessage>
 	{
 		private readonly ITrackRepository _trackRepository;

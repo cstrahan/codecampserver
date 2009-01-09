@@ -18,7 +18,7 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 		public virtual T GetById(Guid id)
 		{
 			ISession session = GetSession();
-			return session.Load<T>(id);
+			return session.Get<T>(id);
 		}
 
 		public virtual void Save(T entity)

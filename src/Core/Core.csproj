@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9C81B684-40CC-472A-804D-7C0F963315F5}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -60,6 +60,8 @@
     <Compile Include="Common\UINameHelper.cs" />
     <Compile Include="Domain\Model\Enumerations\EnumerationHelper.cs" />
     <Compile Include="Domain\ValidationResult.cs" />
+    <Compile Include="Messages\EditMode.cs" />
+    <Compile Include="Messages\IFormMessage.cs" />
     <Compile Include="Services\Updaters\TimeSlotUpdater.cs" />
     <Compile Include="Domain\IConferencerRepository.cs" />
     <Compile Include="Domain\IKeyedRepository.cs" />
@@ -72,7 +74,6 @@
     <Compile Include="Domain\Model\Conference.cs" />
     <Compile Include="Domain\Model\Enumerations\SessionLevel.cs" />
     <Compile Include="Domain\Model\Attendee.cs" />
-    <Compile Include="Domain\Model\IHasNaturalKey.cs" />
     <Compile Include="Domain\Model\KeyedObject.cs" />
     <Compile Include="Domain\Model\Session.cs" />
     <Compile Include="Domain\Model\Speaker.cs" />

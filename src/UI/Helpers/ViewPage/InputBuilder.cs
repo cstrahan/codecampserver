@@ -1,7 +1,8 @@
 using System.Reflection;
 using System.Web.Mvc;
+using CodeCampServer.UI.Helpers.ViewPage;
 
-namespace CodeCampServer.UI.ViewPage
+namespace CodeCampServer.UI.Helpers.ViewPage
 {
 	public class InputBuilder : IInputBuilder
 	{

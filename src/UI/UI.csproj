@@ -116,6 +116,7 @@
     <Compile Include="Helpers\Filters\AutoMappedFilterAttribute.cs" />
     <Compile Include="Helpers\Filters\AutoMappedToModelFilter.cs" />
     <Compile Include="Helpers\Filters\BaseActionFilter.cs" />
+    <Compile Include="Helpers\Filters\RequiresConferenceFilterAttribute.cs" />
     <Compile Include="Helpers\Filters\ValidateModelAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -195,10 +196,14 @@
     <Compile Include="Models\Forms\AttendeeForm.cs" />
     <Compile Include="Models\Forms\ConferenceForm.cs" />
     <Compile Include="Controllers\NewsletterController.cs" />
+    <Compile Include="Models\Forms\EditForm.cs" />
     <Compile Include="Models\Forms\SpeakerForm.cs" />
     <Compile Include="Models\Forms\TimeSlotForm.cs" />
     <Compile Include="Models\Forms\TrackForm.cs" />
     <Compile Include="Models\ViewModels\TrackViewModel.cs" />
+    <Compile Include="Views\BaseViewPages.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Controllers\TimeSlotController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -248,7 +253,7 @@
     <Content Include="scripts\jquery.form.js" />
     <Content Include="scripts\jquery.maskedinput-1.1.4.pack.js" />
     <Content Include="scripts\jquery.meiomask.js" />
-    <Content Include="Views\Admin\EditAdminPassword.aspx" />
+    <Content Include="Views\Admin\Edit.aspx" />
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Conference\Edit.aspx" />
     <Content Include="Views\Conference\Index.aspx" />

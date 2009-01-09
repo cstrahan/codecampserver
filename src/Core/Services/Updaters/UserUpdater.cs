@@ -9,7 +9,7 @@ namespace CodeCampServer.Core.Services.Updaters
 	public class UserUpdater : ModelUpdater<User, IUserMessage>, IUserUpdater
 	{
 		private readonly IUserRepository _repository;
-		private ICryptographer _cryptographer;
+		private readonly ICryptographer _cryptographer;
 
 		public UserUpdater(IUserRepository repository, ICryptographer cryptographer)
 		{
@@ -29,6 +29,7 @@ namespace CodeCampServer.Core.Services.Updaters
 
 		protected override void UpdateModel(IUserMessage message, User model)
 		{
+			model.Id = message.Id;
 			model.Name = message.Name;
 			model.EmailAddress = message.EmailAddress;
 			model.PasswordSalt = _cryptographer.CreateSalt();
@@ -39,7 +40,7 @@ namespace CodeCampServer.Core.Services.Updaters
 
 		protected override UpdateResult<User, IUserMessage> PreValidate(IUserMessage message)
 		{
-			if (SpeakerKeyAlreadyExists(message))
+			if (UserAlreadyExists(message))
 			{
 				return new UpdateResult<User, IUserMessage>(false).WithMessage(x => x.Username, "This username already exists");
 			}
@@ -47,8 +48,10 @@ namespace CodeCampServer.Core.Services.Updaters
 		}
 
 
-		private bool SpeakerKeyAlreadyExists(IUserMessage message)
+		private bool UserAlreadyExists(IUserMessage message)
 		{
+			if(message.GetEditMode() == EditMode.Edit) return false;
+
 			return _repository.GetByKey(message.Username) != null;
 		}
 	}

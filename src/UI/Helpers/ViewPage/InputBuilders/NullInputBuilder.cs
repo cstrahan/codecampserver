@@ -1,4 +1,6 @@
-namespace CodeCampServer.UI.ViewPage.InputBuilders
+using CodeCampServer.UI.Helpers.ViewPage;
+
+namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {
 	public class NullInputBuilder : BaseInputCreator
 	{

@@ -32,8 +32,10 @@ namespace CodeCampServer.UI.Models
 			AutoMapper.Configure<Conference, ConferenceForm>();
 
 			AutoMapper.Configure<Track, TrackViewModel>();
-			
+
 			AutoMapper.Configure<Track, TrackForm>();
+			AutoMapper.Configure<User, UserForm>().ForDtoMember(f => f.ConfirmPassword,
+			                                                    o => o.ResolveUsing(new NullValueResolver()));
 
 			AutoMapper.Configure<TimeSlot, TimeSlotForm>();
 		}
