@@ -57,7 +57,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			}
 		}
 
-		protected ISessionBuilder GetSessionBuilder()
+		protected static ISessionBuilder GetSessionBuilder()
 		{
 			return new HybridSessionBuilder();
 		}

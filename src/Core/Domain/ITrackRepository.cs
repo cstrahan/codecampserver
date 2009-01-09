@@ -4,5 +4,6 @@ namespace CodeCampServer.Core.Domain
 {
 	public interface ITrackRepository : IRepository<Track>
 	{
+		Track[] GetAllForConference(Conference conference);
 	}
 }

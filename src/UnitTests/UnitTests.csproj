@@ -129,6 +129,9 @@
     <Compile Include="UI\Controllers\ConferenceControllerTester.cs" />
     <Compile Include="UI\Controllers\NewsletterControllerTester.cs" />
     <Compile Include="UI\Controllers\TestControllerBase.cs" />
+    <Compile Include="UI\Controllers\TrackControllerTester.cs" />
+    <Compile Include="UI\Helpers\Filters\AutoMappedFilterAttributeTester.cs" />
+    <Compile Include="UI\Helpers\Filters\FilterAttributeTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

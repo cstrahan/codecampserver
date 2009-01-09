@@ -105,10 +105,12 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SaveController.cs" />
     <Compile Include="Controllers\SmartController.cs" />
+    <Compile Include="Controllers\TrackController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Helpers\Filters\AutoMappedFilterAttribute.cs" />
     <Compile Include="Helpers\Filters\BaseActionFilter.cs" />
     <Compile Include="Helpers\Filters\ValidateModelAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -153,6 +155,9 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Helpers\ViewPage\DisplayErrorMessages.cs" />
     <Compile Include="Helpers\ViewPage\IDisplayErrorMessages.cs" />
+    <Compile Include="Helpers\ViewPage\TypedViewPages.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Models\Forms\AdminForm.cs" />
     <Compile Include="Helpers\UrlHelperExtensions.cs" />
     <Compile Include="Helpers\ViewDataExtensions.cs" />
@@ -189,6 +194,7 @@
     <Compile Include="Models\Forms\SpeakerForm.cs" />
     <Compile Include="Models\Forms\TimeSlotForm.cs" />
     <Compile Include="Models\Forms\TrackForm.cs" />
+    <Compile Include="Models\ViewModels\TrackViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\hibernate.cfg.xml">
@@ -315,6 +321,7 @@
     <Content Include="Views\Shared\404.ascx" />
     <Content Include="Views\Shared\Main.Master" />
     <Content Include="Views\Shared\Empty.ascx" />
+    <Content Include="Views\Track\Index.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
