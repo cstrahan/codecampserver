@@ -47,13 +47,13 @@ namespace CodeCampServer.UI.Controllers
 		[ValidateModel(typeof (TrackForm))]
 		public ActionResult Save([Bind(Prefix = "")] TrackForm trackForm)
 		{
-			return ProcessSave(trackForm, () => RedirectToAction<TrackController>(x => x.Index(null), new {conference = trackForm.ConferenceKey}));
+			return ProcessSave(trackForm, () => RedirectToAction<TrackController>(x => x.Index(null)));
 		}
 
 		public RedirectToRouteResult Delete(Track track)
 		{
 			_trackRepository.Delete(track);
-			return RedirectToAction<TrackController>(x => x.Index(null), new {conference = track.Conference.Key});
+			return RedirectToAction<TrackController>(x => x.Index(null));
 		}
 
 		protected override IModelUpdater<Track, ITrackMessage> GetUpdater()

@@ -92,7 +92,6 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			repository.AssertWasCalled(x => x.Delete(track));
 			result.RedirectsTo<TrackController>(x => x.Index(null)).ShouldBeTrue();
-			result.Values["conference"].ShouldEqual("foo");
 		}
 	}
 }

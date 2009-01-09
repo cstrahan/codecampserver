@@ -34,7 +34,7 @@ namespace CodeCampServer.DependencyResolution
 			ModelBinders.DefaultBinder = new SmartBinder();
 		}
 
-		public T Resolve<T>()
+		public static T Resolve<T>()
 		{
 			return ObjectFactory.GetInstance<T>();
 		}

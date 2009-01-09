@@ -10,27 +10,15 @@ namespace CodeCampServer.UI
 		public static void RegisterRoutes(RouteCollection routes)
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.IgnoreRoute("{resource}.gif/{*pathInfo}");
+			routes.IgnoreRoute("{resource}.gif/{*pathInfo}");
 
-			routes.MapRoute("Home", "home", new {controller = "home", action = "index"});
-            
-			routes.MapRoute(
-				"Default", // Route name
-				"{controller}/{action}", // URL with parameters
-				new {controller = "home", action = "index"} // Parameter defaults
-				);
-        
-            routes.MapRoute(
-                "DefaultWithParam", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "home", action = "index" } // Parameter defaults
-                );
-        }
+			new RouteConfigurator().RegisterRoutes();
+		}
 
 		protected void Application_Start()
 		{
 			RegisterRoutes(RouteTable.Routes);
-            AutoMapperConfiguration.Configure();
+			AutoMapperConfiguration.Configure();
 		}
 	}
 }

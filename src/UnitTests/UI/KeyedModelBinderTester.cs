@@ -30,8 +30,8 @@ namespace CodeCampServer.UnitTests.UI
 			var entity = new TEntity();
 			repository.Stub(r => r.GetByKey("key")).Return(entity);
 			var binder = new KeyedModelBinder<TEntity, TRepository>(repository);
-			ControllerContext controllerContext1 = GetControllerContext("foo", "key"); //capitalize
-			ControllerContext controllerContext2 = GetControllerContext("bar", "key"); //lowercase
+			ControllerContext controllerContext1 = GetControllerContext("fooKey", "key"); //capitalize
+			ControllerContext controllerContext2 = GetControllerContext("barkey", "key"); //lowercase
 
 			ModelBinderResult result = binder.BindModel(new ModelBindingContext(controllerContext1,
 			                                                                    new DefaultValueProvider(controllerContext1),
@@ -77,6 +77,26 @@ namespace CodeCampServer.UnitTests.UI
 			var binder = new KeyedModelBinder<TEntity, TRepository>(null);
 			ModelBinderResult binderResult = binder.BindModel(context);
 			binderResult.Value.ShouldBeNull();
+		}
+
+		[Test]
+		public void Should_auto_append_id_when_looking_for_querystring_value()
+		{
+			Guid guid = Guid.NewGuid();
+			var repository = MockRepository.GenerateMock<TRepository>();
+			var entity = new TEntity();
+			repository.Stub(r => r.GetByKey("key")).Return(entity);
+			var binder = new KeyedModelBinder<TEntity, TRepository>(repository);
+			ControllerContext controllerContext = GetControllerContext("foo", "key");
+			var valueProvider = new DefaultValueProvider(controllerContext);
+
+			var context = new ModelBindingContext(controllerContext,
+			                                      valueProvider, typeof (TEntity), "foo", null,
+			                                      new ModelStateDictionary(), null);
+
+			ModelBinderResult result = binder.BindModel(context);
+
+			Assert.That(result.Value, Is.EqualTo(entity));
 		}
 	}
 

@@ -27,13 +27,15 @@ namespace CodeCampServer.UI.Controllers
 		public ActionResult Index()
 		{
 			Conference[] conferences = _repository.GetAll();
+
 			if (conferences.Length < 1)
 			{
 				return RedirectToAction<ConferenceController>(c => c.New());
 			}
+	
 			object conferenceListDto = AutoMapper.Map(conferences, typeof (Conference[]), typeof (ConferenceForm[]),
-			                                       typeof (Conference),
-			                                       typeof (ConferenceForm));
+			                                          typeof (Conference),
+			                                          typeof (ConferenceForm));
 			return View(conferenceListDto);
 		}
 

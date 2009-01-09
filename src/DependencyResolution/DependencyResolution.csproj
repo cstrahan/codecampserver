@@ -83,7 +83,6 @@
     <Compile Include="DependencyRegistry.cs" />
     <Compile Include="SmartBinder.cs" />
     <Compile Include="StructureMapExtensions.cs" />
-    <Compile Include="StructureMapBinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

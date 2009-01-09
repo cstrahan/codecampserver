@@ -19,7 +19,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			var three = new T();
 			PersistEntities(one, two, three);
 
-			var repository = CreateRepository();
+			TRepository repository = CreateRepository();
 
 			T returnedFromDatabase = repository.GetById(one.Id);
 			returnedFromDatabase.ShouldEqual(one);
@@ -35,7 +35,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			var three = new T();
 			PersistEntities(one, two, three);
 
-			var repository = CreateRepository();
+			TRepository repository = CreateRepository();
 
 			T[] all = repository.GetAll();
 			all.Length.ShouldEqual(3);
@@ -45,7 +45,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		public virtual void Should_save_one()
 		{
 			var one = new T();
-			var repository = CreateRepository();
+			TRepository repository = CreateRepository();
 			repository.Save(one);
 
 			GetSession().Dispose();
@@ -65,10 +65,10 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			var three = new T();
 			PersistEntities(one, two, three);
 
-			var repository = CreateRepository();
+			TRepository repository = CreateRepository();
 
 			repository.Delete(one);
-			
+
 			GetSession().Dispose();
 
 			T[] all = repository.GetAll();

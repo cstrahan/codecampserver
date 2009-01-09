@@ -6,16 +6,16 @@ namespace CodeCampServer.UI.Controllers
 {
 	public class SessionController : SaveController<Session, ISessionMessage>
 	{
-		private readonly ISessionUpdater _updater;
+		private readonly ISessionUpdater _sessionUpdater;
 
-		public SessionController(ISessionUpdater updater)
+		public SessionController(ISessionUpdater sessionUpdater)
 		{
-			_updater = updater;
+			_sessionUpdater = sessionUpdater;
 		}
 
 		protected override IModelUpdater<Session, ISessionMessage> GetUpdater()
 		{
-			return _updater;
+			return _sessionUpdater;
 		}
 	}
 }

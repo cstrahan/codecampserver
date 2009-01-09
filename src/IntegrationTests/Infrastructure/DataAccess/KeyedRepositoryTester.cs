@@ -1,13 +1,17 @@
+using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.DependencyResolution;
+using CodeCampServer.Infrastructure.DataAccess.Impl;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
 	[TestFixture]
-	public abstract class KeyedRepositoryTester<T, TRepository> :
-		RepositoryTester<T, TRepository>
+	public abstract class KeyedRepositoryTester<T, TRepository> : RepositoryTester<T, TRepository>
 		where TRepository : IKeyedRepository<T> where T : KeyedObject, new()
 	{
 		[Test]
@@ -21,10 +25,16 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			three.Key = "key3";
 			PersistEntities(one, two, three);
 
-			var repository = CreateRepository();
+			TRepository repository = CreateRepository();
 
 			T returnedFromDatabase = repository.GetByKey("key");
 			returnedFromDatabase.ShouldEqual(one);
+		}
+
+		[Test]
+		public void Should_be_able_to_instantiate()
+		{
+			Activator.CreateInstance(typeof(KeyedRepository<T>), MockRepository.GenerateStub<ISessionBuilder>());
 		}
 	}
 }

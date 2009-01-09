@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{98200972-A038-4DA8-8917-CBC4895175DC}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -164,6 +164,7 @@
     <Compile Include="Helpers\ViewPage\TypedViewPages.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="IRouteConfigurator.cs" />
     <Compile Include="Models\Forms\AdminForm.cs" />
     <Compile Include="Helpers\UrlHelperExtensions.cs" />
     <Compile Include="Helpers\ViewDataExtensions.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Models\Forms\TimeSlotForm.cs" />
     <Compile Include="Models\Forms\TrackForm.cs" />
     <Compile Include="Models\ViewModels\TrackViewModel.cs" />
+    <Compile Include="RouteConfigurator.cs" />
     <Compile Include="Views\BaseViewPages.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -360,6 +362,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

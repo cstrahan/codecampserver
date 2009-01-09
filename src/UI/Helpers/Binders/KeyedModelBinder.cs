@@ -5,15 +5,14 @@ using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.UI.Helpers.Binders
 {
-
 	public interface IKeyedModelBinder : IModelBinder
 	{
-		
 	}
 
-	public class KeyedModelBinder<TEntity, TRepository> : ModelBinder<TEntity, TRepository>, IKeyedModelBinder where TEntity : KeyedObject
-	                                                                                        where TRepository :
-	                                                                                        	IKeyedRepository<TEntity>
+	public class KeyedModelBinder<TEntity, TRepository> : ModelBinder<TEntity, TRepository>, IKeyedModelBinder
+		where TEntity : KeyedObject
+		where TRepository :
+			IKeyedRepository<TEntity>
 	{
 		public KeyedModelBinder(TRepository repository) : base(repository)
 		{
@@ -41,7 +40,14 @@ namespace CodeCampServer.UI.Helpers.Binders
 
 		protected override ValueProviderResult GetRequestValue(ModelBindingContext bindingContext, string requestKey)
 		{
-			return bindingContext.ValueProvider.GetValue(requestKey);
+			string key = requestKey;
+			ValueProviderResult value = bindingContext.ValueProvider.GetValue(key);
+			if (value == null && !key.EndsWith("key"))
+			{
+				value = GetRequestValue(bindingContext, requestKey + "key");
+			}
+
+			return value;
 		}
 	}
 }

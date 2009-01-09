@@ -24,7 +24,7 @@ namespace CodeCampServer.UI.Helpers.Filters
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
 			var conferenceKey =
-				(string) filterContext.RouteData.Values["conferenceKey"];
+				(string)(filterContext.RouteData.Values["conferenceKey"] ?? filterContext.RouteData.Values["conference"]);
 			var conference = _repository.GetByKey(conferenceKey);
 			if (conference == null)
 			{
