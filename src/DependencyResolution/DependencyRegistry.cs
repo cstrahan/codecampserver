@@ -1,4 +1,8 @@
+using System.Web.Mvc;
 using Castle.Components.Validator;
+using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Infrastructure.DataAccess.Impl;
 using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
 using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
@@ -21,6 +25,7 @@ namespace CodeCampServer.DependencyResolution
                      });
 
             ForRequestedType<ISessionBuilder>().TheDefaultIsConcreteType<HybridSessionBuilder>();
+
         }
     }
 

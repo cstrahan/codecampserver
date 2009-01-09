@@ -5,7 +5,13 @@ using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.UI.Helpers.Binders
 {
-	public class KeyedModelBinder<TEntity, TRepository> : ModelBinder<TEntity, TRepository> where TEntity : KeyedObject
+
+	public interface IKeyedModelBinder : IModelBinder
+	{
+		
+	}
+
+	public class KeyedModelBinder<TEntity, TRepository> : ModelBinder<TEntity, TRepository>, IKeyedModelBinder where TEntity : KeyedObject
 	                                                                                        where TRepository :
 	                                                                                        	IKeyedRepository<TEntity>
 	{

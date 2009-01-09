@@ -21,7 +21,7 @@ namespace CodeCampServer.UI.Controllers
 			_trackUpdater = trackUpdater;
 		}
 
-		[AutoMappedFilter(typeof(Track), typeof(TrackViewModel))]
+		[AutoMappedToModelFilter(typeof(Track[]), typeof(TrackViewModel[]))]
 		public ActionResult Index(Conference conference)
 		{
 			Track[] tracks = _trackRepository.GetAllForConference(conference);

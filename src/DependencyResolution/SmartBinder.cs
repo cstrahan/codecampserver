@@ -1,5 +1,6 @@
 using System;
 using System.Web.Mvc;
+using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
 using CodeCampServer.UI.Helpers.Binders;
@@ -61,7 +62,7 @@ namespace CodeCampServer.DependencyResolution
 
 		private static ModelBinderResult BindUsingKeyedModelBinder(ModelBindingContext bindingContext)
 		{
-			Type repositoryType = typeof (KeyedRepositoryBase<>).MakeGenericType(bindingContext.ModelType);
+			Type repositoryType = typeof (KeyedRepository<>).MakeGenericType(bindingContext.ModelType);
 			Type modelBinderType = typeof (KeyedModelBinder<,>).MakeGenericType(bindingContext.ModelType, repositoryType);
 
 			var binder = (IModelBinder) ObjectFactory.GetInstance(modelBinderType);

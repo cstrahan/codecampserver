@@ -4,7 +4,7 @@ using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Impl
 {
-	public class ConferenceRepository : KeyedRepositoryBase<Conference>, IConferenceRepository
+	public class ConferenceRepository : KeyedRepository<Conference>, IConferenceRepository
 	{
 		public ConferenceRepository(ISessionBuilder sessionFactory) : base(sessionFactory)
 		{

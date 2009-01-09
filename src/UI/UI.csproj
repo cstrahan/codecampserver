@@ -114,6 +114,7 @@
     <Compile Include="Helpers\Binders\KeyedModelBinder.cs" />
     <Compile Include="Helpers\Binders\ModelBinder.cs" />
     <Compile Include="Helpers\Filters\AutoMappedFilterAttribute.cs" />
+    <Compile Include="Helpers\Filters\AutoMappedToModelFilter.cs" />
     <Compile Include="Helpers\Filters\BaseActionFilter.cs" />
     <Compile Include="Helpers\Filters\ValidateModelAttribute.cs" />
     <Compile Include="Global.asax.cs">

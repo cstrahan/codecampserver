@@ -6,11 +6,10 @@ using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Impl
 {
-	public abstract class KeyedRepositoryBase<T> : RepositoryBase<T>,
-	                                               IKeyedRepository<T>
+	public class KeyedRepository<T> : RepositoryBase<T>, IKeyedRepository<T>
 		where T : PersistentObject, IHasNaturalKey
 	{
-		protected KeyedRepositoryBase(ISessionBuilder sessionFactory)
+		public KeyedRepository(ISessionBuilder sessionFactory)
 			: base(sessionFactory)
 		{
 		}
