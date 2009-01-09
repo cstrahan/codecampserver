@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using NHibernate;
 using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Impl
@@ -8,6 +11,15 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 	{
 		public TimeSlotRepository(ISessionBuilder sessionFactory) : base(sessionFactory)
 		{
+		}
+
+		public TimeSlot[] GetAllForConference(Conference conference)
+		{
+			ISession session = GetSession();
+			IQuery query = session.CreateQuery("from TimeSlot t where t.Conference = ?");
+			query.SetParameter(0, conference);
+			IList<TimeSlot> list = query.List<TimeSlot>();
+			return list.ToArray();			
 		}
 	}
 }

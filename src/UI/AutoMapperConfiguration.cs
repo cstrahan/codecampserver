@@ -34,6 +34,8 @@ namespace CodeCampServer.UI.Models
 			AutoMapper.Configure<Track, TrackViewModel>();
 			
 			AutoMapper.Configure<Track, TrackForm>();
+
+			AutoMapper.Configure<TimeSlot, TimeSlotForm>();
 		}
 	}
 

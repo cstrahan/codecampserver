@@ -4,5 +4,6 @@ namespace CodeCampServer.Core.Domain
 {
 	public interface ITimeSlotRepository : IRepository<TimeSlot>
 	{
+		TimeSlot[] GetAllForConference(Conference conference);
 	}
 }
