@@ -56,9 +56,9 @@ namespace CodeCampServer.UI.Controllers
 			return RedirectToAction<TrackController>(x => x.Index(null), new {conference = track.Conference.Key});
 		}
 
-		protected override IModelUpdater<Track, ITrackMessage> Updater
+		protected override IModelUpdater<Track, ITrackMessage> GetUpdater()
 		{
-			get { return _trackUpdater; }
+			return _trackUpdater;
 		}
 	}
 }

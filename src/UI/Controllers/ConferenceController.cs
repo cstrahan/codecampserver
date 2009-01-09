@@ -66,9 +66,9 @@ namespace CodeCampServer.UI.Controllers
 			return View("Edit", form);
 		}
 
-		protected override IModelUpdater<Conference, IConferenceMessage> Updater
+		protected override IModelUpdater<Conference, IConferenceMessage> GetUpdater()
 		{
-			get { return _updater; }
+			return _updater;
 		}
 	}
 }

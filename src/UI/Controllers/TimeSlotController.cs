@@ -22,9 +22,9 @@ namespace CodeCampServer.UI.Controllers
 			_updater = updater;
 		}
 
-		protected override IModelUpdater<TimeSlot, ITimeSlotMessage> Updater
+		protected override IModelUpdater<TimeSlot, ITimeSlotMessage> GetUpdater()
 		{
-			get { return _updater; }
+			return _updater;
 		}
 
 		[AutoMappedToModelFilter(typeof(TimeSlot), typeof(TimeSlotForm))]

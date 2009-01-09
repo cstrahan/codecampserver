@@ -104,6 +104,7 @@
     <Compile Include="AutoMapperConfiguration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SaveController.cs" />
+    <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SmartController.cs" />
     <Compile Include="Controllers\TrackController.cs" />
     <Compile Include="Default.aspx.cs">

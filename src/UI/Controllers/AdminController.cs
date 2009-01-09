@@ -55,9 +55,9 @@ namespace CodeCampServer.UI.Controllers
 			return ProcessSave(form, () => RedirectToAction<AdminController>(c => c.Index()));
 		}
 
-		protected override IModelUpdater<User, IUserMessage> Updater
+		protected override IModelUpdater<User, IUserMessage> GetUpdater()
 		{
-			get { return _updater; }
+			return _updater;
 		}
 	}
 }

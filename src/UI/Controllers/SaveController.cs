@@ -9,7 +9,7 @@ namespace CodeCampServer.UI.Controllers
 	public abstract class SaveController<TModel, TMessage> : SmartController
 		where TModel : PersistentObject
 	{
-		protected abstract IModelUpdater<TModel, TMessage> Updater { get; }
+		protected abstract IModelUpdater<TModel, TMessage> GetUpdater();
 
 		protected ActionResult ProcessSave(TMessage message, Func<TModel, RedirectToRouteResult> successRedirect,
 		                                   Action beforeFailAction)
@@ -21,7 +21,7 @@ namespace CodeCampServer.UI.Controllers
 				return View("Edit", message);
 			}
 
-			UpdateResult<TModel, TMessage> result = Updater.UpdateFromMessage(message);
+			UpdateResult<TModel, TMessage> result = GetUpdater().UpdateFromMessage(message);
 
 			if (!result.Successful)
 			{
