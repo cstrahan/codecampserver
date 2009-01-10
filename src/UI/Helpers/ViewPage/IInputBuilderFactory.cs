@@ -4,6 +4,6 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 {
 	public interface IInputBuilderFactory
 	{
-		BaseInputCreator CreateInputCreator(InputBuilder inputBuilder);
+		IInputBuilder FindInputBuilderFor(IInputSpecification inputSpecification);
 	}
 }

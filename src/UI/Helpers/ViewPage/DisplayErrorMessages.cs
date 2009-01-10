@@ -1,6 +1,5 @@
 using System.Text;
 using System.Web.Mvc;
-using CodeCampServer.UI.ViewPage;
 
 namespace CodeCampServer.UI.Helpers.ViewPage
 {
@@ -19,8 +18,10 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 			if (_modelState.IsInvalid())
 			{
 				errorHtml.Append(
-					@"<div class=""validationSummary"">
-			            <p><strong>Please correct the following error(s):</strong></p><ul>");
+					string.Format(
+						@"<div id=""{0}"" class=""{0}"">
+			            <p><strong>Please correct the following error(s):</strong></p><ul>",
+						"error-messages"));
 
 				foreach (var error in _modelState)
 				{

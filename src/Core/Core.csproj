@@ -56,10 +56,14 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Common\AttributeExtensions.cs" />
+    <Compile Include="Common\ExpressionHelper.cs" />
     <Compile Include="Common\ReflectionExtensions.cs" />
     <Compile Include="Common\UINameHelper.cs" />
     <Compile Include="Domain\ISpeakerRepository.cs" />
     <Compile Include="Domain\Model\Enumerations\EnumerationHelper.cs" />
+    <Compile Include="Domain\Model\Enumerations\OrderedEnumeration.cs" />
+    <Compile Include="Domain\Model\Enumerations\YesNo.cs" />
     <Compile Include="Domain\ValidationResult.cs" />
     <Compile Include="Messages\EditMode.cs" />
     <Compile Include="Messages\IFormMessage.cs" />

@@ -1,35 +1,43 @@
 using System;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Web.Mvc;
-using CodeCampServer.UI.Helpers.ViewPage;
-using CodeCampServer.UI.Models.AutoMap;
 using StructureMap;
-using Tarantino.Core.Commons.Services.Security;
 
 namespace CodeCampServer.UI.Helpers.ViewPage
 {
-	public class BaseViewUserControl : ViewUserControl
+	public class BaseViewUserControl : ViewUserControl, IViewBase
 	{
 		private readonly IInputBuilderFactory _inputBuilderFactory;
-		private readonly ISecurityContext _securityContext;
+		private readonly IDisplayErrorMessages _displayErrorMessages;
 
 		public BaseViewUserControl()
 		{
 			_inputBuilderFactory = ObjectFactory.GetInstance<IInputBuilderFactory>();
-			_securityContext = ObjectFactory.GetInstance<ISecurityContext>();
+			_displayErrorMessages = ObjectFactory.GetInstance<IDisplayErrorMessages>();
 		}
 
-		protected ISecurityContext SecurityContext
+		public IDisplayErrorMessages Errors
 		{
-			get { return _securityContext; }
+			get
+			{
+				_displayErrorMessages.ModelState = ViewData.ModelState;
+				return _displayErrorMessages;
+			}
 		}
 
-		protected IInputBuilder InputFor<TDto>(Expression<Func<TDto, object>> expression)
+		public IInputBuilderFactory InputBuilderFactory
 		{
-			PropertyInfo property = ReflectionHelper.FindDtoProperty(expression);
+			get { return _inputBuilderFactory; }
+		}
 
-			return new InputBuilder(property, Html, _inputBuilderFactory);
+		public IInputSpecificationExpression InputFor<TModel>(Expression<Func<TModel, object>> expression)
+		{
+			return ViewBaseExtensions.InputFor(this, expression);
+		}
+
+		public void PartialInputFor<TModel>(Expression<Func<TModel, object>> expression)
+		{
+			ViewBaseExtensions.PartialInputFor(this, expression);
 		}
 	}
 }

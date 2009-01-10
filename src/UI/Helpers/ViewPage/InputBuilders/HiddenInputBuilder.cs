@@ -1,24 +1,27 @@
+using System;
 using System.Text;
 using System.Web.Mvc.Html;
-using CodeCampServer.UI.Helpers.ViewPage;
+using CodeCampServer.UI.Models.AutoMap;
+using CodeCampServer.UI.Models.Forms.Attributes;
 
 namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {
-	public class HiddenInputBuilder : BaseInputCreator
+	public class HiddenInputBuilder : BaseInputBuilder
 	{
-		public HiddenInputBuilder(InputBuilder inputBuilder)
-			: base(inputBuilder)
-		{
-		}
-
 		protected override string CreateInputElementBase()
 		{
-			return InputBuilder.Helper.Hidden(GetCompleteInputName());
+			return InputSpecification.Helper.Hidden(InputSpecification.InputName);
 		}
 
-		protected override void AppendLabel(StringBuilder output, string propertyName, string labelClass, bool isRequired)
+		protected override void AppendLabel(StringBuilder output)
 		{
 			return;
+		}
+
+		public override bool IsSatisfiedBy(IInputSpecification specification)
+		{
+			return specification.PropertyInfo.HasCustomAttribute<HiddenAttribute>() ||
+			       specification.PropertyInfo.PropertyType == typeof (Guid);
 		}
 
 		protected override void AppendCleaner(StringBuilder output)

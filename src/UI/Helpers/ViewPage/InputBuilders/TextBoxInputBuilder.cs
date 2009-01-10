@@ -1,18 +1,25 @@
 using System.Web.Mvc.Html;
-using CodeCampServer.UI.Helpers.ViewPage;
+using CodeCampServer.Core;
 
 namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {
-	public class TextBoxInputBuilder : BaseInputCreator
+	public class TextBoxInputBuilder : BaseInputBuilder
 	{
-		public TextBoxInputBuilder(InputBuilder inputBuilder)
-			: base(inputBuilder)
+		public override bool IsSatisfiedBy(IInputSpecification specification)
 		{
+			return specification.PropertyInfo.PropertyType == typeof (string);
 		}
 
 		protected override string CreateInputElementBase()
 		{
-			return InputBuilder.Helper.TextBox(GetCompleteInputName(), null, InputBuilder.Attributes);
+			object customAttributes = InputSpecification.CustomAttributes;
+			if (customAttributes != null && customAttributes.ToDictionary().ContainsKey("rows"))
+			{
+				return InputSpecification.Helper.TextArea(InputSpecification.InputName, GetValue().ToNullSafeString(),
+				                                          customAttributes);
+			}
+
+			return InputSpecification.Helper.TextBox(InputSpecification.InputName, GetValue(), customAttributes);
 		}
 	}
 }

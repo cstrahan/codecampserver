@@ -1,18 +1,17 @@
 using System.Web.Mvc.Html;
-using CodeCampServer.UI.Helpers.ViewPage;
 
 namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {
-	public class CheckboxInputBuilder : BaseInputCreator
+	public class CheckboxInputBuilder : BaseInputBuilder
 	{
-		public CheckboxInputBuilder(InputBuilder inputBuilder)
-			: base(inputBuilder)
+		public override bool IsSatisfiedBy(IInputSpecification specification)
 		{
+			return specification.PropertyInfo.PropertyType == typeof (bool);
 		}
 
 		protected override string CreateInputElementBase()
 		{
-			return InputBuilder.Helper.CheckBox(GetCompleteInputName(), InputBuilder.Attributes);
+			return InputSpecification.Helper.CheckBox(InputSpecification.InputName, InputSpecification.CustomAttributes);
 		}
 	}
 }

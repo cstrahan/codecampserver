@@ -11,10 +11,10 @@ namespace CodeCampServer.Core
 			return TypeDescriptor.GetProperties(obj)[property].GetValue(obj);
 		}
 
-		public static IDictionary ToDictionary(this object obj)
+		public static IDictionary<string, object> ToDictionary(this object obj)
 		{
-			IDictionary result = new Dictionary<string, object>();
-			var properties = TypeDescriptor.GetProperties(obj);
+			IDictionary<string, object> result = new Dictionary<string, object>();
+			PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(obj);
 			foreach (PropertyDescriptor property in properties)
 			{
 				result.Add(property.Name, property.GetValue(obj));

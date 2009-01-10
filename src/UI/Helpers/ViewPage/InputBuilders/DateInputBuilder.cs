@@ -1,20 +1,22 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc.Html;
-using CodeCampServer.UI.Helpers.ViewPage;
+using Castle.Components.Validator;
+using CodeCampServer.UI.Models.AutoMap;
 
 namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {
-	public class DateInputBuilder : BaseInputCreator
+	public class DateInputBuilder : BaseInputBuilder
 	{
-		public DateInputBuilder(InputBuilder inputBuilder)
-			: base(inputBuilder)
+		public override bool IsSatisfiedBy(IInputSpecification specification)
 		{
+			return (specification.PropertyInfo.HasCustomAttribute<ValidateDateAttribute>()) ||
+			       (specification.PropertyInfo.HasCustomAttribute<ValidateDateTimeAttribute>());
 		}
 
 		protected override string CreateInputElementBase()
 		{
-			var attributes = MakeDictionary(InputBuilder.Attributes);
+			IDictionary<string, object> attributes = MakeDictionary(InputSpecification.CustomAttributes);
 
 			if (attributes.ContainsKey("class"))
 			{
@@ -25,13 +27,13 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 				attributes.Add("class", "date-pick");
 			}
 
-			return InputBuilder.Helper.TextBox(GetCompleteInputName(), null, attributes);
+			return InputSpecification.Helper.TextBox(InputSpecification.InputName, null, attributes);
 		}
 
 		private static IDictionary<string, object> MakeDictionary(object withProperties)
 		{
 			var dic = new Dictionary<string, object>();
-			var properties = TypeDescriptor.GetProperties(withProperties);
+			PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(withProperties);
 			foreach (PropertyDescriptor property in properties)
 			{
 				dic.Add(property.Name, property.GetValue(withProperties));

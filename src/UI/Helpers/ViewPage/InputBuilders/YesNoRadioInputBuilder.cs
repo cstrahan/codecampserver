@@ -1,19 +1,19 @@
 using System.Text;
 using CodeCampServer.Core;
-using CodeCampServer.UI.Helpers.ViewPage;
+using CodeCampServer.Core.Common;
 
 namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {
-	internal class YesNoRadioInputBuilder : BaseInputCreator
+	public class YesNoRadioInputBuilder : BaseInputBuilder
 	{
-		public YesNoRadioInputBuilder(InputBuilder builder)
-			: base(builder)
-		{
-		}
-
 		protected override bool UseSpanAsLabel
 		{
 			get { return true; }
+		}
+
+		public override bool IsSatisfiedBy(IInputSpecification specification)
+		{
+			return specification.PropertyInfo.PropertyType == typeof (bool?);
 		}
 
 		protected override string CreateInputElementBase()
@@ -29,17 +29,19 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 		private string CreateRadioInput(string label, bool selected, bool value)
 		{
 			string checkedvalue = selected ? "checked=\"checked\"" : "";
+			var classAttr = (string) InputSpecification.CustomAttributes.GetPropertyValue("class");
 			return string.Format(
-				"<input id=\"{1}_{0}\" type=\"radio\" value=\"{0}\" name=\"{1}\" {3} /><label class=\"nestedLabel\" for=\"{1}_{0}\">{2}</label>",
-				value, GetCompleteInputName(), label, checkedvalue);
+				"<input id=\"{4}\" type=\"radio\" value=\"{0}\" name=\"{1}\" {3} /><label class=\"nestedLabel {5}\" for=\"{4}\">{2}</label>",
+				value, InputSpecification.InputName, label, checkedvalue,
+				UINameHelper.BuildIdFrom(InputSpecification.Expression, value), classAttr);
 		}
 
 		private bool? GetSelectedValue()
 		{
-			var model = InputBuilder.Helper.ViewData.Model;
+			object model = InputSpecification.Helper.ViewData.Model;
 			if (model == null) return false;
-			var value = model.GetPropertyValue(InputBuilder.PropertyInfo.Name);
-			return (bool?)value;
+			object value = model.GetPropertyValue(InputSpecification.PropertyInfo.Name);
+			return (bool?) value;
 		}
 	}
 }

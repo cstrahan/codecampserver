@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{98200972-A038-4DA8-8917-CBC4895175DC}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -164,17 +164,24 @@
     <Compile Include="Helpers\SubController.cs" />
     <Compile Include="Helpers\InputTextExtensions.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Helpers\ViewPage\BaseInputBuilder.cs" />
     <Compile Include="Helpers\ViewPage\DisplayErrorMessages.cs" />
     <Compile Include="Helpers\ViewPage\IDisplayErrorMessages.cs" />
-    <Compile Include="Helpers\ViewPage\PersistentObjectInputBuilder.cs" />
+    <Compile Include="Helpers\ViewPage\IInputSpecification.cs" />
+    <Compile Include="Helpers\ViewPage\IInputSpecificationExpression.cs" />
+    <Compile Include="Helpers\ViewPage\InputBuilders\EnumerationInputBuilder.cs" />
+    <Compile Include="Helpers\ViewPage\InputBuilders\RadioInputBuilder.cs" />
+    <Compile Include="Helpers\ViewPage\InputSpecification.cs" />
+    <Compile Include="Helpers\ViewPage\IViewBase.cs" />
     <Compile Include="Helpers\ViewPage\TypedViewPages.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Helpers\ViewPage\ViewBaseExtensions.cs" />
+    <Compile Include="HtmlExtensions.cs" />
     <Compile Include="IRouteConfigurator.cs" />
     <Compile Include="Models\Forms\AdminForm.cs" />
     <Compile Include="Helpers\UrlHelperExtensions.cs" />
     <Compile Include="Helpers\ViewDataExtensions.cs" />
-    <Compile Include="Helpers\ViewPage\BaseInputCreator.cs" />
     <Compile Include="Helpers\ViewPage\BaseViewPageT.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -185,7 +192,6 @@
     <Compile Include="Helpers\ViewPage\InputBuilders\DateInputBuilder.cs" />
     <Compile Include="Helpers\ViewPage\InputBuilders\HiddenInputBuilder.cs" />
     <Compile Include="Helpers\ViewPage\IInputBuilder.cs" />
-    <Compile Include="Helpers\ViewPage\InputBuilder.cs" />
     <Compile Include="Helpers\ViewPage\BaseViewPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -193,13 +199,9 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Helpers\ViewPage\IInputBuilderFactory.cs" />
-    <Compile Include="Helpers\ViewPage\IInputElementAuthority.cs" />
     <Compile Include="Helpers\ViewPage\InputBuilderFactory.cs" />
-    <Compile Include="Helpers\ViewPage\InputBuilders\NullInputBuilder.cs" />
     <Compile Include="Helpers\ViewPage\InputBuilders\TextBoxInputBuilder.cs" />
-    <Compile Include="Helpers\ViewPage\InputBuilders\UserDropDownBuilder.cs" />
     <Compile Include="Helpers\ViewPage\InputBuilders\YesNoRadioInputBuilder.cs" />
-    <Compile Include="Helpers\ViewPage\InputElementAuthority.cs" />
     <Compile Include="Controllers\ConferenceController.cs" />
     <Compile Include="Models\Forms\AttendeeForm.cs" />
     <Compile Include="Models\Forms\ConferenceForm.cs" />
@@ -369,6 +371,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
