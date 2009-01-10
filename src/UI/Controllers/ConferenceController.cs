@@ -5,9 +5,9 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Messages;
 using CodeCampServer.Core.Services.Updaters;
+using CodeCampServer.Infrastructure.AutoMap;
 using CodeCampServer.UI.Filters;
 using CodeCampServer.UI.Helpers.Filters;
-using CodeCampServer.UI.Models.AutoMap;
 using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Controllers
@@ -32,10 +32,8 @@ namespace CodeCampServer.UI.Controllers
 			{
 				return RedirectToAction<ConferenceController>(c => c.New());
 			}
-	
-			object conferenceListDto = AutoMapper.Map(conferences, typeof (Conference[]), typeof (ConferenceForm[]),
-			                                          typeof (Conference),
-			                                          typeof (ConferenceForm));
+
+			object conferenceListDto = AutoMapper.Map(conferences, typeof (Conference[]), typeof (ConferenceForm[]));
 			return View(conferenceListDto);
 		}
 

@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
 Inherits="CodeCampServer.UI.Helpers.ViewPage.SessionEditView"%>
+<%@ Import Namespace="CodeCampServer.Core.Common"%>
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
 <%@ Import Namespace="MvcContrib" %>
 <%@ Import Namespace="System.Web.Mvc" %>

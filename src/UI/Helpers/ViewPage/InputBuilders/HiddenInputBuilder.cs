@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 using System.Web.Mvc.Html;
-using CodeCampServer.UI.Models.AutoMap;
+using CodeCampServer.Core.Common;
 using CodeCampServer.UI.Models.Forms.Attributes;
 
 namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders

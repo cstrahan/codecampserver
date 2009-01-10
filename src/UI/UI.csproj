@@ -102,6 +102,7 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AutoMapperConfiguration.cs" />
+    <Compile Include="CodeCampServerProfile.cs" />
     <Compile Include="Controllers\AttendeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SaveController.cs" />
@@ -133,23 +134,6 @@
     <Compile Include="Helpers\Attributes\UserDropDownAttribute.cs" />
     <Compile Include="Helpers\Attributes\HiddenAttribute.cs" />
     <Compile Include="Helpers\Attributes\LabelAttribute.cs" />
-    <Compile Include="Helpers\AutoMap\AttributeExtensions.cs" />
-    <Compile Include="Helpers\AutoMap\IValueFormatter.cs" />
-    <Compile Include="Helpers\AutoMap\AutoMapper.cs" />
-    <Compile Include="Helpers\AutoMap\IMappingExpression.cs" />
-    <Compile Include="Helpers\AutoMap\IValueResolver.cs" />
-    <Compile Include="Helpers\AutoMap\MappingExpression.cs" />
-    <Compile Include="Helpers\AutoMap\MethodMember.cs" />
-    <Compile Include="Helpers\AutoMap\ModelResolver.cs" />
-    <Compile Include="Helpers\AutoMap\PropertyMap.cs" />
-    <Compile Include="Helpers\AutoMap\PropertyMember.cs" />
-    <Compile Include="Helpers\AutoMap\ReflectionHelper.cs" />
-    <Compile Include="Helpers\AutoMap\ResolutionContext.cs" />
-    <Compile Include="Helpers\AutoMap\TypeMap.cs" />
-    <Compile Include="Helpers\AutoMap\TypeMapFactory.cs" />
-    <Compile Include="Helpers\AutoMap\TypeMember.cs" />
-    <Compile Include="Helpers\AutoMap\ValueFormatter.cs" />
-    <Compile Include="Helpers\AutoMap\ICustomFormatterExpression.cs" />
     <Compile Include="Helpers\Validation\Attributes\BetterValidateIntegerAttribute.cs" />
     <Compile Include="Helpers\Validation\Attributes\BetterValidateNotEmptyAttribute.cs" />
     <Compile Include="Helpers\Validation\Attributes\BetterValidateDateAttribute.cs" />
@@ -159,7 +143,6 @@
     <Compile Include="Helpers\Validation\Validators\DateNotInFutureValidator.cs" />
     <Compile Include="Helpers\Validation\Attributes\ValidateDateNotInFutureAttribute.cs" />
     <Compile Include="Helpers\MvcHelperExtensions.cs" />
-    <Compile Include="Helpers\PrimitiveExtensions.cs" />
     <Content Include="scripts\DetentionFacility\Detail.js" />
     <Compile Include="Helpers\SubController.cs" />
     <Compile Include="Helpers\InputTextExtensions.cs" />
@@ -179,6 +162,17 @@
     <Compile Include="Helpers\ViewPage\ViewBaseExtensions.cs" />
     <Compile Include="HtmlExtensions.cs" />
     <Compile Include="IRouteConfigurator.cs" />
+    <Compile Include="Models\CustomResolvers\BaseFormatter.cs" />
+    <Compile Include="Models\CustomResolvers\BaseResolver.cs" />
+    <Compile Include="Models\CustomResolvers\FixedPointFormatter.cs" />
+    <Compile Include="Models\CustomResolvers\HtmlEncoderFormatter.cs" />
+    <Compile Include="Models\CustomResolvers\MoneyFormatter.cs" />
+    <Compile Include="Models\CustomResolvers\SpanWrappingFormatter.cs" />
+    <Compile Include="Models\CustomResolvers\StandardDateFormatter.cs" />
+    <Compile Include="Models\CustomResolvers\StandardDateTimeFormatter.cs" />
+    <Compile Include="Models\CustomResolvers\StandardTimeFormatter.cs" />
+    <Compile Include="Models\CustomResolvers\TimeSpanFormatter.cs" />
+    <Compile Include="Models\CustomResolvers\YesNoBooleanFormatter.cs" />
     <Compile Include="Models\Forms\AdminForm.cs" />
     <Compile Include="Helpers\UrlHelperExtensions.cs" />
     <Compile Include="Helpers\ViewDataExtensions.cs" />
@@ -211,6 +205,7 @@
     <Compile Include="Models\Forms\SpeakerForm.cs" />
     <Compile Include="Models\Forms\TimeSlotForm.cs" />
     <Compile Include="Models\Forms\TrackForm.cs" />
+    <Compile Include="Models\CustomResolvers\NullValueResolver.cs" />
     <Compile Include="RouteConfigurator.cs" />
     <Compile Include="Controllers\TimeSlotController.cs" />
   </ItemGroup>
@@ -348,7 +343,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Helpers\AutoMap\CustomMappings\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

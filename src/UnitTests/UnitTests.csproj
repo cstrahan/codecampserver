@@ -110,6 +110,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Common\PrimitiveExtensionsTester.cs" />
     <Compile Include="Core\Common\UINameHelperTester.cs" />
     <Compile Include="Core\Domain\Model\ConferenceTester.cs" />
     <Compile Include="Core\Domain\Model\Enumerations\EnumerationHelperTester.cs" />
@@ -123,10 +124,19 @@
     <Compile Include="Core\Services\Updaters\SpeakerUpdaterTester.cs" />
     <Compile Include="Core\Services\Updaters\TrackUpdaterTester.cs" />
     <Compile Include="Core\Services\Updaters\UserUpdaterTester.cs" />
+    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\AutoMapperSpecBase.cs" />
+    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\AutoMapperTester.cs" />
+    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\ConfigurationResolution.cs" />
+    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\CustomFormatters.cs" />
+    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\CustomMapping.cs" />
+    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\General.cs" />
+    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\Initialization.cs" />
+    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\MemberResolution.cs" />
+    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\Profiles.cs" />
+    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\Testing.cs" />
+    <Compile Include="Infrastructure\AutoMap\ResolutionContextTester.cs" />
     <Compile Include="MvcMockHelpers.cs" />
     <Compile Include="TestBase.cs" />
-    <Compile Include="UI\Automap\AutoMapperDtoTester.cs" />
-    <Compile Include="UI\Automap\TestAutoMapper.cs" />
     <Compile Include="UI\BinderTester.cs" />
     <Compile Include="UI\Controllers\AdminControllerTester.cs" />
     <Compile Include="UI\Controllers\AttendeeControllerTester.cs" />

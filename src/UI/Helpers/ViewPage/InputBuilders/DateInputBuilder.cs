@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc.Html;
 using Castle.Components.Validator;
-using CodeCampServer.UI.Models.AutoMap;
+using CodeCampServer.Core.Common;
 
 namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {

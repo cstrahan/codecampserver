@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using CodeCampServer.Infrastructure.AutoMap;
 using CodeCampServer.UI.Filters;
-using CodeCampServer.UI.Models.AutoMap;
 using MvcContrib;
 
 namespace CodeCampServer.UI.Helpers.Filters

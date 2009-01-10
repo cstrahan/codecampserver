@@ -1,5 +1,6 @@
 using System.Web.Mvc.Html;
 using CodeCampServer.Core;
+using CodeCampServer.Core.Common;
 
 namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {

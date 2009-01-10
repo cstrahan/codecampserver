@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="Common\AttributeExtensions.cs" />
     <Compile Include="Common\ExpressionHelper.cs" />
+    <Compile Include="Common\PrimitiveExtensions.cs" />
     <Compile Include="Common\ReflectionExtensions.cs" />
     <Compile Include="Common\UINameHelper.cs" />
     <Compile Include="Domain\ISpeakerRepository.cs" />

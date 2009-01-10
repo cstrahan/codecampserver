@@ -1,4 +1,5 @@
 using Castle.Components.Validator;
+using CodeCampServer.Infrastructure.AutoMap;
 using CodeCampServer.UI.Helpers.ViewPage;
 using CodeCampServer.UI.Helpers.ViewPage.InputBuilders;
 using StructureMap.Configuration.DSL;
@@ -46,6 +47,14 @@ namespace CodeCampServer.DependencyResolution
 		{
 			ForRequestedType<IValidatorRunner>().TheDefault.Is.ConstructedBy(
 				() => new ValidatorRunner(new CachedValidationRegistry()));
+		}
+	}
+
+	public class AutoMapperRegistry : Registry
+	{
+		protected override void configure()
+		{
+			ForRequestedType<IMappingEngine>().TheDefault.Is.ConstructedBy(() => AutoMapper.Engine);
 		}
 	}
 }

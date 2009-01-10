@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Threading;
+using CodeCampServer.Core.Common;
 using CodeCampServer.RegressionTests.TestHelpers.SmartWatiN;
-using CodeCampServer.UI;
-using CodeCampServer.UI.Models.AutoMap;
 using Gallio.Framework;
 using Gallio.Model;
 using Gallio.Model.Logging;
@@ -352,7 +351,7 @@ namespace CodeCampServer.RegressionTests.Web
 
 			foreach (string name in className.Split(' '))
 			{
-				var waitfor = "waitfor";
+				string waitfor = "waitfor";
 				if (name.StartsWith(waitfor))
 				{
 					string id = name.Substring(waitfor.Length);
@@ -488,7 +487,7 @@ namespace CodeCampServer.RegressionTests.Web
 		protected static string PropertyToCSS<TDTO>(
 			Expression<Func<TDTO, object>> memberExpr)
 		{
-			return ReflectionHelper.FindDtoProperty(memberExpr).Name.ToLowerCamelCase();
+			return ReflectionHelper.FindProperty(memberExpr).Name.ToLowerCamelCase();
 		}
 
 		#region Nested type: CSSValueHash

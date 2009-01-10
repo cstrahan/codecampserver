@@ -91,6 +91,27 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AutoMap\AutoMapper.cs" />
+    <Compile Include="AutoMap\Configuration.cs" />
+    <Compile Include="AutoMap\FormatterExpression.cs" />
+    <Compile Include="AutoMap\IConfiguration.cs" />
+    <Compile Include="AutoMap\IFormatterExpression.cs" />
+    <Compile Include="AutoMap\IMappingEngine.cs" />
+    <Compile Include="AutoMap\IMappingExpression.cs" />
+    <Compile Include="AutoMap\IValueFormatter.cs" />
+    <Compile Include="AutoMap\IValueResolver.cs" />
+    <Compile Include="AutoMap\MappingEngine.cs" />
+    <Compile Include="AutoMap\MappingExpression.cs" />
+    <Compile Include="AutoMap\MethodMember.cs" />
+    <Compile Include="AutoMap\Profile.cs" />
+    <Compile Include="AutoMap\PropertyMap.cs" />
+    <Compile Include="AutoMap\PropertyMember.cs" />
+    <Compile Include="AutoMap\ResolutionContext.cs" />
+    <Compile Include="AutoMap\TypeMap.cs" />
+    <Compile Include="AutoMap\TypeMapFactory.cs" />
+    <Compile Include="AutoMap\TypeMember.cs" />
+    <Compile Include="AutoMap\TypeMemberFinder.cs" />
+    <Compile Include="AutoMap\ValueFormatter.cs" />
     <Compile Include="DataAccess\IDatabaseDeleter.cs" />
     <Compile Include="DataAccess\Impl\ConferenceRepository.cs" />
     <Compile Include="DataAccess\Impl\KeyedRepository.cs" />

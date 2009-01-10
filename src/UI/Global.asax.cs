@@ -18,7 +18,6 @@ namespace CodeCampServer.UI
 		protected void Application_Start()
 		{
 			RegisterRoutes(RouteTable.Routes);
-			AutoMapperConfiguration.Configure();
 		}
 	}
 }
