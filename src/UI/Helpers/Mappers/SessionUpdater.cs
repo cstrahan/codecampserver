@@ -2,11 +2,11 @@ using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class SessionUpdater : ModelUpdater<Session, ISessionMessage>,
-	                              ISessionUpdater
+	public class SessionUpdater : ModelUpdater<Session, SessionForm>, ISessionUpdater
 	{
 		private readonly ISessionRepository _repository;
 
@@ -20,12 +20,12 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			get { return _repository; }
 		}
 
-		protected override Guid GetIdFromMessage(ISessionMessage message)
+		protected override Guid GetIdFromMessage(SessionForm message)
 		{
 			return message.Id;
 		}
 
-		protected override void UpdateModel(ISessionMessage message, Session model)
+		protected override void UpdateModel(SessionForm message, Session model)
 		{
 			model.Track = message.Track;
 			model.TimeSlot = message.TimeSlot;
@@ -39,17 +39,17 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			model.Key = message.Key;
 		}
 
-		protected override UpdateResult<Session, ISessionMessage> PreValidate(ISessionMessage message)
+		protected override UpdateResult<Session, SessionForm> PreValidate(SessionForm message)
 		{
 			if (SpeakerKeyAlreadyExists(message))
 			{
-				return new UpdateResult<Session, ISessionMessage>(false).WithMessage(x => x.Key, "This session key already exists");
+				return new UpdateResult<Session, SessionForm>(false).WithMessage(x => x.Key, "This session key already exists");
 			}
 			return base.PreValidate(message);
 		}
 
-		
-		private bool SpeakerKeyAlreadyExists(ISessionMessage message)
+
+		private bool SpeakerKeyAlreadyExists(SessionForm message)
 		{
 			return _repository.GetByKey(message.Key) != null;
 		}

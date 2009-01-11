@@ -2,6 +2,7 @@ using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Models.Forms;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -14,7 +15,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_save_new_speaker_from_message()
 		{
-			var message = S<ISpeakerMessage>();
+			var message = S<SpeakerForm>();
 			message.Id = Guid.Empty;
 			message.Bio = "Bio";
 			message.Company = "Company";
@@ -30,7 +31,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			ISpeakerUpdater updater = new SpeakerUpdater(repository);
 
-			UpdateResult<Speaker, ISpeakerMessage> updateResult = updater.UpdateFromMessage(message);
+			UpdateResult<Speaker, SpeakerForm> updateResult = updater.UpdateFromMessage(message);
 
 			updateResult.Successful.ShouldBeTrue();
 			Speaker speaker = updateResult.Model;
@@ -48,7 +49,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_update_existing_speaker_from_message()
 		{
-			var message = S<ISpeakerMessage>();
+			var message = S<SpeakerForm>();
 			message.Id = Guid.NewGuid();
 			message.Bio = "Bio";
 			message.Company = "Company";
@@ -65,7 +66,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			ISpeakerUpdater updater = new SpeakerUpdater(repository);
 
-			UpdateResult<Speaker, ISpeakerMessage> updateResult = updater.UpdateFromMessage(message);
+			UpdateResult<Speaker, SpeakerForm> updateResult = updater.UpdateFromMessage(message);
 
 			updateResult.Successful.ShouldBeTrue();
 
@@ -83,7 +84,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_not_add_new_speaker_if_key_already_exists()
 		{
-			var message = S<ISpeakerMessage>();
+			var message = S<SpeakerForm>();
 			message.Id = Guid.NewGuid();
 			message.Key = "Key";
 
@@ -93,7 +94,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			ISpeakerUpdater updater = new SpeakerUpdater(repository);
 
-			UpdateResult<Speaker, ISpeakerMessage> updateResult = updater.UpdateFromMessage(message);
+			UpdateResult<Speaker, SpeakerForm> updateResult = updater.UpdateFromMessage(message);
 
 			updateResult.Successful.ShouldBeFalse();
 

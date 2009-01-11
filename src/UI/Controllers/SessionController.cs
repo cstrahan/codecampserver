@@ -9,7 +9,7 @@ using MvcContrib;
 namespace CodeCampServer.UI.Controllers
 {
 	[RequiresConferenceFilter]
-	public class SessionController : SaveController<Session, ISessionMessage>
+	public class SessionController : SaveController<Session, SessionForm>
 	{
 		private readonly ISessionUpdater _updater;
 		private readonly ISessionRepository _repository;
@@ -20,7 +20,7 @@ namespace CodeCampServer.UI.Controllers
 			_repository = repository;
 		}
 
-		protected override IModelUpdater<Session, ISessionMessage> GetUpdater()
+		protected override IModelUpdater<Session, SessionForm> GetUpdater()
 		{
 			return _updater;
 		}

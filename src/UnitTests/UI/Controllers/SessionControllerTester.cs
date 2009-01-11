@@ -47,7 +47,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var form = new SessionForm(){Conference = new Conference()};
 			var updater = S<ISessionUpdater>();
-			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Session, ISessionMessage>.Success());
+			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Session, SessionForm>.Success());
 			var controller = new SessionController(S<ISessionRepository>(), updater);
 
 			var result = (RedirectToRouteResult) controller.Save(form);
@@ -60,7 +60,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var form = new SessionForm();
 			var updater = S<ISessionUpdater>();
-			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Session, ISessionMessage>.Fail().WithMessage(
+			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Session, SessionForm>.Fail().WithMessage(
 			                                                    	x => x.Title, "Some Message"));
 			var controller = new SessionController(S<ISessionRepository>(), updater);
 

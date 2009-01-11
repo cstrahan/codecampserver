@@ -8,7 +8,7 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class UserMapper : ModelUpdater<User, IUserMessage>, IUserMapper
+	public class UserMapper : ModelUpdater<User, UserForm>, IUserMapper
 	{
 		private readonly IUserRepository _repository;
 		private readonly ICryptographer _cryptographer;
@@ -24,12 +24,12 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			get { return _repository; }
 		}
 
-		protected override Guid GetIdFromMessage(IUserMessage message)
+		protected override Guid GetIdFromMessage(UserForm message)
 		{
 			return message.Id;
 		}
 
-		protected override void UpdateModel(IUserMessage message, User model)
+		protected override void UpdateModel(UserForm message, User model)
 		{
 			model.Id = message.Id;
 			model.Name = message.Name;
@@ -40,17 +40,17 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			model.Username = message.Username;
 		}
 
-		protected override UpdateResult<User, IUserMessage> PreValidate(IUserMessage message)
+		protected override UpdateResult<User, UserForm> PreValidate(UserForm message)
 		{
 			if (UserAlreadyExists(message))
 			{
-				return new UpdateResult<User, IUserMessage>(false).WithMessage(x => x.Username, "This username already exists");
+				return new UpdateResult<User, UserForm>(false).WithMessage(x => x.Username, "This username already exists");
 			}
 			return base.PreValidate(message);
 		}
 
 
-		private bool UserAlreadyExists(IUserMessage message)
+		private bool UserAlreadyExists(UserForm message)
 		{
 			if(message.GetEditMode() == EditMode.Edit) return false;
 

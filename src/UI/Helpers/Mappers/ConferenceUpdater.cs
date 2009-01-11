@@ -2,10 +2,11 @@ using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class ConferenceUpdater : ModelUpdater<Conference, IConferenceMessage>, IConferenceUpdater
+	public class ConferenceUpdater : ModelUpdater<Conference, ConferenceForm>, IConferenceUpdater
 	{
 		private readonly IConferenceRepository _repository;
 
@@ -19,12 +20,12 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			get { return _repository; }
 		}
 
-		protected override Guid GetIdFromMessage(IConferenceMessage message)
+		protected override Guid GetIdFromMessage(ConferenceForm message)
 		{
 			return message.Id;
 		}
 
-		protected override void UpdateModel(IConferenceMessage message, Conference model)
+		protected override void UpdateModel(ConferenceForm message, Conference model)
 		{
 			model.Address = message.Address;
 			model.City = message.City;
@@ -39,18 +40,18 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			model.StartDate = ToDateTime(message.StartDate);
 		}
 
-		protected override UpdateResult<Conference, IConferenceMessage> PreValidate(IConferenceMessage message)
+		protected override UpdateResult<Conference, ConferenceForm> PreValidate(ConferenceForm message)
 		{
 			if (ConferenceKeyAlreadyExists(message))
 			{
-				return new UpdateResult<Conference, IConferenceMessage>(false)
+				return new UpdateResult<Conference, ConferenceForm>(false)
 					.WithMessage(x => x.Key, "This conference key already exists");
 			}
 
 			return base.PreValidate(message);
 		}
 
-		private bool ConferenceKeyAlreadyExists(IConferenceMessage message)
+		private bool ConferenceKeyAlreadyExists(ConferenceForm message)
 		{
 			Conference conference = ((IKeyedRepository<Conference>) Repository).GetByKey(message.Key);
 			return conference != null && conference.Id!=message.Id;

@@ -3,8 +3,7 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public interface ITimeSlotUpdater : IModelUpdater<TimeSlot, TimeSlotForm>
+	public interface IAttendeeUpdater : IModelUpdater<Conference, AttendeeForm>
 	{
-		
 	}
 }

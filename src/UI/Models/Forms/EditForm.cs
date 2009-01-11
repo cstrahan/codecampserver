@@ -8,7 +8,7 @@ namespace CodeCampServer.UI.Models.Forms
 	{
 		public abstract Guid Id { get; set; }
 
-		public EditMode GetEditMode()
+		public virtual EditMode GetEditMode()
 		{
 			if (Guid.Empty.Equals(Id))
 			{

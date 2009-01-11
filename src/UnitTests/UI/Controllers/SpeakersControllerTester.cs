@@ -49,7 +49,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var form = new SpeakerForm();
 			var updater = M<ISpeakerUpdater>();
-			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Speaker, ISpeakerMessage>.Success());
+			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Speaker, SpeakerForm>.Success());
 			var controller = new SpeakerController(M<ISpeakerRepository>(), updater);
 
 			ActionResult result = controller.Save(form);
@@ -65,7 +65,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var form = new SpeakerForm();
 			var updater = M<ISpeakerUpdater>();
-			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Speaker, ISpeakerMessage>.Fail().WithMessage(
+			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Speaker, SpeakerForm>.Fail().WithMessage(
 																	x => x.FirstName, "Some Message"));
 			var controller = new SpeakerController(M<ISpeakerRepository>(), updater);
 

@@ -10,7 +10,7 @@ using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public class AttendeeController : SaveController<Conference, IAttendeeMessage>
+	public class AttendeeController : SaveController<Conference, AttendeeForm>
 	{
 		private readonly IAttendeeUpdater _attendeeUpdater;
 		private readonly IConferenceRepository _conferenceRepository;
@@ -21,7 +21,7 @@ namespace CodeCampServer.UI.Controllers
 			_conferenceRepository = conferenceRepository;
 		}
 
-		protected override IModelUpdater<Conference, IAttendeeMessage> GetUpdater()
+		protected override IModelUpdater<Conference, AttendeeForm> GetUpdater()
 		{
 			return _attendeeUpdater;
 		}

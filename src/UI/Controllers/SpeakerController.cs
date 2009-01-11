@@ -1,4 +1,3 @@
-using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
@@ -6,9 +5,10 @@ using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
 using MvcContrib;
+
 namespace CodeCampServer.UI.Controllers
 {
-	public class SpeakerController:SaveController<Speaker,ISpeakerMessage>
+	public class SpeakerController : SaveController<Speaker, SpeakerForm>
 	{
 		private readonly ISpeakerRepository _repository;
 		private readonly ISpeakerUpdater _updater;
@@ -19,7 +19,7 @@ namespace CodeCampServer.UI.Controllers
 			_updater = updater;
 		}
 
-		[AutoMappedToModelFilter(typeof(Speaker[]), typeof(SpeakerForm[]))]
+		[AutoMappedToModelFilter(typeof (Speaker[]), typeof (SpeakerForm[]))]
 		public ActionResult Index()
 		{
 			var speakers = _repository.GetAll();
@@ -27,12 +27,12 @@ namespace CodeCampServer.UI.Controllers
 			return View();
 		}
 
-		protected override IModelUpdater<Speaker, ISpeakerMessage> GetUpdater()
+		protected override IModelUpdater<Speaker, SpeakerForm> GetUpdater()
 		{
 			return _updater;
 		}
 
-		[AutoMappedToModelFilter(typeof(Speaker), typeof(SpeakerForm))]
+		[AutoMappedToModelFilter(typeof (Speaker), typeof (SpeakerForm))]
 		public ActionResult Edit(Speaker speaker)
 		{
 			if (speaker == null)
@@ -41,18 +41,17 @@ namespace CodeCampServer.UI.Controllers
 				return RedirectToAction<SpeakerController>(c => c.Index());
 			}
 			ViewData.Add(speaker);
-			return View();			
+			return View();
 		}
 
-		public ActionResult Save([Bind(Prefix = "")]SpeakerForm form)
+		public ActionResult Save([Bind(Prefix = "")] SpeakerForm form)
 		{
-			return ProcessSave(form,()=>RedirectToAction<SpeakerController>(c => c.Index()));
+			return ProcessSave(form, () => RedirectToAction<SpeakerController>(c => c.Index()));
 		}
 
 		public ActionResult New()
 		{
-
-			return View("Edit",new SpeakerForm());
+			return View("Edit", new SpeakerForm());
 		}
 
 		public ActionResult Delete(Speaker speaker)

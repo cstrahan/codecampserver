@@ -1,27 +1,31 @@
 using System;
-using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 using CodeCampServer.UI.Models.Validation.Attributes;
 
 namespace CodeCampServer.UI.Models.Forms
 {
-	public class SpeakerForm : ISpeakerMessage
+	public class SpeakerForm
 	{
-		public Guid Id { get; set; }
+		public virtual Guid Id { get; set; }
+
 		[BetterValidateNonEmpty("Url Key")]
-		public string Key { get; set; }
+		public virtual string Key { get; set; }
+
 		[BetterValidateNonEmpty("First Name")]
-		public string FirstName { get; set; }
+		public virtual string FirstName { get; set; }
+
 		[BetterValidateNonEmpty("Last Name")]
-		public string LastName { get; set; }
-		public string Company { get; set; }
+		public virtual string LastName { get; set; }
+
+		public virtual string Company { get; set; }
+
 		[BetterValidateEmail("Email")]
-		public string EmailAddress { get; set; }
-		
-		public string JobTitle { get; set; }
-		
-		public string Bio { get; set; }
-		
-		public string WebsiteUrl { get; set; }
+		public virtual string EmailAddress { get; set; }
+
+		public virtual string JobTitle { get; set; }
+
+		public virtual string Bio { get; set; }
+
+		public virtual string WebsiteUrl { get; set; }
 	}
 }

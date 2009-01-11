@@ -47,7 +47,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var form = new TrackForm();
 			var updater = M<ITrackUpdater>();
-			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Track, ITrackMessage>.Success());
+			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Track, TrackForm>.Success());
 			var controller = new TrackController(S<ITrackRepository>(), updater);
 
 			var result = (RedirectToRouteResult) controller.Save(form);
@@ -60,7 +60,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var form = new TrackForm();
 			var updater = M<ITrackUpdater>();
-			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Track, ITrackMessage>.Fail().WithMessage(
+			updater.Stub(x => x.UpdateFromMessage(form)).Return(ModelUpdater<Track, TrackForm>.Fail().WithMessage(
 			                                                    	x => x.Name, "Some Message"));
 			var controller = new TrackController(S<ITrackRepository>(), updater);
 

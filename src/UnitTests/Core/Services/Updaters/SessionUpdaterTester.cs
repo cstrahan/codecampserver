@@ -3,6 +3,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Models.Forms;
 using CodeCampServer.UnitTests;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -16,7 +17,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_save_new_session_from_message()
 		{
-			var message = S<ISessionMessage>();
+			var message = S<SessionForm>();
 			var track = new Track();
 			var timeSlot = new TimeSlot();
 			var speaker = new Speaker();
@@ -38,7 +39,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			ISessionUpdater updater = new SessionUpdater(repository);
 
-			UpdateResult<Session, ISessionMessage> updateResult = updater.UpdateFromMessage(message);
+			UpdateResult<Session, SessionForm> updateResult = updater.UpdateFromMessage(message);
 
 			updateResult.Successful.ShouldBeTrue();
 			Session session = updateResult.Model;
@@ -59,7 +60,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_update_existing_session_from_message()
 		{
-			var message = S<ISessionMessage>();
+			var message = S<SessionForm>();
 			var track = new Track();
 			var timeSlot = new TimeSlot();
 			var speaker = new Speaker();
@@ -82,7 +83,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			ISessionUpdater updater = new SessionUpdater(repository);
 
-			UpdateResult<Session, ISessionMessage> updateResult = updater.UpdateFromMessage(message);
+			UpdateResult<Session, SessionForm> updateResult = updater.UpdateFromMessage(message);
 
 			updateResult.Successful.ShouldBeTrue();
 			Session session = updateResult.Model;
@@ -103,7 +104,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_not_add_new_session_if_key_already_exists()
 		{
-			var message = S<ISessionMessage>();
+			var message = S<SessionForm>();
 			message.Id = Guid.NewGuid();
 			message.Key = "Key";
 
@@ -113,7 +114,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			ISessionUpdater updater = new SessionUpdater(repository);
 
-			UpdateResult<Session, ISessionMessage> updateResult = updater.UpdateFromMessage(message);
+			UpdateResult<Session, SessionForm> updateResult = updater.UpdateFromMessage(message);
 
 			updateResult.Successful.ShouldBeFalse();
 

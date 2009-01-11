@@ -2,10 +2,11 @@ using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class TimeSlotUpdater : ModelUpdater<TimeSlot, ITimeSlotMessage>, ITimeSlotUpdater
+	public class TimeSlotUpdater : ModelUpdater<TimeSlot, TimeSlotForm>, ITimeSlotUpdater
 	{
 		private readonly ITimeSlotRepository _repository;
 		private readonly IConferenceRepository _conferenceRepository;
@@ -21,14 +22,14 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			get { return _repository; }
 		}
 
-		protected override Guid GetIdFromMessage(ITimeSlotMessage message)
+		protected override Guid GetIdFromMessage(TimeSlotForm message)
 		{
 			return message.Id;
 		}
 
-		protected override UpdateResult<TimeSlot, ITimeSlotMessage> PreValidate(ITimeSlotMessage message)
+		protected override UpdateResult<TimeSlot, TimeSlotForm> PreValidate(TimeSlotForm message)
 		{
-			var failureResult = new UpdateResult<TimeSlot, ITimeSlotMessage>(false);
+			var failureResult = new UpdateResult<TimeSlot, TimeSlotForm>(false);
 			bool messageHasFailedValidation = false;
 
 			DateTime result;
@@ -50,7 +51,7 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			return base.PreValidate(message);
 		}
 
-		protected override void UpdateModel(ITimeSlotMessage message, TimeSlot model)
+		protected override void UpdateModel(TimeSlotForm message, TimeSlot model)
 		{
 			model.StartTime = DateTime.Parse(message.StartTime);
 			model.EndTime = DateTime.Parse(message.EndTime);

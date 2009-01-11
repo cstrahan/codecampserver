@@ -9,7 +9,7 @@ using MvcContrib;
 namespace CodeCampServer.UI.Controllers
 {
 	[RequiresConferenceFilter]
-	public class TrackController : SaveController<Track, ITrackMessage>
+	public class TrackController : SaveController<Track, TrackForm>
 	{
 		private readonly ITrackRepository _trackRepository;
 
@@ -54,7 +54,7 @@ namespace CodeCampServer.UI.Controllers
 			return RedirectToAction<TrackController>(x => x.Index(null));
 		}
 
-		protected override IModelUpdater<Track, ITrackMessage> GetUpdater()
+		protected override IModelUpdater<Track, TrackForm> GetUpdater()
 		{
 			return _trackUpdater;
 		}

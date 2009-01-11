@@ -8,7 +8,7 @@ using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public class TimeSlotController : SaveController<TimeSlot, ITimeSlotMessage>
+	public class TimeSlotController : SaveController<TimeSlot, TimeSlotForm>
 	{
 		private readonly ITimeSlotRepository _repository;
 		private readonly ITimeSlotUpdater _updater;
@@ -19,7 +19,7 @@ namespace CodeCampServer.UI.Controllers
 			_updater = updater;
 		}
 
-		protected override IModelUpdater<TimeSlot, ITimeSlotMessage> GetUpdater()
+		protected override IModelUpdater<TimeSlot, TimeSlotForm> GetUpdater()
 		{
 			return _updater;
 		}

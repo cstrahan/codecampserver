@@ -66,7 +66,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var updater = S<ITimeSlotUpdater>();
 			updater.Stub(u => u.UpdateFromMessage(null)).IgnoreArguments().Return(
-				ModelUpdater<TimeSlot, ITimeSlotMessage>.Success());
+				ModelUpdater<TimeSlot, TimeSlotForm>.Success());
 
 			var controller = new TimeSlotController(null, updater);
 			var conference = new Conference();

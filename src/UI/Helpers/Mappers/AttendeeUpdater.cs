@@ -2,10 +2,11 @@ using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class AttendeeUpdater : ModelUpdater<Conference, IAttendeeMessage>, IAttendeeUpdater
+	public class AttendeeUpdater : ModelUpdater<Conference, AttendeeForm>, IAttendeeUpdater
 	{
 		private readonly IConferenceRepository _repository;
 
@@ -19,12 +20,12 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			get { return _repository; }
 		}
 
-		protected override Guid GetIdFromMessage(IAttendeeMessage message)
+		protected override Guid GetIdFromMessage(AttendeeForm message)
 		{
 			return message.ConferenceID;
 		}
 
-		protected override void UpdateModel(IAttendeeMessage message, Conference model)
+		protected override void UpdateModel(AttendeeForm message, Conference model)
 		{
 			Attendee attendee;
 
@@ -46,15 +47,15 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			model.AddAttendee(attendee);
 		}
 
-		private static bool MessageRepresentsAnAlreadyAttendingAttendee(IAttendeeMessage message, Conference conference)
+		private static bool MessageRepresentsAnAlreadyAttendingAttendee(AttendeeForm message, Conference conference)
 		{
 			return message.AttendeeID.HasValue && conference.IsAttending(message.AttendeeID.Value);
 		}
 
-		protected override UpdateResult<Conference, IAttendeeMessage> PreValidate(IAttendeeMessage message)
+		protected override UpdateResult<Conference, AttendeeForm> PreValidate(AttendeeForm message)
 		{
 			Conference conference = _repository.GetById(message.ConferenceID);
-			var result = new UpdateResult<Conference, IAttendeeMessage>(false);
+			var result = new UpdateResult<Conference, AttendeeForm>(false);
 
 			if (conference == null)
 			{

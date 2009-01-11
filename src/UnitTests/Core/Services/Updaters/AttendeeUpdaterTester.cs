@@ -2,6 +2,7 @@ using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Models.Forms;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -14,7 +15,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_update_an_existing_attendee()
 		{
-			var message = S<IAttendeeMessage>();
+			var message = S<AttendeeForm>();
 			message.AttendeeID = Guid.NewGuid();
 			message.Status = AttendanceStatus.Confirmed;
 			message.FirstName = "first";
@@ -28,7 +29,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			repository.Stub(r => r.GetById(Guid.Empty)).IgnoreArguments().Return(conference);
 
 			IAttendeeUpdater updater = new AttendeeUpdater(repository);
-			UpdateResult<Conference, IAttendeeMessage> result = updater.UpdateFromMessage(message);
+			UpdateResult<Conference, AttendeeForm> result = updater.UpdateFromMessage(message);
 
 			result.Successful.ShouldBeTrue();
 
@@ -45,14 +46,14 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_check_for_the_conference_to_exist()
 		{
-			var foo = S<IAttendeeMessage>();
+			var foo = S<AttendeeForm>();
 			foo.ConferenceID = Guid.NewGuid();
 
 			var repository = M<IConferenceRepository>();
 			repository.Stub(r => r.GetById(foo.ConferenceID)).Return(null);
 
 			IAttendeeUpdater updater = new AttendeeUpdater(repository);
-			UpdateResult<Conference, IAttendeeMessage> result = updater.UpdateFromMessage(foo);
+			UpdateResult<Conference, AttendeeForm> result = updater.UpdateFromMessage(foo);
 			result.Successful.ShouldBeFalse();
 			result.GetMessages(m => m.ConferenceID)[0].ShouldEqual("Conference does not exist.");
 
@@ -66,7 +67,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_check_for_unique_attendee_email_when_adding_new_attendee()
 		{
-			var foo = S<IAttendeeMessage>();
+			var foo = S<AttendeeForm>();
 			foo.ConferenceID = Guid.NewGuid();
 			foo.EmailAddress = "were@were.com";
 
@@ -76,7 +77,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			repository.Stub(r => r.GetById(foo.ConferenceID)).Return(conference);
 
 			IAttendeeUpdater updater = new AttendeeUpdater(repository);
-			UpdateResult<Conference, IAttendeeMessage> result = updater.UpdateFromMessage(foo);
+			UpdateResult<Conference, AttendeeForm> result = updater.UpdateFromMessage(foo);
 			result.Successful.ShouldBeFalse();
 			result.GetMessages(m => m.EmailAddress)[0].ShouldEqual("Attended is already registered for this conference.");
 

@@ -2,6 +2,7 @@ using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Models.Forms;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -14,7 +15,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_add_new_conference()
 		{
-			var message = S<IConferenceMessage>();
+			var message = S<ConferenceForm>();
 			message.Id = Guid.Empty;
 			message.Key = "key";
 			message.Description = "desc";
@@ -31,7 +32,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			var updater = new ConferenceUpdater(repository);
 
-			UpdateResult<Conference, IConferenceMessage> result = updater.UpdateFromMessage(message);
+			UpdateResult<Conference, ConferenceForm> result = updater.UpdateFromMessage(message);
 			Conference conference = result.Model;
 			conference.Key.ShouldEqual("key");
 			conference.Description.ShouldEqual("desc");
@@ -64,7 +65,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 									Id = Guid.NewGuid()
 			                 	};
 
-			var message = S<IConferenceMessage>();
+			var message = S<ConferenceForm>();
 			message.Id = conference.Id;
 			message.Key = "key";
 			message.Description = "desc";
@@ -81,7 +82,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			repository.Stub(x => x.GetByKey(message.Key)).Return(conference);
 			var updater = new ConferenceUpdater(repository);
 
-			UpdateResult<Conference, IConferenceMessage> result = updater.UpdateFromMessage(message);
+			UpdateResult<Conference, ConferenceForm> result = updater.UpdateFromMessage(message);
 
 			result.Successful.ShouldBeTrue();
 			result.Model.ShouldEqual(conference);
@@ -101,7 +102,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_not_add_new_conference_if_key_already_exists()
 		{
-			var message = S<IConferenceMessage>();
+			var message = S<ConferenceForm>();
 			message.Id = Guid.NewGuid();
 			message.Key = "Key";
 
@@ -111,7 +112,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			IConferenceUpdater updater = new ConferenceUpdater(repository);
 
-			UpdateResult<Conference, IConferenceMessage> updateResult = updater.UpdateFromMessage(message);
+			UpdateResult<Conference, ConferenceForm> updateResult = updater.UpdateFromMessage(message);
 
 			updateResult.Successful.ShouldBeFalse();
 

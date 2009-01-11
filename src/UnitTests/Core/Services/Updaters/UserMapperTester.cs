@@ -3,6 +3,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Models.Forms;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -15,7 +16,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_map_user_from_message()
 		{
-			var message = S<IUserMessage>();
+			var message = S<UserForm>();
 			message.Id = Guid.Empty;
 			message.Username = "username";
 			message.Password = "password";
@@ -30,7 +31,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			IUserMapper mapper = new UserMapper(repository, cryptographer);
 
-			UpdateResult<User, IUserMessage> updateResult = mapper.UpdateFromMessage(message);
+			UpdateResult<User, UserForm> updateResult = mapper.UpdateFromMessage(message);
 
 			updateResult.Successful.ShouldBeTrue();
 			User user = updateResult.Model;
@@ -45,7 +46,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_update_existing_user_from_message()
 		{
-			var message = S<IUserMessage>();
+			var message = S<UserForm>();
 			message.Id = Guid.Empty;
 			message.Username = "username";
 			message.Password = "password";
@@ -61,7 +62,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			IUserMapper mapper = new UserMapper(repository, cryptographer);
 
-			UpdateResult<User, IUserMessage> updateResult = mapper.UpdateFromMessage(message);
+			UpdateResult<User, UserForm> updateResult = mapper.UpdateFromMessage(message);
 
 			updateResult.Successful.ShouldBeTrue();
 			User user = updateResult.Model;
@@ -77,7 +78,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_not_add_new_user_if_username_already_exists()
 		{
-			var message = S<IUserMessage>();
+			var message = S<UserForm>();
 			message.Id = Guid.NewGuid();
 			message.Username = "username1";
 
@@ -87,7 +88,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			IUserMapper mapper = new UserMapper(repository, S<ICryptographer>());
 
-			UpdateResult<User, IUserMessage> updateResult = mapper.UpdateFromMessage(message);
+			UpdateResult<User, UserForm> updateResult = mapper.UpdateFromMessage(message);
 
 			updateResult.Successful.ShouldBeFalse();
 

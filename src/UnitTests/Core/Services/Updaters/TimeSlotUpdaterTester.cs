@@ -2,6 +2,7 @@ using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Models.Forms;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -14,7 +15,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_save_a_new_timeslot_from_message()
 		{
-			var message = S<ITimeSlotMessage>();
+			var message = S<TimeSlotForm>();
 			message.StartTime = new DateTime(2009,5,30,9,0,0).ToString();
 			message.EndTime = new DateTime(2009, 5, 30, 10, 30, 0).ToString();
 			message.ConferenceId = Guid.NewGuid();
@@ -31,7 +32,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			ITimeSlotUpdater updater = new TimeSlotUpdater(repository, conferenceRepository);
 
-			UpdateResult<TimeSlot, ITimeSlotMessage> result = updater.UpdateFromMessage(message);
+			UpdateResult<TimeSlot, TimeSlotForm> result = updater.UpdateFromMessage(message);
 
 			result.Successful.ShouldBeTrue();
 			TimeSlot modelTimeSlot = result.Model;
@@ -45,7 +46,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_update_a_timeslot_from_message()
 		{
-			var message = S<ITimeSlotMessage>();
+			var message = S<TimeSlotForm>();
 			message.StartTime = new DateTime(2009, 5, 30, 9, 0, 0).ToString();
 			message.EndTime = new DateTime(2009, 5, 30, 10, 30, 0).ToString();
 			message.ConferenceId = Guid.NewGuid();
@@ -62,7 +63,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			ITimeSlotUpdater updater = new TimeSlotUpdater(repository, conferenceRepository);
 
-			UpdateResult<TimeSlot, ITimeSlotMessage> result = updater.UpdateFromMessage(message);
+			UpdateResult<TimeSlot, TimeSlotForm> result = updater.UpdateFromMessage(message);
 
 			result.Successful.ShouldBeTrue();
 			result.Model.ShouldEqual(timeSlot);
@@ -77,7 +78,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_validate_time_formats_in_the_message()
 		{
-			var message = S<ITimeSlotMessage>();
+			var message = S<TimeSlotForm>();
 			message.StartTime = "asdfd";
 			message.EndTime = "234234";
 			message.ConferenceId = Guid.NewGuid();
@@ -92,7 +93,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			ITimeSlotUpdater updater = new TimeSlotUpdater(repository, conferenceRepository);
 
-			UpdateResult<TimeSlot, ITimeSlotMessage> result = updater.UpdateFromMessage(message);
+			UpdateResult<TimeSlot, TimeSlotForm> result = updater.UpdateFromMessage(message);
 
 			result.Successful.ShouldBeFalse();
 			result.GetMessages(m=>m.StartTime).Length.ShouldEqual(1);

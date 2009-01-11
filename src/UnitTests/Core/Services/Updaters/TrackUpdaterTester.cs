@@ -2,6 +2,7 @@ using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Models.Forms;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -14,7 +15,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_save_new_track_from_message()
 		{
-			var message = S<ITrackMessage>();
+			var message = S<TrackForm>();
 			message.Name = "name";
 			message.ConferenceId = Guid.NewGuid();
 			message.Id = Guid.Empty;
@@ -28,7 +29,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			ITrackUpdater updater = new TrackUpdater(repository, conferenceRepository);
 
-			UpdateResult<Track, ITrackMessage> result = updater.UpdateFromMessage(message);
+			UpdateResult<Track, TrackForm> result = updater.UpdateFromMessage(message);
 
 			result.Successful.ShouldBeTrue();
 			Track track = result.Model;
@@ -39,7 +40,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_update_track_from_message()
 		{
-			var message = S<ITrackMessage>();
+			var message = S<TrackForm>();
 			message.Name = "name";
 			message.ConferenceId = Guid.NewGuid();
 			message.Id = Guid.NewGuid();
@@ -56,7 +57,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			ITrackUpdater updater = new TrackUpdater(repository, conferenceRepository);
 
-			UpdateResult<Track, ITrackMessage> result = updater.UpdateFromMessage(message);
+			UpdateResult<Track, TrackForm> result = updater.UpdateFromMessage(message);
 
 			result.Successful.ShouldBeTrue();
 			result.Model.ShouldEqual(track);

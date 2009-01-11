@@ -11,7 +11,7 @@ using CodeCampServer.UI.Models.Forms;
 namespace CodeCampServer.UI.Controllers
 {
 	[RequiresConferenceFilter]
-	public class ConferenceController : SaveController<Conference, IConferenceMessage>
+	public class ConferenceController : SaveController<Conference, ConferenceForm>
 	{
 		private readonly IConferenceRepository _repository;
 		private readonly IConferenceUpdater _updater;
@@ -64,7 +64,7 @@ namespace CodeCampServer.UI.Controllers
 			return View("Edit", form);
 		}
 
-		protected override IModelUpdater<Conference, IConferenceMessage> GetUpdater()
+		protected override IModelUpdater<Conference, ConferenceForm> GetUpdater()
 		{
 			return _updater;
 		}

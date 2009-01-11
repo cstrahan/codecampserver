@@ -1,18 +1,17 @@
 using System;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.UI.Helpers.Mappers;
 
 namespace CodeCampServer.UI.Models.Forms
 {
-	public class AttendeeForm : ValueObject<AttendeeForm>, IAttendeeMessage
+	public class AttendeeForm : ValueObject<AttendeeForm>
 	{
-		public Guid ConferenceID { get; set; }
-		public Guid? AttendeeID { get; set; }
-		public string FirstName { get; set; }
-		public string LastName { get; set; }
-		public string EmailAddress { get; set; }
-		public AttendanceStatus Status { get; set; }
-		public string Webpage { get; set; }
+		public virtual Guid ConferenceID { get; set; }
+		public virtual Guid? AttendeeID { get; set; }
+		public virtual string FirstName { get; set; }
+		public virtual string LastName { get; set; }
+		public virtual string EmailAddress { get; set; }
+		public virtual AttendanceStatus Status { get; set; }
+		public virtual string Webpage { get; set; }
 	}
 }
