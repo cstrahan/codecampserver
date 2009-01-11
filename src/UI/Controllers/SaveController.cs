@@ -1,7 +1,7 @@
 using System;
 using System.Web.Mvc;
-using CodeCampServer.Core.Services.Updaters;
 using CodeCampServer.UI.Helpers;
+using CodeCampServer.UI.Helpers.Mappers;
 using Tarantino.Core.Commons.Model;
 
 namespace CodeCampServer.UI.Controllers

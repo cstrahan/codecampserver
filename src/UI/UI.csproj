@@ -129,7 +129,30 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ISubController.cs" />
+    <Compile Include="Helpers\Mappers\AttendeeUpdater.cs" />
+    <Compile Include="Helpers\Mappers\ConferenceUpdater.cs" />
+    <Compile Include="Helpers\Mappers\EditMode.cs" />
+    <Compile Include="Helpers\Mappers\IAttendeeMessage.cs" />
+    <Compile Include="Helpers\Mappers\IConferenceMessage.cs" />
+    <Compile Include="Helpers\Mappers\IConferenceUpdater.cs" />
+    <Compile Include="Helpers\Mappers\IFormMessage.cs" />
+    <Compile Include="Helpers\Mappers\IModelUpdater.cs" />
+    <Compile Include="Helpers\Mappers\ISessionMessage.cs" />
+    <Compile Include="Helpers\Mappers\ISessionUpdater.cs" />
+    <Compile Include="Helpers\Mappers\ISpeakerMessage.cs" />
+    <Compile Include="Helpers\Mappers\ISpeakerUpdater.cs" />
+    <Compile Include="Helpers\Mappers\ITimeSlotMessage.cs" />
+    <Compile Include="Helpers\Mappers\ITimeSlotUpdater.cs" />
+    <Compile Include="Helpers\Mappers\ITrackMessage.cs" />
+    <Compile Include="Helpers\Mappers\ITrackUpdater.cs" />
     <Compile Include="Helpers\Mappers\IUserMapper.cs" />
+    <Compile Include="Helpers\Mappers\IUserMessage.cs" />
+    <Compile Include="Helpers\Mappers\ModelUpdater.cs" />
+    <Compile Include="Helpers\Mappers\SessionUpdater.cs" />
+    <Compile Include="Helpers\Mappers\SpeakerUpdater.cs" />
+    <Compile Include="Helpers\Mappers\TimeSlotUpdater.cs" />
+    <Compile Include="Helpers\Mappers\TrackUpdater.cs" />
+    <Compile Include="Helpers\Mappers\UpdateResult.cs" />
     <Compile Include="Helpers\Mappers\UserMapper.cs" />
     <Compile Include="Helpers\ModelStateExtensions.cs" />
     <Compile Include="Helpers\Attributes\ShowAsRequiredAttribute.cs" />

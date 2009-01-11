@@ -1,7 +1,7 @@
 using System;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
-using CodeCampServer.Core.Messages;
+using CodeCampServer.UI.Helpers.Mappers;
 
 namespace CodeCampServer.UI.Models.Forms
 {

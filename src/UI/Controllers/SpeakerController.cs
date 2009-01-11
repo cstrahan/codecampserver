@@ -2,9 +2,8 @@ using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Messages;
-using CodeCampServer.Core.Services.Updaters;
 using CodeCampServer.UI.Helpers.Filters;
+using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
 using MvcContrib;
 namespace CodeCampServer.UI.Controllers

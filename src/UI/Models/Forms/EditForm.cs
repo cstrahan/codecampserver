@@ -1,6 +1,6 @@
 using System;
 using CodeCampServer.Core;
-using CodeCampServer.Core.Messages;
+using CodeCampServer.UI.Helpers.Mappers;
 
 namespace CodeCampServer.UI.Models.Forms
 {

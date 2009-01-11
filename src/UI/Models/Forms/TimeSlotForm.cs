@@ -1,5 +1,5 @@
 using System;
-using CodeCampServer.Core.Services.Updaters;
+using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms.Attributes;
 
 namespace CodeCampServer.UI.Models.Forms

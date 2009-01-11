@@ -2,10 +2,8 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Messages;
-using CodeCampServer.Core.Services.Updaters;
-using CodeCampServer.Core.Services.Updaters.Impl;
 using CodeCampServer.UI.Controllers;
+using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
 using MvcContrib.TestHelper;
 using NBehave.Spec.NUnit;

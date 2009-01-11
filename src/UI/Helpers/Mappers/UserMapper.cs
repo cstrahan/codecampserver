@@ -1,10 +1,7 @@
 using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Messages;
 using CodeCampServer.Core.Services;
-using CodeCampServer.Core.Services.Updaters;
-using CodeCampServer.Core.Services.Updaters.Impl;
 using CodeCampServer.Infrastructure.AutoMap;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
