@@ -12,7 +12,7 @@ using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
-	public class NewsletterControllerTester : TestControllerBase
+	public class NewsletterControllerTester : SaveControllerTester
 	{
 		[Test]
 		public void When_a_new_attendee_signs_up_for_the_newsletter_Index_action_should_render_the_default_view()

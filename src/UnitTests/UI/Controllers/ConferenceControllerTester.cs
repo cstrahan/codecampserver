@@ -12,7 +12,7 @@ using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
-	public class ConferenceControllerTester : TestControllerBase
+	public class ConferenceControllerTester : SaveControllerTester
 	{
 		[Test]
 		public void When_a_conference_does_not_exist_Edit_should_redirect_to_the_index_with_a_message()
@@ -42,23 +42,44 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			result.AssertActionRedirect().ToAction<ConferenceController>(a => a.New());
 		}
-		
 
 		[Test]
-		public void When_a_conference_exists_Save_should_update_the_confernce()
+		public void Should_save_the_conference()
 		{
 			var form = new ConferenceForm();
+			var conference = new Conference();
 
-			var updater = S<IConferenceUpdater>();
-			updater.Stub(u => u.UpdateFromMessage(null)).IgnoreArguments().Return(ConferenceUpdater.Success());
+			var mapper = S<IConferenceMapper>();
+			mapper.Stub(m => m.Map(form)).Return(conference);
 
-			var controller = new ConferenceController(null,updater);
-	
-			controller.Save(form)
-				.AssertActionRedirect()
-				.ToAction<ConferenceController>(a => a.Index());
+			var repository = S<IConferenceRepository>();
 
-			updater.AssertWasCalled(u => u.UpdateFromMessage(form));
+			var controller = new ConferenceController(repository, mapper);
+			var result = (RedirectToRouteResult)controller.Save(form);
+
+			repository.AssertWasCalled(r => r.Save(conference));
+			result.AssertActionRedirect().ToAction<ConferenceController>(a => a.Index());
 		}
+
+		[Test]
+		public void Should_not_save_conference_if_key_already_exists()
+		{
+			var form = new ConferenceForm { Key = "foo", Id = Guid.NewGuid() };
+			var conference = new Conference();
+
+			var mapper = S<IConferenceMapper>();
+			mapper.Stub(m => m.Map(form)).Return(conference);
+
+			var repository = S<IConferenceRepository>();
+			repository.Stub(r => r.GetByKey("foo")).Return(new Conference());
+
+			var controller = new ConferenceController(repository, mapper);
+			var result = (ViewResult)controller.Save(form);
+
+			result.AssertViewRendered().ViewName.ShouldEqual("Edit");
+			controller.ModelState.Values.Count.ShouldEqual(1);
+			controller.ModelState["Key"].Errors[0].ErrorMessage.ShouldEqual("This conference key already exists");
+		}
+
 	}
 }

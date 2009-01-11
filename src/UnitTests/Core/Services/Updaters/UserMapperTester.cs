@@ -14,85 +14,58 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 	public class UserMapperTester : TestBase
 	{
 		[Test]
-		public void Should_map_user_from_message()
+		public void Should_map_new_user_from_form()
 		{
-			var message = S<UserForm>();
-			message.Id = Guid.Empty;
-			message.Username = "username";
-			message.Password = "password";
-			message.EmailAddress = "email";
-			message.Name = "name";
+			var form = S<UserForm>();
+			form.Id = Guid.Empty;
+			form.Username = "username";
+			form.Password = "password";
+			form.EmailAddress = "email";
+			form.Name = "name";
 
 			var repository = S<IUserRepository>();
-			repository.Stub(s => s.GetById(message.Id)).Return(null);
+			repository.Stub(s => s.GetById(form.Id)).Return(null);
 			var cryptographer = S<ICryptographer>();
 			cryptographer.Stub(c => c.CreateSalt()).Return("salt");
 			cryptographer.Stub(c => c.GetPasswordHash("password", "salt")).Return("hash");
 
 			IUserMapper mapper = new UserMapper(repository, cryptographer);
 
-			UpdateResult<User, UserForm> updateResult = mapper.UpdateFromMessage(message);
-
-			updateResult.Successful.ShouldBeTrue();
-			User user = updateResult.Model;
-			user.Username.ShouldEqual("username");
-			user.PasswordSalt.ShouldEqual("salt");
-			user.PasswordHash.ShouldEqual("hash");
-			user.EmailAddress.ShouldEqual("email");
-			user.Name.ShouldEqual("name");
-			repository.AssertWasCalled(s => s.Save(user));
+			User mapped = mapper.Map(form);
+			mapped.Username.ShouldEqual("username");
+			mapped.PasswordSalt.ShouldEqual("salt");
+			mapped.PasswordHash.ShouldEqual("hash");
+			mapped.EmailAddress.ShouldEqual("email");
+			mapped.Name.ShouldEqual("name");
 		}
 
 		[Test]
-		public void Should_update_existing_user_from_message()
+		public void Should_map_existing_user_from_form()
 		{
-			var message = S<UserForm>();
-			message.Id = Guid.Empty;
-			message.Username = "username";
-			message.Password = "password";
-			message.EmailAddress = "email";
-			message.Name = "name";
+			var form = S<UserForm>();
+			form.Id = Guid.Empty;
+			form.Username = "username";
+			form.Password = "password";
+			form.EmailAddress = "email";
+			form.Name = "name";
 
 			var repository = S<IUserRepository>();
-			var existingUser = new User();
-			repository.Stub(s => s.GetById(message.Id)).Return(existingUser);
-			var cryptographer = S<ICryptographer>();
-			cryptographer.Stub(c => c.CreateSalt()).Return("salt");
-			cryptographer.Stub(c => c.GetPasswordHash("password", "salt")).Return("hash");
-
-			IUserMapper mapper = new UserMapper(repository, cryptographer);
-
-			UpdateResult<User, UserForm> updateResult = mapper.UpdateFromMessage(message);
-
-			updateResult.Successful.ShouldBeTrue();
-			User user = updateResult.Model;
-			user.ShouldBeTheSameAs(existingUser);
-			user.Username.ShouldEqual("username");
-			user.PasswordSalt.ShouldEqual("salt");
-			user.PasswordHash.ShouldEqual("hash");
-			user.EmailAddress.ShouldEqual("email");
-			user.Name.ShouldEqual("name");
-			repository.AssertWasCalled(s => s.Save(user));
-		}
-
-		[Test]
-		public void Should_not_add_new_user_if_username_already_exists()
-		{
-			var message = S<UserForm>();
-			message.Id = Guid.NewGuid();
-			message.Username = "username1";
-
-			var repository = M<IUserRepository>();
 			var user = new User();
-			repository.Stub(s => s.GetByKey("username1")).Return(user);
+			repository.Stub(s => s.GetById(form.Id)).Return(user);
+			var cryptographer = S<ICryptographer>();
+			cryptographer.Stub(c => c.CreateSalt()).Return("salt");
+			cryptographer.Stub(c => c.GetPasswordHash("password", "salt")).Return("hash");
 
-			IUserMapper mapper = new UserMapper(repository, S<ICryptographer>());
+			IUserMapper mapper = new UserMapper(repository, cryptographer);
 
-			UpdateResult<User, UserForm> updateResult = mapper.UpdateFromMessage(message);
-
-			updateResult.Successful.ShouldBeFalse();
-
-			CollectionAssert.Contains(updateResult.GetMessages(x => x.Username), "This username already exists");
+			User mapped = mapper.Map(form);
+			user.ShouldEqual(mapped);
+			user.ShouldBeTheSameAs(user);
+			user.Username.ShouldEqual("username");
+			user.PasswordSalt.ShouldEqual("salt");
+			user.PasswordHash.ShouldEqual("hash");
+			user.EmailAddress.ShouldEqual("email");
+			user.Name.ShouldEqual("name");
 		}
 	}
 }

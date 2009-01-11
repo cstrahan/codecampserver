@@ -1,38 +1,29 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
-using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
 	public class SpeakerController : SaveController<Speaker, SpeakerForm>
 	{
 		private readonly ISpeakerRepository _repository;
-		private readonly ISpeakerUpdater _updater;
+		private readonly ISpeakerMapper _mapper;
 
-		public SpeakerController(ISpeakerRepository repository, ISpeakerUpdater updater)
+		public SpeakerController(ISpeakerRepository repository, ISpeakerMapper mapper) : base(repository, mapper)
 		{
 			_repository = repository;
-			_updater = updater;
+			_mapper = mapper;
 		}
 
-		[AutoMappedToModelFilter(typeof (Speaker[]), typeof (SpeakerForm[]))]
 		public ActionResult Index()
 		{
 			var speakers = _repository.GetAll();
-			ViewData.Add(speakers);
-			return View();
+			return View(_mapper.Map(speakers));
 		}
 
-		protected override IModelUpdater<Speaker, SpeakerForm> GetUpdater()
-		{
-			return _updater;
-		}
-
-		[AutoMappedToModelFilter(typeof (Speaker), typeof (SpeakerForm))]
 		public ActionResult Edit(Speaker speaker)
 		{
 			if (speaker == null)
@@ -40,13 +31,29 @@ namespace CodeCampServer.UI.Controllers
 				TempData.Add("message", "Speaker has been deleted.");
 				return RedirectToAction<SpeakerController>(c => c.Index());
 			}
-			ViewData.Add(speaker);
-			return View();
+			return View(_mapper.Map(speaker));
 		}
 
 		public ActionResult Save([Bind(Prefix = "")] SpeakerForm form)
 		{
 			return ProcessSave(form, () => RedirectToAction<SpeakerController>(c => c.Index()));
+		}
+
+		protected override IDictionary<string, string[]> GetFormValidationErrors(SpeakerForm form)
+		{
+			var result = new ValidationResult();
+			if (SpeakerKeyAlreadyExists(form))
+			{
+				result.AddError<SpeakerForm>(x => x.Key, "This speaker key already exists");
+			}
+
+			return result.GetAllErrors();
+		}
+
+		private bool SpeakerKeyAlreadyExists(SpeakerForm message)
+		{
+			Speaker speaker = _repository.GetByKey(message.Key);
+			return speaker != null && speaker.Id != message.Id;
 		}
 
 		public ActionResult New()

@@ -3,7 +3,7 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public interface IAttendeeUpdater : IModelUpdater<Conference, AttendeeForm>
+	public interface IAttendeeMapper : IMapper<Conference, AttendeeForm>
 	{
 	}
 }

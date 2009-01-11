@@ -4,21 +4,20 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
-using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
 	[RequiresConferenceFilter]
 	public class TrackController : SaveController<Track, TrackForm>
 	{
-		private readonly ITrackRepository _trackRepository;
+		private readonly ITrackRepository _repository;
 
-		private readonly ITrackUpdater _trackUpdater;
+		private readonly ITrackMapper _mapper;
 
-		public TrackController(ITrackRepository trackRepository, ITrackUpdater trackUpdater)
+		public TrackController(ITrackRepository repository, ITrackMapper mapper) : base(repository, mapper)
 		{
-			_trackRepository = trackRepository;
-			_trackUpdater = trackUpdater;
+			_repository = repository;
+			_mapper = mapper;
 		}
 
 		public ViewResult New(Conference conference)
@@ -27,19 +26,15 @@ namespace CodeCampServer.UI.Controllers
 			return View("Edit", model);
 		}
 
-		[AutoMappedToModelFilter(typeof (Track[]), typeof (TrackForm[]))]
 		public ViewResult Index(Conference conference)
 		{
-			Track[] tracks = _trackRepository.GetAllForConference(conference);
-			ViewData.Add(tracks);
-			return View();
+			Track[] tracks = _repository.GetAllForConference(conference);
+			return View(_mapper.Map(tracks));
 		}
 
-		[AutoMappedToModelFilter(typeof (Track), typeof (TrackForm))]
 		public ViewResult Edit(Track track)
 		{
-			ViewData.Add(track);
-			return View();
+			return View(_mapper.Map(track));
 		}
 
 		[ValidateModel(typeof (TrackForm))]
@@ -50,13 +45,8 @@ namespace CodeCampServer.UI.Controllers
 
 		public RedirectToRouteResult Delete(Track track)
 		{
-			_trackRepository.Delete(track);
+			_repository.Delete(track);
 			return RedirectToAction<TrackController>(x => x.Index(null));
-		}
-
-		protected override IModelUpdater<Track, TrackForm> GetUpdater()
-		{
-			return _trackUpdater;
 		}
 	}
 }

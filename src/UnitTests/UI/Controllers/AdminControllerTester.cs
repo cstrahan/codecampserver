@@ -13,7 +13,7 @@ using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
-	public class AdminControllerTester : TestControllerBase
+	public class AdminControllerTester : SaveControllerTester
 	{
 		[Test]
 		public void When_new_user_is_saved_Should_map_from_form_and_call_repository()
@@ -74,9 +74,9 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			{
 			}
 
-			public override UserForm Map(User sourceObject)
+			public override UserForm Map(User form)
 			{
-				MappedUser = sourceObject;
+				MappedUser = form;
 				return new UserForm();
 			}
 		}
@@ -85,16 +85,36 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		public void When_a_user_exists_Save_should_a_valid_user()
 		{
 			var user = new User {Username = "admin", Id = Guid.NewGuid()};
-			var updater = S<IUserMapper>();
+			var mapper = S<IUserMapper>();
 			var form = new UserForm {Id = user.Id, Password = "pass"};
-			updater.Stub(u => u.Map(form)).Return(user);
+			mapper.Stub(u => u.Map(form)).Return(user);
 			var repository = S<IUserRepository>();
-			var controller = new AdminController(repository, updater);
+			var controller = new AdminController(repository, mapper);
 
 			var result = (RedirectToRouteResult) controller.Save(form);
 
 			repository.AssertWasCalled(r => r.Save(user));
 			result.AssertActionRedirect().ToAction<AdminController>(a => a.Index());
+		}
+
+		[Test]
+		public void Should_not_save_user_if_key_already_exists()
+		{
+			var form = new UserForm {Username = "foo"};
+			var user = new User();
+
+			var mapper = S<IUserMapper>();
+			mapper.Stub(m => m.Map(form)).Return(user);
+
+			var repository = S<IUserRepository>();
+			repository.Stub(r => r.GetByKey("foo")).Return(new User());
+
+			var controller = new AdminController(repository, mapper);
+			var result = (ViewResult) controller.Save(form);
+
+			result.AssertViewRendered().ViewName.ShouldEqual("Edit");
+			controller.ModelState.Values.Count.ShouldEqual(1);
+			controller.ModelState["Username"].Errors[0].ErrorMessage.ShouldEqual("This username already exists");
 		}
 	}
 }

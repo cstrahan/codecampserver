@@ -13,7 +13,7 @@ using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
-	public class AttendeeControllerTester : TestControllerBase
+	public class AttendeeControllerTester : SaveControllerTester
 	{
 		[Test]
 		public void Index_should_put_conference_attendees_in_viewdata()
@@ -24,7 +24,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var attendee1 = new Attendee {EmailAddress = "foo@example.com"};
 			conference.AddAttendee(attendee1);
 
-			var controller = new AttendeeController(S<IAttendeeUpdater>(), M<IConferenceRepository>());
+			var controller = new AttendeeController(S<IAttendeeMapper>(), M<IConferenceRepository>());
 
 			ViewResult result = controller.Index(conference);
 
@@ -36,7 +36,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		public void New_should_put_a_new_attendee_form_in_viewdata_with_controller_details_and_render_edit_view()
 		{
 			var conference = new Conference {Id = Guid.NewGuid(),};
-			var controller = new AttendeeController(M<IAttendeeUpdater>(), M<IConferenceRepository>());
+			var controller = new AttendeeController(M<IAttendeeMapper>(), M<IConferenceRepository>());
 			ViewResult result = controller.New(conference);
 			result.ViewName.ShouldEqual("Edit");
 			result.ViewData.Model.ShouldEqual(new AttendeeForm {ConferenceID = conference.Id});
@@ -49,9 +49,9 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var attendee = new Attendee {Id = Guid.Empty, Status = AttendanceStatus.Attending};
 			conference.AddAttendee(attendee);
 
-			var updater = M<IAttendeeUpdater>();
+			var mapper = M<IAttendeeMapper>();
 			var repository = M<IConferenceRepository>();
-			var controller = new AttendeeController(updater, repository);
+			var controller = new AttendeeController(mapper, repository);
 
 			controller.Confirm(conference, attendee.Id);
 			attendee.Status.ShouldEqual(AttendanceStatus.Confirmed);
@@ -64,7 +64,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var conference = new Conference();
 			var attendee = new Attendee {Id = Guid.Empty, Status = AttendanceStatus.Attending};
 
-			var controller = new AttendeeController(M<IAttendeeUpdater>(), M<IConferenceRepository>());
+			var controller = new AttendeeController(M<IAttendeeMapper>(), M<IConferenceRepository>());
 
 			ViewResult confirm = controller.Confirm(conference, attendee.Id);
 			confirm.ViewName.ShouldEqual(ViewNames.Response404);

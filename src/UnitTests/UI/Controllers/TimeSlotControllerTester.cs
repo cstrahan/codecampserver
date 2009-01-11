@@ -14,21 +14,21 @@ using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
-	public class TimeSlotControllerTester : TestControllerBase
+	public class TimeSlotControllerTester : SaveControllerTester
 	{
 		[Test]
-		public void When_New_is_called_the_edit_view_should_be_rendered_with_the_conference()
+		public void When_New_is_called_the_edit_view_should_be_rendered_with_the_time_slot()
 		{
 			var controller = new TimeSlotController(null, null);
 
-			var conference = new Conference {Id = Guid.NewGuid()};
+			var conference = new Conference {Id = Guid.NewGuid(), Key = "foo"};
 
 			ActionResult result = controller.New(conference);
 
-			result
-				.AssertViewRendered()
-				.ForView("edit")
-				.ViewData.Get<TimeSlot>().Conference.Id.ShouldEqual(conference.Id);
+			result.AssertViewRendered().ForView("edit");
+			var form = ((TimeSlotForm)controller.ViewData.Model);
+			form.ConferenceKey.ShouldEqual("foo");
+			form.ConferenceId.ShouldEqual(conference.Id);
 		}
 
 		[Test]
@@ -47,34 +47,37 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var conference = new Conference();
 
 			var repository = S<ITimeSlotRepository>();
-			repository.Stub(repo => repo.GetAllForConference(conference)).Return(new TimeSlot[1]);
+			var timeSlots = new []{new TimeSlot()};
+			repository.Stub(repo => repo.GetAllForConference(conference)).Return(timeSlots);
 
-			var controller = new TimeSlotController(repository, null);
+			var mapper = S<ITimeSlotMapper>();
+			mapper.Stub(m => m.Map(timeSlots)).Return(new[] {new TimeSlotForm()});
+			var controller = new TimeSlotController(repository, mapper);
 
 			ActionResult result = controller.Index(conference);
 
-			result
-				.AssertViewRendered()
-				.ForView(ViewNames.Default)
-				.ViewData.Get<TimeSlot[]>().Length.ShouldEqual(1);
+			result.AssertViewRendered().ForView(ViewNames.Default);
+			var forms = ((TimeSlotForm[])controller.ViewData.Model);
+			forms.Length.ShouldEqual(1);
 		}
 
 		[Test]
-		public void When_a_timeslot_exists_Save_should_update_the_timeslot()
+		public void Should_save_the_timeslot()
 		{
 			var form = new TimeSlotForm();
+			var timeSlot = new TimeSlot();
 
-			var updater = S<ITimeSlotUpdater>();
-			updater.Stub(u => u.UpdateFromMessage(null)).IgnoreArguments().Return(
-				ModelUpdater<TimeSlot, TimeSlotForm>.Success());
+			var mapper = S<ITimeSlotMapper>();
+			mapper.Stub(m => m.Map(form)).Return(timeSlot);
 
-			var controller = new TimeSlotController(null, updater);
+			var repository = S<ITimeSlotRepository>();
+
+			var controller = new TimeSlotController(repository, mapper);
 			var conference = new Conference();
-			controller.Save(form, conference)
-				.AssertActionRedirect()
-				.ToAction<TimeSlotController>(a => a.Index(conference));
+			var result = (RedirectToRouteResult) controller.Save(form, conference);
 
-			updater.AssertWasCalled(u => u.UpdateFromMessage(form));
+			repository.AssertWasCalled(r => r.Save(timeSlot));
+			result.AssertActionRedirect().ToAction<TimeSlotController>(a => a.Index(conference));
 		}
 	}
 }

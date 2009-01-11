@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Domain;
@@ -14,12 +15,12 @@ namespace CodeCampServer.UI.Controllers
 	public class ConferenceController : SaveController<Conference, ConferenceForm>
 	{
 		private readonly IConferenceRepository _repository;
-		private readonly IConferenceUpdater _updater;
+		private readonly IConferenceMapper _mapper;
 
-		public ConferenceController(IConferenceRepository repository, IConferenceUpdater updater)
+		public ConferenceController(IConferenceRepository repository, IConferenceMapper mapper) : base(repository, mapper)
 		{
 			_repository = repository;
-			_updater = updater;
+			_mapper = mapper;
 		}
 
 		public ActionResult Index()
@@ -45,9 +46,7 @@ namespace CodeCampServer.UI.Controllers
 				return RedirectToAction<ConferenceController>(c => c.Index());
 			}
 
-			var form = (ConferenceForm) AutoMapper.Map(conference, typeof (Conference), typeof (ConferenceForm));
-
-			return View(form);
+			return View(_mapper.Map(conference));
 		}
 
 		[ValidateModel(typeof (ConferenceForm))]
@@ -56,17 +55,27 @@ namespace CodeCampServer.UI.Controllers
 			return ProcessSave(form, () => RedirectToAction<ConferenceController>(c => c.Index()));
 		}
 
+		protected override IDictionary<string, string[]> GetFormValidationErrors(ConferenceForm form)
+		{
+			var result = new ValidationResult();
+			if (ConferenceKeyAlreadyExists(form))
+			{
+				result.AddError<ConferenceForm>(x => x.Key, "This conference key already exists");
+			}
+			return result.GetAllErrors();
+		}
+
+		private bool ConferenceKeyAlreadyExists(ConferenceForm message)
+		{
+			Conference conference = _repository.GetByKey(message.Key);
+			return conference != null && conference.Id != message.Id;
+		}
+
 		public ActionResult New()
 		{
 			var conference = new Conference {StartDate = SystemTime.Now(), EndDate = SystemTime.Now()};
 			_repository.Save(conference);
-			var form = (ConferenceForm) AutoMapper.Map(conference, typeof (Conference), typeof (ConferenceForm));
-			return View("Edit", form);
-		}
-
-		protected override IModelUpdater<Conference, ConferenceForm> GetUpdater()
-		{
-			return _updater;
+			return View("Edit", _mapper.Map(conference));
 		}
 	}
 }

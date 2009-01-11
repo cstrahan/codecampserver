@@ -3,7 +3,8 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public interface ISpeakerUpdater : IModelUpdater<Speaker, SpeakerForm>
+	public interface ISessionMapper : IMapper<Session, SessionForm>
 	{
+		SessionForm[] Map(Session[] sessions);
 	}
 }

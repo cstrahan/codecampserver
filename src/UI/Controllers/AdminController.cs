@@ -1,22 +1,22 @@
+using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
-using CodeCampServer.Core;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
-using CodeCampServer.UI.Helpers;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public class AdminController : SmartController
+	public class AdminController : SaveController<User, UserForm>
 	{
-		private readonly IUserRepository _userRepository;
+		private readonly IUserRepository _repository;
 		private readonly IUserMapper _mapper;
 
-		public AdminController(IUserRepository userRepository, IUserMapper mapper)
+		public AdminController(IUserRepository repository, IUserMapper mapper) : base(repository, mapper)
 		{
-			_userRepository = userRepository;
+			_repository = repository;
 			_mapper = mapper;
 		}
 
@@ -24,7 +24,7 @@ namespace CodeCampServer.UI.Controllers
 		{
 			if (user == null)
 			{
-				var allUsers = _userRepository.GetAll();
+				var allUsers = _repository.GetAll();
 				if (allUsers.Length > 0)
 				{
 					return Edit(allUsers[0]);
@@ -39,7 +39,7 @@ namespace CodeCampServer.UI.Controllers
 
 		public ActionResult Index()
 		{
-			User user = _userRepository.GetByUserName("admin");
+			User user = _repository.GetByUserName("admin");
 			if (user == null)
 			{
 				return RedirectToAction<AdminController>(c => c.Edit(null));
@@ -50,23 +50,25 @@ namespace CodeCampServer.UI.Controllers
 		[ValidateModel(typeof (UserForm))]
 		public ActionResult Save([Bind(Prefix = "")] UserForm form)
 		{
-			if (!ModelState.IsValid)
+			return ProcessSave(form, () => RedirectToAction<AdminController>(c => c.Index()));
+		}
+
+		protected override IDictionary<string, string[]> GetFormValidationErrors(UserForm form)
+		{
+			var result = new ValidationResult();
+			if (UsernameIsDuplicate(form))
 			{
-				return View("Edit", form);
+				result.AddError<UserForm>(u => u.Username, "This username already exists");
 			}
 
-			User user = _mapper.Map(form);
-			ValidationResult result = user.Validate();
+			return result.GetAllErrors();
+		}
 
-			ModelState.AddModelErrors(result.GetErrors());
-			if (!ModelState.IsValid)
-			{
-				return View("Edit", form);
-			}
+		private bool UsernameIsDuplicate(UserForm form)
+		{
+			if (form.Id != Guid.Empty) return false;
 
-			_userRepository.Save(user);
-
-			return RedirectToAction<AdminController>(c => c.Index());
+			return _repository.GetByKey(form.Username) != null;
 		}
 	}
 }

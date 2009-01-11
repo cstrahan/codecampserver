@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
@@ -12,18 +13,11 @@ namespace CodeCampServer.UI.Controllers
 {
 	public class AttendeeController : SaveController<Conference, AttendeeForm>
 	{
-		private readonly IAttendeeUpdater _attendeeUpdater;
-		private readonly IConferenceRepository _conferenceRepository;
+		private readonly IConferenceRepository _repository;
 
-		public AttendeeController(IAttendeeUpdater attendeeUpdater, IConferenceRepository conferenceRepository)
+		public AttendeeController(IAttendeeMapper mapper, IConferenceRepository repository) : base(repository, mapper)
 		{
-			_attendeeUpdater = attendeeUpdater;
-			_conferenceRepository = conferenceRepository;
-		}
-
-		protected override IModelUpdater<Conference, AttendeeForm> GetUpdater()
-		{
-			return _attendeeUpdater;
+			_repository = repository;
 		}
 
 		public ViewResult New(Conference conference)
@@ -43,14 +37,31 @@ namespace CodeCampServer.UI.Controllers
 		public ViewResult Confirm(Conference conference, Guid attendeeId)
 		{
 			Attendee attendee = conference.GetAttendee(attendeeId);
-			
+
 			if (attendee == null) return View(ViewNames.Response404);
-			
+
 			attendee.Status = AttendanceStatus.Confirmed;
-			
-			_conferenceRepository.Save(conference);
-			
+
+			_repository.Save(conference);
+
 			return View();
+		}
+
+		public ActionResult Save(AttendeeForm form)
+		{
+			return ProcessSave(form, () => RedirectToAction<AttendeeController>(c => c.New(null)));
+		}
+
+		protected override IDictionary<string, string[]> GetFormValidationErrors(AttendeeForm form)
+		{
+			var result = new ValidationResult();
+			Conference conference = _repository.GetById(form.ConferenceID);
+			if (form.AttendeeID == null && conference.IsAttending(form.EmailAddress))
+			{
+				result.AddError<AttendeeForm>(c => c.EmailAddress, "Attendee is already registered for this conference.");
+			}
+
+			return result.GetAllErrors();
 		}
 	}
 }

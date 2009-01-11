@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
@@ -11,18 +12,11 @@ namespace CodeCampServer.UI.Controllers
 	[RequiresConferenceFilter]
 	public class SessionController : SaveController<Session, SessionForm>
 	{
-		private readonly ISessionUpdater _updater;
 		private readonly ISessionRepository _repository;
 
-		public SessionController(ISessionRepository repository, ISessionUpdater updater)
+		public SessionController(ISessionRepository repository, ISessionMapper mapper) : base(repository, mapper)
 		{
-			_updater = updater;
 			_repository = repository;
-		}
-
-		protected override IModelUpdater<Session, SessionForm> GetUpdater()
-		{
-			return _updater;
 		}
 
 		public ViewResult New()
@@ -49,6 +43,21 @@ namespace CodeCampServer.UI.Controllers
 		public ActionResult Save([Bind(Prefix = "")] SessionForm form)
 		{
 			return ProcessSave(form, () => CreateRedirect(form.Conference));
+		}
+
+		protected override IDictionary<string, string[]> GetFormValidationErrors(SessionForm form)
+		{
+			var result = new ValidationResult();
+			if (SpeakerKeyAlreadyExists(form))
+			{
+				result.AddError<SessionForm>(x => x.Key, "This session key already exists");
+			}
+			return result.GetAllErrors();
+		}
+
+		private bool SpeakerKeyAlreadyExists(SessionForm message)
+		{
+			return _repository.GetByKey(message.Key) != null;
 		}
 
 		public RedirectToRouteResult Delete(Session session)

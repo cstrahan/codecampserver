@@ -2,69 +2,33 @@ using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
-using CodeCampServer.Infrastructure.AutoMap;
-using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class UserMapper : ModelUpdater<User, UserForm>, IUserMapper
+	public class UserMapper : FormMapper<User, UserForm>, IUserMapper
 	{
-		private readonly IUserRepository _repository;
 		private readonly ICryptographer _cryptographer;
 
-		public UserMapper(IUserRepository repository, ICryptographer cryptographer)
+		public UserMapper(IUserRepository repository, ICryptographer cryptographer) : base(repository)
 		{
-			_repository = repository;
 			_cryptographer = cryptographer;
 		}
 
-		protected override IRepository<User> Repository
+		protected override Guid GetIdFromMessage(UserForm form)
 		{
-			get { return _repository; }
+			return form.Id;
 		}
 
-		protected override Guid GetIdFromMessage(UserForm message)
+		protected override void MapToModel(UserForm form, User model)
 		{
-			return message.Id;
-		}
-
-		protected override void UpdateModel(UserForm message, User model)
-		{
-			model.Id = message.Id;
-			model.Name = message.Name;
-			model.EmailAddress = message.EmailAddress;
+			model.Id = form.Id;
+			model.Name = form.Name;
+			model.EmailAddress = form.EmailAddress;
 			model.PasswordSalt = _cryptographer.CreateSalt();
-			model.PasswordHash = _cryptographer.GetPasswordHash(message.Password,
+			model.PasswordHash = _cryptographer.GetPasswordHash(form.Password,
 			                                                    model.PasswordSalt);
-			model.Username = message.Username;
-		}
-
-		protected override UpdateResult<User, UserForm> PreValidate(UserForm message)
-		{
-			if (UserAlreadyExists(message))
-			{
-				return new UpdateResult<User, UserForm>(false).WithMessage(x => x.Username, "This username already exists");
-			}
-			return base.PreValidate(message);
-		}
-
-
-		private bool UserAlreadyExists(UserForm message)
-		{
-			if(message.GetEditMode() == EditMode.Edit) return false;
-
-			return _repository.GetByKey(message.Username) != null;
-		}
-
-		public User Map(UserForm sourceObject)
-		{
-			return UpdateFromMessage(sourceObject).Model;
-		}
-
-		public virtual UserForm Map(User sourceObject)
-		{
-			return AutoMapper.Map<User, UserForm>(sourceObject);
+			model.Username = form.Username;
 		}
 	}
 }

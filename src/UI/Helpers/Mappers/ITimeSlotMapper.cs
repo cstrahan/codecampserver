@@ -3,8 +3,8 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public interface ITimeSlotUpdater : IModelUpdater<TimeSlot, TimeSlotForm>
+	public interface ITimeSlotMapper : IMapper<TimeSlot, TimeSlotForm>
 	{
-		
+		TimeSlotForm[] Map(TimeSlot[] timeSlots);
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
@@ -11,20 +12,14 @@ namespace CodeCampServer.UI.Controllers
 	public class TimeSlotController : SaveController<TimeSlot, TimeSlotForm>
 	{
 		private readonly ITimeSlotRepository _repository;
-		private readonly ITimeSlotUpdater _updater;
+		private readonly ITimeSlotMapper _mapper;
 
-		public TimeSlotController(ITimeSlotRepository repository, ITimeSlotUpdater updater)
+		public TimeSlotController(ITimeSlotRepository repository, ITimeSlotMapper mapper) : base(repository, mapper)
 		{
 			_repository = repository;
-			_updater = updater;
+			_mapper = mapper;
 		}
 
-		protected override IModelUpdater<TimeSlot, TimeSlotForm> GetUpdater()
-		{
-			return _updater;
-		}
-
-		[AutoMappedToModelFilter(typeof (TimeSlot), typeof (TimeSlotForm))]
 		public ActionResult Edit(TimeSlot timeslot)
 		{
 			if (timeslot == null)
@@ -32,25 +27,21 @@ namespace CodeCampServer.UI.Controllers
 				TempData.Add("message", "Time slot has been deleted.");
 				return RedirectToAction<TimeSlotController>(c => c.Index(null));
 			}
-			ViewData.Add(timeslot);
-			return View();
+
+			return View(_mapper.Map(timeslot));
 		}
 
-		[AutoMappedToModelFilter(typeof (TimeSlot[]), typeof (TimeSlotForm[]))]
 		public ActionResult Index(Conference conference)
 		{
 			TimeSlot[] timeslots = _repository.GetAllForConference(conference);
-			ViewData.Add(timeslots);
 			ViewData.Add("conferenceKey", conference.Key);
-			return View();
+			return View(_mapper.Map(timeslots));
 		}
 
-		[AutoMappedToModelFilter(typeof (TimeSlot), typeof (TimeSlotForm))]
 		public ActionResult New(Conference conference)
 		{
-			var timeSlot = new TimeSlot {Conference = conference};
-			ViewData.Add(timeSlot);
-			return View("edit");
+			var form = new TimeSlotForm() {ConferenceId = conference.Id, ConferenceKey = conference.Key};
+			return View("edit", form);
 		}
 
 		[ValidateModel(typeof(TimeSlotForm))]

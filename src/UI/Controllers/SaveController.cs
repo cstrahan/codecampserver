@@ -1,54 +1,57 @@
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using CodeCampServer.Core.Domain;
 using CodeCampServer.UI.Helpers;
 using CodeCampServer.UI.Helpers.Mappers;
 using Tarantino.Core.Commons.Model;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public abstract class SaveController<TModel, TMessage> : SmartController
-		where TModel : PersistentObject
+	public abstract class SaveController<TModel, TForm> : SmartController
+		where TModel : PersistentObject, new()
 	{
-		protected abstract IModelUpdater<TModel, TMessage> GetUpdater();
+		private readonly IRepository<TModel> _repository;
+		private readonly IMapper<TModel, TForm> _mapper;
 
-		protected ActionResult ProcessSave(TMessage message, Func<TModel, RedirectToRouteResult> successRedirect,
-		                                   Action beforeFailAction)
+		protected SaveController(IRepository<TModel> repository, IMapper<TModel, TForm> mapper)
+		{
+			_repository = repository;
+			_mapper = mapper;
+		}
+
+		protected ActionResult ProcessSave(TForm form, Func<RedirectToRouteResult> successRedirect)
 		{
 			if (!ModelState.IsValid)
 			{
-				beforeFailAction();
-
-				return View("Edit", message);
+				return View("Edit", form);
 			}
 
-			UpdateResult<TModel, TMessage> result = GetUpdater().UpdateFromMessage(message);
-
-			if (!result.Successful)
+			ModelState.AddModelErrors(GetFormValidationErrors(form));
+			if (!ModelState.IsValid)
 			{
-				beforeFailAction();
-
-				ModelState.AddModelErrors(result.GetAllMessages());
-
-				return View("Edit", message);
+				return View("Edit", form);
 			}
 
-			return successRedirect(result.Model);
+			TModel model = _mapper.Map(form);
+			ModelState.AddModelErrors(GetValidationErrors(model));
+			if (!ModelState.IsValid)
+			{
+				return View("Edit", form);
+			}
+
+			_repository.Save(model);
+			return successRedirect();
 		}
 
-		protected ActionResult ProcessSave(TMessage message, Func<TModel, RedirectToRouteResult> successRedirect)
+		protected virtual IDictionary<string, string[]> GetFormValidationErrors(TForm form)
 		{
-			return ProcessSave(message, successRedirect, () => { });
+			return new Dictionary<string, string[]>();
 		}
 
-		protected ActionResult ProcessSave(TMessage message, Func<RedirectToRouteResult> successRedirect)
+		protected virtual IDictionary<string, string[]> GetValidationErrors(TModel model)
 		{
-			return ProcessSave(message, model => successRedirect(), () => { });
-		}
-
-		protected ActionResult ProcessSave(TMessage message, Func<RedirectToRouteResult> successRedirect,
-		                                   Action beforeFailAction)
-		{
-			return ProcessSave(message, model => successRedirect(), beforeFailAction);
+			return new Dictionary<string, string[]>();
 		}
 	}
 }
