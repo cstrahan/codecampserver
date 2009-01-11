@@ -1,0 +1,287 @@
+/*
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+body
+{
+	margin: 0;
+	padding: 0;
+	background: #4B689A url(/images/img1.jpg) repeat-x;
+	font: normal small Arial, Helvetica, sans-serif;
+	color: #666666;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+	margin-top: 0;
+	padding-top: 0;
+	font-family: "Arial Black" , Arial, Helvetica, sans-serif;
+	font-weight: normal;
+}
+
+h2
+{
+	font-size: 1.6em;
+}
+
+h3
+{
+	font-size: 1.2em;
+}
+
+h4
+{
+	margin: 0;
+	font-size: 1em;
+}
+
+p, ul
+{
+	margin-top: 0;
+}
+
+a:link
+{
+	color: #4B689A;
+}
+
+a:hover
+{
+	text-decoration: none;
+}
+
+/* Header */
+
+#header
+{
+	width: 1000px;
+	height: 100px;
+	margin: 0 auto;
+	padding: 0 20px;
+	background: url(/images/img2.jpg) no-repeat;
+}
+
+#header *
+{
+	margin: 0;
+	text-decoration: none;
+	text-transform: uppercase;
+	color: #FFFFFF;
+}
+
+#header h1
+{
+	float: left;
+	padding: 65px 0 0 0;
+	font-size: xx-large;
+}
+
+#header h2
+{
+	float: right;
+	padding: 86px 0 0 0;
+	font-size: small;
+}
+
+/* Menu */
+
+#menu
+{
+	width: 980px;
+	height: 20px;
+	margin: 0 auto;
+	padding: .5em 0;
+	background: #EBEEF2;
+	border: 10px solid #FFFFFF;
+}
+
+#menu ul
+{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#menu li
+{
+	display: inline;
+}
+
+#menu a
+{
+	display: block;
+	float: left;
+	width: 116px;
+	text-decoration: none;
+	text-align: center;
+	font: bold small "Arial Black" , Arial, Helvetica, sans-serif;
+}
+
+/* Content */
+
+#content
+{
+	width: 1000px;
+	margin: 0 auto;
+	background: #FFFFFF;
+}
+
+/* Footer */
+
+#footer
+{
+	width: 1000px;
+	margin: 0 auto;
+	padding: .5em 0;
+	background: #EBEEF2;
+	border: 10px solid #FFFFFF;
+}
+
+#footer p
+{
+	margin: 0;
+	text-align: center;
+	font-size: smaller;
+}
+
+.flash
+{
+	margin-bottom: 2px;
+	padding: 4px;
+	border: solid 1px black;
+}
+.message
+{
+	background-color: #0F0;
+}
+.error
+{
+	background-color: #FF6666;
+}
+
+.mainContent
+{
+	padding:10px;
+	margin-left:10px;
+	margin-right:10px;
+	margin-bottom:10px;
+	border: solid 1px #EEEEEE;
+}
+
+.mainContent h1
+{
+	margin-bottom:10px;
+}
+
+
+table.dataEntry
+{
+	width: 100%;
+}
+
+table.dataEntry tr td
+{
+	text-align: left;
+}
+
+table.dataEntry tr
+{
+	vertical-align: top;
+}
+
+table.dataEntry label, table.dataEntry span.label
+{
+	display: block;
+	float: left;
+	text-align: right;
+	width: 150px;
+	font-weight: normal;
+	margin-top: 3px;
+	margin-right: 5px;
+}
+
+table.dataEntry input[type=checkbox]
+{
+	float: left;
+	vertical-align: middle;
+}
+
+table.dataEntry label.nestedLabel
+{
+	display: inline;
+	float: none;
+}
+
+table.dataEntry input.smallTextBox
+{
+	width: 25%;
+}
+
+
+table.dataEntry tr td div
+{
+	margin: 5px 7px;
+	text-align: left;
+}
+
+th.actionColumn, td.actionColumn
+{
+	width: 5%;
+}
+
+span.example
+{
+	margin-left: 157px;
+	font-size: 7pt;
+	position: relative;
+	top: -4px;
+}
+
+.requiredFieldIndicator
+{
+	color: red;
+	font-weight: bold;
+}
+
+.errorIndicator
+{
+	padding-left: 5px; 
+	position: relative;
+	top: 3px;
+}
+
+div.validationSummary
+{
+	background-color: #FFCCCC;
+/*  background-image: url(upper-left-corner-red-triangle.gif); */
+  background-repeat: no-repeat;
+  background-position: top left;
+  border: 1px solid #ff0000;
+	margin: 5px 10px;
+	padding: 5px;
+	font-size: 1.0em;
+}
+
+.validationSummary ul
+{
+	list-style-type: square;
+	padding: 0px;
+	margin: 5px 10px;
+}
+
+.validationSummary ul li
+{
+	padding-left: 3px;
+	padding-top: 2px;
+	margin: 2px 0px 2px 20px;
+}
+
+.heading
+{
+	font-size: 1.6em;
+	background-color: #EEEEEE;
+	padding: 10px 5px 5px 10px;
+	font-family: Arial;
+}

@@ -1,3 +1,6 @@
+<%@ Import Namespace="MvcContrib"%>
+<%@ Import Namespace="CodeCampServer.UI.Controllers"%>
+<%@ Import Namespace="CodeCampServer.UI"%>
 <%@ Import Namespace="CodeCampServer.Infrastructure.UI.Services"%>
 <%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
 <%@ Import Namespace="CodeCampServer.Core.Domain.Model"%>
@@ -12,17 +15,11 @@
 	  <link id="cssBaseline" rel="Stylesheet" type="text/css" media="all" href="/css/Baseline.css" runat="server" />
 	  <link id="cssGenericClasses" rel="Stylesheet" type="text/css" media="all" href="/css/GenericClasses.css" runat="server" />
 	  <link id="cssRedefinitions" rel="Stylesheet" type="text/css" media="all" href="/css/Redefinitions.css" runat="server" />
-	  <link id="cssMenu" rel="Stylesheet" type="text/css" media="all" href="/css/Menu.css" runat="server" />
-	  <link id="cssIds" rel="Stylesheet" type="text/css" media="all" href="/css/Ids.css" runat="server" />
-	  <link id="cssClasses" rel="Stylesheet" type="text/css" media="all" href="/css/Classes.css" runat="server" />
-	  <link id="cssButtons" rel="Stylesheet" type="text/css" media="all" href="/css/Buttons.css" runat="server" />
+	  <link href="<%=Url.Content("~/css/codecampserver.css")%>" rel="stylesheet" type="text/css" />
 	  
 	  <script type="text/javascript" src="/scripts/jquery-1.2.6.min.js"></script>
-	  <script type="text/javascript" src="/scripts/jquery.maskedinput-1.1.4.pack.js"></script>
         <!-- required plugins -->
         <script type="text/javascript" src="/scripts/date.js"></script>
-        <!--[if IE]><script type="text/javascript" src="/scripts/jquery.bgiframe.min.js"></script><![endif]-->
-
         <!-- jquery.datePicker.js -->
         <script type="text/javascript" src="/scripts/jquery.datePicker.js"></script>
 
@@ -33,21 +30,40 @@
         <script type="text/javascript">
         Date.format = 'mm/dd/yyyy';
         $(function() {
-			$('.date-pick').datePicker({ startDate: '01/01/1986' });
+			$('.date-pick').datePicker({ startDate: '01/01/2009' });
         });
         </script>
 	  <asp:ContentPlaceHolder ID="Stylesheets" runat="server"></asp:ContentPlaceHolder>	  
 	</head>
 	<body>
-  
-    <!-- BEGIN frameWrapper -->
-	  <div id="frameWrapper">
-		  <asp:ContentPlaceHolder id="Main" runat="server" />
-		  <asp:ContentPlaceHolder ID="Footer" runat="server">
-			<p class="revision ml10"><span>Revision Number: </span><span id="revisionNumber"><%= new AssemblyVersion().GetAssemblyVersion() %></span></p>
-		  </asp:ContentPlaceHolder>
-	  </div>
-	  <!-- END frameWrapper -->
-	
+		<div id="header">
+			<h1><a href="/">Code Camp Server v1.0</a></h1>
+		</div>
+		<div id="menu">
+			<ul>
+				<asp:LoginView ID="LoginView1" runat="server">
+					<LoggedInTemplate>
+						<li><a href="<%=Url.Action<ConferenceController>(c=>c.Edit(ViewData.Get<Conference>().Id)) %>">Edit Conference</a></li>
+						<li><a href="<%=Url.Action<AdminController>(c=>c.Index()) %>">Edit User</a></li>
+					</LoggedInTemplate>
+				</asp:LoginView>
+				<li><a href="<%=Url.Action<SessionController>(c=>c.Index(ViewData.Get<Conference>())) %>">Sessions</a></li>
+				<li><a href="<%=Url.Action<SpeakerController>(c=>c.Index()) %>">Speakers</a></li>
+				<li><a href="<%=Url.Action<TrackController>(c=>c.Index(ViewData.Get<Conference>())) %>">Tracks</a></li>
+				<li><a href="<%=Url.Action<TimeSlotController>(c=>c.Index(ViewData.Get<Conference>())) %>">Time Slots</a></li>
+				<li><a href="<%=Url.Action<AttendeeController>(c=>c.Index(ViewData.Get<Conference>())) %>">Attendees</a></li>
+				<li><a href="<%=Url.Action<AttendeeController>(c=>c.New(ViewData.Get<Conference>())) %>">Register</a></li>
+			</ul>
+		</div>
+		
+		<div id="content">
+			<div class="mainContent">
+				<asp:ContentPlaceHolder id="Main" runat="server" />
+			</div>
+			<asp:ContentPlaceHolder ID="Footer" runat="server">
+			<p class="ml10"><span>Revision Number: </span><span id="revisionNumber"><%= new AssemblyVersion().GetAssemblyVersion() %></span></p>
+			</asp:ContentPlaceHolder>
+		</div>
+		<div style="clear: both;">&nbsp;</div>
   </body>
 </html>

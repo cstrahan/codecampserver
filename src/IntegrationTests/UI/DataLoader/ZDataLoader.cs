@@ -16,7 +16,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 //			Logger.EnsureInitialized();
 			DependencyRegistrar.EnsureDependenciesRegistered();
 			DeleteAllObjects();
-			LoadData();
+//			LoadData();
 		}
 
 		private void LoadData()
