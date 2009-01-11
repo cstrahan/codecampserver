@@ -24,20 +24,17 @@ namespace CodeCampServer.UI.Helpers.Filters
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
 			var conferenceKey =
-				(string)(filterContext.RouteData.Values["conferenceKey"] ?? filterContext.RouteData.Values["conference"]);
+				(string) (filterContext.RouteData.Values["conferenceKey"] ?? filterContext.RouteData.Values["conference"]);
 			var conference = _repository.GetByKey(conferenceKey);
 			if (conference == null)
 			{
-				Expression<Func<AdminController, object>> actionExpression =
-					c => c.Edit(null);
+				Expression<Func<AdminController, object>> actionExpression = c => c.Edit(null);
 
 				string controllerName = typeof (AdminController).GetControllerName();
 				string actionName = actionExpression.GetActionName();
 
 				filterContext.Result =
-					new RedirectToRouteResult(
-						new RouteValueDictionary(
-							new {controller = controllerName, action = actionName}));
+					new RedirectToRouteResult(new RouteValueDictionary(new {controller = controllerName, action = actionName}));
 			}
 		}
 	}

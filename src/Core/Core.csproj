@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9C81B684-40CC-472A-804D-7C0F963315F5}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -65,9 +65,11 @@
     <Compile Include="Domain\Model\Enumerations\EnumerationHelper.cs" />
     <Compile Include="Domain\Model\Enumerations\OrderedEnumeration.cs" />
     <Compile Include="Domain\Model\Enumerations\YesNo.cs" />
+    <Compile Include="Domain\ValidationError.cs" />
     <Compile Include="Domain\ValidationResult.cs" />
     <Compile Include="Messages\EditMode.cs" />
     <Compile Include="Messages\IFormMessage.cs" />
+    <Compile Include="Services\IMapper.cs" />
     <Compile Include="Services\Updaters\TimeSlotUpdater.cs" />
     <Compile Include="Domain\IConferencerRepository.cs" />
     <Compile Include="Domain\IKeyedRepository.cs" />
@@ -107,13 +109,11 @@
     <Compile Include="Services\Updaters\ITimeSlotMessage.cs" />
     <Compile Include="Services\Updaters\ITimeSlotUpdater.cs" />
     <Compile Include="Services\Updaters\ITrackUpdater.cs" />
-    <Compile Include="Services\Updaters\IUserUpdater.cs" />
     <Compile Include="Services\Updaters\Impl\ModelUpdater.cs" />
     <Compile Include="Services\Updaters\Impl\SessionUpdater.cs" />
     <Compile Include="Services\Updaters\Impl\SpeakerUpdater.cs" />
     <Compile Include="Services\Updaters\Impl\TrackUpdater.cs" />
     <Compile Include="Services\Updaters\UpdateResult.cs" />
-    <Compile Include="Services\Updaters\UserUpdater.cs" />
     <Compile Include="SystemTime.cs" />
     <Compile Include="Domain\Model\ValueObject.cs" />
   </ItemGroup>

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CodeCampServer.Core.Domain
@@ -5,16 +6,16 @@ namespace CodeCampServer.Core.Domain
 	public class ValidationResult
 	{
 		public bool IsValid { get; private set; }
-		public string[] ErrorMessages { get; private set; }
+		public ValidationError[] ErrorMessages { get; private set; }
 
 		public ValidationResult(params ValidationResult[] results)
 			: this(results.SelectMany(result => result.ErrorMessages).ToArray())
 		{
 		}
 
-		public ValidationResult(params string[] errorMessages)
+		public ValidationResult(params ValidationError[] errorMessages)
 		{
-			ErrorMessages = errorMessages ?? new string[0];
+			ErrorMessages = errorMessages ?? new ValidationError[0];
 
 			if (ErrorMessages.Length == 0)
 			{
@@ -22,13 +23,18 @@ namespace CodeCampServer.Core.Domain
 			}
 		}
 
-		public ValidationResult() : this(new string[0])
+		public ValidationResult() : this(new ValidationError[0])
 		{
 		}
 
 		public static implicit operator bool(ValidationResult validationResult)
 		{
 			return validationResult.IsValid;
+		}
+
+		public IDictionary<string, string> GetErrors()
+		{
+			return ErrorMessages.ToDictionary(e => e.Key, e => e.Message);
 		}
 	}
 }

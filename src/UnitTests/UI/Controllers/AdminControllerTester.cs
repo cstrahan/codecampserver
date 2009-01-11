@@ -2,28 +2,47 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Messages;
-using CodeCampServer.Core.Services.Updaters;
 using CodeCampServer.Infrastructure.UI.Services.Impl;
 using CodeCampServer.UI.Controllers;
+using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
 using MvcContrib.TestHelper;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
-using MvcContrib;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
 	public class AdminControllerTester : TestControllerBase
 	{
 		[Test]
-		public void When_an_admin_object_does_not_exist_Contoller_should_redirect_to_admin_password_form_when_there_are_zero_users()
+		public void When_new_user_is_saved_Should_map_from_form_and_call_repository()
+		{
+			var form = new UserForm
+			           	{
+			           		Id = Guid.Empty,
+			           		Username = "username",
+			           		Password = "password",
+			           		EmailAddress = "email",
+			           		Name = "name"
+			           	};
+
+			var newUser = new User();
+			var mapper = S<IUserMapper>();
+			mapper.Stub(m => m.Map(form)).Return(newUser);
+
+			var controller = new AdminController(S<IUserRepository>(), mapper);
+			var result = controller.Save(form);
+			result.AssertActionRedirect();
+		}
+
+		[Test]
+		public void When_a_user_does_not_exist_Contoller_should_redirect_to_edit_screen_when_there_are_zero_users()
 		{
 			var repository = S<IUserRepository>();
 			repository.Stub(repo => repo.GetByUserName("admin")).Return(null);
 
-			var controller = new AdminController(repository, S<IUserUpdater>());
+			var controller = new AdminController(repository, S<IUserMapper>());
 			var result = controller.Index();
 			result.AssertActionRedirect();
 
@@ -32,31 +51,50 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		}
 
 		[Test]
-		public void When_a_user_does_not_exist_Edit__should_render_the_edit_view()
+		public void When_a_user_does_not_exist_Edit_should_render_the_edit_view()
 		{
 			var repository = S<IUserRepository>();
 			repository.Stub(repo => repo.GetByUserName("admin")).Return(null);
 			repository.Stub(repo => repo.GetAll()).Return(new User[0]);
 
-			var controller = new AdminController(repository, S<IUserUpdater>());
+			var mapper = new TestUserMapper();
+			var controller = new AdminController(repository, mapper);
 			var result = controller.Edit(null);
+			mapper.MappedUser.ShouldNotBeNull();
+			mapper.MappedUser.Username.ShouldEqual("admin");
 			result.AssertViewRendered().ForView(ViewNames.Default);
-			result.ViewData.Get<User>().ShouldNotBeNull();
+			result.ViewData.Model.ShouldBeInstanceOfType(typeof (UserForm));
+		}
+
+		private class TestUserMapper : UserMapper
+		{
+			public User MappedUser { get; set; }
+
+			public TestUserMapper() : base(null, null)
+			{
+			}
+
+			public override UserForm Map(User sourceObject)
+			{
+				MappedUser = sourceObject;
+				return new UserForm();
+			}
 		}
 
 		[Test]
-		public void When_an_admin_object_exists_Save_should_a_valid_user()
+		public void When_a_user_exists_Save_should_a_valid_user()
 		{
 			var user = new User {Username = "admin", Id = Guid.NewGuid()};
-			var updater = S<IUserUpdater>();
-			var form = new UserForm{Id = user.Id, Password = "pass"};
-			updater.Stub(u => u.UpdateFromMessage(form)).Return(new UpdateResult<User, IUserMessage>(true, user));
-			var controller = new AdminController(S<IUserRepository>(), updater);
+			var updater = S<IUserMapper>();
+			var form = new UserForm {Id = user.Id, Password = "pass"};
+			updater.Stub(u => u.Map(form)).Return(user);
+			var repository = S<IUserRepository>();
+			var controller = new AdminController(repository, updater);
 
 			var result = (RedirectToRouteResult) controller.Save(form);
 
-			result.AssertActionRedirect()
-				.ToAction<AdminController>(a => a.Index());
+			repository.AssertWasCalled(r => r.Save(user));
+			result.AssertActionRedirect().ToAction<AdminController>(a => a.Index());
 		}
 	}
 }

@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using Castle.Components.Validator;
 using StructureMap;
 
-namespace CodeCampServer.UI.Filters
+namespace CodeCampServer.UI.Helpers.Filters
 {
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
 	public class ValidateModelAttribute : ActionFilterAttribute

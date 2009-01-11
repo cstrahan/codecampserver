@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C01DA28B-6F9D-4378-A2DA-884DDFD224B1}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -123,7 +123,7 @@
     <Compile Include="Core\Services\Updaters\SessionUpdaterTester.cs" />
     <Compile Include="Core\Services\Updaters\SpeakerUpdaterTester.cs" />
     <Compile Include="Core\Services\Updaters\TrackUpdaterTester.cs" />
-    <Compile Include="Core\Services\Updaters\UserUpdaterTester.cs" />
+    <Compile Include="Core\Services\Updaters\UserMapperTester.cs" />
     <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\AutoMapperSpecBase.cs" />
     <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\AutoMapperTester.cs" />
     <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\ConfigurationResolution.cs" />

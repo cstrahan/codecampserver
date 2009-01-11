@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Routing;
-using CodeCampServer.UI.Helpers.Filters;
 
 namespace CodeCampServer.UI.Controllers
 {

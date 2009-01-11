@@ -3,7 +3,6 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Messages;
 using CodeCampServer.Core.Services.Updaters;
-using CodeCampServer.UI.Filters;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Models.Forms;
 using MvcContrib;

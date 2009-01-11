@@ -8,14 +8,13 @@ namespace CodeCampServer.UI
 		public virtual void RegisterRoutes()
 		{
 			RouteCollection routes = RouteTable.Routes;
-
+			routes.MapRoute("admin", "admin/{action}", new { controller = "admin", action = "index" });
 			routes.MapRoute("tracks", "{conferenceKey}/track/{action}", new {controller = "track", action = "index"});
 			routes.MapRoute("sessions", "{conferenceKey}/sessions/{action}", new { controller = "session", action = "index" });
 			routes.MapRoute("conferenceDefault", "{conferenceKey}/{controller}/{action}", new { controller = "home", action = "index" });
 			routes.MapRoute("default", "{controller}/{action}", new { controller = "home", action = "index" });
 //			routes.MapRoute("login", "login/{action}", new {controller = "login", action = "index"});
 //			routes.MapRoute("new-conference", "conference/new", new {controller = "conference", action = "new"});
-//			routes.MapRoute("admin", "admin/{action}", new {controller = "admin", action = "index"});
 //			routes.MapRoute("speaker", "{conferenceKey}/speaker/{speakerId}", new {controller = "speaker", action = "view"});
 //			routes.MapRoute("speakers", "{conferenceKey}/speakers/{action}", new {controller = "speaker", action = "list"});
 //			routes.MapRoute("schedule", "{conferenceKey}/schedule/{action}", new {controller = "schedule", action = "index"});

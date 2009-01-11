@@ -21,7 +21,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 					string.Format(
 						@"<div id=""{0}"" class=""{0}"">
 			            <p><strong>Please correct the following error(s):</strong></p><ul>",
-						"error-messages"));
+						"validationSummary"));
 
 				foreach (var error in _modelState)
 				{

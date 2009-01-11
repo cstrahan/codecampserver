@@ -9,5 +9,10 @@ namespace CodeCampServer.Core.Domain.Model
 		public virtual string EmailAddress { get; set; }
 		public virtual string PasswordHash { get; set; }
 		public virtual string PasswordSalt { get; set; }
+
+		public virtual ValidationResult Validate()
+		{
+			return new ValidationResult();
+		}
 	}
 }
