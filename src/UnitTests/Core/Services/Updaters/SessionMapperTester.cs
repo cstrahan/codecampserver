@@ -4,7 +4,6 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
-using CodeCampServer.UnitTests;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -18,14 +17,14 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		public void Should_save_new_session_from_form()
 		{
 			var form = S<SessionForm>();
-			var track = new Track();
-			var timeSlot = new TimeSlot();
-			var speaker = new Speaker();
+			var trackForm = new TrackForm();
+			var timeSlotForm = new TimeSlotForm();
+			var speakerForm = new SpeakerForm();
 			var conference = new Conference();
 			form.Id = Guid.Empty;
-			form.Track = track;
-			form.TimeSlot = timeSlot;
-			form.Speaker = speaker;
+			form.Track = trackForm;
+			form.TimeSlot = timeSlotForm;
+			form.Speaker = speakerForm;
 			form.Conference = conference;
 			form.RoomNumber = "room";
 			form.Title = "title";
@@ -37,7 +36,17 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			var repository = M<ISessionRepository>();
 			repository.Stub(s => s.GetById(form.Id)).Return(null);
 
-			ISessionMapper mapper = new SessionMapper(repository);
+			var trackRepository = S<ITrackRepository>();
+			var timeSlotRepository = S<ITimeSlotRepository>();
+			var speakerRepository = S<ISpeakerRepository>();
+			var track = new Track();
+			var timeSlot = new TimeSlot();
+			var speaker = new Speaker();
+			trackRepository.Stub(r => r.GetById(Guid.Empty)).Return(track);
+			timeSlotRepository.Stub(r => r.GetById(Guid.Empty)).Return(timeSlot);
+			speakerRepository.Stub(r => r.GetById(Guid.Empty)).Return(speaker);
+			ISessionMapper mapper = new SessionMapper(repository, trackRepository, timeSlotRepository,
+			                                          speakerRepository);
 
 			Session mapped = mapper.Map(form);
 
@@ -53,19 +62,18 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			mapped.Key.ShouldEqual("key");
 		}
 
-
 		[Test]
 		public void Should_map_existing_session_from_form()
 		{
 			var form = S<SessionForm>();
-			var track = new Track();
-			var timeSlot = new TimeSlot();
-			var speaker = new Speaker();
+			var trackForm = new TrackForm();
+			var timeSlotForm = new TimeSlotForm();
+			var speakerForm = new SpeakerForm();
 			var conference = new Conference();
 			form.Id = Guid.Empty;
-			form.Track = track;
-			form.TimeSlot = timeSlot;
-			form.Speaker = speaker;
+			form.Track = trackForm;
+			form.TimeSlot = timeSlotForm;
+			form.Speaker = speakerForm;
 			form.Conference = conference;
 			form.RoomNumber = "room";
 			form.Title = "title";
@@ -78,7 +86,17 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			var session = new Session();
 			repository.Stub(s => s.GetById(form.Id)).Return(session);
 
-			ISessionMapper mapper = new SessionMapper(repository);
+			var trackRepository = S<ITrackRepository>();
+			var timeSlotRepository = S<ITimeSlotRepository>();
+			var speakerRepository = S<ISpeakerRepository>();
+			var track = new Track();
+			var timeSlot = new TimeSlot();
+			var speaker = new Speaker();
+			trackRepository.Stub(r => r.GetById(Guid.Empty)).Return(track);
+			timeSlotRepository.Stub(r => r.GetById(Guid.Empty)).Return(timeSlot);
+			speakerRepository.Stub(r => r.GetById(Guid.Empty)).Return(speaker);
+			ISessionMapper mapper = new SessionMapper(repository, trackRepository, timeSlotRepository,
+			                                          speakerRepository);
 
 			Session mapped = mapper.Map(form);
 			session.ShouldEqual(mapped);

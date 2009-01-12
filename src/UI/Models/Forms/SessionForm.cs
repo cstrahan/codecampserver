@@ -8,9 +8,9 @@ namespace CodeCampServer.UI.Models.Forms
 	{
 		public override Guid Id { get; set; }
 		public virtual string Key { get; set; }
-		public virtual Track Track { get; set; }
-		public virtual TimeSlot TimeSlot { get; set; }
-		public virtual Speaker Speaker { get; set; }
+		public virtual TrackForm Track { get; set; }
+		public virtual TimeSlotForm TimeSlot { get; set; }
+		public virtual SpeakerForm Speaker { get; set; }
 		public virtual Conference Conference { get; set; }
 		public virtual string RoomNumber { get; set; }
 		public virtual string Title { get; set; }

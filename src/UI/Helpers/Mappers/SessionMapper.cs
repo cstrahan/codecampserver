@@ -7,8 +7,16 @@ namespace CodeCampServer.UI.Helpers.Mappers
 {
 	public class SessionMapper : FormMapper<Session, SessionForm>, ISessionMapper
 	{
-		public SessionMapper(ISessionRepository repository) : base(repository)
+		private readonly ITrackRepository _trackRepository;
+		private readonly ITimeSlotRepository _timeSlotRepository;
+		private readonly ISpeakerRepository _speakerRepository;
+
+		public SessionMapper(ISessionRepository repository, ITrackRepository trackRepository,
+		                     ITimeSlotRepository timeSlotRepository, ISpeakerRepository speakerRepository) : base(repository)
 		{
+			_trackRepository = trackRepository;
+			_timeSlotRepository = timeSlotRepository;
+			_speakerRepository = speakerRepository;
 		}
 
 		protected override Guid GetIdFromMessage(SessionForm form)
@@ -18,9 +26,9 @@ namespace CodeCampServer.UI.Helpers.Mappers
 
 		protected override void MapToModel(SessionForm form, Session model)
 		{
-			model.Track = form.Track;
-			model.TimeSlot = form.TimeSlot;
-			model.Speaker = form.Speaker;
+			model.Track = _trackRepository.GetById(form.Track.Id);
+			model.TimeSlot = _timeSlotRepository.GetById(form.TimeSlot.Id);
+			model.Speaker = _speakerRepository.GetById(form.Speaker.Id);
 			model.Conference = form.Conference;
 			model.RoomNumber = form.RoomNumber;
 			model.Title = form.Title;

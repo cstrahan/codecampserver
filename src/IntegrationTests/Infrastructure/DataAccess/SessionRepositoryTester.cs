@@ -5,6 +5,7 @@ using NUnit.Framework;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
+	[TestFixture]
 	public class SessionRepositoryTester : KeyedRepositoryTester<Session, SessionRepository>
 	{
 		protected override SessionRepository CreateRepository()

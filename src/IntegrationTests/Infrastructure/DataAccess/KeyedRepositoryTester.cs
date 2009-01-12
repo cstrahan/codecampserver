@@ -1,7 +1,6 @@
 using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.DependencyResolution;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -10,7 +9,6 @@ using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
-	[TestFixture]
 	public abstract class KeyedRepositoryTester<T, TRepository> : RepositoryTester<T, TRepository>
 		where TRepository : IKeyedRepository<T> where T : KeyedObject, new()
 	{
@@ -34,7 +32,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		[Test]
 		public void Should_be_able_to_instantiate()
 		{
-			Activator.CreateInstance(typeof(KeyedRepository<T>), MockRepository.GenerateStub<ISessionBuilder>());
+			Activator.CreateInstance(typeof (KeyedRepository<T>), MockRepository.GenerateStub<ISessionBuilder>());
 		}
 	}
 }

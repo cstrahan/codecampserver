@@ -5,6 +5,7 @@ using NUnit.Framework;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
+	[TestFixture]
 	public class TrackRepositoryTester : RepositoryTester<Track, ITrackRepository>
 	{
 		protected override ITrackRepository CreateRepository()

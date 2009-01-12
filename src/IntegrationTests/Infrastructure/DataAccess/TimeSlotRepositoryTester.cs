@@ -5,6 +5,7 @@ using NUnit.Framework;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
+	[TestFixture]
 	public class TimeSlotRepositoryTester : RepositoryTester<TimeSlot, ITimeSlotRepository>
 	{
 		protected override ITimeSlotRepository CreateRepository()

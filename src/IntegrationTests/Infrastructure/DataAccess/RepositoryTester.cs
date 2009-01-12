@@ -6,7 +6,6 @@ using Tarantino.Core.Commons.Model;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
-	[TestFixture]
 	public abstract class RepositoryTester<T, TRepository> : DataTestBase
 		where T : PersistentObject, new()
 		where TRepository : IRepository<T>
