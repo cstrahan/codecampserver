@@ -20,10 +20,9 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.AttendeeEditView"%>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
     <form action="<%= Url.Action<AttendeeController>(x => x.Save(null)) %>" method="post"  >
         <div>
-	        <h1>Edit Atendee</h1>
+	        <h1>Register</h1>
             
             <%=Errors.Display()%>
-
 	        <table class="dataEntry">
 		        <tr>
 			        <td class="w50p">       	

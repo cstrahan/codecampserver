@@ -31,6 +31,12 @@ namespace CodeCampServer.UI.Controllers
 			return View(_mapper.Map(sessions));
 		}
 
+		public ViewResult List(Conference conference)
+		{
+			Session[] sessions = _repository.GetAllForConference(conference);
+			return View(_mapper.Map(sessions));
+		}
+
 		public ViewResult Edit(Session session)
 		{
 			return View(_mapper.Map(session));
