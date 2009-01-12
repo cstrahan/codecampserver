@@ -27,7 +27,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			mapper.Stub(m => m.Map(speakers)).Return(speakerForms);
 			var controller = new SpeakerController(repository, mapper);
 
-			var result = controller.Index();
+			var result = controller.List();
 
 			result.AssertViewRendered().ForView(ViewNames.Default);
 			var forms = ((SpeakerForm[])controller.ViewData.Model);
@@ -65,7 +65,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var result = (RedirectToRouteResult) controller.Save(form);
 
 			repository.AssertWasCalled(r => r.Save(speaker));
-			result.AssertActionRedirect().ToAction<SpeakerController>(a => a.Index());
+			result.AssertActionRedirect().ToAction<SpeakerController>(a => a.List());
 		}
 
 		[Test]
@@ -109,7 +109,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			ActionResult result = controller.Delete(speaker);
 
 			result.AssertActionRedirect()
-				.ToAction<SpeakerController>(x => x.Index());
+				.ToAction<SpeakerController>(x => x.List());
 
 
 			repository.AssertWasCalled(x => x.Delete(speaker));

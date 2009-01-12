@@ -19,25 +19,33 @@ namespace CodeCampServer.UI.Controllers
 			_mapper = mapper;
 		}
 
-		public ActionResult Index()
+		
+		public ActionResult Index(Speaker speaker)
+		{
+			return View(_mapper.Map(speaker));
+		}
+
+		public ActionResult List()
 		{
 			var speakers = _repository.GetAll();
 			return View(_mapper.Map(speakers));
 		}
 
+		[RequireAuthenticationFilter]
 		public ActionResult Edit(Speaker speaker)
 		{
 			if (speaker == null)
 			{
 				TempData.Add("message", "Speaker has been deleted.");
-				return RedirectToAction<SpeakerController>(c => c.Index());
+				return RedirectToAction<SpeakerController>(c => c.List());
 			}
 			return View(_mapper.Map(speaker));
 		}
 
+		[RequireAuthenticationFilter]
 		public ActionResult Save([Bind(Prefix = "")] SpeakerForm form)
 		{
-			return ProcessSave(form, () => RedirectToAction<SpeakerController>(c => c.Index()));
+			return ProcessSave(form, () => RedirectToAction<SpeakerController>(c => c.List()));
 		}
 
 		protected override IDictionary<string, string[]> GetFormValidationErrors(SpeakerForm form)
@@ -57,15 +65,19 @@ namespace CodeCampServer.UI.Controllers
 			return speaker != null && speaker.Id != message.Id;
 		}
 
+		[RequireAuthenticationFilter]
 		public ActionResult New()
 		{
 			return View("Edit", new SpeakerForm());
 		}
 
+		[RequireAuthenticationFilter]
 		public ActionResult Delete(Speaker speaker)
 		{
 			_repository.Delete(speaker);
-			return RedirectToAction<SpeakerController>(c => c.Index());
+			return RedirectToAction<SpeakerController>(c => c.List());
 		}
+
+	
 	}
 }

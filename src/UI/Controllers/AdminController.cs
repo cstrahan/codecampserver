@@ -9,6 +9,7 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Controllers
 {
+	
 	public class AdminController : SaveController<User, UserForm>
 	{
 		private readonly IUserRepository _repository;

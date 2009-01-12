@@ -47,6 +47,10 @@ namespace CodeCampServer.UI
 			AutoMapper.CreateMap<TimeSlot, TimeSlotForm>();
 			AutoMapper.CreateMap<Speaker, SpeakerForm>();
 			AutoMapper.CreateMap<Session, SessionForm>();
+
+			AutoMapper.CreateMap<Attendee, AttendeeForm>()
+				.ForMember(a => a.AttendeeID, o => o.MapFrom(a => a.Id))
+				.ForMember(a => a.ConferenceID, o => o.Ignore());
 		}
 	}
 }

@@ -21,7 +21,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 		public override bool IsSatisfiedBy(IInputSpecification specification)
 		{
 			return specification.PropertyInfo.HasCustomAttribute<HiddenAttribute>() ||
-			       specification.PropertyInfo.PropertyType == typeof (Guid);
+				   specification.PropertyInfo.PropertyType == typeof(Guid) || specification.PropertyInfo.PropertyType == typeof(Guid?);
 		}
 
 		protected override void AppendCleaner(StringBuilder output)

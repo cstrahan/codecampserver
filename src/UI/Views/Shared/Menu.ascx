@@ -11,7 +11,7 @@
 					</LoggedInTemplate>
 				</asp:LoginView>
 				
-				<li><a href="<%=Url.Action<SpeakerController>(c=>c.Index()) %>">Speakers</a></li>
+				<li><a href="<%=Url.Action<SpeakerController>(c=>c.List()) %>">Speakers</a></li>
 				<li><a href="<%=Url.Action<SessionController>(c=>c.Index(null)) %>">Sessions</a></li>
 				<li><a href="<%=Url.Action<AttendeeController>(c=>c.Index(null)) %>">Attendees</a></li>
 				<li><a href="<%=Url.Action<AttendeeController>(c=>c.New(null)) %>">Register</a></li>

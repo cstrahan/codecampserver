@@ -9,7 +9,6 @@ namespace CodeCampServer.UI
 		{
 			RouteCollection routes = RouteTable.Routes;
 			routes.MapRoute("login", "login/{action}", new {controller = "login", action = "index"});
-			routes.MapRoute("admin", "admin/{action}", new { controller = "admin", action = "index" });
 			routes.MapRoute("home", "home/{action}", new {controller = "home", action = "index"});
 			routes.MapRoute("conferenceDefault", "{conferenceKey}/{controller}/{action}", new { controller = "conference", action = "index" });
 			routes.MapRoute("default", "{controller}/{action}", new { controller = "home", action = "index" });

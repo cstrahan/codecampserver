@@ -41,6 +41,7 @@ namespace CodeCampServer.UI.Controllers
 			return View(conferenceListDto);
 		}
 
+		[RequireAuthenticationFilter()]
 		public ActionResult Edit(string conferenceKey)
 		{
 			Conference conference = _repository.GetByKey(conferenceKey);
@@ -54,6 +55,7 @@ namespace CodeCampServer.UI.Controllers
 			return View(_mapper.Map(conference));
 		}
 
+		[RequireAuthenticationFilter()]
 		[ValidateModel(typeof (ConferenceForm))]
 		public ActionResult Save([Bind(Prefix = "")] ConferenceForm form)
 		{
@@ -76,6 +78,7 @@ namespace CodeCampServer.UI.Controllers
 			return conference != null && conference.Id != message.Id;
 		}
 
+		[RequireAuthenticationFilter()]
 		public ActionResult New()
 		{
 			var conference = new Conference {StartDate = SystemTime.Now(), EndDate = SystemTime.Now()};

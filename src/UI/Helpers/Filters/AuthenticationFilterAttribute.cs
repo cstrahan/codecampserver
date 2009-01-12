@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using System.Web.Security;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using StructureMap;
@@ -27,6 +28,7 @@ namespace CodeCampServer.UI.Helpers.Filters
 			{
 				controller.ViewData.Add(user);
 			}
+			
 		}
 	}
 }

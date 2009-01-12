@@ -13,10 +13,12 @@ namespace CodeCampServer.UI.Controllers
 {
 	public class AttendeeController : SaveController<Conference, AttendeeForm>
 	{
+		private readonly IAttendeeMapper _mapper;
 		private readonly IConferenceRepository _repository;
 
 		public AttendeeController(IAttendeeMapper mapper, IConferenceRepository repository) : base(repository, mapper)
 		{
+			_mapper = mapper;
 			_repository = repository;
 		}
 
@@ -28,6 +30,14 @@ namespace CodeCampServer.UI.Controllers
 
 		[AutoMappedToModelFilter(typeof (Attendee[]), typeof (AttendeeForm[]))]
 		public ViewResult Index(Conference conference)
+		{
+			Attendee[] attendees = conference.GetAttendees();
+			ViewData.Add(attendees);
+			return View();
+		}
+
+		[AutoMappedToModelFilter(typeof(Attendee[]), typeof(AttendeeForm[]))]
+		public ViewResult List(Conference conference)
 		{
 			Attendee[] attendees = conference.GetAttendees();
 			ViewData.Add(attendees);
@@ -47,9 +57,9 @@ namespace CodeCampServer.UI.Controllers
 			return View();
 		}
 
-		public ActionResult Save(AttendeeForm form)
+		public ActionResult Save([Bind(Prefix = "")]AttendeeForm form)
 		{
-			return ProcessSave(form, () => RedirectToAction<AttendeeController>(c => c.New(null)));
+			return ProcessSave(form, () => RedirectToAction<AttendeeController>(c => c.Index(null)));
 		}
 
 		protected override IDictionary<string, string[]> GetFormValidationErrors(AttendeeForm form)
