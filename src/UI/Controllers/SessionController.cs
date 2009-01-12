@@ -12,10 +12,12 @@ namespace CodeCampServer.UI.Controllers
 	public class SessionController : SaveController<Session, SessionForm>
 	{
 		private readonly ISessionRepository _repository;
+		private readonly ISessionMapper _mapper;
 
 		public SessionController(ISessionRepository repository, ISessionMapper mapper) : base(repository, mapper)
 		{
 			_repository = repository;
+			_mapper = mapper;
 		}
 
 		public ViewResult New()
@@ -23,19 +25,15 @@ namespace CodeCampServer.UI.Controllers
 			return View("Edit", new SessionForm());
 		}
 
-		[AutoMappedToModelFilter(typeof (Session[]), typeof (SessionForm[]))]
 		public ViewResult Index(Conference conference)
 		{
 			Session[] sessions = _repository.GetAllForConference(conference);
-			ViewData.Add(sessions);
-			return View();
+			return View(_mapper.Map(sessions));
 		}
 
-		[AutoMappedToModelFilter(typeof (Session), typeof (Session))]
 		public ViewResult Edit(Session session)
 		{
-			ViewData.Add(session);
-			return View();
+			return View(_mapper.Map(session));
 		}
 
 		[ValidateModel(typeof (SessionForm))]
@@ -47,14 +45,14 @@ namespace CodeCampServer.UI.Controllers
 		protected override IDictionary<string, string[]> GetFormValidationErrors(SessionForm form)
 		{
 			var result = new ValidationResult();
-			if (SpeakerKeyAlreadyExists(form))
+			if (KeyAlreadyExists(form))
 			{
 				result.AddError<SessionForm>(x => x.Key, "This session key already exists");
 			}
 			return result.GetAllErrors();
 		}
 
-		private bool SpeakerKeyAlreadyExists(SessionForm message)
+		private bool KeyAlreadyExists(SessionForm message)
 		{
 			return _repository.GetByKey(message.Key) != null;
 		}

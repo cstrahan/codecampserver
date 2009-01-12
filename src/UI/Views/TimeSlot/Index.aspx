@@ -6,7 +6,6 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage"%>
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
 <%@ Import Namespace="MvcContrib"%>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-<% Html.RenderPartial("AdminMenu"); %>
   <%var timeslots = (TimeSlotForm[])ViewData.Model; %>
   <div class="dataContainerQuadWide mt10">
 	 <div class="cleaner"></div>

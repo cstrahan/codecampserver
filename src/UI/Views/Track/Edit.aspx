@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true"
 	Inherits="CodeCampServer.UI.Helpers.ViewPage.TrackEditView" %>
+<%@ Import Namespace="Microsoft.Web.Mvc"%>
 
 <%@ Import Namespace="CodeCampServer.Core.Common" %>
 <%@ Import Namespace="MvcContrib" %>
@@ -17,44 +18,29 @@
 	<link id="jqModalCss" rel="Stylesheet" type="text/css" media="all" href="/css/jqModal.css"
 		runat="server" />
 
-	<script type="text/javascript">
-		$().ready(function() {
-		$('#submitButton').click(function() { $('form').submit() });
-		$('.modal').jqm({ modal: true });
-		$('.modal').jqmShow();
-	});	
-	</script>
-
-</asp:Content>
+	</asp:Content>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-	<p>
-		<a href="<%= Url.Action("index", "search") %>" class="searchWithReflectionButton">Search</a></p>
-	<form action="<%= Url.Action<SpeakerController>(x => x.Save(null)) %>" method="post">
-	<div class="modal jqmWindow">
-		<h1 class="heading">
+		<form action="<%= Url.Action<SpeakerController>(x => x.Save(null)) %>" method="post">
+	<div>
+		<h1>
 			Edit Track</h1>
 		<%=Errors.Display()%>
 		<table class="dataEntry">
 			<tr>
-				<th class="w50p">
+				<td class="w50p">
 					<%= InputFor(x => x.Id) %>
 					<%= InputFor(x => x.ConferenceId) %>
 					<%= InputFor(x => x.ConferenceKey) %>
 					<%=InputFor(a => a.Name)%>
-				</th>
-				<th class="w50p">
-					<div>
-					</div>
-				</th>
+				</td>
 			</tr>
 		</table>
 		<br />
 		<br />
-		<div class="fr p10">
-			<a href="<%=Url.Action<TrackController>(x => x.Index(null)).ToXHTMLLink() %>" class="fr pr10 mt5"
-				rel="cancel">Cancel</a>
-			<input type="image" alt="Save" class="fr pr10" src="/images/Buttons/save.gif" id="save" />
-		</div>
+		<div class="p10 tac">
+				<%=Html.SubmitButton("save", "Save", new{@class="pr10 w100"}) %>    
+				<a href="<%=Url.Action<AdminController>(x => x.Index()).ToXHTMLLink() %>"  class="pr10 mt5" rel="cancel">Cancel</a>				
+	    </div>
 	</div>
 	</form>
 </asp:Content>

@@ -22,13 +22,16 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var conference = new Conference();
 			var repository = S<ISessionRepository>();
-			var Sessions = new[] {new Session()};
-			repository.Stub(x => x.GetAllForConference(conference)).Return(Sessions);
-			var controller = new SessionController(repository, S<ISessionMapper>());
+			var sessions = new[] {new Session()};
+			repository.Stub(x => x.GetAllForConference(conference)).Return(sessions);
+			var mapper = S<ISessionMapper>();
+			var sessionForms = new []{new SessionForm()};
+			mapper.Stub(m => m.Map(sessions)).Return(sessionForms);
+			var controller = new SessionController(repository, mapper);
 
 			ViewResult result = controller.Index(conference);
 
-			result.ViewData.Get<Session[]>().ShouldEqual(Sessions);
+			result.ViewData.Model.ShouldEqual(sessionForms);
 			result.ViewName.ShouldEqual(ViewNames.Default);
 		}
 
@@ -36,11 +39,15 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		public void Edit_should_but_Session_in_viewdata()
 		{
 			var Session = new Session();
-			var controller = new SessionController(S<ISessionRepository>(), S<ISessionMapper>());
+			var sessionForm = new SessionForm();
+
+			var mapper = S<ISessionMapper>();
+			mapper.Stub(m => m.Map(Session)).Return(sessionForm);
+			var controller = new SessionController(S<ISessionRepository>(), mapper);
 
 			ViewResult edit = controller.Edit(Session);
 
-			edit.ViewData.Get<Session>().ShouldEqual(Session);
+			edit.ViewData.Model.ShouldEqual(sessionForm);
 			edit.ViewName.ShouldEqual(ViewNames.Default);
 		}
 

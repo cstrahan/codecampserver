@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
-Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage"%>
+Inherits="CodeCampServer.UI.Helpers.ViewPage.SessionEditView"%>
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
 <%@ Import Namespace="CodeCampServer.Core.Common"%>
 <%@ Import Namespace="MvcContrib" %>
@@ -18,25 +18,26 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage"%>
 
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-  <% var form = (TimeSlotForm)  ViewData.Model; %>
-
-    <form action="<%= Url.Action<TimeSlotController>(x => x.Save(null,null)) %>" method="post"  >
+    <form action="<%= Url.Action<SessionController>(x => x.Save(null)) %>" method="post"  >
         <div>
-	        <h1>Edit Time Slot</h1>
-            
-            <%=Errors.Display()%>
-
-	        <table class="dataEntry">
-		        <tr>
-			        <td class="w50p">
-                	    <%=InputFor<TimeSlotForm>(a => a.Id)%>
-                	    <%=InputFor<TimeSlotForm>(a => a.ConferenceId)%>          	
-                	    <%=InputFor<TimeSlotForm>(a => a.ConferenceKey)%> 
-					    <div><%=InputFor<TimeSlotForm>(a => a.StartTime)%></div><br />
-					    <div><%=InputFor<TimeSlotForm>(a => a.EndTime)%></div>					    
-			        </td>
-		        </tr>
-	        </table>
+			    <h1>Edit Session</h1>  
+						<%=Errors.Display()%>
+						<table class="dataEntry">
+							<tr>
+								<td class="w50p">
+									<%=InputFor(a => a.Id)%>            	
+									<%=InputFor(a => a.Title)%>
+									<%=InputFor(a => a.Key)%>
+									<%=InputFor(a => a.Abstract)%>
+									<%=InputFor(a => a.Level)%>
+									<%--<%=InputFor(a => a.Speaker)%>
+									<%=InputFor(a => a.TimeSlot)%>
+									<%=InputFor(a => a.Track)%>--%>
+									<%=InputFor(a => a.RoomNumber)%>
+									<%=InputFor(a => a.MaterialsUrl)%>
+								</td>
+							</tr>
+						</table>
 	        <br />
 	        <br />
 	        <div class="p10 tac">

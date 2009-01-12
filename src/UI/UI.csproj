@@ -282,6 +282,7 @@
     <Content Include="Views\Conference\Edit.aspx" />
     <Content Include="Views\Conference\List.aspx" />
     <Content Include="Views\Login\Index.aspx" />
+    <Content Include="Views\Session\Edit.aspx" />
     <Content Include="Views\Shared\Menu.ascx" />
     <Content Include="Views\Speaker\Edit.aspx" />
     <Content Include="Views\Speaker\Index.aspx" />

@@ -4,7 +4,6 @@
 <%@ Import Namespace="MvcContrib"%>
 <%@ Import Namespace="CodeCampServer.UI"%>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-<% Html.RenderPartial("AdminMenu"); %>
   <%var conferences = (ConferenceForm[])ViewData.Model; %>
   <div class="dataContainerQuadWide mt10">
 	 <div class="cleaner"></div>

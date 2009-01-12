@@ -10,8 +10,6 @@
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms" %>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-	<%  Html.RenderPartial("AdminMenu");%>
-	
 	<% foreach (var track in ViewData.Model) { %>
 		
 		<p class="trackname"><a href="<%= Url.Action<TrackController>(t => t.Edit(null), new{track = track.Id}).ToXHTMLLink() %>"><%= track.Name %></a>

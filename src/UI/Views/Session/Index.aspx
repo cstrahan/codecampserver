@@ -10,13 +10,9 @@
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms" %>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-	<%  Html.RenderPartial("AdminMenu");%>
-	
 	<% foreach (var session in ViewData.Model) { %>
 		
 		<p class="sessionname"><a href="<%= Url.Action<SessionController>(t => t.Edit(null), new{session = session.Id}).ToXHTMLLink() %>"><%= session.Title%></a>
-		&nbsp;
-		<a href="<%= Url.Action<SessionController>(t => t.Delete(null), new{session = session.Id}).ToXHTMLLink() %>"><img src="/images/Buttons/delete_icon.gif" /></a></p>
 	
 	<% } %>
 	
