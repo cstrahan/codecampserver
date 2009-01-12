@@ -4,4 +4,5 @@
 <%@ Import Namespace="MvcContrib" %>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
+<%Html.RenderPartial("AdminMenu"); %>
 </asp:Content>

@@ -1,39 +1,25 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
-Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage"%>
+Inherits="CodeCampServer.UI.Helpers.ViewPage.TimeSlotIndexView"%>
+<%@ Import Namespace="CodeCampServer.Core.Common"%>
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 <%@ Import Namespace="CodeCampServer.UI"%>
 
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
 <%@ Import Namespace="MvcContrib"%>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-  <%var timeslots = (TimeSlotForm[])ViewData.Model; %>
-  <div class="dataContainerQuadWide mt10">
-	 <div class="cleaner"></div>
+<h2>Timeslots
+		<%if (User.Identity.IsAuthenticated){%>
+				<a class="" href="<%=Url.Action<TimeSlotController>(c=>c.New(null))%>" title="Add a new Timeslot"><img src="/images/icons/application_add.png" /></a>
+		<%}%>
+</h2>
+<p>
+	<% foreach (var timeslot in ViewData.Model) { %>
+		<div class=" w450 ">
+			<div class="fl"><a href="<%= Url.Action<TimeSlotController>(t => t.Edit(null), new{track = timeslot.Id}).ToXHTMLLink() %>"><%= timeslot.StartTime %> to <%= timeslot.EndTime %></a></div>
+			
+			<div class="fr pr15"><a title="edit" href="<%= Url.Action<TimeSlotController>(t => t.Edit(null), new{timeslot = timeslot.Id}).ToXHTMLLink() %>"><img src="<%= Url.Content("~/images/icons/application_edit.png").ToXHTMLLink() %>" /></a></div>
+		</div>
+	<% } %>	
+</p>
 
-	<a class="" href="<%=Url.Action<TimeSlotController>(c=>c.New(null))%>" title="Add new Time Slot">Add</a>	 
-	 <table class="genericBordered mt10 mb5">
-		  <colgroup>
-				<col />
-				<col />
-				<col />
-		  </colgroup>
-		  <tr>
-				<th>Details</th>
-				<th class="w30p tal"><strong>Name</strong></th>
-				<th><strong>Conference Dates</strong></th>
-		  </tr>
-		  <% var counter = 0;
-	   foreach (var timeslot in timeslots)
-		{%>
-		  <tr class="">
-				<td><a class="" href="<%=Url.Action<TimeSlotController>(c=>c.Edit(null),new{timeslot=timeslot.Id})%>" title="View Time Slot <%= counter + 1 %>">Edit</a></td>				
-				<td class="w30p tal"><strong><%= timeslot.StartTime%></strong></td>
-				<td><%= timeslot.EndTime%> </td>
-		  </tr>
-		  <%
-		counter++;
-		 } 
-		  %>
-	 </table>
-</div>
 </asp:Content>

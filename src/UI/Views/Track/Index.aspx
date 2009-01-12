@@ -10,16 +10,18 @@
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms" %>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-<p><a href="<%=Url.Action<TrackController>(x => x.New(null)).ToXHTMLLink() %>">Add a new track</a></p>
+<h2>Tracks
+		<%if (User.Identity.IsAuthenticated){%>
+				<a class="" href="<%=Url.Action<TrackController>(c=>c.New(null))%>" title="Add a new Track"><img src="/images/icons/application_add.png" /></a>
+		<%}%>
+</h2>
+<p>
 	<% foreach (var track in ViewData.Model) { %>
-		
-		
-		<div class="w200">
-		<div class="fl pr15"><a title="delete" href="<%= Url.Action<TrackController>(t => t.Delete(null), new{track = track.Id}).ToXHTMLLink() %>"><img src="<%= Url.Content("~/images/icons/delete.png").ToXHTMLLink() %>" /></a></div>
-		<div><a href="<%= Url.Action<TrackController>(t => t.Edit(null), new{track = track.Id}).ToXHTMLLink() %>"><%= track.Name %></a></div>
-		
+		<div class=" w250 ">
+			<div class="fl"><a href="<%= Url.Action<TrackController>(t => t.Edit(null), new{track = track.Id}).ToXHTMLLink() %>"><%= track.Name %></a></div>
+			<div class="fr pr15"><a title="delete" href="<%= Url.Action<TrackController>(t => t.Delete(null), new{track = track.Id}).ToXHTMLLink() %>"><img src="<%= Url.Content("~/images/icons/delete.png").ToXHTMLLink() %>" /></a></div>
+			<div class="fr pr15"><a title="edit" href="<%= Url.Action<TrackController>(t => t.Edit(null), new{track = track.Id}).ToXHTMLLink() %>"><img src="<%= Url.Content("~/images/icons/application_edit.png").ToXHTMLLink() %>" /></a></div>
 		</div>
-	
-	<% } %>
-	
+	<% } %>	
+</p>
 </asp:Content>
