@@ -12,7 +12,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
 	</asp:Content>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-		<form action="<%= Url.Action<SpeakerController>(x => x.Save(null)) %>" method="post">
+		<form action="<%= Url.Action<TrackController>(x => x.Save(null)) %>" method="post">
 	<div>
 		<h1>
 			Edit Track</h1>
@@ -23,7 +23,7 @@
 					<%= InputFor(x => x.Id) %>
 					<%= InputFor(x => x.ConferenceId) %>
 					<%= InputFor(x => x.ConferenceKey) %>
-					<%=InputFor(a => a.Name)%>
+					<%= InputFor(a => a.Name)%>
 				</td>
 			</tr>
 		</table>
