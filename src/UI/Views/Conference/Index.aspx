@@ -1,41 +1,38 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage"%>
-<%@ Import Namespace="CodeCampServer.UI.Controllers"%>
-<%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
-<%@ Import Namespace="MvcContrib"%>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
+Inherits="CodeCampServer.UI.Helpers.ViewPage.ConferenceEditView"%>
+<%@ Import Namespace="Microsoft.Web.Mvc"%>
+<%@ Import Namespace="CodeCampServer.Core.Common"%>
+<%@ Import Namespace="MvcContrib" %>
+<%@ Import Namespace="System.Web.Mvc" %>
+<%@ Import Namespace="System.Web.Mvc.Html"%>
 <%@ Import Namespace="CodeCampServer.UI"%>
+
+<%@ Import Namespace="CodeCampServer.UI.Models.Forms" %>
+<%@ Import Namespace="CodeCampServer.UI.Controllers" %>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
+	<script type="text/javascript" src="/scripts/jqModal.js"></script>
+	<script type="text/javascript" src="/scripts/jquery.form.js"></script>
+	<link id="jqModalCss" rel="Stylesheet" type="text/css" media="all" href="/css/jqModal.css" runat="server" />
+</asp:Content>
+
+
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-<% Html.RenderPartial("AdminMenu"); %>
-  <%var conferences = (ConferenceForm[])ViewData.Model; %>
-  <div class="dataContainerQuadWide mt10">
-	 <div class="cleaner"></div>
-	 <table class="genericBordered mt10 mb5">
-		  <colgroup>
-				<col />
-				<col />
-				<col />
-				<col />
-		  </colgroup>
-		  <tr>
-				<th>Details</th>
-				<th class="w30p tal"><strong>Name</strong></th>
-				<th><strong>Conference Dates</strong></th>
-				<th class="w20p"><strong>Location</strong></th>
-		  </tr>
-		  <% var counter = 0;
-       foreach (var conference in conferences)
-		{%>
-		  <tr class="">
-				<td><a class="" href="<%=Url.Action<ConferenceController>(c=>c.Edit(conference.Id),new{Id=conference.Id})%>" title="View Conference <%= counter + 1 %>">Edit</a></td>				
-				<td class="w30p tal"><strong><%= conference.Name%></strong></td>
-				<td><%= conference.StartDate%> To <%= conference.EndDate%></td>
-				<td class="w20p"><%= conference.LocationName%><br />
-				                <%= conference.City%>, <%= conference.Region%> <%= conference.PostalCode%>
-				</td>
-		  </tr>
-		  <%
-		counter++;
-		 } 
-		  %>
-	 </table>
-</div>
+        <div>
+	        <h1>Conference Details</h1>
+            
+            <%=Errors.Display()%>
+
+	        <table>
+		        <tr>
+			        <td class="w50p">
+								Description:  <%=ViewData.Model.Description %>
+								Start Date:  <%=ViewData.Model.StartDate %>
+								End Date:  <%=ViewData.Model.EndDate %>
+								Location:  <%=ViewData.Model.LocationName %>
+			        </td>
+		        </tr>
+	        </table>
+        </div>
+    </form>
 </asp:Content>

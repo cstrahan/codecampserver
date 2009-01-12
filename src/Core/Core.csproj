@@ -89,6 +89,7 @@
     <Compile Include="Services\Impl\Cryptographer.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="Services\IUserSession.cs" />
     <Compile Include="SystemTime.cs" />
     <Compile Include="Domain\Model\ValueObject.cs" />
   </ItemGroup>

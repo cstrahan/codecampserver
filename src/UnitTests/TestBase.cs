@@ -1,9 +1,18 @@
+using CodeCampServer.Core.Services;
+using NUnit.Framework;
 using Rhino.Mocks;
+using StructureMap;
 
 namespace CodeCampServer.UnitTests
 {
 	public abstract class TestBase
 	{
+		[TestFixtureSetUp]
+		public void Setup()
+		{
+			ObjectFactory.Inject(typeof(IUserSession), S<IUserSession>());	
+		}
+
 		/// <summary>
 		/// Create a mock
 		/// </summary>

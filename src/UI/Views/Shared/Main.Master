@@ -1,3 +1,5 @@
+<%@ Import Namespace="CodeCampServer.UI"%>
+<%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
 <%@ Import Namespace="MvcContrib"%>
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 <%@ Import Namespace="CodeCampServer.UI"%>
@@ -38,12 +40,20 @@
 	<body>
 		<div id="header">
 			<h1><a href="/">Code Camp Server v1.0</a></h1>
+			<h2>
+				<asp:LoginView ID="LoginView3" runat="server">
+				<LoggedInTemplate>
+					Welcome, <%=ViewData.Get<User>().Name%>
+					(<a href="<%=Url.Action<LoginController>(c=>c.LogOut()) %>">Log out</a>)
+				</LoggedInTemplate>
+			</asp:LoginView>
+			</h2>
 		</div>
 		<div id="menu">
 			<ul>
 				<asp:LoginView ID="LoginView1" runat="server">
 					<LoggedInTemplate>
-						<li><a href="<%=Url.Action<ConferenceController>(c=>c.Edit(ViewData.Get<Conference>().Id)) %>">Edit Conference</a></li>
+						<li><a href="<%=Url.Action<ConferenceController>(c=>c.Edit(Guid.Empty), new{conferenceKey=ViewData.Get<Conference>().Key}) %>">Edit Conference</a></li>
 						<li><a href="<%=Url.Action<AdminController>(c=>c.Index()) %>">Edit User</a></li>
 					</LoggedInTemplate>
 				</asp:LoginView>

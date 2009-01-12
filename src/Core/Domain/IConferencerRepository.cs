@@ -4,5 +4,6 @@ namespace CodeCampServer.Core.Domain
 {
 	public interface IConferenceRepository : IKeyedRepository<Conference>
 	{
+		Conference GetNextConference();
 	}
 }

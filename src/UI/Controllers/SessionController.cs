@@ -9,7 +9,7 @@ using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
-	[RequiresConferenceFilter]
+//	[RequiresConferenceFilter]
 	public class SessionController : SaveController<Session, SessionForm>
 	{
 		private readonly ISessionRepository _repository;

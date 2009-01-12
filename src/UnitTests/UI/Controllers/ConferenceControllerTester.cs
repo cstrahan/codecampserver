@@ -23,7 +23,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var controller = new ConferenceController(repository, null);
 
 			ActionResult result = controller.Edit(Guid.Empty);
-			result.AssertActionRedirect().ToAction<ConferenceController>(e => e.Index());
+			result.AssertActionRedirect().ToAction<ConferenceController>(e => e.List());
 			controller.TempData["Message"].ShouldEqual(
 				"Conference has been deleted.");
 		}
@@ -38,7 +38,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var controller = new ConferenceController(repository, null);
 
-			ActionResult result = controller.Index();
+			ActionResult result = controller.List();
 
 			result.AssertActionRedirect().ToAction<ConferenceController>(a => a.New());
 		}
@@ -58,7 +58,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var result = (RedirectToRouteResult)controller.Save(form);
 
 			repository.AssertWasCalled(r => r.Save(conference));
-			result.AssertActionRedirect().ToAction<ConferenceController>(a => a.Index());
+			result.AssertActionRedirect().ToAction<ConferenceController>(a => a.List());
 		}
 
 		[Test]

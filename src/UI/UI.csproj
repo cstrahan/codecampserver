@@ -105,6 +105,7 @@
     <Compile Include="CodeCampServerProfile.cs" />
     <Compile Include="Controllers\AttendeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SaveController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SmartController.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Helpers\Binders\EnumerationModelBinder.cs" />
     <Compile Include="Helpers\Binders\KeyedModelBinder.cs" />
     <Compile Include="Helpers\Binders\ModelBinder.cs" />
+    <Compile Include="Helpers\Filters\AuthenticationFilterAttribute.cs" />
     <Compile Include="Helpers\Filters\AutoMappedFilterAttribute.cs" />
     <Compile Include="Helpers\Filters\AutoMappedToModelFilter.cs" />
     <Compile Include="Helpers\Filters\BaseActionFilter.cs" />
@@ -151,6 +153,7 @@
     <Compile Include="Helpers\Attributes\UserDropDownAttribute.cs" />
     <Compile Include="Helpers\Attributes\HiddenAttribute.cs" />
     <Compile Include="Helpers\Attributes\LabelAttribute.cs" />
+    <Compile Include="Helpers\UserSession.cs" />
     <Compile Include="Helpers\Validation\Attributes\BetterValidateIntegerAttribute.cs" />
     <Compile Include="Helpers\Validation\Attributes\BetterValidateNotEmptyAttribute.cs" />
     <Compile Include="Helpers\Validation\Attributes\BetterValidateDateAttribute.cs" />
@@ -218,6 +221,7 @@
     <Compile Include="Models\Forms\ConferenceForm.cs" />
     <Compile Include="Controllers\NewsletterController.cs" />
     <Compile Include="Models\Forms\EditForm.cs" />
+    <Compile Include="Models\Forms\LoginForm.cs" />
     <Compile Include="Models\Forms\SessionForm.cs" />
     <Compile Include="Models\Forms\SpeakerForm.cs" />
     <Compile Include="Models\Forms\TimeSlotForm.cs" />
@@ -259,7 +263,6 @@
     <Content Include="css\jquery.autocomplete.css" />
     <Content Include="images\img1.jpg" />
     <Content Include="images\img2.jpg" />
-    <Content Include="images\img3.gif" />
     <Content Include="images\spacer.gif" />
     <Content Include="scripts\date.js" />
     <Content Include="scripts\jqModal.js" />
@@ -271,8 +274,10 @@
     <Content Include="scripts\jquery.meiomask.js" />
     <Content Include="Views\Admin\Edit.aspx" />
     <Content Include="Views\Admin\Index.aspx" />
-    <Content Include="Views\Conference\Edit.aspx" />
     <Content Include="Views\Conference\Index.aspx" />
+    <Content Include="Views\Conference\Edit.aspx" />
+    <Content Include="Views\Conference\List.aspx" />
+    <Content Include="Views\Login\Index.aspx" />
     <Content Include="Views\Speaker\Edit.aspx" />
     <Content Include="Views\Speaker\Index.aspx" />
     <Content Include="Views\Session\Index.aspx" />

@@ -5,6 +5,7 @@ using System.Web.Routing;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.UI.Controllers;
 using StructureMap;
+using MvcContrib;
 
 namespace CodeCampServer.UI.Helpers.Filters
 {
@@ -28,14 +29,16 @@ namespace CodeCampServer.UI.Helpers.Filters
 			var conference = _repository.GetByKey(conferenceKey);
 			if (conference == null)
 			{
-				Expression<Func<AdminController, object>> actionExpression = c => c.Edit(null);
+				Expression<Func<ConferenceController, object>> actionExpression = c => c.New();
 
-				string controllerName = typeof (AdminController).GetControllerName();
+				string controllerName = typeof (ConferenceController).GetControllerName();
 				string actionName = actionExpression.GetActionName();
 
 				filterContext.Result =
 					new RedirectToRouteResult(new RouteValueDictionary(new {controller = controllerName, action = actionName}));
 			}
+
+			filterContext.Controller.ViewData.Add(conference);
 		}
 	}
 }
