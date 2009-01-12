@@ -8,7 +8,7 @@
 		<id name="Id" column="Id" type="Guid">
 			<generator class="guid.comb"/>
 		</id>
-		<property name="Key" column="SessionKey" length="25"/>
+		<property name="Key" column="SessionKey" length="255"/>
 		<many-to-one name="Track" />
 		<many-to-one name="TimeSlot" />
 		<many-to-one name="Speaker" />

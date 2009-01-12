@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.IntegrationTests.Infrastructure.DataAccess;
 using NUnit.Framework;
+using Tarantino.Core.Commons.Model;
+using Tarantino.Core.Commons.Model.Enumerations;
 
 namespace CodeCampServer.IntegrationTests.UI.DataLoader
 {
@@ -40,6 +43,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			var track1 = new Track {Conference = conference, Name = "Web"};
 			var track2 = new Track {Conference = conference, Name = "Project Management"};
 			var track3 = new Track {Conference = conference, Name = "General Development"};
+			var tracks = new[] {track, track1, track2, track3};
 
 			var timeslot = new TimeSlot
 			               	{
@@ -90,7 +94,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			                		StartTime = new DateTime(2009, 5, 10, 16, 0, 0),
 			                		EndTime = new DateTime(2009, 5, 10, 17, 30, 0)
 			                	};
-
+			var timeSlots = new[] {timeslot, timeslot1, timeslot2, timeslot3, timeslot4, timeslot5, timeslot6, timeslot7};
 
 			var speaker = new Speaker
 			              	{
@@ -103,6 +107,18 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			              		Key = "httpson",
 			              		WebsiteUrl = "http://www.example.com/wizard"
 			              	};
+
+			var speaker1 = new Speaker
+			               	{
+			               		Bio = "Web Design Guru",
+			               		Company = "DeZinEs",
+			               		EmailAddress = "linda@example.com",
+			               		FirstName = "Linda",
+			               		LastName = "Ihatetables",
+			               		JobTitle = "Web Designer",
+			               		Key = "tablehater",
+			               		WebsiteUrl = "http://www.example.com/linda"
+			               	};
 
 			var speaker2 = new Speaker
 			               	{
@@ -163,35 +179,71 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			               		Key = "sendmepatch",
 			               		WebsiteUrl = "http://www.example.com/sendmepatch"
 			               	};
+			var speakers = new[] {speaker, speaker1, speaker2, speaker3, speaker4, speaker5, speaker6};
 
-			var speaker7 = new Speaker
-			               	{
-			               		Bio = "Web Design Guru",
-			               		Company = "DeZinEs",
-			               		EmailAddress = "linda@example.com",
-			               		FirstName = "Linda",
-			               		LastName = "Ihatetables",
-			               		JobTitle = "Web Designer",
-			               		Key = "tablehater",
-			               		WebsiteUrl = "http://www.example.com/linda"
-			               	};
+			var list = new List<PersistentObject>()
+			           	{
+			           		conference,
+			           		track,
+			           		track1,
+			           		track2,
+			           		track3,
+			           		timeslot,
+			           		timeslot1,
+			           		timeslot2,
+			           		timeslot3,
+			           		timeslot4,
+			           		timeslot5,
+			           		timeslot6,
+			           		timeslot7,
+			           		speaker,
+										speaker1,
+			           		speaker2,
+			           		speaker3,
+			           		speaker4,
+			           		speaker5,
+			           		speaker6
+			           	};
 
+			foreach (var aTrack in tracks)
+			{
+				foreach (var aTimeSlot in timeSlots)
+				{
+					foreach (var level in Enumeration.GetAll<SessionLevel>())
+					{
+						string time = aTimeSlot.StartTime.GetValueOrDefault().ToShortTimeString();
+						string title = string.Format("{0} level session at {1} in {2} track", level.DisplayName,
+						                             time,
+						                             aTrack.Name);
+						var aSession = new Session()
+						               	{
+						               		Title = title,
+						               		Abstract = string.Format("Abstract for session at {0}", time),
+						               		Conference = conference,
+						               		Key = title.ToLower().Replace(" ", "-"),
+						               		Level = level,
+						               		MaterialsUrl = "http://google.com",
+						               		RoomNumber = "24R",
+						               		Speaker = GetRandomSpeaker(speakers),
+						               		TimeSlot = aTimeSlot,
+						               		Track = aTrack
+						               	};
+						list.Add(aSession);
+					}
+				}
+			}
 
+			foreach (var o in list)
+			{
+				Console.WriteLine(o.GetType());
+				PersistEntities(o);						
+			}
+		}
 
-			var session = new Session()
-			              	{
-			              		Abstract = "REST information and code samples",
-			              		Conference = conference,
-			              		Key = "webrest",
-			              		Level = SessionLevel.L200,
-			              		MaterialsUrl = "http://example.com/rest",
-
-
-			              	};
-
-
-			PersistEntities(conference, track, track1, track2, track3, timeslot, timeslot1, timeslot2, timeslot3, timeslot4,
-			                timeslot5, timeslot6, timeslot7, speaker, speaker2, speaker3, speaker4, speaker5, speaker6, speaker7);
+		private static Speaker GetRandomSpeaker(Speaker[] speakers)
+		{
+			int index = new Random(Convert.ToInt32(DateTime.Now.Ticks.ToString().Substring(0, 9))).Next(0, 3);
+			return speakers[index];
 		}
 	}
 }
