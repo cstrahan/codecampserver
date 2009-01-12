@@ -16,6 +16,8 @@ namespace CodeCampServer.UnitTests.Core.Common
 			strings.WrapEachWith("before", "after", " ").ShouldEqual("beforeoneafter beforetwoafter beforethreeafter");
 		}
 
+
+
 		[Test]
 		public void should_convert_to_bool()
 		{
@@ -97,6 +99,18 @@ namespace CodeCampServer.UnitTests.Core.Common
 		{
 			"2008/1/1".ToNullableDate().Value.ShouldEqual(new DateTime(2008, 1, 1));
 			"as".ToNullableDate().HasValue.ShouldBeFalse();
+		}
+
+		[Test]
+		public void Should_split_string()
+		{
+			"PascalCase".ToSeparatedWords().ShouldEqual("Pascal Case");
+		}
+
+		[Test]
+		public void Should_convert_to_lower_camel_case()
+		{
+			"PascalCase".ToLowerCamelCase().ShouldEqual("pascalCase");
 		}
 	}
 }

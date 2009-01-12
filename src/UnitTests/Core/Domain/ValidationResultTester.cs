@@ -32,5 +32,15 @@ namespace CodeCampServer.UnitTests.Core.Domain
 			result.AddError<object>(o => o.GetType(), "bar");
 			result.GetAllErrors().Count.ShouldEqual(1);
 		}
+
+		[Test]
+		public void Should_process_messages()
+		{
+			var result = new ValidationResult();
+			result.AddError<object>(x => x.ToString(), "Message");
+			result.AddError<object>(x => x.ToString(), "Another");
+			result.GetErrors<object>(x => x.ToString()).ShouldContain("Message");
+			result.GetErrors<object>(x => x.ToString()).ShouldContain("Another");
+		}
 	}
 }

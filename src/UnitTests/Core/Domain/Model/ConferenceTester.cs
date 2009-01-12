@@ -54,6 +54,20 @@ namespace CodeCampServer.UnitTests.Core.Domain.Model
 			conference.IsAttending("baz").ShouldBeFalse();
 		}
 
+		[Test]
+		public void Should_remove_attendee()
+		{
+			var attendee = new Attendee {EmailAddress = "foo"};
+			var attendee1 = new Attendee {EmailAddress = "bar"};
+			var conference = new Conference();
+			conference.AddAttendee(attendee);
+			conference.AddAttendee(attendee1);
+
+			conference.RemoveAttendee(attendee1);
+	
+			conference.GetAttendees().ShouldEqual(new[] {attendee});
+		}
+
 		protected override PersistentObject CreatePersisentObject()
 		{
 			return new Conference();

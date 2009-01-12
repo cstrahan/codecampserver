@@ -1,3 +1,4 @@
+using System;
 using CodeCampServer.Core;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -79,7 +80,8 @@ namespace CodeCampServer.UnitTests.Core.Domain.Model
 		public void Should_report_not_equal_if_obj_is_null()
 		{
 			ValueObject<T> stub = CreateValueObject();
-			(stub.Equals(null)).ShouldBeFalse();
+			object obj = null;
+			(stub.Equals(obj)).ShouldBeFalse();
 		}
 
 		[Test]
@@ -94,13 +96,23 @@ namespace CodeCampServer.UnitTests.Core.Domain.Model
 			stub2.ShouldNotEqual(stub1);
 		}
 
-		protected class Stub
+		[Test]
+		public void Operators()
 		{
+			(CreateDifferentValueObject() == CreateValueObject()).ShouldBeFalse();
+			(CreateDifferentValueObject() != CreateValueObject()).ShouldBeTrue();
+			(CreateValueObject() == CreateValueObject()).ShouldBeTrue();
+			const object obj = null;
+			(CreateValueObject() == (ValueObject<T>) obj).ShouldBeFalse();
+			((ValueObject<T>) obj == (ValueObject<T>) obj).ShouldBeTrue();
 		}
+
+		protected class Stub {}
 	}
 
 	public class ValueObjectStub : ValueObject<ValueObjectStub>
 	{
+		public DateTime Date { get; set; }
 		public string Name { get; set; }
 		public int Age { get; set; }
 		public string Address { get; set; }
@@ -111,12 +123,12 @@ namespace CodeCampServer.UnitTests.Core.Domain.Model
 	{
 		protected override ValueObject<ValueObjectStub> CreateValueObject()
 		{
-			return new ValueObjectStub {Address = "4", Age = 2, Name = null};
+			return new ValueObjectStub {Address = "4", Age = 2, Name = null, Date = new DateTime(2008, 1, 1)};
 		}
 
 		protected override ValueObject<ValueObjectStub> CreateDifferentValueObject()
 		{
-			return new ValueObjectStub {Address = "1", Age = 2, Name = null};
+			return new ValueObjectStub {Address = "1", Age = 2, Name = null, Date = new DateTime(2008, 1, 3)};
 		}
 	}
 }

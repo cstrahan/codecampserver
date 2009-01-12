@@ -51,6 +51,17 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		}
 
 		[Test]
+		public void When_a_user_does_exist_Contoller_should_show_the_default_view()
+		{
+			var repository = S<IUserRepository>();
+			repository.Stub(repo => repo.GetByUserName("admin")).Return(new User());
+
+			var controller = new AdminController(repository, S<IUserMapper>());
+			var result = controller.Index();
+			result.AssertViewRendered().ViewName.ShouldEqual(ViewNames.Default);
+		}
+
+		[Test]
 		public void When_a_user_does_not_exist_Edit_should_render_the_edit_view()
 		{
 			var repository = S<IUserRepository>();
@@ -64,6 +75,23 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			mapper.MappedUser.Username.ShouldEqual("admin");
 			result.AssertViewRendered().ForView(ViewNames.Default);
 			result.ViewData.Model.ShouldBeInstanceOfType(typeof (UserForm));
+		}
+
+		[Test]
+		public void When_multiple_users_exist_and_Edit_is_passed_null_Edit_should_render_the_edit_view_for_the_first_user()
+		{
+			var repository = S<IUserRepository>();
+			repository.Stub(repo => repo.GetByUserName("admin")).Return(null);
+			var users = new [] {new User{Id = Guid.NewGuid()}, new User{Id = Guid.NewGuid()}};
+			repository.Stub(repo => repo.GetAll()).Return(users);
+
+			var mapper = new TestUserMapper();
+			var controller = new AdminController(repository, mapper);
+			var result = controller.Edit(null);
+			mapper.MappedUser.ShouldNotBeNull();
+			mapper.MappedUser.Id.ShouldEqual(users[0].Id);
+			result.AssertViewRendered().ForView(ViewNames.Default);
+			result.ViewData.Model.ShouldBeInstanceOfType(typeof(UserForm));
 		}
 
 		private class TestUserMapper : UserMapper

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 
 namespace CodeCampServer.Core.Common
@@ -18,19 +17,6 @@ namespace CodeCampServer.Core.Common
 		public static string ToXHTMLLink(this string url)
 		{
 			return !string.IsNullOrEmpty(url) ? url.Replace("&", "&amp;") : string.Empty;
-		}
-
-		public static string ToStandardDateWithTime(this DateTime? value, string valueIfNull)
-		{
-			if (value == null)
-				return String.Empty;
-
-			return value.Value.ToString("MM/dd/yyyy HH:mm");
-		}
-
-		public static string ToStandardDateWithTime(this DateTime value)
-		{
-			return value.ToString("MM/dd/yyyy HH:mm");
 		}
 
 		public static string ToStandardDate(this DateTime? value, string valueIfNull)
@@ -83,27 +69,17 @@ namespace CodeCampServer.Core.Common
 		public static string WrapEachWith(this IEnumerable values, string before, string after, string separator)
 		{
 			var list = new List<string>();
-			foreach (var value in values)
+			foreach (object value in values)
 			{
 				list.Add(string.Format("{0}{1}{2}", before, value, after));
 			}
 			return string.Join(separator, list.ToArray());
 		}
 
-		public static Dictionary<string, object> ToDictionary(this NameValueCollection nameValueCollection)
-		{
-			var dictionary = new Dictionary<string, object>();
-			foreach (string key in nameValueCollection)
-			{
-				dictionary.Add(key, nameValueCollection[key]);
-			}
-			return dictionary;
-		}
-
 		public static DateTime? ToNullableDate(this string value)
 		{
 			DateTime result;
-			return !DateTime.TryParse(value, out result) ? (DateTime?)null : result;
+			return !DateTime.TryParse(value, out result) ? (DateTime?) null : result;
 		}
 	}
 }
