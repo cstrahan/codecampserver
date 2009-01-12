@@ -19,10 +19,10 @@ namespace CodeCampServer.UI.Models.Forms
 
 		public virtual string Description { get; set; }
 
-		[BetterValidateDateTime("Start Date")]
+		[BetterValidateDate("Start Date")]
 		public virtual string StartDate { get; set; }
 
-		[BetterValidateDateTime("End Date")]
+		[BetterValidateDate("End Date")]
 		public virtual string EndDate { get; set; }
 
 		[BetterValidateNonEmpty("Location")]

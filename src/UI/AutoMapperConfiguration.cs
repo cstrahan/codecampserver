@@ -1,5 +1,4 @@
 using CodeCampServer.Infrastructure.AutoMap;
-using CodeCampServer.UI;
 
 namespace CodeCampServer.UI
 {

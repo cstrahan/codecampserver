@@ -7,21 +7,21 @@
 		<cache usage="read-write"/>
 		<id name="Id" column="Id" type="Guid">
 			<generator class="guid.comb"/>
-		</id>    
-    <property name="Key" column="ConferenceKey" length="100"/>
-    <property name="Name" length="100"/>
-    <property name="Description" length="300"/>
-    <property name="StartDate" />
-    <property name="EndDate" />
-    <property name="LocationName" />
-    <property name="Address" />
-    <property name="City" />
-    <property name="Region" />
-    <property name="PostalCode" />
-    <property name="PhoneNumber" />
-    <bag name="Attendees" access="field.camelcase-underscore" cascade="all-delete-orphan" >
-      <key column="ConferenceId"  />
-      <one-to-many class="Attendee" />
-    </bag>
-  </class>
+		</id>
+		<property name="Key" column="ConferenceKey" length="100"/>
+		<property name="Name" length="100"/>
+		<property name="Description" length="300"/>
+		<property name="StartDate" />
+		<property name="EndDate" />
+		<property name="LocationName" />
+		<property name="Address" />
+		<property name="City" />
+		<property name="Region" />
+		<property name="PostalCode" />
+		<property name="PhoneNumber" />
+		<bag name="Attendees" access="field.camelcase-underscore" cascade="all-delete-orphan" >
+			<key column="ConferenceId"  />
+			<one-to-many class="Attendee" />
+		</bag>
+	</class>
 </hibernate-mapping>

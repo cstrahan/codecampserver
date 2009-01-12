@@ -143,7 +143,9 @@
     <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\Testing.cs" />
     <Compile Include="Infrastructure\AutoMap\ResolutionContextTester.cs" />
     <Compile Include="MvcMockHelpers.cs" />
+    <Compile Include="SpecExtensions.cs" />
     <Compile Include="TestBase.cs" />
+    <Compile Include="UI\AutoMappedConfigurationTester.cs" />
     <Compile Include="UI\BinderTester.cs" />
     <Compile Include="UI\Controllers\AdminControllerTester.cs" />
     <Compile Include="UI\Controllers\AttendeeControllerTester.cs" />

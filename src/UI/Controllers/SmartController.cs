@@ -30,8 +30,7 @@ namespace CodeCampServer.UI.Controllers
 			}
 		}
 
-		public RedirectToRouteResult RedirectToAction<TController>(
-			Expression<Func<TController, object>> actionExpression)
+		public RedirectToRouteResult RedirectToAction<TController>(Expression<Func<TController, object>> actionExpression)
 		{
 			string controllerName = typeof (TController).GetControllerName();
 			string actionName = actionExpression.GetActionName();
@@ -39,9 +38,8 @@ namespace CodeCampServer.UI.Controllers
 			return RedirectToAction(actionName, controllerName);
 		}
 
-		public RedirectToRouteResult RedirectToAction<TController>(
-			Expression<Func<TController, object>> actionExpression,
-			IDictionary<string, object> dictionary)
+		public RedirectToRouteResult RedirectToAction<TController>(Expression<Func<TController, object>> actionExpression,
+		                                                           IDictionary<string, object> dictionary)
 		{
 			string controllerName = typeof (TController).GetControllerName();
 			string actionName = actionExpression.GetActionName();
@@ -50,9 +48,8 @@ namespace CodeCampServer.UI.Controllers
 			                        new RouteValueDictionary(dictionary));
 		}
 
-		public RedirectToRouteResult RedirectToAction<TController>(
-			Expression<Func<TController, object>> actionExpression,
-			object values)
+		public RedirectToRouteResult RedirectToAction<TController>(Expression<Func<TController, object>> actionExpression,
+		                                                           object values)
 		{
 			string controllerName = typeof (TController).GetControllerName();
 			string actionName = actionExpression.GetActionName();

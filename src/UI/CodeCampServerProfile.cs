@@ -8,7 +8,7 @@ namespace CodeCampServer.UI
 {
 	public class CodeCampServerProfile : Profile
 	{
-		public const string VIEW_MODEL = "ViewModel";
+		public const string VIEW_MODEL = "CodeCampServer";
 
 		protected override string ProfileName
 		{
@@ -19,8 +19,8 @@ namespace CodeCampServer.UI
 		{
 			AddFormatter<HtmlEncoderFormatter>();
 			AddFormatter<SpanWrappingFormatter>();
-			ForSourceType<DateTime>().AddFormatter<StandardDateTimeFormatter>();
-			ForSourceType<DateTime?>().AddFormatter<StandardDateTimeFormatter>();
+			ForSourceType<DateTime>().AddFormatter<StandardDateFormatter>();
+			ForSourceType<DateTime?>().AddFormatter<StandardDateFormatter>();
 			ForSourceType<bool>().AddFormatter<YesNoBooleanFormatter>();
 			ForSourceType<bool?>().AddFormatter<YesNoBooleanFormatter>();
 			ForSourceType<TimeSpan>().AddFormatter<TimeSpanFormatter>();
@@ -33,14 +33,16 @@ namespace CodeCampServer.UI
 
 		private static void CreateMaps()
 		{
-			AutoMapper.CreateMap<User, UserForm>()
-				.ForMember(u => u.Password, o => o.ResolveUsing(new NullValueResolver()));
 
-			AutoMapper.CreateMap<Conference, ConferenceForm>();
+			AutoMapper.CreateMap<User, UserForm>()
+				.ForMember(u => u.Password, o => o.Ignore())
+				.ForMember(f => f.ConfirmPassword, o => o.Ignore());
+
+			AutoMapper.CreateMap<Conference, ConferenceForm>()
+				.ForMember(x => x.StartDate, o => o.AddFormatter<StandardDateFormatter>())
+				.ForMember(x => x.EndDate, o => o.AddFormatter<StandardDateFormatter>());
 
 			AutoMapper.CreateMap<Track, TrackForm>();
-			AutoMapper.CreateMap<User, UserForm>().ForMember(f => f.ConfirmPassword,
-			                                                 o => o.ResolveUsing(new NullValueResolver()));
 
 			AutoMapper.CreateMap<TimeSlot, TimeSlotForm>();
 			AutoMapper.CreateMap<Speaker, SpeakerForm>();

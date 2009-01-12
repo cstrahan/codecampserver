@@ -19,20 +19,10 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.ConferenceEditView"%>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
         <div>
-	        <h1>Conference Details</h1>
-            
-            <%=Errors.Display()%>
-
-	        <table>
-		        <tr>
-			        <td class="w50p">
-								Description:  <%=ViewData.Model.Description %>
-								Start Date:  <%=ViewData.Model.StartDate %>
-								End Date:  <%=ViewData.Model.EndDate %>
-								Location:  <%=ViewData.Model.LocationName %>
-			        </td>
-		        </tr>
-	        </table>
+            <h2><%= Model.Description %></h2>
+            <p><%= Model.LocationName %></p>
+            <p><%= Model.StartDate %>&nbsp;to&nbsp;<%= Model.EndDate %></p>
+			  
         </div>
     </form>
 </asp:Content>

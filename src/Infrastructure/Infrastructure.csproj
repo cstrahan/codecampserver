@@ -112,7 +112,6 @@
     <Compile Include="AutoMap\TypeMember.cs" />
     <Compile Include="AutoMap\TypeMemberFinder.cs" />
     <Compile Include="AutoMap\ValueFormatter.cs" />
-    <Compile Include="DataAccess\IDatabaseDeleter.cs" />
     <Compile Include="DataAccess\Impl\ConferenceRepository.cs" />
     <Compile Include="DataAccess\Impl\KeyedRepository.cs" />
     <Compile Include="DataAccess\Impl\RepositoryBase.cs" />

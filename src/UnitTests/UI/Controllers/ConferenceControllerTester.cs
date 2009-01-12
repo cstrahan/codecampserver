@@ -55,7 +55,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<IConferenceRepository>();
 
 			var controller = new ConferenceController(repository, mapper);
-			var result = (RedirectToRouteResult)controller.Save(form);
+			var result = (RedirectToRouteResult) controller.Save(form);
 
 			repository.AssertWasCalled(r => r.Save(conference));
 			result.AssertActionRedirect().ToAction<ConferenceController>(a => a.List());
@@ -64,7 +64,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void Should_not_save_conference_if_key_already_exists()
 		{
-			var form = new ConferenceForm { Key = "foo", Id = Guid.NewGuid() };
+			var form = new ConferenceForm {Key = "foo", Id = Guid.NewGuid()};
 			var conference = new Conference();
 
 			var mapper = S<IConferenceMapper>();
@@ -74,12 +74,11 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			repository.Stub(r => r.GetByKey("foo")).Return(new Conference());
 
 			var controller = new ConferenceController(repository, mapper);
-			var result = (ViewResult)controller.Save(form);
+			var result = (ViewResult) controller.Save(form);
 
 			result.AssertViewRendered().ViewName.ShouldEqual("Edit");
 			controller.ModelState.Values.Count.ShouldEqual(1);
 			controller.ModelState["Key"].Errors[0].ErrorMessage.ShouldEqual("This conference key already exists");
 		}
-
 	}
 }

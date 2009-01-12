@@ -12,7 +12,7 @@
 		<property name="Username" length="50"/>
 		<property name="Name" length="100"/>
 		<property name="EmailAddress" length="100"/>
-    <property name="PasswordHash" length="100"/>
-    <property name="PasswordSalt" length="100"/>
-  </class>
+		<property name="PasswordHash" length="100"/>
+		<property name="PasswordSalt" length="100"/>
+	</class>
 </hibernate-mapping>
