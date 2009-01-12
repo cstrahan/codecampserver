@@ -22,7 +22,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var controller = new ConferenceController(repository, null);
 
-			ActionResult result = controller.Edit(Guid.Empty);
+			ActionResult result = controller.Edit(null);
 			result.AssertActionRedirect().ToAction<ConferenceController>(e => e.List());
 			controller.TempData["Message"].ShouldEqual(
 				"Conference has been deleted.");

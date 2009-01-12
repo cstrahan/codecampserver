@@ -55,7 +55,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		public void Should_update_an_attendee()
 		{
 			Conference conference = CreateConference();
-			conference.GetAttendees()[0].Status = AttendanceStatus.NotAttending;
+			conference.GetAttendees()[0].Status = AttendanceStatus.Interested;
 
 			IConferenceRepository repository = new ConferenceRepository(new HybridSessionBuilder());
 

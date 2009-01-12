@@ -5,6 +5,7 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Models.Forms;
+using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {

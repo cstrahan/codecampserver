@@ -12,7 +12,7 @@ namespace CodeCampServer.Core.Domain.Model
 		{
 		}
 
-		public static AttendanceStatus NotAttending = new AttendanceStatus("Not Attending", 1);
+		public static AttendanceStatus Interested = new AttendanceStatus("Not Attending", 1);
 		public static AttendanceStatus Attending = new AttendanceStatus("Attending", 2);
 		public static AttendanceStatus Confirmed = new AttendanceStatus("Confirmed", 3);
 	}

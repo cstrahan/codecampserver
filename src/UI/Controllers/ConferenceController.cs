@@ -11,7 +11,6 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Controllers
 {
-	[RequiresConferenceFilter]
 	public class ConferenceController : SaveController<Conference, ConferenceForm>
 	{
 		private readonly IConferenceRepository _repository;
@@ -43,9 +42,9 @@ namespace CodeCampServer.UI.Controllers
 			return View(conferenceListDto);
 		}
 
-		public ActionResult Edit(Guid Id)
+		public ActionResult Edit(string conferenceKey)
 		{
-			Conference conference = _repository.GetById(Id);
+			Conference conference = _repository.GetByKey(conferenceKey);
 
 			if (conference == null)
 			{

@@ -1,13 +1,12 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.UI.Helpers.Filters;
 
 namespace CodeCampServer.UI.Controllers
 {
 	public class HomeController : SmartController
 	{
-		private IConferenceRepository _repository;
+		private readonly IConferenceRepository _repository;
 
 		public HomeController(IConferenceRepository repository)
 		{
@@ -17,12 +16,12 @@ namespace CodeCampServer.UI.Controllers
 		public ActionResult Index()
 		{
 			Conference conf = _repository.GetNextConference();
-			if(conf != null)
+			if (conf != null)
 			{
 				return RedirectToAction<ConferenceController>(c => c.Index(null), new {conferenceKey = conf.Key});
 			}
 
-			return RedirectToAction<LoginController>(c=>c.Index());
+			return RedirectToAction<LoginController>(c => c.Index());
 		}
 	}
 }

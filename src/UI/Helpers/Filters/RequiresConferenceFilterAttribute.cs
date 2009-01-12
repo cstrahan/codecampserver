@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Routing;
 using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Controllers;
 using StructureMap;
 using MvcContrib;
@@ -24,9 +25,18 @@ namespace CodeCampServer.UI.Helpers.Filters
 
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-			var conferenceKey =
-				(string) (filterContext.RouteData.Values["conferenceKey"] ?? filterContext.RouteData.Values["conference"]);
-			var conference = _repository.GetByKey(conferenceKey);
+			RouteValueDictionary values = filterContext.RouteData.Values;
+			var key =
+				(string) (values["conferenceKey"] ?? values["conference"]);
+			ViewDataDictionary viewData = filterContext.Controller.ViewData;
+			if(string.IsNullOrEmpty(key))
+			{
+				Conference conf = _repository.GetNextConference();
+				viewData.Add(conf);
+				return;
+			}
+
+			var conference = _repository.GetByKey(key);
 			if (conference == null)
 			{
 				Expression<Func<ConferenceController, object>> actionExpression = c => c.New();
@@ -34,11 +44,11 @@ namespace CodeCampServer.UI.Helpers.Filters
 				string controllerName = typeof (ConferenceController).GetControllerName();
 				string actionName = actionExpression.GetActionName();
 
-				filterContext.Result =
-					new RedirectToRouteResult(new RouteValueDictionary(new {controller = controllerName, action = actionName}));
+				filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new{controller = controllerName, action = actionName}));
+				return;
 			}
 
-			filterContext.Controller.ViewData.Add(conference);
+			viewData.Add(conference);
 		}
 	}
 }

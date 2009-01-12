@@ -1,11 +1,9 @@
-using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
-using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
@@ -44,8 +42,8 @@ namespace CodeCampServer.UI.Controllers
 			return View("edit", form);
 		}
 
-		[ValidateModel(typeof(TimeSlotForm))]
-		public ActionResult Save([Bind(Prefix = "")]TimeSlotForm form, Conference conference)
+		[ValidateModel(typeof (TimeSlotForm))]
+		public ActionResult Save([Bind(Prefix = "")] TimeSlotForm form, Conference conference)
 		{
 			return ProcessSave(form, () => RedirectToAction<TimeSlotController>(c => c.Index(conference)));
 		}

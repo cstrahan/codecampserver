@@ -47,7 +47,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			form.Webpage = "http://myhomepage.com";
 
 			var conference = new Conference();
-			conference.AddAttendee(new Attendee {Id = form.AttendeeID.Value, Status = AttendanceStatus.NotAttending});
+			conference.AddAttendee(new Attendee {Id = form.AttendeeID.Value, Status = AttendanceStatus.Interested});
 
 			var repository = M<IConferenceRepository>();
 			repository.Stub(r => r.GetById(Guid.Empty)).IgnoreArguments().Return(conference);

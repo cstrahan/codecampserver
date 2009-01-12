@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Routing;
+using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Filters;
+using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
@@ -14,6 +16,18 @@ namespace CodeCampServer.UI.Controllers
 			//temporarily putting it here.
 			var attribute = new AuthenticationFilterAttribute();
 			attribute.OnActionExecuting(filterContext);
+
+			var attribute1 = new RequiresConferenceFilterAttribute();
+			attribute1.OnActionExecuting(filterContext);
+
+			if (ViewData.Contains<Conference>())
+			{
+				ViewData["title"] = ViewData.Get<Conference>().Name;
+			}
+			else
+			{
+				ViewData["title"] = "Code Camp Server v1.0";
+			}
 		}
 
 		public RedirectToRouteResult RedirectToAction<TController>(

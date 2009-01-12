@@ -28,7 +28,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 			                       		EmailAddress = "asdfasd",
 			                       		FirstName = "first name",
 			                       		LastName = "last name",
-			                       		Status = AttendanceStatus.NotAttending
+			                       		Status = AttendanceStatus.Interested
 			                       	});
 
 			AssertObjectCanBePersisted(conference.GetAttendees()[0]);

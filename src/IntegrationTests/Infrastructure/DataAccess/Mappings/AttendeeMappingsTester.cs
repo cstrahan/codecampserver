@@ -15,7 +15,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
                                    FirstName = "sdf",
                                    Webpage = "http://thisdoemain.com",
                                    LastName = "lastname ",
-                                   Status = AttendanceStatus.NotAttending
+                                   Status = AttendanceStatus.Interested
                                };
 
             AssertObjectCanBePersisted(attendee);

@@ -7,7 +7,6 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Controllers
 {
-//	[RequiresConferenceFilter]
 	public class NewsletterController : SmartController
 	{
 		private readonly IConferenceRepository _conferenceRepository;

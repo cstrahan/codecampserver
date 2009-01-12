@@ -7,7 +7,6 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Controllers
 {
-//	[RequiresConferenceFilter]
 	public class TrackController : SaveController<Track, TrackForm>
 	{
 		private readonly ITrackRepository _repository;

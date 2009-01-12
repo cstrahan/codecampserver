@@ -2,8 +2,12 @@ using System;
 using System.Collections.Generic;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
+using CodeCampServer.Core.Services.Impl;
 using CodeCampServer.DependencyResolution;
+using CodeCampServer.Infrastructure.DataAccess.Impl;
 using CodeCampServer.IntegrationTests.Infrastructure.DataAccess;
+using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Models.Forms;
 using NUnit.Framework;
 using Tarantino.Core.Commons.Model;
 using Tarantino.Core.Commons.Model.Enumerations;
@@ -24,6 +28,15 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 
 		private void LoadData()
 		{
+			var mapper = new UserMapper(new UserRepository(GetSessionBuilder()), new Cryptographer());
+			var user = mapper.Map(new UserForm
+			                      	{
+			                      		Name = "Joe User",
+			                      		Username = "admin",
+			                      		EmailAddress = "joe@user.com",
+			                      		Password = "password"
+			                      	});
+
 			var conference = new Conference
 			                 	{
 			                 		Address = "123 Guadalupe Street",
@@ -38,6 +51,30 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			                 		PostalCode = "78787",
 			                 		Region = "Texas"
 			                 	};
+			conference.AddAttendee(new Attendee
+			                       	{
+			                       		FirstName = "Jeffrey",
+			                       		LastName = "Palermo",
+			                       		EmailAddress = "jeffrey@email.com",
+			                       		Status = AttendanceStatus.Interested,
+			                       		Webpage = "http://jeffreypalermo.com"
+			                       	});
+			conference.AddAttendee(new Attendee
+			                       	{
+			                       		FirstName = "Matt",
+			                       		LastName = "Hinze",
+			                       		EmailAddress = "matt@email.com",
+			                       		Status = AttendanceStatus.Attending,
+			                       		Webpage = "http://mhinze.com/"
+			                       	});
+			conference.AddAttendee(new Attendee
+			                       	{
+			                       		FirstName = "Eric",
+			                       		LastName = "Hexter",
+			                       		EmailAddress = "eric@email.com",
+			                       		Status = AttendanceStatus.Confirmed,
+			                       		Webpage = "http://www.lostechies.com/blogs/hex"
+			                       	});
 
 			var track = new Track {Conference = conference, Name = "ALT.NET"};
 			var track1 = new Track {Conference = conference, Name = "Web"};
@@ -183,6 +220,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 
 			var list = new List<PersistentObject>()
 			           	{
+			           		user,
 			           		conference,
 			           		track,
 			           		track1,
@@ -197,7 +235,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			           		timeslot6,
 			           		timeslot7,
 			           		speaker,
-										speaker1,
+			           		speaker1,
 			           		speaker2,
 			           		speaker3,
 			           		speaker4,
@@ -233,11 +271,12 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 				}
 			}
 
-			foreach (var o in list)
-			{
-				Console.WriteLine(o.GetType());
-				PersistEntities(o);						
-			}
+			PersistEntities(list.ToArray());
+//			foreach (var o in list)
+//			{
+//				Console.WriteLine(o.GetType());
+//				PersistEntities(o);
+//			}
 		}
 
 		private static Speaker GetRandomSpeaker(Speaker[] speakers)
