@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true"
-	Inherits="CodeCampServer.UI.Helpers.ViewPage.SessionIndexView" %>
+	Inherits="CodeCampServer.UI.Helpers.ViewPage.SessionEditView" %>
+<%@ Import Namespace="Microsoft.Web.Mvc"%>
 <%@ Import Namespace="CodeCampServer.Core.Common"%>
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 <%@ Import Namespace="MvcContrib" %>
@@ -10,17 +11,18 @@
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms" %>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-	<h2>Sessions
-		<%if (User.Identity.IsAuthenticated){%>
-				<a class="" href="<%=Url.Action<SessionController>(c=>c.New())%>" title="Add a new Session"><img src="/images/icons/application_add.png" /></a>
-		<%}%>
-	</h2>
-	<% foreach (var session in ViewData.Model) { %>		
-		<p class="sessionname"><a href="<%= Url.Action<SessionController>(t => t.Index(null), new{session = session.Id}).ToXHTMLLink() %>"><%= session.Title%></a>
-		<%if (User.Identity.IsAuthenticated){%>
-				<a href="<%= Url.Action<SessionController>(t => t.Edit(null), new{session = session.Id}).ToXHTMLLink() %>"><img src="/images/icons/application_edit.png" /></a>
-		<%}%>		
-		</p>
-	<% } %>
-	
+	 <div>
+		    <h1><%=ViewData.Model.Title%></h1>  
+			<table class="dataEntry">
+				<tr>
+					<td class="w50p">
+						Track: <%=ViewData.Model.Track.Name %> Level: <%=ViewData.Model.Level.DisplayName %> Room: <%=ViewData.Model.RoomNumber %><br />
+						Time: <%=ViewData.Model.TimeSlot.StartTime%> to <%=ViewData.Model.TimeSlot.EndTime%> <br />
+						Speaker: <%=ViewData.Model.Speaker.FirstName %> <%=ViewData.Model.Speaker.LastName %><br />
+						Session Abstract: <%=ViewData.Model.Abstract %><br />
+						Session Materials: <%=ViewData.Model.MaterialsUrl %><br />
+					</td>
+				</tr>
+			</table>
+        </div>
 </asp:Content>

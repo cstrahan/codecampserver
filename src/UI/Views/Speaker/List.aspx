@@ -6,8 +6,6 @@
 <%@ Import Namespace="CodeCampServer.UI"%>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
   <%var speakers = (SpeakerForm[])ViewData.Model; %>
-  <div class="dataContainerQuadWide mt10">
-	 <div class="cleaner"></div>
 	 <h2>Speakers 
 		<%if (User.Identity.IsAuthenticated){%>
 			<a class="" href="<%=Url.Action<SpeakerController>(c=>c.New())%>" title="Add a new Speaker"><img src="/images/icons/application_add.png" /></a>
@@ -25,5 +23,4 @@
 		  <%
 	   	counter++;
 	   }%>
-</div>
 </asp:Content>

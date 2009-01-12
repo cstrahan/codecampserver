@@ -25,10 +25,9 @@ namespace CodeCampServer.UI.Controllers
 			return View("Edit", new SessionForm());
 		}
 
-		public ViewResult Index(Conference conference)
+		public ViewResult Index(Session session)
 		{
-			Session[] sessions = _repository.GetAllForConference(conference);
-			return View(_mapper.Map(sessions));
+			return View(_mapper.Map(session));
 		}
 
 		public ViewResult List(Conference conference)

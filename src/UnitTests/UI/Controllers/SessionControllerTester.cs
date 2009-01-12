@@ -29,7 +29,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			mapper.Stub(m => m.Map(sessions)).Return(sessionForms);
 			var controller = new SessionController(repository, mapper);
 
-			ViewResult result = controller.Index(conference);
+			ViewResult result = controller.List(conference);
 
 			result.ViewData.Model.ShouldEqual(sessionForms);
 			result.ViewName.ShouldEqual(ViewNames.Default);
