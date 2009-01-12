@@ -10,14 +10,6 @@
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms" %>
 <%@ Import Namespace="CodeCampServer.UI.Controllers" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
-
-	<script type="text/javascript" src="/scripts/jqModal.js"></script>
-
-	<script type="text/javascript" src="/scripts/jquery.form.js"></script>
-
-	<link id="jqModalCss" rel="Stylesheet" type="text/css" media="all" href="/css/jqModal.css"
-		runat="server" />
-
 	</asp:Content>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 		<form action="<%= Url.Action<SpeakerController>(x => x.Save(null)) %>" method="post">
