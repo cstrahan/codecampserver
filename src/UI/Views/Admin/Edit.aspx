@@ -26,7 +26,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.AdminEditView"%>
 	    <table class="dataEntry">
 		    <tr>
 			    <td class="w50p">
-            <%=InputFor(a => a.Id)%>            	
+						<%=InputFor(a => a.Id)%>            	
 						<%=InputFor(a => a.Username)%>
 						<%=InputFor(a => a.Name)%>
 						<%=InputFor(a => a.EmailAddress)%>
