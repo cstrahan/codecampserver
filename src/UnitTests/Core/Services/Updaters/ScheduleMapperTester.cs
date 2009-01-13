@@ -47,16 +47,20 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			var sessionMapper = S<ISessionMapper>();
 			var trackMapper = S<ITrackMapper>();
 			var timeSlotMapper = S<ITimeSlotMapper>();
-			var track1 = new TrackForm();
-			var track2 = new TrackForm();
-			var timeSlot1 = new TimeSlotForm();
-			var timeSlot2 = new TimeSlotForm();
+			var track1 = new Track();
+			var track2 = new Track();
+			var timeSlot1 = new TimeSlot();
+			var timeSlot2 = new TimeSlot();
 			var session1 = new SessionForm(){Track = track2, TimeSlot = timeSlot2};
 			var session2 = new SessionForm(){Track = track2, TimeSlot = timeSlot2};
+			var trackForm1 = new TrackForm();
+			var trackForm2 = new TrackForm();
+			TimeSlotForm timeSlotForm1 = new TimeSlotForm();
+			TimeSlotForm timeSlotForm2 = new TimeSlotForm();
 
 			sessionMapper.Stub(m => m.Map(null)).Return(new []{session1, session2});
-			trackMapper.Stub(m => m.Map(null)).Return(new[] { track1, track2 });
-			timeSlotMapper.Stub(m => m.Map(null)).IgnoreArguments().Return(new[] { timeSlot1, timeSlot2 });
+			trackMapper.Stub(m => m.Map(null)).Return(new[] { trackForm1, trackForm2 });
+			timeSlotMapper.Stub(m => m.Map(null)).IgnoreArguments().Return(new[] { timeSlotForm1, timeSlotForm2 });
 
 			var mapper = new ScheduleMapper(S<ISessionRepository>(), S<ITrackRepository>(), S<ITimeSlotRepository>(),
 																			sessionMapper, trackMapper, timeSlotMapper);

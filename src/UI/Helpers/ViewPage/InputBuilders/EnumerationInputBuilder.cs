@@ -19,6 +19,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 			                                              InputSpecification.CustomAttributes);
 		}
 
+
 		private SelectList GetSelectList()
 		{
 			SelectList selectList =

@@ -17,9 +17,9 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		public void Should_save_new_session_from_form()
 		{
 			var form = S<SessionForm>();
-			var trackForm = new TrackForm();
-			var timeSlotForm = new TimeSlotForm();
-			var speakerForm = new SpeakerForm();
+			var trackForm = new Track();
+			var timeSlotForm = new TimeSlot();
+			var speakerForm = new Speaker();
 			var conference = new Conference();
 			form.Id = Guid.Empty;
 			form.Track = trackForm;
@@ -66,9 +66,9 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		public void Should_map_existing_session_from_form()
 		{
 			var form = S<SessionForm>();
-			var trackForm = new TrackForm();
-			var timeSlotForm = new TimeSlotForm();
-			var speakerForm = new SpeakerForm();
+			var trackForm = new Track();
+			var timeSlotForm = new TimeSlot();
+			var speakerForm = new Speaker();
 			var conference = new Conference();
 			form.Id = Guid.Empty;
 			form.Track = trackForm;

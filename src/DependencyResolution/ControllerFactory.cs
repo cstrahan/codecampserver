@@ -12,10 +12,5 @@ namespace CodeCampServer.DependencyResolution
 			Logger.Debug(this, string.Format("Creating controller {0}", controllerType.Name));
 			return (IController) ObjectFactory.GetInstance(controllerType);
 		}
-
-		//public override IController CreateController(System.Web.Routing.RequestContext requestContext, string controllerName)
-		//{
-		//  return base.CreateController(requestContext, controllerName);
-		//}
 	}
 }

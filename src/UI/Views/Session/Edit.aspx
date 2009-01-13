@@ -27,9 +27,10 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.SessionEditView"%>
 									<%=InputFor(a => a.Key)%>
 									<%=InputFor(a => a.Abstract)%>
 									<%=InputFor(a => a.Level)%>
-									<%--<%=InputFor(a => a.Speaker)%>
+									<%=InputFor(a => a.Speaker)%>
 									<%=InputFor(a => a.TimeSlot)%>
-									<%=InputFor(a => a.Track)%>--%>
+									
+									<%=InputFor(a => a.Track)%>
 									<%=InputFor(a => a.RoomNumber)%>
 									<%=InputFor(a => a.MaterialsUrl)%>
 								</td>

@@ -21,9 +21,7 @@
 			<a href="<%= Url.Action<SessionController>(t => t.Index(null), new{session = session.Id}).ToXHTMLLink() %>" title="<%= session.TimeSlot.StartTime %> <%= session.Key %>">
 				<%= session.Title%>
 			</a>
-		<%if (User.Identity.IsAuthenticated){%>
-				<a href="<%= Url.Action<SessionController>(t => t.Edit(null), new{session = session.Id}).ToXHTMLLink() %>"><img src="/images/icons/application_edit.png" /></a>
-		<%}%>		
+		<%Html.RenderPartial("EditSessionLink",session); %>
 		</p>
 	<% } %>
 </asp:Content>

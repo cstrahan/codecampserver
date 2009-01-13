@@ -65,19 +65,19 @@ namespace CodeCampServer.UI
 		public static SelectList GetSelectListForDropDown<T>(IEnumerable list, bool includeBlankOption, int? selectedValue,
 		                                                     string displayValueToExclude) where T : Enumeration, new()
 		{
-			IList<DropDownListItem> codes = new List<DropDownListItem>();
+			IList<DropDownListItem<int>> codes = new List<DropDownListItem<int>>();
 
-			DropDownListItem selectedItem = null;
+			DropDownListItem<int> selectedItem = null;
 
 			if (includeBlankOption)
 			{
-				var empty = new DropDownListItem {DisplayName = string.Empty, Value = -1};
+				var empty = new DropDownListItem<int> { DisplayName = string.Empty, Value = -1 };
 				codes.Add(empty);
 			}
 
 			foreach (T enumValue in list)
 			{
-				var listItem = new DropDownListItem {DisplayName = enumValue.DisplayName, Value = enumValue.Value};
+				var listItem = new DropDownListItem<int> { DisplayName = enumValue.DisplayName, Value = enumValue.Value };
 
 				if (enumValue.Value == selectedValue)
 				{
@@ -96,19 +96,19 @@ namespace CodeCampServer.UI
 		public static SelectList GetSelectListForDropDown(IEnumerable<Enumeration> list, bool includeBlankOption,
 		                                                  int? selectedValue, string displayValueToExclude)
 		{
-			IList<DropDownListItem> codes = new List<DropDownListItem>();
+			IList<DropDownListItem<int>> codes = new List<DropDownListItem<int>>();
 
-			DropDownListItem selectedItem = null;
+			DropDownListItem<int> selectedItem = null;
 
 			if (includeBlankOption)
 			{
-				var empty = new DropDownListItem {DisplayName = string.Empty, Value = -1};
+				var empty = new DropDownListItem<int> { DisplayName = string.Empty, Value = -1 };
 				codes.Add(empty);
 			}
 
 			foreach (Enumeration enumValue in list)
 			{
-				var listItem = new DropDownListItem {DisplayName = enumValue.DisplayName, Value = enumValue.Value};
+				var listItem = new DropDownListItem<int> { DisplayName = enumValue.DisplayName, Value = enumValue.Value };
 
 				if (enumValue.Value == selectedValue)
 				{
@@ -135,9 +135,9 @@ namespace CodeCampServer.UI
 			return inputHtml + labelHtml;
 		}
 
-		public class DropDownListItem
+		public class DropDownListItem<T>
 		{
-			public int Value { get; set; }
+			public T Value { get; set; }
 			public string DisplayName { get; set; }
 		}
 

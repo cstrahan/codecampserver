@@ -58,8 +58,9 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		private bool KeyAlreadyExists(SessionForm message)
-		{
-			return _repository.GetByKey(message.Key) != null;
+		{			
+			Session session = _repository.GetByKey(message.Key);
+			return session != null && session.Id != message.Id;
 		}
 
 		public RedirectToRouteResult Delete(Session session)
