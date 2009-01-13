@@ -57,6 +57,7 @@ namespace CodeCampServer.UI.Controllers
 			return View();
 		}
 
+		[ValidateModel(typeof(AttendeeForm))]
 		public ActionResult Save([Bind(Prefix = "")]AttendeeForm form)
 		{
 			return ProcessSave(form, () => RedirectToAction<AttendeeController>(c => c.Index(null)));

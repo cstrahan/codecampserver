@@ -16,12 +16,12 @@
 		<%}%>
 </h2>
 
-	<% foreach (var session in ViewData.Model) { %>		
-		<p class="sessionname">
-			<a href="<%= Url.Action<SessionController>(t => t.Index(null), new{session = session.Id}).ToXHTMLLink() %>" title="<%= session.TimeSlot.StartTime %> <%= session.Key %>">
+	<% foreach (var session in ViewData.Model) { %>				
+		<div class="w400 cb">
+			<div class="fl"><a href="<%= Url.Action<SessionController>(t => t.Index(null), new{session = session.Id}).ToXHTMLLink() %>" title="<%= session.TimeSlot.StartTime %> <%= session.Key %>">
 				<%= session.Title%>
-			</a>
-		<%Html.RenderPartial("EditSessionLink",session); %>
-		</p>
+			</a></div>
+			<div class="fr"><%Html.RenderPartial("EditSessionLink",session); %></div>
+		</div>
 	<% } %>
 </asp:Content>

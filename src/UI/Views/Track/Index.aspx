@@ -19,8 +19,8 @@
 	<% foreach (var track in ViewData.Model) { %>
 		<div class=" w250 ">
 			<div class="fl"><a href="<%= Url.Action<TrackController>(t => t.Edit(null), new{track = track.Id}).ToXHTMLLink() %>"><%= track.Name %></a></div>
-			<div class="fr pr15"><a title="delete" href="<%= Url.Action<TrackController>(t => t.Delete(null), new{track = track.Id}).ToXHTMLLink() %>"><img src="<%= Url.Content("~/images/icons/delete.png").ToXHTMLLink() %>" /></a></div>
-			<div class="fr pr15"><a title="edit" href="<%= Url.Action<TrackController>(t => t.Edit(null), new{track = track.Id}).ToXHTMLLink() %>"><img src="<%= Url.Content("~/images/icons/application_edit.png").ToXHTMLLink() %>" /></a></div>
+			<div class="fr pr15"><a title="Delete <%=track.Name%>" href="<%= Url.Action<TrackController>(t => t.Delete(null), new{track = track.Id}).ToXHTMLLink() %>"><img src="<%= Url.Content("~/images/icons/delete.png").ToXHTMLLink() %>" /></a></div>
+			<div class="fr pr15"><%Html.RenderPartial("EditTrackLink",track); %></div>
 		</div>
 	<% } %>	
 </p>

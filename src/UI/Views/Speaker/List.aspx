@@ -14,13 +14,12 @@
 	   <%
 	   	  var counter = 0;
 		  foreach (var speaker in speakers)
+			  
 	   {%>
-			<p class="sessionname"><a href="<%=Url.Action<SpeakerController>(t => t.Index(null), new {speaker = speaker.Id}).ToXHTMLLink()%>"><%=speaker.FirstName%> <%=speaker.LastName%></a>
-			<%if (User.Identity.IsAuthenticated){%>
-				<a class="" href="<%=Url.Action<SpeakerController>(c => c.Edit(null), new {speaker = speaker.Id})%>" title="View Speaker <%=counter + 1%>"><img src="/images/icons/application_edit.png"/></a>
-			<%}%>
+	   <div class=" w250 ">
+			<div class="fl"><a href="<%=Url.Action<SpeakerController>(t => t.Index(null), new {speaker = speaker.Id}).ToXHTMLLink()%>"><%=speaker.FirstName%> <%=speaker.LastName%></a></div>
+			<div class="fr"><%Html.RenderPartial("EditSpeakerLink",speaker); %></div>
 		</p>
-		  <%
-	   	counter++;
-	   }%>
+		</div>
+		  <%counter++;}%>
 </asp:Content>
