@@ -283,6 +283,9 @@
     <Content Include="Views\Schedule\Index.aspx" />
     <Content Include="Views\Session\List.aspx" />
     <Content Include="Views\Session\Edit.aspx" />
+    <Content Include="Views\Shared\EditTimeSlotLink.ascx" />
+    <Content Include="Views\Shared\EditTrackLink.ascx" />
+    <Content Include="Views\Shared\EditSpeakerLink.ascx" />
     <Content Include="Views\Shared\EditSessionLink.ascx" />
     <Content Include="Views\Shared\Menu.ascx" />
     <Content Include="Views\Speaker\List.aspx" />

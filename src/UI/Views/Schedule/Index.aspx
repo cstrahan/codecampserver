@@ -16,12 +16,12 @@
 		<tr class="headerrow">
 			<th class="day">Day <%=scheduleForm.Day %>, <%=scheduleForm.Date %></th>
 			<% foreach (var track in scheduleForm.Tracks) { %>
-			<th><%=track.Name%></th>
+			<th><%=track.Name%> <% Html.RenderPartial("EditTrackLink", track);%></th>
 			<% } %>
 		</tr>
 		<% foreach (var timeSlotAssignment in scheduleForm.TimeSlotAssignments) { %>
 		<tr class="timeslotrow">
-			<td class="timeslot"><%=timeSlotAssignment.TimeSlot.GetName()%></td>
+			<td class="timeslot"><%=timeSlotAssignment.TimeSlot.GetName()%> <% Html.RenderPartial("EditTimeSlotLink", timeSlotAssignment.TimeSlot);%></td>
 			<% foreach (var trackAssignment in timeSlotAssignment.TrackAssignments) { %>
 			<td><% Html.RenderPartial("ScheduleSlot", trackAssignment.Sessions);%></td>
 			<% } %>

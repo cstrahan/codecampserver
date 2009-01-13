@@ -7,7 +7,8 @@
   <%var speaker = (SpeakerForm)ViewData.Model; %>
   <div class="dataContainerQuadWide mt10">
 	 <div class="cleaner"></div>
-		<strong><%= speaker.FirstName %> <%= speaker.LastName %></strong>, <%=speaker.JobTitle %><br />
+		<strong><%= speaker.FirstName %> <%= speaker.LastName %></strong>, <%=speaker.JobTitle %> 
+		<%Html.RenderPartial("EditSpeakerLink",speaker); %><br />
 		<%=speaker.Company %><br />
 		<%=speaker.WebsiteUrl %><br />
 		<%= speaker.Bio%>
