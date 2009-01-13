@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C01DA28B-6F9D-4378-A2DA-884DDFD224B1}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -143,10 +143,10 @@
     <Compile Include="UI\Controllers\AdminControllerTester.cs" />
     <Compile Include="UI\Controllers\AttendeeControllerTester.cs" />
     <Compile Include="UI\Controllers\ConferenceControllerTester.cs" />
+    <Compile Include="UI\Controllers\LoginControllerTester.cs" />
     <Compile Include="UI\Controllers\SessionControllerTester.cs" />
     <Compile Include="UI\Controllers\SpeakersControllerTester.cs" />
     <Compile Include="UI\Controllers\TimeSlotControllerTester.cs" />
-    <Compile Include="UI\Controllers\NewsletterControllerTester.cs" />
     <Compile Include="UI\Controllers\RedirectToRouteExtensions.cs" />
     <Compile Include="UI\Controllers\SaveControllerTester.cs" />
     <Compile Include="UI\Controllers\TrackControllerTester.cs" />

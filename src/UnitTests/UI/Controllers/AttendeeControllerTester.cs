@@ -10,6 +10,7 @@ using MvcContrib;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
+using MvcContrib.TestHelper;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
@@ -42,6 +43,28 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			result.ViewData.Model.ShouldEqual(new AttendeeForm {ConferenceID = conference.Id});
 		}
 
+		[Test]
+		public void Save_should_save_the_attendee_and_redirect_to_thankyou()
+		{
+			var conference = new Conference();
+			conference.AddAttendee(new Attendee(){EmailAddress = "1"});
+			var repository = S<IConferenceRepository>();
+			repository.Stub(r => r.GetById(Guid.Empty)).IgnoreArguments().Return(conference);
+
+			var mapper = S<IAttendeeMapper>();
+			mapper.Stub(m => m.Map(new AttendeeForm())).IgnoreArguments().Return(conference);
+
+			var controller = new AttendeeController(mapper, repository);
+			
+			var result = controller.Save(new AttendeeForm(){EmailAddress = "2"});
+
+			result.AssertActionRedirect()
+				.ToAction<AttendeeController>(c => c.Confirmation());
+				
+
+			repository.AssertWasCalled(r=>r.Save(conference));
+
+		}
 		[Test]
 		public void Confirm_should_set_attendee_status_to_confirm()
 		{

@@ -216,7 +216,6 @@
     <Compile Include="Controllers\ConferenceController.cs" />
     <Compile Include="Models\Forms\AttendeeForm.cs" />
     <Compile Include="Models\Forms\ConferenceForm.cs" />
-    <Compile Include="Controllers\NewsletterController.cs" />
     <Compile Include="Models\Forms\EditForm.cs" />
     <Compile Include="Models\Forms\LoginForm.cs" />
     <Compile Include="Models\Forms\ScheduleForm.cs" />
@@ -272,6 +271,7 @@
     <Content Include="scripts\jquery.meiomask.js" />
     <Content Include="Views\Admin\Edit.aspx" />
     <Content Include="Views\Admin\Index.aspx" />
+    <Content Include="Views\Attendee\Confirmation.aspx" />
     <Content Include="Views\Conference\Index.aspx" />
     <Content Include="Views\Conference\Edit.aspx" />
     <Content Include="Views\Conference\List.aspx" />

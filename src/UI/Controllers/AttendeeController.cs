@@ -60,7 +60,7 @@ namespace CodeCampServer.UI.Controllers
 		[ValidateModel(typeof(AttendeeForm))]
 		public ActionResult Save([Bind(Prefix = "")]AttendeeForm form)
 		{
-			return ProcessSave(form, () => RedirectToAction<AttendeeController>(c => c.Index(null)));
+			return ProcessSave(form, () => RedirectToAction<AttendeeController>(c => c.Confirmation()));
 		}
 
 		protected override IDictionary<string, string[]> GetFormValidationErrors(AttendeeForm form)
@@ -73,6 +73,11 @@ namespace CodeCampServer.UI.Controllers
 			}
 
 			return result.GetAllErrors();
+		}
+
+		public ViewResult Confirmation()
+		{
+			return View();
 		}
 	}
 }
