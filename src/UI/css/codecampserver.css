@@ -10,7 +10,7 @@ body
 	padding: 0;
 	background: #4B689A url(/images/img1.jpg) repeat-x;
 	font: normal small Arial, Helvetica, sans-serif;
-	color: #666666;
+	color: #444;
 }
 
 h1, h2, h3, h4, h5, h6
@@ -284,4 +284,32 @@ div.validationSummary
 	background-color: #EEEEEE;
 	padding: 10px 5px 5px 10px;
 	font-family: Arial;
+}
+
+.schedule th
+{
+	font-weight:bold;
+	border-bottom: solid 1px #666;
+}
+
+.timeslotrow td
+{
+	border-bottom: solid 1px #666;
+	border-right: solid 1px #666;
+}
+
+.timeslot
+{
+	font-weight: bold;
+	vertical-align:middle;
+	border-right: solid 1px #CCC;
+	padding:2px;
+}
+
+.session
+{
+	background-color: #EFEEFE;
+	border: solid 1px #DDD;
+	float:left;
+	margin:2px;
 }

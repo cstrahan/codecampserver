@@ -12,7 +12,7 @@
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 	<h2>Schedule</h2>
 	
-	<table>
+	<table class="schedule">
 		<tr>
 			<th></th>
 			<% foreach (var track in ViewData.Model.Tracks) { %>
@@ -20,8 +20,8 @@
 			<% } %>
 		</tr>
 		<% foreach (var timeSlotAssignment in ViewData.Model.TimeSlotAssignments) { %>
-		<tr>
-			<td><%=timeSlotAssignment.TimeSlot.GetName()%></td>
+		<tr class="timeslotrow">
+			<td class="timeslot"><%=timeSlotAssignment.TimeSlot.GetName()%></td>
 			<% foreach (var trackAssignment in timeSlotAssignment.TrackAssignments) { %>
 			<td><% Html.RenderPartial("ScheduleSlot", trackAssignment.Sessions);%></td>
 			<% } %>

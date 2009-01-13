@@ -3,7 +3,7 @@
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
 
 	<% foreach (SessionForm session in ViewData.Model) { %>
-	<div class="fl m5">
+	<div class="session">
 		<%=session.Title %>
 	</div>			
 	<% } %>

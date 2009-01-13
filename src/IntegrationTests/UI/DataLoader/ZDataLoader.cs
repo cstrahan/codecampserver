@@ -249,10 +249,16 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 				{
 					foreach (var level in Enumeration.GetAll<SessionLevel>())
 					{
+						if(RandomlyDecideWhetherToSkip())
+						{
+							continue;
+						}
+
 						string time = aTimeSlot.StartTime.GetValueOrDefault().ToShortTimeString();
-						string title = string.Format("{0} level session at {1} in {2} track", level.DisplayName,
+						Speaker selectedSpeaker = GetRandomSpeaker(speakers);
+						string title = string.Format("{0} session at {1} in {2} by {3}", level.DisplayName,
 						                             time,
-						                             aTrack.Name);
+						                             aTrack.Name, selectedSpeaker.FirstName);
 						var aSession = new Session()
 						               	{
 						               		Title = title,
@@ -262,7 +268,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 						               		Level = level,
 						               		MaterialsUrl = "http://google.com",
 						               		RoomNumber = "24R",
-						               		Speaker = GetRandomSpeaker(speakers),
+						               		Speaker = selectedSpeaker,
 						               		TimeSlot = aTimeSlot,
 						               		Track = aTrack
 						               	};
@@ -279,9 +285,22 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 //			}
 		}
 
+		private static int _seed = 0;
+		private static bool RandomlyDecideWhetherToSkip()
+		{
+			int index = new Random(_seed += GetRandomInt()).Next(0, 2);
+			if(index == 0) return true;
+			return false;
+		}
+
+		private static int GetRandomInt()
+		{
+			return new Random(_seed++).Next(100);
+		}
+
 		private static Speaker GetRandomSpeaker(Speaker[] speakers)
 		{
-			int index = new Random(Convert.ToInt32(DateTime.Now.Ticks.ToString().Substring(0, 9))).Next(0, 3);
+			int index = new Random(_seed += GetRandomInt()).Next(0, 4);
 			return speakers[index];
 		}
 	}
