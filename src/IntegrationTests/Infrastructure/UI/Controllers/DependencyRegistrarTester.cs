@@ -50,7 +50,6 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.UI.Controllers
         public void Should_test_the_registered_method()
         {
             Assembly assembly = GetUiAssembly();
-            //DependencyRegistrar.Registered<VisitationSubController>();
         }
     }
 }
