@@ -34,22 +34,22 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			DateTime startDate = allTimeSlots.Min(slot => slot.StartTime).GetValueOrDefault();
 			DateTime endDate = allTimeSlots.Max(slot => slot.EndTime).GetValueOrDefault();
 			TimeSpan daySpan = endDate.Subtract(startDate);
-			int totalDays = (int) Math.Ceiling(daySpan.TotalDays);
+			var totalDays = (int) Math.Ceiling(daySpan.TotalDays);
 
 			var formsList = new List<ScheduleForm>();
 			for (int i = 0; i < totalDays; i++)
 			{
 				DateTime dayStart = startDate.AddDays(i);
 				DateTime dayEnd = startDate.AddDays(i + 1);
-				TimeSlot[] timeSlotsInDay = allTimeSlots.Where(s=>s.StartTime >= dayStart 
-					&& s.EndTime <= dayEnd).ToArray();
+				TimeSlot[] timeSlotsInDay = allTimeSlots.Where(s => s.StartTime >= dayStart
+				                                                    && s.EndTime <= dayEnd).ToArray();
 				ScheduleForm form = CreateScheduleForDay(timeSlotsInDay, _trackRepository.GetAllForConference(conference),
-				                                                    _sessionRepository.GetAllForConference(conference));
+				                                         _sessionRepository.GetAllForConference(conference));
 				form.Day = i + 1;
 				form.Date = dayStart.ToString("dddd MM/dd");
 				formsList.Add(form);
 			}
-			
+
 			return formsList.ToArray();
 		}
 
@@ -60,14 +60,14 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			SessionForm[] sessionForms = _sessionMapper.Map(sessions);
 
 			var timeSlotAssignments = new List<TimeSlotAssignmentForm>();
-			foreach (var timeSlot in timeSlotsForms)
+			foreach (TimeSlotForm timeSlot in timeSlotsForms)
 			{
 				TimeSlotForm currentTimeSlot = timeSlot;
 				SessionForm[] matchingSessions = sessionForms.Where(s => s.TimeSlot.Id == currentTimeSlot.Id).ToArray();
 				timeSlotAssignments.Add(CreateTimeSlotAssignment(currentTimeSlot, trackForms, matchingSessions));
 			}
 
-			var form = new ScheduleForm { Tracks = trackForms, TimeSlotAssignments = timeSlotAssignments.ToArray() };
+			var form = new ScheduleForm {Tracks = trackForms, TimeSlotAssignments = timeSlotAssignments.ToArray()};
 			return form;
 		}
 
@@ -75,7 +75,7 @@ namespace CodeCampServer.UI.Helpers.Mappers
 		                                                               IEnumerable<SessionForm> sessions)
 		{
 			var assignments = new List<TrackAssignmentForm>();
-			foreach (var track in tracks)
+			foreach (TrackForm track in tracks)
 			{
 				TrackForm currentTrack = track;
 				SessionForm[] matchingSessions = sessions.Where(s => s.Track.Id == currentTrack.Id).ToArray();
@@ -88,7 +88,7 @@ namespace CodeCampServer.UI.Helpers.Mappers
 
 		private static TrackAssignmentForm CreateTrackAssignment(TrackForm track, SessionForm[] sessions)
 		{
-			return new TrackAssignmentForm() {Track = track, Sessions = sessions};
+			return new TrackAssignmentForm {Track = track, Sessions = sessions};
 		}
 	}
 }

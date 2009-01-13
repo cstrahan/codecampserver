@@ -10,7 +10,6 @@
 		<%}%>
 	</h2>
   <%var attendees = (AttendeeForm[])ViewData.Model; %>
-  <div class="dataContainerQuadWide mt10">
 	 <div class="cleaner"></div>
 	 
 		  <% var counter = 0;

@@ -24,6 +24,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.AttendeeEditView"%>
             
             <%=Errors.Display()%>
 	        <table class="dataEntry">
+	        <tr><th></th></tr>
 		        <tr>
 			        <td class="w50p">       	
 			        	<%=InputFor(a => a.AttendeeID)%>
@@ -31,7 +32,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.AttendeeEditView"%>
 					    <%=InputFor(a => a.FirstName)%>
 					    <%=InputFor(a => a.LastName)%>
 					    <%=InputFor(a => a.EmailAddress)%>
-					    <%=InputFor(a => a.Webpage)%><br />
+					    <%=InputFor(a => a.Webpage)%>	
 			        </td>
 		        </tr>
 	        </table>

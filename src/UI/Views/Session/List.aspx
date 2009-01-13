@@ -14,13 +14,16 @@
 		<%if (User.Identity.IsAuthenticated){%>
 				<a class="" href="<%=Url.Action<SessionController>(c=>c.New())%>" title="Add a new Session"><img src="/images/icons/application_add.png" /></a>
 		<%}%>
-	</h2>
+</h2>
+
 	<% foreach (var session in ViewData.Model) { %>		
-		<p class="sessionname"><a href="<%= Url.Action<SessionController>(t => t.Index(null), new{session = session.Id}).ToXHTMLLink() %>"><%= session.Title%></a>
+		<p class="sessionname">
+			<a href="<%= Url.Action<SessionController>(t => t.Index(null), new{session = session.Id}).ToXHTMLLink() %>" title="<%= session.TimeSlot.StartTime %> <%= session.Key %>">
+				<%= session.Title%>
+			</a>
 		<%if (User.Identity.IsAuthenticated){%>
 				<a href="<%= Url.Action<SessionController>(t => t.Edit(null), new{session = session.Id}).ToXHTMLLink() %>"><img src="/images/icons/application_edit.png" /></a>
 		<%}%>		
 		</p>
 	<% } %>
-	
 </asp:Content>

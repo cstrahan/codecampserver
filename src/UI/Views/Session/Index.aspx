@@ -12,17 +12,14 @@
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 	 <div>
-		    <h1><%=ViewData.Model.Title%></h1>  
-			<table class="dataEntry">
-				<tr>
-					<td class="w50p">
-						Track: <%=ViewData.Model.Track.Name %> Level: <%=ViewData.Model.Level.DisplayName %> Room: <%=ViewData.Model.RoomNumber %><br />
-						Time: <%=ViewData.Model.TimeSlot.StartTime%> to <%=ViewData.Model.TimeSlot.EndTime%> <br />
-						Speaker: <%=ViewData.Model.Speaker.FirstName %> <%=ViewData.Model.Speaker.LastName %><br />
-						Session Abstract: <%=ViewData.Model.Abstract %><br />
-						Session Materials: <%=ViewData.Model.MaterialsUrl %><br />
-					</td>
-				</tr>
-			</table>
+		    <h1><%=ViewData.Model.Title%></h1>
+		    
+		    <div>  
+						<p>Track: <%=Model.Track.Name %> Level: <%= Model.Level.DisplayName %> Room: <%=ViewData.Model.RoomNumber %></p>
+						<p>Time: <%=Model.TimeSlot.StartTime%> to <%=ViewData.Model.TimeSlot.EndTime%></p>
+						<p>Speaker: <%=Model.Speaker.FirstName %> <%=ViewData.Model.Speaker.LastName %></p>
+						<p>Session Abstract: <%=Model.Abstract %></p>
+						<p><a href="<%= Model.MaterialsUrl %>">Session Materials</a></p>
+			</div>
         </div>
 </asp:Content>

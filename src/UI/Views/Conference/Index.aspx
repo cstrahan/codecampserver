@@ -21,5 +21,4 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.ConferenceEditView"%>
             <p><%= Model.StartDate %>&nbsp;to&nbsp;<%= Model.EndDate %></p>
 			  
         </div>
-    </form>
 </asp:Content>
