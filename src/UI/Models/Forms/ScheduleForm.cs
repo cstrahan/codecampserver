@@ -4,6 +4,8 @@ namespace CodeCampServer.UI.Models.Forms
 {
 	public class ScheduleForm : ValueObject<ScheduleForm>
 	{
+		public int Day { get; set; }
+		public string Date { get; set; }
 		public TrackForm[] Tracks { get; set; }
 		public TimeSlotAssignmentForm[] TimeSlotAssignments { get; set; }
 	}

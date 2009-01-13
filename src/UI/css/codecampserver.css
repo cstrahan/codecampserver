@@ -290,6 +290,17 @@ div.validationSummary
 {
 	font-weight:bold;
 	border-bottom: solid 1px #666;
+	vertical-align:bottom;
+}
+
+.headerrow
+{
+	line-height:30px
+}
+
+.day
+{
+	white-space:nowrap;
 }
 
 .timeslotrow td
@@ -304,6 +315,7 @@ div.validationSummary
 	vertical-align:middle;
 	border-right: solid 1px #CCC;
 	padding:2px;
+	text-align:left;
 }
 
 .session

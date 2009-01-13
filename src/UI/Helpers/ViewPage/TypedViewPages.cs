@@ -19,7 +19,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 	public class LoginView : BaseViewPage<LoginForm> {}
 
 	public class AttendeeEditView : BaseViewPage<AttendeeForm> { }
-	public class ScheduleView : BaseViewPage<ScheduleForm>{}
+	public class ScheduleView : BaseViewPage<ScheduleForm[]>{}
 	public class ScheduleSlotView : BaseViewPage<SessionForm[]>{}
 
 	public class TimeSlotIndexView : BaseViewPage<TimeSlotForm[]> { }

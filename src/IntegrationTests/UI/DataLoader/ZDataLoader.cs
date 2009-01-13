@@ -86,25 +86,25 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			               	{
 			               		Conference = conference,
 			               		StartTime = new DateTime(2009, 5, 9, 9, 0, 0),
-			               		EndTime = new DateTime(2009, 5, 10, 10, 30, 0)
+			               		EndTime = new DateTime(2009, 5, 9, 10, 30, 0)
 			               	};
 			var timeslot1 = new TimeSlot
 			                	{
 			                		Conference = conference,
 			                		StartTime = new DateTime(2009, 5, 9, 11, 0, 0),
-			                		EndTime = new DateTime(2009, 5, 10, 12, 30, 0)
+			                		EndTime = new DateTime(2009, 5, 9, 12, 30, 0)
 			                	};
 			var timeslot2 = new TimeSlot
 			                	{
 			                		Conference = conference,
 			                		StartTime = new DateTime(2009, 5, 9, 14, 0, 0),
-			                		EndTime = new DateTime(2009, 5, 10, 15, 30, 0)
+			                		EndTime = new DateTime(2009, 5, 9, 15, 30, 0)
 			                	};
 			var timeslot3 = new TimeSlot
 			                	{
 			                		Conference = conference,
 			                		StartTime = new DateTime(2009, 5, 9, 16, 0, 0),
-			                		EndTime = new DateTime(2009, 5, 10, 17, 30, 0)
+			                		EndTime = new DateTime(2009, 5, 9, 17, 30, 0)
 			                	};
 
 			var timeslot4 = new TimeSlot

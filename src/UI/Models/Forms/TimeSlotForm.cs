@@ -19,7 +19,9 @@ namespace CodeCampServer.UI.Models.Forms
 
 		public string GetName()
 		{
-			return string.Format("{0}-{1}", StartTime, EndTime);
+			string start = DateTime.Parse(StartTime).ToString("h:mm");
+			string end = DateTime.Parse(EndTime).ToString("h:mm tt");
+			return string.Format("{0} - {1}", start, end);
 		}
 	}
 }

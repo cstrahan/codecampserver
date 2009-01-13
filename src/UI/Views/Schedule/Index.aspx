@@ -11,15 +11,15 @@
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 	<h2>Schedule</h2>
-	
 	<table class="schedule">
-		<tr>
-			<th></th>
-			<% foreach (var track in ViewData.Model.Tracks) { %>
+	<% foreach (var scheduleForm in ViewData.Model) { %>
+		<tr class="headerrow">
+			<th class="day">Day <%=scheduleForm.Day %>, <%=scheduleForm.Date %></th>
+			<% foreach (var track in scheduleForm.Tracks) { %>
 			<th><%=track.Name%></th>
 			<% } %>
 		</tr>
-		<% foreach (var timeSlotAssignment in ViewData.Model.TimeSlotAssignments) { %>
+		<% foreach (var timeSlotAssignment in scheduleForm.TimeSlotAssignments) { %>
 		<tr class="timeslotrow">
 			<td class="timeslot"><%=timeSlotAssignment.TimeSlot.GetName()%></td>
 			<% foreach (var trackAssignment in timeSlotAssignment.TrackAssignments) { %>
@@ -27,5 +27,6 @@
 			<% } %>
 		</tr>
 		<% } %>
-	</table>	
+	<% } %>	
+	</table>
 </asp:Content>

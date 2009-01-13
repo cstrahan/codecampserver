@@ -5,6 +5,6 @@ namespace CodeCampServer.UI.Helpers.Mappers
 {
 	public interface IScheduleMapper
 	{
-		ScheduleForm Map(Conference conference);
+		ScheduleForm[] Map(Conference conference);
 	}
 }

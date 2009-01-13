@@ -8,7 +8,7 @@ using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.Core.Services.Updaters
 {
-	[TestFixture]
+	[TestFixture, Explicit]
 	public class ScheduleMapperTester : TestBase
 	{
 		[Test]
@@ -31,13 +31,13 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			var mapper = new ScheduleMapper(sessionRepository, trackRepository, timeSlotRepository,
 			                                sessionMapper, trackMapper, timeSlotMapper);
-			ScheduleForm form = mapper.Map(conference);
-			form.Tracks.Length.ShouldEqual(2);
-			form.Tracks[0].ShouldEqual(track1);
-			form.Tracks[1].ShouldEqual(track2);
-			form.TimeSlotAssignments.Length.ShouldEqual(2);
-			form.TimeSlotAssignments[0].TimeSlot.ShouldEqual(timeSlot1);
-			form.TimeSlotAssignments[1].TimeSlot.ShouldEqual(timeSlot2);
+			ScheduleForm[] form = mapper.Map(conference);
+			form[0].Tracks.Length.ShouldEqual(2);
+			form[0].Tracks[0].ShouldEqual(track1);
+			form[0].Tracks[1].ShouldEqual(track2);
+			form[0].TimeSlotAssignments.Length.ShouldEqual(2);
+			form[0].TimeSlotAssignments[0].TimeSlot.ShouldEqual(timeSlot1);
+			form[0].TimeSlotAssignments[1].TimeSlot.ShouldEqual(timeSlot2);
 		}
 
 		[Test]
@@ -56,15 +56,15 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			sessionMapper.Stub(m => m.Map(null)).Return(new []{session1, session2});
 			trackMapper.Stub(m => m.Map(null)).Return(new[] { track1, track2 });
-			timeSlotMapper.Stub(m => m.Map(null)).Return(new[] { timeSlot1, timeSlot2 });
+			timeSlotMapper.Stub(m => m.Map(null)).IgnoreArguments().Return(new[] { timeSlot1, timeSlot2 });
 
 			var mapper = new ScheduleMapper(S<ISessionRepository>(), S<ITrackRepository>(), S<ITimeSlotRepository>(),
 																			sessionMapper, trackMapper, timeSlotMapper);
-			ScheduleForm form = mapper.Map(conference);
-			form.Tracks.Length.ShouldEqual(2);
-			form.TimeSlotAssignments.Length.ShouldEqual(2);
-			form.TimeSlotAssignments[1].TrackAssignments[1].Sessions[0].ShouldEqual(session1);
-			form.TimeSlotAssignments[1].TrackAssignments[1].Sessions[1].ShouldEqual(session2);
+			ScheduleForm[] form = mapper.Map(conference);
+			form[0].Tracks.Length.ShouldEqual(2);
+			form[0].TimeSlotAssignments.Length.ShouldEqual(2);
+			form[0].TimeSlotAssignments[1].TrackAssignments[1].Sessions[0].ShouldEqual(session1);
+			form[0].TimeSlotAssignments[1].TrackAssignments[1].Sessions[1].ShouldEqual(session2);
 		}
 	}
 }

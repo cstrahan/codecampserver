@@ -1,7 +1,9 @@
+using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
 using NUnit.Framework;
+using NBehave.Spec.NUnit;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
@@ -19,16 +21,16 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			var conference = new Conference();
 			var conference2 = new Conference();
 
-			var timeSlot = new TimeSlot() { Conference = conference };
-			var timeSlot1 = new TimeSlot { Conference = conference };
-			var timeSlot2 = new TimeSlot { Conference = conference2 };
+			var timeSlot = new TimeSlot() { Conference = conference, StartTime = new DateTime(2000, 2, 1)};
+			var timeSlot1 = new TimeSlot { Conference = conference, StartTime = new DateTime(2000, 2, 2) };
+			var timeSlot2 = new TimeSlot { Conference = conference2};
 
-			PersistEntities(conference, conference2, timeSlot, timeSlot1, timeSlot2);
+			PersistEntities(conference, conference2, timeSlot1, timeSlot, timeSlot2);
 
 			ITimeSlotRepository repository = CreateRepository();
 			TimeSlot[] timeSlots = repository.GetAllForConference(conference);
-			CollectionAssert.Contains(timeSlots, timeSlot);
-			CollectionAssert.Contains(timeSlots, timeSlot1);
+			timeSlots[0].ShouldEqual(timeSlot);
+			timeSlots[1].ShouldEqual(timeSlot1);
 			CollectionAssert.DoesNotContain(timeSlots, timeSlot2);
 		}
 	}

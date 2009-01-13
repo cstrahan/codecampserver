@@ -16,7 +16,7 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 		public TimeSlot[] GetAllForConference(Conference conference)
 		{
 			ISession session = GetSession();
-			IQuery query = session.CreateQuery("from TimeSlot t where t.Conference = ?");
+			IQuery query = session.CreateQuery("from TimeSlot t where t.Conference = ? order by t.StartTime");
 			query.SetParameter(0, conference);
 			IList<TimeSlot> list = query.List<TimeSlot>();
 			return list.ToArray();			

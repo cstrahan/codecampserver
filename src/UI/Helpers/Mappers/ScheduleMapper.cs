@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CodeCampServer.Core.Domain;
@@ -27,21 +28,46 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			_timeSlotMapper = timeSlotMapper;
 		}
 
-		public ScheduleForm Map(Conference conference)
+		public ScheduleForm[] Map(Conference conference)
 		{
-			TrackForm[] tracks = _trackMapper.Map(_trackRepository.GetAllForConference(conference));
-			TimeSlotForm[] timeSlots = _timeSlotMapper.Map(_timeSlotRepository.GetAllForConference(conference));
-			SessionForm[] sessions = _sessionMapper.Map(_sessionRepository.GetAllForConference(conference));
+			TimeSlot[] allTimeSlots = _timeSlotRepository.GetAllForConference(conference);
+			DateTime startDate = allTimeSlots.Min(slot => slot.StartTime).GetValueOrDefault();
+			DateTime endDate = allTimeSlots.Max(slot => slot.EndTime).GetValueOrDefault();
+			TimeSpan daySpan = endDate.Subtract(startDate);
+			int totalDays = (int) Math.Ceiling(daySpan.TotalDays);
+
+			var formsList = new List<ScheduleForm>();
+			for (int i = 0; i < totalDays; i++)
+			{
+				DateTime dayStart = startDate.AddDays(i);
+				DateTime dayEnd = startDate.AddDays(i + 1);
+				TimeSlot[] timeSlotsInDay = allTimeSlots.Where(s=>s.StartTime >= dayStart 
+					&& s.EndTime <= dayEnd).ToArray();
+				ScheduleForm form = CreateScheduleForDay(timeSlotsInDay, _trackRepository.GetAllForConference(conference),
+				                                                    _sessionRepository.GetAllForConference(conference));
+				form.Day = i + 1;
+				form.Date = dayStart.ToString("dddd MM/dd");
+				formsList.Add(form);
+			}
+			
+			return formsList.ToArray();
+		}
+
+		private ScheduleForm CreateScheduleForDay(TimeSlot[] timeSlots, Track[] tracks, Session[] sessions)
+		{
+			TimeSlotForm[] timeSlotsForms = _timeSlotMapper.Map(timeSlots);
+			TrackForm[] trackForms = _trackMapper.Map(tracks);
+			SessionForm[] sessionForms = _sessionMapper.Map(sessions);
 
 			var timeSlotAssignments = new List<TimeSlotAssignmentForm>();
-			foreach (var timeSlot in timeSlots)
+			foreach (var timeSlot in timeSlotsForms)
 			{
 				TimeSlotForm currentTimeSlot = timeSlot;
-				SessionForm[] matchingSessions = sessions.Where(s => s.TimeSlot.Id == currentTimeSlot.Id).ToArray();
-				timeSlotAssignments.Add(CreateTimeSlotAssignment(currentTimeSlot, tracks, matchingSessions));
+				SessionForm[] matchingSessions = sessionForms.Where(s => s.TimeSlot.Id == currentTimeSlot.Id).ToArray();
+				timeSlotAssignments.Add(CreateTimeSlotAssignment(currentTimeSlot, trackForms, matchingSessions));
 			}
 
-			var form = new ScheduleForm {Tracks = tracks, TimeSlotAssignments = timeSlotAssignments.ToArray()};
+			var form = new ScheduleForm { Tracks = trackForms, TimeSlotAssignments = timeSlotAssignments.ToArray() };
 			return form;
 		}
 
