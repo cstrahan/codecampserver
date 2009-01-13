@@ -3,7 +3,7 @@
 									namespace="CodeCampServer.Core.Domain.Model"
 									assembly="CodeCampServer.Core">
 
-	<class name="User" table="Users">
+	<class name="User" table="Users" dynamic-update="true">
 		<cache usage="read-write"/>
 		<id name="Id" column="Id" type="Guid">
 			<generator class="guid.comb"/>

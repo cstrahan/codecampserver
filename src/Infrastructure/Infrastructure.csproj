@@ -127,7 +127,6 @@
       <Link>nhibernate-mapping.xsd</Link>
     </None>
     <None Include="Database\Update\0001_AddDatabaseUser.sql" />
-    <None Include="nhibernate-oracle-guid-support.patch" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
