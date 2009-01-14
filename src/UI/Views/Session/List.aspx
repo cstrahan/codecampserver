@@ -17,10 +17,11 @@
 </h2>
 
 	<% foreach (var session in ViewData.Model) { %>				
-		<div class="w400 cb">
+		<div class="w450 cb">
 			<div class="fl"><a href="<%= Url.Action<SessionController>(t => t.Index(null), new{session = session.Id}).ToXHTMLLink() %>" title="<%= session.TimeSlot.StartTime %> <%= session.Key %>">
 				<%= session.Title%>
 			</a></div>
+			<div class="fr pl10"><%Html.RenderPartial("DeleteSessionLink",session); %></div>
 			<div class="fr"><%Html.RenderPartial("EditSessionLink",session); %></div>
 		</div>
 	<% } %>
