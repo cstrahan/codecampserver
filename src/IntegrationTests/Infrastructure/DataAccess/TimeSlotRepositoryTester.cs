@@ -33,5 +33,15 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			timeSlots[1].ShouldEqual(timeSlot1);
 			CollectionAssert.DoesNotContain(timeSlots, timeSlot2);
 		}
+
+
+
+
+
+		//ISession session = GetSession();
+		//    IQuery query = session.CreateQuery("from Track t where t.Conference = ?");
+		//    query.SetParameter(0, conference);
+		//    IList<Track> list = query.List<Track>();
+		//    return list.ToArray();
 	}
 }

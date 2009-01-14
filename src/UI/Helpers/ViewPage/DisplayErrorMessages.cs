@@ -5,6 +5,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 {
 	public class DisplayErrorMessages : IDisplayErrorMessages
 	{
+		private TempDataDictionary _tempData;
 		private ModelStateDictionary _modelState;
 
 		public ModelStateDictionary ModelState
@@ -12,10 +13,15 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 			set { _modelState = value; }
 		}
 
+		public TempDataDictionary TempData
+		{
+			set { _tempData = value; }
+		}
+
 		public string Display()
 		{
 			var errorHtml = new StringBuilder();
-			if (_modelState.IsInvalid())
+			if (_modelState.IsInvalid() || _tempData.Count>0)
 			{
 				errorHtml.Append(
 					string.Format(
@@ -30,6 +36,12 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 						errorHtml.AppendFormat(@"<li>{0}</li>", modelError.ErrorMessage);
 					}
 				}
+
+				foreach (var tempdata in _tempData)
+				{
+					errorHtml.AppendFormat(@"<li>{0}</li>", tempdata.Value);
+				}
+				
 				errorHtml.Append("</ul>");
 				errorHtml.Append("</div>");
 			}

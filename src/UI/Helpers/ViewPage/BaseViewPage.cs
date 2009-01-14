@@ -19,6 +19,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 		{
 			get
 			{
+				_displayErrorMessages.TempData = TempData;
 				_displayErrorMessages.ModelState = ViewData.ModelState;
 				return _displayErrorMessages;
 			}

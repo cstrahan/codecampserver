@@ -6,5 +6,6 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 	{
 		string Display();
 		ModelStateDictionary ModelState { set; }
+		TempDataDictionary TempData { set; }
 	}
 }

@@ -24,5 +24,24 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 
 			return list;
 		}
+
+		public Session[] GetAllForTimeSlot(TimeSlot timeSlot)
+		{
+			Session[] list =
+				GetSession().CreateQuery("from Session s where s.TimeSlot = :timeslot").SetEntity("timeslot", timeSlot).List
+					<Session>().ToArray();
+
+			return list;
+		}
+
+		public Session[] GetAllForTrack(Track track)
+		{
+			Session[] list =
+				GetSession().CreateQuery("from Session s where s.Track = :track").SetEntity("track", track).List
+					<Session>().ToArray();
+
+			return list;			
+
+		}
 	}
 }

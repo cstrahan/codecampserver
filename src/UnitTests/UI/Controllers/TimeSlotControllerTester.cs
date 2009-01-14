@@ -19,7 +19,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void When_New_is_called_the_edit_view_should_be_rendered_with_the_time_slot()
 		{
-			var controller = new TimeSlotController(null, null);
+			var controller = new TimeSlotController(null, null, null);
 
 			var conference = new Conference {Id = Guid.NewGuid(), Key = "foo"};
 
@@ -34,7 +34,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void When_a_timeslot_does_not_exist_Edit_should_redirect_to_the_index_with_a_message()
 		{
-			var controller = new TimeSlotController(null, null);
+			var controller = new TimeSlotController(null, null, null);
 
 			ActionResult result = controller.Edit(null);
 			result.AssertActionRedirect().ToAction<TimeSlotController>(e => e.Index(new Conference()));
@@ -52,7 +52,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var mapper = S<ITimeSlotMapper>();
 			mapper.Stub(m => m.Map(timeSlots)).Return(new[] {new TimeSlotForm()});
-			var controller = new TimeSlotController(repository, mapper);
+			var controller = new TimeSlotController(repository, mapper, null);
 
 			ActionResult result = controller.Index(conference);
 
@@ -72,7 +72,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var repository = S<ITimeSlotRepository>();
 
-			var controller = new TimeSlotController(repository, mapper);
+			var controller = new TimeSlotController(repository, mapper, null);
 			var conference = new Conference();
 			var result = (RedirectToRouteResult) controller.Save(form, conference);
 
@@ -81,12 +81,15 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		}
 
 		[Test]
-		public void Delete_should_delete_a_Session_and_render_index()
+		public void Delete_should_delete_a_TimeSlot_and_render_index()
 		{
 			var conference = new Conference { Key = "foo" };
 			var timeslot = new TimeSlot { Conference = conference };
 			var repository = S<ITimeSlotRepository>();
-			var controller = new TimeSlotController(repository, S<ITimeSlotMapper>());
+			var sessionsRepository = S<ISessionRepository>();
+			sessionsRepository.Stub(r => r.GetAllForTimeSlot(null)).IgnoreArguments().Return(new Session[0]);
+
+			var controller = new TimeSlotController(repository, S<ITimeSlotMapper>(),sessionsRepository);
 
 			var result = controller.Delete(timeslot);
 
@@ -97,5 +100,27 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 				
 		}
 
+		[Test]
+		public void Delete_should_set_a_warning_and_render_index_when_a_timeslot_is_in_use_by_a_session()
+		{
+			var conference = new Conference { Key = "foo" };
+			var timeslot = new TimeSlot { Conference = conference };
+			var repository = S<ITimeSlotRepository>();
+			var sessionsRepository = S<ISessionRepository>();
+			sessionsRepository.Stub(r => r.GetAllForTimeSlot(null)).IgnoreArguments().Return(new Session[]{new Session()});
+
+			var controller = new TimeSlotController(repository, S<ITimeSlotMapper>(), sessionsRepository);
+
+			var result = controller.Delete(timeslot);
+
+			repository.AssertWasNotCalled(x => x.Delete(timeslot));
+			result
+				.AssertActionRedirect()
+				.ToAction<TimeSlotController>(x => x.Index(null));
+				
+			
+			controller.TempData.ContainsValue("Time slot cannot be deleted.").ShouldBeTrue();
+
+		}
 	}
 }

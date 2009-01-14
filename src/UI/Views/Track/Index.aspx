@@ -15,6 +15,7 @@
 				<a class="" href="<%=Url.Action<TrackController>(c=>c.New(null))%>" title="Add a new Track"><img src="/images/icons/application_add.png" /></a>
 		<%}%>
 </h2>
+<%=Errors.Display() %>
 <p>
 	<% foreach (var track in ViewData.Model) { %>
 		<div class=" w250 ">

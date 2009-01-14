@@ -12,12 +12,18 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.TimeSlotIndexView"%>
 				<a class="" href="<%=Url.Action<TimeSlotController>(c=>c.New(null))%>" title="Add a new Timeslot"><img src="/images/icons/application_add.png" /></a>
 		<%}%>
 </h2>
+<%=Errors.Display() %>
 <p>
 	<% foreach (var timeslot in ViewData.Model) { %>
 		<div class=" w450 ">
-			<div class="fl"><a href="<%= Url.Action<TimeSlotController>(t => t.Edit(null), new{track = timeslot.Id}).ToXHTMLLink() %>"><%= timeslot.StartTime %> to <%= timeslot.EndTime %></a></div>
+			<div class="fl"><%= timeslot.StartTime %> to <%= timeslot.EndTime %></div>
 			
-			<div class="fr pr15"><a title="edit" href="<%= Url.Action<TimeSlotController>(t => t.Edit(null), new{timeslot = timeslot.Id}).ToXHTMLLink() %>"><img src="<%= Url.Content("~/images/icons/application_edit.png").ToXHTMLLink() %>" /></a></div>
+			<div class="fr pr15">
+			<%Html.RenderPartial("DeleteTimeSlotLink",timeslot); %>			
+			</div>
+			<div class="fr pr15">
+			<%Html.RenderPartial("EditTimeSlotLink",timeslot); %>			
+			</div>
 		</div>
 	<% } %>	
 </p>

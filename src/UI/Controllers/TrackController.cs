@@ -12,11 +12,13 @@ namespace CodeCampServer.UI.Controllers
 		private readonly ITrackRepository _repository;
 
 		private readonly ITrackMapper _mapper;
+		private readonly ISessionRepository _sessionsRepository;
 
-		public TrackController(ITrackRepository repository, ITrackMapper mapper) : base(repository, mapper)
+		public TrackController(ITrackRepository repository, ITrackMapper mapper, ISessionRepository sessionsRepository) : base(repository, mapper)
 		{
 			_repository = repository;
 			_mapper = mapper;
+			_sessionsRepository = sessionsRepository;
 		}
 
 		public ViewResult New(Conference conference)
@@ -44,7 +46,14 @@ namespace CodeCampServer.UI.Controllers
 
 		public RedirectToRouteResult Delete(Track track)
 		{
-			_repository.Delete(track);
+			if(_sessionsRepository.GetAllForTrack(track).Length==0)
+			{
+				_repository.Delete(track);
+			}
+			else
+			{
+				TempData.Add("message", "Track cannot be deleted.");
+			}
 			return RedirectToAction<TrackController>(x => x.Index(null));
 		}
 	}

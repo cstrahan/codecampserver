@@ -11,11 +11,13 @@ namespace CodeCampServer.UI.Controllers
 	{
 		private readonly ITimeSlotRepository _repository;
 		private readonly ITimeSlotMapper _mapper;
+		private readonly ISessionRepository _sessionsRepository;
 
-		public TimeSlotController(ITimeSlotRepository repository, ITimeSlotMapper mapper) : base(repository, mapper)
+		public TimeSlotController(ITimeSlotRepository repository, ITimeSlotMapper mapper, ISessionRepository sessionsRepository) : base(repository, mapper)
 		{
 			_repository = repository;
 			_mapper = mapper;
+			_sessionsRepository = sessionsRepository;
 		}
 
 		public ActionResult Edit(TimeSlot timeslot)
@@ -50,7 +52,14 @@ namespace CodeCampServer.UI.Controllers
 
 		public ActionResult Delete(TimeSlot timeslot)
 		{
-			_repository.Delete(timeslot);
+			if(_sessionsRepository.GetAllForTimeSlot(timeslot).Length==0)
+			{
+				_repository.Delete(timeslot);
+			}
+			else
+			{
+				TempData.Add("message", "Time slot cannot be deleted.");
+			}
 
 			return RedirectToAction<TimeSlotController>(c => c.Index(timeslot.Conference));
 		}
