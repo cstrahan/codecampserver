@@ -47,5 +47,12 @@ namespace CodeCampServer.UI.Controllers
 		{
 			return ProcessSave(form, () => RedirectToAction<TimeSlotController>(c => c.Index(conference)));
 		}
+
+		public ActionResult Delete(TimeSlot timeslot)
+		{
+			_repository.Delete(timeslot);
+
+			return RedirectToAction<TimeSlotController>(c => c.Index(timeslot.Conference));
+		}
 	}
 }

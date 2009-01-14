@@ -79,5 +79,23 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			repository.AssertWasCalled(r => r.Save(timeSlot));
 			result.AssertActionRedirect().ToAction<TimeSlotController>(a => a.Index(conference));
 		}
+
+		[Test]
+		public void Delete_should_delete_a_Session_and_render_index()
+		{
+			var conference = new Conference { Key = "foo" };
+			var timeslot = new TimeSlot { Conference = conference };
+			var repository = S<ITimeSlotRepository>();
+			var controller = new TimeSlotController(repository, S<ITimeSlotMapper>());
+
+			var result = controller.Delete(timeslot);
+
+			repository.AssertWasCalled(x => x.Delete(timeslot));
+			result
+				.AssertActionRedirect()
+				.ToAction<TimeSlotController>(x => x.Index(null));
+				
+		}
+
 	}
 }

@@ -44,7 +44,7 @@ namespace CodeCampServer.UI.Controllers
 		[ValidateModel(typeof (SessionForm))]
 		public ActionResult Save([Bind(Prefix = "")] SessionForm form)
 		{
-			return ProcessSave(form, () => CreateRedirect(form.Conference));
+			return ProcessSave(form, () => RedirectToIndex(form.Conference));
 		}
 
 		protected override IDictionary<string, string[]> GetFormValidationErrors(SessionForm form)
@@ -66,10 +66,10 @@ namespace CodeCampServer.UI.Controllers
 		public RedirectToRouteResult Delete(Session session)
 		{
 			_repository.Delete(session);
-			return CreateRedirect(session.Conference);
+			return RedirectToIndex(session.Conference);
 		}
 
-		private RedirectToRouteResult CreateRedirect(Conference conference)
+		private RedirectToRouteResult RedirectToIndex(Conference conference)
 		{
 			return RedirectToAction<SessionController>(x => x.Index(null), new {conference = conference.Key});
 		}
