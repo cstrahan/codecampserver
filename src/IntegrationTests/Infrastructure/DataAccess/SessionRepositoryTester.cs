@@ -76,5 +76,26 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			sessions.Length.ShouldEqual(1);
 			sessions[0].ShouldEqual(session);
 		}
+
+		[Test]
+		public void Should_find_sessions_by_speaker()
+		{
+			var conference = new Conference();
+
+			var speaker = new Speaker() { };
+			var session = new Session { Conference = conference, Speaker = speaker};
+
+			var speaker1 = new Speaker() { };
+			var session1 = new Session { Conference = conference, Speaker = speaker1 };
+
+			PersistEntities(conference, speaker, speaker1, session, session1);
+
+			ISessionRepository repository = CreateRepository();
+
+			Session[] sessions = repository.GetAllForSpeaker(speaker);
+
+			sessions.Length.ShouldEqual(1);
+			sessions[0].ShouldEqual(session);
+		}
 	}
 }

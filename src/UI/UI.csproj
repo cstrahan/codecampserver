@@ -283,6 +283,7 @@
     <Content Include="Views\Schedule\Index.aspx" />
     <Content Include="Views\Session\List.aspx" />
     <Content Include="Views\Session\Edit.aspx" />
+    <Content Include="Views\Shared\DeleteSpeakerLink.ascx" />
     <Content Include="Views\Shared\DeleteTimeSlotLink.ascx" />
     <Content Include="Views\Shared\DeleteSessionLink.ascx" />
     <Content Include="Views\Shared\EditTimeSlotLink.ascx" />

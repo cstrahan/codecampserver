@@ -12,11 +12,13 @@ namespace CodeCampServer.UI.Controllers
 	{
 		private readonly ISpeakerRepository _repository;
 		private readonly ISpeakerMapper _mapper;
+		private readonly ISessionRepository _sessionsRepository;
 
-		public SpeakerController(ISpeakerRepository repository, ISpeakerMapper mapper) : base(repository, mapper)
+		public SpeakerController(ISpeakerRepository repository, ISpeakerMapper mapper, ISessionRepository sessionsRepository) : base(repository, mapper)
 		{
 			_repository = repository;
 			_mapper = mapper;
+			_sessionsRepository = sessionsRepository;
 		}
 
 		
@@ -74,7 +76,14 @@ namespace CodeCampServer.UI.Controllers
 		[RequireAuthenticationFilter]
 		public ActionResult Delete(Speaker speaker)
 		{
-			_repository.Delete(speaker);
+			if(_sessionsRepository.GetAllForSpeaker(speaker).Length==0)
+			{
+				_repository.Delete(speaker);
+			}
+			else
+			{
+				TempData.Add("message", "Speaker cannot be deleted.");
+			}
 			return RedirectToAction<SpeakerController>(c => c.List());
 		}
 

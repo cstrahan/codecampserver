@@ -43,5 +43,14 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 			return list;			
 
 		}
+
+		public Session[] GetAllForSpeaker(Speaker speaker)
+		{
+			Session[] list =
+				GetSession().CreateQuery("from Session s where s.Speaker = :speaker").SetEntity("speaker", speaker).List
+					<Session>().ToArray();
+
+			return list;						
+		}
 	}
 }

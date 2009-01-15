@@ -25,7 +25,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			repository.Stub(x => x.GetAll()).Return(speakers);
 			var mapper = S<ISpeakerMapper>();
 			mapper.Stub(m => m.Map(speakers)).Return(speakerForms);
-			var controller = new SpeakerController(repository, mapper);
+			var controller = new SpeakerController(repository, mapper, null);
 
 			var result = controller.List();
 
@@ -41,7 +41,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var mapper = S<ISpeakerMapper>();
 			var speakerForm = new SpeakerForm();
 			mapper.Stub(m => m.Map(speaker)).Return(speakerForm);
-			var controller = new SpeakerController(S<ISpeakerRepository>(), mapper);
+			var controller = new SpeakerController(S<ISpeakerRepository>(), mapper, null);
 
 			ActionResult edit = controller.Edit(speaker);
 
@@ -61,7 +61,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var repository = S<ISpeakerRepository>();
 
-			var controller = new SpeakerController(repository, mapper);
+			var controller = new SpeakerController(repository, mapper, null);
 			var result = (RedirectToRouteResult) controller.Save(form);
 
 			repository.AssertWasCalled(r => r.Save(speaker));
@@ -80,7 +80,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<ISpeakerRepository>();
 			repository.Stub(r => r.GetByKey("foo")).Return(new Speaker());
 
-			var controller = new SpeakerController(repository, mapper);
+			var controller = new SpeakerController(repository, mapper, null);
 			var result = (ViewResult) controller.Save(form);
 
 			result.AssertViewRendered().ViewName.ShouldEqual("Edit");
@@ -91,7 +91,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void New_should_put_a_new_speaker_form_on_model_and_render_edit_view()
 		{
-			var controller = new SpeakerController(S<ISpeakerRepository>(), S<ISpeakerMapper>());
+			var controller = new SpeakerController(S<ISpeakerRepository>(), S<ISpeakerMapper>(), null);
 			ActionResult result = controller.New();
 
 			result.AssertViewRendered()
@@ -104,7 +104,9 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var speaker = new Speaker();
 			var repository = S<ISpeakerRepository>();
-			var controller = new SpeakerController(repository, S<ISpeakerMapper>());
+			var sessionsRepository = S<ISessionRepository>();
+			sessionsRepository.Stub(r => r.GetAllForSpeaker(null)).IgnoreArguments().Return(new Session[0]);
+			var controller = new SpeakerController(repository, S<ISpeakerMapper>(), sessionsRepository);
 
 			ActionResult result = controller.Delete(speaker);
 
@@ -114,5 +116,27 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			repository.AssertWasCalled(x => x.Delete(speaker));
 		}
+
+
+		[Test]
+		public void Delete_should_set_a_warning_and_render_index_when_a_speaker_is_in_use_by_a_session()
+		{
+			var speaker = new Speaker( );
+			var repository = S<ISpeakerRepository>();
+			var sessionsRepository = S<ISessionRepository>();
+			sessionsRepository.Stub(r => r.GetAllForSpeaker(null)).IgnoreArguments().Return(new[] { new Session() });
+
+			var controller = new SpeakerController(repository, S<ISpeakerMapper>(), sessionsRepository);
+
+			ActionResult result = controller.Delete(speaker);
+
+			repository.AssertWasNotCalled(x => x.Delete(speaker));
+			result
+				.AssertActionRedirect()
+				.ToAction<SpeakerController>(x => x.List());
+
+
+			controller.TempData.ContainsValue("Speaker cannot be deleted.").ShouldBeTrue();
+		}	
 	}
 }

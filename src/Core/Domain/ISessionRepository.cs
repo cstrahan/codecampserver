@@ -7,5 +7,6 @@ namespace CodeCampServer.Core.Domain
 		Session[] GetAllForConference(Conference conference);
 		Session[] GetAllForTimeSlot(TimeSlot timeSlot);
 		Session[] GetAllForTrack(Track track);
+		Session[] GetAllForSpeaker(Speaker speaker);
 	}
 }

@@ -9,8 +9,12 @@ namespace CodeCampServer.DependencyResolution
 	{
 		protected override IController GetControllerInstance(Type controllerType)
 		{
-			Logger.Debug(this, string.Format("Creating controller {0}", controllerType.Name));
-			return (IController) ObjectFactory.GetInstance(controllerType);
+			if(controllerType!=null)
+			{
+				Logger.Debug(this, string.Format("Creating controller {0}", controllerType.Name));
+				return (IController)ObjectFactory.GetInstance(controllerType);
+			}
+			return null;
 		}
 	}
 }
