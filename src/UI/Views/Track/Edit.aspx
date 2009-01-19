@@ -2,11 +2,11 @@
 	Inherits="CodeCampServer.UI.Helpers.ViewPage.TrackEditView" %>
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
 
-<%@ Import Namespace="CodeCampServer.Core.Common" %>
+
 <%@ Import Namespace="MvcContrib" %>
 <%@ Import Namespace="System.Web.Mvc" %>
 <%@ Import Namespace="System.Web.Mvc.Html" %>
-<%@ Import Namespace="CodeCampServer.UI" %>
+
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms" %>
 <%@ Import Namespace="CodeCampServer.UI.Controllers" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">

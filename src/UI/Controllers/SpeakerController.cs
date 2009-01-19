@@ -8,6 +8,7 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Controllers
 {
+	[RequiresConferenceFilterAttribute]
 	public class SpeakerController : SaveController<Speaker, SpeakerForm>
 	{
 		private readonly ISpeakerRepository _repository;

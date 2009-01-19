@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="CodeCampServer.UI.Controllers"%>
-<%@ Import Namespace="CodeCampServer.UI"%>
+
 <%@ Import Namespace="MvcContrib"%>
 <%@ Import Namespace="CodeCampServer.Core.Domain.Model"%>
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl" %>

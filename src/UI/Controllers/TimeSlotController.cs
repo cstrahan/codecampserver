@@ -7,6 +7,7 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Controllers
 {
+	[RequiresConferenceFilterAttribute]
 	public class TimeSlotController : SaveController<TimeSlot, TimeSlotForm>
 	{
 		private readonly ITimeSlotRepository _repository;

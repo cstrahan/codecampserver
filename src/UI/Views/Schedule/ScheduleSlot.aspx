@@ -3,7 +3,7 @@
 <%@ Import Namespace="CodeCampServer.Core.Common"%>
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
-<%@ Import Namespace="CodeCampServer.UI"%>
+
 	<% foreach (SessionForm session in ViewData.Model) { %>
 	<div class="session">
 		<%Html.RenderPartial("EditSessionLink",session); %>

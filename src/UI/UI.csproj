@@ -91,6 +91,7 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AutoMapperConfiguration.cs" />
+    <Compile Include="ConferenceKeyControllerNameContraint.cs" />
     <Compile Include="CodeCampServerProfile.cs" />
     <Compile Include="Controllers\AttendeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Helpers\Filters\AutoMappedFilterAttribute.cs" />
     <Compile Include="Helpers\Filters\AutoMappedToModelFilter.cs" />
     <Compile Include="Helpers\Filters\BaseActionFilter.cs" />
+    <Compile Include="Helpers\Filters\AdminUserCreatedFilterAttribute.cs" />
     <Compile Include="Helpers\Filters\RequireAuthenticationFilterAttribute.cs" />
     <Compile Include="Helpers\Filters\RequiresConferenceFilterAttribute.cs" />
     <Compile Include="Helpers\Filters\ValidateModelAttribute.cs" />

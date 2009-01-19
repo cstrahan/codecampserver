@@ -2,7 +2,7 @@
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
 <%@ Import Namespace="MvcContrib"%>
-<%@ Import Namespace="CodeCampServer.UI"%>
+
 <asp:Content ContentPlaceHolderID="Main" runat="server">
   <%var conferences = (ConferenceForm[])ViewData.Model; %>
   <div class="dataContainerQuadWide mt10">
@@ -24,7 +24,7 @@
        foreach (var conference in conferences)
 		{%>
 		  <tr class="">
-				<td><a class="" href="<%=Url.Action<ConferenceController>(c=>c.Edit(null),new{conferenceKey=conference.Key})%>" title="View Conference <%= counter + 1 %>">Edit</a></td>				
+				<td><a class="" href="<%=Url.Action<ConferenceController>(c=>c.Edit(null),new{conference=conference.Id})%>" title="View Conference <%= counter + 1 %>">Edit</a></td>				
 				<td class="w30p tal"><strong><%= conference.Name%></strong></td>
 				<td><%= conference.StartDate%> To <%= conference.EndDate%></td>
 				<td class="w20p"><%= conference.LocationName%><br />

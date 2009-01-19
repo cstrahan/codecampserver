@@ -2,7 +2,7 @@
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
 <%@ Import Namespace="MvcContrib"%>
-<%@ Import Namespace="CodeCampServer.UI"%>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="Main" runat="server">
 	 <h2>Attendees
 		<%if (User.Identity.IsAuthenticated){%>

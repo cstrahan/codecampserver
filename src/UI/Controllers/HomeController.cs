@@ -1,9 +1,12 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.UI.Helpers.Filters;
 
 namespace CodeCampServer.UI.Controllers
 {
+	[AdminUserCreatedFilterAttribute]
+	[RequiresConferenceFilter]
 	public class HomeController : SmartController
 	{
 		private readonly IConferenceRepository _repository;

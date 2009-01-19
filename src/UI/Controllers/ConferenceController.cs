@@ -10,6 +10,7 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Controllers
 {
+	[AdminUserCreatedFilterAttribute]
 	public class ConferenceController : SaveController<Conference, ConferenceForm>
 	{
 		private readonly IConferenceRepository _repository;
@@ -21,9 +22,10 @@ namespace CodeCampServer.UI.Controllers
 			_mapper = mapper;
 		}
 
-		public ActionResult Index(string conferenceKey)
+		[RequiresConferenceFilter]
+		public ActionResult Index(Conference conference)
 		{
-			Conference conference = _repository.GetByKey(conferenceKey);
+			//Conference conference = _repository.GetByKey(conferenceKey);
 			ConferenceForm form = _mapper.Map(conference);
 			return View(form);
 		}
@@ -42,9 +44,9 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[RequireAuthenticationFilter()]
-		public ActionResult Edit(string conferenceKey)
+		public ActionResult Edit(Conference conference)
 		{
-			Conference conference = _repository.GetByKey(conferenceKey);
+			//Conference conference = _repository.GetByKey(conferenceKey);
 
 			if (conference == null)
 			{
@@ -81,9 +83,9 @@ namespace CodeCampServer.UI.Controllers
 		[RequireAuthenticationFilter()]
 		public ActionResult New()
 		{
-			var conference = new Conference {StartDate = SystemTime.Now(), EndDate = SystemTime.Now()};
-			_repository.Save(conference);
-			return View("Edit", _mapper.Map(conference));
+//			Conference conference = new Conference {StartDate = SystemTime.Now(), EndDate = SystemTime.Now()};
+			//_repository.Save(conference);
+			return View("Edit", _mapper.Map(new Conference()));
 		}
 	}
 }

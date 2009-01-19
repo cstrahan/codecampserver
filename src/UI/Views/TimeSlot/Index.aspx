@@ -2,7 +2,7 @@
 Inherits="CodeCampServer.UI.Helpers.ViewPage.TimeSlotIndexView"%>
 <%@ Import Namespace="CodeCampServer.Core.Common"%>
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
-<%@ Import Namespace="CodeCampServer.UI"%>
+
 
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
 <%@ Import Namespace="MvcContrib"%>

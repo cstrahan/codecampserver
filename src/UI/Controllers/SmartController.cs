@@ -11,15 +11,8 @@ namespace CodeCampServer.UI.Controllers
 {
 	public abstract class SmartController : Controller
 	{
-		protected override void OnActionExecuting(ActionExecutingContext filterContext)
-		{
-			//temporarily putting it here.
-			var attribute = new AuthenticationFilterAttribute();
-			attribute.OnActionExecuting(filterContext);
-
-			var attribute1 = new RequiresConferenceFilterAttribute();
-			attribute1.OnActionExecuting(filterContext);
-
+		protected override void OnActionExecuted(System.Web.Mvc.ActionExecutedContext filterContext)
+		{			
 			if (ViewData.Contains<Conference>())
 			{
 				ViewData["title"] = ViewData.Get<Conference>().Name;
@@ -28,6 +21,17 @@ namespace CodeCampServer.UI.Controllers
 			{
 				ViewData["title"] = "Code Camp Server v1.0";
 			}
+		}
+
+		protected override void OnActionExecuting(ActionExecutingContext filterContext)
+		{
+			//temporarily putting it here.
+			var attribute = new AuthenticationFilterAttribute();
+			attribute.OnActionExecuting(filterContext);
+
+			//var attribute1 = new RequiresConferenceFilterAttribute();
+			//attribute1.OnActionExecuting(filterContext);
+
 		}
 
 		public RedirectToRouteResult RedirectToAction<TController>(Expression<Func<TController, object>> actionExpression)

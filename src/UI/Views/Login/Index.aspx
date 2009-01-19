@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.LoginView"%>
-<%@ Import Namespace="CodeCampServer.Core.Common"%>
-<%@ Import Namespace="CodeCampServer.UI"%>
+
+
 <%@ Import Namespace="CodeCampServer.UI"%>
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>

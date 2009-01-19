@@ -11,6 +11,7 @@ using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
+	[RequiresConferenceFilterAttribute]
 	public class AttendeeController : SaveController<Conference, AttendeeForm>
 	{
 		private readonly IAttendeeMapper _mapper;
