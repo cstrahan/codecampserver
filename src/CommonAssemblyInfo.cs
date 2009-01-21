@@ -13,11 +13,11 @@ using System.Runtime.InteropServices;
 //------------------------------------------------------------------------------
 
 [assembly: ComVisibleAttribute(false)]
-[assembly: AssemblyVersionAttribute("1.0.405.0")]
-[assembly: AssemblyFileVersionAttribute("1.0.405.0")]
-[assembly: AssemblyCopyrightAttribute("Copyright ©  2008")]
+[assembly: AssemblyVersionAttribute("1.0.617.0")]
+[assembly: AssemblyFileVersionAttribute("1.0.617.0")]
+[assembly: AssemblyCopyrightAttribute("Copyright ©  2009")]
 [assembly: AssemblyProductAttribute("CodeCampServer")]
 [assembly: AssemblyCompanyAttribute("")]
 [assembly: AssemblyConfigurationAttribute("release")]
-[assembly: AssemblyInformationalVersionAttribute("1.0.405.0")]
+[assembly: AssemblyInformationalVersionAttribute("1.0.617.0")]
 

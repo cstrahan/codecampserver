@@ -62,7 +62,7 @@
 				<asp:ContentPlaceHolder id="Main" runat="server" />
 			</div>
 			<asp:ContentPlaceHolder ID="Footer" runat="server">
-			<p class="ml10"><span>Revision Number: </span><span id="revisionNumber"><%= new AssemblyVersion().GetAssemblyVersion() %></span></p>
+			<p class="ml10"><span>Revision Number: </span><span id="revisionNumber"></span></p>
 			</asp:ContentPlaceHolder>
 		</div>
 		<div style="clear: both;">&nbsp;</div>

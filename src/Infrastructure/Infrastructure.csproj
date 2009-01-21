@@ -151,4 +151,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y  ".\*.dll" "..\..\..\UI\bin\"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
