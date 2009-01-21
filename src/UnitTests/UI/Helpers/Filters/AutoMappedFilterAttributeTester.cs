@@ -1,5 +1,6 @@
 using System.Web.Mvc;
-using CodeCampServer.Infrastructure.AutoMap;
+using AutoMapper;
+
 using CodeCampServer.UI.Helpers.Filters;
 using MvcContrib;
 using NBehave.Spec.NUnit;
@@ -22,7 +23,7 @@ namespace CodeCampServer.UnitTests.UI.Helpers.Filters
 		[Test]
 		public void Should_map_dto_and_place_in_viewdata()
 		{
-			AutoMapper.CreateMap<Model, Dto>();
+			Mapper.CreateMap<Model, Dto>();
 			var controller = new TestController();
 			controller.ViewData.Add(new Model());
 			ActionExecutedContext context = GetActionExecutedContext(controller);
@@ -35,7 +36,7 @@ namespace CodeCampServer.UnitTests.UI.Helpers.Filters
 		[Test]
 		public void Should_remove_original_model_from_viewdata_after_mapping()
 		{
-			AutoMapper.CreateMap<Model, Dto>();
+			Mapper.CreateMap<Model, Dto>();
 			var controller = new TestController();
 			controller.ViewData.Add(new Model());
 			ActionExecutedContext context = GetActionExecutedContext(controller);

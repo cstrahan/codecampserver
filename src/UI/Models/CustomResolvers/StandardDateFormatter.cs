@@ -1,11 +1,13 @@
 using System;
+using AutoMapper;
 using CodeCampServer.Core.Common;
-using CodeCampServer.Infrastructure.AutoMap;
 
 namespace CodeCampServer.UI.Models.CustomResolvers
 {
 	public class StandardDateFormatter : IValueFormatter
 	{
+		#region IValueFormatter Members
+
 		public string FormatValue(ResolutionContext context)
 		{
 			if (context.SourceValue == null)
@@ -16,5 +18,7 @@ namespace CodeCampServer.UI.Models.CustomResolvers
 
 			return ((DateTime) context.SourceValue).ToString("MM/dd/yyyy");
 		}
+
+		#endregion
 	}
 }

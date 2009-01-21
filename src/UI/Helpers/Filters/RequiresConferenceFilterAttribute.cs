@@ -4,9 +4,10 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.DependencyResolution;
 using CodeCampServer.UI.Controllers;
 using MvcContrib;
-using StructureMap;
+
 
 namespace CodeCampServer.UI.Helpers.Filters
 {
@@ -14,7 +15,7 @@ namespace CodeCampServer.UI.Helpers.Filters
 	{
 		private readonly IConferenceRepository _repository;
 
-		public RequiresConferenceFilterAttribute() : this(ObjectFactory.GetInstance<IConferenceRepository>()) {}
+		public RequiresConferenceFilterAttribute() : this(DependencyRegistrar.Resolve<IConferenceRepository>()) { }
 
 		public RequiresConferenceFilterAttribute(IConferenceRepository repository)
 		{

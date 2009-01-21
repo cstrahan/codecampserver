@@ -20,7 +20,7 @@ namespace CodeCampServer.UI.Controllers
 			_mapper = mapper;
 		}
 
-		protected ActionResult ProcessSave(TForm form, Func<RedirectToRouteResult> successRedirect)
+		protected ActionResult ProcessSave(TForm form, Func<ActionResult> successRedirect)
 		{
 			if (!ModelState.IsValid)
 			{

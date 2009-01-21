@@ -9,6 +9,7 @@ using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
+	
 	public abstract class SmartController : Controller
 	{
 		protected override void OnActionExecuted(System.Web.Mvc.ActionExecutedContext filterContext)
@@ -29,6 +30,8 @@ namespace CodeCampServer.UI.Controllers
 			var attribute = new AuthenticationFilterAttribute();
 			attribute.OnActionExecuting(filterContext);
 
+			var referrer = new AppendUrlReferrerFilterAttribute();
+			referrer.OnActionExecuting(filterContext);
 			//var attribute1 = new RequiresConferenceFilterAttribute();
 			//attribute1.OnActionExecuting(filterContext);
 

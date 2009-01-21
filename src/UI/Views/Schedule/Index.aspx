@@ -23,7 +23,7 @@
 		<tr class="timeslotrow">
 			<td class="timeslot"><%=timeSlotAssignment.TimeSlot.GetName()%> <% Html.RenderPartial("EditTimeSlotLink", timeSlotAssignment.TimeSlot);%></td>
 			<% foreach (var trackAssignment in timeSlotAssignment.TrackAssignments) { %>
-			<td><% Html.RenderPartial("ScheduleSlot", trackAssignment.Sessions);%></td>
+			<td><% Html.RenderPartial("ScheduleSlot", trackAssignment.Sessions,ViewData);%></td>
 			<% } %>
 		</tr>
 		<% } %>

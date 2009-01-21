@@ -1,6 +1,7 @@
+using AutoMapper;
 using CodeCampServer.Core;
 using CodeCampServer.DependencyResolution;
-using CodeCampServer.Infrastructure.AutoMap;
+
 using CodeCampServer.UI;
 using NUnit.Framework;
 
@@ -16,7 +17,7 @@ namespace CodeCampServer.UnitTests.UI
 
 			AutoMapperConfiguration.Configure();
 
-			TypeMap[] maps = AutoMapper.GetAllTypeMaps();
+			TypeMap[] maps = Mapper.GetAllTypeMaps();
 			maps.ForEach(AssertAllMap);
 		}
 

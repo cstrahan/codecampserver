@@ -21,8 +21,8 @@
 			<div class="fl"><a href="<%= Url.Action<SessionController>(t => t.Index(null), new{session = session.Id}).ToXHTMLLink() %>" title="<%= session.TimeSlot.StartTime %> <%= session.Key %>">
 				<%= session.Title%>
 			</a></div>
-			<div class="fr pl10"><%Html.RenderPartial("DeleteSessionLink",session); %></div>
-			<div class="fr"><%Html.RenderPartial("EditSessionLink",session); %></div>
+			<div class="fr pl10"><%Html.RenderPartial(PartialViews.Shared.DeleteSessionLink,session); %></div>
+			<div class="fr"><%Html.RenderPartial(PartialViews.Shared.EditSessionLink,session); %></div>
 		</div>
 	<% } %>
 </asp:Content>

@@ -22,9 +22,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{C01DA28B-6F9D-4378-A2DA-884DDFD224B1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{98200972-A038-4DA8-8917-CBC4895175DC}"
-	ProjectSection(ProjectDependencies) = postProject
-		{FBE3CFE2-CAC1-4652-9F49-18F35B65123D} = {FBE3CFE2-CAC1-4652-9F49-18F35B65123D}
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{F4B43E07-16C4-45B3-8A20-0FFE5EDDE16B}"
 	ProjectSection(SolutionItems) = preProject

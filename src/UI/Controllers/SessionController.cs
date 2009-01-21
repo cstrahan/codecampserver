@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
@@ -43,9 +44,15 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[ValidateModel(typeof (SessionForm))]
-		public ActionResult Save([Bind(Prefix = "")] SessionForm form)
+		public ActionResult Save([Bind(Prefix = "")] SessionForm form, string urlreferrer)
 		{
-			return ProcessSave(form, () => RedirectToIndex(form.Conference));
+			//string urlreferrer = formCollection["urlreferrer"];
+			Func<ActionResult> successRedirect =() => RedirectToIndex(form.Conference);
+			if (!String.IsNullOrEmpty(urlreferrer))
+			{
+				successRedirect = () => Redirect(urlreferrer);
+			}
+			return ProcessSave(form, successRedirect);
 		}
 
 		protected override IDictionary<string, string[]> GetFormValidationErrors(SessionForm form)

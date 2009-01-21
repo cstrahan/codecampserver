@@ -243,6 +243,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			           		speaker6
 			           	};
 
+			
 			foreach (var aTrack in tracks)
 			{
 				foreach (var aTimeSlot in timeSlots)
@@ -253,7 +254,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 						{
 							continue;
 						}
-
+						var sessionNumber = list.Count + 1;
 						string time = aTimeSlot.StartTime.GetValueOrDefault().ToShortTimeString();
 						Speaker selectedSpeaker = GetRandomSpeaker(speakers);
 						string title = string.Format("{0} session at {1} in {2} by {3}", level.DisplayName,
@@ -264,7 +265,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 						               		Title = title,
 						               		Abstract = string.Format("Abstract for session at {0}", time),
 						               		Conference = conference,
-						               		Key = title.ToLower().Replace(" ", "-"),
+						               		Key = title.ToLower().Replace(" ", "-")+"-"+sessionNumber ,
 						               		Level = level,
 						               		MaterialsUrl = "http://google.com",
 						               		RoomNumber = "24R",

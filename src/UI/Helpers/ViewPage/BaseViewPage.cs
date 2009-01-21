@@ -1,6 +1,6 @@
 using System;
 using System.Linq.Expressions;
-using StructureMap;
+using CodeCampServer.DependencyResolution;
 
 namespace CodeCampServer.UI.Helpers.ViewPage
 {
@@ -11,8 +11,8 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 
 		public BaseViewPage()
 		{
-			_inputBuilderFactory = ObjectFactory.GetInstance<IInputBuilderFactory>();
-			_displayErrorMessages = ObjectFactory.GetInstance<IDisplayErrorMessages>();
+			_inputBuilderFactory = DependencyRegistrar.Resolve<IInputBuilderFactory>();
+			_displayErrorMessages = DependencyRegistrar.Resolve<IDisplayErrorMessages>();
 		}
 
 		public IDisplayErrorMessages Errors

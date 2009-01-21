@@ -1,7 +1,6 @@
 using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.AutoMap;
 using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
@@ -29,7 +28,7 @@ namespace CodeCampServer.UI.Helpers.Mappers
 
 		public TimeSlotForm[] Map(TimeSlot[] timeSlots)
 		{
-			return AutoMapper.Map<TimeSlot[], TimeSlotForm[]>(timeSlots);
+			return AutoMapper.Mapper.Map<TimeSlot[], TimeSlotForm[]>(timeSlots);
 		}
 	}
 }

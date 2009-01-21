@@ -6,7 +6,7 @@
 
 	<% foreach (SessionForm session in ViewData.Model) { %>
 	<div class="session">
-		<%Html.RenderPartial("EditSessionLink",session); %>
+		<%Html.RenderPartial("EditSessionLink",session,ViewData); %>
 		<span><a href="<%=Url.Action<SessionController>(c=>c.Index(null),new{session=session.Id})%>"><%=session.Title %></a></span><span>(Room: <%=session.RoomNumber %>)</span>
 	</div>			
 	<% } %>

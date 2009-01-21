@@ -15,7 +15,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.SessionEditView"%>
 
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-    <form action="<%= Url.Action<SessionController>(x => x.Save(null)) %>" method="post"  >
+    <form action="<%= Url.Action<SessionController>(x => x.Save(null,null)) %>" method="post"  >
         <div>
 			    <h1>Edit Session</h1>  
 						<%=Errors.Display()%>
@@ -33,6 +33,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.SessionEditView"%>
 									<%=InputFor(a => a.Track)%>
 									<%=InputFor(a => a.RoomNumber)%>
 									<%=InputFor(a => a.MaterialsUrl)%>
+									<input type="hidden" name="urlreferrer" value="<%=ViewData["UrlReferrer"].ToString().ToXHTMLLink()%>" />
 								</td>
 							</tr>
 						</table>
@@ -40,7 +41,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.SessionEditView"%>
 	        <br />
 	        <div class="p10 tac">
 						<%=Html.SubmitButton("save", "Save", new{@class="pr10 w100"}) %>    
-						<a href="<%=Url.Action<AdminController>(x => x.Index()).ToXHTMLLink() %>"  class="pr10 mt5" rel="cancel">Cancel</a>				
+						<a href="<%=ViewData["UrlReferrer"].ToString().ToXHTMLLink() %>"  class="pr10 mt5" rel="cancel">Cancel</a>				
 					</div>
         </div>
     </form>

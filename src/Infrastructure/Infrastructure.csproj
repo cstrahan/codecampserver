@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FBE3CFE2-CAC1-4652-9F49-18F35B65123D}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -71,6 +71,7 @@
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
     <Reference Include="Tarantino.Core, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\tarantino\Tarantino.Core.dll</HintPath>
@@ -84,27 +85,6 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AutoMap\AutoMapper.cs" />
-    <Compile Include="AutoMap\Configuration.cs" />
-    <Compile Include="AutoMap\FormatterExpression.cs" />
-    <Compile Include="AutoMap\IConfiguration.cs" />
-    <Compile Include="AutoMap\IFormatterExpression.cs" />
-    <Compile Include="AutoMap\IMappingEngine.cs" />
-    <Compile Include="AutoMap\IMappingExpression.cs" />
-    <Compile Include="AutoMap\IValueFormatter.cs" />
-    <Compile Include="AutoMap\IValueResolver.cs" />
-    <Compile Include="AutoMap\MappingEngine.cs" />
-    <Compile Include="AutoMap\MappingExpression.cs" />
-    <Compile Include="AutoMap\MethodMember.cs" />
-    <Compile Include="AutoMap\Profile.cs" />
-    <Compile Include="AutoMap\PropertyMap.cs" />
-    <Compile Include="AutoMap\PropertyMember.cs" />
-    <Compile Include="AutoMap\ResolutionContext.cs" />
-    <Compile Include="AutoMap\TypeMap.cs" />
-    <Compile Include="AutoMap\TypeMapFactory.cs" />
-    <Compile Include="AutoMap\TypeMember.cs" />
-    <Compile Include="AutoMap\TypeMemberFinder.cs" />
-    <Compile Include="AutoMap\ValueFormatter.cs" />
     <Compile Include="DataAccess\Impl\ConferenceRepository.cs" />
     <Compile Include="DataAccess\Impl\KeyedRepository.cs" />
     <Compile Include="DataAccess\Impl\RepositoryBase.cs" />
@@ -113,11 +93,12 @@
     <Compile Include="DataAccess\Impl\TimeSlotRepository.cs" />
     <Compile Include="DataAccess\Impl\TrackRepository.cs" />
     <Compile Include="DataAccess\Impl\UserRepository.cs" />
+    <Compile Include="DependencyRegistry.cs" />
     <Compile Include="UI\Services\AssemblyVersion.cs" />
     <Compile Include="UI\Services\IAssemblyVersion.cs" />
-    <Compile Include="UI\Services\Impl\ViewNames.cs" />
     <Compile Include="UI\Services\Impl\UploadFileNamer.cs" />
     <Compile Include="UI\Services\IUploadFileNamer.cs" />
+    <Compile Include="UI\UIRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\lib\nhibernate\nhibernate-configuration.xsd">
@@ -132,6 +113,10 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{9C81B684-40CC-472A-804D-7C0F963315F5}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UI\UI.csproj">
+      <Project>{98200972-A038-4DA8-8917-CBC4895175DC}</Project>
+      <Name>UI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

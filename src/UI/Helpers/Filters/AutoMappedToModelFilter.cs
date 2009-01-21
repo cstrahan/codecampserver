@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using CodeCampServer.Infrastructure.AutoMap;
+using AutoMapper;
 using CodeCampServer.UI.Filters;
 using MvcContrib;
 
@@ -54,7 +54,7 @@ namespace CodeCampServer.UI.Helpers.Filters
 			if (filterContext.Controller.ViewData.Contains(_modelType))
 			{
 				object model = ((IDictionary<string, object>) filterContext.Controller.ViewData).Get(_modelType);
-				dto = AutoMapper.Map(model, _modelType, _dtoType);
+				dto = Mapper.Map(model, _modelType, _dtoType);
 
 				filterContext.Controller.ViewData.Add(dto, _dtoType);
 			}

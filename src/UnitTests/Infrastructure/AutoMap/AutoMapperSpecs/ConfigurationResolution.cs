@@ -1,4 +1,4 @@
-using CodeCampServer.Infrastructure.AutoMap;
+using AutoMapper;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 
@@ -24,13 +24,13 @@ namespace CodeCampServer.UnitTests.Infrastructure.AutoMap.AutoMapperSpecs
 
 			protected override void Establish_context()
 			{
-				AutoMapper.CreateMap<ModelObject, ModelDto>();
+				Mapper.CreateMap<ModelObject, ModelDto>();
 			}
 
 			[Test]
 			public void Should_resolve_to_the_configuration_for_the_base_type()
 			{
-				AutoMapper.FindTypeMapFor<ModelSubtypeObject, ModelDto>().ShouldNotBeNull();
+				Mapper.FindTypeMapFor<ModelSubtypeObject, ModelDto>().ShouldNotBeNull();
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 using System;
 using CodeCampServer.Core.Domain;
-using CodeCampServer.Infrastructure.AutoMap;
+//using CodeCampServer.Infrastructure.AutoMap;
 using Tarantino.Core.Commons.Model;
 
 namespace CodeCampServer.UI.Helpers.Mappers
@@ -16,7 +16,7 @@ namespace CodeCampServer.UI.Helpers.Mappers
 
 		public virtual K Map<T, K>(T model)
 		{
-			return AutoMapper.Map<T, K>(model);
+			return AutoMapper.Mapper.Map<T, K>(model);
 		}
 
 		public virtual TForm Map(TModel model)

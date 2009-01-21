@@ -29,9 +29,7 @@ namespace CodeCampServer.DependencyResolution
 			                         		x.AddRegistry<CastleValidatorRegistry>();
 			                         	});
 
-			ControllerBuilder.Current.SetControllerFactory(new ControllerFactory());
-
-			ModelBinders.DefaultBinder = new SmartBinder();
+			
 		}
 
 		public static T Resolve<T>()

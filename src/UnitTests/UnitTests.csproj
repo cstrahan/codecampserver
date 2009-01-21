@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=0.1.0.28717, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\AutoMapper\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Components.Validator, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\castle\Castle.Components.Validator.dll</HintPath>
@@ -126,17 +130,6 @@
     <Compile Include="Core\Services\Updaters\SpeakerMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\TrackMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\UserMapperTester.cs" />
-    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\AutoMapperSpecBase.cs" />
-    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\AutoMapperTester.cs" />
-    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\ConfigurationResolution.cs" />
-    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\CustomFormatters.cs" />
-    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\CustomMapping.cs" />
-    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\General.cs" />
-    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\Initialization.cs" />
-    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\MemberResolution.cs" />
-    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\Profiles.cs" />
-    <Compile Include="Infrastructure\AutoMap\AutoMapperSpecs\Testing.cs" />
-    <Compile Include="Infrastructure\AutoMap\ResolutionContextTester.cs" />
     <Compile Include="MvcMockHelpers.cs" />
     <Compile Include="SpecExtensions.cs" />
     <Compile Include="TestBase.cs" />

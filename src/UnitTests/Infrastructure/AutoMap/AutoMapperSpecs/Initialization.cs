@@ -1,4 +1,5 @@
-using CodeCampServer.Infrastructure.AutoMap;
+
+using AutoMapper;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 
@@ -10,21 +11,21 @@ namespace CodeCampServer.UnitTests.Infrastructure.AutoMap.AutoMapperSpecs
 		{
 			protected override void Establish_context()
 			{
-				AutoMapper.CreateMap<Model1, Dto1>();
+				Mapper.CreateMap<Model1, Dto1>();
 
-				AutoMapper.Initalize(x => x.CreateMap<Model2, Dto2>());
+				Mapper.Initalize(x => x.CreateMap<Model2, Dto2>());
 			}
 
 			[Test]
 			public void Should_use_the_configuration_specified_in_the_initializer()
 			{
-				AutoMapper.FindTypeMapFor<Model2, Dto2>().ShouldNotBeNull();
+				Mapper.FindTypeMapFor<Model2, Dto2>().ShouldNotBeNull();
 			}
 
 			[Test]
 			public void Should_wipe_out_any_existing_mappings()
 			{
-				AutoMapper.FindTypeMapFor<Model1, Dto1>().ShouldBeNull();
+				Mapper.FindTypeMapFor<Model1, Dto1>().ShouldBeNull();
 			}
 
 			private class Dto2

@@ -3,7 +3,8 @@ using System.Web.Mvc;
 using System.Web.Security;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
-using StructureMap;
+using CodeCampServer.DependencyResolution;
+
 using MvcContrib;
 
 namespace CodeCampServer.UI.Helpers.Filters
@@ -17,7 +18,8 @@ namespace CodeCampServer.UI.Helpers.Filters
 			_session = session;
 		}
 
-		public RequireAuthenticationFilterAttribute() : this(ObjectFactory.GetInstance<IUserSession>())
+		public RequireAuthenticationFilterAttribute()
+			: this(DependencyRegistrar.Resolve<IUserSession>())
 		{
 		}
 

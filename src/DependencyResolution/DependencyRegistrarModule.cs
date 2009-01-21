@@ -1,7 +1,5 @@
 using System;
 using System.Web;
-using CodeCampServer.UI;
-using CodeCampServer.UI.Models;
 using StructureMap;
 using Tarantino.Core.Commons.Services.Logging;
 
@@ -39,7 +37,7 @@ namespace CodeCampServer.DependencyResolution
 						registrar.RegisterDependencies();
 						_dependenciesRegistered = true;
 
-						AutoMapperConfiguration.Configure();
+						
 					}
 				}
 			}

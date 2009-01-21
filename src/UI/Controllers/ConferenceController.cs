@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
-using CodeCampServer.Core;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.AutoMap;
+
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
@@ -39,10 +38,10 @@ namespace CodeCampServer.UI.Controllers
 				return RedirectToAction<ConferenceController>(c => c.New());
 			}
 
-			object conferenceListDto = AutoMapper.Map(conferences, typeof (Conference[]), typeof (ConferenceForm[]));
+			object conferenceListDto = AutoMapper.Mapper .Map(conferences, typeof (Conference[]), typeof (ConferenceForm[]));
 			return View(conferenceListDto);
 		}
-
+		
 		[RequireAuthenticationFilter()]
 		public ActionResult Edit(Conference conference)
 		{
@@ -53,6 +52,7 @@ namespace CodeCampServer.UI.Controllers
 				TempData.Add("message", "Conference has been deleted.");
 				return RedirectToAction<ConferenceController>(c => c.List());
 			}
+			
 
 			return View(_mapper.Map(conference));
 		}

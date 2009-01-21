@@ -1,10 +1,12 @@
+using System;
 using Castle.Components.Validator;
-using CodeCampServer.Infrastructure.AutoMap;
-using CodeCampServer.UI.Helpers.ViewPage;
-using CodeCampServer.UI.Helpers.ViewPage.InputBuilders;
+using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Model;
 using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
+using StructureMap.Pipeline;
 using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
+using AutoMapper;
 
 namespace CodeCampServer.DependencyResolution
 {
@@ -21,28 +23,18 @@ namespace CodeCampServer.DependencyResolution
 			     		x.Assembly(name + ".Infrastructure");
 			     		x.Assembly(name + ".UI");
 			     		x.With<DefaultConventionScanner>();
+					
 			     	});
-
+			
+			
 			ForRequestedType<ISessionBuilder>().TheDefaultIsConcreteType<HybridSessionBuilder>();
 
-			ForRequestedType<IInputBuilderFactory>()
-				.TheDefault.Is.OfConcreteType<InputBuilderFactory>()
-				.TheArrayOf<IInputBuilder>()
-				.Contains(x =>
-				          	{
-				          		x.OfConcreteType<HiddenInputBuilder>();
-				          		x.OfConcreteType<CheckboxInputBuilder>();
-				          		x.OfConcreteType<YesNoRadioInputBuilder>();
-				          		x.OfConcreteType<RadioInputBuilder>();
-				          		x.OfConcreteType<DateInputBuilder>();
-				          		x.OfConcreteType<EnumerationInputBuilder>();
-				          		x.OfConcreteType<TextBoxInputBuilder>();
-				          		x.OfConcreteType<TrackInputBuilder>();
-								x.OfConcreteType<TimeSlotInputBuilder>();
-								x.OfConcreteType<SpeakerInputBuilder>();
-				          	});
+			
 		}
 	}
+
+
+	
 
 	public class CastleValidatorRegistry : Registry
 	{
@@ -57,7 +49,7 @@ namespace CodeCampServer.DependencyResolution
 	{
 		protected override void configure()
 		{
-			ForRequestedType<IMappingEngine>().TheDefault.Is.ConstructedBy(() => AutoMapper.Engine);
+			ForRequestedType<IMappingEngine>().TheDefault.Is.ConstructedBy(() => AutoMapper.Mapper.Engine);
 		}
 	}
 }

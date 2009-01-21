@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;wl</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=0.1.0.39936, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\AutoMapper\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Components.Validator, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\castle\Castle.Components.Validator.dll</HintPath>
@@ -41,14 +45,6 @@
     <Reference Include="MvcContrib, Version=0.0.1.168, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\mvccontrib\MvcContrib.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.4.6.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\nunit\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="StructureMap, Version=2.5.0.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\structuremap\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -72,14 +68,9 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Mobile" />
     <Reference Include="Tarantino.Core, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\tarantino\Tarantino.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Tarantino.Infrastructure, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\tarantino\Tarantino.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Tjoc.Web.Validator, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -90,8 +81,13 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AutoMapperConfiguration.cs" />
-    <Compile Include="ConferenceKeyControllerNameContraint.cs" />
+    <Compile Include="Helpers\Binders\SmartBinder.cs" />
+    <Compile Include="Helpers\Filters\AppendUrlReferrerFilterAttribute.cs" />
+    <Compile Include="Services\IUrlService.cs" />
+    <Compile Include="Services\UrlService.cs" />
+    <Compile Include="ViewNames.cs" />
+    <Compile Include="Views\AutoMapperConfiguration.cs" />
+    <Compile Include="Services\ConferenceKeyControllerNameContraint.cs" />
     <Compile Include="CodeCampServerProfile.cs" />
     <Compile Include="Controllers\AttendeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -143,7 +139,7 @@
     <Compile Include="Helpers\Mappers\TimeSlotMapper.cs" />
     <Compile Include="Helpers\Mappers\TrackMapper.cs" />
     <Compile Include="Helpers\Mappers\UserMapper.cs" />
-    <Compile Include="Helpers\ModelStateExtensions.cs" />
+    <Compile Include="Helpers\Extensions\ModelStateExtensions.cs" />
     <Compile Include="Helpers\Attributes\ShowAsRequiredAttribute.cs" />
     <Compile Include="Helpers\Attributes\UserDropDownAttribute.cs" />
     <Compile Include="Helpers\Attributes\HiddenAttribute.cs" />
@@ -157,10 +153,10 @@
     <Compile Include="Helpers\Validation\Attributes\BetterValidateEmailAttribute.cs" />
     <Compile Include="Helpers\Validation\Validators\DateNotInFutureValidator.cs" />
     <Compile Include="Helpers\Validation\Attributes\ValidateDateNotInFutureAttribute.cs" />
-    <Compile Include="Helpers\MvcHelperExtensions.cs" />
+    <Compile Include="Helpers\Extensions\MvcHelperExtensions.cs" />
     <Content Include="scripts\DetentionFacility\Detail.js" />
     <Compile Include="Helpers\SubController.cs" />
-    <Compile Include="Helpers\InputTextExtensions.cs" />
+    <Compile Include="Helpers\Extensions\InputTextExtensions.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Helpers\ViewPage\BaseInputBuilder.cs" />
     <Compile Include="Helpers\ViewPage\DisplayErrorMessages.cs" />
@@ -180,7 +176,7 @@
     </Compile>
     <Compile Include="Helpers\ViewPage\ViewBaseExtensions.cs" />
     <Compile Include="HtmlExtensions.cs" />
-    <Compile Include="IRouteConfigurator.cs" />
+    <Compile Include="Services\IRouteConfigurator.cs" />
     <Compile Include="Models\CustomResolvers\BaseFormatter.cs" />
     <Compile Include="Models\CustomResolvers\BaseResolver.cs" />
     <Compile Include="Models\CustomResolvers\FixedPointFormatter.cs" />
@@ -193,8 +189,8 @@
     <Compile Include="Models\CustomResolvers\TimeSpanFormatter.cs" />
     <Compile Include="Models\CustomResolvers\YesNoBooleanFormatter.cs" />
     <Compile Include="Models\Forms\AdminForm.cs" />
-    <Compile Include="Helpers\UrlHelperExtensions.cs" />
-    <Compile Include="Helpers\ViewDataExtensions.cs" />
+    <Compile Include="Helpers\Extensions\UrlHelperExtensions.cs" />
+    <Compile Include="Helpers\Extensions\ViewDataExtensions.cs" />
     <Compile Include="Helpers\ViewPage\BaseViewPageT.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -226,6 +222,11 @@
     <Compile Include="Models\Forms\TimeSlotForm.cs" />
     <Compile Include="Models\Forms\TrackForm.cs" />
     <Compile Include="Models\CustomResolvers\NullValueResolver.cs" />
+    <Compile Include="PartialViewGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PartialViewGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="RouteConfigurator.cs" />
     <Compile Include="Controllers\TimeSlotController.cs" />
   </ItemGroup>
@@ -250,9 +251,9 @@
       <Project>{9C81B684-40CC-472A-804D-7C0F963315F5}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
-      <Project>{FBE3CFE2-CAC1-4652-9F49-18F35B65123D}</Project>
-      <Name>Infrastructure</Name>
+    <ProjectReference Include="..\DependencyResolution\DependencyResolution.csproj">
+      <Project>{3A222037-75A5-4DFF-BA27-9487BF3A8536}</Project>
+      <Name>DependencyResolution</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +302,10 @@
     <Content Include="Views\TimeSlot\Index.aspx" />
     <Content Include="Views\Shared\AdminMenu.ascx" />
     <Content Include="Views\Shared\Modal.Master" />
+    <None Include="PartialViewGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PartialViewGenerator.cs</LastGenOutput>
+    </None>
     <None Include="xhtml1-transitional.dtd">
     </None>
     <Content Include="css\Baseline.css" />
@@ -320,11 +325,14 @@
     <Content Include="scripts\jquery.hoverIntent.minified.js" />
     <Content Include="scripts\jquery.mask.js" />
     <Content Include="scripts\jquery.templating.js" />
-    <Content Include="Views\Shared\404.ascx" />
+    <Content Include="Views\Shared\http404.ascx" />
     <Content Include="Views\Shared\Main.Master" />
     <Content Include="Views\Shared\Empty.ascx" />
     <Content Include="Views\Track\Edit.aspx" />
     <Content Include="Views\Track\Index.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\Buttons\" />

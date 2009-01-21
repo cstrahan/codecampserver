@@ -1,8 +1,7 @@
 using System.Web.Mvc;
-using System.Web.Security;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
-using StructureMap;
+using CodeCampServer.DependencyResolution;
 using MvcContrib;
 
 namespace CodeCampServer.UI.Helpers.Filters
@@ -16,19 +15,17 @@ namespace CodeCampServer.UI.Helpers.Filters
 			_session = session;
 		}
 
-		public AuthenticationFilterAttribute() : this(ObjectFactory.GetInstance<IUserSession>())
-		{
-		}
+		public AuthenticationFilterAttribute()
+			: this(DependencyRegistrar.Resolve<IUserSession>()) {}
 
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-			var controller = filterContext.Controller;
+			ControllerBase controller = filterContext.Controller;
 			User user = _session.GetCurrentUser();
 			if (user != null)
 			{
 				controller.ViewData.Add(user);
 			}
-			
 		}
 	}
 }

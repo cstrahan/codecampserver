@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using CodeCampServer.DependencyResolution;
 
 namespace CodeCampServer.UI
 {
@@ -17,6 +18,10 @@ namespace CodeCampServer.UI
 		protected void Application_Start()
 		{
 			RegisterRoutes(RouteTable.Routes);
+			AutoMapperConfiguration.Configure();
+			ControllerBuilder.Current.SetControllerFactory(new ControllerFactory());
+
+			ModelBinders.DefaultBinder = new SmartBinder();
 		}
 	}
 }

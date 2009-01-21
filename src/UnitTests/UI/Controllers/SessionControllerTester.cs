@@ -6,7 +6,6 @@ using CodeCampServer.Infrastructure.UI.Services.Impl;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
-using MvcContrib;
 using MvcContrib.TestHelper;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -18,21 +17,17 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 	public class SessionControllerTester : SaveControllerTester
 	{
 		[Test]
-		public void Index_should_put_Sessions_for_conference_in_viewdata()
+		public void Delete_should_delete_a_Session_and_render_index()
 		{
-			var conference = new Conference();
+			var conference = new Conference {Key = "foo"};
+			var Session = new Session {Conference = conference};
 			var repository = S<ISessionRepository>();
-			var sessions = new[] {new Session()};
-			repository.Stub(x => x.GetAllForConference(conference)).Return(sessions);
-			var mapper = S<ISessionMapper>();
-			var sessionForms = new []{new SessionForm()};
-			mapper.Stub(m => m.Map(sessions)).Return(sessionForms);
-			var controller = new SessionController(repository, mapper);
+			var controller = new SessionController(repository, S<ISessionMapper>());
 
-			ViewResult result = controller.List(conference);
+			RedirectToRouteResult result = controller.Delete(Session);
 
-			result.ViewData.Model.ShouldEqual(sessionForms);
-			result.ViewName.ShouldEqual(ViewNames.Default);
+			repository.AssertWasCalled(x => x.Delete(Session));
+			result.RedirectsTo<SessionController>(x => x.Index(null)).ShouldBeTrue();
 		}
 
 		[Test]
@@ -52,21 +47,30 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		}
 
 		[Test]
-		public void Should_save_the_session()
+		public void Index_should_put_Sessions_for_conference_in_viewdata()
 		{
-			var form = new SessionForm(){Conference = new Conference()};
-			var session = new Session();
-
-			var mapper = S<ISessionMapper>();
-			mapper.Stub(m => m.Map(form)).Return(session);
-
+			var conference = new Conference();
 			var repository = S<ISessionRepository>();
-
+			var sessions = new[] {new Session()};
+			repository.Stub(x => x.GetAllForConference(conference)).Return(sessions);
+			var mapper = S<ISessionMapper>();
+			var sessionForms = new[] {new SessionForm()};
+			mapper.Stub(m => m.Map(sessions)).Return(sessionForms);
 			var controller = new SessionController(repository, mapper);
-			var result = (RedirectToRouteResult) controller.Save(form);
 
-			repository.AssertWasCalled(r => r.Save(session));
-			result.AssertActionRedirect().ToAction<SessionController>(a => a.Index(null));
+			ViewResult result = controller.List(conference);
+
+			result.ViewData.Model.ShouldEqual(sessionForms);
+			result.ViewName.ShouldEqual(ViewNames.Default);
+		}
+
+		[Test]
+		public void New_should_but_a_new_Session_form_on_model_and_render_edit_view()
+		{
+			var controller = new SessionController(S<ISessionRepository>(), S<ISessionMapper>());
+			ViewResult result = controller.New();
+			result.ViewName.ShouldEqual("Edit");
+			result.ViewData.Model.ShouldEqual(new SessionForm());
 		}
 
 		[Test]
@@ -82,7 +86,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			repository.Stub(r => r.GetByKey("foo")).Return(new Session());
 
 			var controller = new SessionController(repository, mapper);
-			var result = (ViewResult) controller.Save(form);
+			var result = (ViewResult) controller.Save(form,null);
 
 			result.AssertViewRendered().ViewName.ShouldEqual("Edit");
 			controller.ModelState.Values.Count.ShouldEqual(1);
@@ -90,26 +94,21 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		}
 
 		[Test]
-		public void New_should_but_a_new_Session_form_on_model_and_render_edit_view()
+		public void Should_save_the_session()
 		{
-			var controller = new SessionController(S<ISessionRepository>(), S<ISessionMapper>());
-			ViewResult result = controller.New();
-			result.ViewName.ShouldEqual("Edit");
-			result.ViewData.Model.ShouldEqual(new SessionForm());
-		}
+			var form = new SessionForm {Conference = new Conference()};
+			var session = new Session();
 
-		[Test]
-		public void Delete_should_delete_a_Session_and_render_index()
-		{
-			var conference = new Conference {Key = "foo"};
-			var Session = new Session {Conference = conference};
+			var mapper = S<ISessionMapper>();
+			mapper.Stub(m => m.Map(form)).Return(session);
+
 			var repository = S<ISessionRepository>();
-			var controller = new SessionController(repository, S<ISessionMapper>());
 
-			RedirectToRouteResult result = controller.Delete(Session);
+			var controller = new SessionController(repository, mapper);
+			var result = (RedirectToRouteResult) controller.Save(form,null);
 
-			repository.AssertWasCalled(x => x.Delete(Session));
-			result.RedirectsTo<SessionController>(x => x.Index(null)).ShouldBeTrue();
+			repository.AssertWasCalled(r => r.Save(session));
+			result.AssertActionRedirect().ToAction<SessionController>(a => a.Index(null));
 		}
 	}
 }

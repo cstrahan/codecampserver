@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9AA9FD4D-58F4-4148-9376-EE09868E2B73}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -112,6 +112,7 @@
     </Compile>
     <Compile Include="Core\SystemTimeTester.cs" />
     <Compile Include="DatabaseConnectionTester.cs" />
+    <Compile Include="DependencyResolution\DependencyRegistrarTester.cs" />
     <Compile Include="Infrastructure\DataAccess\ConferenceRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\KeyedRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\SessionMappingsTester.cs" />

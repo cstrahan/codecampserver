@@ -1,5 +1,5 @@
+using AutoMapper;
 using CodeCampServer.Core.Common;
-using CodeCampServer.Infrastructure.AutoMap;
 
 namespace CodeCampServer.UI.Models.CustomResolvers
 {
