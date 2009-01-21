@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
@@ -40,9 +41,23 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[ValidateModel(typeof (TrackForm))]
-		public ActionResult Save([Bind(Prefix = "")] TrackForm trackForm)
+		public ActionResult Save([Bind(Prefix = "")] TrackForm trackForm,Conference conference ,string urlreferrer)
 		{
-			return ProcessSave(trackForm, () => RedirectToAction<TrackController>(x => x.Index(null)));
+			Func<ActionResult> successRedirect = GetSuccessRedirect(conference, urlreferrer);
+
+			return ProcessSave(trackForm, successRedirect);
+		}
+
+		private Func<ActionResult> GetSuccessRedirect(Conference conference, string urlreferrer)
+		{
+			Func<ActionResult> successRedirect =
+				() => RedirectToAction<TrackController>(x => x.Index(null),new{conference=conference});
+
+			if (!String.IsNullOrEmpty(urlreferrer))
+			{
+				successRedirect = () => Redirect(urlreferrer);
+			}
+			return successRedirect;
 		}
 
 		public RedirectToRouteResult Delete(Track track)

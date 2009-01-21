@@ -63,7 +63,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<ITrackRepository>();
 
 			var controller = new TrackController(repository, mapper, null);
-			var result = (RedirectToRouteResult)controller.Save(form);
+			var result = (RedirectToRouteResult)controller.Save(form,null,null);
 
 			repository.AssertWasCalled(r => r.Save(track));
 			result.AssertActionRedirect().ToAction<TrackController>(a => a.Index(null));
