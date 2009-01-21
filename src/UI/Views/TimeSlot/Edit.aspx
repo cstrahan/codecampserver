@@ -17,7 +17,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage"%>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
   <% var form = (TimeSlotForm)  ViewData.Model; %>
 
-    <form action="<%= Url.Action<TimeSlotController>(x => x.Save(null,null)) %>" method="post"  >
+    <form action="<%= Url.Action<TimeSlotController>(x => x.Save(null,null,null)) %>" method="post"  >
         <div>
 	        <h1>Edit Time Slot</h1>
             
@@ -30,7 +30,8 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage"%>
                 	    <%=InputFor<TimeSlotForm>(a => a.ConferenceId)%>          	
                 	    <%=InputFor<TimeSlotForm>(a => a.ConferenceKey)%> 
 					    <div><%=InputFor<TimeSlotForm>(a => a.StartTime)%></div><br />
-					    <div><%=InputFor<TimeSlotForm>(a => a.EndTime)%></div>					    
+					    <div><%=InputFor<TimeSlotForm>(a => a.EndTime)%></div>
+						<input type="hidden" name="urlreferrer" value="<%=ViewData["UrlReferrer"].ToString().ToXHTMLLink()%>" />
 			        </td>
 		        </tr>
 	        </table>
@@ -38,7 +39,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage"%>
 	        <br />
 	        <div class="p10 tac">
 						<%=Html.SubmitButton("save", "Save", new{@class="pr10 w100"}) %>    
-						<a href="<%=Url.Action<AdminController>(x => x.Index()).ToXHTMLLink() %>"  class="pr10 mt5" rel="cancel">Cancel</a>				
+						<a href="<%=ViewData["UrlReferrer"].ToString().ToXHTMLLink() %>"  class="pr10 mt5" rel="cancel">Cancel</a>				
 					</div>
         </div>
     </form>

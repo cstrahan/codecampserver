@@ -69,7 +69,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var controller = new TimeSlotController(repository, mapper, null);
 			var conference = new Conference();
-			var result = (RedirectToRouteResult) controller.Save(form, conference);
+			var result = (RedirectToRouteResult) controller.Save(form, conference,null);
 
 			repository.AssertWasCalled(r => r.Save(timeSlot));
 			result.AssertActionRedirect().ToAction<TimeSlotController>(a => a.Index(conference));

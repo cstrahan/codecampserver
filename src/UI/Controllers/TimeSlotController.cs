@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
@@ -46,9 +47,11 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[ValidateModel(typeof (TimeSlotForm))]
-		public ActionResult Save([Bind(Prefix = "")] TimeSlotForm form, Conference conference)
+		public ActionResult Save([Bind(Prefix = "")] TimeSlotForm form, Conference conference,string urlreferrer)
 		{
-			return ProcessSave(form, () => RedirectToAction<TimeSlotController>(c => c.Index(conference)));
+			Func<ActionResult> successRedirect = GetSuccessRedirect(conference, urlreferrer);
+
+			return ProcessSave(form, successRedirect);
 		}
 
 		public ActionResult Delete(TimeSlot timeslot)
@@ -63,6 +66,17 @@ namespace CodeCampServer.UI.Controllers
 			}
 
 			return RedirectToAction<TimeSlotController>(c => c.Index(timeslot.Conference));
+		}
+		private Func<ActionResult> GetSuccessRedirect(Conference conference, string urlreferrer)
+		{
+			Func<ActionResult> successRedirect =
+				() => RedirectToAction<TimeSlotController>(c => c.Index(null), new {conference = conference});
+
+			if (!String.IsNullOrEmpty(urlreferrer))
+			{
+				successRedirect = () => Redirect(urlreferrer);
+			}
+			return successRedirect;
 		}
 	}
 }

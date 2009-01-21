@@ -6,15 +6,14 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
-using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
-	[RequiresConferenceFilterAttribute]
+	[RequiresConferenceFilter]
 	public class SessionController : SaveController<Session, SessionForm>
 	{
-		private readonly ISessionRepository _repository;
 		private readonly ISessionMapper _mapper;
+		private readonly ISessionRepository _repository;
 
 		public SessionController(ISessionRepository repository, ISessionMapper mapper) : base(repository, mapper)
 		{
@@ -46,13 +45,18 @@ namespace CodeCampServer.UI.Controllers
 		[ValidateModel(typeof (SessionForm))]
 		public ActionResult Save([Bind(Prefix = "")] SessionForm form, string urlreferrer)
 		{
-			//string urlreferrer = formCollection["urlreferrer"];
-			Func<ActionResult> successRedirect =() => RedirectToIndex(form.Conference);
+			Func<ActionResult> successRedirect = GetSuccessRedirect(form, urlreferrer);
+			return ProcessSave(form, successRedirect);
+		}
+
+		private Func<ActionResult> GetSuccessRedirect(SessionForm form, string urlreferrer)
+		{
+			Func<ActionResult> successRedirect = () => RedirectToIndex(form.Conference);
 			if (!String.IsNullOrEmpty(urlreferrer))
 			{
 				successRedirect = () => Redirect(urlreferrer);
 			}
-			return ProcessSave(form, successRedirect);
+			return successRedirect;
 		}
 
 		protected override IDictionary<string, string[]> GetFormValidationErrors(SessionForm form)
@@ -66,7 +70,7 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		private bool KeyAlreadyExists(SessionForm message)
-		{			
+		{
 			Session session = _repository.GetByKey(message.Key);
 			return session != null && session.Id != message.Id;
 		}
