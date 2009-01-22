@@ -17,7 +17,7 @@
 		    <div>  
 						<p>Track: <%=Model.Track.Name %> Level: <%= Model.Level.DisplayName %> Room: <%=ViewData.Model.RoomNumber %></p>
 						<p>Time: <%=Model.TimeSlot.StartTime%> to <%=ViewData.Model.TimeSlot.EndTime%></p>
-						<p>Speaker: <a href="<%=Url.Action<SpeakerController>(c=>c.Index(null),new {speaker = Model.Speaker.Id})%>"><%=Model.Speaker.FirstName %> <%=ViewData.Model.Speaker.LastName %></a></p>
+						<p>Speaker: <a href="<%=Url.RouteUrl("speaker",new{speakerKey=Model.Speaker.Key}).ToXHTMLLink()%>"><%=Model.Speaker.FirstName %> <%=ViewData.Model.Speaker.LastName %></a></p>
 						<p>Session Abstract: <%=Model.Abstract %></p>
 						<p><a href="<%= Model.MaterialsUrl %>">Session Materials</a></p>
 			</div>

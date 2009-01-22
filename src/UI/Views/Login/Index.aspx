@@ -3,12 +3,12 @@
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 <asp:Content ContentPlaceHolderID="Main" runat="server">  
-  <script type="text/javascript">
-     Date.format = 'mm/dd/yyyy';
+  <script type="text/javascript">     
      $(function() {
 		$('#Username').focus();
      });
-     </script>  <form action="<%= Url.Action<LoginController>(x => x.Login(null)) %>" method="post">
+     </script>
+       <form action="<%= Url.Action<LoginController>(x => x.Login(null)) %>" method="post">
 		<div>
 	    <h1>Please Log In:</h1>
       <%=Errors.Display()%>

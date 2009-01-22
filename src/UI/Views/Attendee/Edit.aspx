@@ -18,6 +18,11 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.AttendeeEditView"%>
 
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
+  <script type="text/javascript">     
+     $(function() {
+		$('#FirstName').focus();
+     });
+     </script>
     <form action="<%= Url.Action<AttendeeController>(x => x.Save(null)) %>" method="post"  >
         <div>
 	        <h1>Register</h1>

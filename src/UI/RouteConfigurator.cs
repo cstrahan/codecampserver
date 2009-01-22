@@ -9,6 +9,8 @@ namespace CodeCampServer.UI
 		{
 			RouteCollection routes = RouteTable.Routes;
 
+			routes.MapRoute("speaker", "{conferenceKey}/speakers/{speakerKey}", new { controller = "Speaker", action = "index" });
+
 			routes.MapRoute("session", "{conferenceKey}/sessions/{sessionKey}", new { controller = "Session", action = "index" });
 
 			routes.MapRoute("conferenceDefault", "{conferenceKey}/{controller}/{action}",

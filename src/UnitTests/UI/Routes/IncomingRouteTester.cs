@@ -45,6 +45,7 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		{
 			"~/austinCodeCamp2008".Route().ShouldMapTo<ConferenceController>().WithAction<ConferenceController>(c => c.Index(null));
 		}
+		
 		[Test]
 		public void Session_index_should_use_the_session_key()
 		{
@@ -52,6 +53,14 @@ namespace CodeCampServer.UnitTests.UI.Routes
 				.ShouldMapTo<SessionController>()
 				.WithAction<SessionController>(c => c.Index(null))
 				.Values["sessionKey"].ShouldEqual("di-ioc-mvc-soc");
+		}
+		[Test]
+		public void Speakers_index_should_use_the_session_key()
+		{
+			"~/austinCodeCamp2008/speakers/fredflinstone".Route()
+				.ShouldMapTo<SpeakerController>()
+				.WithAction<SpeakerController>(c => c.Index(null))
+				.Values["speakerKey"].ShouldEqual("fredflinstone");
 		}
 	}
 }

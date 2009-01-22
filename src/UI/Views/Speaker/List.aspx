@@ -18,7 +18,7 @@
 			  
 	   {%>
 	   <div class=" w250 ">
-			<div class="fl"><a href="<%=Url.Action<SpeakerController>(t => t.Index(null), new {speaker = speaker.Id}).ToXHTMLLink()%>"><%=speaker.FirstName%> <%=speaker.LastName%></a></div>
+			<div class="fl"><a href="<%=Url.RouteUrl("speaker",new{speakerKey=speaker.Key}).ToXHTMLLink()%>"><%=speaker.FirstName%> <%=speaker.LastName%></a></div>
 			<div class="fr pr15">
 			<%Html.RenderPartial("DeleteSpeakerLink",speaker); %>			
 			</div>
