@@ -1,12 +1,14 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.LoginView"%>
-
-
 <%@ Import Namespace="CodeCampServer.UI"%>
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
-
 <asp:Content ContentPlaceHolderID="Main" runat="server">  
-  <form action="<%= Url.Action<LoginController>(x => x.Login(null)) %>" method="post">
+  <script type="text/javascript">
+     Date.format = 'mm/dd/yyyy';
+     $(function() {
+		$('#Username').focus();
+     });
+     </script>  <form action="<%= Url.Action<LoginController>(x => x.Login(null)) %>" method="post">
 		<div>
 	    <h1>Please Log In:</h1>
       <%=Errors.Display()%>

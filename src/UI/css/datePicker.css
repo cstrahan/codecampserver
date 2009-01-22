@@ -10,13 +10,13 @@ table.jCalendar
 	*/
 }
 table.jCalendar th {
-	background-image: url(../Images/Layout/disabled-day.gif);
+	background-image: url(/Images/Layout/disabled-day.gif);
 	color: #666666;
 	font-weight: bold;
 	padding: 3px 5px;
 }
 table.jCalendar td {
-	background-image: url(../Images/Layout/available-day.gif);
+	background-image: url(/Images/Layout/available-day.gif);
 	color: #000066;
 	padding: 3px 5px;
 	text-align: center;
@@ -70,7 +70,7 @@ div.dp-popup h2 {
 	text-align: center;
 	margin: 0px;
 	padding: 3px 0px;
-	background-image: url(../Images/Layout/heading-background.gif);
+	background-image: url(/Images/Layout/heading-background.gif);
 }
 a#dp-close {
 	font-size: 11px;
@@ -138,7 +138,7 @@ a.dp-choose-date {
 	display: block;
 	text-indent: -2000px;
 	overflow: hidden;
-	background: url(../Images/Icons/calendar.png) no-repeat; 
+	background: url(/Images/Icons/calendar.png) no-repeat; 
 }
 a.dp-choose-date.dp-disabled {
 	background-position: 0 -20px;

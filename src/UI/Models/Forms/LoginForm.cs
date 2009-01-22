@@ -7,7 +7,7 @@ namespace CodeCampServer.UI.Models.Forms
 		[ValidateNonEmpty]
 		public string Username { get; set; }
 
-		[ValidateNonEmpty]
+		[ValidateNonEmpty]		
 		public string Password { get; set; }
 	}
 }

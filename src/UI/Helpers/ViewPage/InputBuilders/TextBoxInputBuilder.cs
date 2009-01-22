@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc.Html;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Common;
@@ -19,6 +20,9 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 				return InputSpecification.Helper.TextArea(InputSpecification.InputName, GetValue().ToNullSafeString(),
 				                                          customAttributes);
 			}
+
+			if (InputSpecification.PropertyInfo.Name.Equals("password", StringComparison.InvariantCultureIgnoreCase))
+				return InputSpecification.Helper.Password(InputSpecification.InputName, GetValue(), customAttributes);
 
 			return InputSpecification.Helper.TextBox(InputSpecification.InputName, GetValue(), customAttributes);
 		}
