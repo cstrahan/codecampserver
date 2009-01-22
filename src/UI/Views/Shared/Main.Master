@@ -1,3 +1,5 @@
+<%@ Import Namespace="CodeCampServer.UI.Helpers.Filters"%>
+<%@ Import Namespace="System.Reflection"%>
 <%@ Import Namespace="CodeCampServer.Core"%>
 <%@ Import Namespace="MvcContrib"%>
 <%@ Import Namespace="CodeCampServer.UI"%>
@@ -62,7 +64,7 @@
 				<asp:ContentPlaceHolder id="Main" runat="server" />
 			</div>
 			<asp:ContentPlaceHolder ID="Footer" runat="server">
-			<p class="ml10"><span>Revision Number: </span><span id="revisionNumber"></span></p>
+			<p class="ml10"><span>Revision Number: </span><span id="revisionNumber"><%=ViewData[AssemblyVersionFilterAttribute.AssemblyVersion].ToString() %></span></p>
 			</asp:ContentPlaceHolder>
 		</div>
 		<div style="clear: both;">&nbsp;</div>

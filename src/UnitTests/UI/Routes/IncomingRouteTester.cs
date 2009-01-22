@@ -2,6 +2,7 @@
 using CodeCampServer.UI.Controllers;
 using MvcContrib.TestHelper;
 using NUnit.Framework;
+using NBehave.Spec.NUnit;
 
 namespace CodeCampServer.UnitTests.UI.Routes
 {
@@ -43,6 +44,14 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		public void Unknown_root_names_should_map_to_the_conference_index_and_pass_the_conference_key()
 		{
 			"~/austinCodeCamp2008".Route().ShouldMapTo<ConferenceController>().WithAction<ConferenceController>(c => c.Index(null));
+		}
+		[Test]
+		public void Session_index_should_use_the_session_key()
+		{
+			"~/austinCodeCamp2008/sessions/di-ioc-mvc-soc".Route()
+				.ShouldMapTo<SessionController>()
+				.WithAction<SessionController>(c => c.Index(null))
+				.Values["sessionKey"].ShouldEqual("di-ioc-mvc-soc");
 		}
 	}
 }

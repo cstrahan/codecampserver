@@ -265,7 +265,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 						               		Title = title,
 						               		Abstract = string.Format("Abstract for session at {0}", time),
 						               		Conference = conference,
-						               		Key = title.ToLower().Replace(" ", "-")+"-"+sessionNumber ,
+						               		Key = title.ToLower().Replace(" ", "-").Replace(":","-")+"-"+sessionNumber,
 						               		Level = level,
 						               		MaterialsUrl = "http://google.com",
 						               		RoomNumber = "24R",

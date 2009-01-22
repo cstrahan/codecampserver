@@ -95,7 +95,6 @@
     <Compile Include="DataAccess\Impl\UserRepository.cs" />
     <Compile Include="DependencyRegistry.cs" />
     <Compile Include="UI\Services\AssemblyVersion.cs" />
-    <Compile Include="UI\Services\IAssemblyVersion.cs" />
     <Compile Include="UI\Services\Impl\UploadFileNamer.cs" />
     <Compile Include="UI\Services\IUploadFileNamer.cs" />
     <Compile Include="UI\UIRegistry.cs" />

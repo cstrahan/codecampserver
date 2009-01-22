@@ -18,7 +18,7 @@
 
 	<% foreach (var session in ViewData.Model) { %>				
 		<div class="w450 cb">
-			<div class="fl"><a href="<%= Url.Action<SessionController>(t => t.Index(null), new{session = session.Id}).ToXHTMLLink() %>" title="<%= session.TimeSlot.StartTime %> <%= session.Key %>">
+			<div class="fl"><a href="<%=Url.RouteUrl("session",new{sessionKey=session.Key}).ToXHTMLLink() %>" title="<%= session.TimeSlot.StartTime %> <%= session.Key %>">
 				<%= session.Title%>
 			</a></div>
 			<div class="fr pl10"><%Html.RenderPartial(PartialViews.Shared.DeleteSessionLink,session); %></div>

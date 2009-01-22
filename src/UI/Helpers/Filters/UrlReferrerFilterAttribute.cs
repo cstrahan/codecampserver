@@ -4,13 +4,13 @@ using CodeCampServer.UI.Services;
 
 namespace CodeCampServer.UI.Helpers.Filters
 {
-	public class AppendUrlReferrerFilterAttribute : ActionFilterAttribute
+	public class UrlReferrerFilterAttribute : ActionFilterAttribute
 	{
 		public const string UrlReferrer = "UrlReferrer";
 		private IUrlService _urlService;
-		public AppendUrlReferrerFilterAttribute() : this(DependencyRegistrar.Resolve<IUrlService>()) { }
+		public UrlReferrerFilterAttribute() : this(DependencyRegistrar.Resolve<IUrlService>()) { }
 
-		public AppendUrlReferrerFilterAttribute(IUrlService urlService)
+		public UrlReferrerFilterAttribute(IUrlService urlService)
 		{
 			_urlService = urlService;
 		}

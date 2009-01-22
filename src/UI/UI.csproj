@@ -82,7 +82,9 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Helpers\Binders\SmartBinder.cs" />
-    <Compile Include="Helpers\Filters\AppendUrlReferrerFilterAttribute.cs" />
+    <Compile Include="Helpers\Filters\AssemblyVersionrFilterAttribute.cs" />
+    <Compile Include="Helpers\Filters\UrlReferrerFilterAttribute.cs" />
+    <Compile Include="Services\IAssemblyVersion.cs" />
     <Compile Include="Services\IUrlService.cs" />
     <Compile Include="Services\UrlService.cs" />
     <Compile Include="ViewNames.cs" />

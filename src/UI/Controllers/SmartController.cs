@@ -27,13 +27,14 @@ namespace CodeCampServer.UI.Controllers
 		protected override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
 			//temporarily putting it here.
-			var attribute = new AuthenticationFilterAttribute();
-			attribute.OnActionExecuting(filterContext);
+			var authentication = new AuthenticationFilterAttribute();
+			authentication.OnActionExecuting(filterContext);
 
-			var referrer = new AppendUrlReferrerFilterAttribute();
+			var referrer = new UrlReferrerFilterAttribute();
 			referrer.OnActionExecuting(filterContext);
-			//var attribute1 = new RequiresConferenceFilterAttribute();
-			//attribute1.OnActionExecuting(filterContext);
+
+			var version = new AssemblyVersionFilterAttribute();
+			version.OnActionExecuting(filterContext);
 
 		}
 
