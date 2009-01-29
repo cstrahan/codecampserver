@@ -7,7 +7,7 @@ namespace CodeCampServer.UI.Helpers.Binders
 {
 	public class EnumerationModelBinder : IModelBinder
 	{
-		public ModelBinderResult BindModel(ModelBindingContext bindingContext)
+		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			try
 			{
@@ -15,11 +15,11 @@ namespace CodeCampServer.UI.Helpers.Binders
 
 				if (enumerationValue == "")
 				{
-					return new ModelBinderResult(null);
+					return null;
 				}
 
 				Enumeration enumeration = GetEnumeration(bindingContext.ModelType, enumerationValue);
-				return new ModelBinderResult(enumeration);
+				return enumeration;
 			}
 			catch (Exception ex)
 			{
@@ -43,7 +43,7 @@ namespace CodeCampServer.UI.Helpers.Binders
 
 		private static string GetAttemptedValue(ModelBindingContext bindingContext)
 		{
-			ValueProviderResult value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+			ValueProviderResult value = bindingContext.ValueProvider[bindingContext.ModelName];
 			return value == null ? string.Empty : value.AttemptedValue;
 		}
 	}

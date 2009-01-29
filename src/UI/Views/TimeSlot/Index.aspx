@@ -24,6 +24,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.TimeSlotIndexView"%>
 			<div class="fr pr15">
 			<%Html.RenderPartial("EditTimeSlotLink",timeslot); %>			
 			</div>
+			<div class="cleaner"></div>
 		</div>
 	<% } %>	
 </p>

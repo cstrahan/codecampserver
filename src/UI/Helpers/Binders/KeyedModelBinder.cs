@@ -18,20 +18,20 @@ namespace CodeCampServer.UI.Helpers.Binders
 		{
 		}
 
-		public override ModelBinderResult BindModel(ModelBindingContext bindingContext)
+		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			try
 			{
 				ValueProviderResult value = GetRequestValue(bindingContext, bindingContext.ModelName);
 
 
-				if (value == null || string.IsNullOrEmpty(value.AttemptedValue)) return base.BindModel(bindingContext);
+				if (value == null || string.IsNullOrEmpty(value.AttemptedValue)) return base.BindModel(controllerContext,bindingContext);
 
 				TEntity match = _repository.GetByKey(value.AttemptedValue);
 				if (match != null)
-					return new ModelBinderResult(match);
+					return match;
 				else
-					return base.BindModel(bindingContext);
+					return base.BindModel(controllerContext,bindingContext);
 			}
 			catch (Exception ex)
 			{
@@ -44,10 +44,15 @@ namespace CodeCampServer.UI.Helpers.Binders
 		protected override ValueProviderResult GetRequestValue(ModelBindingContext bindingContext, string requestKey)
 		{
 			string key = requestKey;
-			ValueProviderResult value = bindingContext.ValueProvider.GetValue(key);
-			if (value == null && !key.EndsWith("key"))
+
+			ValueProviderResult value = null;
+			if (!bindingContext.ValueProvider.ContainsKey(key) && !key.EndsWith("key"))
 			{
 				value = GetRequestValue(bindingContext, requestKey + "key");
+			}
+			else
+			{
+				value = bindingContext.ValueProvider[key];
 			}
 
 			return value;

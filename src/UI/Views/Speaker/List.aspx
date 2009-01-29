@@ -23,7 +23,7 @@
 			<%Html.RenderPartial("DeleteSpeakerLink",speaker); %>			
 			</div>
 			<div class="fr"><%Html.RenderPartial("EditSpeakerLink",speaker); %></div>
-		</p>
+			<div class="cleaner"></div>
 		</div>
 		  <%counter++;}%>
 </asp:Content>

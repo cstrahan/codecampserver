@@ -41,9 +41,9 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 			ViewBaseExtensions.PartialInputFor(this, expression);
 		}
 
-		public TModel Model
-		{
-			get { return ViewData.Model; }
-		}
+		//public TModel Model
+		//{
+		//    get { return ViewData.Model; }
+		//}
 	}
 }

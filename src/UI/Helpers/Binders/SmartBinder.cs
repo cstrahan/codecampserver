@@ -11,66 +11,66 @@ namespace CodeCampServer.DependencyResolution
 {
 	public class SmartBinder : DefaultModelBinder
 	{
-		public override ModelBinderResult BindModel(ModelBindingContext bindingContext)
-		{
-			return base.BindModel(bindingContext);
-		}	
-		protected override ModelBinderResult BindModelCore(ModelBindingContext bindingContext)
+		//public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+		//{
+		//    return base.BindModel(controllerContext, bindingContext);
+		//}	
+		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			if (ShouldBuildInstanceFromContainer(bindingContext.ModelType))
 			{
-				return BindFromContainer(bindingContext);
+				return BindFromContainer(controllerContext, bindingContext);
 			}
 
 			if (ShouldBuildInstanceFromKeyedModelBinder(bindingContext.ModelType))
 			{
-				return BindUsingKeyedModelBinder(bindingContext);
+				return BindUsingKeyedModelBinder(controllerContext, bindingContext);
 			}
 
 			if (ShouldBuildInstanceFromModelBinder(bindingContext.ModelType))
 			{
-				return BindUsingModelBinder(bindingContext);
+				return BindUsingModelBinder(controllerContext, bindingContext);
 			}
 
 			if (ShouldBuildInstanceForEnumeration(bindingContext.ModelType))
 			{
-				return BindUsingEnumerationBinder(bindingContext);
+				return BindUsingEnumerationBinder(controllerContext, bindingContext);
 			}
 
-			return base.BindModelCore(bindingContext);
+			return base.BindModel(controllerContext, bindingContext);
 		}
 
-		private static ModelBinderResult BindFromContainer(ModelBindingContext bindingContext)
+		private static object BindFromContainer(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			object instance = DependencyRegistrar.Resolve(bindingContext.ModelType);
-			return new ModelBinderResult(instance);
+			return instance;
 		}
 
-		private static ModelBinderResult BindUsingEnumerationBinder(ModelBindingContext bindingContext)
+		private static object BindUsingEnumerationBinder(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			var binder = new EnumerationModelBinder();
 
-			return binder.BindModel(bindingContext);
+			return binder.BindModel(controllerContext, bindingContext);
 		}
 
-		private static ModelBinderResult BindUsingModelBinder(ModelBindingContext bindingContext)
+		private static object BindUsingModelBinder(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			Type repositoryType = typeof (IRepository<>).MakeGenericType(bindingContext.ModelType);
 			Type modelBinderType = typeof (ModelBinder<,>).MakeGenericType(bindingContext.ModelType, repositoryType);
 
 			var binder = (IModelBinder)DependencyRegistrar.Resolve(modelBinderType);
 
-			return binder.BindModel(bindingContext);
+			return binder.BindModel(controllerContext, bindingContext);
 		}
 
-		private static ModelBinderResult BindUsingKeyedModelBinder(ModelBindingContext bindingContext)
+		private static object BindUsingKeyedModelBinder(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			Type repositoryType = typeof(IKeyedRepository<>).MakeGenericType(bindingContext.ModelType);
 			Type modelBinderType = typeof (KeyedModelBinder<,>).MakeGenericType(bindingContext.ModelType, repositoryType);
 
 			var binder = (IModelBinder)DependencyRegistrar.Resolve(modelBinderType);
 
-			return binder.BindModel(bindingContext);
+			return binder.BindModel(controllerContext, bindingContext);
 		}
 
 		private static bool ShouldBuildInstanceFromKeyedModelBinder(Type modelType)

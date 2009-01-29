@@ -1,5 +1,5 @@
 using System;
-using System.Globalization;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
@@ -35,17 +35,26 @@ namespace CodeCampServer.UnitTests.UI
 			ControllerContext controllerContext1 = GetControllerContext("fooId", guid.ToString()); //capitalize
 			ControllerContext controllerContext2 = GetControllerContext("barid", guid.ToString()); //lowercase
 
-			ModelBinderResult result = binder.BindModel(new ModelBindingContext(controllerContext1,
-			                                                                    new DefaultValueProvider(controllerContext1),
-			                                                                    typeof (TEntity), "foo", null,
-			                                                                    new ModelStateDictionary(), null));
-			Assert.That(result.Value, Is.EqualTo(entity));
+			var modelBindingContext = new ModelBindingContext
+			                          	{
+			                          		ModelType = typeof (TEntity),
+			                          		ModelName = "foo",
 
-			result = binder.BindModel(new ModelBindingContext(controllerContext2,
-			                                                  new DefaultValueProvider(controllerContext2),
-			                                                  typeof (TEntity), "bar", null,
-			                                                  new ModelStateDictionary(), null));
-			Assert.That(result.Value, Is.EqualTo(entity));
+											ValueProvider = new Dictionary<string, ValueProviderResult>()
+			                          	};
+			modelBindingContext.ValueProvider.AddKeyAndValue("fooid",guid);
+			object result = binder.BindModel(controllerContext1, modelBindingContext);
+			Assert.That(result, Is.EqualTo(entity));
+
+			var modelBindingContext2 = new ModelBindingContext
+			                           	{
+			                           		ModelType = typeof (TEntity),
+			                           		ModelName = "bar",
+											ValueProvider = new Dictionary<string, ValueProviderResult>()
+			                           	};
+			modelBindingContext2.ValueProvider.AddKeyAndValue("barid",guid);
+			result = binder.BindModel(controllerContext2, modelBindingContext2);
+			Assert.That(result, Is.EqualTo(entity));
 		}
 
 		[Test]
@@ -57,15 +66,14 @@ namespace CodeCampServer.UnitTests.UI
 			repository.Stub(r => r.GetById(guid)).Return(entity);
 			var binder = new ModelBinder<TEntity, TRepository>(repository);
 			ControllerContext controllerContext = GetControllerContext("foo", guid.ToString());
-			var valueProvider = new DefaultValueProvider(controllerContext);
 
-			var context = new ModelBindingContext(controllerContext,
-			                                      valueProvider, typeof (TEntity), "foo", null,
-			                                      new ModelStateDictionary(), null);
 
-			ModelBinderResult result = binder.BindModel(context);
+			var context = new ModelBindingContext {ModelType = typeof (TEntity), ModelName = "foo",ValueProvider = new Dictionary<string, ValueProviderResult>()};
+			context.ValueProvider.AddKeyAndValue("foo",guid);
 
-			Assert.That(result.Value, Is.EqualTo(entity));
+			var result = binder.BindModel(controllerContext, context);
+
+			Assert.That(result, Is.EqualTo(entity));
 		}
 
 		[Test, ExpectedException(ExceptionType = typeof (ApplicationException),
@@ -75,14 +83,12 @@ namespace CodeCampServer.UnitTests.UI
 			const string badParameter = "Bad Value";
 
 			ControllerContext controllerContext = GetControllerContext("foo", badParameter);
-			var valueProvider = new DefaultValueProvider(controllerContext);
 
-			var context = new ModelBindingContext(controllerContext,
-			                                      valueProvider, typeof (TEntity), "foo", null,
-			                                      new ModelStateDictionary(), null);
+			var context = new ModelBindingContext {ModelType = typeof (TEntity), ModelName = "foo"};
+			                                      
 
 			var binder = new ModelBinder<TEntity, TRepository>(null);
-			binder.BindModel(context);
+			binder.BindModel(controllerContext, context);
 		}
 
 		[Test]
@@ -90,15 +96,17 @@ namespace CodeCampServer.UnitTests.UI
 		{
 			const string badParameter = "";
 			ControllerContext controllerContext = GetControllerContext("foo", badParameter);
-			var valueProvider = MockRepository.GenerateMock<IValueProvider>();
-			valueProvider.Stub(v => v.GetValue("foo")).Return(new ValueProviderResult(null, "", CultureInfo.CurrentCulture));
+			//var valueProvider = MockRepository.GenerateMock<IValueProvider>();
+			//valueProvider.Stub(v => v.GetValue("foo")).Return(new ValueProviderResult(null, "", CultureInfo.CurrentCulture));
 
-			var context = new ModelBindingContext(controllerContext, valueProvider, typeof (TEntity), "foo", null,
-			                                      new ModelStateDictionary(), null);
+			var context = new ModelBindingContext
+			              	{ModelName = "foo", ModelType = typeof (TEntity),ValueProvider = new Dictionary<string, ValueProviderResult>()};
+
+			context.ValueProvider.AddKeyAndValue("foo",null);
 
 			var binder = new ModelBinder<TEntity, TRepository>(null);
-			ModelBinderResult binderResult = binder.BindModel(context);
-			binderResult.Value.ShouldBeNull();
+			object binderResult = binder.BindModel(GetControllerContext("foo", ""), context);
+			binderResult.ShouldBeNull();
 		}
 	}
 
@@ -108,6 +116,14 @@ namespace CodeCampServer.UnitTests.UI
 		public override Type return_model_binder()
 		{
 			return typeof (ModelBinder<Track, ITrackRepository>);
+		}
+	}
+
+	public static class ValueProviderExtensions
+	{
+		public static void AddKeyAndValue(this System.Collections.Generic.IDictionary<string,ValueProviderResult> collection,string key, object value)
+		{
+			collection.Add(key, new ValueProviderResult(value, value==null? "": value.ToString(),null));
 		}
 	}
 }

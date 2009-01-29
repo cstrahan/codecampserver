@@ -13,11 +13,11 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			string controllerName = typeof (TController).GetControllerName();
 			string actionName = actionExpression.GetActionName();
 
-			if (!result.Values.ContainsKey("action") || !result.Values.ContainsKey("controller"))
+			if (!result.RouteValues.ContainsKey("action") || !result.RouteValues.ContainsKey("controller"))
 				return false;
 
-			return (((string) result.Values["action"]).Equals(actionName, StringComparison.CurrentCultureIgnoreCase) &&
-			        ((string) result.Values["controller"]).Equals(controllerName, StringComparison.CurrentCultureIgnoreCase));
+			return (((string) result.RouteValues["action"]).Equals(actionName, StringComparison.CurrentCultureIgnoreCase) &&
+			        ((string) result.RouteValues["controller"]).Equals(controllerName, StringComparison.CurrentCultureIgnoreCase));
 		}
 	}
 }

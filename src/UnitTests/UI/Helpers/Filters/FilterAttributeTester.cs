@@ -14,8 +14,8 @@ namespace CodeCampServer.UnitTests.UI.Helpers.Filters
 		{
 			ControllerContext controllerContext = GetControllerContext(controller);
 			controller.ControllerContext = controllerContext;
-			var actionExecutingContext = new ActionExecutingContext(
-				controllerContext, new Dictionary<string, object>());
+			var actionExecutingContext  = new ActionExecutingContext(GetControllerContext(controller), MockRepository.GenerateStub<ActionDescriptor>(), new Dictionary<string, object>());
+
 			return actionExecutingContext;
 		}
 
@@ -39,7 +39,7 @@ namespace CodeCampServer.UnitTests.UI.Helpers.Filters
 		{
 			ControllerContext controllerContext = GetControllerContext(controller);
 			controller.ControllerContext = controllerContext;
-			var actionExecutedContext = new ActionExecutedContext(controllerContext, false, null);
+			var actionExecutedContext = new ActionExecutedContext(GetControllerContext(controller), MockRepository.GenerateStub<ActionDescriptor>(), false,null);
 			return actionExecutedContext;
 		}
 	}

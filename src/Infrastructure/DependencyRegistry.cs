@@ -10,18 +10,18 @@ namespace CodeCampServer.Infrastructure
 	{
 		protected override void configure()
 		{
-			LoopThroughAllTypesAndRegisterForTypeOf(typeof (IKeyedRepository<>));
-			LoopThroughAllTypesAndRegisterForTypeOf(typeof (IRepository<>));
+			LoopThroughAllTypesAndRegisterForOpenGenericsOfType(typeof (IKeyedRepository<>));
+			LoopThroughAllTypesAndRegisterForOpenGenericsOfType(typeof (IRepository<>));
 		}
 
-		public void LoopThroughAllTypesAndRegisterForTypeOf(Type interfaceType)
+		public void LoopThroughAllTypesAndRegisterForOpenGenericsOfType(Type openGenericInterface)
 		{
 			foreach (Type type in GetType().Assembly.GetTypes())
 			{
-				Type specificInterfaceType = ReflectionHelper.IsConcreteAssignableFromGeneric(type, interfaceType);
+				Type closedGenericInterface = ReflectionHelper.IsConcreteAssignableFromGeneric(type, openGenericInterface);
 
-				if (specificInterfaceType != null)
-					ForRequestedType(specificInterfaceType).AddInstance(new ConfiguredInstance(type));
+				if (closedGenericInterface != null)
+					ForRequestedType(closedGenericInterface).AddInstance(new ConfiguredInstance(type));
 			}
 		}
 
@@ -30,24 +30,24 @@ namespace CodeCampServer.Infrastructure
 
 	public static class ReflectionHelper
 	{
-		public static Type IsConcreteAssignableFromGeneric(Type concreteType, Type genericInterfaceType)
+		public static Type IsConcreteAssignableFromGeneric(Type concreteType, Type openGenericInterfaceType)
 		{
-			Type typeGenericInterface = concreteType.GetInterfaces().Where(i =>
+			Type closedGenericInterfaceWithoutParamerters = concreteType.GetInterfaces().Where(interfaceToTest =>
 			{
-				if (i.IsGenericType)
+				if (interfaceToTest.IsGenericType)
 					return
-						genericInterfaceType.MakeGenericType(
-							i.GetGenericArguments()).IsAssignableFrom(i);
+						openGenericInterfaceType.MakeGenericType(
+							interfaceToTest.GetGenericArguments()).IsAssignableFrom(interfaceToTest);
 				return false;
 			}
 				).FirstOrDefault();
 
-			if (typeGenericInterface != null)
+			if (closedGenericInterfaceWithoutParamerters != null)
 			{
-				Type it = genericInterfaceType.MakeGenericType(typeGenericInterface.GetGenericArguments());
-				if (it.IsAssignableFrom(concreteType))
+				Type closedGenericInterfaceWithParameters = openGenericInterfaceType.MakeGenericType(closedGenericInterfaceWithoutParamerters.GetGenericArguments());
+				if (closedGenericInterfaceWithParameters.IsAssignableFrom(concreteType))
 				{
-					return it;
+					return closedGenericInterfaceWithParameters;
 				}
 			}
 			return null;

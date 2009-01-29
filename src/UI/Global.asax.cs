@@ -21,7 +21,7 @@ namespace CodeCampServer.UI
 			AutoMapperConfiguration.Configure();
 			ControllerBuilder.Current.SetControllerFactory(new ControllerFactory());
 
-			ModelBinders.DefaultBinder = new SmartBinder();
+			ModelBinders.Binders.DefaultBinder = new SmartBinder();
 		}
 	}
 }

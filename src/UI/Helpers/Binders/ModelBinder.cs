@@ -16,19 +16,19 @@ namespace CodeCampServer.UI.Helpers.Binders
 			_repository = repository;
 		}
 
-		public override ModelBinderResult BindModel(ModelBindingContext bindingContext)
+		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			try
 			{
 				ValueProviderResult value = GetRequestValue(bindingContext, bindingContext.ModelName);
-				if (value == null) return new ModelBinderResult(default(TEntity));
+				if (value == null) return default(TEntity);
 
 				string attemptedValue = value.AttemptedValue;
-				if (attemptedValue == "") return new ModelBinderResult(default(TEntity));
+				if (attemptedValue == "") return default(TEntity);
 				
 				var matchId = new Guid(attemptedValue);
 				TEntity match = _repository.GetById(matchId);
-				return new ModelBinderResult(match);
+				return match;
 			}
 			catch (Exception ex)
 			{
@@ -41,11 +41,15 @@ namespace CodeCampServer.UI.Helpers.Binders
 		protected virtual ValueProviderResult GetRequestValue(ModelBindingContext bindingContext, string requestKey)
 		{
 			string key = requestKey;
-			ValueProviderResult value = bindingContext.ValueProvider.GetValue(key);
-			if (value == null && !key.EndsWith("id"))
+			ValueProviderResult value = null;
+			if (!bindingContext.ValueProvider.ContainsKey(key) && !key.EndsWith("id"))
 			{
 				//try appending "id" on the key
 				value = GetRequestValue(bindingContext, requestKey + "id");
+			}
+			else
+			{
+				value = bindingContext.ValueProvider[key];
 			}
 
 			return value;

@@ -1,5 +1,6 @@
 ﻿using CodeCampServer.UI;
 using CodeCampServer.UI.Controllers;
+using CodeCampServer.UI.Models.Forms;
 using MvcContrib.TestHelper;
 using NUnit.Framework;
 using NBehave.Spec.NUnit;
@@ -18,7 +19,7 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		[Test]
 		public void Speaker_actions_should_map_to_the_controller_action_without_the_conferenceKey()
 		{
-			"~/asdfd/speaker".Route().ShouldMapTo<SpeakerController>().WithAction<SpeakerController>(c => c.Index(null));
+			"~/asdfd/speaker".Route().ShouldMapTo<SpeakerController>(c=>c.Index(null) );
 		}
 
 		[Test]
@@ -37,29 +38,27 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		public void Login_controller_routes_should_map_correctly()
 		{
 			"~/login".ShouldMapTo<LoginController>(c => c.Index());
-			"~/login/login".Route().ShouldMapTo<LoginController>().WithAction<LoginController>(c => c.Login(null));
+			"~/login/login".Route().ShouldMapTo<LoginController>(c => c.Login(null));
 		}
 
 		[Test]
 		public void Unknown_root_names_should_map_to_the_conference_index_and_pass_the_conference_key()
 		{
-			"~/austinCodeCamp2008".Route().ShouldMapTo<ConferenceController>().WithAction<ConferenceController>(c => c.Index(null));
+			"~/austinCodeCamp2008".Route().ShouldMapTo<ConferenceController>(c => c.Index(null));
 		}
 		
 		[Test]
 		public void Session_index_should_use_the_session_key()
 		{
 			"~/austinCodeCamp2008/sessions/di-ioc-mvc-soc".Route()
-				.ShouldMapTo<SessionController>()
-				.WithAction<SessionController>(c => c.Index(null))
+				.ShouldMapTo<SessionController>(c => c.Index(null))
 				.Values["sessionKey"].ShouldEqual("di-ioc-mvc-soc");
 		}
 		[Test]
 		public void Speakers_index_should_use_the_session_key()
 		{
 			"~/austinCodeCamp2008/speakers/fredflinstone".Route()
-				.ShouldMapTo<SpeakerController>()
-				.WithAction<SpeakerController>(c => c.Index(null))
+				.ShouldMapTo<SpeakerController>(c => c.Index(null))
 				.Values["speakerKey"].ShouldEqual("fredflinstone");
 		}
 	}

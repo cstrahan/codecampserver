@@ -23,6 +23,7 @@
 			</a></div>
 			<div class="fr pl10"><%Html.RenderPartial(PartialViews.Shared.DeleteSessionLink,session); %></div>
 			<div class="fr"><%Html.RenderPartial(PartialViews.Shared.EditSessionLink,session); %></div>
+			<div class="cleaner"></div>
 		</div>
 	<% } %>
 </asp:Content>

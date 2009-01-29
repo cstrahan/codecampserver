@@ -1,12 +1,8 @@
-using System;
+using AutoMapper;
 using Castle.Components.Validator;
-using CodeCampServer.Core.Domain;
-using CodeCampServer.Core.Domain.Model;
 using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
-using StructureMap.Pipeline;
 using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
-using AutoMapper;
 
 namespace CodeCampServer.DependencyResolution
 {
@@ -14,27 +10,28 @@ namespace CodeCampServer.DependencyResolution
 	{
 		protected override void configure()
 		{
-			string name = GetType().Assembly.GetName().Name;
-			name = name.Substring(0, name.LastIndexOf("."));
+			string assemblyPrefix = GetThisAssembliesPrefix();
 
 			Scan(x =>
 			     	{
-			     		x.Assembly(name + ".Core");
-			     		x.Assembly(name + ".Infrastructure");
-			     		x.Assembly(name + ".UI");
+			     		x.Assembly(assemblyPrefix + ".Core");
+			     		x.Assembly(assemblyPrefix + ".Infrastructure");
+			     		x.Assembly(assemblyPrefix + ".UI");
 			     		x.With<DefaultConventionScanner>();
-					
 			     	});
-			
-			
-			ForRequestedType<ISessionBuilder>().TheDefaultIsConcreteType<HybridSessionBuilder>();
 
-			
+
+			ForRequestedType<ISessionBuilder>().TheDefaultIsConcreteType<HybridSessionBuilder>();
+		}
+
+		private string GetThisAssembliesPrefix()
+		{
+			string name = GetType().Assembly.GetName().Name;
+			name = name.Substring(0, name.LastIndexOf("."));
+			return name;
 		}
 	}
 
-
-	
 
 	public class CastleValidatorRegistry : Registry
 	{
@@ -49,7 +46,7 @@ namespace CodeCampServer.DependencyResolution
 	{
 		protected override void configure()
 		{
-			ForRequestedType<IMappingEngine>().TheDefault.Is.ConstructedBy(() => AutoMapper.Mapper.Engine);
+			ForRequestedType<IMappingEngine>().TheDefault.Is.ConstructedBy(() => Mapper.Engine);
 		}
 	}
 }

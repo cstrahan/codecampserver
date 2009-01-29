@@ -36,7 +36,7 @@ namespace CodeCampServer.UI
 		{
 			SelectList selectList = GetSelectListForDropDown<T>(Enumeration.GetAll<T>(), includeBlankOption, selectedValue, null);
 
-			string html = helper.DropDownList("", listName, selectList);
+			string html = helper.DropDownList(listName, selectList);
 			return html;
 		}
 
@@ -47,7 +47,7 @@ namespace CodeCampServer.UI
 			SelectList selectList = GetSelectListForDropDown<T>(Enumeration.GetAll<T>(), includeBlankOption, selectedValue,
 			                                                    displayValueToExclude);
 
-			string html = helper.DropDownList("", listName, selectList);
+			string html = helper.DropDownList( listName, selectList);
 			return html;
 		}
 
