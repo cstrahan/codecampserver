@@ -12,12 +12,12 @@
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 	 <div>
-		    <h1><%=ViewData.Model.Title%> <%Html.RenderPartial("EditSessionLink", ViewData.Model); %></h1>
+		    <h1><%=ViewData.Model.Title%> <%Html.RenderPartial("EditSessionLink", Model); %></h1>
 		    
 		    <div>  
 						<p>Track: <%=Model.Track.Name %> Level: <%= Model.Level.DisplayName %> Room: <%=ViewData.Model.RoomNumber %></p>
 						<p>Time: <%=Model.TimeSlot.StartTime%> to <%=ViewData.Model.TimeSlot.EndTime%></p>
-						<p>Speaker: <a href="<%=Url.RouteUrl("speaker",new{speakerKey=Model.Speaker.Key}).ToXHTMLLink()%>"><%=Model.Speaker.FirstName %> <%=ViewData.Model.Speaker.LastName %></a></p>
+						<p>Speaker: <a href="/<%=(Model.Conference.Key+"/speakers/"+Model.Speaker.Key).ToXHTMLLink()%>"><%=Model.Speaker.FirstName %> <%=ViewData.Model.Speaker.LastName %></a></p>
 						<p>Session Abstract: <%=Model.Abstract %></p>
 						<p><a href="<%= Model.MaterialsUrl %>">Session Materials</a></p>
 			</div>

@@ -2,7 +2,7 @@ http://codecampserver.org
 Apache License 2.0
 
 To build and run this project, execute "click to build.bat". 
- You must have the .Net Framework 3.5, .Net 2.0 SDK, and SQL Express (TcpIp,MixedMode enabled) installed.
+ You must have the .Net Framework 3.5 and SQL Express (TcpIp,MixedMode enabled) installed.
 
 The solution works in Visual Studio 2008.
 

@@ -156,6 +156,7 @@
     <Compile Include="UI\Routes\ConferenceKeyControllerNameConstraintTester.cs" />
     <Compile Include="UI\Routes\IncomingRouteTester.cs" />
     <Compile Include="UI\Routes\RouteConstraintTestingExtension.cs" />
+    <Compile Include="UI\Routes\UrlGenerationTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

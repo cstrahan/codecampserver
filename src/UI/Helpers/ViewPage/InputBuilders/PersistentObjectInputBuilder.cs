@@ -9,12 +9,12 @@ using Tarantino.Core.Commons.Model;
 
 namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {
-	public abstract class PersistentObjectInputBuilder<T> : BaseInputBuilder where T : PersistentObject, new()
+	public abstract class PersistentObjectInputBuilder<TEntity> : BaseInputBuilder where TEntity : PersistentObject, new()
 	{
 
 		public override bool IsSatisfiedBy(IInputSpecification specification)
 		{
-			return (typeof (T)).IsAssignableFrom(specification.PropertyInfo.PropertyType);
+			return (typeof (TEntity)).IsAssignableFrom(specification.PropertyInfo.PropertyType);
 		}
 
 		protected override string CreateInputElementBase()
@@ -26,7 +26,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 
 		private SelectList GetSelectList()
 		{
-			T[] list = GetList();
+			TEntity[] list = GetList();
 
 			SelectList selectList =
 				GetSelectListForDropDown(list,
@@ -34,9 +34,9 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 			return selectList;
 		}
 
-		protected abstract Expression<Func<T, string>> GetDisplayPropertyExpression();
+		protected abstract Expression<Func<TEntity, string>> GetDisplayPropertyExpression();
 
-		protected abstract T[] GetList();
+		protected abstract TEntity[] GetList();
 
 		public static SelectList GetSelectListForDropDown<T>(IEnumerable list, bool includeBlankOption, Guid? selectedValue,
 		                                                     string displayValueToExclude,
@@ -75,7 +75,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 
 		private Guid? GetSelectedValue()
 		{
-			var value = (T) GetValue();
+			var value = (TEntity) GetValue();
 
 			if (value != null) return value.Id;
 			return null;

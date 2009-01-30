@@ -1,0 +1,139 @@
+<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension="aspx" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Reflection" #>
+<#
+MvcTextTemplateHost mvcHost = (MvcTextTemplateHost)(Host);
+string mvcViewDataTypeGenericString = mvcHost.ViewDataTypeGenericString;
+int CPHCounter = 1;
+#>
+<#
+// The following chained if-statement outputs the user-control needed for a partial view, or opens the asp:Content tag or html tags used in the case of a master page or regular view page
+if(mvcHost.IsViewUserControl) {
+#>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<#= mvcViewDataTypeGenericString #>" %>
+
+<#
+} else if(mvcHost.IsViewContentPage) {
+#>
+<%@ Page Title="" Language="C#" MasterPageFile="<#= mvcHost.MasterPage #>" Inherits="System.Web.Mvc.ViewPage<#= mvcViewDataTypeGenericString #>" %>
+
+<#
+	foreach(string cphid in mvcHost.ContentPlaceHolders) {
+		if(cphid.ToLower().Equals("head")) {
+#>
+<asp:Content ID="Content<#= CPHCounter #>" ContentPlaceHolderID="<#= cphid #>" runat="server">
+	<title><#= mvcHost.ItemName #></title>
+</asp:Content>
+
+<#
+			CPHCounter++;
+		}
+	}
+#>
+<asp:Content ID="Content<#= CPHCounter #>" ContentPlaceHolderID="<#= mvcHost.ContentPlaceholder #>" runat="server">
+
+    <h2><#= mvcHost.ItemName #></h2>
+
+<#
+} else if(mvcHost.IsViewPage) {
+#>
+<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<#= mvcViewDataTypeGenericString #>" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title></title>
+</head>
+<body>
+<#
+}
+#>
+<#
+if(!String.IsNullOrEmpty(mvcHost.ViewDataTypeGenericString)) {
+	List<string> properties = new List<string>();
+	FilterProperties(mvcHost.ViewDataType, properties);
+#>
+    <fieldset>
+        <legend>Fields</legend>
+<#
+	foreach(string propertyName in properties) {
+#>
+        <p>
+            <#= propertyName #>: 
+            <%= Html.Encode(Model.<#= propertyName #>) %>
+        </p>
+<#
+	}
+#>
+    </fieldset>
+    <p>
+        <%=Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) %> |
+        <%=Html.ActionLink("Back to List", "Index") %>
+    </p>
+
+<#
+}
+#>
+<#
+// The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page
+#>
+<#
+if(mvcHost.IsViewContentPage) {
+#>
+</asp:Content>
+<#
+	foreach(string cphid in mvcHost.ContentPlaceHolders) {
+		if(!cphid.ToLower().Equals("head") && !cphid.Equals(mvcHost.ContentPlaceholder)) {
+			CPHCounter++;
+#>
+
+<asp:Content ID="Content<#= CPHCounter #>" ContentPlaceHolderID="<#= cphid #>" runat="server">
+</asp:Content>
+<#
+		}
+	}
+#>
+<#
+} else if(mvcHost.IsViewPage) {
+#>
+</body>
+</html>
+<#
+}
+#>
+
+<#+
+public void FilterProperties(Type type, List<string> properties) {
+	if(type != null) {
+		PropertyInfo[] publicProperties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+
+		foreach (PropertyInfo pi in publicProperties)
+		{
+			if (IsBindableType(pi.PropertyType) && pi.CanRead)
+			{
+				properties.Add(pi.Name);
+			}
+		}
+	}
+}
+
+public bool IsBindableType(Type type)
+{
+	bool isBindable = false;
+
+	Type underlyingType = System.Nullable.GetUnderlyingType(type);
+	
+	if(underlyingType != null) {
+		type = underlyingType;
+	}
+
+	if (type.IsPrimitive || type.Equals(typeof(string)) || type.Equals(typeof(DateTime)) || type.Equals(typeof(decimal)) || type.Equals(typeof(Guid)) || type.Equals(typeof(DateTimeOffset)) || type.Equals(typeof(TimeSpan)))
+	{
+		isBindable = true;
+	}
+
+	return isBindable;
+}
+#>

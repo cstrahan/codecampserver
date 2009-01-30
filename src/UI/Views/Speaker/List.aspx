@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage"%>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<SpeakerForm[]>"%>
+<%@ Import Namespace="CodeCampServer.Core.Domain.Model"%>
 
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
@@ -18,7 +19,7 @@
 			  
 	   {%>
 	   <div class=" w250 ">
-			<div class="fl"><a href="<%=Url.RouteUrl("speaker",new{speakerKey=speaker.Key}).ToXHTMLLink()%>"><%=speaker.FirstName%> <%=speaker.LastName%></a></div>
+			<div class="fl"><a href="/<%=(ViewData.Get<Conference>().Key+"/speakers/"+speaker.Key).ToXHTMLLink()%>"><%=speaker.FirstName%> <%=speaker.LastName%></a></div>
 			<div class="fr pr15">
 			<%Html.RenderPartial("DeleteSpeakerLink",speaker); %>			
 			</div>

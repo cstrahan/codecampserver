@@ -5,6 +5,7 @@
 	<!-- ************** -->
 	<!-- Initialization -->
 	<!-- ************** -->
+
 	<include buildfile="common.build"/>
 	<loadtasks assembly="lib/nantcontrib-0.85/bin/NAnt.Contrib.Tasks.dll" />
   <loadtasks assembly="lib\ncover\Build Task Plugins\NCoverExplorer.NAntTasks.dll" />
