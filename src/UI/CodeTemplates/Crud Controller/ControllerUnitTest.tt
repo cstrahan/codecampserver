@@ -1,0 +1,44 @@
+﻿<#@ template language="C#" HostSpecific="True" debug="true" #>
+<#@ output extension="cs" #>
+<#
+	
+	string entityName = model.Name.Replace("Form","");
+	string controllerClassName = entityName + "Controller";
+	string unitTestClassName = controllerClassName + "Tester";
+	string solutionNamespace = projectDefaultNamespace.Replace(".UI","");
+	string unitTestNamespace = projectDefaultNamespace.Replace(".UI","") + ".UnitTests.UI.Controllers";
+	OutputFilePath = String.Format(@"..\..\..\UnitTests\UI\Controllers\{0}.temp.cs",unitTestClassName);
+#>
+using System;
+using System.Web.Mvc;
+using <#=solutionNamespace#>.Core.Domain;
+using <#=solutionNamespace#>.Core.Domain.Model;
+using <#=solutionNamespace#>.Infrastructure.UI.Services.Impl;
+using <#=solutionNamespace#>.UI.Controllers;
+using <#=solutionNamespace#>.UI.Helpers.Mappers;
+using <#=solutionNamespace#>.UI.Models.Forms;
+using MvcContrib.TestHelper;
+using NBehave.Spec.NUnit;
+using NUnit.Framework;
+using Rhino.Mocks;
+namespace <#=unitTestNamespace#>
+{
+	public class <#= unitTestClassName #> : SaveControllerTester
+	{
+		[Test]
+		public void Delete_should_delete_an_entity_and_render_index()
+		{
+			var entity = new <#= entityName #> {};
+			var repository = S<I<#= entityName #>Repository>();
+			var mapper = S<I<#= entityName #>Mapper>();
+			var controller = new <#= entityName #>(repository,mapper);
+
+			ActionResult result = controller.Delete(entity);
+
+			repository.AssertWasCalled(x => x.Delete(entity));
+			result
+				.AssertActionRedirect()
+				.ToAction<<#= controllerClassName #>>(x => x.Index(null));
+		}
+	}
+}

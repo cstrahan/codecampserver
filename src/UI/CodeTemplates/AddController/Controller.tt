@@ -1,7 +1,20 @@
-<#@ template language="C#" HostSpecific="True" #>
+<#@ template language="C#" HostSpecific="True" debug="true" #>
 <#@ output extension="cs" #>
+<#@ assembly name="System.Windows.Forms" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="System.IO" #>
+
 <#
 MvcTextTemplateHost mvcHost = (MvcTextTemplateHost)(Host);
+Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost host = (Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost)(Host);
+string templateDirectory = Path.GetDirectoryName(host.TemplateFile);
+#>
+<#
+WriteUnitTest(mvcHost);
+string fileName = String.Format(@"..\..\..\UnitTests\UI\Controllers\{0}Tester.cs", mvcHost.ItemName);
+string filePath = Path.Combine(templateDirectory ,fileName);
+File.WriteAllText(filePath , this.GenerationEnvironment.ToString());
+this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
 #>
 using System;
 using System.Collections.Generic;
@@ -89,3 +102,42 @@ if(mvcHost.ExtraActionMethods) {
 #>
     }
 }
+
+<#+ public void WriteUnitTest(MvcTextTemplateHost mvcHost)
+{ 
+#>
+using System;
+using System.Web.Mvc;
+using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Infrastructure.UI.Services.Impl;
+using CodeCampServer.UI.Controllers;
+using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Models.Forms;
+using MvcContrib.TestHelper;
+using NBehave.Spec.NUnit;
+using NUnit.Framework;
+using Rhino.Mocks;
+
+namespace CodeCampServer.UnitTests.UI.Controllers
+{
+	public class <#= mvcHost.ItemName #>Tester : SaveControllerTester
+	{
+		[Test]
+		public void Delete_should_delete_a_entity_and_render_index()
+		{
+			var entity = new <#= mvcHost.ControllerRootName #> {};
+			var repository = S<I<#= mvcHost.ControllerRootName #>Repository>();
+			var mapper = S<I<#= mvcHost.ControllerRootName #>Mapper>();
+			var controller = new <#= mvcHost.ControllerRootName #>(repository,mapper);
+
+			ActionResult result = controller.Delete(entity);
+
+			repository.AssertWasCalled(x => x.Delete(entity));
+			result
+				.AssertActionRedirect()
+				.ToAction<<#= mvcHost.ItemName #>>(x => x.Index(null));
+		}
+	}
+}
+<#+ } #>

@@ -1,0 +1,79 @@
+<#@ template language="C#" HostSpecific="True" debug="true" #>
+<#@ output extension="cs" #>
+<#
+	string solutionNamespace = projectDefaultNamespace.Replace(".UI",""); 
+	string controllerNamespace = projectDefaultNamespace + ".Controllers";
+
+	string entityName = model.Name.Replace("Form","");
+	string controllerClassName = entityName + "Controller";
+	string unitTestClassName = controllerClassName + "Tester";
+	
+	OutputFilePath = String.Format(@"..\..\Controllers\{0}.temp.cs",controllerClassName);
+#>
+using System.Collections.Generic;
+using System.Web.Mvc;
+using <#=solutionNamespace#>.Core.Domain;
+using <#=solutionNamespace#>.Core.Domain.Model;
+using <#=solutionNamespace#>.UI.Helpers.Filters;
+using <#=solutionNamespace#>.UI.Helpers.Mappers;
+using <#=solutionNamespace#>.UI.Models.Forms;
+
+
+namespace <#= controllerNamespace #>
+{
+    public class <#= controllerClassName #> : Controller
+    {
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+
+        public ActionResult Create()
+        {
+            return View();
+        } 
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Create(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+ 
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+ 
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+    }
+}
+
+
