@@ -7,7 +7,7 @@
 	string unitTestClassName = controllerClassName + "Tester";
 	string solutionNamespace = projectDefaultNamespace.Replace(".UI","");
 	string unitTestNamespace = projectDefaultNamespace.Replace(".UI","") + ".UnitTests.UI.Controllers";
-	OutputFilePath = String.Format(@"..\..\..\UnitTests\UI\Controllers\{0}.temp.cs",unitTestClassName);
+	OutputFilePath = String.Format(@"{1}..\UnitTests\UI\Controllers\{0}.temp.cs",unitTestClassName,projectDirectory);
 #>
 using System;
 using System.Web.Mvc;

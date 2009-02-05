@@ -8,7 +8,7 @@
 	string controllerClassName = entityName + "Controller";
 	string unitTestClassName = controllerClassName + "Tester";
 	
-	OutputFilePath = String.Format(@"..\..\Controllers\{0}.temp.cs",controllerClassName);
+	OutputFilePath = String.Format(@"{1}Controllers\{0}.temp.cs",controllerClassName,projectDirectory);
 #>
 using System.Collections.Generic;
 using System.Web.Mvc;
