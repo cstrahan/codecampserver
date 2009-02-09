@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--EXTERNAL_PROPERTIES: driver.class;connection.string;website.target.dir;dialect;local.connection.string;-->
-<project name="_TODO_" default="deploy" xmlns="http://nant.sf.net/release/0.85-rc4/nant.xsd">
+<project name="CodeCampServer" default="deploy" xmlns="http://nant.sf.net/release/0.85-rc4/nant.xsd">
 
   <property name="nant.settings.currentframework" value="net-3.5" />
 
@@ -35,12 +35,6 @@
       </namespaces>
     </xmlpoke>
 
-		<!-- Poke data import config -->
-		<xmlpoke file="database/import.hibernate.cfg.xml"	xpath="${connection.string.path}"	value="server=.\SQLExpress;database=${project::get-name()};Integrated Security=true;">
-			<namespaces>
-				<namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
-			</namespaces>
-		</xmlpoke>
     
 		<!-- Poke database and test config -->
     <xmlpoke file="database/hibernate.cfg.xml" xpath="${driver.class.path}"	value="${driver.class}">
@@ -61,28 +55,10 @@
       </namespaces>
     </xmlpoke>
 
-		<echo message="STEP 2 - Populating Import Database..." />
-
-		<manageSqlDatabase
-			action="Drop"
-			server=".\SQLExpress"
-			integratedAuthentication="true"
-			database="${project::get-name()}"
-			username=""
-			password="" />
-
-		<manageSqlDatabase
-			scriptDirectory="importDatabase"
-			action="Create"
-			server=".\SQLExpress"
-			integratedAuthentication="true"
-			database="${project::get-name()}"
-			username=""
-			password="" />
 
 		<echo message="STEP 3 - Rebuilding Transactional Database..." />
 
-		<nunit2 failonerror="true" verbose="true">
+	<nunit2 failonerror="true" verbose="true">
       <formatter type="Plain" />
       <test assemblyname="database/${project::get-name()}.IntegrationTests.dll">
         <categories>
