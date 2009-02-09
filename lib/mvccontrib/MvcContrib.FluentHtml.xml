@@ -379,6 +379,12 @@
             </summary>
             <param name="value">A dictionary used to generate the options.</param>
         </member>
+        <member name="M:MvcContrib.FluentHtml.Elements.SelectBase`1.Options(System.Collections.Generic.IEnumerable{System.Web.Mvc.SelectListItem})">
+            <summary>
+            Set the options for the element.
+            </summary>
+            <param name="value">Enumerable of select list items used to generate the options.</param>
+        </member>
         <member name="M:MvcContrib.FluentHtml.Elements.SelectBase`1.Options(System.Collections.IEnumerable,System.String,System.String)">
             <summary>
             Set the options for the element.

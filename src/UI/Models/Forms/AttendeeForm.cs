@@ -14,7 +14,7 @@ namespace CodeCampServer.UI.Models.Forms
 		[BetterValidateNonEmpty("First Name")]
 		public virtual string FirstName { get; set; }
 		
-		[BetterValidateNonEmpty("First Name")]
+		[BetterValidateNonEmpty("Last Name")]
 		public virtual string LastName { get; set; }
 		
 		[BetterValidateNonEmpty("Email")]

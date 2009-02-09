@@ -1,7 +1,6 @@
 ﻿<#@ template language="C#" HostSpecific="True" debug="true" #>
 <#@ output extension="cs" #>
 <#
-	
 	string entityName = model.Name.Replace("Form","");
 	string controllerClassName = entityName + "Controller";
 	string unitTestClassName = controllerClassName + "Tester";
@@ -26,19 +25,77 @@ namespace <#=unitTestNamespace#>
 	public class <#= unitTestClassName #> : SaveControllerTester
 	{
 		[Test]
-		public void Delete_should_delete_an_entity_and_render_index()
-		{
-			var entity = new <#= entityName #> {};
+		public void Delete_should_delete_a_<#= entityName #>_and_render_index()
+		{			
+			var entity = new <#= entityName #> { };
 			var repository = S<I<#= entityName #>Repository>();
-			var mapper = S<I<#= entityName #>Mapper>();
-			var controller = new <#= entityName #>(repository,mapper);
+			var controller = new <#= controllerClassName #>(repository, S<I<#= entityName #>Mapper>());
 
-			ActionResult result = controller.Delete(entity);
+			RedirectToRouteResult result = controller.Delete(entity);
 
 			repository.AssertWasCalled(x => x.Delete(entity));
-			result
-				.AssertActionRedirect()
-				.ToAction<<#= controllerClassName #>>(x => x.Index(null));
+			result.RedirectsTo<<#= controllerClassName #>>(x => x.Index()).ShouldBeTrue();
+		}
+
+		[Test]
+		public void Edit_should_but_<#= entityName #>_in_viewdata()
+		{
+			var entity = new <#= entityName #>();
+			var form = new <#= model.Name #>();
+
+			var mapper = S<I<#= entityName #>Mapper>();
+			mapper.Stub(m => m.Map(<#= entityName #>)).Return(form);
+			var controller = new <#= controllerClassName #>(S<I<#= entityName #>Repository>(), mapper);
+
+			ViewResult edit = controller.Edit(entity);
+
+			edit.ViewData.Model.ShouldEqual(form);
+			edit.ViewName.ShouldEqual(ViewNames.Default);
+		}
+
+		[Test]
+		public void Index_should_put_<#= entityName #>_in_viewdata()
+		{
+			var repository = S<I<#= entityName #>Repository>();
+			var entities = new[] {new <#= entityName #>()};
+			repository.Stub(x => x.GetAll()).Return(entities);
+			var mapper = S<I<#= entityName #>Mapper>();
+			var forms = new[] {new <#= model.Name #>()};
+			mapper.Stub(m => m.Map(entities)).Return(forms);
+			var controller = new <#= controllerClassName #>(repository, mapper);
+
+			ViewResult result = controller.List();
+
+			result.ViewData.Model.ShouldEqual(forms);
+			result.ViewName.ShouldEqual(ViewNames.Default);
+		}
+
+		[Test]
+		public void New_should_but_a_new_<#= model.Name #>_on_model_and_render_edit_view()
+		{
+			var controller = new <#= controllerClassName #>(S<I<#= entityName #>Repository>(), S<I<#= entityName #>Mapper>());
+			ViewResult result = controller.New();
+			result.ViewName.ShouldEqual("Edit");
+			result.ViewData.Model.ShouldEqual(new <#= model.Name #>());
+		}
+
+
+		[Test]
+		public void Should_save_the_<#= entityName #>()
+		{
+			var form = new <#= model.Name #> {};
+			var entity = new <#= entityName #>();
+
+			var mapper = S<I<#= entityName #>Mapper>();
+			mapper.Stub(m => m.Map(form)).Return(entity);
+
+			var repository = S<I<#= entityName #>Repository>();
+
+			var controller = new <#= controllerClassName #>(repository, mapper);
+			var result = (RedirectToRouteResult) controller.Save(form,null);
+
+			repository.AssertWasCalled(r => r.Save(entity));
+			result.AssertActionRedirect().ToAction<<#= controllerClassName #>>(a => a.Index());
 		}
 	}
 }
