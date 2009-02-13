@@ -51,13 +51,14 @@
 				  commandline="${file.solution} /t:Clean /p:Configuration=${project.config} /v:q" workingdir="." />
 		<exec program="${framework::get-framework-directory(framework::get-target-framework())}\msbuild.exe"
 				  commandline="${file.solution} /t:Rebuild /p:Configuration=${project.config} /v:q" workingdir="." />
-		<echo message="asp-compile" /> 
+		<!--<echo message="asp-compile" /> 
 		<exec basedir="."
 				  program="${framework::get-tool-path('aspnet_compiler.exe')}"
 				  commandline="-nologo -v / -p ${dir.ui}"
 				  workingdir="."
 				  failonerror="true"
             />
+            -->
 	</target>
 
   <target name="genschema">
