@@ -158,7 +158,6 @@
     <Compile Include="Helpers\Validation\Validators\DateNotInFutureValidator.cs" />
     <Compile Include="Helpers\Validation\Attributes\ValidateDateNotInFutureAttribute.cs" />
     <Compile Include="Helpers\Extensions\MvcHelperExtensions.cs" />
-    <Content Include="scripts\DetentionFacility\Detail.js" />
     <Compile Include="Helpers\SubController.cs" />
     <Compile Include="Helpers\Extensions\InputTextExtensions.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -319,14 +318,6 @@
     </None>
     <None Include="CodeTemplates\AddView\List.tt">
     </None>
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\Controller.tt">
-    </None>
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\ControllerUnitTest.tt">
-    </None>
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\View-Edit.tt">
-    </None>
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\View-List.tt">
-    </None>
     <None Include="PartialViewGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PartialViewGenerator.cs</LastGenOutput>
@@ -365,7 +356,6 @@
     <Folder Include="images\layout\" />
     <Folder Include="images\samples\" />
     <Folder Include="images\Text\" />
-    <Folder Include="Models\ViewModels\" />
     <Folder Include="Properties\" />
     <Folder Include="Views\Session\Home\" />
   </ItemGroup>

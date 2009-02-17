@@ -92,14 +92,6 @@
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CodeTemplates\Domain Driven Design\IRepository.tt">
-    </None>
-    <None Include="CodeTemplates\Domain Driven Design\Repository.tt">
-    </None>
-    <None Include="CodeTemplates\Domain Driven Design\User Interface DTO.tt">
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
