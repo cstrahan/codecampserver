@@ -1,4 +1,5 @@
 http://codecampserver.org
+Source Code located at: http://code.google.com/p/codecampserver/source/checkout
 Apache License 2.0
 
 To build and run this project, execute "click to build.bat". 
