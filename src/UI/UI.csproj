@@ -319,6 +319,14 @@
     </None>
     <None Include="CodeTemplates\AddView\List.tt">
     </None>
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\Controller.tt">
+    </None>
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\ControllerUnitTest.tt">
+    </None>
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\View-Edit.tt">
+    </None>
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\View-List.tt">
+    </None>
     <None Include="PartialViewGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PartialViewGenerator.cs</LastGenOutput>
