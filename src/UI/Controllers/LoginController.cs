@@ -5,7 +5,6 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Models.Forms;
-using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
@@ -28,7 +27,7 @@ namespace CodeCampServer.UI.Controllers
 			return View(new LoginForm());
 		}
 
-		[ValidateModel(typeof(LoginForm))]
+		[ValidateModel(typeof (LoginForm))]
 		public ViewResult Login([Bind(Prefix = "")] LoginForm form)
 		{
 			if (!ModelState.IsValid)
@@ -37,7 +36,7 @@ namespace CodeCampServer.UI.Controllers
 			}
 
 			User user = _repository.GetByUserName(form.Username);
-			if(user != null)
+			if (user != null)
 			{
 				bool passwordMatches = _authenticationService.PasswordMatches(user, form.Password);
 

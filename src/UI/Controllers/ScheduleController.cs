@@ -9,14 +9,14 @@ namespace CodeCampServer.UI.Controllers
 	[RequiresConferenceFilter]
 	public class ScheduleController : SmartController
 	{
-		private IScheduleMapper _mapper;
+		private readonly IScheduleMapper _mapper;
 
 		public ScheduleController(IScheduleMapper mapper)
 		{
 			_mapper = mapper;
 		}
 
-		public ActionResult Index(Conference conference)
+		public ViewResult Index(Conference conference)
 		{
 			ScheduleForm[] scheduleForms = _mapper.Map(conference);
 			return View(scheduleForms);
