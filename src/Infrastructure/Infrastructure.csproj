@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="DataAccess\Impl\ConferenceRepository.cs" />
     <Compile Include="DataAccess\Impl\KeyedRepository.cs" />
+    <Compile Include="DataAccess\Impl\Planning\ProposalRepository.cs" />
     <Compile Include="DataAccess\Impl\RepositoryBase.cs" />
     <Compile Include="DataAccess\Impl\SessionRepository.cs" />
     <Compile Include="DataAccess\Impl\SpeakerRepository.cs" />
@@ -141,6 +142,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DataAccess\Mappings\Session.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataAccess\Mappings\Planning\Proposal.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

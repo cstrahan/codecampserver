@@ -5,7 +5,7 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class TimeSlotMapper : FormMapper<TimeSlot, TimeSlotForm>, ITimeSlotMapper
+	public class TimeSlotMapper : AutoFormMapper<TimeSlot, TimeSlotForm>, ITimeSlotMapper
 	{
 		private readonly IConferenceRepository _conferenceRepository;
 

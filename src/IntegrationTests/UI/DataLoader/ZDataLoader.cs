@@ -243,14 +243,16 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			           		speaker6
 			           	};
 
-			
+			list.AddRange(CreateUsers());
+
+
 			foreach (var aTrack in tracks)
 			{
 				foreach (var aTimeSlot in timeSlots)
 				{
 					foreach (var level in Enumeration.GetAll<SessionLevel>())
 					{
-						if(RandomlyDecideWhetherToSkip())
+						if (RandomlyDecideWhetherToSkip())
 						{
 							continue;
 						}
@@ -265,7 +267,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 						               		Title = title,
 						               		Abstract = string.Format("Abstract for session at {0}", time),
 						               		Conference = conference,
-						               		Key = title.ToLower().Replace(" ", "-").Replace(":","-")+"-"+sessionNumber,
+						               		Key = title.ToLower().Replace(" ", "-").Replace(":", "-") + "-" + sessionNumber,
 						               		Level = level,
 						               		MaterialsUrl = "http://google.com",
 						               		RoomNumber = "24R",
@@ -286,11 +288,48 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 //			}
 		}
 
+		private User[] CreateUsers()
+		{
+			var mapper = new UserMapper(new UserRepository(GetSessionBuilder()), new Cryptographer());
+			var user = mapper.Map(new UserForm
+			                      	{
+			                      		Name = "Joe User",
+			                      		Username = "admin",
+			                      		EmailAddress = "joe@user.com",
+			                      		Password = "password"
+			                      	});
+			return new[]
+			       	{
+			       		mapper.Map(new UserForm
+			       		           	{
+			       		           		Name = "Jeffrey Palermo",
+			       		           		EmailAddress = "jeffis@theman.com",
+			       		           		Username = "jpalermo",
+			       		           		Password = "beer"
+			       		           	}),
+			       		mapper.Map(new UserForm
+			       		           	{
+			       		           		Name = "Homer Simpson",
+			       		           		EmailAddress = "homer@simpsons.com",
+			       		           		Username = "hsimpson",
+			       		           		Password = "beer"
+			       		           	}),
+			       		mapper.Map(new UserForm
+			       		           	{
+			       		           		Name = "Bart Simpson",
+			       		           		EmailAddress = "bart@simpsons.com",
+			       		           		Username = "bsimpson",
+			       		           		Password = "beer"
+			       		           	})
+			       	};
+		}
+
 		private static int _seed = 0;
+
 		private static bool RandomlyDecideWhetherToSkip()
 		{
 			int index = new Random(_seed += GetRandomInt()).Next(0, 2);
-			if(index == 0) return true;
+			if (index == 0) return true;
 			return false;
 		}
 

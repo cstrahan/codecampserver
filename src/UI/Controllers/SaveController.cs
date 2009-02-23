@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.UI.Helpers;
-using CodeCampServer.UI.Helpers.Mappers;
 using Tarantino.Core.Commons.Model;
 
 namespace CodeCampServer.UI.Controllers

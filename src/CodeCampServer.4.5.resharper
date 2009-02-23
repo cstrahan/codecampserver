@@ -1,27 +1,27 @@
 <Configuration>
   <CodeStyleSettings>
-    <ExternalPath IsNull="False">
+    <ExternalPath>
     </ExternalPath>
     <Sharing>SOLUTION</Sharing>
     <CSharp>
       <FormatSettings>
         <EMPTY_BLOCK_STYLE>TOGETHER_SAME_LINE</EMPTY_BLOCK_STYLE>
         <INSERT_TABS>True</INSERT_TABS>
-        <MODIFIERS_ORDER IsNull="False">
-          <Item>public</Item>
-          <Item>protected</Item>
-          <Item>internal</Item>
-          <Item>private</Item>
-          <Item>new</Item>
-          <Item>abstract</Item>
-          <Item>virtual</Item>
-          <Item>override</Item>
-          <Item>sealed</Item>
-          <Item>static</Item>
-          <Item>readonly</Item>
-          <Item>extern</Item>
-          <Item>unsafe</Item>
-          <Item>volatile</Item>
+        <MODIFIERS_ORDER length="14">
+          <_0>public</_0>
+          <_1>protected</_1>
+          <_2>internal</_2>
+          <_3>private</_3>
+          <_4>new</_4>
+          <_5>abstract</_5>
+          <_6>virtual</_6>
+          <_7>override</_7>
+          <_8>sealed</_8>
+          <_9>static</_9>
+          <_10>readonly</_10>
+          <_11>extern</_11>
+          <_12>unsafe</_12>
+          <_13>volatile</_13>
         </MODIFIERS_ORDER>
       </FormatSettings>
       <UsingsSettings />
@@ -44,14 +44,14 @@
   </CodeStyleSettings>
   <SharedSolutionTemplateManager>
     <LiveTemplates>
-      <Template uid="9385cb44-b637-4085-baad-40c19e656ca0" shortcut="pvt" description="Test Method" text="[Test]&#xD;&#xA;public void $NAME$()&#xD;&#xA;{&#xD;&#xA;	$END$&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
+      <Template uid="9385cb44-b637-4085-baad-40c19e656ca0" text="[Test]&#xD;&#xA;public void $NAME$()&#xD;&#xA;{&#xD;&#xA;	$END$&#xD;&#xA;}" shortcut="pvt" description="Test Method" reformat="true" shortenQualifiedReferences="true">
         <Categories />
         <Variables>
           <Variable name="NAME" expression="" initialRange="0" />
         </Variables>
         <CustomProperties />
       </Template>
-      <Template uid="f1d27305-326f-49fa-8421-ba8fa3bdb7d2" shortcut="tf" description="testfixture" text="[TestFixture]" reformat="True" shortenQualifiedReferences="True">
+      <Template uid="f1d27305-326f-49fa-8421-ba8fa3bdb7d2" text="[TestFixture]" shortcut="tf" description="testfixture" reformat="true" shortenQualifiedReferences="true">
         <Context>
           <CSharpContext context="Everywhere" minimumLanguageVersion="2.0" />
         </Context>
@@ -59,7 +59,7 @@
         <Variables />
         <CustomProperties />
       </Template>
-      <Template uid="f5ea1d3d-2456-4007-8aa8-8d91d1effdab" shortcut="t" description="New test" text="[Test]&#xD;&#xA;public void $NAME$()&#xD;&#xA;{&#xD;&#xA;	$END$&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
+      <Template uid="f5ea1d3d-2456-4007-8aa8-8d91d1effdab" text="[Test]&#xD;&#xA;public void $NAME$()&#xD;&#xA;{&#xD;&#xA;	$END$&#xD;&#xA;}" shortcut="t" description="New test" reformat="true" shortenQualifiedReferences="true">
         <Context>
           <CSharpContext context="TypeMember" minimumLanguageVersion="3.0" />
         </Context>
@@ -72,7 +72,7 @@
     </LiveTemplates>
     <Surrounds />
     <FileTemplates>
-      <Template uid="91720a66-54dd-4bc6-a9f8-0a6ea096db03" shortcut="" description="NUnit Fixture" text="using NUnit.Framework;&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;  [TestFixture]&#xD;&#xA;  public class $NAME$&#xD;&#xA;  {&#xD;&#xA;    $END$&#xD;&#xA;  }&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
+      <Template uid="91720a66-54dd-4bc6-a9f8-0a6ea096db03" text="using NUnit.Framework;&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;  [TestFixture]&#xD;&#xA;  public class $NAME$&#xD;&#xA;  {&#xD;&#xA;    $END$&#xD;&#xA;  }&#xD;&#xA;}" shortcut="" description="NUnit Fixture" reformat="true" shortenQualifiedReferences="true">
         <Context>
           <ProjectLanguageContext language="CSharp" />
         </Context>

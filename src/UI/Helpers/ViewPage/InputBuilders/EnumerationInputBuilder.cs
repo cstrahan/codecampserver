@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using CodeCampServer.Core.Domain.Model.Enumerations;
@@ -14,15 +15,15 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 
 		protected override string CreateInputElementBase()
 		{
-			SelectList selectList = GetSelectList();
+			IEnumerable<SelectListItem> selectList = GetSelectList();
 			return InputSpecification.Helper.DropDownList(InputSpecification.InputName, selectList,
 			                                              InputSpecification.CustomAttributes);
 		}
 
 
-		private SelectList GetSelectList()
+		private IEnumerable<SelectListItem> GetSelectList()
 		{
-			SelectList selectList =
+			IEnumerable<SelectListItem> selectList =
 				HtmlExtensions.GetSelectListForDropDown(EnumerationHelper.GetAll(InputSpecification.PropertyInfo.PropertyType),
 				                                        true, GetSelectedValue(), null);
 			return selectList;

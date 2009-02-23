@@ -5,7 +5,7 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class SessionMapper : FormMapper<Session, SessionForm>, ISessionMapper
+	public class SessionMapper : AutoFormMapper<Session, SessionForm>, ISessionMapper
 	{
 		private readonly ITrackRepository _trackRepository;
 		private readonly ITimeSlotRepository _timeSlotRepository;

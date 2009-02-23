@@ -23,7 +23,7 @@ namespace CodeCampServer.UI
 							new { controller = "conference", action = "index" },									//"schedule|session|timeslot|track|attendee|conference|speaker|admin"
 			                new {
 									conferenceKey = new ConferenceKeyCannotBeAControllerNameContraint(),
-									controller="schedule|session|timeslot|track|attendee|conference|speaker|admin"
+									controller="schedule|session|timeslot|track|attendee|conference|speaker|admin|proposal"
 							});
 
 	

@@ -83,9 +83,13 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controllers\ProposalController.cs" />
     <Compile Include="Helpers\Binders\SmartBinder.cs" />
     <Compile Include="Helpers\Filters\AssemblyVersionrFilterAttribute.cs" />
     <Compile Include="Helpers\Filters\UrlReferrerFilterAttribute.cs" />
+    <Compile Include="Helpers\Mappers\ProposalMapper.cs" />
+    <Compile Include="Models\Forms\ProposalForm.cs" />
+    <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Services\IAssemblyVersion.cs" />
     <Compile Include="Services\IUrlService.cs" />
     <Compile Include="Services\UrlService.cs" />
@@ -129,14 +133,13 @@
     <Compile Include="Helpers\Mappers\EditMode.cs" />
     <Compile Include="Helpers\Mappers\IAttendeeMapper.cs" />
     <Compile Include="Helpers\Mappers\IConferenceMapper.cs" />
-    <Compile Include="Helpers\Mappers\IMapper.cs" />
     <Compile Include="Helpers\Mappers\IScheduleMapper.cs" />
     <Compile Include="Helpers\Mappers\ISessionMapper.cs" />
     <Compile Include="Helpers\Mappers\ISpeakerMapper.cs" />
     <Compile Include="Helpers\Mappers\ITimeSlotMapper.cs" />
     <Compile Include="Helpers\Mappers\ITrackMapper.cs" />
     <Compile Include="Helpers\Mappers\IUserMapper.cs" />
-    <Compile Include="Helpers\Mappers\FormMapper.cs" />
+    <Compile Include="Helpers\Mappers\AutoFormMapper.cs" />
     <Compile Include="Helpers\Mappers\ScheduleMapper.cs" />
     <Compile Include="Helpers\Mappers\SessionMapper.cs" />
     <Compile Include="Helpers\Mappers\SpeakerMapper.cs" />
@@ -284,6 +287,7 @@
     <Content Include="Views\Attendee\Edit.aspx" />
     <Content Include="Views\Attendee\Index.aspx" />
     <Content Include="Views\Login\Index.aspx" />
+    <Content Include="Views\Proposal\Edit.aspx" />
     <Content Include="Views\Schedule\ScheduleSlot.aspx" />
     <Content Include="Views\Schedule\Index.aspx" />
     <Content Include="Views\Session\List.aspx" />

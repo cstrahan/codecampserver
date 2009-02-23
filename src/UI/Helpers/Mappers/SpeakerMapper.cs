@@ -1,18 +1,14 @@
 using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class SpeakerMapper : FormMapper<Speaker, SpeakerForm>, ISpeakerMapper
+	public class SpeakerMapper : AutoFormMapper<Speaker, SpeakerForm>, ISpeakerMapper
 	{
-		private readonly ISpeakerRepository _repository;
-
 		public SpeakerMapper(ISpeakerRepository repository) : base(repository)
 		{
-			_repository = repository;
 		}
 
 		protected override Guid GetIdFromMessage(SpeakerForm form)

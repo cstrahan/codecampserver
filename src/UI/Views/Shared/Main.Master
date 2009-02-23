@@ -1,3 +1,5 @@
+<%@ Import Namespace="CodeCampServer.UI.Models"%>
+<%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
 <%@ Import Namespace="CodeCampServer.UI.Helpers.Filters"%>
 <%@ Import Namespace="System.Reflection"%>
 <%@ Import Namespace="CodeCampServer.Core"%>
@@ -8,7 +10,6 @@
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 <%@ Import Namespace="CodeCampServer.UI"%>
 <%@ Import Namespace="CodeCampServer.Infrastructure.UI.Services"%>
-<%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
 <%@ Import Namespace="CodeCampServer.Core.Domain.Model"%>
 <%@ Import Namespace="MvcContrib"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -45,7 +46,7 @@
 	</head>
 	<body>
 		<div id="header">
-			<h1><a href="/"><%=ViewData["title"] %></a></h1>
+			<h1><a href="/"><%=ViewData.Get<PageInfo>().Title%></a></h1>
 			<h2>
 				<asp:LoginView ID="LoginView3" runat="server">
 				<LoggedInTemplate>

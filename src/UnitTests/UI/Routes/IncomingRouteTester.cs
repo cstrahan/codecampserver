@@ -61,5 +61,11 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		{
 			"~/austinCodeCamp2008".Route().ShouldMapTo<ConferenceController>(c => c.Index(null));
 		}
+
+		[Test]
+		public void Proposal_actions_should_map_to_ProposalController()
+		{
+			"~/confkey/proposal/new".ShouldMapTo<ProposalController>(c => c.New(null, null));
+		}
 	}
 }

@@ -11,7 +11,6 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {
 	public abstract class PersistentObjectInputBuilder<TEntity> : BaseInputBuilder where TEntity : PersistentObject, new()
 	{
-
 		public override bool IsSatisfiedBy(IInputSpecification specification)
 		{
 			return (typeof (TEntity)).IsAssignableFrom(specification.PropertyInfo.PropertyType);
@@ -19,16 +18,17 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 
 		protected override string CreateInputElementBase()
 		{
-			SelectList selectList = GetSelectList();
-			return InputSpecification.Helper.DropDownList(InputSpecification.InputName, selectList,
-			                                              InputSpecification.CustomAttributes);
+			IEnumerable<SelectListItem> selectList = GetSelectList();
+			string elementMarkup = InputSpecification.Helper.DropDownList(InputSpecification.InputName, selectList,
+			                                                              InputSpecification.CustomAttributes);
+			return elementMarkup;
 		}
 
-		private SelectList GetSelectList()
+		private IEnumerable<SelectListItem> GetSelectList()
 		{
 			TEntity[] list = GetList();
 
-			SelectList selectList =
+			IEnumerable<SelectListItem> selectList =
 				GetSelectListForDropDown(list,
 				                         true, GetSelectedValue(), null, GetDisplayPropertyExpression());
 			return selectList;
@@ -38,18 +38,17 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 
 		protected abstract TEntity[] GetList();
 
-		public static SelectList GetSelectListForDropDown<T>(IEnumerable list, bool includeBlankOption, Guid? selectedValue,
-		                                                     string displayValueToExclude,
-		                                                     Expression<Func<T, string>> displayProperty)
+		public static IEnumerable<SelectListItem> GetSelectListForDropDown<T>(IEnumerable list, bool includeBlankOption,
+		                                                                      Guid? selectedValue,
+		                                                                      string displayValueToExclude,
+		                                                                      Expression<Func<T, string>> displayProperty)
 			where T : PersistentObject, new()
 		{
-			IList<HtmlExtensions.DropDownListItem<Guid>> codes = new List<HtmlExtensions.DropDownListItem<Guid>>();
-
-			HtmlExtensions.DropDownListItem<Guid> selectedItem = null;
+			var codes = new List<SelectListItem>();
 
 			if (includeBlankOption)
 			{
-				var empty = new HtmlExtensions.DropDownListItem<Guid> {DisplayName = string.Empty, Value = Guid.Empty};
+				var empty = new SelectListItem {Text = string.Empty, Value = Guid.Empty.ToString(), Selected = false};
 				codes.Add(empty);
 			}
 
@@ -57,20 +56,18 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 			{
 				string displayValue = ExpressionHelper.Evaluate(displayProperty, enumValue).ToString();
 
-				var listItem = new HtmlExtensions.DropDownListItem<Guid> {DisplayName = displayValue, Value = enumValue.Id};
+				var listItem = new SelectListItem() {Text = displayValue, Value = enumValue.Id.ToString()};
 
 				if (enumValue.Id == selectedValue)
 				{
-					selectedItem = listItem;
+					listItem.Selected = true;
 				}
 
 				if (displayValueToExclude != displayValue)
 					codes.Add(listItem);
 			}
 
-			return selectedItem != null
-			       	? new SelectList(codes, "Value", "DisplayName", selectedItem.Value)
-			       	: new SelectList(codes, "Value", "DisplayName");
+			return codes;
 		}
 
 		private Guid? GetSelectedValue()

@@ -11,6 +11,7 @@ namespace CodeCampServer.Core.Domain.Model.Enumerations
 
 		public SessionLevel()
 		{
+			
 		}
 
 		public SessionLevel(int value, string displayName) : base(value, displayName)

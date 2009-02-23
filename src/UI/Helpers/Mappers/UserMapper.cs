@@ -6,7 +6,7 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class UserMapper : FormMapper<User, UserForm>, IUserMapper
+	public class UserMapper : AutoFormMapper<User, UserForm>, IUserMapper
 	{
 		private readonly ICryptographer _cryptographer;
 

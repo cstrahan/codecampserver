@@ -55,10 +55,17 @@
     <Compile Include="Common\PrimitiveExtensions.cs" />
     <Compile Include="Common\ReflectionExtensions.cs" />
     <Compile Include="Common\UINameHelper.cs" />
+    <Compile Include="Domain\Mapper.cs" />
+    <Compile Include="Domain\IMapper.cs" />
+    <Compile Include="Domain\Model\Planning\IProposalMapper.cs" />
+    <Compile Include="Domain\Model\Planning\IProposalRepository.cs" />
     <Compile Include="Domain\ISpeakerRepository.cs" />
+    <Compile Include="Domain\Messages\IProposalMessage.cs" />
     <Compile Include="Domain\Model\Enumerations\EnumerationHelper.cs" />
     <Compile Include="Domain\Model\Enumerations\OrderedEnumeration.cs" />
     <Compile Include="Domain\Model\Enumerations\YesNo.cs" />
+    <Compile Include="Domain\Model\Planning\Proposal.cs" />
+    <Compile Include="Domain\Model\Planning\ProposalStatus.cs" />
     <Compile Include="Domain\ValidationResult.cs" />
     <Compile Include="Domain\IConferencerRepository.cs" />
     <Compile Include="Domain\IKeyedRepository.cs" />

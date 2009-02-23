@@ -5,7 +5,7 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class TrackMapper : FormMapper<Track, TrackForm>, ITrackMapper
+	public class TrackMapper : AutoFormMapper<Track, TrackForm>, ITrackMapper
 	{
 		private readonly IConferenceRepository _conferenceRepository;
 

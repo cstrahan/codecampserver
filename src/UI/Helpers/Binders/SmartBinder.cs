@@ -2,19 +2,14 @@ using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.UI.Helpers.Binders;
-
+using CodeCampServer.DependencyResolution;
 using Tarantino.Core.Commons.Model;
 using Tarantino.Core.Commons.Model.Enumerations;
 
-namespace CodeCampServer.DependencyResolution
+namespace CodeCampServer.UI.Helpers.Binders
 {
 	public class SmartBinder : DefaultModelBinder
 	{
-		//public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
-		//{
-		//    return base.BindModel(controllerContext, bindingContext);
-		//}	
 		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			if (ShouldBuildInstanceFromContainer(bindingContext.ModelType))
@@ -46,7 +41,8 @@ namespace CodeCampServer.DependencyResolution
 			return instance;
 		}
 
-		private static object BindUsingEnumerationBinder(ControllerContext controllerContext, ModelBindingContext bindingContext)
+		private static object BindUsingEnumerationBinder(ControllerContext controllerContext,
+		                                                 ModelBindingContext bindingContext)
 		{
 			var binder = new EnumerationModelBinder();
 
@@ -58,17 +54,18 @@ namespace CodeCampServer.DependencyResolution
 			Type repositoryType = typeof (IRepository<>).MakeGenericType(bindingContext.ModelType);
 			Type modelBinderType = typeof (ModelBinder<,>).MakeGenericType(bindingContext.ModelType, repositoryType);
 
-			var binder = (IModelBinder)DependencyRegistrar.Resolve(modelBinderType);
+			var binder = (IModelBinder) DependencyRegistrar.Resolve(modelBinderType);
 
 			return binder.BindModel(controllerContext, bindingContext);
 		}
 
-		private static object BindUsingKeyedModelBinder(ControllerContext controllerContext, ModelBindingContext bindingContext)
+		private static object BindUsingKeyedModelBinder(ControllerContext controllerContext,
+		                                                ModelBindingContext bindingContext)
 		{
-			Type repositoryType = typeof(IKeyedRepository<>).MakeGenericType(bindingContext.ModelType);
+			Type repositoryType = typeof (IKeyedRepository<>).MakeGenericType(bindingContext.ModelType);
 			Type modelBinderType = typeof (KeyedModelBinder<,>).MakeGenericType(bindingContext.ModelType, repositoryType);
 
-			var binder = (IModelBinder)DependencyRegistrar.Resolve(modelBinderType);
+			var binder = (IModelBinder) DependencyRegistrar.Resolve(modelBinderType);
 
 			return binder.BindModel(controllerContext, bindingContext);
 		}

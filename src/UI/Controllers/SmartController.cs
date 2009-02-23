@@ -5,22 +5,22 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Filters;
+using CodeCampServer.UI.Models;
 using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
-	
 	public abstract class SmartController : Controller
 	{
-		protected override void OnActionExecuted(System.Web.Mvc.ActionExecutedContext filterContext)
-		{			
+		protected override void OnActionExecuted(ActionExecutedContext filterContext)
+		{
 			if (ViewData.Contains<Conference>())
 			{
-				ViewData["title"] = ViewData.Get<Conference>().Name;
+				ViewData.Add(new PageInfo {Title = ViewData.Get<Conference>().Name});
 			}
 			else
 			{
-				ViewData["title"] = "Code Camp Server v1.0";
+				ViewData.Add(new PageInfo {Title = "Code Camp Server v1.0"});
 			}
 		}
 
@@ -35,7 +35,6 @@ namespace CodeCampServer.UI.Controllers
 
 			var version = new AssemblyVersionFilterAttribute();
 			version.OnActionExecuting(filterContext);
-
 		}
 
 		public RedirectToRouteResult RedirectToAction<TController>(Expression<Func<TController, object>> actionExpression)

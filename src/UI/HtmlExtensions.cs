@@ -34,7 +34,7 @@ namespace CodeCampServer.UI
 		public static string EnumerationDropDownList<T>(this HtmlHelper helper, string listName, bool includeBlankOption,
 		                                                int? selectedValue, object htmlOptions) where T : Enumeration, new()
 		{
-			SelectList selectList = GetSelectListForDropDown<T>(Enumeration.GetAll<T>(), includeBlankOption, selectedValue, null);
+			IEnumerable<SelectListItem> selectList = GetSelectListForDropDown<T>(Enumeration.GetAll<T>(), includeBlankOption, selectedValue, null);
 
 			string html = helper.DropDownList(listName, selectList);
 			return html;
@@ -44,14 +44,14 @@ namespace CodeCampServer.UI
 		                                                           bool includeBlankOption, string displayValueToExclude,
 		                                                           int? selectedValue) where T : Enumeration, new()
 		{
-			SelectList selectList = GetSelectListForDropDown<T>(Enumeration.GetAll<T>(), includeBlankOption, selectedValue,
+			IEnumerable<SelectListItem> selectList = GetSelectListForDropDown<T>(Enumeration.GetAll<T>(), includeBlankOption, selectedValue,
 			                                                    displayValueToExclude);
 
 			string html = helper.DropDownList( listName, selectList);
 			return html;
 		}
 
-		public static SelectList GetSelectListForDropDown<T>(IEnumerable<T> list, bool includeBlankOption, int? selectedValue,
+		public static IEnumerable<SelectListItem> GetSelectListForDropDown<T>(IEnumerable<T> list, bool includeBlankOption, int? selectedValue,
 		                                                     string displayValueToExclude, T first)
 			where T : Enumeration, new()
 		{
@@ -62,66 +62,58 @@ namespace CodeCampServer.UI
 			return GetSelectListForDropDown<T>(innerList, includeBlankOption, selectedValue, displayValueToExclude);
 		}
 
-		public static SelectList GetSelectListForDropDown<T>(IEnumerable list, bool includeBlankOption, int? selectedValue,
+		public static IEnumerable<SelectListItem> GetSelectListForDropDown<T>(IEnumerable list, bool includeBlankOption, int? selectedValue,
 		                                                     string displayValueToExclude) where T : Enumeration, new()
 		{
-			IList<DropDownListItem<int>> codes = new List<DropDownListItem<int>>();
-
-			DropDownListItem<int> selectedItem = null;
+			var codes = new List<SelectListItem>();
 
 			if (includeBlankOption)
 			{
-				var empty = new DropDownListItem<int> { DisplayName = string.Empty, Value = -1 };
+				var empty = new SelectListItem() { Text = string.Empty, Value = (-1).ToString() };
 				codes.Add(empty);
 			}
 
 			foreach (T enumValue in list)
 			{
-				var listItem = new DropDownListItem<int> { DisplayName = enumValue.DisplayName, Value = enumValue.Value };
+				var listItem = new SelectListItem() { Text = enumValue.DisplayName, Value = enumValue.Value.ToString() };
 
 				if (enumValue.Value == selectedValue)
 				{
-					selectedItem = listItem;
+					listItem.Selected = true;
 				}
 
 				if (displayValueToExclude != enumValue.DisplayName)
 					codes.Add(listItem);
 			}
 
-			return selectedItem != null
-			       	? new SelectList(codes, "Value", "DisplayName", selectedItem.Value)
-			       	: new SelectList(codes, "Value", "DisplayName");
+			return codes;
 		}
 
-		public static SelectList GetSelectListForDropDown(IEnumerable<Enumeration> list, bool includeBlankOption,
+		public static IEnumerable<SelectListItem> GetSelectListForDropDown(IEnumerable<Enumeration> list, bool includeBlankOption,
 		                                                  int? selectedValue, string displayValueToExclude)
 		{
-			IList<DropDownListItem<int>> codes = new List<DropDownListItem<int>>();
-
-			DropDownListItem<int> selectedItem = null;
+			var codes = new List<SelectListItem>();
 
 			if (includeBlankOption)
 			{
-				var empty = new DropDownListItem<int> { DisplayName = string.Empty, Value = -1 };
+				var empty = new SelectListItem() { Text = string.Empty, Value = "-1" };
 				codes.Add(empty);
 			}
 
 			foreach (Enumeration enumValue in list)
 			{
-				var listItem = new DropDownListItem<int> { DisplayName = enumValue.DisplayName, Value = enumValue.Value };
+				var listItem = new SelectListItem() { Text = enumValue.DisplayName, Value = enumValue.Value.ToString() };
 
 				if (enumValue.Value == selectedValue)
 				{
-					selectedItem = listItem;
+					listItem.Selected = true;
 				}
 
 				if (displayValueToExclude != enumValue.DisplayName)
 					codes.Add(listItem);
 			}
 
-			return selectedItem != null
-			       	? new SelectList(codes, "Value", "DisplayName", selectedItem.Value)
-			       	: new SelectList(codes, "Value", "DisplayName");
+			return codes;
 		}
 
 

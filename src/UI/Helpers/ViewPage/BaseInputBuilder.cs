@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using Castle.Components.Validator;
 using CodeCampServer.Core.Common;
@@ -124,7 +125,9 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 
 		private void AppendInputElement(StringBuilder output)
 		{
-			string elementAfterIdProcessing = ProcessId(CreateInputElementBase());
+			string element = CreateInputElementBase();
+			Debug.WriteLine(element);
+			string elementAfterIdProcessing = ProcessId(element);
 
 			output.Append(elementAfterIdProcessing);
 		}

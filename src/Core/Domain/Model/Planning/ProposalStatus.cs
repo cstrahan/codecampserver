@@ -1,0 +1,15 @@
+using Tarantino.Core.Commons.Model.Enumerations;
+
+namespace CodeCampServer.Core.Domain.Model.Planning
+{
+	public class ProposalStatus : Enumeration
+	{
+		public static ProposalStatus Draft = new ProposalStatus(1, "Draft (not submitted)");
+		public static ProposalStatus Submitted = new ProposalStatus(2, "Submitted (in review)");
+		public static ProposalStatus Accepted = new ProposalStatus(3, "Accepted");
+		public static ProposalStatus Scheduled = new ProposalStatus(4, "Scheduled");
+
+		public ProposalStatus() {}
+		public ProposalStatus(int value, string displayName) : base(value, displayName) {}
+	}
+}

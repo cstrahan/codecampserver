@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+									namespace="CodeCampServer.Core.Domain.Model.Planning"
+									assembly="CodeCampServer.Core">
+
+	<class name="Proposal" table="Proposals" dynamic-update="true">
+		<cache usage="read-write"/>
+		<id name="Id" column="Id" type="Guid">
+			<generator class="guid.comb"/>
+		</id>
+		
+		<many-to-one name="Conference" />
+		<many-to-one name="Submitter" />
+		<many-to-one name="Track" />
+		<property name="Level" type="Tarantino.Infrastructure.Commons.DataAccess.ORMapper.EnumerationType`1[[CodeCampServer.Core.Domain.Model.Enumerations.SessionLevel, CodeCampServer.Core]], Tarantino.Infrastructure"/>
+		<property name="Title" length="255"/>
+		<property name="Abstract" length="2000"/>
+		<property name="Status" type="Tarantino.Infrastructure.Commons.DataAccess.ORMapper.EnumerationType`1[[CodeCampServer.Core.Domain.Model.Planning.ProposalStatus, CodeCampServer.Core]], Tarantino.Infrastructure"/>
+	</class>
+</hibernate-mapping>

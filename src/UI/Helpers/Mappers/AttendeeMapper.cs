@@ -5,7 +5,7 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class AttendeeMapper : FormMapper<Conference, AttendeeForm>, IAttendeeMapper
+	public class AttendeeMapper : AutoFormMapper<Conference, AttendeeForm>, IAttendeeMapper
 	{
 		public AttendeeMapper(IConferenceRepository repository) : base(repository)
 		{

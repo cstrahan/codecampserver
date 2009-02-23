@@ -1,18 +1,14 @@
 using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class ConferenceMapper : FormMapper<Conference, ConferenceForm>, IConferenceMapper
+	public class ConferenceMapper : AutoFormMapper<Conference, ConferenceForm>, IConferenceMapper
 	{
-		private readonly IConferenceRepository _repository;
-
 		public ConferenceMapper(IConferenceRepository repository) : base(repository)
 		{
-			_repository = repository;
 		}
 
 		protected override Guid GetIdFromMessage(ConferenceForm form)
