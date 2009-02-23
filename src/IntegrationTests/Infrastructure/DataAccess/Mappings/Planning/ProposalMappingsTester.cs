@@ -1,3 +1,4 @@
+using System;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.Core.Domain.Model.Planning;
@@ -22,7 +23,9 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings.Pla
 			               		Level = SessionLevel.L100,
 			               		Title = "title",
 			               		Abstract = "abstract",
-			               		Status = ProposalStatus.Submitted
+			               		Status = ProposalStatus.Submitted,
+			               		SubmissionDate = new DateTime(2001, 1, 3),
+												CreatedDate = new DateTime(2002, 1, 3)
 			               	};
 
 			PersistEntities(conference, user, track);

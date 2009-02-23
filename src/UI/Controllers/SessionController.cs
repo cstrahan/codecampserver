@@ -45,16 +45,16 @@ namespace CodeCampServer.UI.Controllers
 		[ValidateModel(typeof (SessionForm))]
 		public ActionResult Save([Bind(Prefix = "")] SessionForm form, string urlreferrer)
 		{
-			Func<ActionResult> successRedirect = GetSuccessRedirect(form, urlreferrer);
+			Func<Session, ActionResult> successRedirect = GetSuccessRedirect(form, urlreferrer);
 			return ProcessSave(form, successRedirect);
 		}
 
-		private Func<ActionResult> GetSuccessRedirect(SessionForm form, string urlreferrer)
+		private Func<Session, ActionResult> GetSuccessRedirect(SessionForm form, string urlreferrer)
 		{
-			Func<ActionResult> successRedirect = () => RedirectToIndex(form.Conference);
+			Func<Session, ActionResult> successRedirect = session => RedirectToIndex(form.Conference);
 			if (!String.IsNullOrEmpty(urlreferrer))
 			{
-				successRedirect = () => Redirect(urlreferrer);
+				successRedirect = session => Redirect(urlreferrer);
 			}
 			return successRedirect;
 		}

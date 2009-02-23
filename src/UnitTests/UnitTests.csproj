@@ -121,13 +121,16 @@
     <Compile Include="Core\Domain\Model\Enumerations\OrderedEnumerationTester.cs" />
     <Compile Include="Core\Domain\Model\Enumerations\YesNoTester.cs" />
     <Compile Include="Core\Domain\Model\ObjectExtensionsTester.cs" />
+    <Compile Include="Core\Domain\Model\UserTester.cs" />
     <Compile Include="Core\Domain\Model\ValueObjectTester.cs" />
     <Compile Include="Core\Domain\ValidationResultTester.cs" />
     <Compile Include="Core\Services\AuthenticationServiceTester.cs" />
     <Compile Include="Core\Services\CryptographerTester.cs" />
+    <Compile Include="Core\Services\ProposalCoordinatorTester.cs" />
     <Compile Include="Core\Services\SystemTimeTester.cs" />
     <Compile Include="Core\Services\Updaters\AttendeeMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\ConferenceMapperTester.cs" />
+    <Compile Include="Core\Services\Updaters\ProposalMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\ScheduleMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\TimeSlotMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\FormMapperTester.cs" />
@@ -144,6 +147,7 @@
     <Compile Include="UI\Controllers\AttendeeControllerTester.cs" />
     <Compile Include="UI\Controllers\ConferenceControllerTester.cs" />
     <Compile Include="UI\Controllers\LoginControllerTester.cs" />
+    <Compile Include="UI\Controllers\ProposalControllerTester.cs" />
     <Compile Include="UI\Controllers\ScheduleControllerTester.cs" />
     <Compile Include="UI\Controllers\SessionControllerTester.cs" />
     <Compile Include="UI\Controllers\SpeakersControllerTester.cs" />

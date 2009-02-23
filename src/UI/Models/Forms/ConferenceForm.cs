@@ -1,7 +1,7 @@
 using System;
 using Castle.Components.Validator;
+using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
-using CodeCampServer.UI.Models.Forms.Attributes;
 using CodeCampServer.UI.Models.Validation.Attributes;
 
 namespace CodeCampServer.UI.Models.Forms

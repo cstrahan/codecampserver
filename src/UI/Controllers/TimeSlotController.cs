@@ -49,7 +49,7 @@ namespace CodeCampServer.UI.Controllers
 		[ValidateModel(typeof (TimeSlotForm))]
 		public ActionResult Save([Bind(Prefix = "")] TimeSlotForm form, Conference conference,string urlreferrer)
 		{
-			Func<ActionResult> successRedirect = GetSuccessRedirect(conference, urlreferrer);
+			Func<TimeSlot, ActionResult> successRedirect = GetSuccessRedirect(conference, urlreferrer);
 
 			return ProcessSave(form, successRedirect);
 		}
@@ -67,14 +67,14 @@ namespace CodeCampServer.UI.Controllers
 
 			return RedirectToAction<TimeSlotController>(c => c.Index(timeslot.Conference));
 		}
-		private Func<ActionResult> GetSuccessRedirect(Conference conference, string urlreferrer)
+		private Func<TimeSlot, ActionResult> GetSuccessRedirect(Conference conference, string urlreferrer)
 		{
-			Func<ActionResult> successRedirect =
-				() => RedirectToAction<TimeSlotController>(c => c.Index(null), new {conference = conference});
+			Func<TimeSlot, ActionResult> successRedirect =
+				timeSlot => RedirectToAction<TimeSlotController>(c => c.Index(null), new {conference = conference});
 
 			if (!String.IsNullOrEmpty(urlreferrer))
 			{
-				successRedirect = () => Redirect(urlreferrer);
+				successRedirect = timeSlot => Redirect(urlreferrer);
 			}
 			return successRedirect;
 		}

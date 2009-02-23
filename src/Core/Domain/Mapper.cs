@@ -16,7 +16,12 @@ namespace CodeCampServer.Core.Domain
 
 		public virtual TMessage Map(TModel model)
 		{
-			return Map<TModel, TMessage>(model);
+			return Map<TMessage>(model);
+		}
+
+		public TMessage2 Map<TMessage2>(TModel model)
+		{
+			return Map<TModel, TMessage2>(model);
 		}
 
 		public virtual TModel Map(TMessage message)

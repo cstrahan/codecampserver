@@ -19,7 +19,12 @@ namespace CodeCampServer.UI.Controllers
 			_mapper = mapper;
 		}
 
-		protected ActionResult ProcessSave(TForm form, Func<ActionResult> successRedirect)
+		protected ActionResult ProcessSave(TForm form, Func<TModel, ActionResult> successRedirect)
+		{
+			return ProcessSave(form, successRedirect, model => {});
+		}
+
+		protected ActionResult ProcessSave(TForm form, Func<TModel, ActionResult> successRedirect, Action<TModel> preSaveAction)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -39,8 +44,14 @@ namespace CodeCampServer.UI.Controllers
 				return View("Edit", form);
 			}
 
+			preSaveAction(model);
+			if (!ModelState.IsValid)
+			{
+				return View("Edit", form);
+			}
+
 			_repository.Save(model);
-			return successRedirect();
+			return successRedirect(model);
 		}
 
 		protected virtual IDictionary<string, string[]> GetFormValidationErrors(TForm form)

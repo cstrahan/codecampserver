@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace CodeCampServer.UI
+namespace CodeCampServer.UI.Views
 {
 	public class AutoMapperConfiguration
 	{

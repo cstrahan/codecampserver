@@ -48,7 +48,7 @@ namespace CodeCampServer.UI.Controllers
 		[RequireAuthenticationFilter]
 		public ActionResult Save([Bind(Prefix = "")] SpeakerForm form)
 		{
-			return ProcessSave(form, () => RedirectToAction<SpeakerController>(c => c.List()));
+			return ProcessSave(form, speaker => RedirectToAction<SpeakerController>(c => c.List()));
 		}
 
 		protected override IDictionary<string, string[]> GetFormValidationErrors(SpeakerForm form)

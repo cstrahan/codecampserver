@@ -13,6 +13,7 @@ namespace CodeCampServer.Infrastructure.UI
 				.TheArrayOf<IInputBuilder>()
 				.Contains(x =>
 				          	{
+				          		x.OfConcreteType<NoInputBuilder>();
 				          		x.OfConcreteType<HiddenInputBuilder>();
 				          		x.OfConcreteType<CheckboxInputBuilder>();
 				          		x.OfConcreteType<YesNoRadioInputBuilder>();

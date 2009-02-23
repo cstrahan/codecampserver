@@ -8,7 +8,7 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Controllers
 {
-	[RequiresConferenceFilterAttribute]
+	[RequiresConferenceFilter]
 	public class TrackController : SaveController<Track, TrackForm>
 	{
 		private readonly ITrackRepository _repository;
@@ -16,7 +16,8 @@ namespace CodeCampServer.UI.Controllers
 		private readonly ITrackMapper _mapper;
 		private readonly ISessionRepository _sessionsRepository;
 
-		public TrackController(ITrackRepository repository, ITrackMapper mapper, ISessionRepository sessionsRepository) : base(repository, mapper)
+		public TrackController(ITrackRepository repository, ITrackMapper mapper, ISessionRepository sessionsRepository)
+			: base(repository, mapper)
 		{
 			_repository = repository;
 			_mapper = mapper;
@@ -41,28 +42,28 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[ValidateModel(typeof (TrackForm))]
-		public ActionResult Save([Bind(Prefix = "")] TrackForm trackForm,Conference conference ,string urlreferrer)
+		public ActionResult Save([Bind(Prefix = "")] TrackForm trackForm, Conference conference, string urlreferrer)
 		{
-			Func<ActionResult> successRedirect = GetSuccessRedirect(conference, urlreferrer);
+			Func<Track, ActionResult> successRedirect = GetSuccessRedirect(conference, urlreferrer);
 
 			return ProcessSave(trackForm, successRedirect);
 		}
 
-		private Func<ActionResult> GetSuccessRedirect(Conference conference, string urlreferrer)
+		private Func<Track, ActionResult> GetSuccessRedirect(Conference conference, string urlreferrer)
 		{
-			Func<ActionResult> successRedirect =
-				() => RedirectToAction<TrackController>(x => x.Index(null),new{conference=conference});
+			Func<Track, ActionResult> successRedirect =
+				track => RedirectToAction<TrackController>(x => x.Index(null), new {conference = conference});
 
 			if (!String.IsNullOrEmpty(urlreferrer))
 			{
-				successRedirect = () => Redirect(urlreferrer);
+				successRedirect = track => Redirect(urlreferrer);
 			}
 			return successRedirect;
 		}
 
 		public RedirectToRouteResult Delete(Track track)
 		{
-			if(_sessionsRepository.GetAllForTrack(track).Length==0)
+			if (_sessionsRepository.GetAllForTrack(track).Length == 0)
 			{
 				_repository.Delete(track);
 			}

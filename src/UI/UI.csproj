@@ -84,6 +84,9 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Controllers\ProposalController.cs" />
+    <Compile Include="Helpers\Attributes\NoInputAttribute.cs" />
+    <Compile Include="Helpers\ViewPage\InputBuilders\NoInputBuilder.cs" />
+    <Compile Include="Models\ProposalEditInfo.cs" />
     <Compile Include="Helpers\Binders\SmartBinder.cs" />
     <Compile Include="Helpers\Filters\AssemblyVersionrFilterAttribute.cs" />
     <Compile Include="Helpers\Filters\UrlReferrerFilterAttribute.cs" />
@@ -287,11 +290,14 @@
     <Content Include="Views\Attendee\Edit.aspx" />
     <Content Include="Views\Attendee\Index.aspx" />
     <Content Include="Views\Login\Index.aspx" />
+    <Content Include="Views\Proposal\Confirmation.aspx" />
     <Content Include="Views\Proposal\Edit.aspx" />
+    <Content Include="Views\Proposal\List.aspx" />
     <Content Include="Views\Schedule\ScheduleSlot.aspx" />
     <Content Include="Views\Schedule\Index.aspx" />
     <Content Include="Views\Session\List.aspx" />
     <Content Include="Views\Session\Edit.aspx" />
+    <Content Include="Views\Shared\EditProposalLink.ascx" />
     <Content Include="Views\Shared\DeleteSpeakerLink.ascx" />
     <Content Include="Views\Shared\DeleteTimeSlotLink.ascx" />
     <Content Include="Views\Shared\DeleteSessionLink.ascx" />

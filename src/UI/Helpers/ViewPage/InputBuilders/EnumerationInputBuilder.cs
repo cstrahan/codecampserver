@@ -27,7 +27,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 		{
 			IEnumerable<SelectListItem> selectList =
 				HtmlExtensions.GetSelectListForDropDown(EnumerationHelper.GetAll(InputSpecification.PropertyInfo.PropertyType),
-				                                        true, GetSelectedValue(), null);
+				                                        false, GetSelectedValue(), null);
 			return selectList;
 		}
 

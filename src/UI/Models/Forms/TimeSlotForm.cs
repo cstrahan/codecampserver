@@ -1,6 +1,6 @@
 using System;
 using CodeCampServer.Core;
-using CodeCampServer.UI.Models.Forms.Attributes;
+using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Models.Validation.Attributes;
 
 namespace CodeCampServer.UI.Models.Forms

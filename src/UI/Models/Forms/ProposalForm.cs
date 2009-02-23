@@ -2,6 +2,8 @@ using System;
 using CodeCampServer.Core.Domain.Messages;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
+using CodeCampServer.Core.Domain.Model.Planning;
+using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 
 namespace CodeCampServer.UI.Models.Forms
@@ -23,6 +25,13 @@ namespace CodeCampServer.UI.Models.Forms
 		[BetterValidateNonEmpty("Abstract")]
 		public string Abstract { get; set; }
 
+		[Hidden]
 		public Guid Id { get; set; }
+
+		[NoInput]
+		public ProposalStatus Status { get; set; }
+
+		[NoInput]
+		public string SubmissionDate { get; set; }
 	}
 }

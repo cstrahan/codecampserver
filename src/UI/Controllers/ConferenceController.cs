@@ -61,7 +61,7 @@ namespace CodeCampServer.UI.Controllers
 		[ValidateModel(typeof (ConferenceForm))]
 		public ActionResult Save([Bind(Prefix = "")] ConferenceForm form)
 		{
-			return ProcessSave(form, () => RedirectToAction<ConferenceController>(c => c.List()));
+			return ProcessSave(form, conference => RedirectToAction<ConferenceController>(c => c.List()));
 		}
 
 		protected override IDictionary<string, string[]> GetFormValidationErrors(ConferenceForm form)

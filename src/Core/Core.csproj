@@ -55,6 +55,9 @@
     <Compile Include="Common\PrimitiveExtensions.cs" />
     <Compile Include="Common\ReflectionExtensions.cs" />
     <Compile Include="Common\UINameHelper.cs" />
+    <Compile Include="Domain\Model\Planning\AcceptedToConfirmedCommand.cs" />
+    <Compile Include="Domain\Model\Planning\DraftToSubmittedCommand.cs" />
+    <Compile Include="Domain\Model\Planning\IStateCommand.cs" />
     <Compile Include="Domain\Mapper.cs" />
     <Compile Include="Domain\IMapper.cs" />
     <Compile Include="Domain\Model\Planning\IProposalMapper.cs" />
@@ -66,6 +69,9 @@
     <Compile Include="Domain\Model\Enumerations\YesNo.cs" />
     <Compile Include="Domain\Model\Planning\Proposal.cs" />
     <Compile Include="Domain\Model\Planning\ProposalStatus.cs" />
+    <Compile Include="Domain\Model\Planning\SaveDraftCommand.cs" />
+    <Compile Include="Domain\Model\Planning\StateCommandBase.cs" />
+    <Compile Include="Domain\Model\Planning\SubmittedToAcceptedCommand.cs" />
     <Compile Include="Domain\ValidationResult.cs" />
     <Compile Include="Domain\IConferencerRepository.cs" />
     <Compile Include="Domain\IKeyedRepository.cs" />
@@ -90,6 +96,10 @@
     <Compile Include="Services\Impl\Cryptographer.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="Services\Impl\ProposalCoordinator.cs" />
+    <Compile Include="Services\Impl\StateCommandFactory.cs" />
+    <Compile Include="Services\IProposalCoordinator.cs" />
+    <Compile Include="Services\IStateCommandFactory.cs" />
     <Compile Include="Services\IUserSession.cs" />
     <Compile Include="SystemTime.cs" />
     <Compile Include="Domain\Model\ValueObject.cs" />

@@ -6,7 +6,6 @@ namespace CodeCampServer.Core.Domain.Messages
 {
 	public interface IProposalMessage
 	{
-		string SubmitterUsername { get; set; }
 		string ConferenceKey { get; set; }
 		Track Track { get; set; }
 		SessionLevel Level { get; set; }

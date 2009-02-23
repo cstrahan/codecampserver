@@ -33,7 +33,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 
 			IEnumerable<SelectListItem> selectList =
 				GetSelectListForDropDown(list,
-				                         true, GetSelectedValue(), null, GetDisplayPropertyExpression());
+				                         false, GetSelectedValue(), null, GetDisplayPropertyExpression());
 			return selectList;
 		}
 

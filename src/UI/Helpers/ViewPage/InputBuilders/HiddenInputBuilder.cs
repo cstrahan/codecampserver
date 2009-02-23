@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using System.Web.Mvc.Html;
 using CodeCampServer.Core.Common;
-using CodeCampServer.UI.Models.Forms.Attributes;
+using CodeCampServer.UI.Helpers.Attributes;
 
 namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {

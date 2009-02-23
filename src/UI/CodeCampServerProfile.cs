@@ -1,9 +1,9 @@
 using System;
 using AutoMapper;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Domain.Model.Planning;
 using CodeCampServer.UI.Models.CustomResolvers;
 using CodeCampServer.UI.Models.Forms;
-
 
 namespace CodeCampServer.UI
 {
@@ -34,24 +34,25 @@ namespace CodeCampServer.UI
 
 		private static void CreateMaps()
 		{
-
-			AutoMapper.Mapper.CreateMap<User, UserForm>()
+			Mapper.CreateMap<User, UserForm>()
 				.ForMember(u => u.Password, o => o.Ignore())
 				.ForMember(f => f.ConfirmPassword, o => o.Ignore());
 
-			AutoMapper.Mapper.CreateMap<Conference, ConferenceForm>()
+			Mapper.CreateMap<Conference, ConferenceForm>()
 				.ForMember(x => x.StartDate, o => o.AddFormatter<StandardDateFormatter>())
 				.ForMember(x => x.EndDate, o => o.AddFormatter<StandardDateFormatter>());
 
-			AutoMapper.Mapper.CreateMap<Track, TrackForm>();
+			Mapper.CreateMap<Track, TrackForm>();
 
-			AutoMapper.Mapper.CreateMap<TimeSlot, TimeSlotForm>();
-			AutoMapper.Mapper.CreateMap<Speaker, SpeakerForm>();
-			AutoMapper.Mapper.CreateMap<Session, SessionForm>();
+			Mapper.CreateMap<TimeSlot, TimeSlotForm>();
+			Mapper.CreateMap<Speaker, SpeakerForm>();
+			Mapper.CreateMap<Session, SessionForm>();
 
-			AutoMapper.Mapper.CreateMap<Attendee, AttendeeForm>()
+			Mapper.CreateMap<Attendee, AttendeeForm>()
 				.ForMember(a => a.AttendeeID, o => o.MapFrom(a => a.Id))
 				.ForMember(a => a.ConferenceID, o => o.Ignore());
+
+			Mapper.CreateMap<Proposal, ProposalForm>();
 		}
 	}
 }

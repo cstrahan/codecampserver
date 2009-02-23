@@ -1,8 +1,7 @@
 using AutoMapper;
 using CodeCampServer.Core;
 using CodeCampServer.DependencyResolution;
-
-using CodeCampServer.UI;
+using CodeCampServer.UI.Views;
 using NUnit.Framework;
 
 namespace CodeCampServer.UnitTests.UI

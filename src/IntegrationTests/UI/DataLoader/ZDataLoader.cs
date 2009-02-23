@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using CodeCampServer.Core;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
+using CodeCampServer.Core.Domain.Model.Planning;
 using CodeCampServer.Core.Services.Impl;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
@@ -243,8 +245,25 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			           		speaker6
 			           	};
 
-			list.AddRange(CreateUsers());
-
+			User[] users = CreateUsers();
+			list.AddRange(users);
+			foreach (var user1 in users)
+			{
+				foreach (var stati in Enumeration.GetAll<ProposalStatus>())
+				{
+					list.Add(new Proposal
+						{
+							Conference = conference,
+							Level = SessionLevel.L300,
+							Submitter = user1,
+							Title = "A great topic from " + user1.Name,
+							Abstract = "Some great abstract",
+							CreatedDate = SystemTime.Now(),
+							Track = track,
+							Status = stati
+						});
+				}
+			}
 
 			foreach (var aTrack in tracks)
 			{

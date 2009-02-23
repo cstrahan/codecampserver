@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.UI.Helpers.Binders;
+using CodeCampServer.UI.Views;
 
 namespace CodeCampServer.UI
 {

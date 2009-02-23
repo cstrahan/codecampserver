@@ -16,7 +16,7 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 		public Track[] GetAllForConference(Conference conference)
 		{
 			ISession session = GetSession();
-			IQuery query = session.CreateQuery("from Track t where t.Conference = ?");
+			IQuery query = session.CreateQuery("from Track t where t.Conference = ? order by t.Name");
 			query.SetParameter(0, conference);
 			IList<Track> list = query.List<Track>();
 			return list.ToArray();

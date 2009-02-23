@@ -51,7 +51,7 @@ namespace CodeCampServer.UI.Controllers
 		[ValidateModel(typeof (UserForm))]
 		public ActionResult Save([Bind(Prefix = "")] UserForm form)
 		{
-			return ProcessSave(form, () => RedirectToAction<AdminController>(c => c.Index()));
+			return ProcessSave(form, user => RedirectToAction<AdminController>(c => c.Index()));
 		}
 
 		protected override IDictionary<string, string[]> GetFormValidationErrors(UserForm form)

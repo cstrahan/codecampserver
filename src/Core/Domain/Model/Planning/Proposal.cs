@@ -1,3 +1,4 @@
+using System;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 using Tarantino.Core.Commons.Model;
 
@@ -12,5 +13,12 @@ namespace CodeCampServer.Core.Domain.Model.Planning
 		public virtual string Title { get; set; }
 		public virtual string Abstract { get; set; }
 		public virtual ProposalStatus Status { get; set; }
+		public virtual DateTime? SubmissionDate { get; set; }
+		public virtual DateTime? CreatedDate { get; set; }
+
+		public Proposal()
+		{
+			Status = ProposalStatus.Draft;
+		}
 	}
 }
