@@ -65,7 +65,7 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		[Test]
 		public void Proposal_actions_should_map_to_ProposalController()
 		{
-			"~/confkey/proposal/new".ShouldMapTo<ProposalController>(c => c.New(null, null));
+			"~/confkey/proposal/new".ShouldMapTo<ProposalController>(c => c.New(null));
 		}
 	}
 }

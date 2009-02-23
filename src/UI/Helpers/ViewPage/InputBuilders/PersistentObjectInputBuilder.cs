@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -19,6 +20,8 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 		protected override string CreateInputElementBase()
 		{
 			IEnumerable<SelectListItem> selectList = GetSelectList();
+			InputSpecification.Helper.ViewData[InputSpecification.InputName] =
+				selectList.Where(item => item.Selected).Select(item => item.Value).FirstOrDefault();
 			string elementMarkup = InputSpecification.Helper.DropDownList(InputSpecification.InputName, selectList,
 			                                                              InputSpecification.CustomAttributes);
 			return elementMarkup;
