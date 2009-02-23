@@ -1,4 +1,4 @@
-namespace CodeCampServer.Core.Domain.Model.Planning
+namespace CodeCampServer.Core.Domain.Model.Planning.StateCommands
 {
 	public abstract class StateCommandBase : IStateCommand
 	{
@@ -6,7 +6,7 @@ namespace CodeCampServer.Core.Domain.Model.Planning
 
 		public abstract void Execute(Proposal proposal, User currentUser);
 		public abstract string TransitionVerbPresentTense { get; }
-		public abstract ProposalStatus GetBeginStatus();
+		protected abstract ProposalStatus GetBeginStatus();
 		protected abstract bool IsUserAuthorized(Proposal proposal, User currentUser);
 
 		public bool IsValid(Proposal proposal, User currentUser)

@@ -1,7 +1,7 @@
 using System;
 using Tarantino.Core.Commons.Services.Environment;
 
-namespace CodeCampServer.Core.Domain.Model.Planning
+namespace CodeCampServer.Core.Domain.Model.Planning.StateCommands
 {
 	public class SaveDraftCommand : StateCommandBase
 	{
@@ -25,7 +25,7 @@ namespace CodeCampServer.Core.Domain.Model.Planning
 			get { return "Save"; }
 		}
 
-		public override ProposalStatus GetBeginStatus()
+		protected override ProposalStatus GetBeginStatus()
 		{
 			return ProposalStatus.Draft;
 		}
@@ -33,7 +33,7 @@ namespace CodeCampServer.Core.Domain.Model.Planning
 		protected override bool IsUserAuthorized(Proposal proposal, User currentUser)
 		{
 			bool currentUserIsSubmitter = currentUser.Equals(proposal.Submitter);
-			return currentUserIsSubmitter || proposal.Submitter == null;
+				return currentUserIsSubmitter || proposal.Submitter == null;
 		}
 	}
 }

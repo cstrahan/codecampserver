@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CodeCampServer.Core.Domain.Model.Planning;
+using CodeCampServer.Core.Domain.Model.Planning.StateCommands;
 
 namespace CodeCampServer.Core.Services.Impl
 {

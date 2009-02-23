@@ -6,6 +6,5 @@ namespace CodeCampServer.Core.Domain.Model.Planning
 		void Execute(Proposal proposal, User currentUser);
 		string TransitionVerbPresentTense { get; }
 		bool Matches(string commandName);
-		ProposalStatus GetBeginStatus();
 	}
 }

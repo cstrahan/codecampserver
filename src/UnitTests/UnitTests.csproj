@@ -121,12 +121,17 @@
     <Compile Include="Core\Domain\Model\Enumerations\OrderedEnumerationTester.cs" />
     <Compile Include="Core\Domain\Model\Enumerations\YesNoTester.cs" />
     <Compile Include="Core\Domain\Model\ObjectExtensionsTester.cs" />
+    <Compile Include="Core\Domain\Model\Planning\StateCommands\AcceptedToConfirmedCommandTester.cs" />
+    <Compile Include="Core\Domain\Model\Planning\StateCommands\DraftToSubmittedCommandTester.cs" />
+    <Compile Include="Core\Domain\Model\Planning\StateCommands\SaveDraftCommandTester.cs" />
+    <Compile Include="Core\Domain\Model\Planning\StateCommands\SubmittedToAcceptedCommandTester.cs" />
     <Compile Include="Core\Domain\Model\UserTester.cs" />
     <Compile Include="Core\Domain\Model\ValueObjectTester.cs" />
     <Compile Include="Core\Domain\ValidationResultTester.cs" />
     <Compile Include="Core\Services\AuthenticationServiceTester.cs" />
     <Compile Include="Core\Services\CryptographerTester.cs" />
     <Compile Include="Core\Services\ProposalCoordinatorTester.cs" />
+    <Compile Include="Core\Services\StateCommandFactoryTester.cs" />
     <Compile Include="Core\Services\SystemTimeTester.cs" />
     <Compile Include="Core\Services\Updaters\AttendeeMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\ConferenceMapperTester.cs" />

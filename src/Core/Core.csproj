@@ -55,8 +55,8 @@
     <Compile Include="Common\PrimitiveExtensions.cs" />
     <Compile Include="Common\ReflectionExtensions.cs" />
     <Compile Include="Common\UINameHelper.cs" />
-    <Compile Include="Domain\Model\Planning\AcceptedToConfirmedCommand.cs" />
-    <Compile Include="Domain\Model\Planning\DraftToSubmittedCommand.cs" />
+    <Compile Include="Domain\Model\Planning\StateCommands\AcceptedToConfirmedCommand.cs" />
+    <Compile Include="Domain\Model\Planning\StateCommands\DraftToSubmittedCommand.cs" />
     <Compile Include="Domain\Model\Planning\IStateCommand.cs" />
     <Compile Include="Domain\Mapper.cs" />
     <Compile Include="Domain\IMapper.cs" />
@@ -69,9 +69,9 @@
     <Compile Include="Domain\Model\Enumerations\YesNo.cs" />
     <Compile Include="Domain\Model\Planning\Proposal.cs" />
     <Compile Include="Domain\Model\Planning\ProposalStatus.cs" />
-    <Compile Include="Domain\Model\Planning\SaveDraftCommand.cs" />
-    <Compile Include="Domain\Model\Planning\StateCommandBase.cs" />
-    <Compile Include="Domain\Model\Planning\SubmittedToAcceptedCommand.cs" />
+    <Compile Include="Domain\Model\Planning\StateCommands\SaveDraftCommand.cs" />
+    <Compile Include="Domain\Model\Planning\StateCommands\StateCommandBase.cs" />
+    <Compile Include="Domain\Model\Planning\StateCommands\SubmittedToAcceptedCommand.cs" />
     <Compile Include="Domain\ValidationResult.cs" />
     <Compile Include="Domain\IConferencerRepository.cs" />
     <Compile Include="Domain\IKeyedRepository.cs" />

@@ -1,4 +1,4 @@
-namespace CodeCampServer.Core.Domain.Model.Planning
+namespace CodeCampServer.Core.Domain.Model.Planning.StateCommands
 {
 	public class AcceptedToConfirmedCommand : StateCommandBase
 	{
@@ -12,7 +12,7 @@ namespace CodeCampServer.Core.Domain.Model.Planning
 			get { return "Confirm"; }
 		}
 
-		public override ProposalStatus GetBeginStatus()
+		protected override ProposalStatus GetBeginStatus()
 		{
 			return ProposalStatus.Accepted;
 		}

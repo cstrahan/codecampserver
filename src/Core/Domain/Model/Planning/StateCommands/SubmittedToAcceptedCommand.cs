@@ -1,6 +1,6 @@
 using System;
 
-namespace CodeCampServer.Core.Domain.Model.Planning
+namespace CodeCampServer.Core.Domain.Model.Planning.StateCommands
 {
 	public class SubmittedToAcceptedCommand : StateCommandBase
 	{
@@ -14,7 +14,7 @@ namespace CodeCampServer.Core.Domain.Model.Planning
 			get { return "Accept"; }
 		}
 
-		public override ProposalStatus GetBeginStatus()
+		protected override ProposalStatus GetBeginStatus()
 		{
 			return ProposalStatus.Submitted;
 		}
