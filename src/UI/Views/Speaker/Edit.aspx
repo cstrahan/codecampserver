@@ -24,15 +24,15 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.SpeakerEditView"%>
 	        <table class="dataEntry">
 		        <tr>
 			        <td class="w50p">
-									<%=InputFor(a => a.Id)%>            	
-					    <div><%=InputFor(a => a.FirstName)%></div>
-					    <div><%=InputFor(a => a.LastName)%></div>
-					    <div><%=InputFor(a => a.Key)%></div>
-					    <div><%=InputFor(a => a.EmailAddress)%></div>
-					    <div><%=InputFor(a => a.Company)%></div>
-					    <div><%=InputFor(a => a.JobTitle)%></div>
-					    <div><%=InputFor(a => a.WebsiteUrl)%></div>
-					    <div><%=InputFor(a => a.Bio)%></div>
+									<%=Html.Input(a => a.Id)%>            	
+					    <div><%=Html.Input(a => a.FirstName)%></div>
+					    <div><%=Html.Input(a => a.LastName)%></div>
+					    <div><%=Html.Input(a => a.Key)%></div>
+					    <div><%=Html.Input(a => a.EmailAddress)%></div>
+					    <div><%=Html.Input(a => a.Company)%></div>
+					    <div><%=Html.Input(a => a.JobTitle)%></div>
+					    <div><%=Html.Input(a => a.WebsiteUrl)%></div>
+					    <div><%=Html.Input(a => a.Bio)%></div>
 			        </td>
 			       
 		        </tr>

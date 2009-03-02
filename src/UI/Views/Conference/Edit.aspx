@@ -24,18 +24,18 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.ConferenceEditView"%>
 	        <table class="dataEntry">
 		        <tr>
 			        <td class="w50p">
-									<%=InputFor(a => a.Id)%>            	
-					    <%=InputFor(a => a.Name)%>
-					    <%=InputFor(a => a.Key)%>
-					    <%=InputFor(a => a.Description)%>
-					    <%=InputFor(a => a.StartDate)%><br />
-					    <%=InputFor(a => a.EndDate)%><br />
-					    <%=InputFor(a => a.LocationName)%>
-					    <%=InputFor(a => a.Address)%>
-					    <%=InputFor(a => a.City)%>
-					    <%=InputFor(a => a.Region)%>
-					    <%=InputFor(a => a.PostalCode)%>
-					    <%=InputFor(a => a.PhoneNumber)%>
+									<%=Html.Input(a => a.Id)%>            	
+					    <%=Html.Input(a => a.Name)%>
+					    <%=Html.Input(a => a.Key)%>
+					    <%=Html.Input(a => a.Description)%>
+					    <%=Html.Input(a => a.StartDate)%><br />
+					    <%=Html.Input(a => a.EndDate)%><br />
+					    <%=Html.Input(a => a.LocationName)%>
+					    <%=Html.Input(a => a.Address)%>
+					    <%=Html.Input(a => a.City)%>
+					    <%=Html.Input(a => a.Region)%>
+					    <%=Html.Input(a => a.PostalCode)%>
+					    <%=Html.Input(a => a.PhoneNumber)%>
 			        </td>
 		        </tr>
 	        </table>

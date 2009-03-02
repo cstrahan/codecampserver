@@ -32,12 +32,12 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.AttendeeEditView"%>
 	        <tr><th></th></tr>
 		        <tr>
 			        <td class="w50p">       	
-			        	<%=InputFor(a => a.AttendeeID)%>
-						<%=InputFor(a => a.ConferenceID)%>
-					    <%=InputFor(a => a.FirstName)%>
-					    <%=InputFor(a => a.LastName)%>
-					    <%=InputFor(a => a.EmailAddress)%>
-					    <%=InputFor(a => a.Webpage)%>	
+			        	<%=Html.Input(a => a.AttendeeID)%>
+						<%=Html.Input(a => a.ConferenceID)%>
+					    <%=Html.Input(a => a.FirstName)%>
+					    <%=Html.Input(a => a.LastName)%>
+					    <%=Html.Input(a => a.EmailAddress)%>
+					    <%=Html.Input(a => a.Webpage)%>	
 			        </td>
 		        </tr>
 	        </table>

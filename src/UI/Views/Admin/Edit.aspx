@@ -26,12 +26,12 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.AdminEditView"%>
 	    <table class="dataEntry">
 		    <tr>
 			    <td class="w50p">
-						<%=InputFor(a => a.Id)%>            	
-						<%=InputFor(a => a.Username)%>
-						<%=InputFor(a => a.Name)%>
-						<%=InputFor(a => a.EmailAddress)%>
-						<%=InputFor(a => a.Password)%>
-						<%=InputFor(a => a.ConfirmPassword)%>
+						<%=Html.Input(a => a.Id)%>            	
+						<%=Html.Input(a => a.Username)%>
+						<%=Html.Input(a => a.Name)%>
+						<%=Html.Input(a => a.EmailAddress)%>
+						<%=Html.Input(a => a.Password)%>
+						<%=Html.Input(a => a.ConfirmPassword)%>
 			    </td>
 		    </tr>
 		  </table>

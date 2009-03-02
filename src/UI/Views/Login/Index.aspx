@@ -1,7 +1,13 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.LoginView"%>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master"
+ AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<LoginForm>"%>
+<%@ Import Namespace="CodeCampServer.UI.Helpers.ViewPage"%>
+<%@ Import Namespace="MvcContrib"%>
+<%@ Import Namespace="CodeCampServer.UI.Views"%>
+<%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
 <%@ Import Namespace="CodeCampServer.UI"%>
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
+
 <asp:Content ContentPlaceHolderID="Main" runat="server">  
   <script type="text/javascript">     
      $(function() {
@@ -15,8 +21,8 @@
 	    <table class="dataEntry">
 		    <tr>
 			    <td class="w50p">
-						<%=InputFor(a => a.Username)%>
-						<%=InputFor(a => a.Password)%>
+						<%=Html.Input(f=>f.Username) %>
+						<%=Html.Input(f=>f.Password) %>
 			    </td>
 		    </tr>
 		  </table>

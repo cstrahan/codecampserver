@@ -16,8 +16,6 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 
 	public class SpeakerEditView : BaseViewPage<SpeakerForm> {}
 
-	public class LoginView : BaseViewPage<LoginForm> {}
-
 	public class AttendeeEditView : BaseViewPage<AttendeeForm> {}
 
 	public class ScheduleView : BaseViewPage<ScheduleForm[]> {}
@@ -25,6 +23,4 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 	public class ScheduleSlotView : BaseViewPage<SessionForm[]> {}
 
 	public class TimeSlotIndexView : BaseViewPage<TimeSlotForm[]> {}
-
-	public class TimeSlotEditView : BaseViewPage<TimeSlotForm> {}
 }

@@ -238,6 +238,7 @@
     </Compile>
     <Compile Include="RouteConfigurator.cs" />
     <Compile Include="Controllers\TimeSlotController.cs" />
+    <Compile Include="Views\HtmlHelperExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\hibernate.cfg.xml">

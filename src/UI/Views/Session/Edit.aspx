@@ -22,17 +22,17 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.SessionEditView"%>
 						<table class="dataEntry">
 							<tr>
 								<td class="w50p">
-									<%=InputFor(a => a.Id)%>            	
-									<%=InputFor(a => a.Title)%>
-									<%=InputFor(a => a.Key)%>
-									<%=InputFor(a => a.Abstract)%>
-									<%=InputFor(a => a.Level)%>
-									<%=InputFor(a => a.Speaker)%>
-									<%=InputFor(a => a.TimeSlot)%>
+									<%=Html.Input(a => a.Id)%>            	
+									<%=Html.Input(a => a.Title)%>
+									<%=Html.Input(a => a.Key)%>
+									<%=Html.Input(a => a.Abstract)%>
+									<%=Html.Input(a => a.Level)%>
+									<%=Html.Input(a => a.Speaker)%>
+									<%=Html.Input(a => a.TimeSlot)%>
 									
-									<%=InputFor(a => a.Track)%>
-									<%=InputFor(a => a.RoomNumber)%>
-									<%=InputFor(a => a.MaterialsUrl)%>
+									<%=Html.Input(a => a.Track)%>
+									<%=Html.Input(a => a.RoomNumber)%>
+									<%=Html.Input(a => a.MaterialsUrl)%>
 									<input type="hidden" name="urlreferrer" value="<%=ViewData["UrlReferrer"].ToString().ToXHTMLLink()%>" />
 								</td>
 							</tr>

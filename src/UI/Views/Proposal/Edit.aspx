@@ -18,13 +18,13 @@
 	        <tr><th></th></tr>
 		        <tr>
 			        <td class="w50p">       
-								<%=InputFor(x => x.Id)%>	
-			        	<%=InputFor(x => x.Title).Attributes(GetAttributes())%>
-			        	<%=InputFor(x => x.Status) %>
-								<%=InputFor(x => x.Level).Attributes(GetAttributes())%>
-								<%=InputFor(x => x.Track).Attributes(GetAttributes())%>
-								<%=InputFor(x => x.Abstract).Attributes(GetAttributes("5", "60"))%>
-								<%=InputFor(x => x.SubmissionDate)%>
+								<%=Html.Input(x => x.Id)%>	
+			        	<%=Html.Input(x => x.Title).Attributes(GetAttributes())%>
+			        	<%=Html.Input(x => x.Status) %>
+								<%=Html.Input(x => x.Level).Attributes(GetAttributes())%>
+								<%=Html.Input(x => x.Track).Attributes(GetAttributes())%>
+								<%=Html.Input(x => x.Abstract).Attributes(GetAttributes("5", "60"))%>
+								<%=Html.Input(x => x.SubmissionDate)%>
 			        </td>
 		        </tr>
 	        </table>
