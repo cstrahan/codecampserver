@@ -36,7 +36,9 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			mapper.Stub(x => x.Map(form)).Return(proposal);
 			var repository = S<IProposalRepository>();
 
-			var controller = new ProposalController(repository, mapper, S<IProposalCoordinator>());
+			var coordinator = S<IProposalCoordinator>();
+			coordinator.Stub(x => x.GetValidCommands(null)).Return(new IStateCommand[0]).IgnoreArguments();
+			var controller = new ProposalController(repository, mapper, coordinator);
 			var result = (RedirectToRouteResult) controller.Save(form, null);
 
 			repository.AssertWasCalled(x => x.Save(proposal));

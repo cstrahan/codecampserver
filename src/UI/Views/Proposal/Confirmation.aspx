@@ -1,5 +1,6 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Main.Master" 
 Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ProposalForm>" %>
+
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 <%@ Import Namespace="CodeCampServer.UI"%>

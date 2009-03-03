@@ -1,5 +1,5 @@
-<%@ Import Namespace="CodeCampServer.UI.Models"%>
 <%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<%@ Import Namespace="CodeCampServer.UI.Models"%>
 <%@ Import Namespace="CodeCampServer.UI.Helpers.Filters"%>
 <%@ Import Namespace="System.Reflection"%>
 <%@ Import Namespace="CodeCampServer.Core"%>

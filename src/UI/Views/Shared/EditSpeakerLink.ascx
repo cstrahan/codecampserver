@@ -1,8 +1,7 @@
-﻿<%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl" %>
+<%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
 
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
-
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl" %>
 <%
 var speaker = (SpeakerForm) ViewData.Model; %>
 <%if (ViewContext.HttpContext.User.Identity.IsAuthenticated){%>

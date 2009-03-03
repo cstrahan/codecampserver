@@ -1,6 +1,6 @@
-﻿<%@ Import Namespace="CodeCampServer.UI.Controllers"%>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl" %>
+<%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl" %>
   <div class="h100">
   <h1>Administration</h1>  
   <ul>

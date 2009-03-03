@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true"
-	Inherits="CodeCampServer.UI.Helpers.ViewPage.SessionIndexView" %>
+	Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<SessionForm[]>" %>
 
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 <%@ Import Namespace="MvcContrib" %>

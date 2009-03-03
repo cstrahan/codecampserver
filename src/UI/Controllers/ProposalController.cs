@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -12,6 +13,7 @@ using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
+	[Obsolete("The invalid scenario here is really bad.  Redesign!")]
 	[RequiresConferenceFilter]
 	public class ProposalController : SaveController<Proposal, IProposalMessage>
 	{
@@ -30,8 +32,7 @@ namespace CodeCampServer.UI.Controllers
 
 		public ViewResult New(Conference conference)
 		{
-			ProposalEditInfo info = CreateEditInfo(_proposalCoordinator.GetValidCommands(new Proposal()));
-			ViewData.Add(info);
+			AddEditInfoToViewData(new Proposal());
 			var model = new ProposalForm {ConferenceKey = conference.Key};
 			return View("Edit", model);
 		}
@@ -39,7 +40,11 @@ namespace CodeCampServer.UI.Controllers
 		[ValidateModel(typeof (ProposalForm))]
 		public ActionResult Save(ProposalForm form, string command)
 		{
-			return ProcessSave(form, PostSaveAction, obj => PreSaveAction(obj, command));
+			AddEditInfoToViewData(form);
+			return ProcessSave(form, PostSaveAction, delegate(Proposal obj)
+			                                         	{
+			                                         		PreSaveAction(obj, command);
+			                                         	});
 		}
 
 		private void PreSaveAction(Proposal model, string command)
@@ -60,10 +65,29 @@ namespace CodeCampServer.UI.Controllers
 
 		public ViewResult Edit(Proposal proposal)
 		{
-			IStateCommand[] commands = GetValidCommands(proposal);
-			ViewData.Add(CreateEditInfo(commands));
+			AddEditInfoToViewData(proposal);
 			var message = _mapper.Map<ProposalForm>(proposal);
 			return View(message);
+		}
+
+		private void AddEditInfoToViewData(ProposalForm form)
+		{
+			if(form.IsTransient())
+			{
+				AddEditInfoToViewData(new Proposal());
+			}
+			else
+			{
+				Proposal proposal = _repository.GetById(form.Id);
+				AddEditInfoToViewData(proposal);
+			}
+		}
+
+		private void AddEditInfoToViewData(Proposal proposal)
+		{
+			IStateCommand[] commands = GetValidCommands(proposal);
+			ProposalEditInfo info = CreateEditInfo(commands);
+			ViewData.Add(info);
 		}
 
 		private ProposalEditInfo CreateEditInfo(IStateCommand[] commands)

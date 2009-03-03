@@ -180,9 +180,6 @@
     <Compile Include="Helpers\ViewPage\InputBuilders\RadioInputBuilder.cs" />
     <Compile Include="Helpers\ViewPage\InputSpecification.cs" />
     <Compile Include="Helpers\ViewPage\IViewBase.cs" />
-    <Compile Include="Helpers\ViewPage\TypedViewPages.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Helpers\ViewPage\ViewBaseExtensions.cs" />
     <Compile Include="HtmlExtensions.cs" />
     <Compile Include="Services\IRouteConfigurator.cs" />

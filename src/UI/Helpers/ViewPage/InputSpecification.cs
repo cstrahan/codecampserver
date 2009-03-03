@@ -1,3 +1,4 @@
+using System;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Web.Mvc;
@@ -21,6 +22,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 		private readonly string _inputName;
 		private readonly int? _inputIndex;
 		private readonly string _inputId;
+		public Type InputBuilderType { get; private set; }
 
 		public string InputId
 		{
@@ -145,6 +147,12 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 		public IInputSpecificationExpression NoCleaner()
 		{
 			_attachCleaner = false;
+			return this;
+		}
+
+		public IInputSpecificationExpression Using<T>() where T : IInputBuilder
+		{
+			InputBuilderType = typeof (T);
 			return this;
 		}
 

@@ -1,3 +1,4 @@
+using System;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Web.Mvc;
@@ -19,5 +20,6 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 		string InputName { get; }
 		int? InputIndex { get; }
 		LambdaExpression Expression { get; }
+		Type InputBuilderType { get; }
 	}
 }

@@ -1,3 +1,5 @@
+using System;
+
 namespace CodeCampServer.UI.Helpers.ViewPage
 {
 	public interface IInputSpecificationExpression
@@ -7,5 +9,6 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 		IInputSpecificationExpression Attributes(object attributes);
 		IInputSpecificationExpression WithInvalidOption();
 		IInputSpecificationExpression NoCleaner();
+		IInputSpecificationExpression Using<T>() where T : IInputBuilder;
 	}
 }

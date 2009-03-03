@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true"
-	Inherits="CodeCampServer.UI.Helpers.ViewPage.ScheduleSlotView" %>
+	Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<SessionForm[]>" %>
 <%@ Import Namespace="CodeCampServer.Core.Common"%>
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 <%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>

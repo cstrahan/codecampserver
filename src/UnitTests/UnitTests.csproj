@@ -164,6 +164,7 @@
     <Compile Include="UI\Helpers\Filters\FilterAttributeTester.cs" />
     <Compile Include="UI\KeyedModelBinderTester.cs" />
     <Compile Include="UI\ModelBinderTester.cs" />
+    <Compile Include="UI\Models\Forms\ProposalFormTester.cs" />
     <Compile Include="UI\Routes\ConferenceKeyControllerNameConstraintTester.cs" />
     <Compile Include="UI\Routes\IncomingRouteTester.cs" />
     <Compile Include="UI\Routes\RouteConstraintTestingExtension.cs" />

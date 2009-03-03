@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
-Inherits="CodeCampServer.UI.Helpers.ViewPage.AttendeeEditView"%>
+Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<AttendeeForm>"%>
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
 
 <%@ Import Namespace="MvcContrib" %>
@@ -33,11 +33,11 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.AttendeeEditView"%>
 		        <tr>
 			        <td class="w50p">       	
 			        	<%=Html.Input(a => a.AttendeeID)%>
-						<%=Html.Input(a => a.ConferenceID)%>
-					    <%=Html.Input(a => a.FirstName)%>
-					    <%=Html.Input(a => a.LastName)%>
-					    <%=Html.Input(a => a.EmailAddress)%>
-					    <%=Html.Input(a => a.Webpage)%>	
+								<%=Html.Input(a => a.ConferenceID)%>
+								<%=Html.Input(a => a.FirstName)%>
+								<%=Html.Input(a => a.LastName)%>
+								<%=Html.Input(a => a.EmailAddress)%>
+								<%=Html.Input(a => a.Webpage)%>	
 			        </td>
 		        </tr>
 	        </table>

@@ -15,9 +15,18 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 		{
 			foreach (IInputBuilder inputCreator in _inputBuilders)
 			{
-				if (inputCreator.IsSatisfiedBy(inputSpecification))
+				Type type = inputSpecification.InputBuilderType;
+				if (type != null && type.IsAssignableFrom(inputCreator.GetType()))
 				{
 					return inputCreator;
+				}
+			}
+
+			foreach (var inputBuilder in _inputBuilders)
+			{
+			if (inputBuilder.IsSatisfiedBy(inputSpecification))
+				{
+					return inputBuilder;
 				}
 			}
 

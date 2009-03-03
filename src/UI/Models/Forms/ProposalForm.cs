@@ -10,7 +10,6 @@ namespace CodeCampServer.UI.Models.Forms
 {
 	public class ProposalForm : IProposalMessage
 	{
-		public string SubmitterUsername { get; set; }
 		public string ConferenceKey { get; set; }
 
 		[BetterValidateNonEmpty("Track")]
@@ -33,5 +32,10 @@ namespace CodeCampServer.UI.Models.Forms
 
 		[NoInput]
 		public string SubmissionDate { get; set; }
+
+		public bool IsTransient()
+		{
+			return Id == Guid.Empty;
+		}
 	}
 }
