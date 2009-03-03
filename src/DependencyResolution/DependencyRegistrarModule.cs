@@ -8,6 +8,7 @@ namespace CodeCampServer.DependencyResolution
 	public class DependencyRegistrarModule : IHttpModule
 	{
 		private static bool _dependenciesRegistered;
+        private static object Lock = new object();
 
 		public void Init(HttpApplication context)
 		{
@@ -27,7 +28,7 @@ namespace CodeCampServer.DependencyResolution
 		{
 			if (!_dependenciesRegistered)
 			{
-				lock (this)
+				lock (Lock)
 				{
 					if (!_dependenciesRegistered)
 					{
