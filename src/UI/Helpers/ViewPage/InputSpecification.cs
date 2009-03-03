@@ -12,31 +12,18 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 		private readonly HtmlHelper _helper;
 		private readonly IInputBuilderFactory _factory;
 		private readonly UrlHelper _urlHelper;
-		private bool _inline;
 		private object _customAttributes;
-		private bool _renderLabel = true;
-		private bool _attachCleaner = true;
-		private bool _invalidOption;
 		private readonly LambdaExpression _expression;
 		private readonly LambdaExpression _parentExpression;
 		private readonly string _inputName;
 		private readonly int? _inputIndex;
 		private readonly string _inputId;
 		public Type InputBuilderType { get; private set; }
+		public object InputValue { get; private set; }
 
 		public string InputId
 		{
 			get { return _inputId; }
-		}
-
-		public bool Inline
-		{
-			get { return _inline; }
-		}
-
-		public bool RenderLabel
-		{
-			get { return _renderLabel; }
 		}
 
 		public PropertyInfo PropertyInfo
@@ -62,16 +49,6 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 		public bool UseSpanAsLabel
 		{
 			get { return false; }
-		}
-
-		public bool AttachCleaner
-		{
-			get { return _attachCleaner; }
-		}
-
-		public bool InvalidOption
-		{
-			get { return _invalidOption; }
 		}
 
 		public string InputName
@@ -126,27 +103,9 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 			return builder.Build(this);
 		}
 
-		public IInputSpecificationExpression NoLabel()
-		{
-			_renderLabel = false;
-			return this;
-		}
-
-		public IInputSpecificationExpression DisplayedInline()
-		{
-			_inline = true;
-			return this;
-		}
-
 		public IInputSpecificationExpression Attributes(object attributes)
 		{
 			_customAttributes = attributes;
-			return this;
-		}
-
-		public IInputSpecificationExpression NoCleaner()
-		{
-			_attachCleaner = false;
 			return this;
 		}
 
@@ -156,10 +115,11 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 			return this;
 		}
 
-		public IInputSpecificationExpression WithInvalidOption()
+		public IInputSpecificationExpression WithValue(object value)
 		{
-			_invalidOption = true;
+			InputValue = value;
 			return this;
 		}
+
 	}
 }

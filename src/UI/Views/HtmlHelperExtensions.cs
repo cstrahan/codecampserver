@@ -9,19 +9,47 @@ namespace CodeCampServer.UI.Views
 	public static class HtmlHelperExtensions
 	{
 		public static IInputSpecificationExpression Input<TModel>(this HtmlHelper<TModel> helper,
-		                                                            Expression<Func<TModel, object>> expr)
+		                                                          Expression<Func<TModel, object>> expr)
+			where TModel : class
+		{
+			return GetInputSpec(helper, expr);
+		}
+
+		public static IInputSpecificationExpression Input<TModel>(this HtmlHelper<TModel> helper,
+		                                                          Expression<Func<TModel, object>> expr,
+		                                                          object value)
+			where TModel : class
+		{
+			return GetInputSpec(helper, expr).WithValue(value);
+		}
+
+		private static IInputSpecificationExpression GetInputSpec<TModel>(HtmlHelper<TModel> helper,
+		                                                                  Expression<Func<TModel, object>> expr)
 			where TModel : class
 		{
 			var view = (IViewBase) helper.ViewDataContainer;
 			return view.InputFor(expr);
 		}
 
-		public static IInputSpecificationExpression TextBox<TModel>(this HtmlHelper<TModel> helper,
-																																Expression<Func<TModel, object>> expr)
+		public static IInputSpecificationExpression TextInput<TModel>(this HtmlHelper<TModel> helper,
+		                                                              Expression<Func<TModel, object>> expr)
 			where TModel : class
 		{
-			var view = (IViewBase)helper.ViewDataContainer;
-			return view.InputFor(expr).Using<TextBoxInputBuilder>();
+			return GetInputSpec(helper, expr).Using<TextBoxInputBuilder>();
+		}
+
+		public static IInputSpecificationExpression HiddenInput<TModel>(this HtmlHelper<TModel> helper,
+		                                                                Expression<Func<TModel, object>> expr)
+			where TModel : class
+		{
+			return GetInputSpec(helper, expr).Using<HiddenInputBuilder>();
+		}
+
+		public static IInputSpecificationExpression Label<TModel>(this HtmlHelper<TModel> helper,
+		                                                          Expression<Func<TModel, object>> expr)
+			where TModel : class
+		{
+			return GetInputSpec(helper, expr).Using<NoInputBuilder>();
 		}
 	}
 }

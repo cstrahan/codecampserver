@@ -23,10 +23,5 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 			return specification.PropertyInfo.HasCustomAttribute<HiddenAttribute>() ||
 				   specification.PropertyInfo.PropertyType == typeof(Guid) || specification.PropertyInfo.PropertyType == typeof(Guid?);
 		}
-
-		protected override void AppendCleaner(StringBuilder output)
-		{
-			return;
-		}
 	}
 }

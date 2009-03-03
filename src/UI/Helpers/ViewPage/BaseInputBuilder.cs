@@ -62,13 +62,18 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 
 		protected virtual object GetValue()
 		{
+			object inputValue = InputSpecification.InputValue;
+			if (inputValue != null)
+			{
+				return inputValue;
+			}
+
 			return ExpressionHelper.Evaluate(InputSpecification.Expression, InputSpecification.Helper.ViewData.Model);
 		}
 
 		protected virtual void AppendCleaner(StringBuilder output)
 		{
-			if (_inputSpecification.AttachCleaner)
-				output.Append("<div class='cleaner'></div>");
+			output.Append("<div class='cleaner'></div>");
 		}
 
 		private void AppendValidationError(StringBuilder output)
@@ -88,13 +93,13 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 
 		protected virtual void AppendLabel(StringBuilder output)
 		{
-			string labelClass = InputSpecification.Inline ? "nestedLabel" : "";
+			string labelClass = "";
 
 			if (UseSpanAsLabel)
 				output.AppendFormat(@"<span class=""label"">");
 			else
 			{
-				string style = InputSpecification.RenderLabel ? "" : "display: none";
+				string style = "";
 				output.AppendFormat(@"<label for=""{0}"" class=""{1}"" style=""{2}"">", GetLabelFor(), labelClass, style);
 			}
 

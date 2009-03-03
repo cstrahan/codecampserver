@@ -1,5 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Main.Master" 
 	Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ProposalForm>" %>
+<%@ Import Namespace="CodeCampServer.UI.Views"%>
+<%@ Import Namespace="CodeCampServer.UI.Helpers.ViewPage.InputBuilders"%>
 <%@ Import Namespace="MvcContrib"%>
 <%@ Import Namespace="CodeCampServer.Core"%>
 <%@ Import Namespace="CodeCampServer.UI.Models"%>
@@ -19,9 +21,9 @@
 	        <tr><th></th></tr>
 		        <tr>
 			        <td class="w50p">       
-								<%=Html.Input(x => x.Id)%>	
+								<%=Html.HiddenInput(x => x.Id)%>	
 			        	<%=Html.Input(x => x.Title).Attributes(GetAttributes())%>
-			        	<%=Html.Input(x => x.Status) %>
+			        	<%=Html.Label(x => x.Status) %>
 								<%=Html.Input(x => x.Level).Attributes(GetAttributes())%>
 								<%=Html.Input(x => x.Track).Attributes(GetAttributes())%>
 								<%=Html.Input(x => x.Abstract).Attributes(GetAttributes("5", "60"))%>
