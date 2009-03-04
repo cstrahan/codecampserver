@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd">
 
 	<target name="init" description="Initializes build properties">
@@ -9,7 +9,7 @@
 
 	<target name="revert">
 		<echo message="Executing ${svn.executable} revert . -R" />
-		<exec program="${svn.executable}" commandline="revert . -R" />
+		<exec failonerror="false" program="${svn.executable}" commandline="revert . -R" />
 	</target>
 
 	<target name="commonassemblyinfo">
