@@ -109,17 +109,23 @@
             <param name="actionResult">The result to check.</param>
             <returns>The ViewData in it's strongly-typed form.</returns>
         </member>
+        <member name="T:MvcContrib.TestHelper.AssertionException">
+            <summary>
+             This exception is thrown by the TestHelper extension methods.  This allows this project to be unit test framework agnostic.
+            </summary>
+        </member>
         <member name="T:MvcContrib.TestHelper.GeneralTestExtensions">
             <summary>
             Contains basic extension methods to simplify testing.
             </summary>
         </member>
-        <member name="M:MvcContrib.TestHelper.GeneralTestExtensions.ShouldBe``1(System.Object)">
+        <member name="M:MvcContrib.TestHelper.GeneralTestExtensions.ShouldBe``1(System.Object,System.String)">
             <summary>
             Asserts that the object is of type T.  Also returns T to enable method chaining.
             </summary>
             <typeparam name="T"></typeparam>
             <param name="actual"></param>
+            <param name="message">Message to display when assertion fails</param>
             <returns></returns>
         </member>
         <member name="M:MvcContrib.TestHelper.GeneralTestExtensions.ShouldBe(System.Object,System.Object)">
@@ -319,6 +325,13 @@
             </summary>
             <typeparam name="TController"></typeparam>
             <param name="routeData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.ShouldBeIgnored(System.String)">
+            <summary>
+            Verifies the <see cref="T:System.Web.Routing.RouteData">routeData</see> will instruct the routing engine to ignore the route.
+            </summary>
+            <param name="relativeUrl"></param>
             <returns></returns>
         </member>
         <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.GetValue(System.Web.Routing.RouteValueDictionary,System.String)">
