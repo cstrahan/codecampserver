@@ -29,6 +29,7 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			model.PostalCode = form.PostalCode;
 			model.Region = form.Region;
 			model.StartDate = ToDateTime(form.StartDate);
+		    model.HtmlContent = form.HtmlContent;
 		}
 	}
 }

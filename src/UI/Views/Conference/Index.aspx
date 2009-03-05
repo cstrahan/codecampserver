@@ -19,6 +19,6 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm>"%>
             <h2><%= Model.Description %></h2>
             <p><%= Model.LocationName %></p>
             <p><%= Model.StartDate %>&nbsp;to&nbsp;<%= Model.EndDate %></p>
-			  
+              <%= Model.HtmlContent %> 
         </div>
 </asp:Content>

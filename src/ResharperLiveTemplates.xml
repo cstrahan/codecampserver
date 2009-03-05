@@ -1,5 +1,5 @@
 <TemplatesExport>
-  <Template uid="eb95ea39-f299-43b1-a802-4ba762cabbee" text="using NUnit.Framework;&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;  [TestFixture]&#xD;&#xA;  public class $CLASS$Tester&#xD;&#xA;  {&#xD;&#xA;    $END$&#xD;&#xA;  }&#xD;&#xA;}" shortcut="fixture" description="NUnit Test Fixture" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="eb95ea39-f299-43b1-a802-4ba762cabbee" shortcut="fixture" description="NUnit Test Fixture" text="using NUnit.Framework;&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;  [TestFixture]&#xD;&#xA;  public class $CLASS$Tester&#xD;&#xA;  {&#xD;&#xA;    $END$&#xD;&#xA;  }&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="NAMESPACE" expression="fileDefaultNamespace()" initialRange="0" />
@@ -7,19 +7,19 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="7bd75a75-3ca6-4f6f-ad48-439219fc5b26" text="[Test]&#xD;&#xA;public void $TEST_NAME$() &#xD;&#xA;{&#xD;&#xA;  $END$&#xD;&#xA;}" shortcut="test" description="NUnit Test" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="7bd75a75-3ca6-4f6f-ad48-439219fc5b26" shortcut="test" description="NUnit Test" text="[Test]&#xD;&#xA;public void $TEST_NAME$() &#xD;&#xA;{&#xD;&#xA;  $END$&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="TEST_NAME" expression="" initialRange="0" />
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="af9d250a-bd36-4d5b-95fc-e448c5c1b15a" text="[SetUp]&#xD;&#xA;public void SetUp()&#xD;&#xA;{&#xD;&#xA;  $END$&#xD;&#xA;}" shortcut="setup" description="NUnit Setup Method" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="af9d250a-bd36-4d5b-95fc-e448c5c1b15a" shortcut="setup" description="NUnit Setup Method" text="[SetUp]&#xD;&#xA;public void SetUp()&#xD;&#xA;{&#xD;&#xA;  $END$&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables />
     <CustomProperties />
   </Template>
-  <Template uid="3a71076c-7b3c-4c9f-9378-576e36071b89" text="namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;  public class $CLASS$&#xD;&#xA;  {&#xD;&#xA;    $END$&#xD;&#xA;  }&#xD;&#xA;}" shortcut="class" description=".NET Class" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="3a71076c-7b3c-4c9f-9378-576e36071b89" shortcut="class" description=".NET Class" text="namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;  public class $CLASS$&#xD;&#xA;  {&#xD;&#xA;    $END$&#xD;&#xA;  }&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="NAMESPACE" expression="fileDefaultNamespace()" initialRange="0" />
@@ -27,7 +27,7 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="46512076-e5cd-4607-99c6-69a88ec43a7b" text="namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;  public interface I$INTERFACE$&#xD;&#xA;  {&#xD;&#xA;    $END$&#xD;&#xA;  }&#xD;&#xA;}" shortcut="interface" description=".NET Interface" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="46512076-e5cd-4607-99c6-69a88ec43a7b" shortcut="interface" description=".NET Interface" text="namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;  public interface I$INTERFACE$&#xD;&#xA;  {&#xD;&#xA;    $END$&#xD;&#xA;  }&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="NAMESPACE" expression="fileDefaultNamespace()" initialRange="0" />
@@ -35,17 +35,17 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="9feab6c5-c4b4-4dee-b789-c15db807a8b6" text="[StructureMap.PluginFamily(Hubbuzz.Domain.ServiceKeys.Default)]" shortcut="family" description="StructureMap Plugin Family" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="9feab6c5-c4b4-4dee-b789-c15db807a8b6" shortcut="family" description="StructureMap Plugin Family" text="[StructureMap.PluginFamily(Hubbuzz.Domain.ServiceKeys.Default)]" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables />
     <CustomProperties />
   </Template>
-  <Template uid="6006f89a-90a6-45ed-8e89-df00d714c147" text="[StructureMap.Pluggable(Hubbuzz.Domain.ServiceKeys.Default)]" shortcut="plugin" description="StructureMap Plugin" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="6006f89a-90a6-45ed-8e89-df00d714c147" shortcut="plugin" description="StructureMap Plugin" text="[StructureMap.Pluggable(Hubbuzz.Domain.ServiceKeys.Default)]" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables />
     <CustomProperties />
   </Template>
-  <Template uid="480cff5e-44a4-41d9-aba3-ae896e8adfa4" text="MockRepository mocks = new MockRepository();&#xD;&#xA;I$INTERFACE$ $MOCK$ = mocks.CreateMock&lt;I$INTERFACE$&gt;();&#xD;&#xA;			&#xD;&#xA;using(mocks.Record())&#xD;&#xA;{&#xD;&#xA;$END$;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;using (mocks.Playback())&#xD;&#xA;{&#xD;&#xA;}" shortcut="mocks" description="New RhinoMock repository" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="480cff5e-44a4-41d9-aba3-ae896e8adfa4" shortcut="mocks" description="New RhinoMock repository" text="MockRepository mocks = new MockRepository();&#xD;&#xA;I$INTERFACE$ $MOCK$ = mocks.CreateMock&lt;I$INTERFACE$&gt;();&#xD;&#xA;			&#xD;&#xA;using(mocks.Record())&#xD;&#xA;{&#xD;&#xA;$END$;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;using (mocks.Playback())&#xD;&#xA;{&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="INTERFACE" expression="" initialRange="0" />
@@ -53,7 +53,7 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="e0786edb-6b82-461e-81ad-5a199d3e2051" text="I$INTERFACE$ $VARIABLE$ = mocks.CreateMock&lt;I$INTERFACE$&gt;();" shortcut="newmock" description="New RhinoMock mock" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="e0786edb-6b82-461e-81ad-5a199d3e2051" shortcut="newmock" description="New RhinoMock mock" text="I$INTERFACE$ $VARIABLE$ = mocks.CreateMock&lt;I$INTERFACE$&gt;();" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="INTERFACE" expression="" initialRange="0" />
@@ -61,7 +61,7 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="41fe55db-89e0-469b-888f-8aba4123a1ba" text="Assert.AreEqual(null, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = &quot;$PROPERTY$&quot;;&#xD;&#xA;Assert.AreEqual(&quot;$PROPERTY$&quot;, $VARIABLE$.$PROPERTY$);&#xD;&#xA;" shortcut="strprop" description="" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="41fe55db-89e0-469b-888f-8aba4123a1ba" shortcut="strprop" description="" text="Assert.AreEqual(null, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = &quot;$PROPERTY$&quot;;&#xD;&#xA;Assert.AreEqual(&quot;$PROPERTY$&quot;, $VARIABLE$.$PROPERTY$);&#xD;&#xA;" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="VARIABLE" expression="" initialRange="0" />
@@ -69,7 +69,7 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="fca79122-2880-47f9-b368-1f27c176375a" text="Assert.AreEqual(0, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = 5;&#xD;&#xA;Assert.AreEqual(5, $VARIABLE$.$PROPERTY$);" shortcut="intprop" description="" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="fca79122-2880-47f9-b368-1f27c176375a" shortcut="intprop" description="" text="Assert.AreEqual(0, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = 5;&#xD;&#xA;Assert.AreEqual(5, $VARIABLE$.$PROPERTY$);" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="VARIABLE" expression="" initialRange="0" />
@@ -77,7 +77,7 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="4b105bc2-f419-47c2-bb04-356617dac448" text="Assert.AreEqual(null, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$CLASS$ $INSTANCE$ = new $CLASS$($END$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = $INSTANCE$;&#xD;&#xA;Assert.AreSame($INSTANCE$, $VARIABLE$.$PROPERTY$);" shortcut="objprop" description="" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="4b105bc2-f419-47c2-bb04-356617dac448" shortcut="objprop" description="" text="Assert.AreEqual(null, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$CLASS$ $INSTANCE$ = new $CLASS$($END$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = $INSTANCE$;&#xD;&#xA;Assert.AreSame($INSTANCE$, $VARIABLE$.$PROPERTY$);" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="VARIABLE" expression="" initialRange="0" />
@@ -87,7 +87,7 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="c7c3a3a4-a134-440b-9f68-243768a49dc4" text="Assert.AreEqual(0, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = 5.5M;&#xD;&#xA;Assert.AreEqual(5.5M, $VARIABLE$.$PROPERTY$);" shortcut="decprop" description="" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="c7c3a3a4-a134-440b-9f68-243768a49dc4" shortcut="decprop" description="" text="Assert.AreEqual(0, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = 5.5M;&#xD;&#xA;Assert.AreEqual(5.5M, $VARIABLE$.$PROPERTY$);" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="VARIABLE" expression="" initialRange="0" />
@@ -95,7 +95,7 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="3e097099-faeb-411e-8fcf-e7d3de5a37f6" text="Assert.AreEqual(null, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = $ENUMERATION$.$FINAL$;&#xD;&#xA;Assert.AreSame($ENUMERATION$.$FINAL$, $VARIABLE$.$PROPERTY$);" shortcut="enumprop" description="" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="3e097099-faeb-411e-8fcf-e7d3de5a37f6" shortcut="enumprop" description="" text="Assert.AreEqual(null, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = $ENUMERATION$.$FINAL$;&#xD;&#xA;Assert.AreSame($ENUMERATION$.$FINAL$, $VARIABLE$.$PROPERTY$);" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="VARIABLE" expression="" initialRange="0" />
@@ -105,7 +105,7 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="2f7e718d-0ae4-4fac-be2c-bba371d71ce2" text="Assert.AreEqual(Guid.Empty, $VARIABLE$.$PROPERTY$);&#xD;&#xA;Guid id = Guid.NewGuid();&#xD;&#xA;$VARIABLE$.$PROPERTY$ = id;&#xD;&#xA;Assert.AreEqual(id, $VARIABLE$.$PROPERTY$);" shortcut="guidprop" description="" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="2f7e718d-0ae4-4fac-be2c-bba371d71ce2" shortcut="guidprop" description="" text="Assert.AreEqual(Guid.Empty, $VARIABLE$.$PROPERTY$);&#xD;&#xA;Guid id = Guid.NewGuid();&#xD;&#xA;$VARIABLE$.$PROPERTY$ = id;&#xD;&#xA;Assert.AreEqual(id, $VARIABLE$.$PROPERTY$);" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="VARIABLE" expression="" initialRange="0" />
@@ -113,17 +113,17 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="2d972b91-2559-41b0-911d-904e0c9ecb53" text="[PluginFamily(ServiceKeys.Default)]&#xD;&#xA;" shortcut="pluginfamily" description="" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="2d972b91-2559-41b0-911d-904e0c9ecb53" shortcut="pluginfamily" description="" text="[PluginFamily(ServiceKeys.Default)]&#xD;&#xA;" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables />
     <CustomProperties />
   </Template>
-  <Template uid="3a2a018b-8009-4a2a-9a73-1456e44a81b2" text="[Pluggable(ServiceKeys.Default)]" shortcut="pluggable" description="" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="3a2a018b-8009-4a2a-9a73-1456e44a81b2" shortcut="pluggable" description="" text="[Pluggable(ServiceKeys.Default)]" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables />
     <CustomProperties />
   </Template>
-  <Template uid="b04944de-1c75-493c-a4a5-7bdd2948bb96" text="using StructureMap;&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;	[PluginFamily(ServiceKeys.Default)]&#xD;&#xA;	public interface I$INTERFACE$&#xD;&#xA;	{&#xD;&#xA;		$END$&#xD;&#xA;	}&#xD;&#xA;}" shortcut="iservice" description="" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="b04944de-1c75-493c-a4a5-7bdd2948bb96" shortcut="iservice" description="" text="using StructureMap;&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;	[PluginFamily(ServiceKeys.Default)]&#xD;&#xA;	public interface I$INTERFACE$&#xD;&#xA;	{&#xD;&#xA;		$END$&#xD;&#xA;	}&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="NAMESPACE" expression="fileDefaultNamespace()" initialRange="0" />
@@ -131,7 +131,7 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="f8de21f6-614f-47fa-8f6b-2ce282104922" text="using StructureMap;&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;	[Pluggable(ServiceKeys.Default)]&#xD;&#xA;	public class $CLASS$ : I$CLASS$&#xD;&#xA;	{&#xD;&#xA;		$END$&#xD;&#xA;	}&#xD;&#xA;}" shortcut="service" description="" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="f8de21f6-614f-47fa-8f6b-2ce282104922" shortcut="service" description="" text="using StructureMap;&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;	[Pluggable(ServiceKeys.Default)]&#xD;&#xA;	public class $CLASS$ : I$CLASS$&#xD;&#xA;	{&#xD;&#xA;		$END$&#xD;&#xA;	}&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="NAMESPACE" expression="fileDefaultNamespace()" initialRange="0" />
@@ -139,7 +139,7 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="4c331017-eb7c-4058-9c7f-b1433613d1b9" text="I$INTERFACE$ $VARIABLE$ = ObjectFactory.GetInstance&lt;I$INTERFACE$&gt;();" shortcut="newobj" description="" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="4c331017-eb7c-4058-9c7f-b1433613d1b9" shortcut="newobj" description="" text="I$INTERFACE$ $VARIABLE$ = ObjectFactory.GetInstance&lt;I$INTERFACE$&gt;();" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="INTERFACE" expression="" initialRange="0" />
@@ -147,7 +147,7 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="8663d7b1-43d4-4a36-82a2-506d10e4b4f1" text="Assert.AreEqual(DateTime.MinValue, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = new DateTime(2007, 4, 15);&#xD;&#xA;Assert.AreEqual(new DateTime(2007, 4, 15), $VARIABLE$.$PROPERTY$);&#xD;&#xA;" shortcut="dateprop" description="" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="8663d7b1-43d4-4a36-82a2-506d10e4b4f1" shortcut="dateprop" description="" text="Assert.AreEqual(DateTime.MinValue, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = new DateTime(2007, 4, 15);&#xD;&#xA;Assert.AreEqual(new DateTime(2007, 4, 15), $VARIABLE$.$PROPERTY$);&#xD;&#xA;" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="VARIABLE" expression="" initialRange="0" />
@@ -155,7 +155,7 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="5ca7252d-2512-48c1-ac71-7c95bb7b2b33" text="Assert.AreEqual(false, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = true;&#xD;&#xA;Assert.AreEqual(true, $VARIABLE$.$PROPERTY$);" shortcut="boolprop" description="Boolean property" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="5ca7252d-2512-48c1-ac71-7c95bb7b2b33" shortcut="boolprop" description="Boolean property" text="Assert.AreEqual(false, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = true;&#xD;&#xA;Assert.AreEqual(true, $VARIABLE$.$PROPERTY$);" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="VARIABLE" expression="" initialRange="0" />
@@ -163,7 +163,7 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="31012a06-db34-4c8e-a90f-9ca31b05ad82" text="I$CLASS$ $VARIABLE$ = new $CLASS$();" shortcut="newinst" description="New service instance" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="31012a06-db34-4c8e-a90f-9ca31b05ad82" shortcut="newinst" description="New service instance" text="I$CLASS$ $VARIABLE$ = new $CLASS$();" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="CLASS" expression="" initialRange="0" />
@@ -171,14 +171,14 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="9499f8a7-3baa-4815-94a1-de118e76b540" text="Expect.Call($METHOD_CALL$).Return($END$);" shortcut="expect" description="" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="9499f8a7-3baa-4815-94a1-de118e76b540" shortcut="expect" description="" text="Expect.Call($METHOD_CALL$).Return($END$);" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="METHOD_CALL" expression="" initialRange="0" />
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="b9d8e539-7a41-4284-92f7-506fd70b2c46" text="namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;	public class $ENUMERATION$ : Enumeration&#xD;&#xA;	{&#xD;&#xA;		$END$&#xD;&#xA;&#xD;&#xA;		public $ENUMERATION$()&#xD;&#xA;		{&#xD;&#xA;		}&#xD;&#xA;&#xD;&#xA;		public $ENUMERATION$(int value, string displayName) : base(value, displayName)&#xD;&#xA;		{&#xD;&#xA;		}&#xD;&#xA;	}&#xD;&#xA;}" shortcut="newenum" description="New rich enumeration" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="b9d8e539-7a41-4284-92f7-506fd70b2c46" shortcut="newenum" description="New rich enumeration" text="namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;	public class $ENUMERATION$ : Enumeration&#xD;&#xA;	{&#xD;&#xA;		$END$&#xD;&#xA;&#xD;&#xA;		public $ENUMERATION$()&#xD;&#xA;		{&#xD;&#xA;		}&#xD;&#xA;&#xD;&#xA;		public $ENUMERATION$(int value, string displayName) : base(value, displayName)&#xD;&#xA;		{&#xD;&#xA;		}&#xD;&#xA;	}&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="NAMESPACE" expression="fileDefaultNamespace()" initialRange="0" />
@@ -186,7 +186,7 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="716ce7d1-119e-4370-85aa-adfd2acef14f" text="public static readonly $ENUMERATION$ $NAME$ = new $ENUMERATION$($VALUE$, &quot;$NAME$&quot;);" shortcut="newvalue" description="New enumeration member" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="716ce7d1-119e-4370-85aa-adfd2acef14f" shortcut="newvalue" description="New enumeration member" text="public static readonly $ENUMERATION$ $NAME$ = new $ENUMERATION$($VALUE$, &quot;$NAME$&quot;);" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="ENUMERATION" expression="" initialRange="0" />
@@ -195,7 +195,7 @@
     </Variables>
     <CustomProperties />
   </Template>
-  <Template uid="53b61c76-eb27-4d11-a9d7-b0f2cfc5f132" text="Assert.AreEqual(0, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = 5.5;&#xD;&#xA;Assert.AreEqual(5.5M, $VARIABLE$.$PROPERTY$);" shortcut="dblprop" description="" reformat="true" shortenQualifiedReferences="true">
+  <Template uid="53b61c76-eb27-4d11-a9d7-b0f2cfc5f132" shortcut="dblprop" description="" text="Assert.AreEqual(0, $VARIABLE$.$PROPERTY$);&#xD;&#xA;$VARIABLE$.$PROPERTY$ = 5.5;&#xD;&#xA;Assert.AreEqual(5.5M, $VARIABLE$.$PROPERTY$);" reformat="True" shortenQualifiedReferences="True">
     <Categories />
     <Variables>
       <Variable name="VARIABLE" expression="" initialRange="0" />

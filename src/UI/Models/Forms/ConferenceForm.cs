@@ -41,5 +41,6 @@ namespace CodeCampServer.UI.Models.Forms
 		[Label("Phone Number")]
 		public virtual string PhoneNumber { get; set; }
 
+	    public string HtmlContent { get; set; }
 	}
 }

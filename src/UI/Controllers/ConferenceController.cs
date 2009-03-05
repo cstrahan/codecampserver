@@ -58,6 +58,7 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[RequireAuthenticationFilter()]
+        [ValidateInput(false)] 
 		[ValidateModel(typeof (ConferenceForm))]
 		public ActionResult Save([Bind(Prefix = "")] ConferenceForm form)
 		{

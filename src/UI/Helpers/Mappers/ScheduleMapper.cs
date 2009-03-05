@@ -28,7 +28,8 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			_timeSlotMapper = timeSlotMapper;
 		}
 
-		public ScheduleForm[] Map(Conference conference)
+
+	    public ScheduleForm[] Map(Conference conference)
 		{
 			TimeSlot[] allTimeSlots = _timeSlotRepository.GetAllForConference(conference);
 			DateTime startDate = allTimeSlots.Min(slot => slot.StartTime).GetValueOrDefault();
@@ -43,15 +44,18 @@ namespace CodeCampServer.UI.Helpers.Mappers
 				DateTime dayEnd = startDate.AddDays(i + 1);
 				TimeSlot[] timeSlotsInDay = allTimeSlots.Where(s => s.StartTime >= dayStart
 				                                                    && s.EndTime <= dayEnd).ToArray();
-				var dayNumber = i + 1;
-				ScheduleForm form = CreateScheduleForSpecificDay(conference, dayStart, timeSlotsInDay, dayNumber);
-				formsList.Add(form);
+                if(timeSlotsInDay.Length>0)
+                {
+                    var dayNumber = formsList.Count() + 1;                
+    				ScheduleForm form = CreateScheduleForSpecificDay(conference, dayStart, timeSlotsInDay, dayNumber);
+                    formsList.Add(form);
+                }
 			}
 
 			return formsList.ToArray();
 		}
 
-		public ScheduleForm CreateScheduleForSpecificDay(Conference conference, DateTime dayStart, TimeSlot[] timeSlotsInDay, int dayNumber)
+		public virtual ScheduleForm CreateScheduleForSpecificDay(Conference conference, DateTime dayStart, TimeSlot[] timeSlotsInDay, int dayNumber)
 		{
 			ScheduleForm form = CreateScheduleForDay(timeSlotsInDay, _trackRepository.GetAllForConference(conference),
 			                                         _sessionRepository.GetAllForConference(conference));

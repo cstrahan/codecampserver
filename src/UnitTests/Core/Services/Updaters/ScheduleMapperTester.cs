@@ -74,5 +74,38 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			form.TimeSlotAssignments[1].TrackAssignments[1].Sessions[0].ShouldEqual(session1);
 			form.TimeSlotAssignments[1].TrackAssignments[1].Sessions[1].ShouldEqual(session2);
 		}
-	}
+
+
+        [Test]
+        public void When_two_timeslots_skips_a_day_than_the_schedule_should_skip_those_days()
+        {
+            var conference = new Conference();
+            var sessionMapper = S<ISessionMapper>();
+            var trackMapper = S<ITrackMapper>();
+            var timeSlotMapper = S<ITimeSlotMapper>();
+            var timeSlot1 = new TimeSlot() { StartTime = new DateTime(2020, 3, 5, 3, 0, 0), EndTime = new DateTime(2020, 3, 5, 4, 0, 0) };
+            var timeSlot2 = new TimeSlot() { StartTime = new DateTime(2020, 3, 8, 3, 0, 0), EndTime = new DateTime(2020, 3, 8, 4, 0, 0) };
+            var timeSlots = new[] { timeSlot1, timeSlot2 };
+
+            var repository = S<ITimeSlotRepository>();
+            repository.Stub(slotRepository => slotRepository.GetAllForConference(conference)).Return(timeSlots);
+
+            var mapper = new MapperStub(S<ISessionRepository>(), S<ITrackRepository>(), repository,
+                                                                            sessionMapper, trackMapper, timeSlotMapper);
+            ScheduleForm[] form =  mapper.Map(conference);
+            
+            form.Length.ShouldEqual(2);
+        }
+
+        public class MapperStub: ScheduleMapper
+        {
+            public MapperStub(ISessionRepository sessionRepository, ITrackRepository trackRepository, ITimeSlotRepository timeSlotRepository, ISessionMapper sessionMapper, ITrackMapper trackMapper, ITimeSlotMapper timeSlotMapper) : base(sessionRepository, trackRepository, timeSlotRepository, sessionMapper, trackMapper, timeSlotMapper) {}
+            public override ScheduleForm CreateScheduleForSpecificDay(Conference conference, DateTime dayStart, TimeSlot[] timeSlotsInDay, int dayNumber)
+            {
+                return new ScheduleForm();//{TimeSlotAssignments = new TimeSlotAssignmentForm[timeSlotsInDay.Length]};
+            }
+        }
+    
+    
+    }
 }

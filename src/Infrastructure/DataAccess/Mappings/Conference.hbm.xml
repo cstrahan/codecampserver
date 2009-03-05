@@ -19,7 +19,8 @@
 		<property name="Region" />
 		<property name="PostalCode" />
 		<property name="PhoneNumber" />
-		<bag name="Attendees" access="field.camelcase-underscore" cascade="all-delete-orphan" >
+    <property name="HtmlContent" length="2000" />
+    <bag name="Attendees" access="field.camelcase-underscore" cascade="all-delete-orphan" >
 			<key column="ConferenceId"  />
 			<one-to-many class="Attendee" />
 		</bag>

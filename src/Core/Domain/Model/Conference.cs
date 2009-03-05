@@ -17,8 +17,9 @@ namespace CodeCampServer.Core.Domain.Model
 		public virtual string Region { get; set; }
 		public virtual string PostalCode { get; set; }
 		public virtual string PhoneNumber { get; set; }
+	    public virtual string HtmlContent { get; set; }
 
-		public virtual void AddAttendee(Attendee attendee)
+	    public virtual void AddAttendee(Attendee attendee)
 		{
 			_attendees.Add(attendee);
 		}

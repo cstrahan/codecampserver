@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true"  validateRequest="false"
 Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm>"%>
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
 
@@ -11,6 +11,18 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm>"%>
 <%@ Import Namespace="CodeCampServer.UI.Controllers" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
+<script type="text/javascript" src="/scripts/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+    tinyMCE.init({
+        mode: "textareas",
+        theme: "advanced",
+        theme_advanced_buttons1: "justifyleft,justifycenter,justifyright,bold,italic,bullist,numlist,indent,outdent,fontsizeselect,forecolor,fontselect",
+        theme_advanced_buttons2: "",        
+        plugins : "style",
+	    theme_advanced_buttons1_add : "styleprops"
+    });
+</script>
+
 </asp:Content>
 
 
@@ -36,6 +48,8 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm>"%>
 					    <%=Html.Input(a => a.Region)%>
 					    <%=Html.Input(a => a.PostalCode)%>
 					    <%=Html.Input(a => a.PhoneNumber)%>
+					    <%=Html.Input(a => a.HtmlContent).Attributes(new {rows=10,@class="w75p h300"}) %>
+					    
 			        </td>
 		        </tr>
 	        </table>

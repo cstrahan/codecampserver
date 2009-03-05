@@ -26,6 +26,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			form.Region = "region";
 			form.StartDate = "01/01/2008";
 			form.EndDate = "01/02/2008";
+		    form.HtmlContent = "<h1>this is some html fragments</h1>";
 
 			var repository = M<IConferenceRepository>();
 			repository.Stub(x => x.GetById(form.Id)).Return(null);
@@ -43,6 +44,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			mapped.Region.ShouldEqual("region");
 			mapped.StartDate.ShouldEqual(new DateTime(2008, 1, 1));
 			mapped.EndDate.ShouldEqual(new DateTime(2008, 1, 2));
+            mapped.HtmlContent.ShouldEqual("<h1>this is some html fragments</h1>");
 		}
 
 		[Test]
