@@ -66,7 +66,7 @@
 	<!-- Master Build Targets -->
 	<!-- ******************** -->
 	<target name="build" depends="init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test"/>
-	<target name="cruise" depends="revert, init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, coverage, package, commitPackage"/>
+	<target name="cruise" depends="revert, init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test, package, commitPackage"/>
 
 	<!-- ********************* -->
 	<!-- NUnit Testing Targets -->
