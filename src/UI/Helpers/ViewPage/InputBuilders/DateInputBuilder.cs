@@ -16,7 +16,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 
 		protected override string CreateInputElementBase()
 		{
-			IDictionary<string, object> attributes = MakeDictionary(InputSpecification.CustomAttributes);
+			IDictionary<string, object> attributes = InputSpecification.CustomAttributes;
 
 			if (attributes.ContainsKey("class"))
 			{
@@ -28,17 +28,6 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 			}
 
 			return InputSpecification.Helper.TextBox(InputSpecification.InputName, null, attributes);
-		}
-
-		private static IDictionary<string, object> MakeDictionary(object withProperties)
-		{
-			var dic = new Dictionary<string, object>();
-			PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(withProperties);
-			foreach (PropertyDescriptor property in properties)
-			{
-				dic.Add(property.Name, property.GetValue(withProperties));
-			}
-			return dic;
 		}
 	}
 }

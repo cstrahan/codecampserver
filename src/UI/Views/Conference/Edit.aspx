@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true"  validateRequest="false"
 Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm>"%>
+<%@ Import Namespace="CodeCampServer.Core"%>
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
 
 <%@ Import Namespace="MvcContrib" %>
@@ -48,7 +49,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm>"%>
 					    <%=Html.Input(a => a.Region)%>
 					    <%=Html.Input(a => a.PostalCode)%>
 					    <%=Html.Input(a => a.PhoneNumber)%>
-					    <%=Html.Input(a => a.HtmlContent).Attributes(new {rows=10,@class="w75p h300"}) %>
+					    <%=Html.Input(a => a.HtmlContent, new {rows=10,@class="w75p h300"}.ToDictionary()) %>
 					    
 			        </td>
 		        </tr>

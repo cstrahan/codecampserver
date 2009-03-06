@@ -9,24 +9,6 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 {
 	public static class ViewBaseExtensions
 	{
-		private static LambdaExpression GetParentExpression(IViewDataContainer baseView)
-		{
-			object parent;
-			if (baseView.ViewData.TryGetValue("ParentExpression", out parent))
-			{
-				return (LambdaExpression) parent;
-			}
-
-			return null;
-		}
-
-		public static IInputSpecificationExpression InputFor<TModel>(this IViewBase baseView,
-		                                                             Expression<Func<TModel, object>> expression)
-		{
-			return new InputSpecification(baseView.Html, baseView.InputBuilderFactory, baseView.Url, expression,
-			                              GetParentExpression(baseView));
-		}
-
 		public static void PartialInputFor<TModel>(this IViewBase baseView, Expression<Func<TModel, object>> expression)
 		{
 			PropertyInfo property = ReflectionHelper.FindProperty(expression);

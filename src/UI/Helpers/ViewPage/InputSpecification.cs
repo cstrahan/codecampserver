@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Web.Mvc;
@@ -12,7 +13,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 		private readonly HtmlHelper _helper;
 		private readonly IInputBuilderFactory _factory;
 		private readonly UrlHelper _urlHelper;
-		private object _customAttributes;
+		private IDictionary<string, object> _customAttributes;
 		private readonly LambdaExpression _expression;
 		private readonly LambdaExpression _parentExpression;
 		private readonly string _inputName;
@@ -31,7 +32,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 			get { return _propertyInfo; }
 		}
 
-		public object CustomAttributes
+		public IDictionary<string, object> CustomAttributes
 		{
 			get { return _customAttributes; }
 		}
@@ -103,7 +104,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 			return builder.Build(this);
 		}
 
-		public IInputSpecificationExpression Attributes(object attributes)
+		public IInputSpecificationExpression Attributes(IDictionary<string, object> attributes)
 		{
 			_customAttributes = attributes;
 			return this;

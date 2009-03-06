@@ -1,7 +1,9 @@
 using System;
 using System.Linq.Expressions;
 using System.Web.Mvc;
+using System.Web.Routing;
 using CodeCampServer.DependencyResolution;
+using CodeCampServer.UI.Views;
 
 namespace CodeCampServer.UI.Helpers.ViewPage
 {
@@ -9,11 +11,17 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 	{
 		private readonly IInputBuilderFactory _inputBuilderFactory;
 		private readonly IDisplayErrorMessages _displayErrorMessages;
+		public new InputBuilderExtender<TModel> Html { get; private set; }
 
 		public BaseViewPage()
 		{
 			_inputBuilderFactory = DependencyRegistrar.Resolve<IInputBuilderFactory>();
 			_displayErrorMessages = DependencyRegistrar.Resolve<IDisplayErrorMessages>();
+		}
+
+		protected override void OnPreInit(EventArgs e)
+		{
+			Html = new InputBuilderExtender<TModel>(ViewContext, this, RouteTable.Routes);
 		}
 
 		public IInputBuilderFactory InputBuilderFactory
@@ -29,11 +37,6 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 				_displayErrorMessages.ModelState = ViewData.ModelState;
 				return _displayErrorMessages;
 			}
-		}
-
-		public IInputSpecificationExpression InputFor(Expression<Func<TModel, object>> expression)
-		{
-			return ViewBaseExtensions.InputFor(this, expression);
 		}
 
 		public void PartialInputFor(Expression<Func<TModel, object>> expression)

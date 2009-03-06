@@ -235,7 +235,8 @@
     </Compile>
     <Compile Include="RouteConfigurator.cs" />
     <Compile Include="Controllers\TimeSlotController.cs" />
-    <Compile Include="Views\HtmlHelperExtensions.cs" />
+    <Compile Include="Views\InputBuilderExtender.cs" />
+    <Compile Include="Views\InputSpecificationBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\hibernate.cfg.xml">

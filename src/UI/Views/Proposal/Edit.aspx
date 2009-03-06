@@ -1,5 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Main.Master" 
 	Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ProposalForm>" %>
+<%@ Import Namespace="CodeCampServer.Core"%>
+<%@ Import Namespace="CodeCampServer.UI.Views"%>
 <%@ Import Namespace="CodeCampServer.UI.Views"%>
 <%@ Import Namespace="CodeCampServer.UI.Helpers.ViewPage.InputBuilders"%>
 <%@ Import Namespace="MvcContrib"%>
@@ -21,13 +23,13 @@
 	        <tr><th></th></tr>
 		        <tr>
 			        <td class="w50p">       
-								<%=Html.HiddenInput(x => x.Id)%>	
-			        	<%=Html.Input(x => x.Title).Attributes(GetAttributes())%>
-			        	<%=Html.Label(x => x.Status) %>
-								<%=Html.Input(x => x.Level).Attributes(GetAttributes())%>
-								<%=Html.Input(x => x.Track).Attributes(GetAttributes())%>
-								<%=Html.Input(x => x.Abstract).Attributes(GetAttributes("5", "60"))%>
-								<%=Html.Input(x => x.SubmissionDate)%>
+								<%=Html.Hidden(x => x.Id)%>	
+			        	<%=Html.Input(x => x.Title, GetAttributes())%>
+			        	<%=Html.Display(x => x.Status) %>
+								<%=Html.Input(x => x.Level, GetAttributes())%>
+								<%=Html.Input(x => x.Track, GetAttributes())%>
+								<%=Html.Input(x => x.Abstract, GetAttributes("5", "60"))%>
+								<%=Html.Display(x => x.SubmissionDate)%>
 			        </td>
 		        </tr>
 	        </table>
@@ -50,23 +52,23 @@
 
 
 <script type="text/C#" runat="server">
-	private object GetAttributes()
+	private IDictionary<string, object> GetAttributes()
 	{
 		if(ViewData.Get<ProposalEditInfo>().ReadOnly)
 		{
-			return new {disabled = "disabled"};
+			return new Dictionary<string, object>{{"disabled", "disabled"}};
 		}
 
 		return null;
 	}
 	
-	private object GetAttributes(string rows, string cols)
+	private IDictionary<string, object> GetAttributes(string rows, string cols)
 	{
 		if(ViewData.Get<ProposalEditInfo>().ReadOnly)
 		{
-			return new {disabled = "disabled", rows=rows, cols=cols};
+			return new Dictionary<string, object>{{"disabled", "disabled"}, {"rows", rows}, {"cols", cols}};
 		}
 
-		return new {rows=rows, cols=cols};
+		return new Dictionary<string, object>{{"rows", rows}, {"cols", cols}};
 	}
 </script>

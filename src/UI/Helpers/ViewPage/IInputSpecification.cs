@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Web.Mvc;
@@ -9,7 +10,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 	{
 		string InputId { get; }
 		PropertyInfo PropertyInfo { get; }
-		object CustomAttributes { get; }
+		IDictionary<string, object> CustomAttributes { get; }
 		HtmlHelper Helper { get; }
 		bool UseSpanAsLabel { get; }
 		string InputName { get; }

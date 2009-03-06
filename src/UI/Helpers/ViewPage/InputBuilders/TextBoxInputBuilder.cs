@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc.Html;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Common;
@@ -14,7 +15,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 
 		protected override string CreateInputElementBase()
 		{
-			object customAttributes = InputSpecification.CustomAttributes;
+			var customAttributes = InputSpecification.CustomAttributes;
 			if (customAttributes != null && customAttributes.ToDictionary().ContainsKey("rows"))
 			{
 				return InputSpecification.Helper.TextArea(InputSpecification.InputName, GetValue().ToNullSafeString(),

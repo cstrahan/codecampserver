@@ -20,10 +20,10 @@
 		<table class="dataEntry">
 			<tr>
 				<td class="w50p">
-					<%= InputFor(x => x.Id) %>
-					<%= InputFor(x => x.ConferenceId) %>
-					<%= InputFor(x => x.ConferenceKey) %>
-					<%= InputFor(a => a.Name)%>
+					<%=Html.Input(x => x.Id) %>
+					<%=Html.Input(x => x.ConferenceId) %>
+					<%=Html.Input(x => x.ConferenceKey) %>
+					<%=Html.Input(a => a.Name)%>
 					<input type="hidden" name="urlreferrer" value="<%=ViewData["UrlReferrer"].ToString().ToXHTMLLink()%>" />
 				</td>
 			</tr>

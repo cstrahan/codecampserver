@@ -1,10 +1,12 @@
 using System;
 using System.Linq.Expressions;
+using System.Web.Mvc;
 using CodeCampServer.DependencyResolution;
+using CodeCampServer.UI.Views;
 
 namespace CodeCampServer.UI.Helpers.ViewPage
 {
-	public class BaseViewPage : System.Web.Mvc.ViewPage, IViewBase
+	public class BaseViewPage : BaseViewPage<object>, IViewBase
 	{
 		private readonly IInputBuilderFactory _inputBuilderFactory;
 		private readonly IDisplayErrorMessages _displayErrorMessages;
@@ -28,11 +30,6 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 		public IInputBuilderFactory InputBuilderFactory
 		{
 			get { return _inputBuilderFactory; }
-		}
-
-		public IInputSpecificationExpression InputFor<TModel>(Expression<Func<TModel, object>> expression)
-		{
-			return ViewBaseExtensions.InputFor(this, expression);
 		}
 
 		public void PartialInputFor<TModel>(Expression<Func<TModel, object>> expression)

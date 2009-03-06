@@ -31,11 +31,6 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 			}
 		}
 
-		public IInputSpecificationExpression InputFor(Expression<Func<TModel, object>> expression)
-		{
-			return ViewBaseExtensions.InputFor(this, expression);
-		}
-
 		public void PartialInputFor(Expression<Func<TModel, object>> expression)
 		{
 			ViewBaseExtensions.PartialInputFor(this, expression);
