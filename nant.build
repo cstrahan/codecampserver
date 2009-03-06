@@ -11,6 +11,8 @@
   <loadtasks assembly="lib\ncover\Build Task Plugins\NCoverExplorer.NAntTasks.dll" />
   <loadtasks assembly="lib\ndepend\nant\NDepend.Build.NAntTasks.dll" />
   <loadtasks assembly="lib\gallio\Gallio.NAntTasks.dll" />
+  <loadtasks assembly="lib\nant\Tarantino.DatabaseManager.Tasks.dll" />
+
 
 	<!-- ***************** -->
 	<!-- Master Properties -->
