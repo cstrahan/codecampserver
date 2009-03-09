@@ -16,7 +16,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 		protected override string CreateInputElementBase()
 		{
 			var customAttributes = InputSpecification.CustomAttributes;
-			if (customAttributes != null && customAttributes.ToDictionary().ContainsKey("rows"))
+			if (customAttributes != null && customAttributes.ContainsKey("rows"))
 			{
 				return InputSpecification.Helper.TextArea(InputSpecification.InputName, GetValue().ToNullSafeString(),
 				                                          customAttributes);

@@ -100,6 +100,7 @@
     <Compile Include="Services\IAssemblyVersion.cs" />
     <Compile Include="Services\IUrlService.cs" />
     <Compile Include="Services\UrlService.cs" />
+    <Compile Include="DomainnameRouteHandler.cs" />
     <Compile Include="ViewNames.cs" />
     <Compile Include="Views\AutoMapperConfiguration.cs" />
     <Compile Include="Services\ConferenceKeyControllerNameContraint.cs" />

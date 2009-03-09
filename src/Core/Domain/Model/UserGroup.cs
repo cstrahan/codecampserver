@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace CodeCampServer.Core.Domain.Model
 {
     public class UserGroup : KeyedObject
     {
-        
         private readonly IList<User> _users = new List<User>();
         public virtual string Name { get; set; }
         public virtual string HomepageHTML { get; set; }
@@ -15,7 +13,8 @@ namespace CodeCampServer.Core.Domain.Model
         public virtual string Country { get; set; }
         public virtual string GoogleAnalysticsCode { get; set; }
         public virtual string DomainName { get; set; }
-        public  virtual void Add(User child)
+
+        public virtual void Add(User child)
         {
             _users.Add(child);
         }

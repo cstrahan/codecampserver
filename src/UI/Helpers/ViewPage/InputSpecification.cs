@@ -34,7 +34,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage
 
 		public IDictionary<string, object> CustomAttributes
 		{
-			get { return _customAttributes; }
+			get { return  _customAttributes!=null?_customAttributes:new Dictionary<string, object>(); }
 		}
 
 		public HtmlHelper Helper

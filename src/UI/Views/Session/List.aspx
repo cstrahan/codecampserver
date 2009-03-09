@@ -21,7 +21,7 @@
 		<%}%>
 </h2>
 
-		<table id="sessionTable" class="w100p">
+		<table id="sessionTable" class="w90p" >
 		    <thead>
 		        <tr>
 		            <th>Track</th>
@@ -36,7 +36,7 @@
 		        </tr>
 		    </thead>		
 		    <tbody>
-	            <% foreach (var session in ViewData.Model) { %>
+	            <% foreach (var session in Model) { %>
 		        <tr>
 		            <td><%=session.Track.Name%></td>
 		            <td><%=session.Level.DisplayName%></td>

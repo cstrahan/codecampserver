@@ -166,6 +166,7 @@
     <Compile Include="UI\ModelBinderTester.cs" />
     <Compile Include="UI\Models\Forms\ProposalFormTester.cs" />
     <Compile Include="UI\Routes\ConferenceKeyControllerNameConstraintTester.cs" />
+    <Compile Include="UI\Routes\DomainNameRouteHandlerTester.cs" />
     <Compile Include="UI\Routes\IncomingRouteTester.cs" />
     <Compile Include="UI\Routes\RouteConstraintTestingExtension.cs" />
     <Compile Include="UI\Routes\UrlGenerationTester.cs" />
