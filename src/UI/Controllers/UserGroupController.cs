@@ -41,14 +41,14 @@ namespace CodeCampServer.UI.Controllers
 		}
 		
 		[RequireAuthenticationFilter()]
-		public ActionResult Edit(UserGroup entity)
+		public ActionResult Edit(UserGroup usergroup)
 		{
-			if (entity == null)
+			if (usergroup == null)
 			{
 				TempData.Add("message", "UserGroup has been deleted.");
 				return RedirectToAction<UserGroupController>(c => c.List());
 			}
-			return View(_mapper.Map(entity));
+			return View(_mapper.Map(usergroup));
 		}
 
 		[RequireAuthenticationFilter()]

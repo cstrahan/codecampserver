@@ -4,6 +4,6 @@ namespace CodeCampServer.Core.Domain
 {
     public interface IUserGroupRepository:IKeyedRepository<UserGroup>
     {
-        
+        UserGroup GetByDomainName(string domainName);
     }
 }

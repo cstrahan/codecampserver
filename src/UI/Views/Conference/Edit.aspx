@@ -49,7 +49,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm>"%>
 					    <%=Html.Input(a => a.Region)%>
 					    <%=Html.Input(a => a.PostalCode)%>
 					    <%=Html.Input(a => a.PhoneNumber)%>
-					    <%=Html.Input(a => a.HtmlContent, new {rows=10,@class="w75p h300"}.ToDictionary()) %>
+					    <%=Html.Input(a => a.HtmlContent, new{rows=10,@class="w75p h300"}.ToDictionary()) %>
 					    
 			        </td>
 		        </tr>

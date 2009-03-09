@@ -21,6 +21,12 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			model.Key = form.Key;
 			model.Id = form.Id;
 			model.Name = form.Name;
+		    model.HomepageHTML = form.HomepageHTML;
+		    model.DomainName = form.DomainName;
+		    model.City = form.City;
+		    model.Region = form.Region;
+		    model.Country = form.Country;
+		    model.GoogleAnalysticsCode = form.GoogleAnalysticsCode;
 		}
 	}
 }

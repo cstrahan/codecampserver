@@ -53,6 +53,8 @@ namespace CodeCampServer.UI
 				.ForMember(a => a.ConferenceID, o => o.Ignore());
 
 			Mapper.CreateMap<Proposal, ProposalForm>();
+
+            Mapper.CreateMap<UserGroup, UserGroupForm>();
 		}
 	}
 }

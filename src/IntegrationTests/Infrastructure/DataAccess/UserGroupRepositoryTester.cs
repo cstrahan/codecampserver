@@ -41,6 +41,25 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
             }
         }
 
+	    [Test]
+	    public void Should_retrive_a_user_group_by_domain_name()
+	    {
+            UserGroup userGroup = CreateUserGroup();
+	        userGroup.DomainName = "www.234234.com";
+            using (ISession session = GetSession())
+            {
+                session.SaveOrUpdate(userGroup);
+                session.Flush();
+            }	        
+            
+            IUserGroupRepository repository = new UserGroupRepository(new HybridSessionBuilder());
+
+            UserGroup rehydratedConference= repository.GetByDomainName("www.234234.Com");
+
+            rehydratedConference.ShouldNotBeNull();
+            rehydratedConference.ShouldEqual(userGroup);
+	    }
+
 		protected override UserGroupRepository CreateRepository()
 		{
 			return new UserGroupRepository(GetSessionBuilder());

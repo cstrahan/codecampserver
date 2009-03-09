@@ -135,6 +135,7 @@
     <Compile Include="Core\Services\SystemTimeTester.cs" />
     <Compile Include="Core\Services\Updaters\AttendeeMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\ConferenceMapperTester.cs" />
+    <Compile Include="Core\Services\Updaters\UserGroupMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\ProposalMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\ScheduleMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\TimeSlotMapperTester.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="UI\Controllers\RedirectToRouteExtensions.cs" />
     <Compile Include="UI\Controllers\SaveControllerTester.cs" />
     <Compile Include="UI\Controllers\TrackControllerTester.cs" />
+    <Compile Include="UI\Controllers\UserGroupControllerTester.cs" />
     <Compile Include="UI\Helpers\Filters\AutoMappedFilterAttributeTester.cs" />
     <Compile Include="UI\Helpers\Filters\FilterAttributeTester.cs" />
     <Compile Include="UI\KeyedModelBinderTester.cs" />
