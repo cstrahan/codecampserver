@@ -96,6 +96,7 @@
     <Compile Include="DataAccess\Impl\SpeakerRepository.cs" />
     <Compile Include="DataAccess\Impl\TimeSlotRepository.cs" />
     <Compile Include="DataAccess\Impl\TrackRepository.cs" />
+    <Compile Include="DataAccess\Impl\UserGroupRepository.cs" />
     <Compile Include="DataAccess\Impl\UserRepository.cs" />
     <Compile Include="DependencyRegistry.cs" />
     <Compile Include="UI\Services\AssemblyVersion.cs" />
@@ -145,6 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DataAccess\Mappings\Planning\Proposal.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataAccess\Mappings\UserGroup.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

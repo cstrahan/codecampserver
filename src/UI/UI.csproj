@@ -84,8 +84,12 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Controllers\ProposalController.cs" />
+    <Compile Include="Controllers\UserGroupController.cs" />
     <Compile Include="Helpers\Attributes\NoInputAttribute.cs" />
+    <Compile Include="Helpers\Mappers\IUserGroupMapper.cs" />
+    <Compile Include="Helpers\Mappers\UserGroupMapper.cs" />
     <Compile Include="Helpers\ViewPage\InputBuilders\NoInputBuilder.cs" />
+    <Compile Include="Models\Forms\UserGroupForm.cs" />
     <Compile Include="Models\ProposalEditInfo.cs" />
     <Compile Include="Helpers\Binders\SmartBinder.cs" />
     <Compile Include="Helpers\Filters\AssemblyVersionrFilterAttribute.cs" />
@@ -355,6 +359,8 @@
     <Content Include="Views\Shared\Empty.ascx" />
     <Content Include="Views\Track\Edit.aspx" />
     <Content Include="Views\Track\Index.aspx" />
+    <Content Include="Views\UserGroup\Edit.aspx" />
+    <Content Include="Views\UserGroup\Index.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

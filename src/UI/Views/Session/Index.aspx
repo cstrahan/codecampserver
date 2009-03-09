@@ -12,7 +12,7 @@
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 	 <div>
-		    <h1><%=ViewData.Model.Title%> <%Html.RenderPartial("EditSessionLink", Model); %></h1>
+		    <h1><%=Model.Title%> <%Html.RenderPartial("EditSessionLink", Model); %></h1>
 		    
 		    <div>  
 						<p>Track: <%=Model.Track.Name %> Level: <%= Model.Level.DisplayName %> Room: <%=ViewData.Model.RoomNumber %></p>

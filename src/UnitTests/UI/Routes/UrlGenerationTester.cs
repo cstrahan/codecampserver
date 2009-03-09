@@ -39,4 +39,6 @@ namespace CodeCampServer.UnitTests.UI.Routes
 			url.ShouldEqual("/austinCodeCamp/speakers/ScottGuthrie");
 		}
 	}
+
+    
 }

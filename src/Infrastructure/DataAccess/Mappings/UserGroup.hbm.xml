@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+									namespace="CodeCampServer.Core.Domain.Model"
+									assembly="CodeCampServer.Core">
+
+	<class name="UserGroup" table="UserGroups" dynamic-update="true">
+		<cache usage="read-write"/>
+		<id name="Id" column="Id" type="Guid">
+			<generator class="guid.comb"/>
+		</id>
+		<property name="Key" column="UserGroupKey" length="100"/>
+		<property name="Name" length="100"/>
+    <property name="HomepageHTML" length="2000" />
+    <property name="City" length="75" />
+    <property name="Region" length="50" />
+    <property name="Country" length="50" />
+    <property name="GoogleAnalysticsCode" length="50" />
+    <property name="DomainName" length="255" />
+
+    <!--		<property name="Description" length="300"/>
+		<property name="StartDate" />
+		<property name="EndDate" />
+		<property name="LocationName" />
+		<property name="Address" />
+<property name="PostalCode" />
+		<property name="PhoneNumber" />
+    <property name="HtmlContent" length="2000" />
+    -->
+    <bag name="Users" access="field.camelcase-underscore" cascade="all-delete-orphan" table="UserGroupAdminUsers" >
+			<key column="UserGroupId"  />
+			<one-to-many class="User" />
+		</bag>
+<!--    <bag name="Conferences" access="field.camelcase-underscore" cascade="all-delete-orphan" >
+      <key column="UserGroupId"  />
+      <one-to-many class="Conference" />
+    </bag>
+    -->
+  </class>
+</hibernate-mapping>
