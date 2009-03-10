@@ -1,7 +1,9 @@
+using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Filters;
+using CodeCampServer.UI.Helpers.Mappers;
 
 namespace CodeCampServer.UI.Controllers
 {
@@ -9,22 +11,17 @@ namespace CodeCampServer.UI.Controllers
 	[RequiresConferenceFilter]
 	public class HomeController : SmartController
 	{
-		private readonly IConferenceRepository _repository;
+	    private readonly IUserGroupMapper _mapper;
 
-		public HomeController(IConferenceRepository repository)
+	    public HomeController(IUserGroupMapper mapper)
+	    {
+	        _mapper = mapper;
+	    }
+
+	    public ViewResult Index(UserGroup userGroup)
 		{
-			_repository = repository;
-		}
 
-		public ActionResult Index()
-		{
-			Conference conf = _repository.GetNextConference();
-			if (conf != null)
-			{
-				return RedirectToAction<ConferenceController>(c => c.Index(null), new {conferenceKey = conf.Key});
-			}
-
-			return RedirectToAction<LoginController>(c => c.Index());
+	        return View(_mapper.Map(userGroup));
 		}
 	}
 }

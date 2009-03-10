@@ -2,12 +2,8 @@
 AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<SpeakerForm[]>"%>
 <%@ Import Namespace="CodeCampServer.Core.Domain.Model"%>
 
-<%@ Import Namespace="CodeCampServer.UI.Controllers"%>
-<%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
-<%@ Import Namespace="MvcContrib"%>
-
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-  <%var speakers = ViewData.Model; %>
+  <%var speakers = Model; %>
 	 <h2>Speakers 
 		<%if (User.Identity.IsAuthenticated){%>
 			<a class="" href="<%=Url.Action<SpeakerController>(c=>c.New())%>" title="Add a new Speaker"><img src="/images/icons/application_add.png" /></a>

@@ -1,11 +1,8 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" 
-AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage"%>
-<%@ Import Namespace="CodeCampServer.UI.Controllers"%>
-<%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
-<%@ Import Namespace="MvcContrib"%>
+AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm[]>"%>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-  <%var conferences = (ConferenceForm[])ViewData.Model; %>
+  <%var conferences = Model; %>
   <div class="dataContainerQuadWide mt10">
 	 <div class="cleaner"></div>
 	 <table class="genericBordered mt10 mb5">

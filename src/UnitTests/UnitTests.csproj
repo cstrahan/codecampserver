@@ -152,6 +152,7 @@
     <Compile Include="UI\Controllers\AdminControllerTester.cs" />
     <Compile Include="UI\Controllers\AttendeeControllerTester.cs" />
     <Compile Include="UI\Controllers\ConferenceControllerTester.cs" />
+    <Compile Include="UI\Controllers\HomeControllerTester.cs" />
     <Compile Include="UI\Controllers\LoginControllerTester.cs" />
     <Compile Include="UI\Controllers\ProposalControllerTester.cs" />
     <Compile Include="UI\Controllers\ScheduleControllerTester.cs" />

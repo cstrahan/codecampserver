@@ -1,10 +1,6 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Main.Master" 
 Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ProposalForm[]>" %>
 
-<%@ Import Namespace="CodeCampServer.UI"%>
-<%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
-<%@ Import Namespace="CodeCampServer.UI.Controllers"%>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="Main" runat="server">
 	<h2>Session Proposals
 		<%if (User.Identity.IsAuthenticated){%>

@@ -1,12 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true"
 	Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<SessionForm[]>" %>
 
-<%@ Import Namespace="CodeCampServer.UI.Controllers"%>
-<%@ Import Namespace="MvcContrib" %>
-<%@ Import Namespace="System.Web.Mvc" %>
-<%@ Import Namespace="System.Web.Mvc.Html"%>
-<%@ Import Namespace="CodeCampServer.UI.Models.Forms" %>
-
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 		<script type="text/javascript" language="javascript" src="/scripts/jquery.dataTables.js"></script>
 		<script type="text/javascript" charset="utf-8">

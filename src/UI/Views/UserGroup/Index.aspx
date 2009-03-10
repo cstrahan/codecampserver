@@ -1,7 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
 Inherits="System.Web.Mvc.ViewPage<UserGroupForm>"%>
-<%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
-<%@ Import Namespace="MvcContrib"%>
 
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">

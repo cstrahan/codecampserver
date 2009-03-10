@@ -187,7 +187,6 @@
     <Compile Include="Helpers\ViewPage\IViewBase.cs" />
     <Compile Include="Helpers\ViewPage\ViewBaseExtensions.cs" />
     <Compile Include="HtmlExtensions.cs" />
-    <Compile Include="Services\IRouteConfigurator.cs" />
     <Compile Include="Models\CustomResolvers\BaseFormatter.cs" />
     <Compile Include="Models\CustomResolvers\BaseResolver.cs" />
     <Compile Include="Models\CustomResolvers\FixedPointFormatter.cs" />
@@ -293,6 +292,7 @@
     <Content Include="Views\Conference\List.aspx" />
     <Content Include="Views\Attendee\Edit.aspx" />
     <Content Include="Views\Attendee\Index.aspx" />
+    <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Login\Index.aspx" />
     <Content Include="Views\Proposal\Confirmation.aspx" />
     <Content Include="Views\Proposal\Edit.aspx" />
@@ -374,7 +374,6 @@
     <Folder Include="images\samples\" />
     <Folder Include="images\Text\" />
     <Folder Include="Properties\" />
-    <Folder Include="Views\Home\" />
     <Folder Include="Views\Session\Home\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

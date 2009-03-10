@@ -1,25 +1,18 @@
 <%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
 Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserGroupForm>"%>
-<%@ Import Namespace="CodeCampServer.Core"%>
-<%@ Import Namespace="Microsoft.Web.Mvc"%>
-<%@ Import Namespace="MvcContrib" %>
-<%@ Import Namespace="System.Web.Mvc" %>
-<%@ Import Namespace="System.Web.Mvc.Html" %>
-<%@ Import Namespace="CodeCampServer.UI.Models.Forms" %>
-<%@ Import Namespace="CodeCampServer.UI.Controllers" %>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
 <script type="text/javascript" src="/scripts/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript">
     tinyMCE.init({
         mode: "textareas",
         theme: "advanced",
-        theme_advanced_buttons1: "justifyleft,justifycenter,justifyright,bold,italic,bullist,numlist,indent,outdent,fontsizeselect,forecolor,fontselect",
+        theme_advanced_buttons1: "justifyleft,justifycenter,justifyright,bold,italic,bullist,numlist,indent,outdent,fontsizeselect,forecolor,fontselect,code",
         theme_advanced_buttons2: "",
         plugins: "style",
         theme_advanced_buttons1_add: "styleprops"
     });
 </script>
-
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
@@ -35,6 +28,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserGroupForm>"%>
 					    <div><%=Html.Input(a => a.Key)%></div>
     					    <div><%=Html.Input(a => a.Id)%></div>
     					    <div><%=Html.Input(a => a.Name)%></div>
+    					    <div><%=Html.Input(a => a.DomainName)%></div>
     					    <div><%=Html.Input(a => a.City)%></div>
     					    <div><%=Html.Input(a => a.Region)%></div>
     					    <div><%=Html.Input(a => a.Country)%></div>

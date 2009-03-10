@@ -1,49 +1,47 @@
-using System.Collections.Generic;
-using System.Web.Mvc;
 using System.Web.Routing;
-using CodeCampServer.UI.Controllers;
 using MvcContrib.Routing;
 
 namespace CodeCampServer.UI
 {
-	public class RouteConfigurator : IRouteConfigurator
-	{
-		public virtual void RegisterRoutes()
-		{
-			RouteCollection routes = RouteTable.Routes;
+    public class RouteConfigurator 
+    {
 
+        public virtual void RegisterRoutes()
+        {
+            RouteCollection routes = RouteTable.Routes;
 
-			routes.Clear();
+            routes.Clear();
 
-		    MvcRoute.MappUrl("{conferenceKey}/speakers/{speakerKey}")
-                    .WithDefaults(new {controller = "Speaker", action = "index"})
-                    .AddWithName("speaker",routes)
-                    .RouteHandler = new DomainNameRouteHandler();
+            MvcRoute.MappUrl("{conferenceKey}/speakers/{speakerKey}")
+                .WithDefaults(new {controller = "Speaker", action = "index"})
+                .AddWithName("speaker", routes)
+                .RouteHandler = new DomainNameRouteHandler();
 
             MvcRoute.MappUrl("{conferenceKey}/sessions/{sessionKey}")
-                    .WithDefaults(new { controller = "Session", action = "index" })
-                    .AddWithName("session", routes)
-                    .RouteHandler = new DomainNameRouteHandler();
-            
-		    MvcRoute.MappUrl("{conferenceKey}/{controller}/{action}")
-                .WithDefaults(new { controller = "Conference", action = "index" })
+                .WithDefaults(new {controller = "Session", action = "index"})
+                .AddWithName("session", routes)
+                .RouteHandler = new DomainNameRouteHandler();
+
+            MvcRoute.MappUrl("{conferenceKey}/{controller}/{action}")
+                .WithDefaults(new {controller = "Conference", action = "index"})
                 .WithConstraints(new
-                {
-                    conferenceKey = new ConferenceKeyCannotBeAControllerNameContraint(),
-                    controller = "schedule|session|timeslot|track|attendee|conference|speaker|admin|proposal"
-                })
-		        .AddWithName("conferenceDefault", routes)
-                .RouteHandler=new DomainNameRouteHandler();
+                                     {
+                                         conferenceKey = new ConferenceKeyCannotBeAControllerNameContraint(),
+                                         controller =
+                                     "schedule|session|timeslot|track|attendee|conference|speaker|admin|proposal"
+                                     })
+                .AddWithName("conferenceDefault", routes)
+                .RouteHandler = new DomainNameRouteHandler();
 
             MvcRoute.MappUrl("{controller}/{action}")
-		        .WithDefaults(new {controller = "conference", action = "index"})
-		        .WithConstraints(new
-		                             {
-		                                 controller = "(admin|login|speaker|home|conference|usergroup)"
-		                             })
-		        .AddWithName("default", routes)
-		        .RouteHandler = new DomainNameRouteHandler();
+                .WithDefaults(new {controller = "home", action = "index"})
+                .WithConstraints(new
+                                     {
+                                         controller = "(admin|login|speaker|home|conference|usergroup)"
+                                     })
+                .AddWithName("default", routes)
+                .RouteHandler = new DomainNameRouteHandler();
+        }
 
-        }	    
-    } 
+    }
 }

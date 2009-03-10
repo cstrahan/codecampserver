@@ -1,17 +1,5 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Main.Master" 
 	Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ProposalForm>" %>
-<%@ Import Namespace="CodeCampServer.Core"%>
-<%@ Import Namespace="CodeCampServer.UI.Views"%>
-<%@ Import Namespace="CodeCampServer.UI.Views"%>
-<%@ Import Namespace="CodeCampServer.UI.Helpers.ViewPage.InputBuilders"%>
-<%@ Import Namespace="MvcContrib"%>
-<%@ Import Namespace="CodeCampServer.Core"%>
-<%@ Import Namespace="CodeCampServer.UI.Models"%>
-<%@ Import Namespace="CodeCampServer.Core.Domain.Model.Planning"%>
-<%@ Import Namespace="Microsoft.Web.Mvc"%>
-<%@ Import Namespace="CodeCampServer.UI.Controllers"%>
-<%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
-
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
     <form action="<%=Url.Action<ProposalController>(x => x.Save(null, null))%>" method="post"  >
@@ -43,7 +31,7 @@
 							} 
 						%>
 						<%if(!ViewData.Get<ProposalEditInfo>().ReadOnly){%>
-						<a href="<%=Url.Action<HomeController>(x => x.Index()).ToXHTMLLink()%>"  class="pr10 mt5" rel="cancel">Cancel</a>				
+						<a href="<%=Url.Action<HomeController>(x => x.Index(null)).ToXHTMLLink()%>"  class="pr10 mt5" rel="cancel">Cancel</a>				
 						<%}%>
 					</div>
         </div>
