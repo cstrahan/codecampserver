@@ -23,8 +23,6 @@ namespace CodeCampServer.UI.Models.Forms
 
         public virtual string Country { get; set; }
 
-        public virtual string DomainName { get; set; }
-
         public virtual string GoogleAnalysticsCode { get; set; }
     }
 }

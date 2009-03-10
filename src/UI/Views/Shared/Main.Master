@@ -1,17 +1,7 @@
-<%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
-<%@ Import Namespace="CodeCampServer.UI.Models"%>
 <%@ Import Namespace="CodeCampServer.UI.Helpers.Filters"%>
-<%@ Import Namespace="System.Reflection"%>
-<%@ Import Namespace="CodeCampServer.Core"%>
-<%@ Import Namespace="MvcContrib"%>
-<%@ Import Namespace="CodeCampServer.UI"%>
-<%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
-<%@ Import Namespace="MvcContrib"%>
-<%@ Import Namespace="CodeCampServer.UI.Controllers"%>
-<%@ Import Namespace="CodeCampServer.UI"%>
-<%@ Import Namespace="CodeCampServer.Infrastructure.UI.Services"%>
 <%@ Import Namespace="CodeCampServer.Core.Domain.Model"%>
-<%@ Import Namespace="MvcContrib"%>
+<%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -60,7 +50,8 @@
 			</asp:LoginView>
 			</h2>
 		</div>
-		<% Html.RenderPartial("Menu"); %>
+		<asp:ContentPlaceHolder id="Menu" runat="server">
+		<% Html.RenderPartial("Menu"); %></asp:ContentPlaceHolder>
 		
 		<div id="content">
 			<div class="mainContent">

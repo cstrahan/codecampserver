@@ -39,7 +39,18 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			                      		Password = "password"
 			                      	});
 
-			var conference = new Conference
+
+		    var userGroup = new UserGroup
+		                        {
+		                            Name = "Austin .Net Users Group",
+		                            City = "Austin",
+		                            Region = "Texas",
+		                            Country = "USA",
+		                            Key = "localhost",
+		                            HomepageHTML = "Austin .Net Users Group"
+		                        };
+            userGroup.Add(user);
+            var conference = new Conference
 			                 	{
 			                 		Address = "123 Guadalupe Street",
 			                 		City = "Austin",
@@ -51,8 +62,10 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			                 		Name = "Austin Code Camp",
 			                 		PhoneNumber = "(512) 555-1212",
 			                 		PostalCode = "78787",
-			                 		Region = "Texas"
+			                 		Region = "Texas",
+                                    UserGroup = userGroup
 			                 	};
+
 			conference.AddAttendee(new Attendee
 			                       	{
 			                       		FirstName = "Jeffrey",
@@ -223,6 +236,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			var list = new List<PersistentObject>()
 			           	{
 			           		user,
+                            userGroup,
 			           		conference,
 			           		track,
 			           		track1,

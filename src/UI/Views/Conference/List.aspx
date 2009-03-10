@@ -10,10 +10,8 @@ AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage
 				<col />
 				<col />
 				<col />
-				<col />
 		  </colgroup>
 		  <tr>
-				<th>Details</th>
 				<th class="w30p tal"><strong>Name</strong></th>
 				<th><strong>Conference Dates</strong></th>
 				<th class="w20p"><strong>Location</strong></th>
@@ -22,8 +20,9 @@ AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage
        foreach (var conference in conferences)
 		{%>
 		  <tr class="">
-				<td><a class="" href="<%=Url.Action<ConferenceController>(c=>c.Edit(null),new{conference=conference.Id})%>" title="View Conference <%= counter + 1 %>">Edit</a></td>				
-				<td class="w30p tal"><strong><%= conference.Name%></strong></td>
+				
+				
+				<td class="w30p tal"><a href="<%=Url.RouteUrl("conferencedefault",new{conferencekey=conference.Key,action="index"}).ToXHTMLLink()%>"><strong><%= conference.Name%></strong></a></td>
 				<td><%= conference.StartDate%> To <%= conference.EndDate%></td>
 				<td class="w20p"><%= conference.LocationName%><br />
 				                <%= conference.City%>, <%= conference.Region%> <%= conference.PostalCode%>

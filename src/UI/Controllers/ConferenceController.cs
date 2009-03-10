@@ -29,9 +29,9 @@ namespace CodeCampServer.UI.Controllers
 			return View(form);
 		}
 
-		public ActionResult List()
+		public ActionResult List(UserGroup usergroup)
 		{
-			Conference[] conferences = _repository.GetAll();
+			Conference[] conferences = _repository.GetAllForUserGroup(usergroup);
 
 			if (conferences.Length < 1)
 			{
@@ -50,7 +50,7 @@ namespace CodeCampServer.UI.Controllers
 			if (conference == null)
 			{
 				TempData.Add("message", "Conference has been deleted.");
-				return RedirectToAction<ConferenceController>(c => c.List());
+				return RedirectToAction<ConferenceController>(c => c.List(conference.UserGroup));
 			}
 			
 
@@ -62,7 +62,7 @@ namespace CodeCampServer.UI.Controllers
 		[ValidateModel(typeof (ConferenceForm))]
 		public ActionResult Save([Bind(Prefix = "")] ConferenceForm form)
 		{
-			return ProcessSave(form, conference => RedirectToAction<ConferenceController>(c => c.List()));
+			return ProcessSave(form, conference => RedirectToAction<ConferenceController>(c => c.List(conference.UserGroup)));
 		}
 
 		protected override IDictionary<string, string[]> GetFormValidationErrors(ConferenceForm form)

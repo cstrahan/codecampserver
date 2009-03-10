@@ -23,7 +23,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var controller = new ConferenceController(repository, null);
 
 			ActionResult result = controller.Edit(null);
-			result.AssertActionRedirect().ToAction<ConferenceController>(e => e.List());
+			result.AssertActionRedirect().ToAction<ConferenceController>(e => e.List(null));
 			controller.TempData["Message"].ShouldEqual(
 				"Conference has been deleted.");
 		}
@@ -33,12 +33,13 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			When_a_conference_does_not_exist_Index_action_should_redirect_to_new_when_conference_does_not_exist
 			()
 		{
+		    var usergroup = new UserGroup();
 			var repository = S<IConferenceRepository>();
-			repository.Stub(repo => repo.GetAll()).Return(new Conference[0]);
+			repository.Stub(repo => repo.GetAllForUserGroup(usergroup)).Return(new Conference[0]);
 
 			var controller = new ConferenceController(repository, null);
 
-			ActionResult result = controller.List();
+			ActionResult result = controller.List(usergroup);
 
 			result.AssertActionRedirect().ToAction<ConferenceController>(a => a.New());
 		}
@@ -58,7 +59,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var result = (RedirectToRouteResult) controller.Save(form);
 
 			repository.AssertWasCalled(r => r.Save(conference));
-			result.AssertActionRedirect().ToAction<ConferenceController>(a => a.List());
+			result.AssertActionRedirect().ToAction<ConferenceController>(a => a.List(null));
 		}
 
 		[Test]

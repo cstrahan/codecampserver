@@ -6,10 +6,10 @@ Inherits="System.Web.Mvc.ViewPage<UserGroupForm>"%>
 	 <div>
 		    <h1><%=Model.Name%> <%Html.RenderPartial("EditUserGroupLink", Model); %></h1>		    
 		    <div>  
-	   			        						<div>Key: <%=Model.Key%></div>
-					    						<div>Id: <%=Model.Id%></div>
-					    						<div>Name: <%=Model.Name%></div>
-					    			</div>
+	            <div>Key: <%=Model.Key%></div>
+	            <div>Id: <%=Model.Id%></div>
+	            <div>Name: <%=Model.Name%></div>
+			</div>
         </div>
 </asp:Content>
 

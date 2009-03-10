@@ -32,6 +32,27 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			return conference;
 		}
 
+	    [Test]
+	    public void should_retrieve_conferences_for_a_usergroup()
+	    {
+	        var usergroup = new UserGroup();
+	        var conference1 = new Conference();
+	        var conference2 = new Conference();
+	        conference1.UserGroup = usergroup;
+
+            using (ISession session = GetSession())
+            {
+                session.SaveOrUpdate(usergroup);
+                session.SaveOrUpdate(conference1);
+                session.SaveOrUpdate(conference2);
+                session.Flush();
+            }
+
+            IConferenceRepository repository = new ConferenceRepository(new HybridSessionBuilder());
+	        var conferences = repository.GetAllForUserGroup(usergroup);
+
+            conferences.Length.ShouldEqual(1);
+	    }
 
 		[Test]
 		public void Should_remove_an_attendee_from_its_collection()

@@ -20,6 +20,9 @@
 		<property name="PostalCode" />
 		<property name="PhoneNumber" />
     <property name="HtmlContent" length="2000" />
+    
+    <many-to-one name="UserGroup" column="UserGroupID" class="UserGroup" />
+    
     <bag name="Attendees" access="field.camelcase-underscore" cascade="all-delete-orphan" >
 			<key column="ConferenceId"  />
 			<one-to-many class="Attendee" />

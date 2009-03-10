@@ -18,7 +18,6 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		public void The_index_should_retrieve_the_user_group_by_its_domain_name()
 		{
             UserGroup  userGroup =  new UserGroup();
-		    userGroup.DomainName = "localhost";
 
 
 		    var mapper = S<IUserGroupMapper>();
