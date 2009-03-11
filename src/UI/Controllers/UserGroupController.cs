@@ -21,9 +21,9 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		
-		public ActionResult Index(UserGroup entity)
+		public ActionResult Index(UserGroup usergroup)
 		{
-			UserGroupForm form = _mapper.Map(entity);
+			UserGroupForm form = _mapper.Map(usergroup);
 			return View(form);
 		}
 
@@ -40,7 +40,7 @@ namespace CodeCampServer.UI.Controllers
 			return View(entityListDto);
 		}
 		
-		[RequireAuthenticationFilter()]
+        [RequireAdminAuthorizationFilter]
 		public ActionResult Edit(UserGroup usergroup)
 		{
 			if (usergroup == null)
@@ -51,7 +51,8 @@ namespace CodeCampServer.UI.Controllers
 			return View(_mapper.Map(usergroup));
 		}
 
-		[RequireAuthenticationFilter()]
+        
+        [RequireAdminAuthorizationFilter]
         [ValidateInput(false)] 
 		[ValidateModel(typeof (UserGroupForm))]
 		public ActionResult Save([Bind(Prefix = "")] UserGroupForm form)
@@ -75,11 +76,14 @@ namespace CodeCampServer.UI.Controllers
 			return entity != null && entity.Id != message.Id;
 		}
 
-		[RequireAuthenticationFilter()]
+		
+        [RequireAdminAuthorizationFilter]
 		public ActionResult New()
 		{
 			return View("Edit", _mapper.Map(new UserGroup()));
 		}
+
+        [RequireAdminAuthorizationFilter]
         public ActionResult Delete(UserGroup entity)
         {
             if (entity.GetUsers().Length == 0)

@@ -1,6 +1,10 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master"
  AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<LoginForm>"%>
 
+<asp:Content ID="Content1" ContentPlaceHolderID="Menu" runat="server">
+<% Html.RenderPartial("HomeMenu"); %>
+</asp:Content>
+
 <asp:Content ContentPlaceHolderID="Main" runat="server">  
   <script type="text/javascript">     
      $(function() {

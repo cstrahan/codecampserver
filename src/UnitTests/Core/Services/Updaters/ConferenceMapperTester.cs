@@ -31,7 +31,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			var repository = M<IConferenceRepository>();
 			repository.Stub(x => x.GetById(form.Id)).Return(null);
 
-			var mapper = new ConferenceMapper(repository);
+			var mapper = new ConferenceMapper(repository,S<IUserGroupRepository>());
 
 			Conference mapped = mapper.Map(form);
 
@@ -65,7 +65,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			var repository = S<IConferenceRepository>();
 			var conference = new Conference();
 			repository.Stub(x => x.GetById(form.Id)).Return(conference);
-			var mapper = new ConferenceMapper(repository);
+			var mapper = new ConferenceMapper(repository,S<IUserGroupRepository>());
 
 			Conference mapped = mapper.Map(form);
 			conference.ShouldEqual(mapped);

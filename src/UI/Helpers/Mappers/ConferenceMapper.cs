@@ -7,11 +7,14 @@ namespace CodeCampServer.UI.Helpers.Mappers
 {
 	public class ConferenceMapper : AutoFormMapper<Conference, ConferenceForm>, IConferenceMapper
 	{
-		public ConferenceMapper(IConferenceRepository repository) : base(repository)
+	    private readonly IUserGroupRepository _userGroupRepository;
+
+	    public ConferenceMapper(IConferenceRepository repository,IUserGroupRepository userGroupRepository) : base(repository)
 		{
+		    _userGroupRepository = userGroupRepository;
 		}
 
-		protected override Guid GetIdFromMessage(ConferenceForm form)
+	    protected override Guid GetIdFromMessage(ConferenceForm form)
 		{
 			return form.Id;
 		}
@@ -30,6 +33,7 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			model.Region = form.Region;
 			model.StartDate = ToDateTime(form.StartDate);
 		    model.HtmlContent = form.HtmlContent;
+		    model.UserGroup = _userGroupRepository.GetById(form.UserGroupId);
 		}
 	}
 }

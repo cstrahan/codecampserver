@@ -41,7 +41,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			ActionResult result = controller.List(usergroup);
 
-			result.AssertActionRedirect().ToAction<ConferenceController>(a => a.New());
+			result.AssertActionRedirect().ToAction<ConferenceController>(a => a.New(null));
 		}
 
 		[Test]

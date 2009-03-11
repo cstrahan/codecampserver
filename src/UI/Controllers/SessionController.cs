@@ -5,6 +5,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Models;
 using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Controllers
@@ -33,6 +34,7 @@ namespace CodeCampServer.UI.Controllers
 
 		public ViewResult List(Conference conference)
 		{
+            
 			Session[] sessions = _repository.GetAllForConference(conference);
 			return View(_mapper.Map(sessions));
 		}
@@ -43,15 +45,16 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[ValidateModel(typeof (SessionForm))]
-		public ActionResult Save([Bind(Prefix = "")] SessionForm form, string urlreferrer)
+		public ActionResult Save([Bind(Prefix = "")] SessionForm form, string urlreferrer,Conference conference)
 		{
-			Func<Session, ActionResult> successRedirect = GetSuccessRedirect(form, urlreferrer);
+		    form.Conference = conference;
+			Func<Session, ActionResult> successRedirect = GetSuccessRedirect(urlreferrer,conference);
 			return ProcessSave(form, successRedirect);
 		}
 
-		private Func<Session, ActionResult> GetSuccessRedirect(SessionForm form, string urlreferrer)
+		private Func<Session, ActionResult> GetSuccessRedirect(string urlreferrer, Conference conference)
 		{
-			Func<Session, ActionResult> successRedirect = session => RedirectToIndex(form.Conference);
+			Func<Session, ActionResult> successRedirect = session => RedirectToIndex(conference);
 			if (!String.IsNullOrEmpty(urlreferrer))
 			{
 				successRedirect = session => Redirect(urlreferrer);

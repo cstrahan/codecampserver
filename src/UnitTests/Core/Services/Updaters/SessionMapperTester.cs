@@ -39,6 +39,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			var trackRepository = S<ITrackRepository>();
 			var timeSlotRepository = S<ITimeSlotRepository>();
 			var speakerRepository = S<ISpeakerRepository>();
+            
 			var track = new Track();
 			var timeSlot = new TimeSlot();
 			var speaker = new Speaker();

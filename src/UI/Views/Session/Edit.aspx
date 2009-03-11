@@ -5,14 +5,14 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<SessionForm>"%>
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-    <form action="<%= Url.Action<SessionController>(x => x.Save(null,null)) %>" method="post"  >
+    <form action="<%= Url.Action<SessionController>(x => x.Save(null,null,null)) %>" method="post"  >
         <div>
 			    <h1>Edit Session</h1>  
 						<%=Errors.Display()%>
 						<table class="dataEntry">
 							<tr>
 								<td class="w50p">
-									<%=Html.Input(a => a.Id)%>            	
+									<%=Html.Input(a => a.Id)%>   
 									<%=Html.Input(a => a.Title)%>
 									<%=Html.Input(a => a.Key)%>
 									<%=Html.Input(a => a.Abstract)%>

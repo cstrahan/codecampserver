@@ -25,7 +25,8 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm>"%>
 	        <table class="dataEntry">
 		        <tr>
 			        <td class="w50p">
-									<%=Html.Input(a => a.Id)%>            	
+						<%=Html.Input(a => a.Id)%>            	
+					    <%=Html.Input(a => a.UserGroupId)%>
 					    <%=Html.Input(a => a.Name)%>
 					    <%=Html.Input(a => a.Key)%>
 					    <%=Html.Input(a => a.Description)%>

@@ -86,7 +86,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			repository.Stub(r => r.GetByKey("foo")).Return(new Session());
 
 			var controller = new SessionController(repository, mapper);
-			var result = (ViewResult) controller.Save(form,null);
+			var result = (ViewResult) controller.Save(form,null,null);
 
 			result.AssertViewRendered().ViewName.ShouldEqual("Edit");
 			controller.ModelState.Values.Count.ShouldEqual(1);
@@ -105,7 +105,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<ISessionRepository>();
 
 			var controller = new SessionController(repository, mapper);
-			var result = (RedirectToRouteResult) controller.Save(form,null);
+			var result = (RedirectToRouteResult) controller.Save(form,null,form.Conference);
 
 			repository.AssertWasCalled(r => r.Save(session));
 			result.AssertActionRedirect().ToAction<SessionController>(a => a.Index(null));

@@ -60,7 +60,7 @@ namespace CodeCampServer.UI.Helpers.Filters
 
 		private RedirectToRouteResult RedirectToNewTheConferenceAction(ActionExecutingContext filterContext)
 		{
-			Expression<Func<ConferenceController, object>> actionExpression = c => c.New();
+			Expression<Func<ConferenceController, object>> actionExpression = c => c.New(null);
 
 			string controllerName = typeof (ConferenceController).GetControllerName();
 			string actionName = actionExpression.GetActionName();

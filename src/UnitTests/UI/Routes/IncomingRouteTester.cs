@@ -20,7 +20,7 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		public void Confernce_actions_should_map_to_the_controller_action_without_the_conferenceKey()
 		{
 			"~/conference/new"
-                .ShouldMapTo<ConferenceController>(c => c.New())
+                .ShouldMapTo<ConferenceController>(c => c.New(null))
                 .ShouldUseDomainNameRouteHandler();
             
 		}

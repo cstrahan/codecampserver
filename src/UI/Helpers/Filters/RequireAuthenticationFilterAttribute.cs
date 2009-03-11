@@ -9,9 +9,25 @@ using MvcContrib;
 
 namespace CodeCampServer.UI.Helpers.Filters
 {
+    public class RequireAdminAuthorizationFilterAttribute:RequireAuthenticationFilterAttribute
+    {
+        public RequireAdminAuthorizationFilterAttribute(IUserSession session) : base(session) {}
+
+        public RequireAdminAuthorizationFilterAttribute() {}
+
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            User user = _session.GetCurrentUser();
+            if (user == null || !user.IsAdmin() )
+            {
+                RedirectToLogin(filterContext.HttpContext);
+            }
+        }
+    }
+
 	public class RequireAuthenticationFilterAttribute : ActionFilterAttribute
 	{
-		private readonly IUserSession _session;
+		protected readonly IUserSession _session;
 
 		public RequireAuthenticationFilterAttribute(IUserSession session)
 		{
@@ -25,7 +41,6 @@ namespace CodeCampServer.UI.Helpers.Filters
 
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-			var controller = filterContext.Controller;
 			User user = _session.GetCurrentUser();
 			if (user == null)
 			{

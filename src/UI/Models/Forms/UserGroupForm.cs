@@ -7,7 +7,7 @@ namespace CodeCampServer.UI.Models.Forms
     public class UserGroupForm
     {
         [BetterValidateNonEmpty("User Group Key")]
-        [ValidateRegExp(@"^[A-Za-z0-9\-]+$", "Key should only contain letters, numbers, and hypens.")]
+        [ValidateKey]
         public virtual string Key { get; set; }
 
         public virtual Guid Id { get; set; }

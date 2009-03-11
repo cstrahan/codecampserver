@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" 
+﻿<%@ Import Namespace="CodeCampServer.Core.Domain.Model"%>
+<%@ Control Language="C#" AutoEventWireup="true" 
 Inherits="System.Web.Mvc.ViewUserControl" %>
 
 <div id="menu">
@@ -8,7 +9,7 @@ Inherits="System.Web.Mvc.ViewUserControl" %>
 						<li><a href="<%=Url.Action<AdminController>(c=>c.Index()) %>">Admin</a></li>
 					</LoggedInTemplate>
 				</asp:LoginView>
-				
+				<li><a href="<%=Url.RouteUrl("conferencedefault",new{controller="conference",action="index",conferencekey=ViewData.Get<Conference>().Key}) %>">Home</a></li>
 				<li><a href="<%=Url.Action<ScheduleController>(c=>c.Index(null)) %>">Schedule</a></li>
 				<li><a href="<%=Url.Action<SpeakerController>(c=>c.List()) %>">Speakers</a></li>
 				<li><a href="<%=Url.Action<SessionController>(c=>c.List(null)) %>">Sessions</a></li>

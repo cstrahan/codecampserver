@@ -5,7 +5,9 @@ using CodeCampServer.Core.Domain.Model;
 
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Models;
 using CodeCampServer.UI.Models.Forms;
+using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
@@ -31,11 +33,13 @@ namespace CodeCampServer.UI.Controllers
 
 		public ActionResult List(UserGroup usergroup)
 		{
+		    ViewData.Add(new PageInfo {Title = usergroup.Name});
+
 			Conference[] conferences = _repository.GetAllForUserGroup(usergroup);
 
 			if (conferences.Length < 1)
 			{
-				return RedirectToAction<ConferenceController>(c => c.New());
+				return RedirectToAction<ConferenceController>(c => c.New(null));
 			}
 
 			object conferenceListDto = AutoMapper.Mapper .Map(conferences, typeof (Conference[]), typeof (ConferenceForm[]));
@@ -82,11 +86,11 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[RequireAuthenticationFilter()]
-		public ActionResult New()
+		public ActionResult New(UserGroup usergroup)
 		{
 //			Conference conference = new Conference {StartDate = SystemTime.Now(), EndDate = SystemTime.Now()};
 			//_repository.Save(conference);
-			return View("Edit", _mapper.Map(new Conference()));
+			return View("Edit", _mapper.Map(new Conference{UserGroup = usergroup}));
 		}
 	}
 }

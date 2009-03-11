@@ -1,5 +1,3 @@
-<%@ Import Namespace="CodeCampServer.UI.Helpers.Filters"%>
-<%@ Import Namespace="CodeCampServer.Core.Domain.Model"%>
 <%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -51,7 +49,15 @@
 			</h2>
 		</div>
 		<asp:ContentPlaceHolder id="Menu" runat="server">
-		<% Html.RenderPartial("Menu"); %></asp:ContentPlaceHolder>
+		<% if(ViewData.Contains<Conference>())
+        {
+            Html.RenderPartial("Menu"); 
+        }
+        else
+        {
+            Html.RenderPartial("HomeMenu"); 
+        }
+        %></asp:ContentPlaceHolder>
 		
 		<div id="content">
 			<div class="mainContent">

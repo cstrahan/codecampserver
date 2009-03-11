@@ -14,6 +14,8 @@ namespace CodeCampServer.UI.Models.Forms
 
 		public virtual Guid Id { get; set; }
 
+        public virtual Guid UserGroupId { get; set; }
+
 		[BetterValidateNonEmpty("Name")]
 		public virtual string Name { get; set; }
 

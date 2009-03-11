@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" 
 Inherits="System.Web.Mvc.ViewUserControl" %>
+
 <div id="menu">
 			<ul>
 				<asp:LoginView ID="LoginView1" runat="server">
@@ -9,5 +10,6 @@ Inherits="System.Web.Mvc.ViewUserControl" %>
 				</asp:LoginView>
 				
 				<li><a href="<%=Url.Action<ConferenceController>(c=>c.List(null)) %>">Schedule</a></li>
+				<li><a href="<%=Url.Action<UserGroupController>(c=>c.List()) %>">User Groups</a></li>
 			</ul>
 </div>

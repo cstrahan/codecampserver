@@ -14,14 +14,17 @@ namespace CodeCampServer.UI.Controllers
 	{
 		protected override void OnActionExecuted(ActionExecutedContext filterContext)
 		{
-			if (ViewData.Contains<Conference>())
-			{
-				ViewData.Add(new PageInfo {Title = ViewData.Get<Conference>().Name});
-			}
-			else
-			{
-				ViewData.Add(new PageInfo {Title = "Code Camp Server v1.0"});
-			}
+            if (!ViewData.Contains<PageInfo>())
+            {
+                if (ViewData.Contains<Conference>())
+                {
+                    ViewData.Add(new PageInfo {Title = ViewData.Get<Conference>().Name});
+                }
+                else
+                {
+                    ViewData.Add(new PageInfo {Title = "Code Camp Server v1.0"});
+                }
+            }
 		}
 
 		protected override void OnActionExecuting(ActionExecutingContext filterContext)

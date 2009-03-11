@@ -11,8 +11,7 @@ namespace CodeCampServer.UI.Helpers.Mappers
 		private readonly ITimeSlotRepository _timeSlotRepository;
 		private readonly ISpeakerRepository _speakerRepository;
 
-		public SessionMapper(ISessionRepository repository, ITrackRepository trackRepository,
-		                     ITimeSlotRepository timeSlotRepository, ISpeakerRepository speakerRepository) : base(repository)
+	    public SessionMapper(ISessionRepository repository, ITrackRepository trackRepository, ITimeSlotRepository timeSlotRepository, ISpeakerRepository speakerRepository) : base(repository)
 		{
 			_trackRepository = trackRepository;
 			_timeSlotRepository = timeSlotRepository;
@@ -29,7 +28,7 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			model.Track = _trackRepository.GetById(form.Track.Id);
 			model.TimeSlot = _timeSlotRepository.GetById(form.TimeSlot.Id);
 			model.Speaker = _speakerRepository.GetById(form.Speaker.Id);
-			model.Conference = form.Conference;
+		    model.Conference = form.Conference;
 			model.RoomNumber = form.RoomNumber;
 			model.Title = form.Title;
 			model.Abstract = form.Abstract;

@@ -88,6 +88,7 @@
     <Compile Include="Helpers\Attributes\NoInputAttribute.cs" />
     <Compile Include="Helpers\Mappers\IUserGroupMapper.cs" />
     <Compile Include="Helpers\Mappers\UserGroupMapper.cs" />
+    <Compile Include="Helpers\Validation\Attributes\ValidateKeyAttribute.cs" />
     <Compile Include="Helpers\ViewPage\InputBuilders\NoInputBuilder.cs" />
     <Compile Include="Models\Forms\UserGroupForm.cs" />
     <Compile Include="Models\ProposalEditInfo.cs" />
