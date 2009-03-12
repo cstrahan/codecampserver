@@ -14,6 +14,7 @@ Inherits="System.Web.Mvc.ViewPage<UserGroupForm>"%>
 	            <div>Id: <%=Model.Id%></div>
 	            <div>Name: <%=Model.Name%></div>
 			</div>
-        </div>
+			<%Html.RenderPartial("ConferenceList", ViewData.Get<ConferenceForm[]>()); %>
+       </div>
 </asp:Content>
 

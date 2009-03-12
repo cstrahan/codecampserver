@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
@@ -233,6 +234,8 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			               	};
 			var speakers = new[] {speaker, speaker1, speaker2, speaker3, speaker4, speaker5, speaker6};
 
+            
+
 			var list = new List<PersistentObject>()
 			           	{
 			           		user,
@@ -258,6 +261,9 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			           		speaker5,
 			           		speaker6
 			           	};
+
+		    var conferences = CreateConferences(userGroup);
+            list.AddRange(conferences.ToArray());
 
 			User[] users = CreateUsers();
 			list.AddRange(users);
@@ -321,7 +327,33 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 //			}
 		}
 
-		private User[] CreateUsers()
+	    private IEnumerable<Conference> CreateConferences(UserGroup userGroup)
+	    {
+	        DateTime startDate = DateTime.Now.AddDays(-7*5);
+	        for (int i = 0; i < 10; i++)
+	        {
+	            DateTime conferenceDate = startDate.AddDays(7*i);
+                yield return new Conference
+                {
+                    Address = "123 Guadalupe Street",
+                    City = "Austin",
+                    Description = "Community Event",
+                    EndDate =  conferenceDate.AddDays(1),
+                    StartDate = conferenceDate,
+                    Key = "event"+i,
+                    LocationName = "St. Edward's Professional Education Center",
+                    Name = "User Group Event " + i,
+                    PhoneNumber = "(512) 555-1212",
+                    PostalCode = "78787",
+                    Region = "Texas",
+                    UserGroup = userGroup
+                };
+	            
+	        }
+
+	    }
+
+	    private User[] CreateUsers()
 		{
 			var mapper = new UserMapper(new UserRepository(GetSessionBuilder()), new Cryptographer());
 			var user = mapper.Map(new UserForm

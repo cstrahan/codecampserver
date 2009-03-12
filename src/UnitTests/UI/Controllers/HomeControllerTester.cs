@@ -25,7 +25,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 		    var home = new HomeController(mapper);
 
-            ViewResult result = home.Index(userGroup);
+            ViewResult result = home.Index(userGroup,S<IConferenceRepository>());
 		    result.ForView("");
             result.WithViewData<UserGroupForm>().ShouldNotBeNull();
 		}

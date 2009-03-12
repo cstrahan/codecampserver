@@ -28,7 +28,7 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		[Test]
 		public void Home_controller_routes_should_map_to_the_index()
 		{
-            "~/home".ShouldMapTo<HomeController>(c => c.Index(null))
+            "~/home".ShouldMapTo<HomeController>(c => c.Index(null,null))
                 .ShouldUseDomainNameRouteHandler();
 		}
 

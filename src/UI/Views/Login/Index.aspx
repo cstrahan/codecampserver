@@ -27,7 +27,7 @@
 	    <br />
 	    <div class="p10 tac">
 				<%=Html.SubmitButton("login", "Log in", new{@class="pr10 w100"}) %>    
-				<a href="<%=Url.Action<HomeController>(x => x.Index(null)).ToXHTMLLink() %>"  class="pr10 mt5" rel="cancel">Cancel</a>				
+				<a href="<%=Url.Action<HomeController>(x => x.Index(null,null)).ToXHTMLLink() %>"  class="pr10 mt5" rel="cancel">Cancel</a>				
 	    </div>
 </div>
 

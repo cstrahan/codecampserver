@@ -6,5 +6,6 @@ namespace CodeCampServer.Core.Domain
 	{
 		Conference GetNextConference();
         Conference[] GetAllForUserGroup(UserGroup usergroup);
+	    Conference[] GetFutureForUserGroup(UserGroup usergroup);
 	}
 }

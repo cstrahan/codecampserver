@@ -1,4 +1,5 @@
 using System;
+using CodeCampServer.Core;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
@@ -33,6 +34,31 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		}
 
 	    [Test]
+	    public void Should_retrieve_upcoming_conferences_for_a_usergroup()
+	    {
+            SystemTime.Now = () => new DateTime(2009, 5, 5);
+            var usergroup = new UserGroup();
+            var conference1 = new Conference { UserGroup = usergroup,StartDate = new DateTime(2009,4,6)};
+            var conference2 = new Conference { UserGroup = usergroup, StartDate = new DateTime(2009, 5, 6) };
+            var conference3 = new Conference { UserGroup = usergroup, StartDate = new DateTime(2009, 5, 7) };
+
+            using (ISession session = GetSession())
+            {
+                session.SaveOrUpdate(usergroup);
+                session.SaveOrUpdate(conference1);
+                session.SaveOrUpdate(conference2);
+                session.SaveOrUpdate(conference3);
+                session.Flush();
+            }
+
+            IConferenceRepository repository = new ConferenceRepository(new HybridSessionBuilder());
+            var conferences = repository.GetFutureForUserGroup(usergroup);
+
+            conferences.Length.ShouldEqual(2);
+            conferences[0].ShouldEqual(conference2);
+	    }
+
+        [Test]
 	    public void should_retrieve_conferences_for_a_usergroup()
 	    {
 	        var usergroup = new UserGroup();

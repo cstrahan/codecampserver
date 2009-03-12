@@ -3,6 +3,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserGroupForm>"%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
 </asp:Content>
+
 <asp:Content ContentPlaceHolderID="Menu" runat="server">
 <% Html.RenderPartial("HomeMenu"); %>
 </asp:Content>
@@ -13,4 +14,6 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserGroupForm>"%>
             <p><%= Model.City %><%= Model.Region %><%= Model.Country%></p>
              <p><%= Model.HomepageHTML %></p>
         </div>
+        <%Html.RenderPartial("ConferenceList", ViewData.Get<ConferenceForm[]>()); %>
+
 </asp:Content>

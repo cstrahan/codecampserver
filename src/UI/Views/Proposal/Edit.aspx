@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Main.Master" 
 	Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ProposalForm>" %>
 
+
 <asp:Content ContentPlaceHolderID="Main" runat="server">
     <form action="<%=Url.Action<ProposalController>(x => x.Save(null, null))%>" method="post"  >
         <div>
@@ -31,7 +32,7 @@
 							} 
 						%>
 						<%if(!ViewData.Get<ProposalEditInfo>().ReadOnly){%>
-						<a href="<%=Url.Action<HomeController>(x => x.Index(null)).ToXHTMLLink()%>"  class="pr10 mt5" rel="cancel">Cancel</a>				
+						<a href="<%=Url.Action<HomeController>(x => x.Index(null,null)).ToXHTMLLink()%>"  class="pr10 mt5" rel="cancel">Cancel</a>				
 						<%}%>
 					</div>
         </div>

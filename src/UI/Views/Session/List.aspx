@@ -8,7 +8,6 @@
 		    $('#sessionTable').dataTable();
 		    });
 		</script>
-
 <h2>Sessions
 		<%if (User.Identity.IsAuthenticated){%>
 				<a class="" href="<%=Url.Action<SessionController>(c=>c.New())%>" title="Add a new Session"><img src="/images/icons/application_add.png" /></a>

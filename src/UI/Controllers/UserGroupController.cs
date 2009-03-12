@@ -5,6 +5,7 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
+using MvcContrib;
 
 
 namespace CodeCampServer.UI.Controllers
@@ -13,17 +14,22 @@ namespace CodeCampServer.UI.Controllers
 	{
 		private readonly IUserGroupRepository _repository;
 		private readonly IUserGroupMapper _mapper;
+	    private readonly IConferenceRepository _conferenceRepository;
+	    private readonly IConferenceMapper _conferenceMapper;
 
-		public UserGroupController(IUserGroupRepository repository, IUserGroupMapper mapper) : base(repository, mapper)
+	    public UserGroupController(IUserGroupRepository repository, IUserGroupMapper mapper,IConferenceRepository conferenceRepository,IConferenceMapper conferenceMapper) : base(repository, mapper)
 		{
 			_repository = repository;
 			_mapper = mapper;
+		    _conferenceRepository = conferenceRepository;
+	        _conferenceMapper = conferenceMapper;
 		}
 
 		
 		public ActionResult Index(UserGroup usergroup)
 		{
-			UserGroupForm form = _mapper.Map(usergroup);
+
+            UserGroupForm form = _mapper.Map(usergroup);
 			return View(form);
 		}
 
@@ -35,7 +41,6 @@ namespace CodeCampServer.UI.Controllers
 			{
 				return RedirectToAction<UserGroupController>(c => c.New());
 			}
-
 			object entityListDto = AutoMapper.Mapper .Map(entities, typeof (UserGroup[]), typeof (UserGroupForm[]));
 			return View(entityListDto);
 		}

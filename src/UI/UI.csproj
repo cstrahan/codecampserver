@@ -91,6 +91,7 @@
     <Compile Include="Helpers\Validation\Attributes\ValidateKeyAttribute.cs" />
     <Compile Include="Helpers\ViewPage\InputBuilders\NoInputBuilder.cs" />
     <Compile Include="Models\Forms\UserGroupForm.cs" />
+    <Compile Include="Models\Forms\VirtualMeetingForm.temp.cs" />
     <Compile Include="Models\ProposalEditInfo.cs" />
     <Compile Include="Helpers\Binders\SmartBinder.cs" />
     <Compile Include="Helpers\Filters\AssemblyVersionrFilterAttribute.cs" />
@@ -302,6 +303,7 @@
     <Content Include="Views\Schedule\Index.aspx" />
     <Content Include="Views\Session\List.aspx" />
     <Content Include="Views\Session\Edit.aspx" />
+    <Content Include="Views\Shared\ConferenceList.ascx" />
     <Content Include="Views\Shared\HomeMenu.ascx" />
     <Content Include="Views\Shared\EditUserGroupLink.ascx" />
     <Content Include="Views\Shared\EditProposalLink.ascx" />
