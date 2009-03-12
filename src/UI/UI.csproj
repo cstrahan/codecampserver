@@ -91,7 +91,6 @@
     <Compile Include="Helpers\Validation\Attributes\ValidateKeyAttribute.cs" />
     <Compile Include="Helpers\ViewPage\InputBuilders\NoInputBuilder.cs" />
     <Compile Include="Models\Forms\UserGroupForm.cs" />
-    <Compile Include="Models\Forms\VirtualMeetingForm.temp.cs" />
     <Compile Include="Models\ProposalEditInfo.cs" />
     <Compile Include="Helpers\Binders\SmartBinder.cs" />
     <Compile Include="Helpers\Filters\AssemblyVersionrFilterAttribute.cs" />

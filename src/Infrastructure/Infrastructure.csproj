@@ -98,7 +98,6 @@
     <Compile Include="DataAccess\Impl\TrackRepository.cs" />
     <Compile Include="DataAccess\Impl\UserGroupRepository.cs" />
     <Compile Include="DataAccess\Impl\UserRepository.cs" />
-    <Compile Include="DataAccess\Impl\VirtualMeetingRepository.temp.cs" />
     <Compile Include="DependencyRegistry.cs" />
     <Compile Include="UI\Services\AssemblyVersion.cs" />
     <Compile Include="UI\Services\Impl\UploadFileNamer.cs" />
@@ -150,9 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DataAccess\Mappings\UserGroup.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DataAccess\Mappings\VirtualMeeting-temp.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
