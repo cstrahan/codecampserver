@@ -1,16 +1,15 @@
 
+SET connectionString=Data Source=.\sqlexpress;Initial Catalog=CodeCampServer;uid=sa;pwd=TODO
 SET driverClass=NHibernate.Driver.SqlClientDriver
-SET connectionString=Data Source=.\sqlexpress;Initial Catalog=TODO;uid=sa;pwd=TODO
-SET localConnectionString=Data Source=localhost\sqlexpress;Initial Catalog=TODO;uid=sa;pwd=TODO
 SET dialect=NHibernate.Dialect.MsSql2005Dialect
-SET websiteTargetDir=\\TODO
+SET websiteTargetDir=d:\websites\codecampserver\www
 
-SET databaseServer=TODO\sqlexpress
-SET databaseName=TODO
-SET databaseIntegrated=false
-SET databaseUsername=sa
-SET databasePassword=TODO
+SET databaseServer=.\sqlexpress
+SET databaseName=CodeCampServer
+SET databaseIntegrated=true
+SET databaseUsername=
+SET databasePassword=
 
-SET shouldReloadDatabase=true
+SET shouldReloadDatabase=false
 
 CommonDeploy.bat

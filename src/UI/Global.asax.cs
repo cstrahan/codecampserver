@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.UI.Helpers.Binders;
 using CodeCampServer.UI.Views;
@@ -11,8 +12,6 @@ namespace CodeCampServer.UI
 	{
 		public static void RegisterRoutes(RouteCollection routes)
 		{
-			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-			routes.IgnoreRoute("{resource}.gif/{*pathInfo}");
 
 			new RouteConfigurator().RegisterRoutes();
 		}
@@ -24,6 +23,8 @@ namespace CodeCampServer.UI
 			ControllerBuilder.Current.SetControllerFactory(new ControllerFactory());
 
 			ModelBinders.Binders.DefaultBinder = new SmartBinder();
+            DependencyRegistrar.EnsureDependenciesRegistered();
+            ModelBinders.Binders.Add(typeof(UserGroup),DependencyRegistrar.Resolve<UserGroupModelBinder>());
 		}
 	}
 }

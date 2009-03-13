@@ -41,6 +41,25 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
             }
         }
 
+	    [Test]
+	    public void Should_retrieve_the_default_usergroup()
+	    {
+            UserGroup userGroup = CreateUserGroup();
+	        userGroup.Key = "localhost";
+
+            using (ISession session = GetSession())
+            {
+                session.SaveOrUpdate(userGroup);
+                session.Flush();
+            }   
+
+
+            IUserGroupRepository repository = new UserGroupRepository(new HybridSessionBuilder());
+	        var group = repository.GetDefaultUserGroup();
+
+            group.ShouldEqual(userGroup);
+	    }
+
 		protected override UserGroupRepository CreateRepository()
 		{
 			return new UserGroupRepository(GetSessionBuilder());

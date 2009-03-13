@@ -4,5 +4,6 @@ namespace CodeCampServer.Core.Domain
 {
     public interface IUserGroupRepository:IKeyedRepository<UserGroup>
     {
+        UserGroup GetDefaultUserGroup();
     }
 }

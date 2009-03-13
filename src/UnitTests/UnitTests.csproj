@@ -165,6 +165,7 @@
     <Compile Include="UI\Controllers\UserGroupControllerTester.cs" />
     <Compile Include="UI\Helpers\Filters\AutoMappedFilterAttributeTester.cs" />
     <Compile Include="UI\Helpers\Filters\FilterAttributeTester.cs" />
+    <Compile Include="UI\Helpers\UserGroupModelBinderTester.cs" />
     <Compile Include="UI\KeyedModelBinderTester.cs" />
     <Compile Include="UI\ModelBinderTester.cs" />
     <Compile Include="UI\Models\Forms\ProposalFormTester.cs" />

@@ -1,3 +1,4 @@
+using System.Web.Mvc;
 using System.Web.Routing;
 using MvcContrib.Routing;
 
@@ -11,6 +12,10 @@ namespace CodeCampServer.UI
             RouteCollection routes = RouteTable.Routes;
 
             routes.Clear();
+            
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{resource}.gif/{*pathInfo}");
+
 
             MvcRoute.MappUrl("{conferenceKey}/speakers/{speakerKey}")
                 .WithDefaults(new {controller = "Speaker", action = "index"})
