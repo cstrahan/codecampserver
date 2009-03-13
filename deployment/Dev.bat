@@ -1,8 +1,7 @@
-
-SET connectionString=Data Source=.\sqlexpress;Initial Catalog=CodeCampServer;uid=sa;pwd=TODO
+SET connectionString=Data Source=.\sqlexpress;Initial Catalog=CodeCampServer;Integrated Security=SSPI;
 SET driverClass=NHibernate.Driver.SqlClientDriver
 SET dialect=NHibernate.Dialect.MsSql2005Dialect
-SET websiteTargetDir=d:\websites\codecampserver\www
+SET websiteTargetDir=d:\domains\codecampserver\www
 
 SET databaseServer=.\sqlexpress
 SET databaseName=CodeCampServer
