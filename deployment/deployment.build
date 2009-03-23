@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--EXTERNAL_PROPERTIES: driver.class;connection.string;website.target.dir;dialect;local.connection.string;-->
+<!--EXTERNAL_PROPERTIES: driver.class;connection.string;website.target.dir;dialect;local.connection.string;database.server;-->
 <project name="CodeCampServer" default="deploy" xmlns="http://nant.sf.net/release/0.85-rc4/nant.xsd">
 
   <property name="nant.settings.currentframework" value="net-3.5" />
@@ -10,15 +10,16 @@
 
   <target name="deploy">
 
-    <call target="rebuildDatabase" if="${should.reload.database}" />
+    <call target="updateDatabase" />
 
+    <!--
 		<echo message="STEP 1 - Configuring ${project::get-name()}..." />
 
 		<property name="driver.class.path" value="//*/hbm:property[@name='connection.driver_class']" />
     <property name="connection.string.path" value="//*/hbm:property[@name='connection.connection_string']" />
     <property name="dialect.path" value="//*/hbm:property[@name='dialect']" />
 
-    <!-- Poke website config -->
+    
     <xmlpoke file="website/bin/hibernate.cfg.xml"	xpath="${driver.class.path}" value="${driver.class}">
       <namespaces>
         <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
@@ -36,7 +37,7 @@
     </xmlpoke>
 
     
-		<!-- Poke database and test config -->
+		
     <xmlpoke file="database/hibernate.cfg.xml" xpath="${driver.class.path}"	value="${driver.class}">
       <namespaces>
         <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
@@ -55,8 +56,8 @@
       </namespaces>
     </xmlpoke>
 
-
-		<echo message="STEP 3 - Rebuilding Transactional Database..." />
+-->
+<!--		<echo message="STEP 3 - Rebuilding Transactional Database..." />
 
 	<nunit2 failonerror="true" verbose="true">
       <formatter type="Plain" />
@@ -76,7 +77,8 @@
         </categories>
       </test>
     </nunit2>
-
+-->
+    <!--
     <echo message="STEP 4 - Populating Transactional Database with Test Data..." />
 
     <nunit2 failonerror="true" verbose="true">
@@ -88,7 +90,7 @@
         </categories>
       </test>
     </nunit2>
-
+-->
 		<echo message="STEP 5 - Removing Existing ${project::get-name()} Application Files..." />
 
 		<delete dir="${website.target.dir}" />
@@ -104,14 +106,14 @@
   </target>
 
   <!-- Database change management -->
-  <target name="rebuildDatabase" depends="dropDatabase, createDatabase" />
-
+ 
   <target name="updateDatabase">
     <property name="action" value="Update" />
     <call target="manageSqlDatabase" />
   </target>
 
-  <target name="createDatabase">
+<!--
+ <target name="createDatabase">
     <property name="action" value="Create" />
     <call target="manageSqlDatabase" />
   </target>
@@ -120,7 +122,7 @@
     <property name="action" value="Drop" />
     <call target="manageSqlDatabase" failonerror="false"/>
   </target>
-
+-->
   <target name="manageSqlDatabase">
     <echo message="database server: ${database.server}" />
     <manageSqlDatabase

@@ -2,7 +2,13 @@
 <!--EXTERNAL_PROPERTIES: usdDatabaseVersion, CCNetLabel-->
 <project name="CodeCampServer" xmlns="http://nant.sf.net/schemas/nant.xsd">
 
-	<!-- ************** -->
+  <!-- ******************** -->
+  <!-- Master Build Targets -->
+  <!-- ******************** -->
+  <target name="build" depends="init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test"/>
+  <target name="cruise" depends="revert, init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test, package, commitPackage"/>
+
+  <!-- ************** -->
 	<!-- Initialization -->
 	<!-- ************** -->
 
@@ -62,11 +68,6 @@
   <property name="svnargs.template" value="--username TODO --password TODO --no-auth-cache --non-interactive " />
   <property name="svnargs" value=" --non-interactive " />
 
-  <!-- ******************** -->
-	<!-- Master Build Targets -->
-	<!-- ******************** -->
-	<target name="build" depends="init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test"/>
-	<target name="cruise" depends="revert, init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test, package, commitPackage"/>
 
 	<!-- ********************* -->
 	<!-- NUnit Testing Targets -->
@@ -171,51 +172,21 @@
 		<copy todir="${dir.package}\website" includeemptydirs="false">
 			<fileset basedir="${dir.solution}\UI">
 				<include name="images\**"/>
-				<include name="css\**"/>
-				<exclude name="**\*.cs"/>
+        <include name="css\**"/>
+        <exclude name="obj\**"/>
+        <exclude name="CodeTemplates\**"/>
+        <exclude name="**\*.user"/>
+        <exclude name="**\*.dtd"/>
+        <exclude name="**\*.tt"/>
+        <exclude name="**\*.cs"/>
 				<exclude name="**\*.csproj"/>
 				<include name="**\**"/>
 			</fileset>
 		</copy>
 
-		<copy todir="${dir.package}\database" includeemptydirs="false">
-			<fileset basedir="${dir.solution}\IntegrationTests\bin\${project.config}">
-				<include name="**\**"/>
-			</fileset>
-		</copy>
-
-		<copy todir="${dir.package}\database" includeemptydirs="false">
-			<fileset basedir="${dir.solution}\UITests\bin\${project.config}">
-				<include name="**\**"/>
-			</fileset>
-		</copy>
-
-		<copy todir="${dir.package}\database" includeemptydirs="false">
-			<fileset basedir="${dir.solution}\RegressionTests\bin\${project.config}">
-				<include name="**\**"/>
-			</fileset>
-		</copy>
-
-		<copy todir="${dir.package}\database" includeemptydirs="false">
-			<fileset basedir="${dir.solution}\UserImporter\bin\${project.config}">
-				<include name="**\**"/>
-			</fileset>
-		</copy>
-
-		<copy todir="${dir.package}\database" includeemptydirs="false">
-			<fileset basedir="lib\aspnetmvc">
-				<include name="**\**"/>
-			</fileset>
-		</copy>
 
 		<copy todir="${dir.package}\database" includeemptydirs="false">
 			<fileset basedir="${dir.solution}\Infrastructure\Database">
-				<include name="**\*.sql"/>
-			</fileset>
-		</copy>
-
-		<copy todir="${dir.package}\importDatabase" includeemptydirs="false">
-			<fileset basedir="${dir.solution}\Infrastructure\ImportDatabase">
 				<include name="**\*.sql"/>
 			</fileset>
 		</copy>
@@ -240,7 +211,9 @@
 				<include name="**" />
 			</fileset>
 		</zip>
-	</target>
+    <exec  program="lib\7zip\7za.exe" workingdir="${dir.package}" commandline=" a -r -sfx ..\..\${dir.installerpackage}/${project::get-name()}Package.exe *.*" verbose="true" />
+    
+  </target>
 
 	<target name="commitPackage" depends="package">
 		<exec program="${svn.executable}" workingdir="." commandline="ci latestVersion ${svnargs} -m&quot;automatic check-in&quot;" verbose="true" failonerror="false" />
