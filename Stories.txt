@@ -1,5 +1,0 @@
-For V1.
-
-- As a user, I have an UserGroup that represents all of the events that my group supports.
-- As a usergroup administrator, my domain name is linked to my group, so that the system can automatically show my organization when my domain name is used.
-

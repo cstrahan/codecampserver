@@ -7,10 +7,11 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm>"%>
     tinyMCE.init({
         mode: "textareas",
         theme: "advanced",
-        theme_advanced_buttons1: "justifyleft,justifycenter,justifyright,bold,italic,bullist,numlist,indent,outdent,fontsizeselect,forecolor,fontselect",
+        theme_advanced_buttons1: "justifyleft,justifycenter,justifyright,bold,italic,bullist,numlist,indent,outdent,fontsizeselect,forecolor,fontselect,code",
         theme_advanced_buttons2: "",        
         plugins : "style",
-	    theme_advanced_buttons1_add : "styleprops"
+	    theme_advanced_buttons1_add : "styleprops",
+	    verify_html: false
     });
 </script>
 </asp:Content>
