@@ -41,17 +41,17 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			                      	});
 
 
-		    var userGroup = new UserGroup
-		                        {
-		                            Name = "Austin .Net Users Group",
-		                            City = "Austin",
-		                            Region = "Texas",
-		                            Country = "USA",
-		                            Key = "localhost",
-		                            HomepageHTML = "Austin .Net Users Group"
-		                        };
-            userGroup.Add(user);
-            var conference = new Conference
+			var userGroup = new UserGroup
+			                	{
+			                		Name = "Austin .Net Users Group",
+			                		City = "Austin",
+			                		Region = "Texas",
+			                		Country = "USA",
+			                		Key = "localhost",
+			                		HomepageHTML = "Austin .Net Users Group"
+			                	};
+			userGroup.Add(user);
+			var conference = new Conference
 			                 	{
 			                 		Address = "123 Guadalupe Street",
 			                 		City = "Austin",
@@ -64,7 +64,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			                 		PhoneNumber = "(512) 555-1212",
 			                 		PostalCode = "78787",
 			                 		Region = "Texas",
-                                    UserGroup = userGroup
+			                 		UserGroup = userGroup
 			                 	};
 
 			conference.AddAttendee(new Attendee
@@ -239,7 +239,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			var list = new List<PersistentObject>()
 			           	{
 			           		user,
-                            userGroup,
+			           		userGroup,
 			           		conference,
 			           		track,
 			           		track1,
@@ -262,8 +262,8 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			           		speaker6
 			           	};
 
-		    var conferences = CreateConferences(userGroup);
-            list.AddRange(conferences.ToArray());
+			var conferences = CreateConferences(userGroup);
+			list.AddRange(conferences.ToArray());
 
 			User[] users = CreateUsers();
 			list.AddRange(users);
@@ -272,16 +272,16 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 				foreach (var stati in Enumeration.GetAll<ProposalStatus>())
 				{
 					list.Add(new Proposal
-						{
-							Conference = conference,
-							Level = SessionLevel.L300,
-							Submitter = user1,
-							Title = "A great topic from " + user1.Name,
-							Abstract = "Some great abstract",
-							CreatedDate = SystemTime.Now(),
-							Track = track,
-							Status = stati
-						});
+					         	{
+					         		Conference = conference,
+					         		Level = SessionLevel.L300,
+					         		Submitter = user1,
+					         		Title = "A great topic from " + user1.Name,
+					         		Abstract = "Some great abstract",
+					         		CreatedDate = SystemTime.Now(),
+					         		Track = track,
+					         		Status = stati
+					         	});
 				}
 			}
 
@@ -327,33 +327,33 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 //			}
 		}
 
-	    private IEnumerable<Conference> CreateConferences(UserGroup userGroup)
-	    {
-	        DateTime startDate = DateTime.Now.AddDays(-7*5);
-	        for (int i = 0; i < 10; i++)
-	        {
-	            DateTime conferenceDate = startDate.AddDays(7*i);
-                yield return new Conference
-                {
-                    Address = "123 Guadalupe Street",
-                    City = "Austin",
-                    Description = "Community Event",
-                    EndDate =  conferenceDate.AddDays(1),
-                    StartDate = conferenceDate,
-                    Key = "event"+i,
-                    LocationName = "St. Edward's Professional Education Center",
-                    Name = "User Group Event " + i,
-                    PhoneNumber = "(512) 555-1212",
-                    PostalCode = "78787",
-                    Region = "Texas",
-                    UserGroup = userGroup
-                };
+		private IEnumerable<Conference> CreateConferences(UserGroup userGroup)
+		{
+			DateTime startDate = DateTime.Now.AddDays(-7*5);
+			for (int i = 0; i < 10; i++)
+			{
+				DateTime conferenceDate = startDate.AddDays(7*i);
+				yield return new Conference
+				             	{
+				             		Address = "123 Guadalupe Street",
+				             		City = "Austin",
+				             		Description = "Community Event",
+				             		EndDate =  conferenceDate.AddDays(1),
+				             		StartDate = conferenceDate,
+				             		Key = "event"+i,
+				             		LocationName = "St. Edward's Professional Education Center",
+				             		Name = "User Group Event " + i,
+				             		PhoneNumber = "(512) 555-1212",
+				             		PostalCode = "78787",
+				             		Region = "Texas",
+				             		UserGroup = userGroup
+				             	};
 	            
-	        }
+			}
 
-	    }
+		}
 
-	    private User[] CreateUsers()
+		private User[] CreateUsers()
 		{
 			var mapper = new UserMapper(new UserRepository(GetSessionBuilder()), new Cryptographer());
 			var user = mapper.Map(new UserForm
