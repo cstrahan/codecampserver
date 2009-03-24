@@ -18,6 +18,7 @@ namespace CodeCampServer.UI.Helpers.Mappers
 
 		protected override void MapToModel(UserGroupForm form, UserGroup model)
 		{
+		    model.DomainName = form.DomainName;
 			model.Key = form.Key;
 			model.Id = form.Id;
 			model.Name = form.Name;

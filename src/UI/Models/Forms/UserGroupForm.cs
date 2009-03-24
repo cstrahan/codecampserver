@@ -15,6 +15,7 @@ namespace CodeCampServer.UI.Models.Forms
         [BetterValidateNonEmpty("Name")]
         public virtual string Name { get; set; }
 
+        public virtual string DomainName { get; set; }
         public virtual string HomepageHTML { get; set; }
 
         public virtual string City { get; set; }

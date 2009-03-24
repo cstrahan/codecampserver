@@ -12,6 +12,7 @@ namespace CodeCampServer.Core.Domain.Model
         public virtual string Region { get; set; }
         public virtual string Country { get; set; }
         public virtual string GoogleAnalysticsCode { get; set; }
+        public virtual string DomainName { get; set; }
 
         public virtual void Add(User child)
         {

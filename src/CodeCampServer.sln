@@ -26,6 +26,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{F4B43E07-16C4-45B3-8A20-0FFE5EDDE16B}"
 	ProjectSection(SolutionItems) = preProject
 		..\deployment\CommonDeploy.bat = ..\deployment\CommonDeploy.bat
+		..\deployment\deployment.build = ..\deployment\deployment.build
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NHibernate Configuration", "NHibernate Configuration", "{D88FC825-374D-4CC6-8E1C-2F28F9E20635}"

@@ -18,11 +18,11 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		public void When_a_UserGroup_does_not_exist_Edit_should_redirect_to_the_index_with_a_message()
 		{
 			var repository = S<IUserGroupRepository>();
-			repository.Stub(repo => repo.GetAll()).Return(new UserGroup[0]);
+			repository.Stub(repo => repo.GetById(Guid.Empty)).Return(new UserGroup());
 
 			var controller = new UserGroupController(repository, null,null,null);
 
-			ActionResult result = controller.Edit(null);
+			ActionResult result = controller.Edit(Guid.Empty);
 			result.AssertActionRedirect().ToAction<UserGroupController>(e => e.List());
 			controller.TempData["Message"].ShouldEqual(
 				"UserGroup has been deleted.");

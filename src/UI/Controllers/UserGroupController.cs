@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
@@ -46,14 +47,15 @@ namespace CodeCampServer.UI.Controllers
 		}
 		
         [RequireAdminAuthorizationFilter]
-		public ActionResult Edit(UserGroup usergroup)
+		public ActionResult Edit(Guid Id)
 		{
-			if (usergroup == null)
+			if (Id == Guid.Empty)
 			{
 				TempData.Add("message", "UserGroup has been deleted.");
 				return RedirectToAction<UserGroupController>(c => c.List());
 			}
-			return View(_mapper.Map(usergroup));
+            UserGroup userGroup = _repository.GetById(Id);
+			return View(_mapper.Map(userGroup));
 		}
 
         

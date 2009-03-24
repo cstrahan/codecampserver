@@ -36,7 +36,7 @@ AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage
 		    <tbody>
 	            <% foreach (var userGroup in Model) { %>
 		        <tr>
-		            <td><a href="http://<%=userGroup.Key+":"+this.ViewContext.HttpContext.Request.Url.Port%>" title="View User Group " title="<%= userGroup.Name%> <%= userGroup.Key %>"> <%=Html.Encode( userGroup.Name)%></a></td>
+		            <td><a href="http://<%=userGroup.DomainName+":"+this.ViewContext.HttpContext.Request.Url.Port%>" title="View User Group " title="<%= userGroup.Name%> <%= userGroup.Key %>"> <%=Html.Encode( userGroup.Name)%></a></td>
 		            <td><%=userGroup.City%> <%=userGroup.Region%> <%=userGroup.Country%></td>		            
             		<%if (User.Identity.IsAuthenticated){%>
 		            <td>

@@ -18,6 +18,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 		    usergroup.Country = "USA";
 		    usergroup.HomepageHTML = "<H1>Hello World</H1>";
 		    usergroup.GoogleAnalysticsCode = "foo";
+		    usergroup.DomainName = "foo/bar";
 		    usergroup.Add(new User(){EmailAddress = "foo",Name = "bar"});
             AssertObjectCanBePersisted(usergroup.GetUsers()[0]);
 			AssertObjectCanBePersisted(usergroup);

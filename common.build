@@ -187,4 +187,31 @@
       </namespaces>
     </xmlpoke>
   </target>
+
+  <script language="C#" prefix="migration" >
+    <references>
+      <include name="System.IO.dll" />
+    </references>
+    <code>
+      <![CDATA[
+              [Function("next-migration-number")]
+              public static string NextMigration(string path  ) {
+                  
+                  string[] files = System.IO.Directory.GetFiles(path);
+                  string filename = System.IO.Path.GetFileName(files[files.Length-1]);
+                  int count=1;
+                  try
+                  {
+                      count = Convert.ToInt32(filename.Substring(0, 4));
+                      count++;
+                  }
+                  catch
+                  {
+                      
+                  }
+                  return string.Format("{0:0000}", count);
+              }
+            ]]>
+    </code>
+  </script>
 </project>

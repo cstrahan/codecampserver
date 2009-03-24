@@ -30,6 +30,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserGroupForm>"%>
 		        <tr>
 			        <td class="w50p">
 					    <div><%=Html.Input(a => a.Key)%></div>
+    					    <div><%=Html.Input(a => a.DomainName)%></div>
     					    <div><%=Html.Input(a => a.Id)%></div>
     					    <div><%=Html.Input(a => a.Name)%></div>
     					    <div><%=Html.Input(a => a.City)%></div>
