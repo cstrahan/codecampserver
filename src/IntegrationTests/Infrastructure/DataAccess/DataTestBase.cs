@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Planning;
 using CodeCampServer.DependencyResolution;
@@ -48,6 +49,9 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
                                 typeof (Conference),
                                 typeof (Proposal)
                             };
+            types =
+                typeof (User).Assembly.GetTypes().Where(
+                    type => type.BaseType==typeof(KeyedObject) || type.BaseType == typeof (PersistentObject) && !type.IsAbstract).ToArray();
             using (ISession session = GetSession())
             {
                 foreach (Type type in types)

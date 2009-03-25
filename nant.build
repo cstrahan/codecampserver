@@ -145,7 +145,7 @@
 			<formatter type="Plain" />
 			<test assemblyname="${dir.test}/${assembly.integrationtests}">
 				<categories>
-					<include name="DataLoader"/>
+					<include name="SchemaExport"/>
 					<exclude name="*"/>
 				</categories>
 			</test>
@@ -172,17 +172,18 @@
       resultproperty="execReturnCode"
       failonerror ="false"/>
       <fail if="${execReturnCode != '0' and execReturnCode != '63'}" message="Redgate Compare Failed!"/>
-      
-      <if test="${file::exists(database.script.directory + '/Update/_New_Script.sql')}">
+
+    <if test="${file::exists(database.script.directory + '/Update/_New_Script.sql') == false}">
+      <echo message=""/>
+      <echo message="---------------------"/>
+      <echo message="No Migration Required"/>
+    </if>
+
+    <if test="${file::exists(database.script.directory + '/Update/_New_Script.sql')}">
         <move file="${database.script.directory}/Update/_New_Script.sql" tofile="${database.script.directory}/Update/${migrationScriptName}"/>
         <echo message="Created Migration File ${database.script.directory}/Update/${migrationScriptName}"/>
       </if>
 
-      <if test="${file::exists(database.script.directory + '/Update/_New_Script.sql') == false}">
-        <echo message=""/>
-        <echo message="---------------------"/>
-        <echo message="No Migration Required"/>
-      </if>
   </target>
 
   <target name="create-versioned-database">
