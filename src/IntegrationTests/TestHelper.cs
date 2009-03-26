@@ -7,7 +7,7 @@ namespace CodeCampServer.IntegrationTests
 	[TestFixture(Description = "SchemaExport"), Explicit]
 	public class SchemaExportTester
 	{
-		[Test, Category("SchemaExport")]
+		[Test, Category("SchemaExport"),Explicit]
 		public void ExportSchema()
 		{
 			new SchemaExport(getSessionBuilder().GetConfiguration())
