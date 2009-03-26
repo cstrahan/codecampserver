@@ -64,7 +64,18 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			                 		PhoneNumber = "(512) 555-1212",
 			                 		PostalCode = "78787",
 			                 		Region = "Texas",
-			                 		UserGroup = userGroup
+			                 		UserGroup = userGroup,
+                                    HtmlContent = @"
+                                    <p>
+<script type=""text/javascript"" src=""http://feeds2.feedburner.com/AustinCodeCamp?format=sigpro""></script>
+</p>
+<noscript></noscript>
+<p><iframe marginwidth=""0"" marginheight=""0"" 
+src=""http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=9420+Research+Blvd,+Austin,+TX+78759+(St+Edward's+PEC)&amp;sll=30.384022,-97.743998&amp;sspn=0.006858,0.013626&amp;ie=UTF8&amp;ll=30.397013,-97.74004&amp;spn=0.025911,0.036478&amp;z=14&amp;iwloc=addr&amp;output=embed"" 
+frameborder=""0"" width=""425"" scrolling=""no"" height=""350""></iframe><br /><small>
+<a style=""color:#0000FF;text-align:left"" 
+href=""http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=9420+Research+Blvd,+Austin,+TX+78759+(St+Edward's+PEC)&amp;sll=30.384022,-97.743998&amp;sspn=0.006858,0.013626&amp;ie=UTF8&amp;ll=30.397013,-97.74004&amp;spn=0.025911,0.036478&amp;z=14&amp;iwloc=addr"">
+View Larger Map</a></small></p>"
 			                 	};
 
 			conference.AddAttendee(new Attendee

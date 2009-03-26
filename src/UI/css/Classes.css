@@ -1,4 +1,59 @@
+.feedburnerFeedBlock
+{
+    margin-top:30px;
+    margin-bottom:50px;
+    border-width:1px;    
+}
 
+.feedTitle a , #creditfooter
+{
+    display:none;
+    font-size:1.5em;
+}
+
+
+.feedburnerFeedBlock ul
+{
+
+/*  background-image: url(upper-left-corner-red-triangle.gif); */
+  background-repeat: no-repeat;
+  background-position: top left;
+  
+	margin: 5px 10px;
+	padding: 5px;
+	font-size: 1.0em;
+}
+
+p.date
+{
+    display:inline;
+}
+.feedburnerFeedBlock ul li
+{
+    list-style-type:none;
+    text-align:left;
+	padding-left: 3px;
+	padding-top: 2px;
+	margin: 2px 0px 2px 20px;
+	background-color: #FCFCFC;
+  background-repeat: no-repeat;
+  background-position: top left;
+  border: 1px solid #CCCCCC;
+	margin: 5px 10px;
+	padding: 5px;
+	font-size: 1.0em;
+
+}
+
+.headline a:link,.headline a:visited,.headline a:hover,.headline a:active
+{
+   
+   color:black;
+   font-size:1.2em;
+   font-weight:bold;
+   font-style:normal;
+   text-decoration:none;
+}
 .hugeText
 {
 	font-size: 1.5em;

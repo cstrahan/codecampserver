@@ -268,7 +268,7 @@
   </target>
 
 	<target name="commitPackage" depends="package">
-		<exec program="${svn.executable}" workingdir="." commandline="ci latestVersion ${svnargs} -m&quot;automatic check-in&quot;" verbose="true" failonerror="false" />
+		<exec program="${svn.executable}" workingdir="." commandline="ci latestVersion  -m&quot;automatic check-in&quot;" verbose="true" failonerror="false" />
 	</target>
 
 	<!-- ********************* -->

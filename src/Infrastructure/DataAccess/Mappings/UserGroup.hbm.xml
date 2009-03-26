@@ -10,7 +10,9 @@
 		</id>
 		<property name="Key" column="UserGroupKey" length="100"/>
 		<property name="Name" length="100"/>
-    <property name="HomepageHTML" length="2000" />
+    <property name="HomepageHTML" type="StringClob">
+      <column name="HomepageHTML" sql-type="ntext"/>
+    </property> 
     <property name="City" length="75" />
     <property name="Region" length="50" />
     <property name="Country" length="50" />
