@@ -22,12 +22,14 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = M<ISpeakerRepository>();
 			var speakers = new[] {new Speaker()};
 			var speakerForms = new[] {new SpeakerForm()};
-			repository.Stub(x => x.GetAll()).Return(speakers);
+		    var conference = new Conference();
+		    repository.Stub(x => x.GetAllForConference(conference)).Return(speakers);
 			var mapper = S<ISpeakerMapper>();
 			mapper.Stub(m => m.Map(speakers)).Return(speakerForms);
+
 			var controller = new SpeakerController(repository, mapper, null);
 
-			var result = controller.List();
+			var result = controller.List(conference);
 
 			result.AssertViewRendered().ForView(ViewNames.Default);
 			var forms = ((SpeakerForm[])controller.ViewData.Model);
@@ -43,7 +45,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			mapper.Stub(m => m.Map(speaker)).Return(speakerForm);
 			var controller = new SpeakerController(S<ISpeakerRepository>(), mapper, null);
 
-			ActionResult edit = controller.Edit(speaker);
+			ActionResult edit = controller.Edit(speaker,null);
 
 			edit.AssertViewRendered().ForView(ViewNames.Default);
 			var form = ((SpeakerForm)controller.ViewData.Model);
@@ -62,10 +64,13 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<ISpeakerRepository>();
 
 			var controller = new SpeakerController(repository, mapper, null);
-			var result = (RedirectToRouteResult) controller.Save(form);
+		    Conference conference=new Conference();
 
+		    var result = (RedirectToRouteResult) controller.Save(form,conference);
+            
+            speaker.Conference.ShouldEqual(conference);
 			repository.AssertWasCalled(r => r.Save(speaker));
-			result.AssertActionRedirect().ToAction<SpeakerController>(a => a.List());
+			result.AssertActionRedirect().ToAction<SpeakerController>(a => a.List(null));
 		}
 
 		[Test]
@@ -81,7 +86,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			repository.Stub(r => r.GetByKey("foo")).Return(new Speaker());
 
 			var controller = new SpeakerController(repository, mapper, null);
-			var result = (ViewResult) controller.Save(form);
+			var result = (ViewResult) controller.Save(form,null);
 
 			result.AssertViewRendered().ViewName.ShouldEqual("Edit");
 			controller.ModelState.Values.Count.ShouldEqual(1);
@@ -108,10 +113,10 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			sessionsRepository.Stub(r => r.GetAllForSpeaker(null)).IgnoreArguments().Return(new Session[0]);
 			var controller = new SpeakerController(repository, S<ISpeakerMapper>(), sessionsRepository);
 
-			ActionResult result = controller.Delete(speaker);
+			ActionResult result = controller.Delete(speaker,null);
 
 			result.AssertActionRedirect()
-				.ToAction<SpeakerController>(x => x.List());
+				.ToAction<SpeakerController>(x => x.List(null));
 
 
 			repository.AssertWasCalled(x => x.Delete(speaker));
@@ -128,12 +133,12 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var controller = new SpeakerController(repository, S<ISpeakerMapper>(), sessionsRepository);
 
-			ActionResult result = controller.Delete(speaker);
+			ActionResult result = controller.Delete(speaker,null);
 
 			repository.AssertWasNotCalled(x => x.Delete(speaker));
 			result
 				.AssertActionRedirect()
-				.ToAction<SpeakerController>(x => x.List());
+				.ToAction<SpeakerController>(x => x.List(null));
 
 
 			controller.TempData.ContainsValue("Speaker cannot be deleted.").ShouldBeTrue();

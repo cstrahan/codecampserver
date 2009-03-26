@@ -16,5 +16,6 @@
 		<property name="JobTitle" length="100"/>
 		<property name="Bio" length="3000"/>
 		<property name="WebsiteUrl" length="400"/>
-	</class>
+    <many-to-one name="Conference" column="ConferenceID" class="Conference" />
+  </class>
 </hibernate-mapping>

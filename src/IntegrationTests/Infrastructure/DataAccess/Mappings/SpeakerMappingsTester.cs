@@ -8,7 +8,8 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 		[Test]
 		public void Should_map_Speaker()
 		{
-			var speaker = new Speaker
+		    var conference = new Conference();
+		    var speaker = new Speaker
 			              	{
 			              		Bio = "bio",
 			              		Company = "company",
@@ -17,9 +18,10 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 			              		LastName = "last",
 			              		JobTitle = "title",
 			              		Key = "key",
-			              		WebsiteUrl = "url"
+			              		WebsiteUrl = "url",
+                                Conference = conference
 			              	};
-
+		    AssertObjectCanBePersisted(conference);
 			AssertObjectCanBePersisted(speaker);
 
 		}

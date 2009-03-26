@@ -3,9 +3,8 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<SpeakerForm>"%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
 </asp:Content>
-
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-    <form action="<%= Url.Action<SpeakerController>(x => x.Save(null)) %>" method="post"  >
+    <form action="<%= Url.Action<SpeakerController>(x => x.Save(null,null)) %>" method="post"  >
         <div>
 	        <h1>Edit Speaker</h1>
             

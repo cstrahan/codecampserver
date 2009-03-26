@@ -20,7 +20,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
         public virtual void Setup()
         {
             DependencyRegistrar.EnsureDependenciesRegistered();
-            EnsureDatabaseRecreated();
+            //EnsureDatabaseRecreated();
             DeleteAllObjects();
         }
 
@@ -37,19 +37,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
         protected virtual void DeleteAllObjects()
         {
-            var types = new[]
-                            {
-                                typeof (User),
-                                typeof (UserGroup),
-                                typeof (Session),
-                                typeof (Track),
-                                typeof (TimeSlot),
-                                typeof (Speaker),
-                                typeof (Attendee),
-                                typeof (Conference),
-                                typeof (Proposal)
-                            };
-            types =
+            var types =
                 typeof (User).Assembly.GetTypes().Where(
                     type => type.BaseType==typeof(KeyedObject) || type.BaseType == typeof (PersistentObject) && !type.IsAbstract).ToArray();
             using (ISession session = GetSession())
@@ -60,7 +48,6 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
                 }
                 session.Flush();
             }
-            //TestHelper.DeleteAllObjects();
         }
 
         protected void PersistEntities(params PersistentObject[] entities)

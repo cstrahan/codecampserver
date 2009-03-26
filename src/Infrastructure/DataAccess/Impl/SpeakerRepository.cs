@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
@@ -14,5 +16,14 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 		{
 			return KEY_NAME;
 		}
+
+	    public Speaker[] GetAllForConference(Conference conference)
+	    {
+            Speaker[] list =
+                GetSession().CreateQuery("from Speaker s where s.Conference = :conference").SetEntity("conference", conference).List
+                    <Speaker>().ToArray();
+
+            return list;
+        }
 	}
 }

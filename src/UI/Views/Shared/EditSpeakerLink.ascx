@@ -3,7 +3,8 @@
 
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 <%
+   
 var speaker = (SpeakerForm) ViewData.Model; %>
 <%if (ViewContext.HttpContext.User.Identity.IsAuthenticated){%>
-		<a href="<%= Url.Action<SpeakerController>(t => t.Edit(null), new{speaker = speaker.Id}).ToXHTMLLink() %>"><img src="/images/icons/application_edit.png" /></a>
+		<a href="<%= Url.Action<SpeakerController>(t => t.Edit(null,null), new{speaker = speaker.Id}).ToXHTMLLink() %>"><img src="/images/icons/application_edit.png" /></a>
 <%}%>		

@@ -27,5 +27,6 @@ namespace CodeCampServer.UI.Models.Forms
 		public virtual string Bio { get; set; }
 
 		public virtual string WebsiteUrl { get; set; }
+
 	}
 }

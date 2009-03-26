@@ -158,7 +158,8 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			              		LastName = "Httpson",
 			              		JobTitle = "Sr. Developer",
 			              		Key = "httpson",
-			              		WebsiteUrl = "http://www.example.com/wizard"
+			              		WebsiteUrl = "http://www.example.com/wizard",
+                                Conference = conference
 			              	};
 
 			var speaker1 = new Speaker
@@ -170,7 +171,8 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			               		LastName = "Ihatetables",
 			               		JobTitle = "Web Designer",
 			               		Key = "tablehater",
-			               		WebsiteUrl = "http://www.example.com/linda"
+                                WebsiteUrl = "http://www.example.com/linda",
+                                Conference = conference
 			               	};
 
 			var speaker2 = new Speaker
@@ -182,7 +184,8 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			               		LastName = "Bossman",
 			               		JobTitle = "CEO",
 			               		Key = "bossman",
-			               		WebsiteUrl = "http://www.example.com/bossman"
+                                WebsiteUrl = "http://www.example.com/bossman",
+                                Conference = conference
 			               	};
 
 			var speaker3 = new Speaker
@@ -194,7 +197,8 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			               		LastName = "Bytecode",
 			               		JobTitle = "Software Development Manager",
 			               		Key = "Susanbytecode",
-			               		WebsiteUrl = "http://www.example.com/geek"
+                                WebsiteUrl = "http://www.example.com/geek",
+                                Conference = conference
 			               	};
 
 			var speaker4 = new Speaker
@@ -206,7 +210,8 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			               		LastName = "Keyboard",
 			               		JobTitle = "Techncial Fellow",
 			               		Key = "coldcoder",
-			               		WebsiteUrl = "http://www.example.com/coldcoder"
+                                WebsiteUrl = "http://www.example.com/coldcoder",
+                                Conference = conference
 			               	};
 
 			var speaker5 = new Speaker
@@ -218,7 +223,8 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			               		LastName = "Writesalot",
 			               		JobTitle = "Writer",
 			               		Key = "davidw",
-			               		WebsiteUrl = "http://www.example.com/buymybook"
+                                WebsiteUrl = "http://www.example.com/buymybook",
+                                Conference = conference
 			               	};
 
 			var speaker6 = new Speaker
@@ -230,7 +236,8 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			               		LastName = "Sendmepatch",
 			               		JobTitle = "",
 			               		Key = "sendmepatch",
-			               		WebsiteUrl = "http://www.example.com/sendmepatch"
+                                WebsiteUrl = "http://www.example.com/sendmepatch",
+                                Conference = conference
 			               	};
 			var speakers = new[] {speaker, speaker1, speaker2, speaker3, speaker4, speaker5, speaker6};
 

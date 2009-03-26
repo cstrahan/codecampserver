@@ -28,27 +28,27 @@ namespace CodeCampServer.UI.Controllers
 			return View(_mapper.Map(speaker));
 		}
 
-		public ActionResult List()
+		public ActionResult List(Conference conference)
 		{
-			var speakers = _repository.GetAll();
+			var speakers = _repository.GetAllForConference(conference);
 			return View(_mapper.Map(speakers));
 		}
 
 		[RequireAuthenticationFilter]
-		public ActionResult Edit(Speaker speaker)
+		public ActionResult Edit(Speaker speaker,Conference conference)
 		{
 			if (speaker == null)
 			{
 				TempData.Add("message", "Speaker has been deleted.");
-				return RedirectToAction<SpeakerController>(c => c.List());
+				return RedirectToAction<SpeakerController>(c => c.List(conference));
 			}
 			return View(_mapper.Map(speaker));
 		}
 
 		[RequireAuthenticationFilter]
-		public ActionResult Save([Bind(Prefix = "")] SpeakerForm form)
+		public ActionResult Save([Bind(Prefix = "")] SpeakerForm form,Conference conference)
 		{
-			return ProcessSave(form, speaker => RedirectToAction<SpeakerController>(c => c.List()));
+			return ProcessSave(form, speaker => RedirectToAction<SpeakerController>(c => c.List(conference)),speaker => speaker.Conference=conference);
 		}
 
 		protected override IDictionary<string, string[]> GetFormValidationErrors(SpeakerForm form)
@@ -75,7 +75,7 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[RequireAuthenticationFilter]
-		public ActionResult Delete(Speaker speaker)
+		public ActionResult Delete(Speaker speaker,Conference conference)
 		{
 			if(_sessionsRepository.GetAllForSpeaker(speaker).Length==0)
 			{
@@ -85,7 +85,7 @@ namespace CodeCampServer.UI.Controllers
 			{
 				TempData.Add("message", "Speaker cannot be deleted.");
 			}
-			return RedirectToAction<SpeakerController>(c => c.List());
+			return RedirectToAction<SpeakerController>(c => c.List(conference));
 		}
 
 	
