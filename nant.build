@@ -252,7 +252,7 @@
 			</fileset>
 		</copy>
 
-		<exec program="${svn.executable}" workingdir="." commandline="up LatestVersion ${svnargs}" verbose="true" />
+		<!--<exec program="${svn.executable}" workingdir="." commandline="up latestVersion ${svnargs}" verbose="true" />-->
 <!--
 		<delete file="${package.file.name}" />
 
