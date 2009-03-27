@@ -19,8 +19,10 @@
 		<property name="Region" />
 		<property name="PostalCode" />
 		<property name="PhoneNumber" />
-    <property name="HtmlContent" length="2000" />
-    
+    <property name="HtmlContent" type="StringClob">
+      <column name="HtmlContent" sql-type="ntext"/>
+    </property>
+
     <many-to-one name="UserGroup" column="UserGroupID" class="UserGroup" />
     
     <bag name="Attendees" access="field.camelcase-underscore" cascade="all-delete-orphan" >
