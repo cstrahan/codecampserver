@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl<ConferenceForm[]>" %>
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 
+<% if(Model.Length>0){ %>
  <table class="genericBordered mt10 mb5">
 		  <colgroup>
 				<col />
@@ -27,3 +28,4 @@
 		 } 
 		  %>
 </table>
+<%} %>
