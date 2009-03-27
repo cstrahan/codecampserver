@@ -304,6 +304,7 @@
     <Content Include="Views\Session\List.aspx" />
     <Content Include="Views\Session\Edit.aspx" />
     <Content Include="Views\Shared\ConferenceList.ascx" />
+    <Content Include="Views\Shared\EditConferenceLink.ascx" />
     <Content Include="Views\Shared\HomeMenu.ascx" />
     <Content Include="Views\Shared\EditUserGroupLink.ascx" />
     <Content Include="Views\Shared\EditProposalLink.ascx" />
