@@ -73,6 +73,8 @@
     <Compile Include="Domain\Model\Planning\StateCommands\SaveDraftCommand.cs" />
     <Compile Include="Domain\Model\Planning\StateCommands\StateCommandBase.cs" />
     <Compile Include="Domain\Model\Planning\StateCommands\SubmittedToAcceptedCommand.cs" />
+    <Compile Include="Domain\Model\Sponsor.cs" />
+    <Compile Include="Domain\Model\SponsorLevel.cs" />
     <Compile Include="Domain\Model\UserGroup.cs" />
     <Compile Include="Domain\ValidationResult.cs" />
     <Compile Include="Domain\IConferencerRepository.cs" />

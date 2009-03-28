@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models;
@@ -11,7 +11,7 @@ using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
-	[AdminUserCreatedFilterAttribute]
+	[AdminUserCreatedFilter]
 	public class ConferenceController : SaveController<Conference, ConferenceForm>
 	{
 		private readonly IConferenceRepository _repository;
@@ -26,14 +26,13 @@ namespace CodeCampServer.UI.Controllers
 		[RequiresConferenceFilter]
 		public ActionResult Index(Conference conference)
 		{
-			//Conference conference = _repository.GetByKey(conferenceKey);
 			ConferenceForm form = _mapper.Map(conference);
 			return View(form);
 		}
 
 		public ActionResult List(UserGroup usergroup)
 		{
-		    ViewData.Add(new PageInfo {Title = usergroup.Name});
+			ViewData.Add(new PageInfo {Title = usergroup.Name});
 
 			Conference[] conferences = _repository.GetAllForUserGroup(usergroup);
 
@@ -42,27 +41,25 @@ namespace CodeCampServer.UI.Controllers
 				return RedirectToAction<ConferenceController>(c => c.New(null));
 			}
 
-			object conferenceListDto = AutoMapper.Mapper .Map(conferences, typeof (Conference[]), typeof (ConferenceForm[]));
+			object conferenceListDto = Mapper.Map(conferences, typeof (Conference[]), typeof (ConferenceForm[]));
 			return View(conferenceListDto);
 		}
-		
+
 		[RequireAuthenticationFilter()]
 		public ActionResult Edit(Conference conference)
 		{
-			//Conference conference = _repository.GetByKey(conferenceKey);
-
 			if (conference == null)
 			{
 				TempData.Add("message", "Conference has been deleted.");
 				return RedirectToAction<ConferenceController>(c => c.List(conference.UserGroup));
 			}
-			
+
 
 			return View(_mapper.Map(conference));
 		}
 
 		[RequireAuthenticationFilter()]
-        [ValidateInput(false)] 
+		[ValidateInput(false)]
 		[ValidateModel(typeof (ConferenceForm))]
 		public ActionResult Save([Bind(Prefix = "")] ConferenceForm form)
 		{
@@ -88,9 +85,7 @@ namespace CodeCampServer.UI.Controllers
 		[RequireAuthenticationFilter()]
 		public ActionResult New(UserGroup usergroup)
 		{
-//			Conference conference = new Conference {StartDate = SystemTime.Now(), EndDate = SystemTime.Now()};
-			//_repository.Save(conference);
-			return View("Edit", _mapper.Map(new Conference{UserGroup = usergroup}));
+			return View("Edit", _mapper.Map(new Conference {UserGroup = usergroup}));
 		}
 	}
 }

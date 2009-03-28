@@ -7,6 +7,7 @@ namespace CodeCampServer.Core.Domain.Model
 	public class Conference : KeyedObject
 	{
 		private readonly IList<Attendee> _attendees = new List<Attendee>();
+		private readonly IList<Sponsor> _sponsors = new List<Sponsor>();
 		public virtual string Name { get; set; }
 		public virtual string Description { get; set; }
 		public virtual DateTime? StartDate { get; set; }
@@ -17,10 +18,15 @@ namespace CodeCampServer.Core.Domain.Model
 		public virtual string Region { get; set; }
 		public virtual string PostalCode { get; set; }
 		public virtual string PhoneNumber { get; set; }
-	    public virtual string HtmlContent { get; set; }
-        public virtual UserGroup UserGroup { get; set; }
+		public virtual string HtmlContent { get; set; }
+		public virtual UserGroup UserGroup { get; set; }
 
-	    public virtual void AddAttendee(Attendee attendee)
+		public virtual Sponsor[] GetSponsors()
+		{
+			return _sponsors.ToArray();
+		}
+
+		public virtual void AddAttendee(Attendee attendee)
 		{
 			_attendees.Add(attendee);
 		}

@@ -6,7 +6,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAgAAgAAAIIAIAQAQgAGAAAAACAAAACEAACAA=</HashCode>
+      <HashCode>AAAAAAAAgIAgAAAIIAIAQAQgAGAAAAACCAAACEAAGAA=</HashCode>
       <FileName>Domain\Model\Conference.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -26,8 +26,8 @@
       <Path>
         <Point X="8.875" Y="2.423" />
         <Point X="8.875" Y="3.604" />
-        <Point X="6.083" Y="3.604" Type="JumpStart" />
-        <Point X="5.917" Y="3.604" Type="JumpEnd" />
+        <Point X="6.956" Y="3.604" Type="JumpStart" />
+        <Point X="6.79" Y="3.604" Type="JumpEnd" />
         <Point X="4.261" Y="3.604" />
         <Point X="4.261" Y="1.601" />
         <Point X="3.25" Y="1.601" />
@@ -46,7 +46,7 @@
   <Class Name="CodeCampServer.Core.Domain.Model.Speaker">
     <Position X="8.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAAACAAAAAAQAAAAAAAAAAAABgAIAAg=</HashCode>
+      <HashCode>AAAAAEAAAAAAAAAACAAAAAAQAAAAAAAAAAAADgAIAAg=</HashCode>
       <FileName>Domain\Model\Speaker.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -101,7 +101,7 @@
   <Interface Name="CodeCampServer.Core.Domain.IConferenceRepository">
     <Position X="7" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAgAA=</HashCode>
       <FileName>Domain\IConferencerRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
