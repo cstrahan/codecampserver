@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CodeCampServer.Core.Domain.Model.Conference">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAgAAAIIAIAQAQgAGAAAAACAAAACEAACAA=</HashCode>
+      <FileName>Domain\Model\Conference.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="_attendees" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CodeCampServer.Core.Domain.Model.Attendee">
+    <Position X="5.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAEAAAAAAAAAAAAAAAAEAAAAAAAAAAAAgAAAAg=</HashCode>
+      <FileName>Domain\Model\Attendee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeCampServer.Core.Domain.Model.Session">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <AssociationLine Name="Track" Type="CodeCampServer.Core.Domain.Model.Track" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.875" Y="2.423" />
+        <Point X="8.875" Y="3.604" />
+        <Point X="6.083" Y="3.604" Type="JumpStart" />
+        <Point X="5.917" Y="3.604" Type="JumpEnd" />
+        <Point X="4.261" Y="3.604" />
+        <Point X="4.261" Y="1.601" />
+        <Point X="3.25" Y="1.601" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAgAABAEAAAEAAAAAAIABAAAgAAAABAAAACAAAAAA=</HashCode>
+      <FileName>Domain\Model\Session.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Track" />
+      <Property Name="Speaker" />
+      <Property Name="Conference" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CodeCampServer.Core.Domain.Model.Speaker">
+    <Position X="8.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAACAAAAAAQAAAAAAAAAAAABgAIAAg=</HashCode>
+      <FileName>Domain\Model\Speaker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeCampServer.Core.Domain.Model.Track">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Domain\Model\Track.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Conference" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CodeCampServer.Core.Domain.Model.TimeSlot">
+    <Position X="2" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAgAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Domain\Model\TimeSlot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeCampServer.Core.Domain.Model.User">
+    <Position X="3.5" Y="4" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EACAAAAAAAAAAAAAAQAAAEQACAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Domain\Model\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeCampServer.Core.Domain.Model.UserGroup">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IAIAAAAAgAAAAAAIAAAABAQIAAIAAKAAAgAAAAAAAAA=</HashCode>
+      <FileName>Domain\Model\UserGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeCampServer.Core.Domain.Model.Planning.Proposal">
+    <Position X="7" Y="3.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAFAEAAAEAAAAAAACAAAAAAAAADAgAACAAAAAA=</HashCode>
+      <FileName>Domain\Model\Planning\Proposal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="CodeCampServer.Core.Domain.IConferenceRepository">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\IConferencerRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

@@ -180,6 +180,7 @@
     <None Include="RenameForeignKeys.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="UI\SchedulePresentationModel.cd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

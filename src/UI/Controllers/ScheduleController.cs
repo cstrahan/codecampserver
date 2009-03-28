@@ -18,6 +18,8 @@ namespace CodeCampServer.UI.Controllers
 
 		public ViewResult Index(Conference conference)
 		{
+			//leverage the schedule mapper to map the conference
+			//into our presentation model
 			ScheduleForm[] scheduleForms = _mapper.Map(conference);
 			return View(scheduleForms);
 		}

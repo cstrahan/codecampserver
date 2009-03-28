@@ -1,5 +1,4 @@
 using System;
-using System.Web.Mvc;
 using Naak.HtmlRules;
 using StructureMap;
 using Tarantino.Core;
@@ -21,15 +20,13 @@ namespace CodeCampServer.DependencyResolution
 			                         	{
 			                         		x.Scan(y =>
 			                         		       	{
-			                         		       		y.AssemblyContainingType<DependencyRegistry>();
-			                         		       		y.AssemblyContainingType<NaakRegistry>();
 			                         		       		y.AssemblyContainingType<CoreDependencyRegistry>();
 			                         		       		y.AssemblyContainingType<InfrastructureDependencyRegistry>();
+			                         		       		y.AssemblyContainingType<NaakRegistry>();
+			                         		       		y.AssemblyContainingType<DependencyRegistry>();
 			                         		       	});
 			                         		x.AddRegistry<CastleValidatorRegistry>();
 			                         	});
-
-			
 		}
 
 		public static T Resolve<T>()
@@ -62,8 +59,8 @@ namespace CodeCampServer.DependencyResolution
 				{
 					if (!_dependenciesRegistered)
 					{
-						new DependencyRegistrar().RegisterDependencies();
 						_dependenciesRegistered = true;
+						new DependencyRegistrar().RegisterDependencies();
 					}
 				}
 			}
