@@ -22,7 +22,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 				                                          customAttributes);
 			}
 
-			if (InputSpecification.PropertyInfo.Name.Equals("password", StringComparison.InvariantCultureIgnoreCase))
+			if (InputSpecification.PropertyInfo.Name.EndsWith("password", StringComparison.InvariantCultureIgnoreCase))
 				return InputSpecification.Helper.Password(InputSpecification.InputName, GetValue(), customAttributes);
 
 			return InputSpecification.Helper.TextBox(InputSpecification.InputName, GetValue(), customAttributes);

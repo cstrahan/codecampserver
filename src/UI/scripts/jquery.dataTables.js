@@ -1,6 +1,6 @@
 /*
  * File:        jquery.dataTables.js
- * Version:     1.4.0 beta 7
+ * Version:     1.4.3
  * CVS:         $Id$
  * Description: Paginate, search and sort HTML tables
  * Author:      Allan Jardine (www.sprymedia.co.uk)
@@ -23,6 +23,11 @@
  * For details pleease refer to: http://sprymedia.co.uk/article/DataTables
  */
 
+/*
+ * When considering jsLint, we need to allow eval() as it it is used for reading cookies and 
+ * building the dynamic multi-column sort functions.
+ */
+/*jslint evil: true */
 
 (function($) {
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -34,14 +39,14 @@
 	 * Purpose:  Store the settings for each dataTables instance
 	 * Scope:    jQuery.fn
 	 */
-	$.fn.dataTableSettings = new Array();
+	$.fn.dataTableSettings = [];
 	
 	/*
 	 * Variable: dataTableExt
 	 * Purpose:  Container for customisable parts of DataTables
 	 * Scope:    jQuery.fn
 	 */
-	$.fn.dataTableExt = new Object();
+	$.fn.dataTableExt = {};
 	
 	
 	
@@ -87,7 +92,7 @@
 				oSettings.nPrevious = document.createElement( 'div' );
 				oSettings.nNext = document.createElement( 'div' );
 				
-				if ( oSettings.sTableId != "" )
+				if ( oSettings.sTableId !== '' )
 				{
 					oSettings.nPaginate.setAttribute( 'id', oSettings.sTableId+'_paginate' );
 					oSettings.nPrevious.setAttribute( 'id', oSettings.sTableId+'_previous' );
@@ -116,7 +121,9 @@
 				$(oSettings.nNext).click( function() {
 					/* Make sure we are not over running the display array */
 					if ( oSettings.iDisplayStart + oSettings.iDisplayLength < oSettings.aiDisplay.length )
+					{
 						oSettings.iDisplayStart += oSettings.iDisplayLength;
+					}
 					
 					fnCallbackDraw( oSettings );
 				} );
@@ -132,7 +139,7 @@
 			"fnUpdate": function ( oSettings, fnCallbackDraw )
 			{
 				oSettings.nPrevious.className = 
-					( oSettings.iDisplayStart == 0 ) ? 
+					( oSettings.iDisplayStart === 0 ) ? 
 					"paginate_disabled_previous" : "paginate_enabled_previous";
 				
 				oSettings.nNext.className = 
@@ -170,10 +177,10 @@
 				var nNext = document.createElement( 'span' );
 				var nLast = document.createElement( 'span' );
 				
-				nFirst.appendChild( document.createTextNode( oSettings.oLanguage.oPaginate.sFirst ) );
-				nPrevious.appendChild( document.createTextNode( oSettings.oLanguage.oPaginate.sPrevious ) );
-				nNext.appendChild( document.createTextNode( oSettings.oLanguage.oPaginate.sNext ) );
-				nLast.appendChild( document.createTextNode( oSettings.oLanguage.oPaginate.sLast ) );
+				nFirst.innerHTML = oSettings.oLanguage.oPaginate.sFirst;
+				nPrevious.innerHTML = oSettings.oLanguage.oPaginate.sPrevious;
+				nNext.innerHTML = oSettings.oLanguage.oPaginate.sNext;
+				nLast.innerHTML = oSettings.oLanguage.oPaginate.sLast;
 				
 				nFirst.className = "paginate_button first";
 				nPrevious.className = "paginate_button previous";
@@ -196,7 +203,9 @@
 					
 					/* Correct for underrun */
 					if ( oSettings.iDisplayStart < 0 )
+					{
 					  oSettings.iDisplayStart = 0;
+					}
 					
 					fnCallbackDraw( oSettings );
 				} );
@@ -204,17 +213,23 @@
 				$(nNext).click( function() {
 					/* Make sure we are not over running the display array */
 					if ( oSettings.iDisplayStart + oSettings.iDisplayLength < oSettings.aiDisplay.length )
+					{
 						oSettings.iDisplayStart += oSettings.iDisplayLength;
+					}
 					
 					fnCallbackDraw( oSettings );
 				} );
 				
 				$(nLast).click( function() {
-					var iPages = parseInt( (oSettings.aiDisplay.length-1) / oSettings.iDisplayLength ) + 1;
+					var iPages = parseInt( (oSettings.aiDisplay.length-1) / oSettings.iDisplayLength, 10 ) + 1;
 					oSettings.iDisplayStart = (iPages-1) * oSettings.iDisplayLength;
 					
 					fnCallbackDraw( oSettings );
 				} );
+				
+				/* Take the brutal approach to cancelling text selection */
+				$('span', oSettings.nPaginate).bind( 'mousedown', function () { return false; } );
+				$('span', oSettings.nPaginate).bind( 'selectstart', function () { return false; } );
 				
 				oSettings.nPaginateList = nList;
 			},
@@ -230,8 +245,8 @@
 			{
 				var iPageCount = jQuery.fn.dataTableExt.oPagination.iFullNumbersShowPages;
 				var iPageCountHalf = Math.floor(iPageCount / 2);
-				var iPages = parseInt( (oSettings.aiDisplay.length-1) / oSettings.iDisplayLength ) + 1;
-				var iCurrentPage = parseInt( oSettings.iDisplayStart / oSettings.iDisplayLength ) + 1;
+				var iPages = parseInt( (oSettings.aiDisplay.length-1) / oSettings.iDisplayLength, 10 ) + 1;
+				var iCurrentPage = parseInt( oSettings.iDisplayStart / oSettings.iDisplayLength, 10 ) + 1;
 				var sList = "";
 				var iStartButton;
 				var iEndButton;
@@ -246,14 +261,14 @@
 					if (iCurrentPage <= iPageCountHalf)
 					{
 						iStartButton = 1;
-						iEndButton = iPageCount
+						iEndButton = iPageCount;
 					}
 					else
 					{
 						if (iCurrentPage >= (iPages - iPageCountHalf))
 						{
 							iStartButton = iPages - iPageCount + 1;
-							iEndButton = iPages
+							iEndButton = iPages;
 						}
 						else
 						{
@@ -266,22 +281,31 @@
 				for ( var i=iStartButton ; i<=iEndButton ; i++ )
 				{
 					if ( iCurrentPage != i )
+					{
 						sList += '<span class="paginate_button">'+i+'</span>';
+					}
 					else
+					{
 						sList += '<span class="paginate_active">'+i+'</span>';
+					}
 				}
 				
 				oSettings.nPaginateList.innerHTML = sList;
+				
+				/* Take the brutal approach to cancelling text selection */
+				$('span', oSettings.nPaginateList).bind( 'mousedown', function () { return false; } );
+				$('span', oSettings.nPaginateList).bind( 'selectstart', function () { return false; } );
 				
 				$('span', oSettings.nPaginateList).click( function() {
 					var iTarget = (this.innerHTML * 1) - 1;
 					oSettings.iDisplayStart = iTarget * oSettings.iDisplayLength;
 					
 					fnCallbackDraw( oSettings );
+					return false;
 				} );
 			}
 		}
-	}
+	};
 	
 	/*
 	 * Variable: oSort
@@ -397,7 +421,7 @@
 	 *   Note that ordering is important in this array - the functions are processed linearly,
 	 *   starting at index 0.
 	 */
-	$.fn.dataTableExt.aTypes = new Array (
+	$.fn.dataTableExt.aTypes = [
 		/*
 		 * Function: -
 		 * Purpose:  Check to see if a string is numeric
@@ -435,7 +459,7 @@
 			}
 			return null;
 		}
-	);
+	];
 	
 	
 	/*
@@ -536,28 +560,28 @@
 			 *   array: _aData - internal data - used for sorting / filtering etc
 			 *   node: nTr - display node
 			 */
-			this.aoData = new Array();
+			this.aoData = [];
 			
 			/*
 			 * Variable: aiDisplay
 			 * Purpose:  Array of indexes which are in the current display (after filtering etc)
 			 * Scope:    jQuery.dataTable.classSettings
 			 */
-			this.aiDisplay = new Array();
+			this.aiDisplay = [];
 			
 			/*
 			 * Variable: aiDisplayMaster
 			 * Purpose:  Array of indexes for display - no filtering
 			 * Scope:    jQuery.dataTable.classSettings
 			 */
-			this.aiDisplayMaster = new Array();
+			this.aiDisplayMaster = [];
 							
 			/*
 			 * Variable: aoColumns
 			 * Purpose:  Store information about each column that is in use
 			 * Scope:    jQuery.dataTable.classSettings 
 			 */
-			this.aoColumns = new Array();
+			this.aoColumns = [];
 			
 			/*
 			 * Variable: iNextId
@@ -571,22 +595,25 @@
 			 * Purpose:  Search data array for regular expression searching
 			 * Scope:    jQuery.dataTable.classSettings
 			 */
-			this.asDataSearch = new Array();
+			this.asDataSearch = [];
 			
 			/*
-			 * Variable: sPreviousSearch
+			 * Variable: oPreviousSearch
 			 * Purpose:  Store the previous search incase we want to force a re-search
 			 *   or compare the old search to a new one
 			 * Scope:    jQuery.dataTable.classSettings
 			 */
-			this.sPreviousSearch = '';
+			this.oPreviousSearch = {
+				"sSearch": "",
+				"bEscapeRegex": true
+			};
 			
 			/*
-			 * Variable: asPreSearchCols
+			 * Variable: aoPreSearchCols
 			 * Purpose:  Store the previous search for each column
 			 * Scope:    jQuery.dataTable.classSettings
 			 */
-			this.asPreSearchCols = new Array();
+			this.aoPreSearchCols = [];
 			
 			/*
 			 * Variable: nInfo
@@ -623,7 +650,7 @@
 			 * Purpose:  Classes to use for the striping of a table
 			 * Scope:    jQuery.dataTable.classSettings
 			 */
-			this.asStripClasses = new Array( 'odd', 'even' );
+			this.asStripClasses = [ 'odd', 'even' ];
 			
 			/*
 			 * Variable: fnRowCallback
@@ -771,12 +798,8 @@
 		 */
 		this.fnDraw = function()
 		{
-			/* Find settings from table node */
-			var oSettings = _fnSettingsFromNode( this[0] );
-			
-			_fnCalculateEnd( oSettings );
-			_fnDraw( oSettings );
-		}
+			_fnReDraw( _fnSettingsFromNode( this[0] ) );
+		};
 		
 		/*
 		 * Function: fnFilter
@@ -790,16 +813,24 @@
 		{
 			var oSettings = _fnSettingsFromNode( this[0] );
 			
-			if ( typeof iColumn == "undefined" || iColumn == null )
+			if ( typeof bEscapeRegex == 'undefined' )
 			{
-				_fnFilterComplete( oSettings, sInput, 1, bEscapeRegex );
+				bEscapeRegex = true;
+			}
+			
+			if ( typeof iColumn == "undefined" || iColumn === null )
+			{
+				/* Global filter */
+				_fnFilterComplete( oSettings, {"sSearch":sInput, "bEscapeRegex": bEscapeRegex}, 1 );
 			}
 			else
 			{
-				oSettings.asPreSearchCols[ iColumn ] = sInput;
-				_fnFilterComplete( oSettings, oSettings.sPreviousSearch, 1, bEscapeRegex );
+				/* Single column filter */
+				oSettings.aoPreSearchCols[ iColumn ].sSearch = sInput;
+				oSettings.aoPreSearchCols[ iColumn ].bEscapeRegex = bEscapeRegex;
+				_fnFilterComplete( oSettings, oSettings.oPreviousSearch, 1 );
 			}
-		}
+		};
 		
 		/*
 		 * Function: fnSettings
@@ -810,7 +841,7 @@
 		this.fnSettings = function( nNode  )
 		{
 			return _fnSettingsFromNode( this[0] );
-		}
+		};
 		
 		/*
 		 * Function: fnSort
@@ -824,23 +855,30 @@
 			var oSettings = _fnSettingsFromNode( this[0] );
 			oSettings.aaSorting = aaSort;
 			_fnSort( oSettings );
-		}
+		};
 		
 		/*
 		 * Function: fnAddData
 		 * Purpose:  Add new row(s) into the table
-		 * Returns:  0 - ok
-		 *           1 - length error
+		 * Returns:  array int: array of indexes (aoData) which have been added (zero length on error)
 		 * Inputs:   array:mData - the data to be added. The length must match
-		 *             the original data from the DOM
-		 *           or
-		 *           array array:mData - 2D array of data to be added
+		 *               the original data from the DOM
+		 *             or
+		 *             array array:mData - 2D array of data to be added
+		 *           bool:bRedraw - redraw the table or not - default true
 		 * Notes:    Warning - the refilter here will cause the table to redraw
 		 *             starting at zero
 		 * Notes:    Thanks to Yekimov Denis for contributing the basis for this function!
 		 */
-		this.fnAddData = function( mData )
+		this.fnAddData = function( mData, bRedraw )
 		{
+			var aiReturn = [];
+			var iTest;
+			if ( typeof bRedraw == 'undefined' )
+			{
+				bRedraw = true;
+			}
+			
 			/* Find settings from table node */
 			var oSettings = _fnSettingsFromNode( this[0] );
 			
@@ -849,18 +887,22 @@
 			{
 				for ( var i=0 ; i<mData.length ; i++ )
 				{
-					if ( _fnAddData( oSettings, mData[i] ) == 1 )
+					iTest = _fnAddData( oSettings, mData[i] );
+					if ( iTest == -1 )
 					{
-						return 1;
+						return aiReturn;
 					}
+					aiReturn.push( iTest );
 				}
 			}
 			else
 			{
-				if ( _fnAddData( oSettings, mData ) == 1 )
+				iTest = _fnAddData( oSettings, mData );
+				if ( iTest == -1 )
 				{
-					return 1;
+					return aiReturn;
 				}
+				aiReturn.push( iTest );
 			}
 			
 			oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
@@ -868,25 +910,12 @@
 			/* Rebuild the search */
 			_fnBuildSearchArray( oSettings, 1 );
 			
-			/* Re-sort */
-			if ( oSettings.oFeatures.bSort )
+			if ( bRedraw )
 			{
-				_fnSort( oSettings );
-				_fnSortingClasses( oSettings );
+				_fnReDraw( oSettings );
 			}
-			
-			/* But we do need to re-filter or re-draw */
-			if ( oSettings.oFeatures.bFilter )
-			{
-				_fnFilterComplete( oSettings, oSettings.sPreviousSearch );
-			}
-			else
-			{
-				_fnCalculateEnd( oSettings );
-				_fnDraw( oSettings );
-			}
-			return 0;
-		}
+			return aiReturn;
+		};
 		
 		/*
 		 * Function: fnDeleteRow
@@ -904,9 +933,10 @@
 		{
 			/* Find settings from table node */
 			var oSettings = _fnSettingsFromNode( this[0] );
+			var i;
 			
 			/* Delete from the display master */
-			for ( var i=0 ; i<oSettings.aiDisplayMaster.length ; i++ )
+			for ( i=0 ; i<oSettings.aiDisplayMaster.length ; i++ )
 			{
 				if ( oSettings.aiDisplayMaster[i] == iAODataIndex )
 				{
@@ -916,7 +946,7 @@
 			}
 			
 			/* Delete from the current display index */
-			for ( var i=0 ; i<oSettings.aiDisplay.length ; i++ )
+			for ( i=0 ; i<oSettings.aiDisplay.length ; i++ )
 			{
 				if ( oSettings.aiDisplay[i] == iAODataIndex )
 				{
@@ -943,7 +973,7 @@
 			_fnDraw( oSettings );
 			
 			return oSettings.aoData[iAODataIndex]._aData.slice();
-		}
+		};
 		
 		/*
 		 * Function: fnClearTable
@@ -962,7 +992,7 @@
 			oSettings.aiDisplay.length = 0;
 			_fnCalculateEnd( oSettings );
 			_fnDraw( oSettings );
-		}
+		};
 		
 		/*
 		 * Function: fnOpen
@@ -978,7 +1008,7 @@
 			var oSettings = _fnSettingsFromNode( this[0] );
 			
 			/* Remove an old open row if there is one */
-			if ( oSettings.nOpenRow != null )
+			if ( oSettings.nOpenRow !== null )
 			{
 				this.fnClose();
 			}
@@ -992,7 +1022,7 @@
 			
 			$(nNewRow).insertAfter(nTr);
 			oSettings.nOpenRow = nNewRow;
-		}
+		};
 		
 		/*
 		 * Function: fnClose
@@ -1007,62 +1037,47 @@
 			
 			$(oSettings.nOpenRow).remove();
 			oSettings.nOpenRow = null;
-		}
-		
-		/*
-		 * Function: fnDecrement
-		 * Purpose:  Decremenet all numbers bigger than iMatch (for deleting)
-		 * Returns:  -
-		 * Inputs:   int:iMatch - decrement numbers bigger than this
-		 *           int:iIndex - index of the data to decrement
-		 * Notes:    Depreciated - don't use... :-)
-		 */
-		this.fnDecrement = function( iMatch, iIndex )
-		{
-			if ( typeof iIndex == 'undefined' )
-				iIndex = 0;
-			
-			/* Find settings from table node */
-			var oSettings = _fnSettingsFromNode( this[0] );
-			
-			for ( var i=0 ; i<oSettings.aaDataMaster.length ; i++ )
-			{
-				if ( oSettings.aaDataMaster[i][iIndex]*1 > iMatch )
-				{
-					oSettings.aaDataMaster[i][iIndex] = (oSettings.aaDataMaster[i][iIndex]*1) - 1;
-				}
-			}
-		}
+		};
 		
 		/*
 		 * Function: fnGetData
 		 * Purpose:  Return an array with the data which is used to make up the table
 		 * Returns:  array array string: 2d data array ([row][column]) or array string: 1d data array
+		 *           or
+		 *           array string (if iRow specified)
 		 * Inputs:   int:iRow - optional - if present then the array returned will be the data for
 		 *             the row with the index 'iRow'
 		 */
 		this.fnGetData = function( iRow )
 		{
 			var oSettings = _fnSettingsFromNode( this[0] );
-			var aaData = _fnGetDataMaster( oSettings );
 			
 			if ( typeof iRow != 'undefined' )
 			{
-				return aaData[iRow];
+				return oSettings.aoData[iRow]._aData;
 			}
-			return aaData;
-		}
+			return _fnGetDataMaster( oSettings );
+		};
 		
 		/*
 		 * Function: fnGetNodes
 		 * Purpose:  Return an array with the TR nodes used for drawing the table
 		 * Returns:  array node: TR elements
-		 * Inputs:   -
+		 *           or
+		 *           node (if iRow specified)
+		 * Inputs:   int:iRow - optional - if present then the array returned will be the node for
+		 *             the row with the index 'iRow'
 		 */
-		this.fnGetNodes = function()
+		this.fnGetNodes = function( iRow )
 		{
-			return _fnGetTrNodes( _fnSettingsFromNode( this[0] ) );
-		}
+			var oSettings = _fnSettingsFromNode( this[0] );
+			
+			if ( typeof iRow != 'undefined' )
+			{
+				return oSettings.aoData[iRow].nTr;
+			}
+			return _fnGetTrNodes( oSettings );
+		};
 		
 		/*
 		 * Function: fnGetPosition
@@ -1074,10 +1089,11 @@
 		this.fnGetPosition = function( nNode )
 		{
 			var oSettings = _fnSettingsFromNode( this[0] );
+			var i;
 			
 			if ( nNode.nodeName == "TR" )
 			{
-				for ( var i=0 ; i<oSettings.aoData.length ; i++ )
+				for ( i=0 ; i<oSettings.aoData.length ; i++ )
 				{
 					if ( oSettings.aoData[i].nTr == nNode )
 					{
@@ -1087,7 +1103,7 @@
 			}
 			else if ( nNode.nodeName == "TD" )
 			{
-				for ( var i=0 ; i<oSettings.aoData.length ; i++ )
+				for ( i=0 ; i<oSettings.aoData.length ; i++ )
 				{
 					var iCorrector = 0;
 					for ( var j=0 ; j<oSettings.aoColumns.length ; j++ )
@@ -1096,7 +1112,7 @@
 						{
 							if ( oSettings.aoData[i].nTr.getElementsByTagName('td')[j-iCorrector] == nNode )
 							{
-								return [ i, j-iCorrector ];
+								return [ i, j-iCorrector, j ];
 							}
 						}
 						else
@@ -1107,7 +1123,93 @@
 				}
 			}
 			return null;
-		}
+		};
+		
+		/*
+		 * Function: fnUpdate
+		 * Purpose:  Update a table cell or row
+		 * Returns:  int: 0 okay, 1 error
+		 * Inputs:   array string 'or' string:mData - data to update the cell/row with
+		 *           int:iRow - the row (from aoData) to update
+		 *           int:iColumn - the column to update
+		 *           bool:bRedraw - redraw the table or not - default true
+		 */
+		this.fnUpdate = function( mData, iRow, iColumn, bRedraw )
+		{
+			var oSettings = _fnSettingsFromNode( this[0] );
+			var iVisibleColumn;
+			var sRendered;
+			if ( typeof bRedraw == 'undefined' )
+			{
+				bRedraw = true;
+			}
+			
+			if ( typeof mData != 'object' )
+			{
+				oSettings.aoData[iRow]._aData[iColumn] = mData;
+				
+				if ( oSettings.aoColumns[iColumn].fnRender !== null && 
+					 	 oSettings.aoColumns[iColumn].bUseRendered )
+				{
+					sRendered = oSettings.aoColumns[iColumn].fnRender( {
+							"iDataRow": iRow,
+							"iDataColumn": iColumn,
+							"aData": oSettings.aoData[iRow]._aData
+						} );
+					oSettings.aoData[iRow]._aData[iColumn] = sRendered;
+				}
+				
+				iVisibleColumn = _fnColumnIndexToVisible( oSettings, iColumn );
+				if ( iVisibleColumn !== null )
+				{
+					oSettings.aoData[iRow].nTr.getElementsByTagName('td')[iVisibleColumn].innerHTML = 
+						oSettings.aoData[iRow]._aData[iColumn];
+				}
+			}
+			else
+			{
+				if ( mData.length != oSettings.aoColumns.length )
+				{
+					alert( 'Warning: An array passed to fnUpdate must have the same number of columns as '+
+						'the table in question - in this case '+oSettings.aoColumns.length );
+					return 1;
+				}
+				
+				for ( var i=0 ; i<mData.length ; i++ )
+				{
+					oSettings.aoData[iRow]._aData[i] = mData[i];
+					
+					if ( oSettings.aoColumns[i].fnRender !== null &&
+						   oSettings.aoColumns[i].bUseRendered )
+					{
+						sRendered = oSettings.aoColumns[i].fnRender( {
+								"iDataRow": iRow,
+								"iDataColumn": i,
+								"aData": oSettings.aoData[iRow]._aData
+							} );
+						oSettings.aoData[iRow]._aData[i] = sRendered;
+					}
+					
+					iVisibleColumn = _fnColumnIndexToVisible( oSettings, i );
+					if ( iVisibleColumn !== null )
+					{
+						oSettings.aoData[iRow].nTr.getElementsByTagName('td')[iVisibleColumn].innerHTML = 
+							oSettings.aoData[iRow]._aData[i];
+					}
+				}
+			}
+			
+			/* Update the search array */
+			_fnBuildSearchArray( oSettings, 1 );
+			
+			/* Redraw the table */
+			if ( bRedraw )
+			{
+				_fnReDraw( oSettings );
+			}
+			return 0;
+		};
+		
 		
 		/*
 		 * Plugin API functions
@@ -1118,21 +1220,38 @@
 		 * required for a particular purpose. Also the local bApi flag is used for allowing DataTables
 		 * to decide (later on) if it should expose it's private functions or not.
 		 */
+		
+		/*
+		 * Function: _fnExternApiFunc
+		 * Purpose:  Create a wrapper function for exporting an internal func to an external API func
+		 * Returns:  function: - wrapped function
+		 * Inputs:   string:sFunc - API function name
+		 */
+		function _fnExternApiFunc (sFunc)
+		{
+			return function() {
+					var aArgs = [_fnSettingsFromNode(this[0])].concat( Array.prototype.slice.call(arguments) );
+					return $.fn.dataTableExt.oApi[sFunc].apply( this, aArgs );
+				};
+		}
+		
 		var bApi = false;
 		for ( var sFunc in $.fn.dataTableExt.oApi )
 		{
-			/*
-			 * Function: anon
-			 * Purpose:  Wrap the plug-in API functions in order to provide the settings as 1st arg and
-			 *   execute in this scope
-			 * Returns:  -
-			 * Inputs:   -
-			 */
-			this[sFunc] = function() {
-				return $.fn.dataTableExt.oApi[sFunc].call( this, _fnSettingsFromNode( this[0] ) );
+			if ( sFunc )
+			{
+				/*
+				 * Function: anon
+				 * Purpose:  Wrap the plug-in API functions in order to provide the settings as 1st arg 
+				 *   and execute in this scope
+				 * Returns:  -
+				 * Inputs:   -
+				 */
+				this[sFunc] = _fnExternApiFunc(sFunc);
+				bApi = true;
 			}
-			bApi = true;
 		}
+		
 		
 		
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -1152,9 +1271,9 @@
 		function _fnInitalise ( oSettings )
 		{
 			/* Ensure that the table data is fully initialised */
-			if ( oSettings.bInitialised == false )
+			if ( oSettings.bInitialised === false )
 			{
-				setTimeout( function(){ _fnInitalise( oSettings ) }, 200 );
+				setTimeout( function(){ _fnInitalise( oSettings ); }, 200 );
 				return;
 			}
 			
@@ -1169,7 +1288,13 @@
 			 */
 			if ( oSettings.oFeatures.bSort )
 			{
-				_fnSort( oSettings );
+				_fnSort( oSettings, false );
+				/*
+				 * Add the sorting classes to the header and the body (if needed).
+				 * Reason for doing it here after the first draw is to stop classes being applied to the
+				 * 'static' table.
+				 */
+				_fnSortingClasses( oSettings );
 			}
 			else
 			{
@@ -1179,7 +1304,7 @@
 			}
 			
 			/* if there is an ajax source - ? */
-			if ( oSettings.sAjaxSource != null )
+			if ( oSettings.sAjaxSource !== null )
 			{
 				_fnProcessingDisplay( oSettings, true );
 				
@@ -1190,15 +1315,25 @@
 						_fnAddData( oSettings, json.aaData[i] );
 					}
 					
-					oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
-					_fnCalculateEnd( oSettings );
-					_fnDraw( oSettings );
 					if ( oSettings.oFeatures.bSort )
 					{
-						_fnSortingClasses( oSettings );
+						_fnSort( oSettings );
+					}
+					else
+					{
+						oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+						_fnCalculateEnd( oSettings );
+						_fnDraw( oSettings );
 					}
 					_fnProcessingDisplay( oSettings, false );
+					
+					/* Run the init callback if there is one */
+					if ( typeof oSettings.fnInitComplete == 'function' )
+					{
+						oSettings.fnInitComplete( oSettings );
+					}
 				} );
+				return;
 			}
 			
 			/*
@@ -1214,7 +1349,7 @@
 			/* Run the init callback if there is one */
 			if ( typeof oSettings.fnInitComplete == 'function' )
 			{
-				oSettings.fnInitComplete();
+				oSettings.fnInitComplete( oSettings );
 			}
 		}
 		
@@ -1224,49 +1359,65 @@
 		 * Returns:  -
 		 * Inputs:   object:oSettings - dataTables settings object
 		 *           object:oLanguage - Language information
+		 *           bool:bInit - init once complete
 		 */
-		function _fnLanguageProcess( oSettings, oLanguage )
+		function _fnLanguageProcess( oSettings, oLanguage, bInit )
 		{
-			if ( typeof oLanguage.sProcessing != 'undefined' )
+			if ( typeof oLanguage.sProcessing != 'undefined' ) {
 				oSettings.oLanguage.sProcessing = oLanguage.sProcessing;
+			}
 			
-			if ( typeof oLanguage.sLengthMenu != 'undefined' )
+			if ( typeof oLanguage.sLengthMenu != 'undefined' ) {
 				oSettings.oLanguage.sLengthMenu = oLanguage.sLengthMenu;
+			}
 			
-			if ( typeof oLanguage.sZeroRecords != 'undefined' )
+			if ( typeof oLanguage.sZeroRecords != 'undefined' ) {
 				oSettings.oLanguage.sZeroRecords = oLanguage.sZeroRecords;
+			}
 			
-			if ( typeof oLanguage.sInfo != 'undefined' )
+			if ( typeof oLanguage.sInfo != 'undefined' ) {
 				oSettings.oLanguage.sInfo = oLanguage.sInfo;
+			}
 			
-			if ( typeof oLanguage.sInfoEmpty != 'undefined' )
+			if ( typeof oLanguage.sInfoEmpty != 'undefined' ) {
 				oSettings.oLanguage.sInfoEmpty = oLanguage.sInfoEmpty;
+			}
 			
-			if ( typeof oLanguage.sInfoFiltered != 'undefined' )
+			if ( typeof oLanguage.sInfoFiltered != 'undefined' ) {
 				oSettings.oLanguage.sInfoFiltered = oLanguage.sInfoFiltered;
+			}
 			
-			if ( typeof oLanguage.sInfoPostFix != 'undefined' )
+			if ( typeof oLanguage.sInfoPostFix != 'undefined' ) {
 				oSettings.oLanguage.sInfoPostFix = oLanguage.sInfoPostFix;
+			}
 			
-			if ( typeof oLanguage.sSearch != 'undefined' )
+			if ( typeof oLanguage.sSearch != 'undefined' ) {
 				oSettings.oLanguage.sSearch = oLanguage.sSearch;
+			}
 			
 			if ( typeof oLanguage.oPaginate != 'undefined' )
 			{
-				if ( typeof oLanguage.oPaginate != 'undefined' )
+				if ( typeof oLanguage.oPaginate != 'undefined' ) {
 					oSettings.oLanguage.oPaginate.sFirst = oLanguage.oPaginate.sFirst;
+				}
 				
-				if ( typeof oLanguage.oPaginate != 'undefined' )
+				if ( typeof oLanguage.oPaginate != 'undefined' ) {
 					oSettings.oLanguage.oPaginate.sPrevious = oLanguage.oPaginate.sPrevious;
+				}
 				
-				if ( typeof oLanguage.oPaginate != 'undefined' )
+				if ( typeof oLanguage.oPaginate != 'undefined' ) {
 					oSettings.oLanguage.oPaginate.sNext = oLanguage.oPaginate.sNext;
+				}
 				
-				if ( typeof oLanguage.oPaginate != 'undefined' )
+				if ( typeof oLanguage.oPaginate != 'undefined' ) {
 					oSettings.oLanguage.oPaginate.sLast = oLanguage.oPaginate.sLast;
+				}
 			}
 			
-			_fnInitalise( oSettings );
+			if ( bInit )
+			{
+				_fnInitalise( oSettings );
+			}
 		}
 		
 		/*
@@ -1290,11 +1441,12 @@
 				"sWidth": null,
 				"sClass": null,
 				"fnRender": null,
+				"bUseRendered": true,
 				"iDataSort": oSettings.aoColumns.length-1
 			};
 			
 			/* User specified column options */
-			if ( typeof oOptions != 'undefined' && oOptions != null )
+			if ( typeof oOptions != 'undefined' && oOptions !== null )
 			{
 				var iLength = oSettings.aoColumns.length-1;
 				
@@ -1304,40 +1456,55 @@
 					oSettings.aoColumns[ iLength ]._bAutoType = false;
 				}
 				
-				if ( typeof oOptions.bVisible != 'undefined' )
+				if ( typeof oOptions.bVisible != 'undefined' ) {
 					oSettings.aoColumns[ iLength ].bVisible = oOptions.bVisible;
+				}
 				
-				if ( typeof oOptions.bSearchable != 'undefined' )
+				if ( typeof oOptions.bSearchable != 'undefined' ) {
 					oSettings.aoColumns[ iLength ].bSearchable = oOptions.bSearchable;
+				}
 				
-				if ( typeof oOptions.bSortable != 'undefined' )
+				if ( typeof oOptions.bSortable != 'undefined' ) {
 					oSettings.aoColumns[ iLength ].bSortable = oOptions.bSortable;
+				}
 				
-				if ( typeof oOptions.sTitle != 'undefined' )
+				if ( typeof oOptions.sTitle != 'undefined' ) {
 					oSettings.aoColumns[ iLength ].sTitle = oOptions.sTitle;
+				}
 				
-				if ( typeof oOptions.sWidth != 'undefined' )
+				if ( typeof oOptions.sWidth != 'undefined' ) {
 					oSettings.aoColumns[ iLength ].sWidth = oOptions.sWidth;
+				}
 				
-				if ( typeof oOptions.sClass != 'undefined' )
+				if ( typeof oOptions.sClass != 'undefined' ) {
 					oSettings.aoColumns[ iLength ].sClass = oOptions.sClass;
+				}
 				
-				if ( typeof oOptions.fnRender != 'undefined' )
+				if ( typeof oOptions.fnRender != 'undefined' ) {
 					oSettings.aoColumns[ iLength ].fnRender = oOptions.fnRender;
+				}
 				
-				if ( typeof oOptions.iDataSort != 'undefined' )
+				if ( typeof oOptions.bUseRendered != 'undefined' ) {
+					oSettings.aoColumns[ iLength ].bUseRendered = oOptions.bUseRendered;
+				}
+				
+				if ( typeof oOptions.iDataSort != 'undefined' ) {
 					oSettings.aoColumns[ iLength ].iDataSort = oOptions.iDataSort;
+				}
 			}
 			
 			/* Add a column specific filter */
-			oSettings.asPreSearchCols[ oSettings.asPreSearchCols.length++ ] = "";
+			oSettings.aoPreSearchCols[ oSettings.aoPreSearchCols.length++ ] = {
+				"sSearch": "",
+				"bEscapeRegex": true
+			};
 		}
 		
 		
 		/*
 		 * Function: _fnAddData
 		 * Purpose:  Add a data array to the table, creating DOM node etc
-		 * Returns:  int: - 0 successful, 1 failed
+		 * Returns:  int: - >=0 if successful (index of new aoData entry), -1 if failed
 		 * Inputs:   object:oSettings - dataTables settings object
 		 *           array:aData - data array to be added
 		 */
@@ -1346,7 +1513,7 @@
 			/* Sanity check the length of the new array */
 			if ( aData.length != oSettings.aoColumns.length )
 			{
-				return 1;
+				return -1;
 			}
 			
 			/* Create the object for storing information about this new row */
@@ -1365,15 +1532,26 @@
 				{
 					nTd = document.createElement('td');
 					
-					nTd.innerHTML = ( typeof oSettings.aoColumns[i].fnRender == 'function' ) ?
-						oSettings.aoColumns[i].fnRender( {
+					if ( typeof oSettings.aoColumns[i].fnRender == 'function' )
+					{
+						var sRendered = oSettings.aoColumns[i].fnRender( {
 								"iDataRow": iThisIndex,
 								"iDataColumn": i,
-								"aData": _fnGetDataMaster( oSettings )
-							} ) :
+								"aData": aData
+							} );
+						nTd.innerHTML = sRendered;
+						if ( oSettings.aoColumns[i].bUseRendered )
+						{
+							/* Use the rendered data for filtering/sorting */
+							oSettings.aoData[iThisIndex]._aData[i] = sRendered;
+						}
+					}
+					else
+					{
 						nTd.innerHTML = aData[i];
+					}
 					
-					if ( oSettings.aoColumns[i].sClass != null )
+					if ( oSettings.aoColumns[i].sClass !== null )
 					{
 						nTd.className = oSettings.aoColumns[i].sClass;
 					}
@@ -1382,7 +1560,7 @@
 					if ( oSettings.aoColumns[i]._bAutoType && oSettings.aoColumns[i].sType != 'string' )
 					{
 						/* Attempt to auto detect the type - same as _fnGatherData() */
-						if ( oSettings.aoColumns[i].sType == null )
+						if ( oSettings.aoColumns[i].sType === null )
 						{
 							oSettings.aoColumns[i].sType = _fnDetectType( aData[i] );
 						}
@@ -1400,7 +1578,7 @@
 			/* Add to the display array */
 			oSettings.aiDisplayMaster.push( iThisIndex );
 			
-			return 0;
+			return iThisIndex;
 		}
 		
 		
@@ -1414,6 +1592,8 @@
 		{
 			var nDataNodes;
 			var iDataLength = $('tbody tr').length;
+			var iLoop;
+			var i, j;
 			
 			/* Sanity check the number of columns and cells */
 			if ( $('thead th', oSettings.nTable).length != oSettings.aoColumns.length )
@@ -1436,12 +1616,13 @@
 				var iThisIndex = oSettings.aoData.length;
 				oSettings.aoData.push( {
 					"_iId": oSettings.iNextId++,
-					"_aData": new Array(),
+					"_aData": [],
 					"nTr": this
 				} );
 				
 				oSettings.aiDisplayMaster.push( iThisIndex );
 				
+				/* Add the data for this column */
 				var aLocalData = oSettings.aoData[iThisIndex]._aData;
 				$('td', this).each( function( i ) {
 					aLocalData[i] = this.innerHTML;
@@ -1452,10 +1633,10 @@
 			 * Now process by column
 			 */
 			var iCorrector = 0;
-			for ( var i=0 ; i<oSettings.aoColumns.length ; i++ )
+			for ( i=0 ; i<oSettings.aoColumns.length ; i++ )
 			{
 				/* Get the title of the column - unless there is a user set one */
-				if ( oSettings.aoColumns[i].sTitle == null )
+				if ( oSettings.aoColumns[i].sTitle === null )
 				{
 					oSettings.aoColumns[i].sTitle = $('thead th:nth-child('+(i+1)+')', oSettings.nTable).html();
 				}
@@ -1463,17 +1644,12 @@
 				/* See if we should auto detect column type */
 				if ( oSettings.aoColumns[i]._bAutoType )
 				{
-					var iLoop = oSettings.aoData.length;
-					
-					if ( iLoop == 0 )
-					{
-						oSettings.aoColumns[i].sType = 'string';
-					}
+					iLoop = oSettings.aoData.length;
 					
 					/* Attempt to auto detect the type */
-					for ( var j=0 ; j<iLoop ; j++ )
+					for ( j=0 ; j<iLoop ; j++ )
 					{
-						if ( oSettings.aoColumns[i].sType == null )
+						if ( oSettings.aoColumns[i].sType === null )
 						{
 							oSettings.aoColumns[i].sType = _fnDetectType( oSettings.aoData[j]._aData[i] );
 						}
@@ -1491,27 +1667,42 @@
 					}
 				}
 				
+				/* Add custom class names */
+				if ( oSettings.aoColumns[i].sClass !== null )
+				{
+					iLoop = oSettings.aoData.length;
+					for ( j=0 ; j<iLoop ; j++ )
+					{
+						oSettings.aoData[j].nTr.getElementsByTagName('td')[ i-iCorrector ].className += 
+							' '+oSettings.aoColumns[i].sClass;
+					}
+				}
+				
 				/* Use cell rendering if needed */
 				if ( typeof oSettings.aoColumns[i].fnRender == 'function' )
 				{
-					var iLoop = oSettings.aoData.length;
-					var aData = _fnGetDataMaster( oSettings );
-					for ( var j=0 ; j<iLoop ; j++ )
+					iLoop = oSettings.aoData.length;
+					for ( j=0 ; j<iLoop ; j++ )
 					{
-						oSettings.aoData[j].nTr.getElementsByTagName('td')[ i-iCorrector ].innerHTML = 
-							oSettings.aoColumns[i].fnRender( {
+						var sRendered = oSettings.aoColumns[i].fnRender( {
 								"iDataRow": j,
 								"iDataColumn": i,
-								"aData": aData
+								"aData": oSettings.aoData[j]._aData
 							} );
+						oSettings.aoData[j].nTr.getElementsByTagName('td')[ i-iCorrector ].innerHTML = sRendered;
+						if ( oSettings.aoColumns[i].bUseRendered )
+						{
+							/* Use rendered data for filtering / sorting */
+							oSettings.aoData[j]._aData[i] = sRendered;
+						}
 					}
 				}
 				
 				/* Remove hidden columns from the DOM */
 				if ( !oSettings.aoColumns[i].bVisible )
 				{
-					var iLoop = oSettings.aoData.length;
-					for ( var j=0 ; j<iLoop ; j++ )
+					iLoop = oSettings.aoData.length;
+					for ( j=0 ; j<iLoop ; j++ )
 					{
 						var nRemove = oSettings.aoData[j].nTr.getElementsByTagName('td')[ i-iCorrector ];
 						nRemove.parentNode.removeChild( nRemove );
@@ -1535,18 +1726,19 @@
 		 */
 		function _fnDrawHead( oSettings )
 		{
+			var i;
 			var nThOriginals = $('thead th', oSettings.nTable);
 			
 			/* If there is a header in place and it's the right size - then use it */
 			if ( nThOriginals.length == oSettings.aoColumns.length )
 			{
 				/* We've got a thead from the DOM, so remove hidden columns and apply width to vis cols */
-				for ( var i=0 ; i<oSettings.aoColumns.length ; i++ )
+				for ( i=0 ; i<oSettings.aoColumns.length ; i++ )
 				{
 					if ( oSettings.aoColumns[i].bVisible )
 					{
 						/* Set width */
-						if ( oSettings.aoColumns[i].sWidth != null )
+						if ( oSettings.aoColumns[i].sWidth !== null )
 						{
 							nThOriginals[i].style.width = oSettings.aoColumns[i].sWidth;
 						}
@@ -1569,18 +1761,18 @@
 				var nTh;
 				var nTr = document.createElement( "tr" );
 				
-				for ( var i=0 ; i<oSettings.aoColumns.length ; i++ )
+				for ( i=0 ; i<oSettings.aoColumns.length ; i++ )
 				{
 					if ( oSettings.aoColumns[i].bVisible )
 					{
 						nTh = document.createElement( "th" );
 						
-						if ( typeof nThOriginals[i] != "undefined" && nThOriginals[i].className != "" )
+						if ( typeof nThOriginals[i] != "undefined" && nThOriginals[i].className !== '' )
 						{
 							nTh.className = nThOriginals[i].className;
 						}
 						
-						if ( oSettings.aoColumns[i].sWidth != null )
+						if ( oSettings.aoColumns[i].sWidth !== null )
 						{
 							nTh.style.width = oSettings.aoColumns[i].sWidth;
 						}
@@ -1604,7 +1796,7 @@
 					iDataIndex = _fnVisibleToColumnIndex( oSettings, iDataIndex );
 					
 					/* If the column is not sortable - don't to anything */
-					if ( oSettings.aoColumns[iDataIndex].bSortable == false )
+					if ( oSettings.aoColumns[iDataIndex].bSortable === false )
 					{
 						return;
 					}
@@ -1642,9 +1834,9 @@
 								}
 							}
 							
-							if ( bFound == false )
+							if ( bFound === false )
 							{
-								oSettings.aaSorting.push( new Array( iDataIndex, "asc" ) );
+								oSettings.aaSorting.push( [ iDataIndex, "asc" ] );
 							}
 						}
 						else
@@ -1657,7 +1849,7 @@
 							else
 							{
 								oSettings.aaSorting.splice( 0, oSettings.aaSorting.length );
-								oSettings.aaSorting.push( new Array( iDataIndex, "asc" ) );
+								oSettings.aaSorting.push( [ iDataIndex, "asc" ] );
 							}
 						}
 						
@@ -1673,7 +1865,7 @@
 				
 				/* Take the brutal approach to cancelling text selection due to the shift key */
 				$('thead th', oSettings.nTable).mousedown( function () {
-					this.onselectstart = function() {return false};
+					this.onselectstart = function() { return false; };
 					return false;
 				} );
 			} /* if feature sort */
@@ -1696,11 +1888,12 @@
 		 */
 		function _fnDraw( oSettings )
 		{
-			var anRows = new Array();
+			var i;
+			var anRows = [];
 			var iRowCount = 0;
 			var iStrips = oSettings.asStripClasses.length;
 			
-			if ( oSettings.aiDisplay.length != 0 )
+			if ( oSettings.aiDisplay.length !== 0 )
 			{
 				for ( var j=oSettings.iDisplayStart ; j<oSettings.iDisplayEnd ; j++ )
 				{
@@ -1725,10 +1918,17 @@
 			{
 				/* Table is empty - create a row with an empty message in it */
 				anRows[ 0 ] = document.createElement( 'tr' );
+				
+				if ( typeof oSettings.asStripClasses[0] != 'undefined' )
+				{
+					anRows[ 0 ].className = oSettings.asStripClasses[0];
+				}
+				
 				var nTd = document.createElement( 'td' );
 				nTd.setAttribute( 'valign', "top" );
 				nTd.colSpan = oSettings.aoColumns.length;
 				nTd.style.textAlign = "center";
+				nTd.className = 'dataTables_empty';
 				nTd.innerHTML = oSettings.oLanguage.sZeroRecords;
 				
 				anRows[ iRowCount ].appendChild( nTd );
@@ -1752,17 +1952,19 @@
 			/* 
 			 * Need to remove any old row from the display - note we can't just empty the tbody using
 			 * .html('') since this will unbind the jQuery event handlers (even although the node still
-			 * exists!)
+			 * exists!) - note the initially odd ':eq(0)>tr' expression. This basically ensures that we
+			 * only get tr elements of the tbody that the data table has been initialised on. If there
+			 * are nested tables then we don't want to remove those elements.
 			 */
-			var nTrs = $('tbody tr', oSettings.nTable);
-			for ( var i=0 ; i<nTrs.length ; i++ )
+			var nTrs = $('tbody:eq(0)>tr', oSettings.nTable);
+			for ( i=0 ; i<nTrs.length ; i++ )
 			{
 				nTrs[i].parentNode.removeChild( nTrs[i] );
 			}
 			
 			/* Put the draw table into the dom */
-			var nBody = $('tbody', oSettings.nTable);
-			for ( var i=0 ; i<anRows.length ; i++ )
+			var nBody = $('tbody:eq(0)', oSettings.nTable);
+			for ( i=0 ; i<anRows.length ; i++ )
 			{
 				nBody[0].appendChild( anRows[i] );
 			}
@@ -1780,13 +1982,13 @@
 			if ( oSettings.oFeatures.bInfo )
 			{
 				/* Update the information */
-				if ( oSettings.aiDisplay.length == 0 && 
+				if ( oSettings.aiDisplay.length === 0 && 
 					   oSettings.aiDisplay.length == oSettings.aiDisplayMaster.length )
 				{
 					oSettings.nInfo.innerHTML = 
 						oSettings.oLanguage.sInfoEmpty +' '+ oSettings.oLanguage.sInfoPostFix;
 				}
-				else if ( oSettings.aiDisplay.length == 0 )
+				else if ( oSettings.aiDisplay.length === 0 )
 				{
 					oSettings.nInfo.innerHTML = oSettings.oLanguage.sInfoEmpty +' '+ 
 						oSettings.oLanguage.sInfoFiltered.replace('_MAX_', 
@@ -1824,6 +2026,32 @@
 		}
 		
 		
+		/*
+		 * Function: _fnReDraw
+		 * Purpose:  Redraw the table - taking account of the various features which are enabled
+		 * Returns:  -
+		 * Inputs:   object:oSettings - dataTables settings object
+		 */
+		function _fnReDraw( oSettings )
+		{
+			if ( oSettings.oFeatures.bSort )
+			{
+				/* Sorting will refilter and draw for us */
+				_fnSort( oSettings, oSettings.oPreviousSearch );
+			}
+			else if ( oSettings.oFeatures.bFilter )
+			{
+				/* Filtering will redraw for us */
+				_fnFilterComplete( oSettings, oSettings.oPreviousSearch );
+			}
+			else
+			{
+				_fnCalculateEnd( oSettings );
+				_fnDraw( oSettings );
+			}
+		}
+		
+		
 		
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 		 * Options (features) HTML
@@ -1850,7 +2078,7 @@
 			 */
 			var nWrapper = document.createElement( 'div' );
 			nWrapper.className = "dataTables_wrapper";
-			if ( oSettings.sTableId != "" )
+			if ( oSettings.sTableId !== '' )
 			{
 				nWrapper.setAttribute( 'id', oSettings.sTableId+'_wrapper' );
 			}
@@ -1940,16 +2168,19 @@
 		function _fnFeatureHtmlFilter ( oSettings )
 		{
 			var nFilter = document.createElement( 'div' );
-			if ( oSettings.sTableId != "" )
+			if ( oSettings.sTableId !== '' )
 			{
 				nFilter.setAttribute( 'id', oSettings.sTableId+'_filter' );
 			}
 			nFilter.className = "dataTables_filter";
 			nFilter.innerHTML = oSettings.oLanguage.sSearch+' <input type="text" value="'+
-				oSettings.sPreviousSearch.replace('"','&quot;')+'" />';
+				oSettings.oPreviousSearch.sSearch.replace('"','&quot;')+'" />';
 			
 			$("input", nFilter).keyup( function(e) {
-				_fnFilterComplete( oSettings, this.value );
+				_fnFilterComplete( oSettings, { 
+					"sSearch": this.value, 
+					"bEscapeRegex": oSettings.oPreviousSearch.bEscapeRegex 
+				} );
 			} );
 			
 			return nFilter;
@@ -1967,7 +2198,7 @@
 			var nInfo = document.createElement( 'div' );
 			oSettings.nInfo = nInfo;
 			
-			if ( oSettings.sTableId != "" )
+			if ( oSettings.sTableId !== '' )
 			{
 				oSettings.nInfo.setAttribute( 'id', oSettings.sTableId+'_info' );
 			}
@@ -2005,7 +2236,7 @@
 		function _fnFeatureHtmlLength ( oSettings )
 		{
 			/* This can be overruled by not using the _MENU_ var/macro in the language variable */
-			var sName = (oSettings.sTableId == "") ? "" : 'name="'+oSettings.sTableId+'_length"';
+			var sName = (oSettings.sTableId === "") ? "" : 'name="'+oSettings.sTableId+'_length"';
 			var sStdMenu = 
 				'<select size="1" '+sName+'>'+
 					'<option value="10">10</option>'+
@@ -2015,7 +2246,7 @@
 				'</select>';
 			
 			var nLength = document.createElement( 'div' );
-			if ( oSettings.sTableId != "" )
+			if ( oSettings.sTableId !== '' )
 			{
 				nLength.setAttribute( 'id', oSettings.sTableId+'_length' );
 			}
@@ -2029,7 +2260,7 @@
 			$('select option[value="'+oSettings.iDisplayLength+'"]',nLength).attr("selected",true);
 			
 			$('select', nLength).change( function() {
-				oSettings.iDisplayLength = parseInt($(this).val());
+				oSettings.iDisplayLength = parseInt($(this).val(), 10);
 				
 				_fnCalculateEnd( oSettings );
 				
@@ -2061,7 +2292,7 @@
 			var nProcessing = document.createElement( 'div' );
 			oSettings.nProcessing = nProcessing;
 			
-			if ( oSettings.sTableId != "" )
+			if ( oSettings.sTableId !== '' )
 			{
 				oSettings.nProcessing.setAttribute( 'id', oSettings.sTableId+'_processing' );
 			}
@@ -2088,9 +2319,13 @@
 			if ( oSettings.oFeatures.bProcessing )
 			{
 				if ( bShow )
+				{
 					oSettings.nProcessing.style.visibility = "visible";
+				}
 				else
+				{
 					oSettings.nProcessing.style.visibility = "hidden";
+				}
 			}
 		}
 		
@@ -2105,28 +2340,31 @@
 		 * Purpose:  Filter the table using both the global filter and column based filtering
 		 * Returns:  -
 		 * Inputs:   object:oSettings - dataTables settings object
-		 *           string:sInput - string to filter on
+		 *           object:oSearch: search information
 		 *           int:iForce - optional - force a research of the master array (1) or not (undefined or 0)
-		 *           bool:bEscapeRegex - optional - default true
 		 */
-		function _fnFilterComplete ( oSettings, sInput, iForce, bEscapeRegex )
+		function _fnFilterComplete ( oSettings, oInput, iForce )
 		{
-			if ( typeof bEscapeRegex == 'undefined' )
-			{
-				bEscapeRegex = true;
-			}
-			
 			/* Filter on everything */
-			_fnFilter( oSettings, sInput, iForce, bEscapeRegex );
+			_fnFilter( oSettings, oInput.sSearch, iForce, oInput.bEscapeRegex );
 			
 			/* Now do the individual column filter */
-			for ( var i=0 ; i<oSettings.asPreSearchCols.length ; i++ )
+			for ( var i=0 ; i<oSettings.aoPreSearchCols.length ; i++ )
 			{
-				_fnFilterColumn( oSettings, oSettings.asPreSearchCols[i], i, bEscapeRegex );
+				_fnFilterColumn( oSettings, oSettings.aoPreSearchCols[i].sSearch, i, 
+					oSettings.aoPreSearchCols[i].bEscapeRegex );
 			}
 			
 			/* Redraw the table */
-			oSettings.iDisplayStart = 0;
+			if ( typeof oSettings.iInitDisplayStart != 'undefined' && oSettings.iInitDisplayStart != -1 )
+			{
+				oSettings.iDisplayStart = oSettings.iInitDisplayStart;
+				oSettings.iInitDisplayStart = -1;
+			}
+			else
+			{
+				oSettings.iDisplayStart = 0;
+			}
 			_fnCalculateEnd( oSettings );
 			_fnDraw( oSettings );
 			
@@ -2142,11 +2380,11 @@
 		 * Inputs:   object:oSettings - dataTables settings object
 		 *           string:sInput - string to filter on
 		 *           int:iColumn - column to filter
-		 *           bool:bEscapeRegex - optional - default true
+		 *           bool:bEscapeRegex - escape regex or not
 		 */
 		function _fnFilterColumn ( oSettings, sInput, iColumn, bEscapeRegex )
 		{
-			if ( sInput == "" )
+			if ( sInput === "" )
 			{
 				return;
 			}
@@ -2173,20 +2411,20 @@
 		 * Inputs:   object:oSettings - dataTables settings object
 		 *           string:sInput - string to filter on
 		 *           int:iForce - optional - force a research of the master array (1) or not (undefined or 0)
-		 *           bool:bEscapeRegex - optional - default true
+		 *           bool:bEscapeRegex - escape regex or not
 		 */
 		function _fnFilter( oSettings, sInput, iForce, bEscapeRegex )
 		{
 			var flag, i, j;
 			
 			/* Check if we are forcing or not - optional parameter */
-			if ( typeof iForce == 'undefined' || iForce == null )
+			if ( typeof iForce == 'undefined' || iForce === null )
 			{
 				iForce = 0;
 			}
 			
 			/* Check if we are re-drawing or not - optional parameter */
-			if ( typeof bRedraw == 'undefined' || bRedraw == null )
+			if ( typeof bRedraw == 'undefined' || bRedraw === null )
 			{
 				bRedraw = true;
 			}
@@ -2207,7 +2445,6 @@
 			{
 				oSettings.aiDisplay.splice( 0, oSettings.aiDisplay.length);
 				oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
-				oSettings.sPreviousSearch = sInput;
 			}
 			else
 			{
@@ -2216,7 +2453,8 @@
 				 * then the old one (i.e. delete). Search from the master array
 			 	 */
 				if ( oSettings.aiDisplay.length == oSettings.aiDisplayMaster.length ||
-					   oSettings.sPreviousSearch.length > sInput.length || iForce == 1 )
+					   oSettings.oPreviousSearch.sSearch.length > sInput.length || iForce == 1  ||
+					   sInput.indexOf(oSettings.oPreviousSearch.sSearch) !== 0 )
 				{
 					/* Nuke the old display array - we are going to rebuild it */
 					oSettings.aiDisplay.splice( 0, oSettings.aiDisplay.length);
@@ -2253,9 +2491,9 @@
 			  		}
 			  	}
 			  }
-				
-				oSettings.sPreviousSearch = sInput;
 			}
+			oSettings.oPreviousSearch.sSearch = sInput;
+			oSettings.oPreviousSearch.bEscapeRegex = bEscapeRegex;
 		}
 		
 		
@@ -2269,11 +2507,12 @@
 		 * Purpose:  Change the order of the table
 		 * Returns:  -
 		 * Inputs:   object:oSettings - dataTables settings object
+		 *           bool:bApplyClasses - optional - should we apply classes or not
 		 * Notes:    We always sort the master array and then apply a filter again
 		 *   if it is needed. This probably isn't optimal - but atm I can't think
 		 *   of any other way which is (each has disadvantages)
 		 */
-		_fnSort = function ( oSettings )
+		function _fnSort ( oSettings, bApplyClasses )
 		{
 			/*
 			 * Funny one this - we want to sort aiDisplayMaster - but according to aoData[]._aData
@@ -2284,7 +2523,7 @@
 			 * 	var oSort = $.fn.dataTableExt.oSort;
 			 * 	
 			 * 	iTest = oSort['string-asc']( aoData[ a ]._aData[ COL ], aoData[ b ]._aData[ COL ] );
-			 * 	if ( iTest == 0 )
+			 * 	if ( iTest === 0 )
 			 * 		...
 			 * }
 			 */
@@ -2295,9 +2534,9 @@
 			 * 	var iTest;
 			 *  var oSort = $.fn.dataTableExt.oSort;
 			 * 	iTest = oSort['string-asc']( a[0], b[0] );
-			 * 	if ( iTest == 0 )
+			 * 	if ( iTest === 0 )
 			 * 		iTest = oSort['string-asc']( a[1], b[1] );
-			 * 		if ( iTest == 0 )
+			 * 		if ( iTest === 0 )
 			 * 			iTest = oSort['string-asc']( a[2], b[2] );
 			 * 	
 			 * 	return iTest;
@@ -2311,28 +2550,37 @@
 			var iDataSort;
 			var iDataType;
 			
-			for ( var i=0 ; i<aaSort.length-1 ; i++ )
+			if ( aaSort.length !== 0 )
 			{
-				iDataSort = oSettings.aoColumns[ aaSort[i][0] ].iDataSort;
+				for ( var i=0 ; i<aaSort.length-1 ; i++ )
+				{
+					iDataSort = oSettings.aoColumns[ aaSort[i][0] ].iDataSort;
+					iDataType = oSettings.aoColumns[ iDataSort ].sType;
+					sDynamicSort += "iTest = oSort['"+iDataType+"-"+aaSort[i][1]+"']"+
+						"( aoData[a]._aData["+iDataSort+"], aoData[b]._aData["+iDataSort+"] ); if ( iTest === 0 )";
+				}
+				
+				iDataSort = oSettings.aoColumns[ aaSort[aaSort.length-1][0] ].iDataSort;
 				iDataType = oSettings.aoColumns[ iDataSort ].sType;
-				sDynamicSort += "iTest = oSort['"+iDataType+"-"+aaSort[i][1]+"']"+
-					"( aoData[a]._aData["+iDataSort+"], aoData[b]._aData["+iDataSort+"] ); if ( iTest == 0 )";
+				sDynamicSort += "iTest = oSort['"+iDataType+"-"+aaSort[aaSort.length-1][1]+"']"+
+					"( aoData[a]._aData["+iDataSort+"], aoData[b]._aData["+iDataSort+"] ); return iTest;}";
+				
+				/* The eval has to be done to a variable for IE */
+				eval( sDynamicSort );
+				oSettings.aiDisplayMaster.sort( fnLocalSorting );
 			}
 			
-			iDataSort = oSettings.aoColumns[ aaSort[aaSort.length-1][0] ].iDataSort;
-			iDataType = oSettings.aoColumns[ iDataSort ].sType;
-			sDynamicSort += "iTest = oSort['"+iDataType+"-"+aaSort[aaSort.length-1][1]+"']"+
-				"( aoData[a]._aData["+iDataSort+"], aoData[b]._aData["+iDataSort+"] ); return iTest;}";
-			
-			/* The eval has to be done to a variable for IE */
-			eval( sDynamicSort );
-			oSettings.aiDisplayMaster.sort( fnLocalSorting );
+			/* Alter the sorting classes to take account of the changes */
+			if ( typeof bApplyClasses == 'undefined' || bApplyClasses )
+			{
+				_fnSortingClasses( oSettings );
+			}
 			
 			/* Copy the master data into the draw array and re-draw */
-			if ( oSettings.oFeatures.bFilter && oSettings.sPreviousSearch != "" )
+			if ( oSettings.oFeatures.bFilter )
 			{
 				/* _fnFilter() will redraw the table for us */
-				_fnFilterComplete( oSettings, oSettings.sPreviousSearch, 1 );
+				_fnFilterComplete( oSettings, oSettings.oPreviousSearch, 1 );
 			}
 			else
 			{
@@ -2353,9 +2601,10 @@
 		{
 			$("thead th", oSettings.nTable).removeClass( "sorting_asc sorting_desc sorting" );
 			var iCorrector = 0;
+			var i;
 			
 			/* Apply the required classes to the header */
-			for ( var i=0 ; i<oSettings.aoColumns.length ; i++ )
+			for ( i=0 ; i<oSettings.aoColumns.length ; i++ )
 			{
 				if ( oSettings.aoColumns[i].bSortable && oSettings.aoColumns[i].bVisible )
 				{
@@ -2364,10 +2613,8 @@
 					{
 						if ( oSettings.aaSorting[j][0] == i )
 						{
-							if ( oSettings.aaSorting[j][1] == "asc" )
-								sClass = "sorting_asc";
-							else
-								sClass = "sorting_desc";
+							sClass = ( oSettings.aaSorting[j][1] == "asc" ) ?
+								"sorting_asc" : "sorting_desc";
 							break;
 						}
 					}
@@ -2384,7 +2631,7 @@
 			{
 				var nTrs = _fnGetTrNodes( oSettings );
 				$('td', nTrs).removeClass( 'sorting_1 sorting_2 sorting_3' );
-				for ( var i=0 ; i<oSettings.aaSorting.length ; i++ )
+				for ( i=0 ; i<oSettings.aaSorting.length ; i++ )
 				{
 					/* Limit the number of classes to three */
 					if ( i <= 1 )
@@ -2415,7 +2662,7 @@
 			
 			for ( var i=0 ; i<oSettings.aoColumns.length ; i++ )
 			{
-				if ( oSettings.aoColumns[i].bVisible == true )
+				if ( oSettings.aoColumns[i].bVisible === true )
 				{
 					iColumn++;
 				}
@@ -2439,18 +2686,17 @@
 		 */
 		function _fnColumnIndexToVisible( oSettings, iMatch )
 		{
-			var iColumn = 0;
-			
+			var iVisible = -1;
 			for ( var i=0 ; i<oSettings.aoColumns.length ; i++ )
 			{
-				if ( i == iMatch )
+				if ( oSettings.aoColumns[i].bVisible === true )
 				{
-					return iColumn;
+					iVisible++;
 				}
 				
-				if ( oSettings.aoColumns[i].bVisible == true )
+				if ( i == iMatch )
 				{
-					iColumn++;
+					return oSettings.aoColumns[i].bVisible === true ? iVisible : null;
 				}
 			}
 			
@@ -2489,7 +2735,7 @@
 						
 						if ( oSettings.aoColumns[j].sType == "html" )
 						{
-							oSettings.asDataSearch[i] += sData.replace(/\n/g," ").replace( /<.*?>/g, "" );+' ';
+							oSettings.asDataSearch[i] += sData.replace(/\n/g," ").replace( /<.*?>/g, "" )+' ';
 						}
 						else if ( typeof sData == "string" )
 						{
@@ -2513,7 +2759,7 @@
 		 */
 		function _fnCalculateEnd( oSettings )
 		{
-			if ( oSettings.oFeatures.bPaginate == false )
+			if ( oSettings.oFeatures.bPaginate === false )
 			{
 				oSettings.iDisplayEnd = oSettings.aiDisplay.length;
 			}
@@ -2523,9 +2769,13 @@
 				 * still to display
 				 */
 				if ( oSettings.iDisplayStart + oSettings.iDisplayLength > oSettings.aiDisplay.length )
+				{
 					oSettings.iDisplayEnd = oSettings.aiDisplay.length;
+				}
 				else
+				{
 					oSettings.iDisplayEnd = oSettings.iDisplayStart + oSettings.iDisplayLength;
+				}
 			}
 		}
 		
@@ -2540,7 +2790,7 @@
 		 */
 		function _fnConvertToWidth ( sWidth, nParent )
 		{
-			if ( !sWidth || sWidth==null || sWidth=='' )
+			if ( !sWidth || sWidth === null || sWidth === '' )
 			{
 				return 0;
 			}
@@ -2578,13 +2828,13 @@
 			var oHeaders = $('thead th', oSettings.nTable);
 			
 			/* Convert any user input sizes into pixel sizes */
-			for ( var i=0 ; i<oSettings.aoColumns.length ; i++ )
+			for ( i=0 ; i<oSettings.aoColumns.length ; i++ )
 			{
 				if ( oSettings.aoColumns[i].bVisible )
 				{
 					iVisibleColumns++;
 					
-					if ( oSettings.aoColumns[i].sWidth != null )
+					if ( oSettings.aoColumns[i].sWidth !== null )
 					{
 						iTmpWidth = _fnConvertToWidth( oSettings.aoColumns[i].sWidth, 
 							oSettings.nTable.parentNode );
@@ -2602,7 +2852,7 @@
 			 * created by the web-browser. No custom sizes can be set in order for
 			 * this to happen
 			 */
-			if ( oSettings.aoColumns.length == oHeaders.length && iTotalUserIpSize == 0 )
+			if ( oSettings.aoColumns.length == oHeaders.length && iTotalUserIpSize === 0 )
 			{
 				for ( i=0 ; i<oSettings.aoColumns.length ; i++ )
 				{
@@ -2625,16 +2875,16 @@
 				/* Construct a tempory table which we will inject (invisibly) into
 				 * the dom - to let the browser do all the hard word
 				 */
-				for ( var i=0 ; i<oSettings.aoColumns.length ; i++ )
+				for ( i=0 ; i<oSettings.aoColumns.length ; i++ )
 				{
 					if ( oSettings.aoColumns[i].bVisible )
 					{
 						sCalcHead += '<th>'+oSettings.aoColumns[i].sTitle+'</th>';
 						
-						if ( oSettings.aoColumns[i].sWidth != null )
+						if ( oSettings.aoColumns[i].sWidth !== null )
 						{
 							var sWidth = '';
-							if ( oSettings.aoColumns[i].sWidth != null )
+							if ( oSettings.aoColumns[i].sWidth !== null )
 							{
 								sWidth = ' style="width:'+oSettings.aoColumns[i].sWidth+';"';
 							}
@@ -2697,9 +2947,10 @@
 			}
 			
 			if ( iMaxIndex >= 0 )
+			{
 				return oSettings.aoData[iMaxIndex]._aData[iCol];
-			else
-				return '';
+			}
+			return '';
 		}
 		
 		
@@ -2730,26 +2981,6 @@
 		
 		
 		/*
-		 * Function: _fnMasterIndexFromDisplay
-		 * Purpose:  Get the master index from the display index
-		 * Returns:  int:i - index
-		 * Inputs:   object:oSettings - dataTables settings object
-		 *           int:iIndexAAData - display array index
-		 */
-		function _fnMasterIndexFromDisplay( oSettings, iIndexAAData )
-		{
-			var i = 0;
-			
-			while ( _fnArrayCmp( oSettings.aaDataMaster[i], oSettings.aaData[iIndexAAData] ) != 0 )
-			{
-				i++;
-			}
-			
-			return i;
-		}
-		
-		
-		/*
 		 * Function: _fnDetectType
 		 * Purpose:  Get the sort type based on an input string
 		 * Returns:  string: - type (defaults to 'string' if no type can be detected)
@@ -2765,7 +2996,7 @@
 			for ( var i=0 ; i<iLen ; i++ )
 			{
 				var sType = aTypes[i]( sData );
-				if ( sType != null )
+				if ( sType !== null )
 				{
 					return sType;
 				}
@@ -2781,7 +3012,7 @@
 		 * Returns:  object: Settings object - or null if not found
 		 * Inputs:   node:nTable - table we are using as a dataTable
 		 */
-		_fnSettingsFromNode = function( nTable )
+		function _fnSettingsFromNode ( nTable )
 		{
 			for ( var i=0 ; i<_aoSettings.length ; i++ )
 			{
@@ -2803,8 +3034,9 @@
 		 */
 		function _fnGetDataMaster ( oSettings )
 		{
-			var aData = new Array();
-			for ( var i=0 ; i<oSettings.aoData.length ; i++ )
+			var aData = [];
+			var iLen = oSettings.aoData.length;
+			for ( var i=0 ; i<iLen; i++ )
 			{
 				aData.push( oSettings.aoData[i]._aData );
 			}
@@ -2820,8 +3052,9 @@
 		 */
 		function _fnGetTrNodes ( oSettings )
 		{
-			var aNodes = new Array();
-			for ( var i=0 ; i<oSettings.aoData.length ; i++ )
+			var aNodes = [];
+			var iLen = oSettings.aoData.length;
+			for ( var i=0 ; i<iLen ; i++ )
 			{
 				aNodes.push( oSettings.aoData[i].nTr );
 			}
@@ -2837,7 +3070,7 @@
 		 */
 		function _fnEscapeRegex ( sVal )
 		{
-			var acEscape = [ '/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\' ];
+			var acEscape = [ '/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\', '$', '^' ];
 		  var reReplace = new RegExp( '(\\' + acEscape.join('|\\') + ')', 'g' );
 		  return sVal.replace(reReplace, '\\$1');
 		}
@@ -2861,8 +3094,9 @@
 			sValue += '"iStart": '+oSettings.iDisplayStart+',';
 			sValue += '"iEnd": '+oSettings.iDisplayEnd+',';
 			sValue += '"iLength": '+oSettings.iDisplayLength+',';
-			sValue += '"sFilter": "'+oSettings.sPreviousSearch.replace('"','\\"')+'",';
-			sValue += '"aaSorting": [';
+			sValue += '"sFilter": "'+oSettings.oPreviousSearch.sSearch.replace('"','\\"')+'",';
+			sValue += '"sFilterEsc": '+oSettings.oPreviousSearch.bEscapeRegex+',';
+			sValue += '"aaSorting": [ ';
 			
 			for ( var i=0 ; i<oSettings.aaSorting.length ; i++ )
 			{
@@ -2890,14 +3124,33 @@
 			}
 			
 			var sData = _fnReadCookie( "SpryMedia_DataTables_"+oSettings.sInstance );
-			if ( sData != null && sData != '' )
+			if ( sData !== null && sData !== '' )
 			{
-				oData = eval( '('+sData+')' );
+				/* Use the JSON library for safety - if it is available */
+				if ( typeof JSON == 'object' && typeof JSON.parse == 'function' )
+				{
+					/* DT 1.4.0 used single quotes for a string - JSON.parse doesn't allow this and throws
+					 * an error. So for now we can do this. This can be removed in future it is just to
+					 * allow the tranfrer to 1.4.1+ to occur
+					 */
+					oData = JSON.parse( sData.replace(/'/g, '"') );
+				}
+				else
+				{
+					oData = eval( '('+sData+')' );
+				}
 				oSettings.iDisplayStart = oData.iStart;
+				oSettings.iInitDisplayStart = oData.iStart;
 				oSettings.iDisplayEnd = oData.iEnd;
 				oSettings.iDisplayLength = oData.iLength;
-				oSettings.sPreviousSearch = oData.sFilter;
+				oSettings.oPreviousSearch.sSearch = oData.sFilter;
 				oSettings.aaSorting = oData.aaSorting.slice();
+				
+				/* Search filtering - global reference added in 1.4.1 */
+				if ( typeof oData.sFilterEsc != 'undefined' )
+				{
+					oSettings.oPreviousSearch.bEscapeRegex = oData.sFilterEsc;
+				}
 			}
 		}
 		
@@ -2920,7 +3173,7 @@
 			 * set to anything but root. We need the cookie to be available based on the path, so we
 			 * have to append the pathname to the cookie name. Appalling.
 			 */
-			sName += '_'+window.location.pathname;
+			sName += '_'+window.location.pathname.replace(/[\/:]/g,"");
 			
 			document.cookie = sName+"="+sValue+"; expires="+date.toGMTString()+"; path=/";
 		}
@@ -2934,7 +3187,7 @@
 		 */
 		function _fnReadCookie ( sName )
 		{
-			var sNameEQ = sName +'_'+ window.location.pathname + "=";
+			var sNameEQ = sName +'_'+ window.location.pathname.replace(/[\/:]/g,"") + "=";
 			var sCookieContents = document.cookie.split(';');
 			
 			for( var i=0 ; i<sCookieContents.length ; i++ )
@@ -2946,7 +3199,7 @@
 					c = c.substring(1,c.length);
 				}
 				
-				if (c.indexOf(sNameEQ) == 0)
+				if (c.indexOf(sNameEQ) === 0)
 				{
 					return c.substring(sNameEQ.length,c.length);
 				}
@@ -2963,40 +3216,39 @@
 		 */
 		if ( bApi )
 		{
-			this.oApi['_fnInitalise'] = _fnInitalise;
-			this.oApi['_fnLanguageProcess'] = _fnLanguageProcess;
-			this.oApi['_fnAddColumn'] = _fnAddColumn;
-			this.oApi['_fnAddData'] = _fnAddData;
-			this.oApi['_fnGatherData'] = _fnGatherData;
-			this.oApi['_fnDrawHead'] = _fnDrawHead;
-			this.oApi['_fnDraw'] = _fnDraw;
-			this.oApi['_fnAddOptionsHtml'] = _fnAddOptionsHtml;
-			this.oApi['_fnFeatureHtmlFilter'] = _fnFeatureHtmlFilter;
-			this.oApi['_fnFeatureHtmlInfo'] = _fnFeatureHtmlInfo;
-			this.oApi['_fnFeatureHtmlPaginate'] = _fnFeatureHtmlPaginate;
-			this.oApi['_fnFeatureHtmlLength'] = _fnFeatureHtmlLength;
-			this.oApi['_fnFeatureHtmlProcessing'] = _fnFeatureHtmlProcessing;
-			this.oApi['_fnProcessingDisplay'] = _fnProcessingDisplay;
-			this.oApi['_fnFilterComplete'] = _fnFilterComplete;
-			this.oApi['_fnFilterColumn'] = _fnFilterColumn;
-			this.oApi['_fnFilter'] = _fnFilter;
-			this.oApi['_fnSortingClasses'] = _fnSortingClasses;
-			this.oApi['_fnVisibleToColumnIndex'] = _fnVisibleToColumnIndex;
-			this.oApi['_fnColumnIndexToVisible'] = _fnColumnIndexToVisible;
-			this.oApi['_fnBuildSearchArray'] = _fnBuildSearchArray;
-			this.oApi['_fnCalculateEnd'] = _fnCalculateEnd;
-			this.oApi['_fnConvertToWidth'] = _fnConvertToWidth;
-			this.oApi['_fnCalculateColumnWidths'] = _fnCalculateColumnWidths;
-			this.oApi['_fnArrayCmp'] = _fnArrayCmp;
-			this.oApi['_fnMasterIndexFromDisplay'] = _fnMasterIndexFromDisplay;
-			this.oApi['_fnDetectType'] = _fnDetectType;
-			this.oApi['_fnGetDataMaster'] = _fnGetDataMaster;
-			this.oApi['_fnGetTrNodes'] = _fnGetTrNodes;
-			this.oApi['_fnEscapeRegex'] = _fnEscapeRegex;
-			this.oApi['_fnSaveState'] = _fnSaveState;
-			this.oApi['_fnLoadState'] = _fnLoadState;
-			this.oApi['_fnCreateCookie'] = _fnCreateCookie;
-			this.oApi['_fnReadCookie'] = _fnReadCookie;
+			this.oApi._fnInitalise = _fnInitalise;
+			this.oApi._fnLanguageProcess = _fnLanguageProcess;
+			this.oApi._fnAddColumn = _fnAddColumn;
+			this.oApi._fnAddData = _fnAddData;
+			this.oApi._fnGatherData = _fnGatherData;
+			this.oApi._fnDrawHead = _fnDrawHead;
+			this.oApi._fnDraw = _fnDraw;
+			this.oApi._fnAddOptionsHtml = _fnAddOptionsHtml;
+			this.oApi._fnFeatureHtmlFilter = _fnFeatureHtmlFilter;
+			this.oApi._fnFeatureHtmlInfo = _fnFeatureHtmlInfo;
+			this.oApi._fnFeatureHtmlPaginate = _fnFeatureHtmlPaginate;
+			this.oApi._fnFeatureHtmlLength = _fnFeatureHtmlLength;
+			this.oApi._fnFeatureHtmlProcessing = _fnFeatureHtmlProcessing;
+			this.oApi._fnProcessingDisplay = _fnProcessingDisplay;
+			this.oApi._fnFilterComplete = _fnFilterComplete;
+			this.oApi._fnFilterColumn = _fnFilterColumn;
+			this.oApi._fnFilter = _fnFilter;
+			this.oApi._fnSortingClasses = _fnSortingClasses;
+			this.oApi._fnVisibleToColumnIndex = _fnVisibleToColumnIndex;
+			this.oApi._fnColumnIndexToVisible = _fnColumnIndexToVisible;
+			this.oApi._fnBuildSearchArray = _fnBuildSearchArray;
+			this.oApi._fnCalculateEnd = _fnCalculateEnd;
+			this.oApi._fnConvertToWidth = _fnConvertToWidth;
+			this.oApi._fnCalculateColumnWidths = _fnCalculateColumnWidths;
+			this.oApi._fnArrayCmp = _fnArrayCmp;
+			this.oApi._fnDetectType = _fnDetectType;
+			this.oApi._fnGetDataMaster = _fnGetDataMaster;
+			this.oApi._fnGetTrNodes = _fnGetTrNodes;
+			this.oApi._fnEscapeRegex = _fnEscapeRegex;
+			this.oApi._fnSaveState = _fnSaveState;
+			this.oApi._fnLoadState = _fnLoadState;
+			this.oApi._fnCreateCookie = _fnCreateCookie;
+			this.oApi._fnReadCookie = _fnReadCookie;
 		}
 		
 		
@@ -3006,7 +3258,7 @@
 		return this.each(function()
 		{
 			/* Make a complete and independent copy of the settings object */
-			var oSettings = new classSettings()
+			var oSettings = new classSettings();
 			_aoSettings.push( oSettings );
 			
 			var bInitHandedOff = false;
@@ -3014,7 +3266,7 @@
 			
 			/* Set the id */
 			var sId = this.getAttribute( 'id' );
-			if ( sId != null )
+			if ( sId !== null )
 			{
 				oSettings.sTableId = sId;
 				oSettings.sInstance = sId;
@@ -3028,76 +3280,98 @@
 			oSettings.nTable = this;
 			
 			/* Store the features that we have available */
-			if ( typeof oInit != 'undefined' && oInit != null )
+			if ( typeof oInit != 'undefined' && oInit !== null )
 			{
-				if ( typeof oInit.bPaginate != 'undefined' )
+				if ( typeof oInit.bPaginate != 'undefined' ) {
 					oSettings.oFeatures.bPaginate = oInit.bPaginate;
+				}
 				
-				if ( typeof oInit.bLengthChange != 'undefined' )
+				if ( typeof oInit.bLengthChange != 'undefined' ) {
 					oSettings.oFeatures.bLengthChange = oInit.bLengthChange;
+				}
 				
-				if ( typeof oInit.bFilter != 'undefined' )
+				if ( typeof oInit.bFilter != 'undefined' ) {
 					oSettings.oFeatures.bFilter = oInit.bFilter;
+				}
 				
-				if ( typeof oInit.bSort != 'undefined' )
+				if ( typeof oInit.bSort != 'undefined' ) {
 					oSettings.oFeatures.bSort = oInit.bSort;
+				}
 				
-				if ( typeof oInit.bInfo != 'undefined' )
+				if ( typeof oInit.bInfo != 'undefined' ) {
 					oSettings.oFeatures.bInfo = oInit.bInfo;
+				}
 				
-				if ( typeof oInit.bProcessing != 'undefined' )
+				if ( typeof oInit.bProcessing != 'undefined' ) {
 					oSettings.oFeatures.bProcessing = oInit.bProcessing;
+				}
 				
-				if ( typeof oInit.bAutoWidth != 'undefined' )
+				if ( typeof oInit.bAutoWidth != 'undefined' ) {
 					oSettings.oFeatures.bAutoWidth = oInit.bAutoWidth;
+				}
 				
-				if ( typeof oInit.bSortClasses != 'undefined' )
+				if ( typeof oInit.bSortClasses != 'undefined' ) {
 					oSettings.oFeatures.bSortClasses = oInit.bSortClasses;
+				}
 				
+				if ( typeof oInit.aaData != 'undefined' ) {
+					bUsePassedData = true;
+				}
+				
+				if ( typeof oInit.iDisplayLength != 'undefined' ) {
+					oSettings.iDisplayLength = oInit.iDisplayLength;
+				}
+				
+				if ( typeof oInit.asStripClasses != 'undefined' ) {
+					oSettings.asStripClasses = oInit.asStripClasses;
+				}
+				
+				if ( typeof oInit.fnRowCallback != 'undefined' ) {
+					oSettings.fnRowCallback = oInit.fnRowCallback;
+				}
+				
+				if ( typeof oInit.fnHeaderCallback != 'undefined' ) {
+					oSettings.fnHeaderCallback = oInit.fnHeaderCallback;
+				}
+				
+				if ( typeof oInit.fnFooterCallback != 'undefined' ) {
+					oSettings.fnFooterCallback = oInit.fnFooterCallback;
+				}
+				
+				if ( typeof oInit.fnDrawCallback != 'undefined' ) {
+					oSettings.fnDrawCallback = oInit.fnDrawCallback;
+				}
+				
+				if ( typeof oInit.fnInitComplete != 'undefined' ) {
+					oSettings.fnInitComplete = oInit.fnInitComplete;
+				}
+				
+				if ( typeof oInit.aaSorting != 'undefined' ) {
+					oSettings.aaSorting = oInit.aaSorting;
+				}
+				
+				if ( typeof oInit.sPaginationType != 'undefined' ) {
+					oSettings.sPaginationType = oInit.sPaginationType;
+				}
+				
+				if ( typeof oInit.sDom != 'undefined' ) {
+					oSettings.sDomPositioning = oInit.sDom;
+				}
+				
+				if ( typeof oInit.sAjaxSource != 'undefined' ) {
+					oSettings.sAjaxSource = oInit.sAjaxSource;
+				}
+				
+				if ( typeof oInit.iCookieDuration != 'undefined' ) {
+					oSettings.iCookieDuration = oInit.iCookieDuration;
+				}
+				
+				/* Must be done after everything which can be overridden by a cookie! */
 				if ( typeof oInit.bStateSave != 'undefined' )
 				{
 					oSettings.oFeatures.bStateSave = oInit.bStateSave;
 					_fnLoadState( oSettings );
 				}
-				
-				if ( typeof oInit.aaData != 'undefined' )
-					bUsePassedData = true;
-				
-				if ( typeof oInit.iDisplayLength != 'undefined' )
-					oSettings.iDisplayLength = oInit.iDisplayLength;
-				
-				if ( typeof oInit.asStripClasses != 'undefined' )
-					oSettings.asStripClasses = oInit.asStripClasses;
-				
-				if ( typeof oInit.fnRowCallback != 'undefined' )
-					oSettings.fnRowCallback = oInit.fnRowCallback;
-				
-				if ( typeof oInit.fnHeaderCallback != 'undefined' )
-					oSettings.fnHeaderCallback = oInit.fnHeaderCallback;
-				
-				if ( typeof oInit.fnFooterCallback != 'undefined' )
-					oSettings.fnFooterCallback = oInit.fnFooterCallback;
-				
-				if ( typeof oInit.fnDrawCallback != 'undefined' )
-					oSettings.fnDrawCallback = oInit.fnDrawCallback;
-				
-				if ( typeof oInit.fnInitComplete != 'undefined' )
-					oSettings.fnInitComplete = oInit.fnInitComplete;
-				
-				if ( typeof oInit.aaSorting != 'undefined' )
-					oSettings.aaSorting = oInit.aaSorting;
-				
-				if ( typeof oInit.sPaginationType != 'undefined' )
-					oSettings.sPaginationType = oInit.sPaginationType;
-				
-				if ( typeof oInit.sDom != 'undefined' )
-					oSettings.sDomPositioning = oInit.sDom;
-				
-				if ( typeof oInit.sAjaxSource != 'undefined' )
-					oSettings.sAjaxSource = oInit.sAjaxSource;
-				
-				if ( typeof oInit.iCookieDuration != 'undefined' )
-					oSettings.iCookieDuration = oInit.iCookieDuration;
 				
 				/* Backwards compatability */
 				/* aoColumns / aoData - remove at some point... */
@@ -3109,18 +3383,17 @@
 				/* Language definitions */
 				if ( typeof oInit.oLanguage != 'undefined' )
 				{
-					bInitHandedOff = true;
-					
 					if ( typeof oInit.oLanguage.sUrl != 'undefined' )
 					{
 						/* Get the language definitions from a file */
 						oSettings.oLanguage.sUrl = oInit.oLanguage.sUrl;
 						$.getJSON( oSettings.oLanguage.sUrl, null, function( json ) { 
-							_fnLanguageProcess( oSettings, json ) } );
+							_fnLanguageProcess( oSettings, json, true ); } );
+						bInitHandedOff = true;
 					}
 					else
 					{
-						_fnLanguageProcess( oSettings, oInit.oLanguage );
+						_fnLanguageProcess( oSettings, oInit.oLanguage, false );
 					}
 				}
 				/* Warning: The _fnLanguageProcess function is async to the remainder of this function due
@@ -3140,23 +3413,23 @@
 			}
 			else
 			{
-				$('thead th', this).each( function() { _fnAddColumn( oSettings, null ) } );
+				$('thead th', this).each( function() { _fnAddColumn( oSettings, null ); } );
 			}
 			
 			/* Check if there is data passing into the constructor */
 			if ( bUsePassedData )
 			{
-				for ( var i=0 ; i<oInit.aaData.length ; i++ )
+				for ( var j=0 ; j<oInit.aaData.length ; j++ )
 				{
-					_fnAddData( oSettings, oInit.aaData[ i ] );
+					_fnAddData( oSettings, oInit.aaData[ j ] );
 				}
 				
-				if ( $('thead', this).length == 0 )
+				if ( $('thead', this).length === 0 )
 				{
 			 		this.appendChild( document.createElement( 'thead' ) );
 				}
 				
-				if ( $('tbody', this).length == 0 )
+				if ( $('tbody', this).length === 0 )
 				{
 			 		this.appendChild( document.createElement( 'tbody' ) );
 				}
@@ -3182,10 +3455,10 @@
 			/* Check if we need to initialise the table (it might not have been handed off to the
 			 * language processor)
 			 */
-			if ( bInitHandedOff == false )
+			if ( bInitHandedOff === false )
 			{
-				_fnInitalise( oSettings )
+				_fnInitalise( oSettings );
 			}
 		});
-	}
+	};
 })(jQuery);
