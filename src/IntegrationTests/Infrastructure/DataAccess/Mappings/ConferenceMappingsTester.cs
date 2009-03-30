@@ -25,7 +25,8 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 		                             PostalCode = "78234",
 		                             PhoneNumber = "512-555-1234",
 		                             HtmlContent = "<h1>This is some markup about sponsors.</h1>",
-		                             UserGroup = userGroup
+		                             UserGroup = userGroup,
+                                     HasRegistration = true
 
 			                 	};
 			conference.AddAttendee(new Attendee

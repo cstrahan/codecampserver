@@ -33,6 +33,7 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			model.Region = form.Region;
 			model.StartDate = ToDateTime(form.StartDate);
 		    model.HtmlContent = form.HtmlContent;
+		    model.HasRegistration = form.HasRegistration;
 		    model.UserGroup = _userGroupRepository.GetById(form.UserGroupId);
 		}
 	}

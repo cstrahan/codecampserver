@@ -22,6 +22,7 @@
     <property name="HtmlContent" type="StringClob">
       <column name="HtmlContent" sql-type="ntext"/>
     </property>
+    <property name="HasRegistration" />
 
     <many-to-one name="UserGroup" column="UserGroupID" class="UserGroup" />
     

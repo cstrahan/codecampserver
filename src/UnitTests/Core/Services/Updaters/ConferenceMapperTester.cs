@@ -61,6 +61,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			form.Region = "region";
 			form.StartDate = "01/01/2008";
 			form.EndDate = "01/02/2008";
+		    form.HasRegistration = true;
 
 			var repository = S<IConferenceRepository>();
 			var conference = new Conference();
@@ -78,6 +79,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			conference.Region.ShouldEqual("region");
 			conference.StartDate.ShouldEqual(new DateTime(2008, 1, 1));
 			conference.EndDate.ShouldEqual(new DateTime(2008, 1, 2));
+            conference.HasRegistration.ShouldBeTrue();
 		}
 	}
 }

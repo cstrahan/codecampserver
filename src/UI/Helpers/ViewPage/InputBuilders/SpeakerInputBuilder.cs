@@ -2,6 +2,7 @@ using System;
 using System.Linq.Expressions;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using MvcContrib;
 
 namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {
@@ -22,7 +23,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 
 		protected override Speaker[] GetList()
 		{
-			return _repository.GetAll();
+			return _repository.GetAllForConference(base.InputSpecification.Helper.ViewData.Get<Conference>());
 		}
 	}
 }
