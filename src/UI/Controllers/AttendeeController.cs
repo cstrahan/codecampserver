@@ -59,7 +59,7 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[ValidateModel(typeof(AttendeeForm))]
-		public ActionResult Save([Bind(Prefix = "")]AttendeeForm form)
+		public ActionResult Save(AttendeeForm form)
 		{
 			return ProcessSave(form, conference => RedirectToAction<AttendeeController>(c => c.Confirmation()));
 		}
