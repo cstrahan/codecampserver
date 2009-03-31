@@ -9,7 +9,7 @@ AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage
   	<script type="text/javascript" language="javascript" src="/scripts/jquery.dataTables.js"></script>
 		<script type="text/javascript" charset="utf-8">
 		    $(document).ready(function() {
-		    $('#listTable').dataTable();
+		    $('#datatable').dataTable();
 		    });
 		</script>
 		
@@ -20,10 +20,7 @@ AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage
 				<a class="" href="<%=Url.Action<UserGroupController>(c=>c.New())%>" title="Add a new User Group"><img src="/images/icons/application_add.png" /></a>
 		<%}%>
 </h2>
-
-	 <div class="cleaner"></div>
-	 
-		<table id="listTable" class="w90p" >
+		<table id="datatable">
 		    <thead>
 		        <tr>
 		            <th>User Group</th>

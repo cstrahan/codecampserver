@@ -5,7 +5,7 @@
 		<script type="text/javascript" language="javascript" src="/scripts/jquery.dataTables.js"></script>
 		<script type="text/javascript" charset="utf-8">
 		    $(document).ready(function() {
-		    $('#sessionTable').dataTable();
+		    $('#datatable').dataTable();
 		    });
 		</script>
 <h2>Sessions
@@ -14,7 +14,7 @@
 		<%}%>
 </h2>
 
-		<table id="sessionTable" class="w90p" >
+		<table id="datatable">
 		    <thead>
 		        <tr>
 		            <th>Track</th>

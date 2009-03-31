@@ -12,6 +12,7 @@
 	  <link id="cssRedefinitions" rel="Stylesheet" type="text/css" media="all" href="/css/Redefinitions.css" runat="server" />
 	  <link id="cssClasses" rel="Stylesheet" type="text/css" media="all" href="/css/Classes.css" runat="server" />
 	  <link id="cssDatatable" rel="Stylesheet" type="text/css" media="all" href="/css/datatable.css" runat="server" />
+	  <link id="cssIDs" rel="Stylesheet" type="text/css" media="all" href="/css/ids.css" runat="server" />
 	  
 	  <link href="<%=Url.Content("~/css/codecampserver.css")%>" rel="stylesheet" type="text/css" />
 	  

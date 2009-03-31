@@ -215,3 +215,9 @@
 {
 	margin:0;
 }
+
+#datatable
+{
+    clear:both;    
+    width:98%;
+}
