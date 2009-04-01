@@ -6,7 +6,7 @@ namespace CodeCampServer.UI.Views
 	{
 		public static void Configure()
 		{
-			Mapper.Initalize(x => x.AddProfile<CodeCampServerProfile>());
+			Mapper.Initialize(x => x.AddProfile<CodeCampServerProfile>());
 		}
 	}
 }

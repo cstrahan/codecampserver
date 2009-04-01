@@ -1,4 +1,5 @@
 using CodeCampServer.Core.Services;
+using CodeCampServer.UI.Views;
 using NUnit.Framework;
 using Rhino.Mocks;
 using StructureMap;
@@ -10,6 +11,7 @@ namespace CodeCampServer.UnitTests
 		[TestFixtureSetUp]
 		public void Setup()
 		{
+            AutoMapperConfiguration.Configure();
 			ObjectFactory.Inject(typeof(IUserSession), S<IUserSession>());	
 		}
 

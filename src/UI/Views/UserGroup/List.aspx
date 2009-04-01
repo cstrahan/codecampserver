@@ -33,11 +33,12 @@ AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage
 		    <tbody>
 	            <% foreach (var userGroup in Model) { %>
 		        <tr>
-		            <td><a href="http://<%=userGroup.DomainName+":"+this.ViewContext.HttpContext.Request.Url.Port%>" title="View User Group " title="<%= userGroup.Name%> <%= userGroup.Key %>"> <%=Html.Encode( userGroup.Name)%></a></td>
+		            <td><a href="<%=Url.Action<UserGroupController>(c=>c.Index(null),new {UserGroup = userGroup.Key})%>" title="View User Group " title="<%= userGroup.Name%> <%= userGroup.Key %>"> <%=Html.Encode( userGroup.Name)%></a></td>
 		            <td><%=userGroup.City%> <%=userGroup.Region%> <%=userGroup.Country%></td>		            
             		<%if (User.Identity.IsAuthenticated){%>
 		            <td>
-			            <div class="fr"><%Html.RenderPartial("EditUserGroupLink",userGroup); %></div>
+		                <a href="http://<%=userGroup.DomainName+":"+this.ViewContext.HttpContext.Request.Url.Port%>" title="Goto UserGroup site" title="<%= userGroup.Name%> <%= userGroup.Key %>">Goto the website: <%=Html.Encode( userGroup.Name)%></a>
+			            <div class="fr"><%Html.RenderPartial("EditUserGroupLink",userGroup); %></div>			            
                     </td>
                     <%}%>
 		        </tr>

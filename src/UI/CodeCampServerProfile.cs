@@ -28,7 +28,7 @@ namespace CodeCampServer.UI
 			ForSourceType<decimal>().AddFormatter<MoneyFormatter>();
 			ForSourceType<decimal?>().AddFormatter<MoneyFormatter>();
 			ForSourceType<Guid>().SkipFormatter<SpanWrappingFormatter>();
-
+                    
 			CreateMaps();
 		}
 
@@ -54,7 +54,8 @@ namespace CodeCampServer.UI
 
 			Mapper.CreateMap<Proposal, ProposalForm>();
 
-            Mapper.CreateMap<UserGroup, UserGroupForm>();
+		    Mapper.CreateMap<UserGroup, UserGroupForm>();
+		        //.ForMember(a => a.Users, o => o.  MapFrom(a => a.GetUsers() ));
 		}
 	}
 }

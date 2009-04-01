@@ -1,4 +1,5 @@
 using System;
+using CodeCampServer.Core;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
@@ -27,6 +28,10 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
         public void Should_remove_a_user_from_its_collection()
         {
             UserGroup userGroup = CreateUserGroup();
+            using (ISession session = GetSession())
+            {
+                userGroup.GetUsers().ForEach(o=> session.SaveOrUpdate(o));
+            }
 
             IUserGroupRepository repository = new UserGroupRepository(new HybridSessionBuilder());
             repository.Save(userGroup);
@@ -49,6 +54,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
             using (ISession session = GetSession())
             {
+                userGroup.GetUsers().ForEach(o => session.SaveOrUpdate(o));
                 session.SaveOrUpdate(userGroup);
                 session.Flush();
             }   

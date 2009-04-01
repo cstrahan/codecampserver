@@ -1,11 +1,14 @@
 using System;
+using System.ComponentModel;
 using Castle.Components.Validator;
 using CodeCampServer.UI.Helpers.Attributes;
+using CodeCampServer.UI.Helpers.Binders;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 using CodeCampServer.UI.Models.Validation.Attributes;
 
 namespace CodeCampServer.UI.Models.Forms
 {
+    [TypeConverter(typeof(UserFormTypeConverter))]
 	public class UserForm : EditForm<UserForm>
 	{
 		[BetterValidateNonEmpty("Name")]

@@ -1,8 +1,10 @@
 using System;
+using AutoMapper;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Views;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -10,7 +12,7 @@ using Rhino.Mocks;
 namespace CodeCampServer.UnitTests.Core.Services.Updaters
 {
 	[TestFixture]
-	public class TrackMapperTester : FormMapperTester
+	public class TrackMapperTester : TestBase
 	{
 		[Test]
 		public void Should_map_new_track_from_form()
@@ -63,9 +65,9 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 		[Test]
 		public void Should_be_able_to_map_to_form()
-		{
-			var mapper = new TrackMapper(S<ITrackRepository>(), S<IConferenceRepository>());
-			TrackForm form = mapper.Map(new Track());
+        {
+            var mapper = new TrackMapper(S<ITrackRepository>(), S<IConferenceRepository>());
+			TrackForm form = mapper.Map(new Track(){Conference = new Conference(),Id = Guid.NewGuid(),Name = ""});
 			form.ShouldNotBeNull();
 		}
 

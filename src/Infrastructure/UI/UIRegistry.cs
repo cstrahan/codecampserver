@@ -24,6 +24,7 @@ namespace CodeCampServer.Infrastructure.UI
 				          		x.OfConcreteType<TrackInputBuilder>();
 				          		x.OfConcreteType<TimeSlotInputBuilder>();
 				          		x.OfConcreteType<SpeakerInputBuilder>();
+                                x.OfConcreteType<UserInputBuilder>();
 				          	});
 		}
 	}

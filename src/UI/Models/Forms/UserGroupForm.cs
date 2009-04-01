@@ -1,5 +1,6 @@
 using System;
-using Castle.Components.Validator;
+using System.Collections.Generic;
+using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 
 namespace CodeCampServer.UI.Models.Forms
@@ -25,5 +26,7 @@ namespace CodeCampServer.UI.Models.Forms
         public virtual string Country { get; set; }
 
         public virtual string GoogleAnalysticsCode { get; set; }
+        
+        public virtual IList<UserForm> Users{ get; set;}
     }
 }

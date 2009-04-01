@@ -91,6 +91,7 @@
     <Compile Include="Helpers\Mappers\UserGroupMapper.cs" />
     <Compile Include="Helpers\Validation\Attributes\ValidateKeyAttribute.cs" />
     <Compile Include="Helpers\ViewPage\InputBuilders\NoInputBuilder.cs" />
+    <Compile Include="Helpers\ViewPage\InputBuilders\UserInputBuilder.cs" />
     <Compile Include="Models\Forms\UserGroupForm.cs" />
     <Compile Include="Models\ProposalEditInfo.cs" />
     <Compile Include="Helpers\Binders\SmartBinder.cs" />

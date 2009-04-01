@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Models.Forms;
@@ -7,11 +10,14 @@ namespace CodeCampServer.UI.Helpers.Mappers
 {
 	public class UserGroupMapper : AutoFormMapper<UserGroup, UserGroupForm>, IUserGroupMapper
 	{
-		public UserGroupMapper(IUserGroupRepository repository) : base(repository)
+	    private readonly IUserRepository _userRepository;
+
+	    public UserGroupMapper(IUserGroupRepository repository, IUserRepository userRepository) : base(repository)
 		{
+		    _userRepository = userRepository;
 		}
 
-		protected override Guid GetIdFromMessage(UserGroupForm form)
+	    protected override Guid GetIdFromMessage(UserGroupForm form)
 		{
 			return form.Id;
 		}
@@ -27,6 +33,23 @@ namespace CodeCampServer.UI.Helpers.Mappers
 		    model.Region = form.Region;
 		    model.Country = form.Country;
 		    model.GoogleAnalysticsCode = form.GoogleAnalysticsCode;
+		    var existingUsers = model.GetUsers();
+		    
+            IEnumerable<User> usersToRemove = existingUsers.Where(user => !form.Users.Any(uf => uf.Id==user.Id) );
+		    
+            foreach (var user in usersToRemove)
+		    {
+                model.Remove(user);    
+		    }
+
+		    IEnumerable<UserForm> userFormToAdd = form.Users.Where(userForm => !existingUsers.Any(user => user.Id == userForm.Id));
+		    var users = _userRepository.GetAll();
+
+            foreach (var userForm in userFormToAdd)
+		    {
+		        User user = users.FirstOrDefault(user1 => user1.Id == userForm.Id);
+		        model.Add(user);
+		    }
 		}
 	}
 }

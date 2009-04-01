@@ -10,11 +10,20 @@ Inherits="System.Web.Mvc.ViewPage<UserGroupForm>"%>
 	 <div>
 		    <h1><%=Model.Name%> <%Html.RenderPartial("EditUserGroupLink", Model); %></h1>		    
 		    <div>  
-	            <div>Key: <%=Model.Key%></div>
-	            <div>Id: <%=Model.Id%></div>
 	            <div>Name: <%=Model.Name%></div>
+	            <div>Key: <%=Model.Key%></div>
+	            <div>DomainName: <%=Model.DomainName%></div>
+	            <div>Id: <%=Model.City%></div>
+	            <div>Id: <%=Model.Region%></div>
+	            <div>Name: <%=Model.Country%></div>
 			</div>
-			<%Html.RenderPartial("ConferenceList", ViewData.Get<ConferenceForm[]>()); %>
+			<div class="mt15">
+			    <h4>Administrators</h4>
+			    <ul>
+			    <%foreach (UserForm user in Model.Users){%>                                  
+			    <li><%=user.Name%></li><%} %>
+			    </ul>
+			</div>
        </div>
 </asp:Content>
 

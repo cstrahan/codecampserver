@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 
 namespace CodeCampServer.UI.Models.CustomResolvers
@@ -10,5 +11,10 @@ namespace CodeCampServer.UI.Models.CustomResolvers
 		}
 
 		protected abstract TReturn ResolveCore(T model);
+	    
+        public ResolutionResult Resolve(ResolutionResult source)
+	    {
+            return new ResolutionResult(ResolveCore((T) source.Value));
+	    }
 	}
 }
