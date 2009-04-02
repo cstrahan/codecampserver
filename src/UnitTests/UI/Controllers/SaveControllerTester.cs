@@ -24,7 +24,9 @@ namespace CodeCampServer.UnitTests.UI.Controllers
         }
 
 	    private void SetSecurityReturn(ISecurityContext context, bool allowPermision) {
-	        context.Stub(securityContext => securityContext.HasPermissionsFor(new Conference())).IgnoreArguments().
+            context.Stub(securityContext => securityContext.HasPermissionsFor(new Session())).IgnoreArguments().
+                Return(allowPermision).Repeat.Any();
+            context.Stub(securityContext => securityContext.HasPermissionsFor(new Conference())).IgnoreArguments().
 	            Return(allowPermision).Repeat.Any();
 	        context.Stub(securityContext => securityContext.HasPermissionsFor(new Speaker())).IgnoreArguments().
 	            Return(allowPermision).Repeat.Any();

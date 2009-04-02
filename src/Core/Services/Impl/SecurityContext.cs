@@ -43,6 +43,11 @@ namespace CodeCampServer.Core.Services.Impl
             return false;            
         }
 
+        public bool HasPermissionsFor(Session session)
+        {
+            return HasPermissionsFor(session.Conference);
+        }
+
 
         public bool HasPermissionsFor(Speaker speaker)
         {
