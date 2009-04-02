@@ -11,14 +11,19 @@ namespace CodeCampServer.UI.Helpers.Filters
 {
     public class RequireAdminAuthorizationFilterAttribute:RequireAuthenticationFilterAttribute
     {
-        public RequireAdminAuthorizationFilterAttribute(IUserSession session) : base(session) {}
+        private readonly ISecurityContext _securityContext;
 
-        public RequireAdminAuthorizationFilterAttribute() {}
+        public RequireAdminAuthorizationFilterAttribute(IUserSession session,ISecurityContext securityContext) : base(session)
+        {
+            _securityContext = securityContext;
+        }
+
+        public RequireAdminAuthorizationFilterAttribute() : this(DependencyRegistrar.Resolve<IUserSession>(),DependencyRegistrar.Resolve<ISecurityContext>()) { }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             User user = _session.GetCurrentUser();
-            if (user == null || !user.IsAdmin() )
+            if (user == null || !_securityContext.IsAdmin() )
             {
                 RedirectToLogin(filterContext.HttpContext);
             }
@@ -49,7 +54,7 @@ namespace CodeCampServer.UI.Helpers.Filters
 		}
 
 		public virtual void RedirectToLogin(HttpContextBase httpContext) {
-			//use the current url for the redirect
+            //use the current url for the redirect
 			string redirectOnSuccess = httpContext.Request.Url.AbsolutePath;
 
 			//send them off to the login page

@@ -2,7 +2,9 @@ using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Services;
 using CodeCampServer.Infrastructure.UI.Services.Impl;
+using CodeCampServer.UI;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
@@ -16,6 +18,16 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 {
 	public class SpeakerControllerTester : SaveControllerTester
 	{
+	    [Test]
+	    public void Should_only_allow_admins_to_edit()
+	    {
+            var controller = new SpeakerController(S<ISpeakerRepository>(), null, null,S<ISecurityContext>());
+
+            ActionResult edit = controller.Edit(new Speaker(), null);
+
+            edit.AssertViewRendered().ForView(ViewPages.NotAuthorized);
+	    }
+
 		[Test]
 		public void Index_should_put_speakers_in_viewdata()
 		{
@@ -27,7 +39,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var mapper = S<ISpeakerMapper>();
 			mapper.Stub(m => m.Map(speakers)).Return(speakerForms);
 
-			var controller = new SpeakerController(repository, mapper, null);
+			var controller = new SpeakerController(repository, mapper, null, null);
 
 			var result = controller.List(conference);
 
@@ -43,7 +55,9 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var mapper = S<ISpeakerMapper>();
 			var speakerForm = new SpeakerForm();
 			mapper.Stub(m => m.Map(speaker)).Return(speakerForm);
-			var controller = new SpeakerController(S<ISpeakerRepository>(), mapper, null);
+		    var context = S<ISecurityContext>();
+		    context.Stub(securityContext => securityContext.HasPermissionsFor(speaker)).Return(true);
+		    var controller = new SpeakerController(S<ISpeakerRepository>(), mapper, null, context);
 
 			ActionResult edit = controller.Edit(speaker,null);
 
@@ -63,7 +77,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var repository = S<ISpeakerRepository>();
 
-			var controller = new SpeakerController(repository, mapper, null);
+			var controller = new SpeakerController(repository, mapper, null, null);
 		    Conference conference=new Conference();
 
 		    var result = (RedirectToRouteResult) controller.Save(form,conference);
@@ -85,7 +99,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<ISpeakerRepository>();
 			repository.Stub(r => r.GetByKey("foo")).Return(new Speaker());
 
-			var controller = new SpeakerController(repository, mapper, null);
+			var controller = new SpeakerController(repository, mapper, null, null);
 			var result = (ViewResult) controller.Save(form,null);
 
 			result.AssertViewRendered().ViewName.ShouldEqual("Edit");
@@ -96,13 +110,28 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void New_should_put_a_new_speaker_form_on_model_and_render_edit_view()
 		{
-			var controller = new SpeakerController(S<ISpeakerRepository>(), S<ISpeakerMapper>(), null);
+			var controller = new SpeakerController(S<ISpeakerRepository>(), S<ISpeakerMapper>(), null, null);
 			ActionResult result = controller.New();
 
 			result.AssertViewRendered()
 				.ForView("Edit")
 				.ViewData.Model.ShouldBeAssignableFrom(typeof (SpeakerForm));
 		}
+
+	    [Test]
+	    public void Delete_should_prevent_non_admins_from_deleting()
+	    {
+            var speaker = new Speaker();
+            var repository = S<ISpeakerRepository>();
+            var sessionsRepository = S<ISessionRepository>();
+            sessionsRepository.Stub(r => r.GetAllForSpeaker(null)).IgnoreArguments().Return(new[] { new Session() });
+
+            var controller = new SpeakerController(repository, S<ISpeakerMapper>(), sessionsRepository, RestrictiveSecurityContext());
+
+            ActionResult result = controller.Delete(speaker, null);
+            
+            result.AssertViewRendered().ForView(ViewPages.NotAuthorized);
+	    }
 
 		[Test]
 		public void Delete_should_delete_a_speaker_and_render_index()
@@ -111,7 +140,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<ISpeakerRepository>();
 			var sessionsRepository = S<ISessionRepository>();
 			sessionsRepository.Stub(r => r.GetAllForSpeaker(null)).IgnoreArguments().Return(new Session[0]);
-			var controller = new SpeakerController(repository, S<ISpeakerMapper>(), sessionsRepository);
+			var controller = new SpeakerController(repository, S<ISpeakerMapper>(), sessionsRepository, PermisiveSecurityContext());
 
 			ActionResult result = controller.Delete(speaker,null);
 
@@ -131,7 +160,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var sessionsRepository = S<ISessionRepository>();
 			sessionsRepository.Stub(r => r.GetAllForSpeaker(null)).IgnoreArguments().Return(new[] { new Session() });
 
-			var controller = new SpeakerController(repository, S<ISpeakerMapper>(), sessionsRepository);
+			var controller = new SpeakerController(repository, S<ISpeakerMapper>(), sessionsRepository, PermisiveSecurityContext());
 
 			ActionResult result = controller.Delete(speaker,null);
 

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
@@ -14,12 +15,15 @@ namespace CodeCampServer.UI.Controllers
 		private readonly ISpeakerRepository _repository;
 		private readonly ISpeakerMapper _mapper;
 		private readonly ISessionRepository _sessionsRepository;
+	    private readonly ISecurityContext _securityContext;
+        
 
-		public SpeakerController(ISpeakerRepository repository, ISpeakerMapper mapper, ISessionRepository sessionsRepository) : base(repository, mapper)
+	    public SpeakerController(ISpeakerRepository repository, ISpeakerMapper mapper, ISessionRepository sessionsRepository, ISecurityContext securityContext) : base(repository, mapper)
 		{
 			_repository = repository;
 			_mapper = mapper;
 			_sessionsRepository = sessionsRepository;
+		    _securityContext = securityContext;
 		}
 
 		
@@ -42,7 +46,12 @@ namespace CodeCampServer.UI.Controllers
 				TempData.Add("message", "Speaker has been deleted.");
 				return RedirectToAction<SpeakerController>(c => c.List(conference));
 			}
-			return View(_mapper.Map(speaker));
+            if(_securityContext.HasPermissionsFor(speaker))
+            {
+                return View(_mapper.Map(speaker));
+            }
+
+            return NotAuthorizedView;            
 		}
 
 		[RequireAuthenticationFilter]
@@ -77,15 +86,20 @@ namespace CodeCampServer.UI.Controllers
 		[RequireAuthenticationFilter]
 		public ActionResult Delete(Speaker speaker,Conference conference)
 		{
-			if(_sessionsRepository.GetAllForSpeaker(speaker).Length==0)
-			{
-				_repository.Delete(speaker);
-			}
-			else
-			{
-				TempData.Add("message", "Speaker cannot be deleted.");
-			}
-			return RedirectToAction<SpeakerController>(c => c.List(conference));
+            if(!_securityContext.HasPermissionsFor(speaker))
+            {
+                return NotAuthorizedView;
+            }
+
+		    if(_sessionsRepository.GetAllForSpeaker(speaker).Length==0)
+		    {
+			    _repository.Delete(speaker);
+		    }
+		    else
+		    {
+			    TempData.Add("message", "Speaker cannot be deleted.");
+		    }
+            return RedirectToAction<SpeakerController>(c => c.List(conference));
 		}
 
 	

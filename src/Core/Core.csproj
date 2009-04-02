@@ -101,8 +101,10 @@
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Services\Impl\ProposalCoordinator.cs" />
+    <Compile Include="Services\Impl\SecurityContext.cs" />
     <Compile Include="Services\Impl\StateCommandFactory.cs" />
     <Compile Include="Services\IProposalCoordinator.cs" />
+    <Compile Include="Services\ISecurityContext.cs" />
     <Compile Include="Services\IStateCommandFactory.cs" />
     <Compile Include="Services\IUserSession.cs" />
     <Compile Include="SystemTime.cs" />

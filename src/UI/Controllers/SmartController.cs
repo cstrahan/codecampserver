@@ -12,6 +12,13 @@ namespace CodeCampServer.UI.Controllers
 {
 	public abstract class SmartController : Controller
 	{
+	    protected ViewResult NotAuthorizedView
+	    {
+	        get
+	        {
+	            return View(ViewPages.NotAuthorized);
+	        }
+	    }
 		protected override void OnActionExecuted(ActionExecutedContext filterContext)
 		{
             if (!ViewData.Contains<PageInfo>())
@@ -27,6 +34,7 @@ namespace CodeCampServer.UI.Controllers
             }
 		}
 
+        
 		protected override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
 			//temporarily putting it here.

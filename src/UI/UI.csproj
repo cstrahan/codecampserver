@@ -105,6 +105,7 @@
     <Compile Include="Services\UrlService.cs" />
     <Compile Include="DomainnameRouteHandler.cs" />
     <Compile Include="ViewNames.cs" />
+    <Compile Include="ViewPages.cs" />
     <Compile Include="Views\AutoMapperConfiguration.cs" />
     <Compile Include="Services\ConferenceKeyControllerNameContraint.cs" />
     <Compile Include="CodeCampServerProfile.cs" />
@@ -305,6 +306,7 @@
     <Content Include="Views\Session\List.aspx" />
     <Content Include="Views\Session\Edit.aspx" />
     <Content Include="Views\Shared\ConferenceList.ascx" />
+    <Content Include="Views\Shared\NotAuthorized.ascx" />
     <Content Include="Views\Shared\EditConferenceLink.ascx" />
     <Content Include="Views\Shared\HomeMenu.ascx" />
     <Content Include="Views\Shared\EditUserGroupLink.ascx" />

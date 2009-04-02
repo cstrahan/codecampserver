@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models;
@@ -16,11 +17,15 @@ namespace CodeCampServer.UI.Controllers
 	{
 		private readonly IConferenceRepository _repository;
 		private readonly IConferenceMapper _mapper;
+	    private readonly ISecurityContext _securityContext;
+	    private readonly IUserGroupRepository _userGroupRepository;
 
-		public ConferenceController(IConferenceRepository repository, IConferenceMapper mapper) : base(repository, mapper)
+	    public ConferenceController(IConferenceRepository repository, IConferenceMapper mapper,ISecurityContext securityContext,IUserGroupRepository userGroupRepository) : base(repository, mapper)
 		{
 			_repository = repository;
 			_mapper = mapper;
+		    _securityContext = securityContext;
+	        _userGroupRepository = userGroupRepository;
 		}
 
 		[RequiresConferenceFilter]
@@ -54,8 +59,11 @@ namespace CodeCampServer.UI.Controllers
 				return RedirectToAction<ConferenceController>(c => c.List(conference.UserGroup));
 			}
 
-
-			return View(_mapper.Map(conference));
+            if(_securityContext.HasPermissionsFor(conference))
+            {
+                return View(_mapper.Map(conference));
+            }
+		    return View(ViewPages.NotAuthorized);
 		}
 
 		[RequireAuthenticationFilter()]
@@ -63,7 +71,11 @@ namespace CodeCampServer.UI.Controllers
 		[ValidateModel(typeof (ConferenceForm))]
 		public ActionResult Save([Bind(Prefix = "")] ConferenceForm form)
 		{
-			return ProcessSave(form, conference => RedirectToAction<ConferenceController>(c => c.List(conference.UserGroup)));
+            if (_securityContext.HasPermissionsForUserGroup(form.UserGroupId))
+            {
+                return ProcessSave(form, conference => RedirectToAction<ConferenceController>(c => c.List(conference.UserGroup)));
+            }
+		    return View(ViewPages.NotAuthorized);
 		}
 
 		protected override IDictionary<string, string[]> GetFormValidationErrors(ConferenceForm form)

@@ -131,6 +131,7 @@
     <Compile Include="Core\Services\AuthenticationServiceTester.cs" />
     <Compile Include="Core\Services\CryptographerTester.cs" />
     <Compile Include="Core\Services\ProposalCoordinatorTester.cs" />
+    <Compile Include="Core\Services\SecurityContextTester.cs" />
     <Compile Include="Core\Services\StateCommandFactoryTester.cs" />
     <Compile Include="Core\Services\SystemTimeTester.cs" />
     <Compile Include="Core\Services\Updaters\AttendeeMapperTester.cs" />
