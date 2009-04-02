@@ -47,6 +47,29 @@ namespace CodeCampServer.UnitTests.Core.Services
         }
 
         [Test]
+        public void The_security_context_should_allow_admins_to_create_new_users_groups()
+        {
+            var session = S<IUserSession>();
+            var user = new User();
+            session.Stub(userSession => userSession.GetCurrentUser()).Return(user);
+            
+
+            var userGroupRepo = S<IUserGroupRepository>();
+            var userGroup = new UserGroup();
+            userGroup.Add(user);
+
+            userGroupRepo.Stub(repository => repository.GetDefaultUserGroup()).Return(userGroup);
+
+            ISecurityContext context = new SecurityContext(session, userGroupRepo);
+
+
+            bool hasPermission = context.HasPermissionsFor(null as UserGroup);
+            
+            hasPermission.ShouldBeTrue();
+        }
+
+
+        [Test]
         public void The_security_context_should_allow_a_system_admin_to_access_a_group()
         {
             var session = S<IUserSession>();

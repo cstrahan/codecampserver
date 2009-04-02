@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CodeCampServer.Core.Domain.Model
@@ -28,6 +29,11 @@ namespace CodeCampServer.Core.Domain.Model
         public virtual User[] GetUsers()
         {
             return _users.ToArray();
+        }
+
+        public virtual bool IsDefault()
+        {
+            return Key.Equals("localhost", StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

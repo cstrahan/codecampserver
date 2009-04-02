@@ -19,7 +19,8 @@ namespace CodeCampServer.Core.Services.Impl
         public virtual bool HasPermissionsFor(UserGroup usergroup)
         {
             User user = _session.GetCurrentUser();
-            if (usergroup.GetUsers().Any(user1 => user1.Username == user.Username))
+
+            if (usergroup!=null && usergroup.GetUsers().Any(user1 => user1.Username == user.Username))
             {
                 return true;
             }

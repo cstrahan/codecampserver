@@ -47,7 +47,7 @@ namespace CodeCampServer.UI.Controllers
 			return View(entityListDto);
 		}
 		
-        //[RequireAdminAuthorizationFilter]
+        [RequireAuthenticationFilter]
 		public ActionResult Edit(Guid Id)
 		{
 

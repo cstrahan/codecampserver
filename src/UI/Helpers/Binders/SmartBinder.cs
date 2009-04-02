@@ -19,12 +19,12 @@ namespace CodeCampServer.UI.Helpers.Binders
             else
                 return base.CanConvertFrom(context, sourceType);
         }
+
         public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
         {
             var returnValue =new UserForm();
             returnValue.Id = new Guid(value.ToString());
             return returnValue;
-            //return base.ConvertFrom(context, culture, value);
         }
         
     }

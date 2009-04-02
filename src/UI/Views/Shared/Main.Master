@@ -1,19 +1,18 @@
 <%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%
+    PageInfo pageInfo = ViewData.Get<PageInfo>();
+%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-	  <title>Code Camp Server 1.0</title>
-
-	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	  
+	  <title><%=pageInfo.Title%> - Code Camp Server 1.0</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	  
 	  <link id="cssBaseline" rel="Stylesheet" type="text/css" media="all" href="/css/Baseline.css" runat="server" />
 	  <link id="cssGenericClasses" rel="Stylesheet" type="text/css" media="all" href="/css/GenericClasses.css" runat="server" />
 	  <link id="cssRedefinitions" rel="Stylesheet" type="text/css" media="all" href="/css/Redefinitions.css" runat="server" />
 	  <link id="cssClasses" rel="Stylesheet" type="text/css" media="all" href="/css/Classes.css" runat="server" />
 	  <link id="cssDatatable" rel="Stylesheet" type="text/css" media="all" href="/css/datatable.css" runat="server" />
-	  <link id="cssIDs" rel="Stylesheet" type="text/css" media="all" href="/css/ids.css" runat="server" />
-	  
+	  <link id="cssIDs" rel="Stylesheet" type="text/css" media="all" href="/css/ids.css" runat="server" />	  
 	  <link href="<%=Url.Content("~/css/codecampserver.css")%>" rel="stylesheet" type="text/css" />
 	  
 	  <script type="text/javascript" src="/scripts/jquery-1.2.6.min.js"></script>
@@ -32,11 +31,15 @@
 		$('.date-pick').datePicker({ startDate: '01/01/2009' });
      });
      </script>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
 	  <asp:ContentPlaceHolder ID="Stylesheets" runat="server"></asp:ContentPlaceHolder>	  
 	</head>
 	<body>
 		<div id="header">
-			<h1><a href="/"><%=ViewData.Get<PageInfo>().Title%></a></h1>
+			<h1><a href="/"><%=pageInfo.Title%></a></h1>
 			<h2>
 				<asp:LoginView ID="LoginView3" runat="server">
 				<LoggedInTemplate>
@@ -69,5 +72,21 @@
 			</asp:ContentPlaceHolder>
 		</div>
 		<div style="clear: both;">&nbsp;</div>
-  </body>
+        <!-- CodeCampServer.com tracking-->
+        <script type="text/javascript">
+        try {
+            var ccsPageTracker = _gat._getTracker("<%=pageInfo.MasterTrackingCode%>");
+            ccsPageTracker._setDomainName("none");
+            ccsPageTracker._setAllowLinker(true);
+            ccsPageTracker._trackPageview();
+        } catch (err) { }</script>  
+        <%if (pageInfo.TrackingCodeExists)
+          {
+%>          <script type="text/javascript">
+            try {
+                var usergroupPageTracker = _gat._getTracker("<%=pageInfo.TrackingCode%>");
+                usergroupPageTracker._trackPageview();
+            } catch (err) { }</script>
+<%         }
+%>    </body>
 </html>

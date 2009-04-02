@@ -23,15 +23,21 @@ namespace CodeCampServer.UI.Controllers
 		{
             if (!ViewData.Contains<PageInfo>())
             {
+                var pageInfo = new PageInfo {Title = "Code Camp Server v1.0"};
+                ViewData.Add(pageInfo);
+
                 if (ViewData.Contains<Conference>())
                 {
-                    ViewData.Add(new PageInfo {Title = ViewData.Get<Conference>().Name});
-                }
-                else
-                {
-                    ViewData.Add(new PageInfo {Title = "Code Camp Server v1.0"});
+                    pageInfo.Title = ViewData.Get<Conference>().Name;
                 }
             }
+            if (ViewData.Contains<UserGroup>())
+            {
+                var usergroup = ViewData.Get<UserGroup>();
+                if (!usergroup.IsDefault())
+                    ViewData.Get<PageInfo>().TrackingCode = usergroup.GoogleAnalysticsCode;
+            }
+
 		}
 
         
@@ -46,7 +52,10 @@ namespace CodeCampServer.UI.Controllers
 
 			var version = new AssemblyVersionFilterAttribute();
 			version.OnActionExecuting(filterContext);
-		}
+        
+            var usergroup = new AddUserGroupToViewDataActionFilterAttribute();
+            usergroup.OnActionExecuting(filterContext);
+        }
 
 		public RedirectToRouteResult RedirectToAction<TController>(Expression<Func<TController, object>> actionExpression)
 		{

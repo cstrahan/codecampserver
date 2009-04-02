@@ -87,6 +87,7 @@
     <Compile Include="Controllers\UserGroupController.cs" />
     <Compile Include="Helpers\Attributes\NoInputAttribute.cs" />
     <Compile Include="Helpers\Binders\UserGroupModelBinder.cs" />
+    <Compile Include="Helpers\Filters\AddUserGroupToViewDataActionFilterAttribute.cs" />
     <Compile Include="Helpers\Mappers\IUserGroupMapper.cs" />
     <Compile Include="Helpers\Mappers\UserGroupMapper.cs" />
     <Compile Include="Helpers\Validation\Attributes\ValidateKeyAttribute.cs" />
