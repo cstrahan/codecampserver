@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Infrastructure.UI.Services.Impl;
+using CodeCampServer.UI;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
@@ -15,7 +16,18 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 {
 	public class TimeSlotControllerTester : SaveControllerTester
 	{
-		[Test]
+        [Test]
+        public void Delete_should_prevent_a_non_admin_from_deletint_a_TimeSlot()
+        {
+            var conference = new Conference { Key = "foo" };
+            var timeslot = new TimeSlot { Conference = conference };
+
+            var controller = new TimeSlotController(null,null, null,RestrictiveSecurityContext());
+
+            controller.Delete(timeslot).ShouldBeNotAuthorized();            
+        }
+
+        [Test]
 		public void Delete_should_delete_a_TimeSlot_and_render_index()
 		{
 			var conference = new Conference {Key = "foo"};
@@ -24,7 +36,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var sessionsRepository = S<ISessionRepository>();
 			sessionsRepository.Stub(r => r.GetAllForTimeSlot(null)).IgnoreArguments().Return(new Session[0]);
 
-			var controller = new TimeSlotController(repository, S<ITimeSlotMapper>(), sessionsRepository);
+			var controller = new TimeSlotController(repository, S<ITimeSlotMapper>(), sessionsRepository, PermisiveSecurityContext());
 
 			ActionResult result = controller.Delete(timeslot);
 
@@ -43,7 +55,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var sessionsRepository = S<ISessionRepository>();
 			sessionsRepository.Stub(r => r.GetAllForTimeSlot(null)).IgnoreArguments().Return(new[] {new Session()});
 
-			var controller = new TimeSlotController(repository, S<ITimeSlotMapper>(), sessionsRepository);
+			var controller = new TimeSlotController(repository, S<ITimeSlotMapper>(), sessionsRepository, PermisiveSecurityContext());
 
 			ActionResult result = controller.Delete(timeslot);
 
@@ -56,6 +68,14 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			controller.TempData.ContainsValue("Time slot cannot be deleted.").ShouldBeTrue();
 		}
 
+        [Test]
+        public void Save_should_prevent_a_non_adming_from_saving_a_Timeslot()
+        {
+            var controller = new TimeSlotController(null, null, null, RestrictiveSecurityContext());
+
+            controller.Save(new TimeSlotForm(), new Conference(), null).ShouldBeNotAuthorized();
+        }
+
 		[Test]
 		public void Should_save_the_timeslot()
 		{
@@ -67,7 +87,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var repository = S<ITimeSlotRepository>();
 
-			var controller = new TimeSlotController(repository, mapper, null);
+			var controller = new TimeSlotController(repository, mapper, null, PermisiveSecurityContext());
 			var conference = new Conference();
 			var result = (RedirectToRouteResult) controller.Save(form, conference,null);
 
@@ -75,15 +95,24 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			result.AssertActionRedirect().ToAction<TimeSlotController>(a => a.Index(conference));
 		}
 
+        [Test]
+        public void Edit_should_prevent_a_non_adming_from_editing_a_timeslot()
+        {
+            var controller = new TimeSlotController(null, null, null, RestrictiveSecurityContext());
+
+            controller.Edit(new TimeSlot()).ShouldBeNotAuthorized();
+        }
+
 		[Test]
 		public void When_a_timeslot_does_not_exist_Edit_should_redirect_to_the_index_with_a_message()
 		{
-			var controller = new TimeSlotController(null, null, null);
+			var controller = new TimeSlotController(null, null, null, PermisiveSecurityContext());
 
 			ActionResult result = controller.Edit(null);
 			result.AssertActionRedirect().ToAction<TimeSlotController>(e => e.Index(new Conference()));
 			controller.TempData["Message"].ShouldEqual("Time slot has been deleted.");
 		}
+
 
 		[Test]
 		public void When_a_timeslot_exists_Index_action_should_bind_the_tracks_for_a_conference()
@@ -96,7 +125,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var mapper = S<ITimeSlotMapper>();
 			mapper.Stub(m => m.Map(timeSlots)).Return(new[] {new TimeSlotForm()});
-			var controller = new TimeSlotController(repository, mapper, null);
+			var controller = new TimeSlotController(repository, mapper, null, PermisiveSecurityContext());
 
 			ActionResult result = controller.Index(conference);
 
@@ -108,7 +137,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void When_New_is_called_the_edit_view_should_be_rendered_with_the_time_slot()
 		{
-			var controller = new TimeSlotController(null, null, null);
+			var controller = new TimeSlotController(null, null, null, PermisiveSecurityContext());
 
 			var conference = new Conference {Id = Guid.NewGuid(), Key = "foo"};
 
@@ -119,5 +148,16 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			form.ConferenceKey.ShouldEqual("foo");
 			form.ConferenceId.ShouldEqual(conference.Id);
 		}
-	}
+
+        [Test]
+        public void New_should_prevent_a_non_admin_from_creating_a_timeslot()
+        {
+            //Arange
+            new TimeSlotController(null, null, null, RestrictiveSecurityContext())
+            //Act
+            .New(new Conference())
+            //Assert
+            .ShouldBeNotAuthorized();
+        }
+    }
 }

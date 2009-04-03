@@ -1,6 +1,9 @@
 using System;
+using System.Web.Mvc;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
+using CodeCampServer.UI;
+using MvcContrib.TestHelper;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -37,4 +40,13 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 	        context.Stub(securityContext => securityContext.IsAdmin()).Return(allowPermision).Repeat.Any();
 	    }
 	}
+
+    public static class ActionResultSecutiryExtension
+    {
+        public static void ShouldBeNotAuthorized(this ActionResult result )
+        {
+            result.AssertViewRendered().ForView(ViewPages.NotAuthorized);
+        }
+
+    }
 }
