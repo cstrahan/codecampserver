@@ -4,6 +4,7 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI;
 using MvcContrib.TestHelper;
+using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -46,6 +47,10 @@ namespace CodeCampServer.UnitTests.UI.Controllers
         public static void ShouldBeNotAuthorized(this ActionResult result )
         {
             result.AssertViewRendered().ForView(ViewPages.NotAuthorized);
+        }
+        public static void ModelShouldBe<Type>(this ViewResult result)
+        {
+            result.ViewData.Model.ShouldBeInstanceOfType(typeof (Type));
         }
 
     }

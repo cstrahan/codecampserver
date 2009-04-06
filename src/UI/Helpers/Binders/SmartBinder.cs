@@ -22,7 +22,7 @@ namespace CodeCampServer.UI.Helpers.Binders
 
         public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
         {
-            var returnValue =new UserForm();
+            var returnValue =new UserSelector();
             returnValue.Id = new Guid(value.ToString());
             return returnValue;
         }

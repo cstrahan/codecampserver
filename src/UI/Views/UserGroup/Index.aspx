@@ -20,7 +20,7 @@ Inherits="System.Web.Mvc.ViewPage<UserGroupForm>"%>
 			<div class="mt15">
 			    <h4>Administrators</h4>
 			    <ul>
-			    <%foreach (UserForm user in Model.Users){%>                                  
+			    <%foreach (var user in Model.Users){%>                                  
 			    <li><%=user.Name%></li><%} %>
 			    </ul>
 			</div>

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
@@ -30,5 +31,15 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			                                                    model.PasswordSalt);
 			model.Username = form.Username;
 		}
+
+	    public UserForm[] Map(User[] model)
+	    {
+	        return model.Select(user => Map(user)).ToArray();
+	    }
+
+	    public User[] Map(UserForm[] message)
+	    {
+	        return message.Select(form => Map(form)).ToArray();
+	    }
 	}
 }

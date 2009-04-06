@@ -163,6 +163,7 @@
     <Compile Include="UI\Controllers\RedirectToRouteExtensions.cs" />
     <Compile Include="UI\Controllers\SaveControllerTester.cs" />
     <Compile Include="UI\Controllers\TrackControllerTester.cs" />
+    <Compile Include="UI\Controllers\UserControllerTester.cs" />
     <Compile Include="UI\Controllers\UserGroupControllerTester.cs" />
     <Compile Include="UI\Helpers\Filters\AutoMappedFilterAttributeTester.cs" />
     <Compile Include="UI\Helpers\Filters\FilterAttributeTester.cs" />

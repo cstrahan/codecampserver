@@ -32,7 +32,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
             var items = new List<SelectListItem>();
             foreach (User user in _repository.GetAll())
             {
-                IEnumerable<UserForm> value = GetValue() as IEnumerable<UserForm>;
+                IEnumerable<UserSelector> value = GetValue() as IEnumerable<UserSelector>;
                 bool isChecked = value != null && (value).Where(form => form.Id == user.Id).Count() > 0;
                 items.Add(new SelectListItem(){Selected = isChecked,Text = user.Name,Value = user.Id.ToString()});
                 //string checkboxName = InputSpecification.InputName + "[" + user.Id + "]";

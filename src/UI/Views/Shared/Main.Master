@@ -47,7 +47,8 @@
 					(<a href="<%=Url.Action<LoginController>(c=>c.LogOut()) %>">Log out</a>)
 				</LoggedInTemplate>
 				<AnonymousTemplate>
-					<%=Html.ActionLink<LoginController>("Log in", c=>c.Index()) %>
+					<%=Html.ActionLink<LoginController>("Log in", c=>c.Index()) %> |
+                    <%=Html.ActionLink<UserController>("Register", c=>c.New()) %>
 				</AnonymousTemplate>
 			</asp:LoginView>
 			</h2>

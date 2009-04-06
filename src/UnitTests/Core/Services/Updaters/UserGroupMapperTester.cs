@@ -25,7 +25,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
             form.City = "austin";
             form.Country = "USA";
             Guid newGuid = Guid.NewGuid();
-            form.Users = new[] {new UserForm {Id = newGuid},};
+            form.Users = new[] {new UserSelector() {Id = newGuid},};
             var userRepository = S<IUserRepository>();
             userRepository.Stub(repository => repository.GetAll()).Return(new[] {new User(){Id=newGuid}, new User()});
             var userGroupRepository = M<IUserGroupRepository>();
@@ -58,7 +58,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
             form.HomepageHTML = "<h1>hello world</h1>";
             form.City = "austin";
             form.Country = "USA";
-            form.Users = new[] {new UserForm {}};
+            form.Users = new[] {new UserSelector() {}};
             
             
             var userGroup = new UserGroup();
@@ -67,7 +67,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
             repository.Stub(x => x.GetById(form.Id)).Return(userGroup);
             
             Guid newGuid = Guid.NewGuid();
-            form.Users = new[] { new UserForm { Id = newGuid }, };
+            form.Users = new[] { new UserSelector() { Id = newGuid }, };
             var userRepository = S<IUserRepository>();
             userRepository.Stub(r => r.GetAll()).Return(new[] { new User() { Id = newGuid }, new User() });
             

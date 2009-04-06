@@ -38,7 +38,9 @@ namespace CodeCampServer.UI
 				.ForMember(u => u.Password, o => o.Ignore())
 				.ForMember(f => f.ConfirmPassword, o => o.Ignore());
 
-			Mapper.CreateMap<Conference, ConferenceForm>()
+		    Mapper.CreateMap<User, UserSelector>();
+
+            Mapper.CreateMap<Conference, ConferenceForm>()
 				.ForMember(x => x.StartDate, o => o.AddFormatter<StandardDateFormatter>())
 				.ForMember(x => x.EndDate, o => o.AddFormatter<StandardDateFormatter>());
 

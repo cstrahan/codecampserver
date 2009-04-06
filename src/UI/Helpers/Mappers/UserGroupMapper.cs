@@ -42,7 +42,7 @@ namespace CodeCampServer.UI.Helpers.Mappers
                 model.Remove(user);    
 		    }
 
-		    IEnumerable<UserForm> userFormToAdd = form.Users.Where(userForm => !existingUsers.Any(user => user.Id == userForm.Id));
+		    IEnumerable<UserSelector> userFormToAdd = form.Users.Where(userForm => !existingUsers.Any(user => user.Id == userForm.Id));
 		    var users = _userRepository.GetAll();
 
             foreach (var userForm in userFormToAdd)

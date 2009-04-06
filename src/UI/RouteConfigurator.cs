@@ -33,7 +33,7 @@ namespace CodeCampServer.UI
                                      {
                                          conferenceKey = new ConferenceKeyCannotBeAControllerNameContraint(),
                                          controller =
-                                     "schedule|session|timeslot|track|attendee|conference|speaker|admin|proposal"
+                                     "schedule|session|timeslot|track|attendee|conference|speaker|admin|proposal|user"
                                      })
                 .AddWithName("conferenceDefault", routes)
                 .RouteHandler = new DomainNameRouteHandler();
@@ -42,7 +42,7 @@ namespace CodeCampServer.UI
                 .WithDefaults(new {controller = "home", action = "index"})
                 .WithConstraints(new
                                      {
-                                         controller = "(admin|login|home|conference|usergroup)"
+                                         controller = "(admin|login|home|conference|usergroup|user)"
                                      })
                 .AddWithName("default", routes)
                 .RouteHandler = new DomainNameRouteHandler();
