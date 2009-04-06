@@ -21,7 +21,7 @@ namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 
         public override bool IsSatisfiedBy(IInputSpecification specification)
         {
-            return (typeof (IEnumerable<UserForm>)).IsAssignableFrom(specification.PropertyInfo.PropertyType);
+            return (typeof (IEnumerable<UserSelector>)).IsAssignableFrom(specification.PropertyInfo.PropertyType);
         }
 
         protected override string CreateInputElementBase()
