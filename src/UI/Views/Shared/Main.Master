@@ -48,8 +48,7 @@
 					| <%=Html.ActionLink<UserController>("My Profile", c=>c.Edit(null)) %>
 				</LoggedInTemplate>
 				<AnonymousTemplate>
-					<%=Html.ActionLink<LoginController>("Log in", c=>c.Index()) %> |
-                    <%=Html.ActionLink<UserController>("Register", c=>c.New()) %>
+					<%=Html.ActionLink<LoginController>("Log in", c=>c.Index()) %> 
 				</AnonymousTemplate>
 			</asp:LoginView>
 			</h2>

@@ -29,7 +29,7 @@ namespace CodeCampServer.UI.Controllers
 
             ViewData.Add(conferenceForms);
 
-            ViewData.Add(new PageInfo {Title = userGroup.Name});
+            
             return View(_mapper.Map(userGroup));
         }
     }

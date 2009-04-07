@@ -167,7 +167,12 @@ a:hover
 	margin-left:10px;
 	margin-right:10px;
 	margin-bottom:10px;
-	border: solid 1px #EEEEEE;
+	border: solid 1px #EEEEEE;	
+}
+
+.mainContent ul
+{
+    margin-left:20px;
 }
 
 .mainContent h1

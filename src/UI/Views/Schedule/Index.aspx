@@ -2,7 +2,7 @@
 	Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ScheduleForm[]>" %>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-	<h2>Schedule</h2>
+	<h2><%=ViewData.Get<PageInfo>().SubTitle%> / Schedule</h2>
 	<table class="schedule">
 	<%--Loop through each ScheduleForm and output a schedule table
 		for that day of the conference--%>

@@ -2,6 +2,7 @@
 Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserGroupForm>"%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
+<script type="text/javascript" src="/scripts/rsswidget.js"></script>
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="Menu" runat="server">
@@ -15,5 +16,5 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserGroupForm>"%>
         </div>
         <%Html.RenderPartial("ConferenceList", ViewData.Get<ConferenceForm[]>()); %>
         <p><%= Model.HomepageHTML %></p>
-        <div class="cleaner"/>
+        <div class="cleaner"></div>
 </asp:Content>

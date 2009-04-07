@@ -84,6 +84,7 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Controllers\ProposalController.cs" />
+    <Compile Include="Controllers\RssController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserGroupController.cs" />
     <Compile Include="Helpers\Attributes\NoInputAttribute.cs" />
@@ -290,6 +291,7 @@
     <Content Include="scripts\jquery.form.js" />
     <Content Include="scripts\jquery.maskedinput-1.1.4.pack.js" />
     <Content Include="scripts\jquery.meiomask.js" />
+    <Content Include="scripts\rsswidget.js" />
     <Content Include="Views\Admin\Edit.aspx" />
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Attendee\Confirmation.aspx" />

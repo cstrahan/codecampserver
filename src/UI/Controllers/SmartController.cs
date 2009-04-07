@@ -20,22 +20,30 @@ namespace CodeCampServer.UI.Controllers
 	        }
 	    }
 		protected override void OnActionExecuted(ActionExecutedContext filterContext)
-		{
-            if (!ViewData.Contains<PageInfo>())
-            {
-                var pageInfo = new PageInfo {Title = "Code Camp Server v1.0"};
-                ViewData.Add(pageInfo);
+        {
+		    PageInfo pageInfo = null;
 
-                if (ViewData.Contains<Conference>())
-                {
-                    pageInfo.Title = ViewData.Get<Conference>().Name;
-                }
+            if (!ViewData.Contains<PageInfo>())
+            {   pageInfo = new PageInfo {Title = "Code Camp Server v1.0"};
+                ViewData.Add(pageInfo);
             }
+            else
+            {
+                pageInfo = ViewData.Get<PageInfo>();
+            }
+
             if (ViewData.Contains<UserGroup>())
             {
                 var usergroup = ViewData.Get<UserGroup>();
+                pageInfo.Title = usergroup.Name;
+
                 if (!usergroup.IsDefault())
-                    ViewData.Get<PageInfo>().TrackingCode = usergroup.GoogleAnalysticsCode;
+                    pageInfo.TrackingCode = usergroup.GoogleAnalysticsCode;
+            }
+
+            if (ViewData.Contains<Conference>())
+            {
+                pageInfo.SubTitle = ViewData.Get<Conference>().Name;
             }
 
 		}

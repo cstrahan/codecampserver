@@ -8,7 +8,7 @@
 		    $('#datatable').dataTable();
 		    });
 		</script>
-<h2>Sessions
+<h2><%=ViewData.Get<PageInfo>().SubTitle%> / Sessions
 		<%if (User.Identity.IsAuthenticated){%>
 				<a class="" href="<%=Url.Action<SessionController>(c=>c.New(null))%>" title="Add a new Session"><img src="/images/icons/application_add.png" /></a>
 		<%}%>

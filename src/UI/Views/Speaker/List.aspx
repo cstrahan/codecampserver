@@ -4,7 +4,7 @@ AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
   <%var speakers = Model; %>
-	 <h2>Speakers 
+	 <h2><%=ViewData.Get<PageInfo>().SubTitle%> / Speakers 
 		<%if (User.Identity.IsAuthenticated){%>
 			<a class="" href="<%=Url.Action<SpeakerController>(c=>c.New())%>" title="Add a new Speaker"><img src="/images/icons/application_add.png" /></a>
 		<%}%>

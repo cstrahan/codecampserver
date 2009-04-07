@@ -37,7 +37,7 @@ namespace CodeCampServer.UI.Controllers
 
 		public ActionResult List(UserGroup usergroup)
 		{
-			ViewData.Add(new PageInfo {Title = usergroup.Name});
+			//ViewData.Add(new PageInfo {Title = usergroup.Name});
 
 			Conference[] conferences = _repository.GetAllForUserGroup(usergroup);
 

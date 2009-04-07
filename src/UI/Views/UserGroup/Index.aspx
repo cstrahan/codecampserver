@@ -7,6 +7,7 @@ Inherits="System.Web.Mvc.ViewPage<UserGroupForm>"%>
 
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
+	  
 	 <div>
 		    <h1><%=Model.Name%> <%Html.RenderPartial("EditUserGroupLink", Model); %></h1>		    
 		    <div>  

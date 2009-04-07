@@ -96,6 +96,7 @@
     <Compile Include="Domain\Model\User.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\ICryptographer.cs" />
+    <Compile Include="Services\IHttpFileDownloaderService.cs" />
     <Compile Include="Services\Impl\AuthenticationService.cs" />
     <Compile Include="Services\Impl\Cryptographer.cs" />
     <Compile Include="ObjectExtensions.cs" />

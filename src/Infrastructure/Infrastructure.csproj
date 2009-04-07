@@ -99,6 +99,7 @@
     <Compile Include="DataAccess\Impl\UserGroupRepository.cs" />
     <Compile Include="DataAccess\Impl\UserRepository.cs" />
     <Compile Include="DependencyRegistry.cs" />
+    <Compile Include="HttpFileDownloaderService.cs" />
     <Compile Include="UI\Services\AssemblyVersion.cs" />
     <Compile Include="UI\Services\Impl\UploadFileNamer.cs" />
     <Compile Include="UI\Services\IUploadFileNamer.cs" />
