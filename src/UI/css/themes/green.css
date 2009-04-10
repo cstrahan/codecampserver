@@ -1,0 +1,106 @@
+﻿body
+{
+	background-attachment: fixed;
+	background-repeat: repeat-x;
+	background-image: url(../../images/themes/green/layout/background-gradient.gif);
+	background-color: #129987;
+	background-position: left bottom;
+	color: #171702;
+	font-family: Verdana;
+	/*font-size: 62.5%;*/
+}
+
+#frame
+{
+	width: 1020px; 
+	margin: 0px auto; 
+	padding: 0px; 
+	text-align: left; 
+}
+
+#frame-header
+{
+	background-image: url(../../images/themes/green/layout/frame-header.png);
+	background-repeat: no-repeat;
+	height: 20px;
+}
+
+#frame-footer
+{
+	background-image: url(../../images/themes/green/layout/frame-footer.png);
+	background-repeat: no-repeat;
+	height: 20px;
+}
+
+#content
+{
+	background-image: url(../../images/themes/green/layout/content-background.png);
+	background-repeat: repeat-y;
+	padding: 0px 20px 
+}
+
+#header h1
+{
+	margin: 0px;
+	padding: 0px;
+	float: left;
+}
+
+#header h1 a, #header h2 a
+{
+	text-decoration: none;
+}
+
+#header h2
+{
+	padding: 0px;
+	margin: 0px;
+	float: right;
+}
+
+a
+{
+	color: #157d38;
+}
+
+.buttonLeftEndCap
+{
+	height: 30px;
+	width: 10px;
+	background-image: url(../../images/themes/green/buttons/button-left-end-cap.gif);
+	background-repeat: no-repeat;
+	float: left;
+}
+
+.buttonRightEndCap
+{
+	height: 30px;
+	width: 10px;
+	background-image: url(../../images/themes/green/buttons/button-right-end-cap.gif);
+	background-repeat: no-repeat;
+	float: left;
+}
+
+.buttonContentBackground
+{
+	text-align: center;
+	height: 20px;
+	padding: 5px;
+	background-image: url(../../images/themes/green/buttons/button-content-background.gif);
+	background-repeat: repeat-x;
+	float: left;
+	font-size: 14px;
+	color: #171702;
+}
+
+.buttonContentBackground a
+{
+	color: #171702;
+}
+
+#menu li
+{
+	list-style-type: none;
+	float: left;
+	padding: 0px 5px;
+}

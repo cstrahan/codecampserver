@@ -1,8 +1,6 @@
 <%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<%
-    PageInfo pageInfo = ViewData.Get<PageInfo>();
-%>
+<% PageInfo pageInfo = ViewData.Get<PageInfo>(); %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 	  <title><%=pageInfo.Title%> - Code Camp Server 1.0</title>
@@ -12,82 +10,107 @@
 	  <link id="cssRedefinitions" rel="Stylesheet" type="text/css" media="all" href="/css/Redefinitions.css" runat="server" />
 	  <link id="cssClasses" rel="Stylesheet" type="text/css" media="all" href="/css/Classes.css" runat="server" />
 	  <link id="cssDatatable" rel="Stylesheet" type="text/css" media="all" href="/css/datatable.css" runat="server" />
-	  <link id="cssIDs" rel="Stylesheet" type="text/css" media="all" href="/css/ids.css" runat="server" />	  
-	  <link href="<%=Url.Content("~/css/codecampserver.css")%>" rel="stylesheet" type="text/css" />
 	  
-	  <script type="text/javascript" src="/scripts/jquery-1.2.6.min.js"></script>
-     <!-- required plugins -->
-     <script type="text/javascript" src="/scripts/date.js"></script>
-     <!-- jquery.datePicker.js -->
-     <script type="text/javascript" src="/scripts/jquery.datePicker.js"></script>
+	  <!-- <link id="cssIDs" rel="Stylesheet" type="text/css" media="all" href="/css/ids.css" runat="server" />	-->
+	  <!-- <link href="<%=Url.Content("~/css/codecampserver.css")%>" rel="stylesheet" type="text/css" /> -->
+	  
+	  <link href="<%=Url.Content("~/css/themes/green.css")%>" rel="stylesheet" type="text/css" />
+	  
+		<script type="text/javascript" src="/scripts/jquery-1.2.6.min.js"></script>
+		<!-- required plugins -->
+		<script type="text/javascript" src="/scripts/date.js"></script>
+		<!-- jquery.datePicker.js -->
+		<script type="text/javascript" src="/scripts/jquery.datePicker.js"></script>
 
-     <!-- datePicker required styles -->
-     <link rel="stylesheet" type="text/css" media="screen" href="/css/datePicker.css"/>
+		<!-- datePicker required styles -->
+		<link rel="stylesheet" type="text/css" media="screen" href="/css/datePicker.css"/>
 
-     <!-- page specific scripts -->
-     <script type="text/javascript">
-     Date.format = 'mm/dd/yyyy';
-     $(function() {
-		$('.date-pick').datePicker({ startDate: '01/01/2009' });
-     });
-     </script>
-        <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        </script>
-	  <asp:ContentPlaceHolder ID="Stylesheets" runat="server"></asp:ContentPlaceHolder>	  
+		<!-- page specific scripts -->
+		<script type="text/javascript">
+			Date.format = 'mm/dd/yyyy';
+			$(function() {
+			$('.date-pick').datePicker({ startDate: '01/01/2009' });
+			});
+		</script>
+		
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    
+	  <asp:ContentPlaceHolder ID="Stylesheets" runat="server"></asp:ContentPlaceHolder>
+	  	  
 	</head>
 	<body>
-		<div id="header">
-			<h1><a href="/"><%=pageInfo.Title%></a></h1>
-			<h2>
-				<asp:LoginView ID="LoginView3" runat="server">
-				<LoggedInTemplate>
-					Welcome, <%=ViewData.Get<User>().Name%>
-					(<a href="<%=Url.Action<LoginController>(c=>c.LogOut()) %>">Log out</a>)
-					| <%=Html.ActionLink<UserController>("My Profile", c=>c.Edit(null)) %>
-				</LoggedInTemplate>
-				<AnonymousTemplate>
-					<%=Html.ActionLink<LoginController>("Log in", c=>c.Index()) %> 
-				</AnonymousTemplate>
-			</asp:LoginView>
-			</h2>
-		</div>
-		<asp:ContentPlaceHolder id="Menu" runat="server">
-		<% if(ViewData.Contains<Conference>())
-        {
-            Html.RenderPartial("Menu"); 
-        }
-        else
-        {
-            Html.RenderPartial("HomeMenu"); 
-        }
-        %></asp:ContentPlaceHolder>
-		
-		<div id="content">
-			<div class="mainContent">
-				<asp:ContentPlaceHolder id="Main" runat="server" />
+		<div id="frame">
+			
+			<div id="frame-header"></div>
+			
+			<div id="content">
+			
+				<div id="header">
+					<h1><a href="/"><%=pageInfo.Title%></a></h1>
+					
+					<h2>
+						<asp:LoginView ID="LoginView3" runat="server">
+						<LoggedInTemplate>
+							Welcome, <%=ViewData.Get<User>().Name%>	(<a href="<%=Url.Action<LoginController>(c=>c.LogOut()) %>">Log out</a>) | <%=Html.ActionLink<UserController>("My Profile", c=>c.Edit(null)) %>
+						</LoggedInTemplate>
+						<AnonymousTemplate>
+							<%=Html.ActionButton<LoginController>("Log in", c => c.Index())%>
+						</AnonymousTemplate>
+					</asp:LoginView>
+					</h2>
+					
+				</div>
+				
+				<div class="cleaner"></div>
+				
+				<asp:ContentPlaceHolder id="Menu" runat="server">
+				<% if(ViewData.Contains<Conference>())
+				{
+					Html.RenderPartial("Menu"); 
+				}
+				else
+				{
+					Html.RenderPartial("HomeMenu"); 
+				}
+				%>
+				</asp:ContentPlaceHolder>
+				
+				<div class="mainContent">
+					<asp:ContentPlaceHolder id="Main" runat="server" />
+				</div>
+				
+				<asp:ContentPlaceHolder ID="Footer" runat="server">
+					<p class="ml10"><span>Revision Number: </span><span id="revisionNumber"><%=ViewData[AssemblyVersionFilterAttribute.AssemblyVersion].ToString() %></span></p>
+				</asp:ContentPlaceHolder>
+				
+				<div style="clear: both;">&nbsp;</div>
+			
 			</div>
-			<asp:ContentPlaceHolder ID="Footer" runat="server">
-			<p class="ml10"><span>Revision Number: </span><span id="revisionNumber"><%=ViewData[AssemblyVersionFilterAttribute.AssemblyVersion].ToString() %></span></p>
-			</asp:ContentPlaceHolder>
+			
+			<div id="frame-footer"></div>
+			
 		</div>
-		<div style="clear: both;">&nbsp;</div>
-        <!-- CodeCampServer.com tracking-->
-        <script type="text/javascript">
-        try {
-            var ccsPageTracker = _gat._getTracker("<%=pageInfo.MasterTrackingCode%>");
-            ccsPageTracker._setDomainName("none");
-            ccsPageTracker._setAllowLinker(true);
-            ccsPageTracker._trackPageview();
-        } catch (err) { }</script>  
-        <%if (pageInfo.TrackingCodeExists)
-          {
-%>          <script type="text/javascript">
-            try {
-                var usergroupPageTracker = _gat._getTracker("<%=pageInfo.TrackingCode%>");
-                usergroupPageTracker._trackPageview();
-            } catch (err) { }</script>
-<%         }
-%>    </body>
+    
+    <!-- CodeCampServer.com tracking-->
+    <script type="text/javascript">
+    try {
+        var ccsPageTracker = _gat._getTracker("<%=pageInfo.MasterTrackingCode%>");
+        ccsPageTracker._setDomainName("none");
+        ccsPageTracker._setAllowLinker(true);
+        ccsPageTracker._trackPageview();
+    } catch (err) { }</script>  
+    
+    <%if (pageInfo.TrackingCodeExists) { %>          
+		<script type="text/javascript">
+			try {
+        var usergroupPageTracker = _gat._getTracker("<%=pageInfo.TrackingCode%>");
+        usergroupPageTracker._trackPageview();
+      } catch (err) { }
+    </script>
+		<% } %>    
+		
+	</body>
 </html>

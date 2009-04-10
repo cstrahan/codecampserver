@@ -164,5 +164,14 @@ namespace CodeCampServer.UI
 
 			return helper.ActionLink(linkText, actionName, controllerName);
 		}
+
+		public static string ActionButton<TController>(this HtmlHelper helper, string linkText,
+																								 Expression<Func<TController, object>> actionExpression)
+		{
+			string controllerName = typeof(TController).GetControllerName();
+			string actionName = actionExpression.GetActionName();
+
+			return string.Format("<div class=\"buttonLeftEndCap\"></div><div class=\"buttonContentBackground\">{0}</div><div class=\"buttonRightEndCap\"></div>", helper.ActionLink(linkText, actionName, controllerName));
+		}
 	}
 }
