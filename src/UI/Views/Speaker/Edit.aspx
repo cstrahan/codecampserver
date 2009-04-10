@@ -30,7 +30,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<SpeakerForm>"%>
 	        <br />
 	        <div class="p10 tac">
 						<%=Html.SubmitButton("save", "Save", new{@class="pr10 w100"}) %>    
-						<a href="<%=Url.Action<AdminController>(x => x.Index()).ToXHTMLLink() %>"  class="pr10 mt5" rel="cancel">Cancel</a>				
+						<a href="<%=Url.Action<AdminController>(x => x.Index(null)).ToXHTMLLink() %>"  class="pr10 mt5" rel="cancel">Cancel</a>				
 					</div>
         </div>
     </form>

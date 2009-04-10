@@ -83,6 +83,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\ProposalController.cs" />
     <Compile Include="Controllers\RssController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -90,12 +91,17 @@
     <Compile Include="Helpers\Attributes\NoInputAttribute.cs" />
     <Compile Include="Helpers\Binders\UserGroupModelBinder.cs" />
     <Compile Include="Helpers\Filters\AddUserGroupToViewDataActionFilterAttribute.cs" />
+    <Compile Include="Helpers\Mappers\UserGroupSponsorMapper.cs" />
+    <Compile Include="Helpers\Mappers\IUserGroupSponsorMapper.cs" />
     <Compile Include="Helpers\Mappers\IUserGroupMapper.cs" />
     <Compile Include="Helpers\Mappers\UserGroupMapper.cs" />
     <Compile Include="Helpers\Validation\Attributes\ValidateKeyAttribute.cs" />
     <Compile Include="Helpers\ViewPage\InputBuilders\NoInputBuilder.cs" />
     <Compile Include="Helpers\ViewPage\InputBuilders\UserInputBuilder.cs" />
+    <Compile Include="Models\Forms\AdminForm.cs" />
+    <Compile Include="Models\Forms\SponsorForm.cs" />
     <Compile Include="Models\Forms\UserGroupForm.cs" />
+    <Compile Include="Models\Forms\UserSelector.cs" />
     <Compile Include="Models\ProposalEditInfo.cs" />
     <Compile Include="Helpers\Binders\SmartBinder.cs" />
     <Compile Include="Helpers\Filters\AssemblyVersionrFilterAttribute.cs" />
@@ -205,7 +211,7 @@
     <Compile Include="Models\CustomResolvers\StandardTimeFormatter.cs" />
     <Compile Include="Models\CustomResolvers\TimeSpanFormatter.cs" />
     <Compile Include="Models\CustomResolvers\YesNoBooleanFormatter.cs" />
-    <Compile Include="Models\Forms\AdminForm.cs" />
+    <Compile Include="Models\Forms\UserForm.cs" />
     <Compile Include="Helpers\Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Helpers\Extensions\ViewDataExtensions.cs" />
     <Compile Include="Helpers\ViewPage\BaseViewPageT.cs">
@@ -310,7 +316,6 @@
     <Content Include="scripts\jquery.maskedinput-1.1.4.pack.js" />
     <Content Include="scripts\jquery.meiomask.js" />
     <Content Include="scripts\rsswidget.js" />
-    <Content Include="Views\Admin\Edit.aspx" />
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Attendee\Confirmation.aspx" />
     <Content Include="Views\Conference\Index.aspx" />
@@ -345,6 +350,9 @@
     <Content Include="Views\Speaker\Edit.aspx" />
     <Content Include="Views\Speaker\Index.aspx" />
     <Content Include="Views\Session\Index.aspx" />
+    <Content Include="Views\Home\Sponsors.ascx" />
+    <Content Include="Views\Sponsor\Edit.aspx" />
+    <Content Include="Views\Sponsor\Index.aspx" />
     <Content Include="Views\TimeSlot\Edit.aspx" />
     <Content Include="Views\TimeSlot\Index.aspx" />
     <Content Include="Views\Shared\AdminMenu.ascx" />

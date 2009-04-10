@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Services;
 using CodeCampServer.Infrastructure.UI.Services.Impl;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.Mappers;
@@ -22,12 +23,12 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<IUserRepository>();
 			repository.Stub(repo => repo.GetByUserName("admin")).Return(null);
 
-			var controller = new AdminController(repository, S<IUserMapper>());
+			var controller = new AdminController(repository);
 			var result = controller.Index();
 			result.AssertActionRedirect();
 
 			var redirectResult = result as RedirectToRouteResult;
-			redirectResult.ToAction<AdminController>(a => a.Edit(null));
+			redirectResult.ToAction<UserController>(a => a.Edit(null));
 		}
 
 		[Test]
@@ -36,7 +37,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<IUserRepository>();
 			repository.Stub(repo => repo.GetByUserName("admin")).Return(new User());
 
-			var controller = new AdminController(repository, S<IUserMapper>());
+			var controller = new AdminController(repository);
 			var result = controller.Index();
 			result.AssertViewRendered().ViewName.ShouldEqual(ViewNames.Default);
 		}
@@ -49,7 +50,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			repository.Stub(repo => repo.GetAll()).Return(new User[0]);
 
 			var mapper = new TestUserMapper();
-			var controller = new AdminController(repository, mapper);
+			var controller = new UserController(repository,mapper,PermisiveSecurityContext(),S<IUserSession>());
 			var result = controller.Edit(null);
 			mapper.MappedUser.ShouldNotBeNull();
 			mapper.MappedUser.Username.ShouldEqual("admin");
@@ -66,7 +67,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			repository.Stub(repo => repo.GetAll()).Return(users);
 
 			var mapper = new TestUserMapper();
-			var controller = new AdminController(repository, mapper);
+			var controller = new UserController(repository,mapper,PermisiveSecurityContext(),S<IUserSession>());
 			var result = controller.Edit(null);
 			mapper.MappedUser.ShouldNotBeNull();
 			mapper.MappedUser.Id.ShouldEqual(users[0].Id);
@@ -97,7 +98,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var form = new UserForm {Id = user.Id, Password = "pass"};
 			mapper.Stub(u => u.Map(form)).Return(user);
 			var repository = S<IUserRepository>();
-			var controller = new AdminController(repository, mapper);
+			var controller = new AdminController(repository);
 
 			var result = (RedirectToRouteResult) controller.Save(form);
 
@@ -117,7 +118,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<IUserRepository>();
 			repository.Stub(r => r.GetByKey("foo")).Return(new User());
 
-			var controller = new AdminController(repository, mapper);
+			var controller = new AdminController(repository);
 			var result = (ViewResult) controller.Save(form);
 
 			result.AssertViewRendered().ViewName.ShouldEqual("Edit");

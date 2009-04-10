@@ -51,6 +51,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			                		HomepageHTML = "Austin .Net Users Group"
 			                	};
 			userGroup.Add(user);
+            userGroup.Add(new Sponsor() { Level = SponsorLevel.Platinum, Name = "Microsoft", Url = "http://microsoft.com/", BannerUrl = "http://www.microsoft.com/presspass/images/gallery/logos/web/net_v_web.jpg" });
 			var conference = new Conference
 			                 	{
 			                 		Address = "123 Guadalupe Street",
@@ -256,7 +257,9 @@ View Larger Map</a></small></p>"
 
 			var list = new List<PersistentObject>()
 			           	{
+
 			           		user,
+                            userGroup.GetSponsors()[0],
 			           		userGroup,
 			           		conference,
 			           		track,

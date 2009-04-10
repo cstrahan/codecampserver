@@ -20,6 +20,8 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 		    usergroup.GoogleAnalysticsCode = "foo";
 		    usergroup.DomainName = "foo/bar";
 		    usergroup.Add(new User(){EmailAddress = "foo",Name = "bar"});
+		    usergroup.Add(new Sponsor(){Level = SponsorLevel.Platinum,Name = "the sponsor"});
+            AssertObjectCanBePersisted(usergroup.GetSponsors()[0]);
             AssertObjectCanBePersisted(usergroup.GetUsers()[0]);
 			AssertObjectCanBePersisted(usergroup);
 		}

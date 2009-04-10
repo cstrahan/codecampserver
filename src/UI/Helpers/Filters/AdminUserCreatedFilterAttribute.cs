@@ -28,7 +28,7 @@ namespace CodeCampServer.UI.Helpers.Filters
 		public virtual void RedirectToAdminNew(ActionExecutingContext context)
 		{
 			var urlhelper = new UrlHelper(context.RequestContext);
-			string url = urlhelper.Action<AdminController>(c => c.Edit(null));
+			string url = urlhelper.Action<UserController>(c => c.Edit(null));
 			context.Result = new RedirectResult(url);
 		}
 	}

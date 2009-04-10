@@ -5,7 +5,7 @@ Inherits="System.Web.Mvc.ViewUserControl" %>
 			<ul>
 				<asp:LoginView ID="LoginView1" runat="server">
 					<LoggedInTemplate>
-						<li><a href="<%=Url.Action<AdminController>(c=>c.Index()) %>">Admin</a></li>
+						<li><a href="<%=Url.Action<AdminController>(c=>c.Index(null)) %>">Admin</a></li>
 					</LoggedInTemplate>
 				</asp:LoginView>
 				

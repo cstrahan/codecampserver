@@ -22,5 +22,9 @@
 			<key column="UserGroupId"  />
 			<many-to-many class="User" column="UserID"/>
 		</bag>
+    <bag name="Sponsors" access="field.camelcase-underscore"  table="UserGroupSponsors" cascade="save-update" >
+      <key column="UserGroupId"  />
+      <many-to-many class="Sponsor" column="SponsorID" />
+    </bag>
   </class>
 </hibernate-mapping>

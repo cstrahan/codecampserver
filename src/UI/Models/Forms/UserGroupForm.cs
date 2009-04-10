@@ -28,5 +28,7 @@ namespace CodeCampServer.UI.Models.Forms
         public virtual string GoogleAnalysticsCode { get; set; }
         
         public virtual IList<UserSelector> Users{ get; set;}
+
+        public virtual IList<SponsorForm> Sponsors{ get; set;}
     }
 }
