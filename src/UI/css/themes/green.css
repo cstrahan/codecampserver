@@ -98,9 +98,41 @@ a
 	color: #171702;
 }
 
-#menu li
+#navigationWrapper
+{
+	margin-top: 10px;
+}
+
+ul#navigationMenu
+{
+	float: left;
+	background-image: url(../../images/themes/green/layout/navigation-background.gif);
+	background-repeat: repeat-x;
+	height: 40px;
+	width: 960px;
+}
+
+ul#navigationMenu li
 {
 	list-style-type: none;
 	float: left;
 	padding: 0px 5px;
+}
+
+#leftNavigationEndCap
+{
+	background-image: url(../../images/themes/green/layout/left-navigation-end-cap.gif);
+	background-repeat: no-repeat;
+	height: 40px;
+	width: 10px;
+	float: left;
+}
+
+#rightNavigationEndCap
+{
+	background-image: url(../../images/themes/green/layout/right-navigation-end-cap.gif);
+	background-repeat: no-repeat;
+	height: 40px;
+	width: 10px;
+	float: left;
 }
