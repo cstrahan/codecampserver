@@ -38,9 +38,10 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 	    {
             SystemTime.Now = () => new DateTime(2009, 5, 5);
             var usergroup = new UserGroup();
-            var conference1 = new Conference { UserGroup = usergroup,StartDate = new DateTime(2009,4,6)};
-            var conference2 = new Conference { UserGroup = usergroup, StartDate = new DateTime(2009, 5, 6) };
-            var conference3 = new Conference { UserGroup = usergroup, StartDate = new DateTime(2009, 5, 7) };
+            var conference1 = new Conference { UserGroup = usergroup,EndDate = new DateTime(2009,4,6)};
+            var conference4 = new Conference { UserGroup = usergroup, EndDate = new DateTime(2009, 5, 4, 20, 0, 0) };
+            var conference2 = new Conference { UserGroup = usergroup, EndDate = new DateTime(2009, 5, 5, 20, 0, 0) };
+            var conference3 = new Conference { UserGroup = usergroup, EndDate = new DateTime(2009, 5, 7) };
 
             using (ISession session = GetSession())
             {
@@ -48,6 +49,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
                 session.SaveOrUpdate(conference1);
                 session.SaveOrUpdate(conference2);
                 session.SaveOrUpdate(conference3);
+                session.SaveOrUpdate(conference4);
                 session.Flush();
             }
 

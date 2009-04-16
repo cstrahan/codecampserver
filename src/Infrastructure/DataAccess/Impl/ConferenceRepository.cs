@@ -36,9 +36,9 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 	    public Conference[] GetFutureForUserGroup(UserGroup usergroup)
 	    {
             return GetSession().CreateQuery(
-                                      "from Conference conf where conf.UserGroup = :usergroup and conf.StartDate >= :datetime order by conf.StartDate")
+                                      "from Conference conf where conf.UserGroup = :usergroup and conf.EndDate >= :datetime order by conf.StartDate")
                                       .SetEntity("usergroup",usergroup)
-                                      .SetDateTime("datetime",SystemTime.Now())
+                                      .SetDateTime("datetime",SystemTime.Now().Midnight())
                                       .List<Conference>().ToArray();
         }
 	}
