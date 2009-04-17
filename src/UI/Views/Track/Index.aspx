@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true"
 	Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<TrackForm[]>" %>
+<%@ Import Namespace="MvcContrib.UI.Grid"%>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 <h2>Tracks
@@ -8,14 +9,17 @@
 		<%}%>
 </h2>
 <%=Errors.Display() %>
-<p>
-	<% foreach (var track in ViewData.Model) { %>
-		<div class=" w250 ">
-			<div class="fl"><a href="<%= Url.Action<TrackController>(t => t.Edit(null), new{track = track.Id}).ToXHTMLLink() %>"><%= track.Name %></a></div>
-			<div class="fr pr15"><a title="Delete <%=track.Name%>" href="<%= Url.Action<TrackController>(t => t.Delete(null), new{track = track.Id}).ToXHTMLLink() %>"><img src="<%= Url.Content("~/images/icons/delete.png").ToXHTMLLink() %>" /></a></div>
-			<div class="fr pr15"><%Html.RenderPartial("EditTrackLink",track); %></div>
-			<div class="cleaner"></div>
-		</div>
-	<% } %>	
-</p>
+    <%=Html.Grid(Model)
+	    .WithClass("datatable")
+	    .AutoColumns()
+	     .Columns(
+	         builder =>{
+	                       builder.For("Edit").
+                           PartialCell("EditTrackLink").
+                           Visible(User.Identity.IsAuthenticated);
+
+                           builder.For("Delete").
+                           PartialCell("DeleteTrackLink").
+                           Visible(User.Identity.IsAuthenticated);
+             })%>
 </asp:Content>

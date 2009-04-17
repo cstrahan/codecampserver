@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
 Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<TimeSlotForm[]>"%>
+<%@ Import Namespace="MvcContrib.UI.Grid"%>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 <h2>Timeslots
@@ -8,20 +9,18 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<TimeSlotForm[]>"%>
 		<%}%>
 </h2>
 <%=Errors.Display() %>
-<p>
-	<% foreach (var timeslot in ViewData.Model) { %>
-		<div class=" w450 ">
-			<div class="fl"><%= timeslot.StartTime %> to <%= timeslot.EndTime %></div>
-			
-			<div class="fr pr15">
-			<%Html.RenderPartial("DeleteTimeSlotLink",timeslot); %>			
-			</div>
-			<div class="fr pr15">
-			<%Html.RenderPartial("EditTimeSlotLink",timeslot); %>			
-			</div>
-			<div class="cleaner"></div>
-		</div>
-	<% } %>	
-</p>
+<%=Html.Grid(Model)
+	    .WithClass("datatable")
+	    .AutoColumns()
+	     .Columns(
+	         builder =>{
+	                       builder.For("Edit").
+                           PartialCell("EditTimeSlotLink").
+                           Visible(User.Identity.IsAuthenticated);
+
+                           builder.For("Delete").
+                           PartialCell("DeleteTimeSlotLink").
+                           Visible(User.Identity.IsAuthenticated);
+             })%>
 
 </asp:Content>

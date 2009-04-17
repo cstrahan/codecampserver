@@ -5,52 +5,17 @@
 	<head>
 	  <title><%=pageInfo.Title%> - Code Camp Server 1.0</title>
 	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	  
-	  <link id="cssBaseline" rel="Stylesheet" type="text/css" media="all" href="/css/Baseline.css" runat="server" />
-	  <link id="cssGenericClasses" rel="Stylesheet" type="text/css" media="all" href="/css/GenericClasses.css" runat="server" />
-	  <link id="cssRedefinitions" rel="Stylesheet" type="text/css" media="all" href="/css/Redefinitions.css" runat="server" />
-	  <link id="cssClasses" rel="Stylesheet" type="text/css" media="all" href="/css/Classes.css" runat="server" />
-	  <link id="cssDatatable" rel="Stylesheet" type="text/css" media="all" href="/css/datatable.css" runat="server" />
-	  
-	  <!-- <link id="cssIDs" rel="Stylesheet" type="text/css" media="all" href="/css/ids.css" runat="server" />	-->
-	  <!-- <link href="<%=Url.Content("~/css/codecampserver.css")%>" rel="stylesheet" type="text/css" /> -->
-	  
+	  <link href="<%=Url.Content("~/css/stylesheet.css")%>" id="cssStyleSheet" rel="Stylesheet" type="text/css" media="all" />
 	  <link href="<%=Url.Content("~/css/themes/green.css")%>" rel="stylesheet" type="text/css" />
-	  
-		<script type="text/javascript" src="/scripts/jquery-1.2.6.min.js"></script>
-		<!-- required plugins -->
-		<script type="text/javascript" src="/scripts/date.js"></script>
-		<!-- jquery.datePicker.js -->
-		<script type="text/javascript" src="/scripts/jquery.datePicker.js"></script>
-
-		<!-- datePicker required styles -->
-		<link rel="stylesheet" type="text/css" media="screen" href="/css/datePicker.css"/>
-
-		<!-- page specific scripts -->
-		<script type="text/javascript">
-			Date.format = 'mm/dd/yyyy';
-			$(function() {
-			$('.date-pick').datePicker({ startDate: '01/01/2009' });
-			});
-		</script>
-		
-    <script type="text/javascript">
-      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    
+	  <script type="text/javascript" src="/scripts/bootstrap.js"></script>
 	  <asp:ContentPlaceHolder ID="Stylesheets" runat="server"></asp:ContentPlaceHolder>
-	  	  
 	</head>
 	<body>
 		<div id="frame">
-			
 			<div id="frame-header"></div>
-			
 			<div id="content">
-			
 				<div id="header">
 					<h1><a href="/"><%=pageInfo.Title%></a></h1>
-					
 					<h2>
 						<asp:LoginView ID="LoginView3" runat="server">
 						<LoggedInTemplate>
@@ -61,11 +26,8 @@
 						</AnonymousTemplate>
 					</asp:LoginView>
 					</h2>
-					
 				</div>
-				
 				<div class="cleaner"></div>
-				
 				<asp:ContentPlaceHolder id="Menu" runat="server">
 				<% if(ViewData.Contains<Conference>())
 				{
@@ -76,24 +38,17 @@
 					Html.RenderPartial("HomeMenu"); 
 				}
 				%>
-				</asp:ContentPlaceHolder>
-				
+				</asp:ContentPlaceHolder>				
 				<div class="mainContent">
 					<asp:ContentPlaceHolder id="Main" runat="server" />
-				</div>
-				
+				</div>				
 				<asp:ContentPlaceHolder ID="Footer" runat="server">
 					<p class="ml10"><span>Revision Number: </span><span id="revisionNumber"><%=ViewData[AssemblyVersionFilterAttribute.AssemblyVersion].ToString() %></span></p>
-				</asp:ContentPlaceHolder>
-				
-				<div style="clear: both;">&nbsp;</div>
-			
-			</div>
-			
-			<div id="frame-footer"></div>
-			
-		</div>
-    
+				</asp:ContentPlaceHolder>				
+				<div style="clear: both;">&nbsp;</div>			
+			</div>			
+			<div id="frame-footer"></div>			
+		</div>    
     <!-- CodeCampServer.com tracking-->
     <script type="text/javascript">
     try {
@@ -110,7 +65,6 @@
         usergroupPageTracker._trackPageview();
       } catch (err) { }
     </script>
-		<% } %>    
-		
+		<% } %>		
 	</body>
 </html>

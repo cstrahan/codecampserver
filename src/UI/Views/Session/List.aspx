@@ -2,19 +2,13 @@
 	Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<SessionForm[]>" %>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-		<script type="text/javascript" language="javascript" src="/scripts/jquery.dataTables.js"></script>
-		<script type="text/javascript" charset="utf-8">
-		    $(document).ready(function() {
-		    $('#datatable').dataTable();
-		    });
-		</script>
 <h2><%=ViewData.Get<PageInfo>().SubTitle%> / Sessions
 		<%if (User.Identity.IsAuthenticated){%>
 				<a class="" href="<%=Url.Action<SessionController>(c=>c.New(null))%>" title="Add a new Session"><img src="/images/icons/application_add.png" /></a>
 		<%}%>
 </h2>
 
-		<table id="datatable">
+		<table class="datatable">
 		    <thead>
 		        <tr>
 		            <th>Track</th>
@@ -39,7 +33,8 @@
 		            <td><a href="<%=Url.RouteUrl("session",new{sessionKey=session.Key}).ToXHTMLLink() %>" title="<%= session.TimeSlot.StartTime %> <%= session.Key %>"> <%=Html.Encode( session.Title)%></a></td>
 		            
             		<%if (User.Identity.IsAuthenticated){%>
-		            <td>			<div class="fr pl10"><%Html.RenderPartial(PartialViews.Shared.DeleteSessionLink,session); %></div>
+		            <td>
+		                <div class="fr pl10"><%Html.RenderPartial(PartialViews.Shared.DeleteSessionLink,session); %></div>
 			            <div class="fr"><%Html.RenderPartial(PartialViews.Shared.EditSessionLink,session); %></div>
                     </td>
                     <%}%>

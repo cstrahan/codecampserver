@@ -17,7 +17,13 @@ namespace CodeCampServer.UI
         public string GetUserGroupKey(RequestContext requestContext)
         {
             string key=string.Empty;
-            if(requestContext.HttpContext.Request.ServerVariables["HTTP_HOST"]!=null)
+            string usergroupkey = "UserGroupKey";
+
+            if (requestContext.HttpContext.Request[usergroupkey] != null)
+            {
+                key = requestContext.HttpContext.Request[usergroupkey];
+            }
+            else if(requestContext.HttpContext.Request.ServerVariables["HTTP_HOST"]!=null)
             {
                 var host = GetHostNameArray(requestContext);
                 if(host.Length==1)

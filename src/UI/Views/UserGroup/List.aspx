@@ -6,21 +6,13 @@ AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-  	<script type="text/javascript" language="javascript" src="/scripts/jquery.dataTables.js"></script>
-		<script type="text/javascript" charset="utf-8">
-		    $(document).ready(function() {
-		    $('#datatable').dataTable();
-		    });
-		</script>
-		
-		
   <div class="dataContainerQuadWide mt10">
 <h2>User Groups
 		<%if (User.Identity.IsAuthenticated){%>
 				<a class="" href="<%=Url.Action<UserGroupController>(c=>c.New())%>" title="Add a new User Group"><img src="/images/icons/application_add.png" /></a>
 		<%}%>
 </h2>
-		<table id="datatable">
+		<table class="datatable">
 		    <thead>
 		        <tr>
 		            <th>User Group</th>

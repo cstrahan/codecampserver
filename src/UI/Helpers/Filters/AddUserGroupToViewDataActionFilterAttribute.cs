@@ -24,16 +24,26 @@ namespace CodeCampServer.UI.Helpers.Filters
 
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-            if(filterContext.RequestContext.RouteData.Values.ContainsKey("UserGroupKey"))
-            {
-                string key = filterContext.RequestContext.RouteData.Values["UserGroupKey"].ToString();
+		    string userGroupValue = GetUserGroupValue(filterContext);
 
-                var userGroup = _repository.GetByKey(key);
+            if (userGroupValue!=null)
+            {
+    		    var userGroup = _repository.GetByKey(userGroupValue);
 
                 if (userGroup != null)
                     filterContext.Controller.ViewData.Add(userGroup);
             }
 		}
 
+	    private string GetUserGroupValue(ActionExecutingContext filterContext) {
+	        string userGroupValue=null;
+	        string usergroupkey = "UserGroupKey";
+            
+	        if(filterContext.RequestContext.RouteData.Values.ContainsKey(usergroupkey))
+	        {
+	            userGroupValue = filterContext.RequestContext.RouteData.Values[usergroupkey].ToString();
+	        }
+	        return userGroupValue;
+	    }
 	}
 }

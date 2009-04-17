@@ -282,6 +282,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\stylesheet.css" />
     <Content Include="css\datePicker.css" />
     <Content Include="css\codecampserver.css" />
     <Content Include="css\themes\green.css" />
@@ -310,7 +311,9 @@
     <Content Include="images\themes\green\layout\logo.gif" />
     <Content Include="images\themes\green\layout\navigation-background.gif" />
     <Content Include="images\themes\green\layout\right-navigation-end-cap.gif" />
+    <Content Include="scripts\DocumentReady.js" />
     <Content Include="scripts\date.js" />
+    <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\jqModal.js" />
     <Content Include="scripts\jquery.autocomplete.pack.js" />
     <Content Include="scripts\jquery.bgiframe.min.js" />
@@ -336,6 +339,8 @@
     <Content Include="Views\Session\List.aspx" />
     <Content Include="Views\Session\Edit.aspx" />
     <Content Include="Views\Shared\ConferenceList.ascx" />
+    <Content Include="Views\Shared\DeleteTrackLink.ascx" />
+    <Content Include="Views\Shared\EditSponsorLink.ascx" />
     <Content Include="Views\Shared\NotAuthorized.ascx" />
     <Content Include="Views\Shared\EditConferenceLink.ascx" />
     <Content Include="Views\Shared\HomeMenu.ascx" />

@@ -4,13 +4,6 @@ AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage
 <%@ Import Namespace="CodeCampServer.Core.Domain.Model"%>
 <%@ Import Namespace="CodeCampServer.UI"%>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-		<script type="text/javascript" language="javascript" src="/scripts/jquery.dataTables.js"></script>
-		<script type="text/javascript" charset="utf-8">
-		    $(document).ready(function() {
-		    $('#datatable').dataTable();
-		    });
-		</script>
-
 	 <h2><%=ViewData.Get<PageInfo>().SubTitle%> / Sponsors 
 		<%if (User.Identity.IsAuthenticated){%>
 			<a class="" href="<%=Url.Action<SponsorController>(c=>c.New(null))%>" title="Add a new Sponsor"><img src="/images/icons/application_add.png" /></a>
@@ -18,12 +11,12 @@ AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage
 	</h2>
 	<%=Errors.Display() %>	
 	<%=Html.Grid(Model)
-	    .WithID("datatable")
+	    .WithClass("datatable")
 	    .AutoColumns()
 	     .Columns(
 	         builder =>{
 	                       builder.For("Action").
-                           Partial("EditSponsorLink").
+                           PartialCell("EditSponsorLink").
                            Visible(User.Identity.IsAuthenticated);
                     })%>
 </asp:Content>

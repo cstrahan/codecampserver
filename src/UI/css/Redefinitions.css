@@ -37,3 +37,12 @@ input
 {
 	width:300px;
 }
+
+ul {
+	list-style: bullet;
+	list-style-position: inside;
+	margin-left: 0;
+	padding-left: 1em;
+	text-indent: -1em;
+	}
+	

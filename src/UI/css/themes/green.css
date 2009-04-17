@@ -110,6 +110,7 @@ ul#navigationMenu
 	background-repeat: repeat-x;
 	height: 40px;
 	width: 960px;
+	padding-left:0px;
 }
 
 ul#navigationMenu li

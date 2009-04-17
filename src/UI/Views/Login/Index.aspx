@@ -6,11 +6,6 @@
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">  
-  <script type="text/javascript">     
-     $(function() {
-		$('#Username').focus();
-     });
-     </script>
        <form action="<%= Url.Action<LoginController>(x => x.Login(null)) %>" method="post">
 		<div>
 	    <h1>Please Log In:</h1>

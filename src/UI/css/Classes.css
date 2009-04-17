@@ -587,3 +587,8 @@ div.validationSummary
 	float:left;
 	margin:2px;
 }
+
+.datatable
+{
+    width:100%;
+}

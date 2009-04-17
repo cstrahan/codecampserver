@@ -173,10 +173,29 @@ namespace CodeCampServer.UI
 
             return helper.ActionLink(linkText, actionName, controllerName);
         }
+        
+        public static IGridColumn<T> PartialCell<T>(this IGridColumn<T> column, string partialName) where T : class
+        {
+            column.CustomItemRenderer = (context, item) =>
+            {
+                var view = context.ViewEngines.TryLocatePartial(context.ViewContext, partialName);
+                var newViewData = new ViewDataDictionary<T>(item);
+                var newContext = new ViewContext(context.ViewContext, context.ViewContext.View, newViewData, context.ViewContext.TempData);
+                context.Writer.Write("<td>");
+                view.Render(newContext, context.Writer);
+                context.Writer.Write("</td>");
+            };
+            return column;
+        }
+
 
         public static IGridWithOptions<T> WithID<T>(this IGridWithOptions<T> grid, string htmlID) where T : class
         {
             return grid.Attributes(id => htmlID);            
+        }
+        public static IGridWithOptions<T> WithClass<T>(this IGridWithOptions<T> grid, string htmlID) where T : class
+        {
+            return grid.Attributes(@class => htmlID);
         }
 
         public static IGridColumn<T> PartialInCell<T>(this IGridColumn<T> column,string viewName) where T : class

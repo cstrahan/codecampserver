@@ -15,7 +15,9 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserGroupForm>"%>
             <p><%= Model.City %> <%= Model.Region %> <%= Model.Country%></p>             
         </div>
         <%Html.RenderPartial("ConferenceList", ViewData.Get<ConferenceForm[]>()); %>
-        <p><%= Model.HomepageHTML %></p>
+        <div class="w95p">
+        <%= Model.HomepageHTML %>
+        </div>
         <%Html.RenderPartial("Sponsors", Model.Sponsors);%>
         <div class="cleaner"></div>
 </asp:Content>
