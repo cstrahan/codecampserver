@@ -590,5 +590,6 @@ div.validationSummary
 
 .datatable
 {
+    clear:both;
     width:100%;
 }
