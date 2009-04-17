@@ -22,8 +22,8 @@ AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage
 	    .AutoColumns()
 	     .Columns(
 	         builder =>{
-	                       builder.For(
-	                           x =>
-	                           Html.ActionLink("Edit","Edit", new {sponsorID = x.ID})).DoNotEncode();
+	                       builder.For("Action").
+                           Partial("EditSponsorLink").
+                           Visible(User.Identity.IsAuthenticated);
                     })%>
 </asp:Content>

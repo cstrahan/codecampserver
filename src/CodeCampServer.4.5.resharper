@@ -6,7 +6,7 @@
     <CSharp>
       <FormatSettings>
         <EMPTY_BLOCK_STYLE>TOGETHER_SAME_LINE</EMPTY_BLOCK_STYLE>
-        <INSERT_TABS>True</INSERT_TABS>
+        <INDENT_SIZE>4</INDENT_SIZE>
         <MODIFIERS_ORDER IsNull="False">
           <Item>public</Item>
           <Item>protected</Item>
@@ -29,7 +29,7 @@
     </CSharp>
     <VB>
       <FormatSettings>
-        <INSERT_TABS>True</INSERT_TABS>
+        <INDENT_SIZE>4</INDENT_SIZE>
       </FormatSettings>
       <ImportsSettings />
       <Naming2 />
@@ -80,7 +80,6 @@
         <CustomProperties />
       </Template>
     </LiveTemplates>
-    <Surrounds />
     <FileTemplates>
       <Template uid="91720a66-54dd-4bc6-a9f8-0a6ea096db03" shortcut="" description="NUnit Fixture" text="using NUnit.Framework;&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;  [TestFixture]&#xD;&#xA;  public class $NAME$&#xD;&#xA;  {&#xD;&#xA;    $END$&#xD;&#xA;  }&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
         <Context>

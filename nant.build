@@ -7,6 +7,7 @@
   <!-- ******************** -->
   <target name="build" depends="init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test"/>
   <target name="cruise" depends="init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test, package"/>
+  <target name="publish" depends="init, revert, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test, package,commitPackage"/>
 
   <!-- ************** -->
 	<!-- Initialization -->

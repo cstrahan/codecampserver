@@ -547,3 +547,43 @@ div.validationSummary
 {
   background-color: #FF0000;
 }
+
+.schedule th
+{
+	font-weight:bold;
+	border-bottom: solid 1px #666;
+	vertical-align:bottom;
+}
+
+.headerrow
+{
+	line-height:30px
+}
+
+.day
+{
+	white-space:nowrap;
+}
+
+.timeslotrow td
+{
+	border-bottom: solid 1px #666;
+	border-right: solid 1px #666;
+}
+
+.timeslot
+{
+	font-weight: bold;
+	vertical-align:middle;
+	border-right: solid 1px #CCC;
+	padding:2px;
+	text-align:left;
+}
+
+.session
+{
+	background-color: #EFEEFE;
+	border: solid 1px #DDD;
+	float:left;
+	margin:2px;
+}

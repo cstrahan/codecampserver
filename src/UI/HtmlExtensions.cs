@@ -9,6 +9,7 @@ using System.Web.Mvc.Html;
 using CodeCampServer.Core;
 using MvcContrib;
 using MvcContrib.UI.Grid;
+using MvcContrib.UI.Grid.ActionSyntax;
 using MvcContrib.UI.Grid.Syntax;
 using Tarantino.Core.Commons.Model.Enumerations;
 
@@ -178,6 +179,11 @@ namespace CodeCampServer.UI
             return grid.Attributes(id => htmlID);            
         }
 
+        public static IGridColumn<T> PartialInCell<T>(this IGridColumn<T> column,string viewName) where T : class
+        {
+            
+            return column;
+        }
         public static IGridWithOptions<T> AutoColumns<T>(this IGridWithOptions<T> grid) where T : class
         {
             Expression<Func<T, object>>[] properySpecifiers = typeof (T).GetProperties()
