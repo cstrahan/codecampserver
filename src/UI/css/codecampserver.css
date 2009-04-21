@@ -161,7 +161,7 @@ a:hover
 	background-color: #FF6666;
 }
 
-.mainContent
+#contentWrapper
 {
 	padding:10px;
 	margin-left:10px;
@@ -170,12 +170,12 @@ a:hover
 	border: solid 1px #EEEEEE;	
 }
 
-.mainContent ul
+#contentWrapper ul
 {
     margin-left:20px;
 }
 
-.mainContent h1
+#contentWrapper h1
 {
 	margin-bottom:10px;
 }

@@ -8,19 +8,19 @@
 	<ul id="navigationMenu">
 		<asp:LoginView ID="LoginView1" runat="server">
 			<LoggedInTemplate>
-				<li><a href="<%=Url.Action<AdminController>(c=>c.Index(null)) %>"><img src="~/images/themes/green/buttons/admin.gif" runat="server" id="admin" alt="Admin" /></a></li>
+				<li><a href="<%=Url.Action<AdminController>(c=>c.Index(null)) %>">admin</a></li>
 			</LoggedInTemplate>
 		</asp:LoginView>
 
-		<li><a href="<%=Url.RouteUrl("conferencedefault",new{controller="conference",action="index",conferencekey=conference.Key}) %>"><img src="~/images/themes/green/buttons/home.gif" runat="server" id="home" alt="Home" /></a></li>
-		<li><a href="<%=Url.Action<ScheduleController>(c=>c.Index(null)) %>"><img src="~/images/themes/green/buttons/schedule.gif" runat="server" id="schedule" alt="Schedule" /></a></li>
-		<li><a href="<%=Url.Action<SpeakerController>(c=>c.List(null)) %>"><img src="~/images/themes/green/buttons/speakers.gif" runat="server" id="speakers" alt="Speakers" /></a></li>
-		<li><a href="<%=Url.Action<SessionController>(c=>c.List(null)) %>"><img src="~/images/themes/green/buttons/sessions.gif" runat="server" id="sessions" alt="Sessions" /></a></li>
+		<li><a href="<%=Url.RouteUrl("conferencedefault",new{controller="conference",action="index",conferencekey=conference.Key}) %>">home</a></li>
+		<li><a href="<%=Url.Action<ScheduleController>(c=>c.Index(null)) %>">schedule</a></li>
+		<li><a href="<%=Url.Action<SpeakerController>(c=>c.List(null)) %>">speakers</a></li>
+		<li><a href="<%=Url.Action<SessionController>(c=>c.List(null)) %>">sessions</a></li>
 
 		<%if (conference.HasRegistration)
 		{ %>
-		<li><a href="<%=Url.Action<AttendeeController>(c=>c.Index(null)) %>"><img src="~/images/themes/green/buttons/attendees.gif" runat="server" id="attendees" alt="Attendees" /></a></li>
-		<li><a href="<%=Url.Action<AttendeeController>(c=>c.New(null)) %>"><img src="~/images/themes/green/buttons/register.gif" runat="server" id="register" alt="Register" /></a></li>
+		<li><a href="<%=Url.Action<AttendeeController>(c=>c.Index(null)) %>">attendees</a></li>
+		<li><a href="<%=Url.Action<AttendeeController>(c=>c.New(null)) %>">register</a></li>
 		<% } %>
 		
 		<!--<li><a href="<%=Url.Action<ProposalController>(c=>c.List(null)) %>">Session&nbsp;Proposals</a></li>-->

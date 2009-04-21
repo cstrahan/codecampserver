@@ -10,6 +10,19 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserGroupForm>"%>
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
+  <table class="feature">
+		<tr>
+			<td><!-- Need these empty cells.  Do not remove this cell by putting colspan on featureHeading cell. --></td>
+			<td class="featureHeading">Testing 12345 and more...</td>
+			<td><!-- Need these empty cells.  Do not remove this cell by putting colspan on featureHeading cell. --></td>
+		</tr>
+		<tr>
+			<td class="featureLeftEndCap"></td>
+			<td class="featureContent">Content here...<br /><br /><br /><br /><br />Continued here...</td>
+			<td class="featureRightEndCap"></td>
+		</tr>
+  </table>
+        
         <div class="w95p tac">
             <h2><%= Model.Name %> <%Html.RenderPartial("EditUserGroupLink", Model); %></h2>
             <p><%= Model.City %> <%= Model.Region %> <%= Model.Country%></p>             

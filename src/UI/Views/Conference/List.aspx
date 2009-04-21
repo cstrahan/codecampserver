@@ -17,3 +17,4 @@ AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage
 	<%Html.RenderPartial("ConferenceList", Model); %>
 </div>
 </asp:Content>
+

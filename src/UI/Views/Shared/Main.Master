@@ -39,7 +39,7 @@
 				}
 				%>
 				</asp:ContentPlaceHolder>				
-				<div class="mainContent">
+				<div id="contentWrapper">
 					<asp:ContentPlaceHolder id="Main" runat="server" />
 				</div>				
 				<asp:ContentPlaceHolder ID="Footer" runat="server">

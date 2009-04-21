@@ -41,9 +41,10 @@
 
 #header h1
 {
-	margin: 0px;
+	margin: 5px 0px 0px 10px;
 	padding: 0px;
 	float: left;
+	font-size: 18px;
 }
 
 #header h1 a, #header h2 a
@@ -56,6 +57,11 @@
 	padding: 0px;
 	margin: 0px;
 	float: right;
+}
+
+#contentWrapper
+{
+	padding-top: 10px;
 }
 
 a
@@ -98,26 +104,58 @@ a
 	color: #171702;
 }
 
+
+
+/* Begin Navigation CSS */
 #navigationWrapper
 {
-	margin-top: 10px;
+	padding: 10px 0px;
 }
 
 ul#navigationMenu
 {
 	float: left;
+	
 	background-image: url(../../images/themes/green/layout/navigation-background.gif);
 	background-repeat: repeat-x;
+	
 	height: 40px;
 	width: 960px;
-	padding-left:0px;
+	
+	margin: 0px;
+	padding: 0px;
 }
 
 ul#navigationMenu li
 {
 	list-style-type: none;
 	float: left;
-	padding: 0px 5px;
+	
+	padding: 0px;
+	margin: 0px;
+}
+
+ul#navigationMenu li a
+{
+	display: block;
+	
+	color: White;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 14px;
+	
+	padding: 10px 0px 0px 15px;
+	
+	width: 105px;
+	height: 40px;
+	
+	text-align: center;
+}
+
+ul#navigationMenu li a:hover
+{
+	background-image: url(../../images/themes/green/layout/navigation-hover-background.gif);
+	background-repeat: repeat-x;
 }
 
 #leftNavigationEndCap
@@ -137,3 +175,45 @@ ul#navigationMenu li
 	width: 10px;
 	float: left;
 }
+/* End navigation CSS */
+
+
+
+
+/* Table */
+table.feature, table.feature td
+{
+	border-collapse: collapse;
+	margin: 0px;
+	padding: 0px;
+}
+
+table.feature td.featureLeftEndCap
+{
+	background-image: url(../../images/themes/green/layout/feature-content-left-end-cap.gif);
+	background-repeat: no-repeat;
+	width: 10px;
+}
+
+table.feature td.featureRightEndCap
+{
+	background-image: url(../../images/themes/green/layout/feature-content-right-end-cap.gif);
+	background-repeat: no-repeat;
+	width: 10px;
+}
+
+table.feature td.featureContent
+{
+	background-image: url(../../images/themes/green/layout/feature-content-background.gif);
+	background-repeat: repeat-x;
+	text-align: left;
+	padding-top: 5px !important;
+}
+
+table.feature td.featureHeading
+{
+	font-weight: bold;
+	font-size: 1.3em;
+	padding-bottom: 5px !important;
+}
+/* End feature table CSS */
