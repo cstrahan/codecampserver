@@ -22,5 +22,4 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<TimeSlotForm[]>"%>
                            PartialCell("DeleteTimeSlotLink").
                            Visible(User.Identity.IsAuthenticated);
              })%>
-
 </asp:Content>

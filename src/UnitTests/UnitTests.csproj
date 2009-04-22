@@ -153,6 +153,7 @@
     <Compile Include="UI\Controllers\AdminControllerTester.cs" />
     <Compile Include="UI\Controllers\AttendeeControllerTester.cs" />
     <Compile Include="UI\Controllers\ConferenceControllerTester.cs" />
+    <Compile Include="UI\Controllers\RssFeedControllerTester.cs" />
     <Compile Include="UI\Controllers\SponsorControllerTester.cs" />
     <Compile Include="UI\Controllers\HomeControllerTester.cs" />
     <Compile Include="UI\Controllers\ProposalControllerTester.cs" />

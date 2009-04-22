@@ -46,5 +46,14 @@ namespace CodeCampServer.UI.Models.Forms
         public virtual bool HasRegistration { get; set; }
 
 	    public string HtmlContent { get; set; }
+
+        public string GetDate()
+        {
+            string start = DateTime.Parse(StartDate).ToString("h:mm");
+            string end = DateTime.Parse(EndDate).ToString("h:mm tt");
+            string date = DateTime.Parse(StartDate).ToShortDateString();
+            return string.Format("{0} {1} - {2}",date, start, end);
+        }
+
 	}
 }

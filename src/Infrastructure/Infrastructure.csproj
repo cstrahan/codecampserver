@@ -155,6 +155,9 @@
     <EmbeddedResource Include="DataAccess\Mappings\Sponsor.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DataAccess\Mappings\RssFeed.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

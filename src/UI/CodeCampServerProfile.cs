@@ -40,12 +40,15 @@ namespace CodeCampServer.UI
 
 		    Mapper.CreateMap<User, UserSelector>();
 
+            Mapper.CreateMap<RssFeed, RssFeedForm>()
+                .ForMember(x => x.ParentID, o => o.Ignore());
+
 		    Mapper.CreateMap<Sponsor, SponsorForm>()
 		        .ForMember(x => x.ParentID, o => o.Ignore());
 
             Mapper.CreateMap<Conference, ConferenceForm>()
-				.ForMember(x => x.StartDate, o => o.AddFormatter<StandardDateFormatter>())
-				.ForMember(x => x.EndDate, o => o.AddFormatter<StandardDateFormatter>());
+				.ForMember(x => x.StartDate, o => o.AddFormatter<StandardDateTimeFormatter>())
+				.ForMember(x => x.EndDate, o => o.AddFormatter<StandardDateTimeFormatter>());
 
 			Mapper.CreateMap<Track, TrackForm>();
 

@@ -21,6 +21,8 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 		    usergroup.DomainName = "foo/bar";
 		    usergroup.Add(new User(){EmailAddress = "foo",Name = "bar"});
 		    usergroup.Add(new Sponsor(){Level = SponsorLevel.Platinum,Name = "the sponsor"});
+            usergroup.Add(new RssFeed());
+            AssertObjectCanBePersisted(usergroup.GetRssFeeds()[0]);
             AssertObjectCanBePersisted(usergroup.GetSponsors()[0]);
             AssertObjectCanBePersisted(usergroup.GetUsers()[0]);
 			AssertObjectCanBePersisted(usergroup);

@@ -83,6 +83,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controllers\RssFeedController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\ProposalController.cs" />
     <Compile Include="Controllers\RssController.cs" />
@@ -91,6 +92,8 @@
     <Compile Include="Helpers\Attributes\NoInputAttribute.cs" />
     <Compile Include="Helpers\Binders\UserGroupModelBinder.cs" />
     <Compile Include="Helpers\Filters\AddUserGroupToViewDataActionFilterAttribute.cs" />
+    <Compile Include="Helpers\Mappers\UserGroupRssFeedMapper.cs" />
+    <Compile Include="Helpers\Mappers\IUserGroupRssFeedMapper.cs" />
     <Compile Include="Helpers\Mappers\UserGroupSponsorMapper.cs" />
     <Compile Include="Helpers\Mappers\IUserGroupSponsorMapper.cs" />
     <Compile Include="Helpers\Mappers\IUserGroupMapper.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="Helpers\ViewPage\InputBuilders\NoInputBuilder.cs" />
     <Compile Include="Helpers\ViewPage\InputBuilders\UserInputBuilder.cs" />
     <Compile Include="Models\Forms\AdminForm.cs" />
+    <Compile Include="Models\Forms\RssFeedForm.cs" />
     <Compile Include="Models\Forms\SponsorForm.cs" />
     <Compile Include="Models\Forms\UserGroupForm.cs" />
     <Compile Include="Models\Forms\UserSelector.cs" />
@@ -422,6 +426,7 @@
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\" />
     <Folder Include="images\Buttons\" />
     <Folder Include="images\icons\" />
     <Folder Include="images\layout\" />
