@@ -15,6 +15,7 @@ namespace CodeCampServer.Core.Domain.Model.Planning
 		public virtual ProposalStatus Status { get; set; }
 		public virtual DateTime? SubmissionDate { get; set; }
 		public virtual DateTime? CreatedDate { get; set; }
+		public virtual int Votes { get; set; }
 
 		public Proposal()
 		{

@@ -27,6 +27,12 @@ namespace CodeCampServer.UI
                 .AddWithName("session", routes)
                 .RouteHandler = new DomainNameRouteHandler();
 
+            MvcRoute.MappUrl("{conferenceKey}/proposal/vote/{id}")
+                .WithDefaults(new {controller = "Proposal", action = "vote"})
+                .AddWithName("ProposalVote", routes)
+                .RouteHandler = new DomainNameRouteHandler();
+        
+
             MvcRoute.MappUrl("{conferenceKey}/{controller}/{action}")
                 .WithDefaults(new {controller = "Conference", action = "index"})
                 .WithConstraints(new

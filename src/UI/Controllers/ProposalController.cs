@@ -106,5 +106,13 @@ namespace CodeCampServer.UI.Controllers
 			var forms = new List<ProposalForm>(proposals.Select(proposal => _mapper.Map<ProposalForm>(proposal)));
 			return View(forms.ToArray());
 		}
+
+	    public ActionResult Vote(Guid id)
+	    {
+	        var proposal = _repository.GetById(id);
+	        proposal.Votes++;
+            _repository.Save(proposal);
+	        return View();
+	    }
 	}
 }

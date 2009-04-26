@@ -18,5 +18,6 @@
 		<property name="Status" type="Tarantino.Infrastructure.Commons.DataAccess.ORMapper.EnumerationType`1[[CodeCampServer.Core.Domain.Model.Planning.ProposalStatus, CodeCampServer.Core]], Tarantino.Infrastructure"/>
 		<property name="SubmissionDate"/>
 		<property name="CreatedDate"/>
+		<property name="Votes"/>
 	</class>
 </hibernate-mapping>

@@ -23,7 +23,7 @@
 		<li><a href="<%=Url.Action<AttendeeController>(c=>c.New(null)) %>">register</a></li>
 		<% } %>
 		
-		<!--<li><a href="<%=Url.Action<ProposalController>(c=>c.List(null)) %>">Session&nbsp;Proposals</a></li>-->
+		<li><a href="<%=Url.Action<ProposalController>(c=>c.List(null)) %>">Session&nbsp;Proposals</a></li>
 		
 	</ul>
 	<div id="rightNavigationEndCap"></div>

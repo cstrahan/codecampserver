@@ -52,6 +52,8 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Abstractions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\aspnetmvc\System.Web.Abstractions.dll</HintPath>
@@ -70,6 +72,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml" />
     <Reference Include="Tarantino.Core, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\tarantino\Tarantino.Core.dll</HintPath>
@@ -292,6 +295,8 @@
     <Content Include="css\themes\green.css" />
     <Content Include="css\jqModal.css" />
     <Content Include="css\jquery.autocomplete.css" />
+    <Content Include="images\icons\accept.png" />
+    <Content Include="images\icons\star.png" />
     <Content Include="images\img1.jpg" />
     <Content Include="images\img2.jpg" />
     <Content Include="images\spacer.gif" />
@@ -324,13 +329,21 @@
     <Content Include="scripts\date.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\jqModal.js" />
+    <Content Include="scripts\jquery-1.2.6-vsdoc.js" />
     <Content Include="scripts\jquery.autocomplete.pack.js" />
     <Content Include="scripts\jquery.bgiframe.min.js" />
     <Content Include="scripts\jquery.datePicker.js" />
     <Content Include="scripts\jquery.form.js" />
     <Content Include="scripts\jquery.maskedinput-1.1.4.pack.js" />
     <Content Include="scripts\jquery.meiomask.js" />
+    <Content Include="scripts\ProposalList.js" />
     <Content Include="scripts\rsswidget.js" />
+    <Content Include="scripts\tests\jquery-1.3.2.js" />
+    <Content Include="scripts\tests\PropasalListTests.htm" />
+    <Content Include="scripts\tests\ProposalListTests.js" />
+    <Content Include="scripts\tests\testrunner.1.3.js" />
+    <Content Include="scripts\tests\testrunner.js" />
+    <Content Include="scripts\tests\testsuite.css" />
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Attendee\Confirmation.aspx" />
     <Content Include="Views\Conference\Index.aspx" />
@@ -343,6 +356,7 @@
     <Content Include="Views\Proposal\Confirmation.aspx" />
     <Content Include="Views\Proposal\Edit.aspx" />
     <Content Include="Views\Proposal\List.aspx" />
+    <Content Include="Views\Proposal\Vote.aspx" />
     <Content Include="Views\Schedule\ScheduleSlot.aspx" />
     <Content Include="Views\Schedule\Index.aspx" />
     <Content Include="Views\Session\List.aspx" />
@@ -428,7 +442,6 @@
   <ItemGroup>
     <Folder Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\" />
     <Folder Include="images\Buttons\" />
-    <Folder Include="images\icons\" />
     <Folder Include="images\layout\" />
     <Folder Include="images\samples\" />
     <Folder Include="images\Text\" />

@@ -7,6 +7,7 @@ using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Models.Forms;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
+using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
@@ -96,5 +97,20 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			result.ViewName.ShouldEqual("");
 			result.ViewData.Model.ShouldEqual(new[] {form1, form2});
 		}
+
+	    [Test]
+	    public void vote_should_increment_the_proposal_session_count()
+	    {
+	        var proposalid = Guid.NewGuid();
+	        var proposal = new Proposal() {Id = proposalid, Votes = 3};
+	        var originalVoteCount = proposal.Votes;
+	        var repo = S<IProposalRepository>();
+            repo.Stub(x => x.GetById(proposalid)).Return(proposal);
+	        repo.Stub(x => x.Save(proposal));
+            var controller = new ProposalController(repo, S<IProposalMapper>(), S<IProposalCoordinator>());
+	        controller.Vote(proposalid);
+	        Assert.That(proposal.Votes, Is.EqualTo(originalVoteCount+1));
+            repo.AssertWasCalled(x=>x.Save(proposal));
+	    }
 	}
 }

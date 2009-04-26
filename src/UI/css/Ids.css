@@ -221,3 +221,22 @@
     clear:both;    
     width:500px;
 }
+#attendee-list
+{
+    width:460px;
+}
+#attendee-list dt
+{
+    font-size:1.3em;
+    font-weight:bold;
+    float:left;
+    
+}
+
+#attendee-list dd
+{
+
+    padding:5px 0px 5px 175px;
+    border-bottom:solid 1px #aaa;
+   
+}

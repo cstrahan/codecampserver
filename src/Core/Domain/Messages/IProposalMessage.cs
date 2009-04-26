@@ -12,5 +12,6 @@ namespace CodeCampServer.Core.Domain.Messages
 		string Title { get; set; }
 		string Abstract { get; set; }
 		Guid Id { get; set; }
+        int Votes { get; set; }
 	}
 }

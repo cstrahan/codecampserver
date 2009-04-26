@@ -27,7 +27,12 @@ namespace CodeCampServer.UI.Models.Forms
 		[Hidden]
 		public Guid Id { get; set; }
 
-		[NoInput]
+        public int Votes
+        {
+            get; set ;
+        }
+
+	    [NoInput]
 		public ProposalStatus Status { get; set; }
 
 		[NoInput]

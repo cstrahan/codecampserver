@@ -542,7 +542,10 @@ div.validationSummary
 
 /* END Modal CSS Styles */
 
-
+.attending-name
+{
+    margin-right:100px;
+}
 .restrictedBGColor
 {
   background-color: #FF0000;
@@ -592,4 +595,41 @@ div.validationSummary
 {
     clear:both;
     width:100%;
+}
+.proposal
+{
+    padding-bottom: 5px;
+    margin-bottom:5px;
+    font-size:1.2em;
+}
+.vote-wrapper
+{
+    height:35px; float:left; width:50px;
+    padding:5px;
+    vertical-align:middle;
+    margin-top:18px;
+}
+
+.vote
+{
+    vertical-align:middle;
+    text-align:center;
+    width:30px;
+    font-size:10px;
+    padding:2px;
+    margin-top:10px;
+    background-color: ThreeDFace;
+    border-style:solid;
+    border-top-color:ThreeDShadow;
+    border-left-color:ThreeDShadow;
+    border-bottom-color:ThreeDLighShadow;
+    border-right-color:ThreeDLighShadow
+}
+.star
+{
+    display:block;
+    padding:5px;
+    width:30px;
+    background-image: url(../../images/icons/star.png);
+	background-repeat: no-repeat;
 }

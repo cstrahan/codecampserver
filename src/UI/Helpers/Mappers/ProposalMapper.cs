@@ -28,6 +28,7 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			model.Level = message.Level;
 			model.Track = message.Track;
 			model.Abstract = message.Abstract;
+		    model.Votes = message.Votes;
 			model.Conference = _conferenceRepository.GetByKey(message.ConferenceKey);
 		}
 	}

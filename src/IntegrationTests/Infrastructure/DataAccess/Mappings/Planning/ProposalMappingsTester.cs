@@ -25,7 +25,8 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings.Pla
 			               		Abstract = "abstract",
 			               		Status = ProposalStatus.Submitted,
 			               		SubmissionDate = new DateTime(2001, 1, 3),
-												CreatedDate = new DateTime(2002, 1, 3)
+								CreatedDate = new DateTime(2002, 1, 3),
+                                Votes = 3
 			               	};
 
 			PersistEntities(conference, user, track);

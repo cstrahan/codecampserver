@@ -217,3 +217,12 @@ table.feature td.featureHeading
 	padding-bottom: 5px !important;
 }
 /* End feature table CSS */
+.proposal
+{
+    border: solid 1px #129987;
+    
+}
+.proposal-alternating
+{
+    background-color:#99CC99;
+}
