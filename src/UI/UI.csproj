@@ -40,6 +40,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\castle\Castle.Components.Validator.dll</HintPath>
     </Reference>
+    <Reference Include="Exceptioneer.WebClient, Version=1.0.0.45, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\exceptioneer\Exceptioneer.WebClient.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\aspnetmvc\Microsoft.Web.Mvc.dll</HintPath>
@@ -289,6 +293,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\datatable.css" />
     <Content Include="css\stylesheet.css" />
     <Content Include="css\datePicker.css" />
     <Content Include="css\codecampserver.css" />
@@ -332,6 +337,7 @@
     <Content Include="scripts\jquery-1.2.6-vsdoc.js" />
     <Content Include="scripts\jquery.autocomplete.pack.js" />
     <Content Include="scripts\jquery.bgiframe.min.js" />
+    <Content Include="scripts\jquery.dataTables.js" />
     <Content Include="scripts\jquery.datePicker.js" />
     <Content Include="scripts\jquery.form.js" />
     <Content Include="scripts\jquery.maskedinput-1.1.4.pack.js" />

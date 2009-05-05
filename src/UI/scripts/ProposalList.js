@@ -4,7 +4,7 @@ $(document).ready(function() {
     $('.proposal:even').addClass("proposal-alternating");
     $('.proposal').corners();
     $('a.vote').click(function() {
-        console.log("a.star click");
+        //console.log("a.star click");
         var $link = $(this);
         $('body').css({ 'cursor': 'wait' });
 
