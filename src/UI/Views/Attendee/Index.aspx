@@ -18,7 +18,13 @@ AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage
 		 
 		    <dt><%= attendee.FirstName%> <%= attendee.LastName%></dt>
 		        
-		    <dd><a class="attending-url" href="<%= attendee.Webpage%>"><%= attendee.Webpage%></a></dd>
+		    <dd>
+		    <% if(!string.IsNullOrEmpty(attendee.Webpage)){%>
+		        <a class="attending-url" href="<%= attendee.Webpage%>"><%= attendee.Webpage%></a>
+		    <% }else{ %>
+		        &nbsp;
+		     <%} %>  
+  		    </dd>
   		    
   		    
   		    
