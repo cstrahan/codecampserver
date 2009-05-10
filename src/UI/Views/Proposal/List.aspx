@@ -22,7 +22,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ProposalForm[]>" %>
 			<strong><%=proposal.Title%> <i>(<%=proposal.Status%>)</i> <%Html.RenderPartial("EditProposalLink", proposal); %></strong>
 			<div>  
 					<p>Level: <%=proposal.Level%> Track: <%= proposal.Track.Name %> </p>
-					<p>Abstract: <%=proposal.Abstract%> </p>
+					<p class="proposal-abstract">Abstract: <%=proposal.Abstract%> </p>
 			</div>
 		</div>			
 	<% } %>
