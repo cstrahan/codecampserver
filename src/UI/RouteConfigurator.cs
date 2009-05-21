@@ -37,7 +37,7 @@ namespace CodeCampServer.UI
                 .WithDefaults(new {controller = "Conference", action = "index"})
                 .WithConstraints(new
                                      {
-                                         conferenceKey = new ConferenceKeyCannotBeAControllerNameContraint(),
+                                         conferenceKey = new ConferenceKeyCannotBeAControllerNameConstraint(),
                                          controller =
                                      "schedule|session|timeslot|track|attendee|conference|speaker|admin|proposal|user|sponsor"
                                      })

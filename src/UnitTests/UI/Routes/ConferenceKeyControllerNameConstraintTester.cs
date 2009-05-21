@@ -16,14 +16,14 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		[Test]
 		public void Should_allow_any_non_controller_names_into_this_route()
 		{
-			var constraint = new ConferenceKeyCannotBeAControllerNameContraint();
+			var constraint = new ConferenceKeyCannotBeAControllerNameConstraint();
 			constraint.Match("conferenceKey", "foobar").ShouldBeTrue();
 		}
 
 		[Test]
 		public void Should_not_allow_any_controller_names_into_this_route()
 		{
-			var constraint = new ConferenceKeyCannotBeAControllerNameContraint();
+			var constraint = new ConferenceKeyCannotBeAControllerNameConstraint();
 			Type[] types = typeof (HomeController).Assembly.GetTypes();
 			IEnumerable<Type> controllers = types.Where(e => IsAController(e));
 			foreach (Type controller in controllers)
