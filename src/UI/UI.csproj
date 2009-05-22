@@ -350,6 +350,7 @@
     <Content Include="scripts\tests\testrunner.1.3.js" />
     <Content Include="scripts\tests\testrunner.js" />
     <Content Include="scripts\tests\testsuite.css" />
+    <Content Include="Views\Admin\AttendeeEmail.aspx" />
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Attendee\Confirmation.aspx" />
     <Content Include="Views\Conference\Index.aspx" />

@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Models.Forms;
+using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
@@ -25,6 +26,12 @@ namespace CodeCampServer.UI.Controllers
             var model = new AdminForm() {ConferenceIsSelected = conference != null};
 
             return View(model);
+        }
+        public ActionResult AttendeeEmail(Conference conference)
+        {
+            ViewData.Add(conference.GetAttendees());
+            
+            return View();
         }
     }
 }

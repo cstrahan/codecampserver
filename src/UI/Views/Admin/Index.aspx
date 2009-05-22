@@ -19,6 +19,7 @@ AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage
 		    <li><a href="<%=Url.Action<SpeakerController>(c=>c.List(null)) %>"> Edit Speakers</a></li>
 		    <li><a href="<%=Url.Action<SessionController>(c=>c.List(null)) %>"> Edit Sessions</a></li>        			        
 		    <li><a href="<%=Url.Action<ProposalController>(c=>c.List(null)) %>"> List Proposals</a></li>        			        
+		    <li><a href="<%=Url.Action<AdminController>(c=>c.AttendeeEmail(null)) %>"> View Attendee Email Addresses</a></li>        			        
     <%} %>
 	  </ul>
   </div>
