@@ -1,0 +1,34 @@
+<#@ template language="C#" HostSpecific="True" debug="true" #>
+<#@ output extension="cs" #>
+<#
+	string solutionNamespace = projectDefaultNamespace.Replace(".UI",""); 
+	string entityName = model.Name.Replace("Form","");
+	string className = entityName + "Mapper";
+	OutputFilePath = String.Format(@"{1}Helpers\Mappers\{0}.cs",className,projectDirectory);
+#>
+using System;
+using <#= solutionNamespace #>.Core.Domain;
+using <#= solutionNamespace #>.Core.Domain.Model;
+using <#= solutionNamespace #>.UI.Models.Forms;
+
+namespace <#= solutionNamespace #>.UI.Helpers.Mappers
+{
+	public class <#= className #> : AutoFormMapper<<#= entityName #>, <#= model.Name #>>, I<#= entityName #>Mapper
+	{
+		public <#= className #>(I<#= entityName #>Repository repository) : base(repository)
+		{
+		}
+
+		protected override Guid GetIdFromMessage(<#= model.Name #> form)
+		{
+			return form.ID;
+		}
+
+		protected override void MapToModel(<#= model.Name #> form, <#= entityName #> model)
+		{
+<# foreach(ModelProperty property in model.Properties) {#>
+			model.<#= property.Name #> = form.<#= property.Name #>;
+<# } #>
+		}
+	}
+}

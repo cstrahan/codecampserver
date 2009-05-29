@@ -1,0 +1,76 @@
+﻿<#@ template language="C#" HostSpecific="True" debug="true" #>
+<#@ output extension="cs" #>
+<#
+	
+	string entityName = model.Name.Replace("Form","");
+	string className = entityName + "MapperTester";
+	string solutionNamespace = projectDefaultNamespace.Replace(".UI","");
+	OutputFilePath = String.Format(@"{1}..\UnitTests\Core\Services\Updaters\{0}.cs",className,projectDirectory);
+#>
+using System;
+using NBehave.Spec.NUnit;
+using NUnit.Framework;
+using Rhino.Mocks;
+using <#=solutionNamespace#>.Core.Domain;
+using <#=solutionNamespace#>.Core.Domain.Model;
+using <#=solutionNamespace#>.UI.Helpers.Mappers;
+using <#=solutionNamespace#>.UI.Models.Forms;
+
+namespace <#=solutionNamespace#>.UnitTests.Core.Services.Updaters
+{
+    [TestFixture]
+    public class <#=className#> : TestBase
+    {
+        [Test]
+        public void Should_map_existing_<#=entityName#>_from_form()
+        {
+            var viewModel = S<<#=model.Name#>>();
+            
+<#			int count=0;
+			foreach(ModelProperty property in model.Properties) {#>
+			viewModel.<#= property.Name #> = "<#= count #>";
+<#		count++;
+		} #>
+            
+            var repository = S<I<#=entityName#>Repository>();
+            var entity = new <#=entityName#>();
+            repository.Stub(s => s.GetById(viewModel.Id)).Return(entity);
+
+            I<#=entityName#>Mapper mapper = new <#=entityName#>Mapper(repository);
+
+            <#=entityName#> mapped = mapper.Map(viewModel);
+            entity.ShouldEqual(mapped);
+            entity.ShouldBeTheSameAs(entity);
+<#			int count1=0;
+			foreach(ModelProperty property in model.Properties) {#>
+			entity.<#= property.Name #>.ShouldEqual("<#= count1 #>");
+<#		count1++;
+		} #>
+        }
+
+        [Test]
+        public void Should_map_new_<#=entityName#>_from_form()
+        {
+            var form = S<<#=model.Name#>>();
+            form.Id = Guid.Empty;
+<#			int count2=0;
+			foreach(ModelProperty property in model.Properties) {#>
+			form.<#= property.Name #> = "<#= count2 #>";
+<#		count2++;
+		} #>
+
+            var repository = S<I<#=entityName#>Repository>();
+            repository.Stub(s => s.GetById(form.Id)).Return(null);
+
+            I<#=entityName#>Mapper mapper = new <#=entityName#>Mapper(repository);
+
+            <#=entityName#> mapped = mapper.Map(form);
+            mapped.Id.ShouldEqual(Guid.Empty);
+<#			int count3=0;
+			foreach(ModelProperty property in model.Properties) {#>
+			mapped.<#= property.Name #>.ShouldEqual("<#= count3 #>");
+<#		count3++;
+		} #>
+        }
+    }
+}

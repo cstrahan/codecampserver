@@ -1,0 +1,48 @@
+﻿<#@ template language="C#" HostSpecific="True" debug="true" #>
+<#@ output extension="cs" #>
+<#	
+	string entityName = model.Name.Replace("Form","");
+	string className = entityName + "Mapper";
+	string solutionNamespace = projectDefaultNamespace.Replace(".UI","");
+	OutputFilePath = String.Format(@"{1}..\UI\Helpers\Mappers\{0}.cs",className,projectDirectory);
+#>
+using System;
+using System.Linq;
+using <#=solutionNamespace#>.Core.Domain;
+using <#=solutionNamespace#>.Core.Domain.Model;
+using <#=solutionNamespace#>.Core.Services;
+using <#=solutionNamespace#>.UI.Models.Forms;
+
+namespace <#=solutionNamespace#>.UI.Helpers.Mappers
+{
+    public class <#= className #> : AutoFormMapper<<#=entityName#>, <#=model.Name#>>, I<#=entityName#>Mapper
+    {        
+        public <#= className #>(I<#=entityName#>Repository repository)
+            : base(repository)
+        {
+        }
+        
+
+        protected override Guid GetIdFromMessage(<#=model.Name#> form)
+        {
+            return form.Id;
+        }
+
+        protected override void MapToModel(<#=model.Name#> viewModel, <#=entityName#> model)
+        {
+<#			foreach(ModelProperty property in model.Properties) {#>
+			model.<#= property.Name #> = viewModel.<#= property.Name #>;
+<# } #>
+        }
+
+        public <#=model.Name#>[] Map(<#=entityName#>[] models)
+        {
+            return models.Select(model => Map(model)).ToArray();
+        }
+
+        public <#=entityName#>[] Map(<#=model.Name#>[] messages)
+        {
+            return messages.Select(message => Map(message)).ToArray();
+        }
+    }
+}

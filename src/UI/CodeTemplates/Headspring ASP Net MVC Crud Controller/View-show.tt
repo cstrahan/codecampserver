@@ -1,0 +1,22 @@
+﻿<#@ template language="C#" HostSpecific="True" debug="true" #>
+<#@ output extension="aspx" #>
+<#
+	string solutionNamespace = projectDefaultNamespace.Replace(".UI",""); 
+	string controllerNamespace = projectDefaultNamespace + ".Controllers";
+	string entityName = model.Name.Replace("Form","");
+	string controllerClassName = entityName + "Controller";	
+	OutputFilePath = String.Format(@"{1}Views\{0}\Show.aspx",entityName,projectDirectory);
+#>
+<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
+Inherits="System.Web.Mvc.ViewPage<<#=model.Name#>>"%>
+<%@ Import Namespace="<#=solutionNamespace #>.UI.Models.Forms"%>
+<asp:Content ContentPlaceHolderID="Main" runat="server">
+	 <div>
+		    <h1><%=Model.Name%> <%Html.RenderPartial("Edit<#=entityName#>Link", Model); %></h1>		    
+		    <div>  
+	   			        <# foreach(ModelProperty property in model.Properties) {#>
+						<div><#= property.Name #>: <%=Model.<#= property.Name #>%></div>
+					    <# } #>
+			</div>
+        </div>
+</asp:Content>

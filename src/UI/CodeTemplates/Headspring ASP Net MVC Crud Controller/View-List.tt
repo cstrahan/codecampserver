@@ -1,0 +1,34 @@
+﻿<#@ template language="C#" HostSpecific="True" debug="true" #>
+<#@ output extension="aspx" #>
+<#
+	string solutionNamespace = projectDefaultNamespace.Replace(".UI",""); 
+	string controllerNamespace = projectDefaultNamespace + ".Controllers";
+	string entityName = model.Name.Replace("Form","");
+	string controllerClassName = entityName + "Controller";
+	
+	OutputFilePath = String.Format(@"{1}Views\{0}\List.aspx",entityName,projectDirectory);
+#>
+<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
+Inherits="System.Web.Mvc.ViewPage<<#=model.Name#>[]>"%>
+<%@ Import Namespace="<#=solutionNamespace #>.UI.Controllers"%>
+<%@ Import Namespace="<#=solutionNamespace #>.UI.Models.Forms"%>
+<%@ Import Namespace="MvcContrib"%>
+
+<asp:Content ContentPlaceHolderID="Main" runat="server">
+	 <h2><#=model.Name#>
+		<%if (User.Identity.IsAuthenticated){%>
+			<a class="" href="<%=Url.Action<<#=controllerClassName#>>(c=>c.New())%>" title="Add a new <#=entityName#>"><img src="/images/icons/application_add.png" /></a>
+		<%}%>
+	</h2>
+<%=Errors.Display() %>
+<%=Html.Grid(Model)
+	    .WithClass("datatable")
+	    .AutoColumns()
+	     .Columns(
+	         builder =>{
+	                       builder.For("Action").
+                           PartialCell("Action<#=model.Name#>Link").
+                           Visible(User.Identity.IsAuthenticated);
+             })%>
+
+</asp:Content>
