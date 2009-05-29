@@ -1,0 +1,46 @@
+<#@ template language="C#" HostSpecific="True" debug="true" #>
+<#@ output extension=".hbm.xml" #>
+<#
+	string solutionNamespace = projectDefaultNamespace.Replace(".Core",""); 
+
+	string entityName = model.Name;
+	
+	OutputFilePath = String.Format(@"{1}..\Infrastructure\DataAccess\Mappings\{0}.hbm.xml",entityName,projectDirectory);
+	BuildAction = 3;
+
+	/*
+		prjBuildActionNone	0	No action is taken.
+		prjBuildActionCompile	1	The file is compiled.
+		prjBuildActionContent	2	The file is included in the Content project output group (see Deploying Applications and Components)
+		prjBuildActionEmbeddedResource	3	The file is included in the main generated assembly or in a satellite assembly as a resource.
+	*/
+#>
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+									namespace="<#=solutionNamespace#>.Core.Domain.Model"
+									assembly="<#=solutionNamespace#>.Core">
+
+	<class name="<#=model.Name#>" table="<#=model.Name#>s" dynamic-update="true">
+		<id name="Id" column="Id" type="Guid">
+			<generator class="guid.comb"/>
+		</id>
+<#	foreach(ModelProperty property in model.Properties) 
+	{
+#>
+<#		if(property.ModelType.Namespace.StartsWith("System")){#>
+		<property name="<#= property.Name #>" />
+<#		}
+		else if(property.ModelType.Namespace.Contains(".Enumerations."))
+		{ 
+#>
+		<property name="<#= property.Name #>" type="Tarantino.Infrastructure.Commons.DataAccess.ORMapper.EnumerationType`1[[<#=property.ModelType.Name#>, <#=solutionNamespace#>.Core]], Tarantino.Infrastructure"/>
+<#		} 
+		else 
+		{
+#>
+		<many-to-one name="<#= property.Name #>" class="<#=property.ModelType.Name#>"  cascade="save-update" />
+<#		} 
+	}
+#>
+	</class>
+</hibernate-mapping>

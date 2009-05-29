@@ -1,0 +1,19 @@
+<#@ template language="C#" HostSpecific="True" debug="true" #>
+<#@ output extension="cs" #>
+<#
+	string solutionNamespace = projectDefaultNamespace.Replace(".Core",""); 
+	string repositoryNamespace = projectDefaultNamespace + ".Domain";
+
+	string entityName = model.Name;
+	string repositoryClassName = "I" + entityName + "Repository";
+	
+	OutputFilePath = String.Format(@"{1}Domain\{0}.cs",repositoryClassName,projectDirectory);
+#>
+using <#=solutionNamespace#>.Core.Domain.Model;
+
+namespace <#= repositoryNamespace #>
+{
+    public interface <#= repositoryClassName #> : IRepository<<#=model.Name#>>
+	{
+	}
+}
