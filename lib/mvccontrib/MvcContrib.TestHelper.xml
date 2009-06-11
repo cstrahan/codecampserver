@@ -139,8 +139,25 @@
             <summary>
             Compares the two strings (case-insensitive).
             </summary>
-            <param name="left"></param>
-            <param name="right"></param>
+            <param name="actual"></param>
+            <param name="expected"></param>
+        </member>
+        <member name="M:MvcContrib.TestHelper.GeneralTestExtensions.ShouldNotBeNull(System.Object,System.String)">
+            <summary>
+             Asserts that the object should not be null.
+            </summary>
+            <param name="Actual"></param>
+            <param name="message"></param>
+            <exception cref="T:MvcContrib.TestHelper.AssertionException"></exception>
+        </member>
+        <member name="M:MvcContrib.TestHelper.GeneralTestExtensions.ShouldEqual(System.Object,System.Object,System.String)">
+            <summary>
+             Asserts that two objects are equal.
+            </summary>
+            <param name="actual"></param>
+            <param name="expected"></param>
+            <param name="message"></param>
+            <exception cref="T:MvcContrib.TestHelper.AssertionException"></exception>
         </member>
         <member name="M:MvcContrib.TestHelper.MockSession.#ctor">
             <summary>
@@ -383,6 +400,12 @@
             </summary>
             <value>The HTTPContext</value>
         </member>
+        <member name="P:MvcContrib.TestHelper.TestControllerBuilder.Files">
+            <summary>
+            Gets the HttpPostedFiles that controllers will have set internally when created with InitializeController
+            </summary>
+            <value>The HttpFileCollection Files</value>
+        </member>
         <member name="P:MvcContrib.TestHelper.TestControllerBuilder.Form">
             <summary>
             Gets the Form data that built controllers will have set internally when created with InitializeController
@@ -394,6 +417,11 @@
             Gets the QueryString that built controllers will have set internally when created with InitializeController
             </summary>
             <value>The NameValueCollection QueryString</value>
+        </member>
+        <member name="P:MvcContrib.TestHelper.TestControllerBuilder.AcceptTypes">
+            <summary>
+            Gets or sets the AcceptTypes property of Request that built controllers will have set internally when created with InitializeController
+            </summary>
         </member>
         <member name="P:MvcContrib.TestHelper.TestControllerBuilder.Session">
             <summary>
@@ -436,6 +464,48 @@
             Gets or sets the RawUrl string that built controllers will have set internally when created with InitializeController
             </summary>
             <value>The RawUrl string</value>
+        </member>
+        <member name="T:MvcContrib.TestHelper.IWriteableHttpFileCollection">
+            <summary>
+            Defines an extended <see cref="T:System.Web.HttpFileCollectionBase"/> which allows modifications to assist with testing.
+            </summary>
+            <remarks>
+            Using this interface allows us to work around that fact that the indexers on <see cref="T:System.Web.HttpPostedFileBase"/>
+            are read only and cannot be changed by overrides.
+            </remarks>
+        </member>
+        <member name="P:MvcContrib.TestHelper.IWriteableHttpFileCollection.Item(System.String)">
+            <summary>
+            Gets or sets the <see cref="T:System.Web.HttpPostedFileBase"/> with the specified name.
+            </summary>
+        </member>
+        <member name="T:MvcContrib.TestHelper.WriteableHttpFileCollection">
+            <summary>
+            An implementation of HttpFileCollectionBase to assit with testing.
+            </summary>
+        </member>
+        <member name="M:MvcContrib.TestHelper.WriteableHttpFileCollection.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MvcContrib.TestHelper.WriteableHttpFileCollection"/> class.
+            </summary>
+        </member>
+        <member name="P:MvcContrib.TestHelper.WriteableHttpFileCollection.AllKeys">
+            <summary>
+            Gets a string array containing the keys (names) of all members in the file collection.
+            </summary>
+            <value>An array of file names.</value>
+        </member>
+        <member name="P:MvcContrib.TestHelper.WriteableHttpFileCollection.Item(System.String)">
+            <summary>
+            Gets the object with the specified name from the file collection.
+            </summary>
+            <param name="name">Name of item to be returned.</param>
+            <returns>The System.Web.HttpPostedFile specified by name.</returns>
+        </member>
+        <member name="P:MvcContrib.TestHelper.WriteableHttpFileCollection.MvcContrib#TestHelper#IWriteableHttpFileCollection#Item(System.String)">
+            <summary>
+            Gets or sets the <see cref="T:System.Web.HttpPostedFileBase"/> with the specified name.
+            </summary>
         </member>
     </members>
 </doc>

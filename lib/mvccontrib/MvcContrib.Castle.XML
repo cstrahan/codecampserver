@@ -66,14 +66,6 @@
             Properties to exclude from binding
             </summary>
         </member>
-        <member name="M:MvcContrib.Castle.HtmlExtensionDuck.AddExtension(System.Type)">
-            <summary>
-             Registers an extension type for evaluation later during duck typing interrogation.
-             
-             Add your own extensions here in Application_Start for use in NVelocity views.
-            </summary>
-            <param name="type"></param>
-        </member>
         <member name="T:MvcContrib.Castle.ICastleBindingContainer">
             <summary>
             Controllers that implement this interface will have access to the IDataBinder instance used by the CastleBinderAttribute.
@@ -151,11 +143,6 @@
             <value>
             <c>true</c> if a distributed transaction should be created; otherwise, <c>false</c>.
             </value>
-        </member>
-        <member name="T:MvcContrib.Castle.NVelocityHtmlHelper">
-            <summary>
-            Extension methods for use with NVelocity 
-            </summary>
         </member>
         <member name="T:MvcContrib.Castle.WindsorControllerFactory">
             <summary>
