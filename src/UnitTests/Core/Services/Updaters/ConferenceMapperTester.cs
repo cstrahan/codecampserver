@@ -24,8 +24,8 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			form.PhoneNumber = "phone";
 			form.PostalCode = "postal";
 			form.Region = "region";
-			form.StartDate = "01/01/2008";
-			form.EndDate = "01/02/2008";
+			form.StartDate = new DateTime(2008, 1, 1).ToShortDateString();
+			form.EndDate = new DateTime(2008, 1, 2).ToShortDateString();
 		    form.HtmlContent = "<h1>this is some html fragments</h1>";
 
 			var repository = M<IConferenceRepository>();
@@ -59,8 +59,8 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			form.PhoneNumber = "phone";
 			form.PostalCode = "postal";
 			form.Region = "region";
-			form.StartDate = "01/01/2008";
-			form.EndDate = "01/02/2008";
+			form.StartDate = new DateTime(2008, 1, 1).ToShortDateString();
+			form.EndDate = new DateTime(2008, 1, 2).ToShortDateString();
 		    form.HasRegistration = true;
 
 			var repository = S<IConferenceRepository>();
