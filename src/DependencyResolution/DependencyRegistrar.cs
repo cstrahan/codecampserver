@@ -24,6 +24,7 @@ namespace CodeCampServer.DependencyResolution
 			                         		       		y.AssemblyContainingType<InfrastructureDependencyRegistry>();
 			                         		       		y.AssemblyContainingType<NaakRegistry>();
 			                         		       		y.AssemblyContainingType<DependencyRegistry>();
+																						y.LookForRegistries();
 			                         		       	});
 			                         		x.AddRegistry<CastleValidatorRegistry>();
 			                         	});
@@ -59,8 +60,8 @@ namespace CodeCampServer.DependencyResolution
 				{
 					if (!_dependenciesRegistered)
 					{
-						_dependenciesRegistered = true;
 						new DependencyRegistrar().RegisterDependencies();
+						_dependenciesRegistered = true;
 					}
 				}
 			}

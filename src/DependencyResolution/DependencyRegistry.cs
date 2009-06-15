@@ -18,6 +18,7 @@ namespace CodeCampServer.DependencyResolution
 			     		x.Assembly(assemblyPrefix + ".Infrastructure");
 			     		x.Assembly(assemblyPrefix + ".UI");
 			     		x.With<DefaultConventionScanner>();
+							x.LookForRegistries();
 			     	});
 
 

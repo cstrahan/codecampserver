@@ -33,7 +33,7 @@ namespace CodeCampServer.DependencyResolution
 					if (!_dependenciesRegistered)
 					{
 						Logger.Debug(this, "Registering types with StructureMap");
-						ObjectFactory.Reset();
+						ObjectFactory.ResetDefaults();
 						var registrar = new DependencyRegistrar();
 						registrar.RegisterDependencies();
 						_dependenciesRegistered = true;

@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.DependencyResolution;
-using CodeCampServer.Infrastructure;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.Binders;
@@ -35,6 +34,14 @@ namespace CodeCampServer.IntegrationTests.DependencyResolution
 				ReflectionHelper.IsConcreteAssignableFromGeneric(typeof(ConferenceRepository), typeof(IRepository<>)).ShouldNotBeNull();
 				ReflectionHelper.IsConcreteAssignableFromGeneric(typeof(TimeSlotRepository), typeof(IRepository<>)).ShouldNotBeNull();
 				ReflectionHelper.IsConcreteAssignableFromGeneric(typeof(TrackRepository), typeof(IRepository<>)).ShouldNotBeNull();
+			}
+
+			[Test]
+			public void Should_register_conferencerepository()
+			{
+				DependencyRegistrar.EnsureDependenciesRegistered();
+				var repository = DependencyRegistrar.Resolve<IConferenceRepository>();
+				repository.ShouldBeInstanceOfType(typeof(ConferenceRepository));
 			}
 
 			[Test]

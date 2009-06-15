@@ -139,6 +139,7 @@
     <Compile Include="Infrastructure\DataAccess\TrackRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\UserRepositoryTester.cs" />
     <Compile Include="Infrastructure\UI\Controllers\DependencyRegistrarTester.cs" />
+    <Compile Include="ReflectionHelper.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="UI\DataLoader\ZDataLoader.cs" />
   </ItemGroup>
