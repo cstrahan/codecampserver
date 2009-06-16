@@ -13,7 +13,6 @@ using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
-	[Obsolete("The invalid scenario here is really bad.  Redesign!")]
 	[RequiresConferenceFilter]
 	public class ProposalController : SaveController<Proposal, IProposalMessage>
 	{
