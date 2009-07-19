@@ -6,11 +6,11 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm>"%>
 
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-        <div class="w95p tac">
+        <div class="section-title">
             <h2><%= Model.Name%> <%Html.RenderPartial("EditConferenceLink", Model); %></h2>
             <p><%= Model.Description %></p>
-            <p><%= Model.LocationName %></p>
-            <p><%= Model.StartDate %>&nbsp;to&nbsp;<%= Model.EndDate %></p>
+            <p><%= Model.LocationName %></p>            
+            <p><%= Model.StartDate %> to <%= Model.EndDate %></p>
              <%= Model.HtmlContent %></p>
         </div>
 </asp:Content>

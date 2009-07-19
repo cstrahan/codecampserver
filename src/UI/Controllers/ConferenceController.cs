@@ -6,9 +6,7 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models;
 using CodeCampServer.UI.Models.Forms;
-using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
@@ -36,9 +34,7 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		public ActionResult List(UserGroup usergroup)
-		{
-			//ViewData.Add(new PageInfo {Title = usergroup.Name});
-
+		{			
 			Conference[] conferences = _repository.GetAllForUserGroup(usergroup);
 
 			if (conferences.Length < 1)
@@ -50,12 +46,14 @@ namespace CodeCampServer.UI.Controllers
 			return View(conferenceListDto);
 		}
 
-		[RequireAuthenticationFilter()]
+		[RequireAuthenticationFilter]
 		public ActionResult Edit(Conference conference)
 		{
 			if (conference == null)
 			{
 				TempData.Add("message", "Conference has been deleted.");
+
+                //TODO: this won't work, where to redirect?
 				return RedirectToAction<ConferenceController>(c => c.List(conference.UserGroup));
 			}
 
@@ -66,7 +64,7 @@ namespace CodeCampServer.UI.Controllers
 		    return View(ViewPages.NotAuthorized);
 		}
 
-		[RequireAuthenticationFilter()]
+		[RequireAuthenticationFilter]        
 		[ValidateInput(false)]
 		[ValidateModel(typeof (ConferenceForm))]
 		public ActionResult Save([Bind(Prefix = "")] ConferenceForm form)

@@ -10,17 +10,16 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserGroupForm>"%>
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-        <div class="w95p tac">
+        <div class="section-title">
             <h2><%= Model.Name %> <%Html.RenderPartial("EditUserGroupLink", Model); %></h2>
             <p><%= Model.City %> <%= Model.Region %> <%= Model.Country%></p>             
         </div>
-        <div class="fr"><%Html.RenderPartial("Sponsors", Model.Sponsors);%></div>
-        <div class="fl" style="width:700px"><%Html.RenderPartial("ConferenceList", ViewData.Get<ConferenceForm[]>()); %></div>
+        <div class="sidebar"><%Html.RenderPartial("Sponsors", Model.Sponsors);%></div>
+        <div class="content"><%Html.RenderPartial("ConferenceList", ViewData.Get<ConferenceForm[]>()); %></div>
         
         <div class="cleaner"></div>
-        <div class="w95p">
-        <%= Model.HomepageHTML %>
-        </div>
+        <p></p>
+        <%= Model.HomepageHTML %>        
         
         <div class="cleaner"></div>
 </asp:Content>

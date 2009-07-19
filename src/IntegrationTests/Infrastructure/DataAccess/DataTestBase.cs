@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Domain.Model.Planning;
 using CodeCampServer.DependencyResolution;
 using NHibernate;
 using NUnit.Framework;

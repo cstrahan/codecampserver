@@ -36,13 +36,12 @@ p.date
 	padding-top: 2px;
 	margin: 2px 0px 2px 20px;
 	background-color: #FCFCFC;
-  background-repeat: no-repeat;
-  background-position: top left;
-  border: 1px solid #CCCCCC;
+	background-repeat: no-repeat;
+	background-position: top left;
+	border: 1px solid #CCCCCC;
 	margin: 5px 10px;
 	padding: 5px;
 	font-size: 1.0em;
-
 }
 
 .headline a:link,.headline a:visited,.headline a:hover,.headline a:active

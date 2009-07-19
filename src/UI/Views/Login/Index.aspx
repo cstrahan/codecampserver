@@ -7,24 +7,20 @@
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">  
        <form action="<%= Url.Action<LoginController>(x => x.Login(null)) %>" method="post">
-		<div>
-	    <h1>Please Log In:</h1>
-      <%=Errors.Display()%>
-	    <table class="dataEntry">
-		    <tr>
-			    <td class="w50p">
-						<%=Html.Input(f=>f.Username) %>
-						<%=Html.Input(f=>f.Password) %>
-			    </td>
-		    </tr>
-		  </table>
-	    <br />
-	    <br />
-	    <div class="p10 tac">
-				<%=Html.SubmitButton("login", "Log in", new{@class="pr10 w100"}) %>    
-				<a href="<%=Url.Action<HomeController>(x => x.Index(null,null)).ToXHTMLLink() %>"  class="pr10 mt5" rel="cancel">Cancel</a>				
-	    </div>
-</div>
-
+		
+	    <h2>Please Log In:</h2>
+        <%=Errors.Display()%>
+        
+        <fieldset id="login">
+            <legend>Login Details</legend>
+            
+            <%=Html.Input(f=>f.Username) %>
+		    <%=Html.Input(f=>f.Password) %>
+		    
+		    <p class="buttons"><%=Html.SubmitButton("login", "Log in") %>
+		        <%= Html.ActionLink<HomeController>("Cancel", x => x.Index(null, null)) %>			   
+			</p>
+        </fieldset>
+                	
 </form>
 </asp:Content>

@@ -33,7 +33,7 @@ td
 	text-align: center;
 }
 
-input 
+input[type="text"]
 {
 	width:300px;
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Planning;

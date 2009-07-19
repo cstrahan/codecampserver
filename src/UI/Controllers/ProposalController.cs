@@ -40,10 +40,7 @@ namespace CodeCampServer.UI.Controllers
 		public ActionResult Save(ProposalForm form, string command)
 		{
 			AddEditInfoToViewData(form);
-			return ProcessSave(form, PostSaveAction, delegate(Proposal obj)
-			                                         	{
-			                                         		PreSaveAction(obj, command);
-			                                         	});
+			return ProcessSave(form, PostSaveAction, obj => PreSaveAction(obj, command));
 		}
 
 		private void PreSaveAction(Proposal model, string command)

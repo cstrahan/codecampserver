@@ -98,6 +98,7 @@
     <Compile Include="Controllers\UserGroupController.cs" />
     <Compile Include="Helpers\Attributes\NoInputAttribute.cs" />
     <Compile Include="Helpers\Binders\UserGroupModelBinder.cs" />
+    <Compile Include="Helpers\ConferenceViewExtensions.cs" />
     <Compile Include="Helpers\Filters\AddUserGroupToViewDataActionFilterAttribute.cs" />
     <Compile Include="Helpers\Mappers\UserGroupRssFeedMapper.cs" />
     <Compile Include="Helpers\Mappers\IUserGroupRssFeedMapper.cs" />

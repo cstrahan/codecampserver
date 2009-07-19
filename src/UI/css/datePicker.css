@@ -125,20 +125,21 @@ div.dp-popup td.disabled {
 
 
 input.dp-applied {
-	width: 70px;
+	width: 170px;
 	float: left;
 }
 
-a.dp-choose-date {
+a.dp-choose-date 
+{	
 	float: left;
 	width: 16px;
 	height: 16px;
 	padding: 0;
-	margin: 1px 3px 5px 3px;
+	margin: 7px 3px 5px 3px;
 	display: block;
 	text-indent: -2000px;
 	overflow: hidden;
-	background: url(/Images/Icons/calendar.png) no-repeat; 
+	background: transparent url(/Images/Icons/calendar.png) no-repeat; 
 }
 a.dp-choose-date.dp-disabled {
 	background-position: 0 -20px;

@@ -9,7 +9,7 @@ body
 	margin: 0;
 	padding: 0;
 	background: #4B689A url(/images/img1.jpg) repeat-x;
-	font: normal small Arial, Helvetica, sans-serif;
+	font: normal small Arial, Helvetica, sans-serif ;
 	color: #444;
 }
 
@@ -179,7 +179,6 @@ a:hover
 {
 	margin-bottom:10px;
 }
-
 
 table.dataEntry
 {
