@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Interface Name="CodeCampServer.Core.Domain.IConferenceRepository">
-    <Position X="8.75" Y="1" Width="1.75" />
+    <Position X="9" Y="1" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAgAA=</HashCode>
       <FileName>Domain\IConferencerRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="CodeCampServer.Core.Domain.IKeyedRepository&lt;T&gt;">
-    <Position X="7" Y="1" Width="1.5" />
+    <Position X="7" Y="1" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Domain\IKeyedRepository.cs</FileName>
