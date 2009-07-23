@@ -89,7 +89,17 @@
 	position: relative;
 	min-height: 302px;
 	_height: 302px;
-	clear: both;
+	clear: both;	
+}
+
+table.datatable
+{
+	margin: 1em 0;
+}
+
+table.datatable tr th 
+{
+	cursor: pointer;
 }
 
 .dataTables_processing {
@@ -108,12 +118,14 @@
 .dataTables_length {
 	width: 40%;
 	float: left;
+	margin-bottom: 1em;
 }
 
 .dataTables_filter {
-	width: 50%;
+	width: 50%;	
 	float: right;
 	text-align: right;
+	margin-bottom: 1em;
 }
 
 .dataTables_info {
@@ -121,9 +133,10 @@
 	float: left;
 }
 
-.dataTables_paginate {
+.dataTables_paginate 
+{
 	width: 44px;
-	* width: 50px;
+	width: 50px;
 	float: right;
 	text-align: right;
 }
@@ -157,7 +170,7 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables display
  */
-table.display {
+tabe.display {
 	margin: 0 auto;
 	width: 100%;
 	clear: both;

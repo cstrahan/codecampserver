@@ -3,7 +3,7 @@
 	background-attachment: fixed;
 	background-repeat: repeat-x;
 	background-image: url(../../images/themes/green/layout/background-gradient.gif);
-	background-color: #129987;
+	background-color: /*#129987*/ #fff;
 	background-position: left bottom;
 	color: #171702;
 	font-family: Tahoma, Verdana, Helvetica;
@@ -243,12 +243,12 @@ table.feature td.featureHeading
 /* End feature table CSS */
 
 
-table.conference-table 
+table.default
 {
 	border: solid 2px #ccc;	
 }
 
-	table.conference-table caption 
+	table.default caption 
 	{		
 		padding: 3px;
 		color: #666;
@@ -257,7 +257,7 @@ table.conference-table
 		font-size: 1.4em;		
 	}
 	
-	table.conference-table tr th 
+	table.default tr th 
 	{
 		font-weight: bold;
 		background-color: #eee;
@@ -265,12 +265,12 @@ table.conference-table
 		border-bottom: solid 1px #aaa;
 	}
 
-	table.conference-table tr td 
+	table.default tr td 
 	{
 		padding: 10px;
 	}
 	
-	table.conference-table tr > td 
+	table.default tr > td 
 	{
 		border-bottom: solid 1px #ddd;
 	}		
@@ -282,7 +282,7 @@ table.conference-table
 }
 .proposal-alternating
 {
-    background-color:#99CC99;
+    background-color:#bdb;
 }
 
 /* form styles */
@@ -293,6 +293,11 @@ fieldset
 	margin: 10px auto;
 	border: solid 4px #aba;
 	width: 480px;
+}
+
+fieldset.wide 
+{
+	width: 650px;
 }
 
 fieldset legend 
@@ -345,7 +350,7 @@ fieldset p.buttons
 
 fieldset#login 
 {	
-	width: 400px;
+	width: 420px;
 }
 
 fieldset#login label
@@ -380,3 +385,11 @@ fieldset#conference p.buttons
 }
 
 /* end conference styles */
+
+/* session styles */
+fieldset#session 
+{
+	width: 630px;
+}
+
+/* end session styles */

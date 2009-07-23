@@ -21,8 +21,6 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm>"%>
     <% using(Html.BeginForm<ConferenceController>(x=>x.Save(null))) { %>
         <fieldset id="conference">
             <legend>Edit Conference</legend>    
-                
-	        <h1>Edit Conference</h1>
             
             <%=Errors.Display()%>
 

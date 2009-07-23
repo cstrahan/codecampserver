@@ -1,17 +1,24 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" 
-AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserForm[]>"%>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserForm[]>"%>
+<%@ Import Namespace="CodeCampServer.UI.Helpers"%>
+<%@ Import Namespace="MvcContrib.UI.Grid"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="Main" runat="server">
 	 <h2>Users
 		<%if (User.Identity.IsAuthenticated){%>
-			<a class="" href="<%=Url.Action<UserController>(c=>c.New())%>" title="Add a new User"><img src="/images/icons/application_add.png" /></a>
+		    <%= Html.ImageLink<UserController>(c=>c.New(), "~/images/icons/application_add.png", "Add a new user") %>			
 		<%}%>
 	</h2>
-  <%var users = ViewData.Model;%>
-  <div class="dataContainerQuadWide mt10">
-	 <div class="cleaner"></div>
-		<%foreach (var user in users){%>
-		 <p><strong><%= user.Name%></strong>
-  		 <a href="<%= Url.Action<UserController>(c=>c.Edit(null),new{user=user.Id})%>"><%= user.Username%></a>
-		</p>
-	  <%}%>
+    
+    <table class="default datatable">
+        <tr>
+            <th>Username</th>
+            <th>Name</th>
+        </tr>
+        <% foreach(var user in Model) { %>
+        <tr>
+            <td><%= Html.ActionLink<UserController>(c=>c.Edit(null), user.Username, new{user=user.Id}) %></td>
+            <td><%= user.Name %></td>
+        </tr>
+        <% } %>
+    </table>
+        
 </asp:Content>

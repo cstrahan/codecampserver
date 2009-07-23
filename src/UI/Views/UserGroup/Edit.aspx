@@ -21,34 +21,27 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserGroupForm>"%>
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-    <form action="<%= Url.Action<UserGroupController>(x => x.Save(null)) %>" method="post"  >
-        <div>
-	        <h1>Edit UserGroup</h1>
-            
-            <%=Html.ValidationSummary()%>
-
-	        <table class="dataEntry">
-		        <tr>
-			        <td class="w50p">
-					    <div><%=Html.Input(a => a.Key)%></div>
-    					    <div><%=Html.Input(a => a.DomainName)%></div>
-    					    <div><%=Html.Input(a => a.Id)%></div>
-    					    <div><%=Html.Input(a => a.Name)%></div>
-    					    <div><%=Html.Input(a => a.City)%></div>
-    					    <div><%=Html.Input(a => a.Region)%></div>
-    					    <div><%=Html.Input(a => a.Country)%></div>
-                            <div><%=Html.Input(a => a.Users)%></div>
-    					    <div><%=Html.Input(a => a.HomepageHTML, new { rows = 20, @class = "w75p h300" }.ToDictionary())%></div>
-    					    <div><%=Html.Input(a => a.GoogleAnalysticsCode)%></div>    					    
-    			    </td>			       
-		        </tr>
-	        </table>
-	        <br />
-	        <br />
-	        <div class="p10 tac">
-				<%=Html.SubmitButton("save", "Save", new{@class="pr10 w100"}) %>    
-				<a href="<%=Url.Action<UserGroupController>(x => x.List()).ToXHTMLLink() %>"  class="pr10 mt5" rel="cancel">Cancel</a>
-			</div>
-        </div>
-    </form>
+    <% using(Html.BeginForm<UserGroupController>(x=>x.Save(null))) { %>
+    <%= Html.ValidationSummary() %>
+    
+    <fieldset class="wide">
+        <legend>Edit User Group</legend>
+        
+        <%=Html.Input(a => a.Key)%>
+        <%=Html.Input(a => a.DomainName)%>
+        <%=Html.Input(a => a.Id)%>
+        <%=Html.Input(a => a.Name)%>
+        <%=Html.Input(a => a.City)%>
+        <%=Html.Input(a => a.Region)%>
+        <%=Html.Input(a => a.Country)%>
+        <%=Html.Input(a => a.Users)%>
+        <%=Html.Input(a => a.HomepageHTML, new { rows = 20 }.ToDictionary())%>
+        <%=Html.Input(a => a.GoogleAnalysticsCode)%>        
+        
+        <p class="buttons">
+            <input type="submit" value="Save" />
+            <%= Html.ActionLink<UserGroupController>(x=>x.List(), "Cancel") %>				
+        </p>
+    </fieldset>
+    <% } %>
 </asp:Content>

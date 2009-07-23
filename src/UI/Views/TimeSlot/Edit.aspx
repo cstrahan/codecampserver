@@ -5,30 +5,23 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<TimeSlotForm>"%>
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-    <form action="<%= Url.Action<TimeSlotController>(x => x.Save(null,null,null)) %>" method="post"  >
-        <div>
-	        <h1>Edit Time Slot</h1>
-            
-            <%=Errors.Display()%>
-
-	        <table class="dataEntry">
-		        <tr>
-			        <td class="w50p">
-                	    <%=Html.Input(a => a.Id)%>
-                	    <%=Html.Input(a => a.ConferenceId)%>          	
-                	    <%=Html.Input(a => a.ConferenceKey)%> 
-					    <div><%=Html.Input(a => a.StartTime)%></div><br />
-					    <div><%=Html.Input(a => a.EndTime)%></div>
-						<input type="hidden" name="urlreferrer" value="<%=ViewData["UrlReferrer"].ToString().ToXHTMLLink()%>" />
-			        </td>
-		        </tr>
-	        </table>
-	        <br />
-	        <br />
-	        <div class="p10 tac">
-						<%=Html.SubmitButton("save", "Save", new{@class="pr10 w100"}) %>    
-						<a href="<%=ViewData["UrlReferrer"].ToString().ToXHTMLLink() %>"  class="pr10 mt5" rel="cancel">Cancel</a>				
-					</div>
-        </div>
-    </form>
+    <% using(Html.BeginForm<TimeSlotController>(c=>c.Save(null, null, null))) { %>
+    <%= Errors.Display() %>
+    
+    <fieldset>
+        <legend>Edit Time Slot</legend>
+        
+        <%=Html.Input(a => a.Id)%>
+        <%=Html.Input(a => a.ConferenceId)%>          	
+        <%=Html.Input(a => a.ConferenceKey)%> 
+		<%=Html.Input(a => a.StartTime)%>
+		<%=Html.Input(a => a.EndTime)%>
+		<%= Html.Hidden("urlreferrer", ViewData["UrlReferrer"]) %>		
+		
+		<p class="buttons">
+		    <input type="submit" value="Save" />
+		    <a href='<%= ViewData["UrlReferrer"] %>' rel="cancel">Cancel</a>
+		</p>
+    </fieldset>
+    <% } %>
 </asp:Content>

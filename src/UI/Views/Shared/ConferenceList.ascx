@@ -4,7 +4,7 @@
 
 <% if(Model.Length>0){ %>
 
- <table class="conference-table">
+ <table class="default">
     <caption>Meetings and Conferences</caption>
 		  <colgroup>
 				<col />

@@ -1,16 +1,16 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" 
-AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<SpeakerForm[]>"%>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<SpeakerForm[]>"%>
+<%@ Import Namespace="CodeCampServer.UI.Helpers"%>
 <%@ Import Namespace="MvcContrib.UI.Grid"%>
 <%@ Import Namespace="CodeCampServer.Core.Domain.Model"%>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 	 <h2><%=ViewData.Get<PageInfo>().SubTitle%> / Speakers 
-		<%if (User.Identity.IsAuthenticated){%>
-			<a class="" href="<%=Url.Action<SpeakerController>(c=>c.New())%>" title="Add a new Speaker"><img src="/images/icons/application_add.png" /></a>
+		<%if (User.Identity.IsAuthenticated) { %>
+		    <%= Html.ImageLink<SpeakerController>(c=>c.New(), "~/images/icons/application_add.png", "Add a new speaker") %>			
 		<%}%>
 	</h2>
 	<%=Errors.Display() %>	
 	<%=Html.Grid(Model)
-              .WithClass("datatable")
+              .WithClass("default datatable")
               .Columns(builder =>
               {
                   builder.For(
