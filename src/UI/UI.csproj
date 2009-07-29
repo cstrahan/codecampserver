@@ -411,6 +411,7 @@
     </None>
     <None Include="CodeTemplates\AddView\List.tt">
     </None>
+    <None Include="Controllers\ClassDiagram1.cd" />
     <None Include="PartialViewGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PartialViewGenerator.cs</LastGenOutput>
