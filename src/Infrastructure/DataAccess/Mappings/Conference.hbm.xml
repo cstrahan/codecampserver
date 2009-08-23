@@ -13,7 +13,9 @@
 		<property name="Description" length="300"/>
 		<property name="StartDate" />
 		<property name="EndDate" />
-		<property name="LocationName" />
+    <property name="TimeZone" />
+    <property name="LocationName" />
+    <property name="LocationUrl"/>
 		<property name="Address" />
 		<property name="City" />
 		<property name="Region" />

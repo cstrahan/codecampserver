@@ -6,7 +6,7 @@
 	string entityName = model.Name;
 	
 	OutputFilePath = String.Format(@"{1}..\Infrastructure\DataAccess\Mappings\{0}.hbm.xml",entityName,projectDirectory);
-	BuildAction = 3;
+	BuildAction = EmbeddedResource;
 
 	/*
 		prjBuildActionNone	0	No action is taken.

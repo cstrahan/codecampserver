@@ -364,6 +364,7 @@
     <Content Include="Views\Login\Index.aspx" />
     <Content Include="Views\Proposal\Confirmation.aspx" />
     <Content Include="Views\Proposal\Edit.aspx" />
+    <None Include="Views\Proposal\Index.aspx" />
     <Content Include="Views\Proposal\List.aspx" />
     <Content Include="Views\Proposal\Vote.aspx" />
     <Content Include="Views\Schedule\ScheduleSlot.aspx" />

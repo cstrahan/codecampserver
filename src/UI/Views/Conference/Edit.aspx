@@ -31,8 +31,10 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm>"%>
 		    <%=Html.Input(a => a.Description)%>
 		    <%=Html.Input(a => a.StartDate)%>
 		    <%=Html.Input(a => a.EndDate)%>
+		    <%=Html.Input(a => a.TimeZone)%>
 		    <%=Html.Input(a => a.HasRegistration)%>
 		    <%=Html.Input(a => a.LocationName)%>
+		    <%=Html.Input(a => a.LocationUrl)%>
 		    <%=Html.Input(a => a.Address)%>
 		    <%=Html.Input(a => a.City)%>
 		    <%=Html.Input(a => a.Region)%>

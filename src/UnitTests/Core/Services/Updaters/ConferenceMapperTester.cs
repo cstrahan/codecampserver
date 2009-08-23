@@ -26,7 +26,9 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			form.Region = "region";
 			form.StartDate = new DateTime(2008, 1, 1).ToShortDateString();
 			form.EndDate = new DateTime(2008, 1, 2).ToShortDateString();
-		    form.HtmlContent = "<h1>this is some html fragments</h1>";
+		    form.TimeZone = "CST";
+            form.HtmlContent = "<h1>this is some html fragments</h1>";
+		    form.LocationUrl = "http://foo";
 
 			var repository = M<IConferenceRepository>();
 			repository.Stub(x => x.GetById(form.Id)).Return(null);
@@ -35,6 +37,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 
 			Conference mapped = mapper.Map(form);
 
+            mapped.LocationUrl.ShouldEqual("http://foo");
 			mapped.Key.ShouldEqual("key");
 			mapped.Description.ShouldEqual("desc");
 			mapped.LocationName.ShouldEqual("location");
@@ -44,6 +47,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			mapped.Region.ShouldEqual("region");
 			mapped.StartDate.ShouldEqual(new DateTime(2008, 1, 1));
 			mapped.EndDate.ShouldEqual(new DateTime(2008, 1, 2));
+            mapped.TimeZone.ShouldEqual("CST");
             mapped.HtmlContent.ShouldEqual("<h1>this is some html fragments</h1>");
 		}
 

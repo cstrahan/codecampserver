@@ -6,6 +6,7 @@
     <CSharp>
       <FormatSettings>
         <EMPTY_BLOCK_STYLE>TOGETHER_SAME_LINE</EMPTY_BLOCK_STYLE>
+        <INDENT_SIZE>4</INDENT_SIZE>
         <INSERT_TABS>True</INSERT_TABS>
         <MODIFIERS_ORDER IsNull="False">
           <Item>public</Item>
@@ -29,7 +30,7 @@
     </CSharp>
     <VB>
       <FormatSettings>
-        <INSERT_TABS>True</INSERT_TABS>
+        <INDENT_SIZE>4</INDENT_SIZE>
       </FormatSettings>
       <ImportsSettings />
       <Naming2 />

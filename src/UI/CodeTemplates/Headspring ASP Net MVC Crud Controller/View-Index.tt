@@ -5,7 +5,7 @@
 	string controllerNamespace = projectDefaultNamespace + ".Controllers";
 	string entityName = model.Name.Replace("Form","");
 	string controllerClassName = entityName + "Controller";
-	
+	BuildAction=None;
 	OutputFilePath = String.Format(@"{1}Views\{0}\Index.aspx",entityName,projectDirectory);
 #>
 <%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 

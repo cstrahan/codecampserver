@@ -26,6 +26,9 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			model.Key = form.Key;
 			model.Description = form.Description;
 			model.EndDate = ToDateTime(form.EndDate);
+            model.TimeZone = form.TimeZone;
+		    model.LocationUrl = form.LocationUrl;
+		    
 			model.LocationName = form.LocationName;
 			model.Name = form.Name;
 			model.PhoneNumber = form.PhoneNumber;

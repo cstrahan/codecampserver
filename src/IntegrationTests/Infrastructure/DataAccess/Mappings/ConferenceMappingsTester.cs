@@ -18,6 +18,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 		                             Description = "description",
 		                             StartDate = new DateTime(2008, 12, 2),
 		                             EndDate = new DateTime(2008, 12, 3),
+                                     TimeZone = "CST",
 		                             LocationName = "St Edwards Professional Education Center",
 		                             Address = "12343 Research Blvd",
 		                             City = "Austin",
@@ -26,7 +27,8 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 		                             PhoneNumber = "512-555-1234",
 		                             HtmlContent = "<h1>This is some markup about sponsors.</h1>",
 		                             UserGroup = userGroup,
-                                     HasRegistration = true
+                                     HasRegistration = true,
+                                     LocationUrl = "http://foobar"
 
 			                 	};
 			conference.AddAttendee(new Attendee
