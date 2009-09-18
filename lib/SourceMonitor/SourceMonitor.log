@@ -1,0 +1,23 @@
+[10Sep2009 00:17:45] SourceMonitor (V2.5.1.0): Begin Session
+[10Sep2009 00:17:45] Command File: Process Command File 'C:\Code\OSS\codecampserver\build\results\command.xml'
+[10Sep2009 00:17:45] Command File: Process Commands [Line 2]
+[10Sep2009 00:17:45] Command File: Process Command [Line 4]
+[10Sep2009 00:17:45] Command File: Create Project 'build\results\sm_project.smp'
+[10Sep2009 00:17:45] Fatal Parasing Error: File 'src\UI\Helpers\ViewPage\InputBuilders\YesNoRadioInputBuilder.cs' code parse error (file not included in checkpoint): SSLex0105e: Invalid token, Line 16, Offset 66, ?)
+[10Sep2009 00:17:45] Command File: Create Checkpoint '0' dated '2009-09-10T00:17:45'
+[10Sep2009 00:17:45] Command File: Export Checkpoint Summary to XML
+[10Sep2009 00:17:45] Export Metrics: Begin XML Summary export to file 'build\results\sm_summary.xml'.
+[10Sep2009 00:17:45] Export Metrics: Export Checkpoint '0'
+[10Sep2009 00:17:45] Export Metrics: End Export Checkpoint Summary to XML
+[10Sep2009 00:17:45] Command File: End Export
+[10Sep2009 00:17:45] Command File: End Command Execution
+[10Sep2009 00:17:45] Command File: Process Command [Line 15]
+[10Sep2009 00:17:46] Command File: Export Checkpoint Details to XML
+[10Sep2009 00:17:46] Export Metrics: Begin XML Details export to file 'build\results\sm_details.xml'.
+[10Sep2009 00:17:46] Export Metrics: Export Checkpoint '0'
+[10Sep2009 00:17:46] Export Metrics: End Export Checkpoint Details to XML
+[10Sep2009 00:17:46] Command File: End Export
+[10Sep2009 00:17:46] Command File: End Command Execution
+[10Sep2009 00:17:46] Command File: End Commands
+[10Sep2009 00:17:46] Command File: End Command File Processing
+[10Sep2009 00:17:46] SourceMonitor (V2.5.1.0): End Session

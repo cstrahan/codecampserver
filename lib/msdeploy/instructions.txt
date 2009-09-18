@@ -1,0 +1,114 @@
+
+-source:<object>  and/or -dest:<object>
+
+    The source argument represents the object to sync from.
+    The dest argument represents the object to sync to.
+    For operations only requiring one object, source is required
+
+    Provider:  gacAssembly
+
+        GAC assembly
+
+        Example(s):
+
+            msdeploy.exe -verb:dump -source:gacAssembly=""'System.Web, 
+            Version=2.0.0.0, Culture=neutral, 
+            PublicKeyToken=b03f5f7f11d50a3a'""
+
+        This provider does not expose any custom provider settings.
+
+
+    Commonly supported provider settings:
+
+    computerName=<name>     Name of remote computer or proxy-URL
+    wmsvc=<name>            Name of remote computer or proxy-URL for the Web 
+                            Management Service (wmsvc)
+    userName=<name>         User name to authenticate
+    password=<password>     Password of user name
+    encryptPassword=<pwd>   Password to use for encryption related operations
+    includeAcls=<bool>      If true, include ACLs in the operation for the 
+                            specified path
+
+    Examples:
+
+    msdeploy -verb:dump -source:webserver,computerName=myComp
+    msdeploy -verb:dump -source:apphostConfig="Default Web Site",wmsvc=mycomp,
+        userName=AUser,password=pass -allowUntrusted
+    
+
+
+-source:<object>  and/or -dest:<object>
+
+    The source argument represents the object to sync from.
+    The dest argument represents the object to sync to.
+    For operations only requiring one object, source is required
+
+    Provider:  regKey
+
+        Registry key
+
+        Example(s):
+
+            msdeploy.exe -verb:dump 
+            -source:regKey="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework
+            "
+
+        This provider does not expose any custom provider settings.
+
+
+    Commonly supported provider settings:
+
+    computerName=<name>     Name of remote computer or proxy-URL
+    wmsvc=<name>            Name of remote computer or proxy-URL for the Web 
+                            Management Service (wmsvc)
+    userName=<name>         User name to authenticate
+    password=<password>     Password of user name
+    encryptPassword=<pwd>   Password to use for encryption related operations
+    includeAcls=<bool>      If true, include ACLs in the operation for the 
+                            specified path
+
+    Examples:
+
+    msdeploy -verb:dump -source:webserver,computerName=myComp
+    msdeploy -verb:dump -source:apphostConfig="Default Web Site",wmsvc=mycomp,
+        userName=AUser,password=pass -allowUntrusted
+    
+
+
+-source:<object>  and/or -dest:<object>
+
+    The source argument represents the object to sync from.
+    The dest argument represents the object to sync to.
+    For operations only requiring one object, source is required
+
+    Provider:  regValue
+
+        Registry value
+
+        Example(s):
+
+            msdeploy.exe -verb:dump 
+            -source:regValue="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramewo
+            rk\DbgJITDebugLaunchSetting"
+
+        This provider does not expose any custom provider settings.
+
+
+    Commonly supported provider settings:
+
+    computerName=<name>     Name of remote computer or proxy-URL
+    wmsvc=<name>            Name of remote computer or proxy-URL for the Web 
+                            Management Service (wmsvc)
+    userName=<name>         User name to authenticate
+    password=<password>     Password of user name
+    encryptPassword=<pwd>   Password to use for encryption related operations
+    includeAcls=<bool>      If true, include ACLs in the operation for the 
+                            specified path
+
+    Examples:
+
+    msdeploy -verb:dump -source:webserver,computerName=myComp
+    msdeploy -verb:dump -source:apphostConfig="Default Web Site",wmsvc=mycomp,
+        userName=AUser,password=pass -allowUntrusted
+    
+
