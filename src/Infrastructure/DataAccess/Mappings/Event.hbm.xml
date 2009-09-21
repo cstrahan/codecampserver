@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+									namespace="CodeCampServer.Core.Domain.Model"
+									assembly="CodeCampServer.Core">
+
+	<class name="Event" abstract="true" table="Events" dynamic-update="true">
+		<cache usage="read-write"/>
+		<id name="Id" column="Id" type="Guid">
+			<generator class="guid.comb"/>
+		</id>
+		<property name="Key" column="EventKey" length="100"/>
+		<property name="Name" length="100"/>
+		<property name="Description" length="300"/>
+		<property name="StartDate" />
+		<property name="EndDate" />
+    <property name="LocationName" />
+    <property name="LocationUrl"/>
+		<property name="Address" />
+		<property name="City" />
+		<property name="Region" />
+		<property name="PostalCode" />
+    <property name="TimeZone" />
+
+    <many-to-one name="UserGroup" column="UserGroupID" class="UserGroup" />
+    
+	</class>
+</hibernate-mapping>

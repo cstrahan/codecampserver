@@ -44,14 +44,5 @@ namespace CodeCampServer.Core.Domain
 			}
 			return result;
 		}
-
-		protected static int ToInt32(string value)
-		{
-			if (string.IsNullOrEmpty(value))
-			{
-				return default(int);
-			}
-			return Convert.ToInt32(value);
-		}
 	}
 }

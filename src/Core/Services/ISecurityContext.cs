@@ -11,5 +11,6 @@ namespace CodeCampServer.Core.Services
         bool HasPermissionsForUserGroup(Guid Id);
         bool IsAdmin();
         bool HasPermissionsFor(Session session);
+        bool HasPermissionsFor(Meeting meeting);
     }
 }

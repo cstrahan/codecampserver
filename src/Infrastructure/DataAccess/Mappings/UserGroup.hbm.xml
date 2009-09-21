@@ -18,6 +18,7 @@
     <property name="Country" length="50" />
     <property name="GoogleAnalysticsCode" length="50" />
     <property name="DomainName" length="255" />
+   
     <bag name="Users" access="field.camelcase-underscore"  table="UserGroupAdminUsers" >
 			<key column="UserGroupId"  />
 			<many-to-many class="User" column="UserID"/>

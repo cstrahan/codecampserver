@@ -3,34 +3,19 @@
 									namespace="CodeCampServer.Core.Domain.Model"
 									assembly="CodeCampServer.Core">
 
-	<class name="Conference" table="Conferences" dynamic-update="true">
-		<cache usage="read-write"/>
-		<id name="Id" column="Id" type="Guid">
-			<generator class="guid.comb"/>
-		</id>
-		<property name="Key" column="ConferenceKey" length="100"/>
-		<property name="Name" length="100"/>
-		<property name="Description" length="300"/>
-		<property name="StartDate" />
-		<property name="EndDate" />
-    <property name="TimeZone" />
-    <property name="LocationName" />
-    <property name="LocationUrl"/>
-		<property name="Address" />
-		<property name="City" />
-		<property name="Region" />
-		<property name="PostalCode" />
-		<property name="PhoneNumber" />
+  <joined-subclass name="Conference" extends="Event" table="Conferences" dynamic-update="true">
+    <key column="Id"/>
+    <property name="PhoneNumber" />
     <property name="HtmlContent" type="StringClob">
       <column name="HtmlContent" sql-type="ntext"/>
     </property>
     <property name="HasRegistration" />
 
     <many-to-one name="UserGroup" column="UserGroupID" class="UserGroup" />
-    
+
     <bag name="Attendees" access="field.camelcase-underscore" cascade="all-delete-orphan" >
-			<key column="ConferenceId"  />
-			<one-to-many class="Attendee" />
-		</bag>
-	</class>
+      <key column="ConferenceId"  />
+      <one-to-many class="Attendee" />
+    </bag>
+  </joined-subclass>
 </hibernate-mapping>

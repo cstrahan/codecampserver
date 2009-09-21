@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+									namespace="CodeCampServer.Core.Domain.Model"
+									assembly="CodeCampServer.Core">
+
+  <joined-subclass name="Meeting" extends="Event" table="Meetings" dynamic-update="true">
+    <key column="Id"/>
+    <property name="Topic"/>
+    <property name="Summary"/>
+    <property name="SpeakerName"/>
+    <property name="SpeakerBio"/>
+    <property name="SpeakerUrl"/>
+  </joined-subclass>
+</hibernate-mapping>
