@@ -1,9 +1,6 @@
 <%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
 Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserGroupForm>"%>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="Menu" runat="server">
-<% Html.RenderPartial("HomeMenu"); %>
-</asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
 <script type="text/javascript" src="/scripts/tiny_mce/tiny_mce.js"></script>

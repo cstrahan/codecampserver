@@ -55,7 +55,11 @@
     <Compile Include="Common\PrimitiveExtensions.cs" />
     <Compile Include="Common\ReflectionExtensions.cs" />
     <Compile Include="Common\UINameHelper.cs" />
+    <Compile Include="Domain\IEventRepository.cs" />
+    <Compile Include="Domain\IMeetingRepository.cs" />
     <Compile Include="Domain\IUserGroupRepository.cs" />
+    <Compile Include="Domain\Model\Event.cs" />
+    <Compile Include="Domain\Model\Meeting.cs" />
     <Compile Include="Domain\Model\Planning\StateCommands\AcceptedToConfirmedCommand.cs" />
     <Compile Include="Domain\Model\Planning\StateCommands\DraftToSubmittedCommand.cs" />
     <Compile Include="Domain\Model\Planning\IStateCommand.cs" />
@@ -77,6 +81,7 @@
     <Compile Include="Domain\Model\Sponsor.cs" />
     <Compile Include="Domain\Model\SponsorLevel.cs" />
     <Compile Include="Domain\Model\UserGroup.cs" />
+    <Compile Include="Domain\Model\Enumerations\WebsiteTheme.cs" />
     <Compile Include="Domain\ValidationResult.cs" />
     <Compile Include="Domain\IConferencerRepository.cs" />
     <Compile Include="Domain\IKeyedRepository.cs" />

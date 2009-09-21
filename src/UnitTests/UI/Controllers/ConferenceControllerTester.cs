@@ -63,7 +63,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
             var result = (RedirectToRouteResult)controller.Save(form);
 
 			repository.AssertWasCalled(r => r.Save(conference));
-			result.AssertActionRedirect().ToAction<ConferenceController>(a => a.List(null));
+			result.AssertActionRedirect().ToAction<HomeController>(a => a.Index(null));
 		}
 
 	    [Test]

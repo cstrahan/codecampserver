@@ -12,7 +12,6 @@ namespace CodeCampServer.UI
 	{
 		public static void RegisterRoutes(RouteCollection routes)
 		{
-
 			new RouteConfigurator().RegisterRoutes();
 		}
 
@@ -23,8 +22,8 @@ namespace CodeCampServer.UI
 			ControllerBuilder.Current.SetControllerFactory(new ControllerFactory());
 
 			ModelBinders.Binders.DefaultBinder = new SmartBinder();
-            DependencyRegistrar.EnsureDependenciesRegistered();
-            ModelBinders.Binders.Add(typeof(UserGroup),DependencyRegistrar.Resolve<UserGroupModelBinder>());
+			DependencyRegistrar.EnsureDependenciesRegistered();
+			ModelBinders.Binders.Add(typeof (UserGroup), DependencyRegistrar.Resolve<UserGroupModelBinder>());
 		}
 	}
 }

@@ -8,28 +8,27 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 	public class ConferenceMappingsTester : DataTestBase
 	{
 		[Test]
-		public void Should_map_user()
+		public void Can_persist()
 		{
-		    var userGroup = new UserGroup
-		                        { Name = "user group"};
-		    var conference = new Conference
-		                         {
-		                             Name = "sdf",
-		                             Description = "description",
-		                             StartDate = new DateTime(2008, 12, 2),
-		                             EndDate = new DateTime(2008, 12, 3),
-                                     TimeZone = "CST",
-		                             LocationName = "St Edwards Professional Education Center",
-		                             Address = "12343 Research Blvd",
-		                             City = "Austin",
-		                             Region = "Tx",
-		                             PostalCode = "78234",
-		                             PhoneNumber = "512-555-1234",
-		                             HtmlContent = "<h1>This is some markup about sponsors.</h1>",
-		                             UserGroup = userGroup,
-                                     HasRegistration = true,
-                                     LocationUrl = "http://foobar"
-
+			var userGroup = new UserGroup
+			                	{Name = "user group"};
+			var conference = new Conference
+			                 	{
+			                 		Name = "sdf",
+			                 		Description = "description",
+			                 		StartDate = new DateTime(2008, 12, 2),
+			                 		EndDate = new DateTime(2008, 12, 3),
+			                 		TimeZone = "CST",
+			                 		LocationName = "St Edwards Professional Education Center",
+			                 		Address = "12343 Research Blvd",
+			                 		City = "Austin",
+			                 		Region = "Tx",
+			                 		PostalCode = "78234",
+			                 		PhoneNumber = "512-555-1234",
+			                 		HtmlContent = "<h1>This is some markup about sponsors.</h1>",
+			                 		UserGroup = userGroup,
+			                 		HasRegistration = true,
+			                 		LocationUrl = "http://foobar"
 			                 	};
 			conference.AddAttendee(new Attendee
 			                       	{
@@ -39,7 +38,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 			                       		Status = AttendanceStatus.Interested
 			                       	});
 
-            AssertObjectCanBePersisted(userGroup);
+			AssertObjectCanBePersisted(userGroup);
 			AssertObjectCanBePersisted(conference.GetAttendees()[0]);
 			AssertObjectCanBePersisted(conference);
 		}

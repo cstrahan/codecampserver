@@ -17,19 +17,26 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		}
 
 		[Test]
+		public void Home_controller_routes_should_map_to_the_index()
+		{
+			"~/home".ShouldMapTo<HomeController>(c => c.Index(null))
+				.ShouldUseDomainNameRouteHandler();
+		}
+
+		[Test]
+		public void Root_should_map_to_home()
+		{
+			"~/".ShouldMapTo<HomeController>(c => c.Index(null))
+				.ShouldUseDomainNameRouteHandler();
+		}
+
+		[Test]
 		public void Confernce_actions_should_map_to_the_controller_action_without_the_conferenceKey()
 		{
 			"~/conference/new"
                 .ShouldMapTo<ConferenceController>(c => c.New(null))
                 .ShouldUseDomainNameRouteHandler();
             
-		}
-
-		[Test]
-		public void Home_controller_routes_should_map_to_the_index()
-		{
-            "~/home".ShouldMapTo<HomeController>(c => c.Index(null,null))
-                .ShouldUseDomainNameRouteHandler();
 		}
 
 		[Test]

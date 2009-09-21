@@ -48,7 +48,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			                		Region = "Texas",
 			                		Country = "USA",
 			                		Key = "localhost",
-			                		HomepageHTML = "Austin .Net Users Group"
+			                		HomepageHTML = "Austin .Net Users Group",
 			                	};
 			userGroup.Add(user);
             userGroup.Add(new Sponsor() { Level = SponsorLevel.Platinum, Name = "Microsoft", Url = "http://microsoft.com/", BannerUrl = "http://www.microsoft.com/presspass/images/gallery/logos/web/net_v_web.jpg" });
@@ -284,7 +284,9 @@ View Larger Map</a></small></p>"
 			           	};
 
 			var conferences = CreateConferences(userGroup);
+			var meetings = CreateMeetings(userGroup);
 			list.AddRange(conferences.ToArray());
+			list.AddRange(meetings.ToArray());
 
 			User[] users = CreateUsers();
 			list.AddRange(users);
@@ -361,15 +363,47 @@ View Larger Map</a></small></p>"
 				             		Description = "Community Event",
 				             		EndDate =  conferenceDate.AddDays(1),
 				             		StartDate = conferenceDate,
-				             		Key = "event"+i,
+				             		Key = "conference"+i,
 				             		LocationName = "St. Edward's Professional Education Center",
-				             		Name = "User Group Event " + i,
+				             		Name = "Conference " + i,
 				             		PhoneNumber = "(512) 555-1212",
 				             		PostalCode = "78787",
 				             		Region = "Texas",
 				             		UserGroup = userGroup
 				             	};
 	            
+			}
+
+		}
+
+		private IEnumerable<Meeting> CreateMeetings(UserGroup userGroup)
+		{
+			DateTime startDate = DateTime.Now.AddDays(-7 * 5);
+			for (int i = 0; i < 10; i++)
+			{
+				DateTime conferenceDate = startDate.AddDays(7 * i);
+				yield return new Meeting
+				             	{
+				             		Address = "123 Guadalupe Street",
+				             		City = "Austin",
+				             		Description = "Community Event",
+				             		EndDate = conferenceDate.AddDays(1),
+				             		StartDate = conferenceDate,
+				             		Key = "meeting" + i,
+				             		LocationName = "St. Edward's Professional Education Center",
+				             		Name = "Meeting " + i,
+				             		PostalCode = "78787",
+				             		Region = "Texas",
+				             		UserGroup = userGroup,
+				             		Topic = "Topic " + i,
+				             		Summary = "Summary stuff",
+				             		LocationUrl = "http://maps.google.com",
+				             		TimeZone = "CST",
+                        SpeakerName = "Jeffrey Palermo",
+												SpeakerBio = "some bio stuff",
+												SpeakerUrl = "http://jeffreypalermo.com"
+				};
+
 			}
 
 		}

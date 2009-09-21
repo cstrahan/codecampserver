@@ -117,8 +117,11 @@
     <Compile Include="DatabaseConnectionTester.cs" />
     <Compile Include="DependencyResolution\DependencyRegistrarTester.cs" />
     <Compile Include="Infrastructure\DataAccess\ConferenceRepositoryTester.cs" />
+    <Compile Include="Infrastructure\DataAccess\EventRepositoryTester.cs" />
+    <Compile Include="Infrastructure\DataAccess\Mappings\MeetingMappingsTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\RssFeedMappingsTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\SponsorMappingsTester.cs" />
+    <Compile Include="Infrastructure\DataAccess\MeetingRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\UserGroupRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\KeyedRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\UserGroupMappingsTester.cs" />
@@ -140,6 +143,8 @@
     <Compile Include="Infrastructure\DataAccess\UserRepositoryTester.cs" />
     <Compile Include="Infrastructure\UI\Controllers\DependencyRegistrarTester.cs" />
     <Compile Include="ReflectionHelper.cs" />
+    <Compile Include="SchemaExportTester.cs" />
+    <Compile Include="SchemaImportTester.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="UI\DataLoader\ZDataLoader.cs" />
   </ItemGroup>

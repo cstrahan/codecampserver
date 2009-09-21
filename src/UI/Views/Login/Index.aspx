@@ -1,9 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master"
  AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<LoginForm>"%>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="Menu" runat="server">
-<% Html.RenderPartial("HomeMenu"); %>
-</asp:Content>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">  
        <form action="<%= Url.Action<LoginController>(x => x.Login(null)) %>" method="post">
@@ -18,7 +15,7 @@
 		    <%=Html.Input(f=>f.Password) %>
 		    
 		    <p class="buttons"><%=Html.SubmitButton("login", "Log in") %>
-		        <%= Html.ActionLink<HomeController>("Cancel", x => x.Index(null, null)) %>			   
+		        <%= Html.ActionLink<HomeController>("Cancel", x => x.Index(null)) %>			   
 			</p>
         </fieldset>
                 	

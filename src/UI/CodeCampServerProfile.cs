@@ -28,7 +28,7 @@ namespace CodeCampServer.UI
 			ForSourceType<decimal>().AddFormatter<MoneyFormatter>();
 			ForSourceType<decimal?>().AddFormatter<MoneyFormatter>();
 			ForSourceType<Guid>().SkipFormatter<SpanWrappingFormatter>();
-                    
+
 			CreateMaps();
 		}
 
@@ -38,15 +38,19 @@ namespace CodeCampServer.UI
 				.ForMember(u => u.Password, o => o.Ignore())
 				.ForMember(f => f.ConfirmPassword, o => o.Ignore());
 
-		    Mapper.CreateMap<User, UserSelector>();
+			Mapper.CreateMap<User, UserSelector>();
 
-            Mapper.CreateMap<RssFeed, RssFeedForm>()
-                .ForMember(x => x.ParentID, o => o.Ignore());
+			Mapper.CreateMap<RssFeed, RssFeedForm>()
+				.ForMember(x => x.ParentID, o => o.Ignore());
 
-		    Mapper.CreateMap<Sponsor, SponsorForm>()
-		        .ForMember(x => x.ParentID, o => o.Ignore());
+			Mapper.CreateMap<Sponsor, SponsorForm>()
+				.ForMember(x => x.ParentID, o => o.Ignore());
 
-            Mapper.CreateMap<Conference, ConferenceForm>()
+			Mapper.CreateMap<Conference, ConferenceForm>()
+				.ForMember(x => x.StartDate, o => o.AddFormatter<StandardDateTimeFormatter>())
+				.ForMember(x => x.EndDate, o => o.AddFormatter<StandardDateTimeFormatter>());
+
+			Mapper.CreateMap<Meeting, MeetingForm>()
 				.ForMember(x => x.StartDate, o => o.AddFormatter<StandardDateTimeFormatter>())
 				.ForMember(x => x.EndDate, o => o.AddFormatter<StandardDateTimeFormatter>());
 
@@ -62,8 +66,8 @@ namespace CodeCampServer.UI
 
 			Mapper.CreateMap<Proposal, ProposalForm>();
 
-		    Mapper.CreateMap<UserGroup, UserGroupForm>();
-		        //.ForMember(a => a.Users, o => o.  MapFrom(a => a.GetUsers() ));
+			Mapper.CreateMap<UserGroup, UserGroupForm>();
+			//.ForMember(a => a.Users, o => o.  MapFrom(a => a.GetUsers() ));
 		}
 	}
 }

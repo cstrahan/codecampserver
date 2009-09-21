@@ -26,7 +26,7 @@
 			<% } %>
 				
 			<%if(!ViewData.Get<ProposalEditInfo>().ReadOnly) { %>
-			    <%= Html.ActionLink<HomeController>("Cancel", x=>x.Index(null, null)) %>					
+			    <%= Html.ActionLink<HomeController>("Cancel", x=>x.Index(null)) %>					
 			<% } %>
 			</p>
 			

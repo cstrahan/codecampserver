@@ -10,42 +10,42 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Controllers
 {
-	
 	public class UserController : SaveController<User, UserForm>
 	{
-		private readonly IUserRepository _repository;
 		private readonly IUserMapper _mapper;
-	    private readonly ISecurityContext _securityContext;
-	    private readonly IUserSession _session;
+		private readonly IUserRepository _repository;
+		private readonly ISecurityContext _securityContext;
+		private readonly IUserSession _session;
 
-	    public UserController(IUserRepository repository, IUserMapper mapper, ISecurityContext securityContext, IUserSession session) : base(repository, mapper)
+		public UserController(IUserRepository repository, IUserMapper mapper, ISecurityContext securityContext,
+		                      IUserSession session) : base(repository, mapper)
 		{
 			_repository = repository;
 			_mapper = mapper;
-		    _securityContext = securityContext;
-		    _session = session;
+			_securityContext = securityContext;
+			_session = session;
 		}
 
 		public ViewResult Edit(User user)
 		{
 			if (user == null)
 			{
-                return View(_mapper.Map(_session.GetCurrentUser()));
+				return View(_mapper.Map(_session.GetCurrentUser()));
 			}
 
-            if(!_securityContext.IsAdmin())
-            {
-                return NotAuthorizedView;
-            }
+			if (!_securityContext.IsAdmin())
+			{
+				return NotAuthorizedView;
+			}
 			UserForm form = _mapper.Map(user);
 			return View(form);
 		}
 
-        [ValidateInput(false)]
-        [ValidateModel(typeof(UserForm))]
-        public ActionResult Save([Bind(Prefix = "")] UserForm form)
+		[ValidateInput(false)]
+		[ValidateModel(typeof (UserForm))]
+		public ActionResult Save([Bind(Prefix = "")] UserForm form)
 		{
-			return ProcessSave(form, user => RedirectToAction<HomeController>(c => c.Index(null,null)));
+			return ProcessSave(form, user => RedirectToAction<HomeController>(c => c.Index(null)));
 		}
 
 		protected override IDictionary<string, string[]> GetFormValidationErrors(UserForm form)
@@ -66,14 +66,14 @@ namespace CodeCampServer.UI.Controllers
 			return _repository.GetByKey(form.Username) != null;
 		}
 
-	    public ViewResult New()
-	    {
-	        return View("Edit", new UserForm());
-	    }
+		public ViewResult New()
+		{
+			return View("Edit", new UserForm());
+		}
 
-        public ViewResult Index()
-        {
-            return View(_mapper.Map(_repository.GetAll()));
-        }
-    }
+		public ViewResult Index()
+		{
+			return View(_mapper.Map(_repository.GetAll()));
+		}
+	}
 }

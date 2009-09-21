@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
@@ -13,17 +14,19 @@ namespace CodeCampServer.UI.Controllers
 	[AdminUserCreatedFilter]
 	public class ConferenceController : SaveController<Conference, ConferenceForm>
 	{
-		private readonly IConferenceRepository _repository;
 		private readonly IConferenceMapper _mapper;
-	    private readonly ISecurityContext _securityContext;
-	    private readonly IUserGroupRepository _userGroupRepository;
+		private readonly IConferenceRepository _repository;
+		private readonly ISecurityContext _securityContext;
+		private readonly IUserGroupRepository _userGroupRepository;
 
-	    public ConferenceController(IConferenceRepository repository, IConferenceMapper mapper,ISecurityContext securityContext,IUserGroupRepository userGroupRepository) : base(repository, mapper)
+		public ConferenceController(IConferenceRepository repository, IConferenceMapper mapper,
+		                            ISecurityContext securityContext, IUserGroupRepository userGroupRepository)
+			: base(repository, mapper)
 		{
 			_repository = repository;
 			_mapper = mapper;
-		    _securityContext = securityContext;
-	        _userGroupRepository = userGroupRepository;
+			_securityContext = securityContext;
+			_userGroupRepository = userGroupRepository;
 		}
 
 		[RequiresConferenceFilter]
@@ -34,7 +37,7 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		public ActionResult List(UserGroup usergroup)
-		{			
+		{
 			Conference[] conferences = _repository.GetAllForUserGroup(usergroup);
 
 			if (conferences.Length < 1)
@@ -53,27 +56,27 @@ namespace CodeCampServer.UI.Controllers
 			{
 				TempData.Add("message", "Conference has been deleted.");
 
-                //TODO: this won't work, where to redirect?
+				//TODO: this won't work, where to redirect?
 				return RedirectToAction<ConferenceController>(c => c.List(conference.UserGroup));
 			}
 
-            if(_securityContext.HasPermissionsFor(conference))
-            {
-                return View(_mapper.Map(conference));
-            }
-		    return View(ViewPages.NotAuthorized);
+			if (_securityContext.HasPermissionsFor(conference))
+			{
+				return View(_mapper.Map(conference));
+			}
+			return View(ViewPages.NotAuthorized);
 		}
 
-		[RequireAuthenticationFilter]        
+		[RequireAuthenticationFilter]
 		[ValidateInput(false)]
 		[ValidateModel(typeof (ConferenceForm))]
 		public ActionResult Save([Bind(Prefix = "")] ConferenceForm form)
 		{
-            if (_securityContext.HasPermissionsForUserGroup(form.UserGroupId))
-            {
-                return ProcessSave(form, conference => RedirectToAction<ConferenceController>(c => c.List(conference.UserGroup)));
-            }
-		    return View(ViewPages.NotAuthorized);
+			if (_securityContext.HasPermissionsForUserGroup(form.UserGroupId))
+			{
+				return ProcessSave(form, conference => RedirectToAction<HomeController>(c => c.Index(conference.UserGroup)));
+			}
+			return View(ViewPages.NotAuthorized);
 		}
 
 		protected override IDictionary<string, string[]> GetFormValidationErrors(ConferenceForm form)
@@ -92,10 +95,25 @@ namespace CodeCampServer.UI.Controllers
 			return conference != null && conference.Id != message.Id;
 		}
 
-		[RequireAuthenticationFilter()]
+		[RequireAuthenticationFilter]
 		public ActionResult New(UserGroup usergroup)
 		{
 			return View("Edit", _mapper.Map(new Conference {UserGroup = usergroup}));
 		}
+
+	    public ActionResult Delete(Conference conference)
+	    {
+            if (!_securityContext.HasPermissionsFor(conference))
+            {
+                return NotAuthorizedView;
+            }
+
+            _repository.Delete(conference);
+
+            TempData.Add("message", conference.Name + " was deleted.");
+
+            return RedirectToAction<HomeController>(c => c.Index(conference.UserGroup));
+
+        }
 	}
 }

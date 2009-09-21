@@ -6,7 +6,6 @@
     <CSharp>
       <FormatSettings>
         <EMPTY_BLOCK_STYLE>TOGETHER_SAME_LINE</EMPTY_BLOCK_STYLE>
-        <INDENT_SIZE>4</INDENT_SIZE>
         <MODIFIERS_ORDER IsNull="False">
           <Item>public</Item>
           <Item>protected</Item>
@@ -36,6 +35,8 @@
     </VB>
     <GenerateMemberBody />
     <Naming2>
+      <ExceptionName IsNull="False">
+      </ExceptionName>
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="Locals" />
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="Parameters" />
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="MethodPropertyEvent" />

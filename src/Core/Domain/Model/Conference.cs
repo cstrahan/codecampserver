@@ -4,29 +4,12 @@ using System.Linq;
 
 namespace CodeCampServer.Core.Domain.Model
 {
-	public class Conference : KeyedObject
+	public class Conference : Event
 	{
 		private readonly IList<Attendee> _attendees = new List<Attendee>();
-		private readonly IList<Sponsor> _sponsors = new List<Sponsor>();
-		public virtual string Name { get; set; }
-		public virtual string Description { get; set; }
-		public virtual DateTime? StartDate { get; set; }
-		public virtual DateTime? EndDate { get; set; }
-		public virtual string LocationName { get; set; }
-        public virtual string LocationUrl { get; set; }
-		public virtual string Address { get; set; }
-		public virtual string City { get; set; }
-		public virtual string Region { get; set; }
-		public virtual string PostalCode { get; set; }
 		public virtual string PhoneNumber { get; set; }
 		public virtual string HtmlContent { get; set; }
-		public virtual UserGroup UserGroup { get; set; }
-        public virtual bool HasRegistration { get; set; }
-        public virtual string TimeZone { get; set; }
-		public virtual Sponsor[] GetSponsors()
-		{
-			return _sponsors.ToArray();
-		}
+		public virtual bool HasRegistration { get; set; }
 
 		public virtual void AddAttendee(Attendee attendee)
 		{

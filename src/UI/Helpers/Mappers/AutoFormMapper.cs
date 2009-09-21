@@ -10,7 +10,6 @@ namespace CodeCampServer.UI.Helpers.Mappers
 
 		public override K Map<T, K>(T model)
 		{
-            
 			return Mapper.Map<T, K>(model);
 		}
 	}

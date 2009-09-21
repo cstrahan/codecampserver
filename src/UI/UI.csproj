@@ -90,6 +90,8 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\RssFeedController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\ProposalController.cs" />
@@ -101,6 +103,9 @@
     <Compile Include="Helpers\ConferenceViewExtensions.cs" />
     <Compile Include="Helpers\Filters\AddUserGroupToViewDataActionFilterAttribute.cs" />
     <Compile Include="Helpers\ImageLinkHelper.cs" />
+    <Compile Include="Helpers\Mappers\EventMapperBase.cs" />
+    <Compile Include="Helpers\Mappers\IMeetingMapper.cs" />
+    <Compile Include="Helpers\Mappers\MeetingMapper.cs" />
     <Compile Include="Helpers\Mappers\UserGroupRssFeedMapper.cs" />
     <Compile Include="Helpers\Mappers\IUserGroupRssFeedMapper.cs" />
     <Compile Include="Helpers\Mappers\UserGroupSponsorMapper.cs" />
@@ -111,6 +116,8 @@
     <Compile Include="Helpers\ViewPage\InputBuilders\NoInputBuilder.cs" />
     <Compile Include="Helpers\ViewPage\InputBuilders\UserInputBuilder.cs" />
     <Compile Include="Models\Forms\AdminForm.cs" />
+    <Compile Include="Models\Forms\EventForm.cs" />
+    <Compile Include="Models\Forms\MeetingForm.cs" />
     <Compile Include="Models\Forms\RssFeedForm.cs" />
     <Compile Include="Models\Forms\SponsorForm.cs" />
     <Compile Include="Models\Forms\UserGroupForm.cs" />
@@ -304,6 +311,9 @@
     <Content Include="css\jquery.autocomplete.css" />
     <Content Include="images\icons\accept.png" />
     <Content Include="images\icons\star.png" />
+    <Content Include="images\img01.jpg" />
+    <Content Include="images\img02.jpg" />
+    <Content Include="images\img03.jpg" />
     <Content Include="images\img1.jpg" />
     <Content Include="images\img2.jpg" />
     <Content Include="images\spacer.gif" />
@@ -360,10 +370,21 @@
     <Content Include="Views\Conference\List.aspx" />
     <Content Include="Views\Attendee\Edit.aspx" />
     <Content Include="Views\Attendee\Index.aspx" />
+    <Content Include="css\emporium.css" />
+    <Content Include="Views\Event\ConferenceAnnouncement.ascx" />
+    <Content Include="Views\Event\MeetingAnnouncement.ascx" />
+    <Content Include="Views\Home\About.aspx" />
+    <Content Include="Views\Home\Events.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Login\Index.aspx" />
+    <Content Include="Views\Meeting\Edit.aspx" />
     <Content Include="Views\Proposal\Confirmation.aspx" />
     <Content Include="Views\Proposal\Edit.aspx" />
+    <Content Include="Views\Shared\AddMeetingLink.ascx" />
+    <Content Include="Views\Shared\DeleteConferenceLink.ascx" />
+    <Content Include="Views\Shared\DeleteMeetingLink.ascx" />
+    <Content Include="Views\Shared\EditMeetingLink.ascx" />
+    <Content Include="Views\Shared\Main.master" />
     <None Include="Views\Proposal\Index.aspx" />
     <Content Include="Views\Proposal\List.aspx" />
     <Content Include="Views\Proposal\Vote.aspx" />
@@ -371,6 +392,7 @@
     <Content Include="Views\Schedule\Index.aspx" />
     <Content Include="Views\Session\List.aspx" />
     <Content Include="Views\Session\Edit.aspx" />
+    <Content Include="Views\Event\List.ascx" />
     <Content Include="Views\Shared\ConferenceList.ascx" />
     <Content Include="Views\Shared\DeleteTrackLink.ascx" />
     <Content Include="Views\Shared\EditSponsorLink.ascx" />
@@ -437,7 +459,6 @@
     <Content Include="scripts\jquery.mask.js" />
     <Content Include="scripts\jquery.templating.js" />
     <Content Include="Views\Shared\http404.ascx" />
-    <Content Include="Views\Shared\Main.Master" />
     <Content Include="Views\Shared\Empty.ascx" />
     <Content Include="Views\Track\Edit.aspx" />
     <Content Include="Views\Track\Index.aspx" />

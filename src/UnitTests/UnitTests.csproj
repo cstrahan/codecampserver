@@ -125,6 +125,7 @@
     <Compile Include="Core\Domain\Model\Planning\StateCommands\DraftToSubmittedCommandTester.cs" />
     <Compile Include="Core\Domain\Model\Planning\StateCommands\SaveDraftCommandTester.cs" />
     <Compile Include="Core\Domain\Model\Planning\StateCommands\SubmittedToAcceptedCommandTester.cs" />
+    <Compile Include="Core\Domain\Model\UserGroupTester.cs" />
     <Compile Include="Core\Domain\Model\UserTester.cs" />
     <Compile Include="Core\Domain\Model\ValueObjectTester.cs" />
     <Compile Include="Core\Domain\ValidationResultTester.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Core\Services\SystemTimeTester.cs" />
     <Compile Include="Core\Services\Updaters\AttendeeMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\ConferenceMapperTester.cs" />
+    <Compile Include="Core\Services\Updaters\MeetingMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\UserGroupMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\ProposalMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\ScheduleMapperTester.cs" />
@@ -145,6 +147,7 @@
     <Compile Include="Core\Services\Updaters\SpeakerMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\TrackMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\UserMapperTester.cs" />
+    <Compile Include="Core\TimeExtensionsTester.cs" />
     <Compile Include="MvcMockHelpers.cs" />
     <Compile Include="SpecExtensions.cs" />
     <Compile Include="TestBase.cs" />
@@ -153,6 +156,7 @@
     <Compile Include="UI\Controllers\AdminControllerTester.cs" />
     <Compile Include="UI\Controllers\AttendeeControllerTester.cs" />
     <Compile Include="UI\Controllers\ConferenceControllerTester.cs" />
+    <Compile Include="UI\Controllers\EventControllerTester.cs" />
     <Compile Include="UI\Controllers\RssFeedControllerTester.cs" />
     <Compile Include="UI\Controllers\SponsorControllerTester.cs" />
     <Compile Include="UI\Controllers\HomeControllerTester.cs" />
@@ -171,6 +175,7 @@
     <Compile Include="UI\Helpers\UserGroupModelBinderTester.cs" />
     <Compile Include="UI\KeyedModelBinderTester.cs" />
     <Compile Include="UI\ModelBinderTester.cs" />
+    <Compile Include="UI\Models\Forms\EventFormTester.cs" />
     <Compile Include="UI\Models\Forms\ProposalFormTester.cs" />
     <Compile Include="UI\Routes\ConferenceKeyControllerNameConstraintTester.cs" />
     <Compile Include="UI\Routes\DomainNameRouteHandlerTester.cs" />

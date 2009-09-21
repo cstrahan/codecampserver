@@ -2,10 +2,8 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl" %>
 
 <% var conference = ViewData.Get<Conference>(); %>
-
-<div id="navigationWrapper">
-	<div id="leftNavigationEndCap"></div>
-	<ul id="navigationMenu">
+<div id="menu"> 
+    <ul> 
 		<asp:LoginView ID="LoginView1" runat="server">
 			<LoggedInTemplate>
 				<li><a href="<%=Url.Action<AdminController>(c=>c.Index(null)) %>">admin</a></li>
@@ -26,6 +24,4 @@
 		<li><a href="<%=Url.Action<ProposalController>(c=>c.List(null)) %>">Session&nbsp;Proposals</a></li>
 		
 	</ul>
-	<div id="rightNavigationEndCap"></div>
 </div>
-<div class="cleaner"></div>
