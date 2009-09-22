@@ -30,5 +30,16 @@ namespace CodeCampServer.UI.Models.Forms
         public virtual IList<UserSelector> Users{ get; set;}
 
         public virtual IList<SponsorForm> Sponsors{ get; set;}
+
+        public string Location()
+        {
+                string location = "";
+                if(!string.IsNullOrEmpty(City))
+                {
+                    location = City + ", " + Region + " - ";
+                }
+                location += Country;
+                return location;
+        }
     }
 }

@@ -7,8 +7,7 @@
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
     <%=Errors.Display()%>
-    <%
-        Html.RenderAction("UpComing", "Event", ViewContext.RouteData.DataTokens);%>
+    <%Html.RenderAction("UpComing", "Event", ViewContext.RouteData.DataTokens);%>
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="SidebarPlaceHolder" runat="server">
@@ -18,7 +17,6 @@
         <%= Model.Name %>
         <%Html.RenderPartial("EditUserGroupLink", Model); %></h2>
     <p>
-        <%= Model.City %>,
-        <%= Model.Region %> -
-        <%= Model.Country%></p>
+        <%= Model.Location() %>
+        </p>
 </asp:Content>

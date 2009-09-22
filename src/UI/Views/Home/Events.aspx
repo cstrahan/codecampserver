@@ -8,5 +8,5 @@
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-    <%Html.RenderAction<EventController>(c => c.List(null));%>
+    <%Html.RenderAction("List", "Event", ViewContext.RouteData.DataTokens);%>    
 </asp:Content>

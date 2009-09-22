@@ -30,6 +30,7 @@
 	<property name="svn.executable" value="lib/subversion/svn.exe" dynamic="true" if="${not property::exists('svn.executable')}" />
 	<property name="revisionnumber" value="9999" dynamic="true"/>
 	<property name="revisionnumber" value="${CCNetLabel}" if="${property::exists('CCNetLabel')}"/>
+	<property name="revisionnumber" value="${BUILD_NUMBER}" if="${property::exists('BUILD_NUMBER')}"/>
 	<property name="project.fullversion" value="1.0.${revisionnumber}.0" dynamic="true"/>
 	<property name="project.config" value="release"/>
 
