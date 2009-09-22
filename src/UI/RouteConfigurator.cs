@@ -14,6 +14,7 @@ namespace CodeCampServer.UI
 
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 			routes.IgnoreRoute("{resource}.gif/{*pathInfo}");
+            routes.IgnoreRoute("{resource}.ico/{*pathInfo}");
 
 			MvcRoute.MappUrl("{conferenceKey}/speakers/{speakerKey}")
 				.WithDefaults(new {controller = "Speaker", action = "index"})

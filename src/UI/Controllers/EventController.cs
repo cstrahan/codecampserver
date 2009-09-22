@@ -39,14 +39,14 @@ namespace CodeCampServer.UI.Controllers
 			return View(typeName + ANNOUNCEMENT_PARTIAL_SUFFIX, form);
 		}
 
-		public ViewResult UpComing(UserGroup group)
+		public ViewResult UpComing(UserGroup userGroup)
 		{
-			return GetEvents(_eventRepository.GetFutureForUserGroup(group));
+			return GetEvents(_eventRepository.GetFutureForUserGroup(userGroup));
 		}
 
-		public ViewResult List(UserGroup group)
+		public ViewResult List(UserGroup userGroup)
 		{
-			return GetEvents(_eventRepository.GetAllForUserGroup(group));
+			return GetEvents(_eventRepository.GetAllForUserGroup(userGroup));
 		}
 
 		private ViewResult GetEvents(Event[] events)

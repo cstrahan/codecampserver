@@ -7,7 +7,8 @@
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
     <%=Errors.Display()%>
-    <%Html.RenderAction<EventController>(c => c.UpComing(null));%>
+    <%
+        Html.RenderAction("UpComing", "Event", ViewContext.RouteData.DataTokens);%>
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="SidebarPlaceHolder" runat="server">
