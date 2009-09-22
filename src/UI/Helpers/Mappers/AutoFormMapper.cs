@@ -1,6 +1,6 @@
 using AutoMapper;
 using CodeCampServer.Core.Domain;
-using Tarantino.Core.Commons.Model;
+using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {

@@ -8,7 +8,6 @@ using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
-using Tarantino.Core.Commons.Model;
 
 namespace CodeCampServer.UnitTests.UI
 {

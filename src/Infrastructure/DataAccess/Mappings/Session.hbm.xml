@@ -13,7 +13,7 @@
 		<many-to-one name="TimeSlot" />
 		<many-to-one name="Speaker" />
 		<many-to-one name="Conference" />
-		<property name="Level" type="Tarantino.Infrastructure.Commons.DataAccess.ORMapper.EnumerationType`1[[CodeCampServer.Core.Domain.Model.Enumerations.SessionLevel, CodeCampServer.Core]], Tarantino.Infrastructure"/>
+		<property name="Level" type="CodeCampServer.Infrastructure.EnumerationType`1[[CodeCampServer.Core.Domain.Model.Enumerations.SessionLevel, CodeCampServer.Core]], CodeCampServer.Infrastructure"/>
 		<property name="RoomNumber" length="50"/>
 		<property name="Title" length="255"/>
 		<property name="Abstract" length="2000"/>

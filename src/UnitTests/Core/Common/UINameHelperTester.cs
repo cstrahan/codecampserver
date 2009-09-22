@@ -1,9 +1,9 @@
 using System;
 using System.Linq.Expressions;
 using CodeCampServer.Core.Common;
+using CodeCampServer.Core.Domain.Model.Enumerations;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
-using Tarantino.Core.Commons.Model.Enumerations;
 
 namespace CodeCampServer.UnitTests.Core.Common
 {

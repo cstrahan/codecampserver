@@ -1,0 +1,5 @@
+﻿remove,DataAccess\
+remove,Services\
+remove,DataBase\Update
+keep,DataAccess\Bases
+keep,DataAccess\Mappings\Bases

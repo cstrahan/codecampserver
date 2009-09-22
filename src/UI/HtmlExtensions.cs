@@ -7,11 +7,11 @@ using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using CodeCampServer.Core;
+using CodeCampServer.Core.Domain.Model.Enumerations;
 using MvcContrib;
 using MvcContrib.UI.Grid;
 using MvcContrib.UI.Grid.ActionSyntax;
 using MvcContrib.UI.Grid.Syntax;
-using Tarantino.Core.Commons.Model.Enumerations;
 
 namespace CodeCampServer.UI
 {

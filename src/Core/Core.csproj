@@ -41,15 +41,13 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tarantino.Core, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\tarantino\Tarantino.Core.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Bases\Enumeration.cs" />
+    <Compile Include="Bases\PersistentObject.cs" />
     <Compile Include="Common\AttributeExtensions.cs" />
     <Compile Include="Common\ExpressionHelper.cs" />
     <Compile Include="Common\PrimitiveExtensions.cs" />
@@ -100,6 +98,7 @@
     <Compile Include="Domain\Model\TimeSlot.cs" />
     <Compile Include="Domain\Model\Track.cs" />
     <Compile Include="Domain\Model\User.cs" />
+    <Compile Include="Services\Bases\ISystemClock.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\ICryptographer.cs" />
     <Compile Include="Services\IHttpFileDownloaderService.cs" />

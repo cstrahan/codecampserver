@@ -1,7 +1,6 @@
 using System;
 using System.Web;
 using StructureMap;
-using Tarantino.Core.Commons.Services.Logging;
 
 namespace CodeCampServer.DependencyResolution
 {
@@ -32,7 +31,7 @@ namespace CodeCampServer.DependencyResolution
 				{
 					if (!_dependenciesRegistered)
 					{
-						Logger.Debug(this, "Registering types with StructureMap");
+						//Logger.Debug(this, "Registering types with StructureMap");
 						ObjectFactory.ResetDefaults();
 						var registrar = new DependencyRegistrar();
 						registrar.RegisterDependencies();

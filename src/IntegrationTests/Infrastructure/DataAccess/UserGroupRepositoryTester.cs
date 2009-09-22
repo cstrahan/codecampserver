@@ -5,7 +5,6 @@ using CodeCampServer.Infrastructure.DataAccess.Impl;
 using NBehave.Spec.NUnit;
 using NHibernate;
 using NUnit.Framework;
-using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {

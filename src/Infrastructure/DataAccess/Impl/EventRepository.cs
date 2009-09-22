@@ -2,7 +2,6 @@ using System.Linq;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Impl
 {

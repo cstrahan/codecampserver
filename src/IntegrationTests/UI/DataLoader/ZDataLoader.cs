@@ -12,8 +12,6 @@ using CodeCampServer.IntegrationTests.Infrastructure.DataAccess;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
 using NUnit.Framework;
-using Tarantino.Core.Commons.Model;
-using Tarantino.Core.Commons.Model.Enumerations;
 
 namespace CodeCampServer.IntegrationTests.UI.DataLoader
 {

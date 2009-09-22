@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IntegrationResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectName>CodeCampServer</ProjectName>
+  <ProjectUrl>http://build.CodeCampServer.org/ccnet/server/local/project/CodeCampServer/ViewLatestBuildReport.aspx</ProjectUrl>
+  <BuildCondition>IfModificationExists</BuildCondition>
+  <Label>2</Label>
+  <WorkingDirectory>C:\Code\Headspring\workingdirectory</WorkingDirectory>
+  <ArtifactDirectory>C:\Program Files (x86)\CruiseControl.NET\server\CodeCampServer\Artifacts</ArtifactDirectory>
+  <Status>Success</Status>
+  <StartTime>2009-05-20T16:45:23.633-05:00</StartTime>
+  <EndTime>2009-05-20T16:47:14.173-05:00</EndTime>
+  <LastIntegrationStatus>Success</LastIntegrationStatus>
+  <LastSuccessfulIntegrationLabel>2</LastSuccessfulIntegrationLabel>
+  <FailureUsers />
+</IntegrationResult>

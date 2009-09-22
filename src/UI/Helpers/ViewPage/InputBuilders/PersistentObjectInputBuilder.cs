@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using CodeCampServer.Core.Common;
-using Tarantino.Core.Commons.Model;
+using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {

@@ -11,6 +11,6 @@
 		<property name="Name" length="100"/>
 		<property name="Url" length="255"/>
     <property name="BannerUrl" length="255"/>
-    <property name="Level" type="Tarantino.Infrastructure.Commons.DataAccess.ORMapper.EnumerationType`1[[CodeCampServer.Core.Domain.Model.SponsorLevel, CodeCampServer.Core]], Tarantino.Infrastructure"/>
+    <property name="Level" type="CodeCampServer.Infrastructure.EnumerationType`1[[CodeCampServer.Core.Domain.Model.SponsorLevel, CodeCampServer.Core]], CodeCampServer.Infrastructure"/>
 	</class>
 </hibernate-mapping>

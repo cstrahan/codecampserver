@@ -3,10 +3,9 @@ using System.Collections;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.UI.Models.Forms;
-using Tarantino.Core.Commons.Model;
-using Tarantino.Core.Commons.Model.Enumerations;
 
 namespace CodeCampServer.UI.Helpers.Binders
 {

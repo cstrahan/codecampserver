@@ -2,7 +2,6 @@ using System;
 using CodeCampServer.Core.Domain.Model;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
-using Tarantino.Core.Commons.Model;
 using Tarantino.UnitTests.Core.Commons.Model;
 
 namespace CodeCampServer.UnitTests.Core.Domain.Model

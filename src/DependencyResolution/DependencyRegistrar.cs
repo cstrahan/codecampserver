@@ -1,9 +1,5 @@
 using System;
-using Naak.HtmlRules;
 using StructureMap;
-using Tarantino.Core;
-using Tarantino.Core.Commons.Services.Logging;
-using Tarantino.Infrastructure;
 
 namespace CodeCampServer.DependencyResolution
 {
@@ -14,15 +10,15 @@ namespace CodeCampServer.DependencyResolution
 
 		public void RegisterDependencies()
 		{
-			Logger.Debug(this, "Registering types with StructureMap");
+			//Logger.Debug(this, "Registering types with StructureMap");
 
 			ObjectFactory.Initialize(x =>
 			                         	{
 			                         		x.Scan(y =>
 			                         		       	{
-			                         		       		y.AssemblyContainingType<CoreDependencyRegistry>();
-			                         		       		y.AssemblyContainingType<InfrastructureDependencyRegistry>();
-			                         		       		y.AssemblyContainingType<NaakRegistry>();
+			                         		       		//y.AssemblyContainingType<CoreDependencyRegistry>();
+			                         		       		//y.AssemblyContainingType<InfrastructureDependencyRegistry>();
+			                         		       		//y.AssemblyContainingType<NaakRegistry>();
 			                         		       		y.AssemblyContainingType<DependencyRegistry>();
 																						y.LookForRegistries();
 			                         		       	});

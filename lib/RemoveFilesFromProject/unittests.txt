@@ -1,0 +1,11 @@
+﻿remove,Core\Domain
+
+remove,Core\Services
+remove,Ui\Controllers
+remove,Ui\Helpers
+remove,Ui\Models
+remove,Helpers\
+remove,Core\Services
+keep,Controllers\Bases
+keep,Core\Domain\Bases\
+keep,Core\Services\Bases

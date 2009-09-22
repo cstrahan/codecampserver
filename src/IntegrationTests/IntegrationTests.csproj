@@ -100,14 +100,6 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tarantino.Core, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\tarantino\Tarantino.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Tarantino.Infrastructure, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\tarantino\Tarantino.Infrastructure.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
@@ -122,6 +114,7 @@
     <Compile Include="Infrastructure\DataAccess\Mappings\RssFeedMappingsTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\SponsorMappingsTester.cs" />
     <Compile Include="Infrastructure\DataAccess\MeetingRepositoryTester.cs" />
+    <Compile Include="Infrastructure\DataAccess\PersistentObjectTestHelper.cs" />
     <Compile Include="Infrastructure\DataAccess\UserGroupRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\KeyedRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\UserGroupMappingsTester.cs" />

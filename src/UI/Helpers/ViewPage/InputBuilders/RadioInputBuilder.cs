@@ -3,7 +3,6 @@ using System.Text;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Domain.Model.Enumerations;
-using Tarantino.Core.Commons.Model.Enumerations;
 
 namespace CodeCampServer.UI.Helpers.ViewPage.InputBuilders
 {

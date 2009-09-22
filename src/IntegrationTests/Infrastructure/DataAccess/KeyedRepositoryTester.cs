@@ -5,7 +5,6 @@ using CodeCampServer.Infrastructure.DataAccess.Impl;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {

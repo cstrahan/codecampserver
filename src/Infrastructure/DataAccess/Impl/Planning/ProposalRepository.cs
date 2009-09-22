@@ -1,7 +1,6 @@
 using System.Linq;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Planning;
-using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Impl.Planning
 {

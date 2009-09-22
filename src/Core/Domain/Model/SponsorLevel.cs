@@ -1,4 +1,4 @@
-using Tarantino.Core.Commons.Model.Enumerations;
+using CodeCampServer.Core.Domain.Model.Enumerations;
 
 namespace CodeCampServer.Core.Domain.Model
 {

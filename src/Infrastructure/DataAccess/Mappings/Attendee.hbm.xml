@@ -13,7 +13,7 @@
 		<property name="LastName" length="100"/>
 		<property name="EmailAddress" length="100"/>
 		<property name="Webpage" length="100"/>
-		<property name="Status" type="Tarantino.Infrastructure.Commons.DataAccess.ORMapper.EnumerationType`1[[CodeCampServer.Core.Domain.Model.AttendanceStatus, CodeCampServer.Core]], Tarantino.Infrastructure"/>
+		<property name="Status" type="CodeCampServer.Infrastructure.EnumerationType`1[[CodeCampServer.Core.Domain.Model.AttendanceStatus, CodeCampServer.Core]], CodeCampServer.Infrastructure"/>
 
 	</class>
 </hibernate-mapping>

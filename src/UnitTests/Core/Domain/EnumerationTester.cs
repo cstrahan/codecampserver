@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using CodeCampServer.Core.Domain.Model.Enumerations;
 using NUnit.Framework;
-using Tarantino.Core.Commons.Model.Enumerations;
 
 namespace CodeCampServer.UnitTests.Core.Domain
 {

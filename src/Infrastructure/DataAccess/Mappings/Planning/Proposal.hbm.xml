@@ -12,10 +12,10 @@
 		<many-to-one name="Conference" />
 		<many-to-one name="Submitter" />
 		<many-to-one name="Track" />
-		<property name="Level" type="Tarantino.Infrastructure.Commons.DataAccess.ORMapper.EnumerationType`1[[CodeCampServer.Core.Domain.Model.Enumerations.SessionLevel, CodeCampServer.Core]], Tarantino.Infrastructure"/>
+		<property name="Level" type="CodeCampServer.Infrastructure.EnumerationType`1[[CodeCampServer.Core.Domain.Model.Enumerations.SessionLevel, CodeCampServer.Core]], CodeCampServer.Infrastructure"/>
 		<property name="Title" length="255"/>
 		<property name="Abstract" length="2000"/>
-		<property name="Status" type="Tarantino.Infrastructure.Commons.DataAccess.ORMapper.EnumerationType`1[[CodeCampServer.Core.Domain.Model.Planning.ProposalStatus, CodeCampServer.Core]], Tarantino.Infrastructure"/>
+		<property name="Status" type="CodeCampServer.Infrastructure.EnumerationType`1[[CodeCampServer.Core.Domain.Model.Planning.ProposalStatus, CodeCampServer.Core]], CodeCampServer.Infrastructure"/>
 		<property name="SubmissionDate"/>
 		<property name="CreatedDate"/>
 		<property name="Votes"/>

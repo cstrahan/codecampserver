@@ -1,0 +1,13 @@
+﻿remove,Controllers\
+
+remove,Helpers\
+remove,Models\
+remove,Services\
+remove,Views\
+remove,Helpers\
+keep,Controllers\Bases
+keep,Services\Bases
+keep,Views\User\
+keep,Views\Login
+keep,Views\Home\Index.aspx
+keep,Models\Bases

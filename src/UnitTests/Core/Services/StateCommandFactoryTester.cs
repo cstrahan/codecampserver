@@ -1,9 +1,9 @@
 using CodeCampServer.Core.Domain.Model.Planning;
 using CodeCampServer.Core.Domain.Model.Planning.StateCommands;
+using CodeCampServer.Core.Services.Bases;
 using CodeCampServer.Core.Services.Impl;
 using NUnit.Framework;
 using NBehave.Spec.NUnit;
-using Tarantino.Core.Commons.Services.Environment;
 
 namespace CodeCampServer.UnitTests.Core.Services
 {

@@ -4,11 +4,11 @@ using CodeCampServer.Core.Domain.Messages;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.Core.Domain.Model.Planning;
+using CodeCampServer.Core.Services.Bases;
 using CodeCampServer.UI.Helpers.Mappers;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Tarantino.Core.Commons.Services.Environment;
 
 namespace CodeCampServer.UnitTests.Core.Services.Updaters
 {

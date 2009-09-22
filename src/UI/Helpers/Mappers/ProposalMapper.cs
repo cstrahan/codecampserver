@@ -2,7 +2,7 @@ using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Messages;
 using CodeCampServer.Core.Domain.Model.Planning;
-using Tarantino.Core.Commons.Services.Environment;
+using CodeCampServer.Core.Services.Bases;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {

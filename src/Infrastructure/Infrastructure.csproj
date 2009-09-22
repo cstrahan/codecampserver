@@ -35,6 +35,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\castle\Castle.Components.Validator.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\nhibernate\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="MvcContrib, Version=0.0.1.168, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\mvccontrib\MvcContrib.dll</HintPath>
@@ -72,22 +76,18 @@
       <HintPath>..\..\lib\aspnetmvc\System.Web.Routing.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tarantino.Core, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\tarantino\Tarantino.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Tarantino.Infrastructure, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\tarantino\Tarantino.Infrastructure.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DataAccess\Bases\HybridSessionBuilder.cs" />
+    <Compile Include="DataAccess\Bases\ISessionBuilder.cs" />
+    <Compile Include="DataAccess\Bases\Logger.cs" />
+    <Compile Include="DataAccess\Bases\NHibernateSessionModule.cs" />
+    <Compile Include="DataAccess\Bases\TarantinoRepositoryBase.cs" />
     <Compile Include="DataAccess\Impl\ConferenceRepository.cs" />
     <Compile Include="DataAccess\Impl\EventRepository.cs" />
     <Compile Include="DataAccess\Impl\KeyedRepository.cs" />
@@ -101,10 +101,10 @@
     <Compile Include="DataAccess\Impl\UserGroupRepository.cs" />
     <Compile Include="DataAccess\Impl\UserRepository.cs" />
     <Compile Include="DependencyRegistry.cs" />
+    <Compile Include="EnumerationType.cs" />
     <Compile Include="HttpFileDownloaderService.cs" />
+    <Compile Include="SystemClock.cs" />
     <Compile Include="UI\Services\AssemblyVersion.cs" />
-    <Compile Include="UI\Services\Impl\UploadFileNamer.cs" />
-    <Compile Include="UI\Services\IUploadFileNamer.cs" />
     <Compile Include="UI\UIRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="UI\Services\Impl\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,6 +1,6 @@
+using CodeCampServer.Infrastructure.DataAccess.Impl;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
-using Tarantino.Infrastructure.Commons.DataAccess.ORMapper;
 
 namespace CodeCampServer.IntegrationTests
 {

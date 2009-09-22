@@ -12,8 +12,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{9820
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyResolution", "DependencyResolution\DependencyResolution.csproj", "{3A222037-75A5-4DFF-BA27-9487BF3A8536}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegressionTests", "RegressionTests\RegressionTests.csproj", "{781401FD-3E99-450D-A2E5-FB8B8B5DF42D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AutomatedDebug|Any CPU = AutomatedDebug|Any CPU
@@ -57,12 +55,6 @@ Global
 		{3A222037-75A5-4DFF-BA27-9487BF3A8536}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A222037-75A5-4DFF-BA27-9487BF3A8536}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A222037-75A5-4DFF-BA27-9487BF3A8536}.Release|Any CPU.Build.0 = Release|Any CPU
-		{781401FD-3E99-450D-A2E5-FB8B8B5DF42D}.AutomatedDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{781401FD-3E99-450D-A2E5-FB8B8B5DF42D}.AutomatedDebug|Any CPU.Build.0 = Debug|Any CPU
-		{781401FD-3E99-450D-A2E5-FB8B8B5DF42D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{781401FD-3E99-450D-A2E5-FB8B8B5DF42D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{781401FD-3E99-450D-A2E5-FB8B8B5DF42D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{781401FD-3E99-450D-A2E5-FB8B8B5DF42D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

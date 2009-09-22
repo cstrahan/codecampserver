@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 {
-	public class TrackMappingsTester : DataTestBase
+    public class TrackMappingsTester : DataTestBase
 	{
 		[Test]
 		public void Should_map_track()

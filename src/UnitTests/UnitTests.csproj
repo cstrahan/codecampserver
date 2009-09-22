@@ -96,18 +96,6 @@
     </Reference>
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tarantino.Core, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\tarantino\Tarantino.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Tarantino.Infrastructure, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\tarantino\Tarantino.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Tarantino.UnitTests, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\tarantino\Tarantino.UnitTests.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
@@ -128,6 +116,7 @@
     <Compile Include="Core\Domain\Model\UserGroupTester.cs" />
     <Compile Include="Core\Domain\Model\UserTester.cs" />
     <Compile Include="Core\Domain\Model\ValueObjectTester.cs" />
+    <Compile Include="Core\Domain\PersistentObjectTester.cs" />
     <Compile Include="Core\Domain\ValidationResultTester.cs" />
     <Compile Include="Core\Services\AuthenticationServiceTester.cs" />
     <Compile Include="Core\Services\CryptographerTester.cs" />

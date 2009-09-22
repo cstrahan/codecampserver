@@ -2,10 +2,10 @@ using System;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Planning;
 using CodeCampServer.Core.Domain.Model.Planning.StateCommands;
+using CodeCampServer.Core.Services.Bases;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Tarantino.Core.Commons.Services.Environment;
 
 namespace CodeCampServer.UnitTests.Core.Domain.Model.Planning.StateCommands
 {

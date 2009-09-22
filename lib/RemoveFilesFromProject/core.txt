@@ -1,0 +1,4 @@
+﻿remove,Domain\
+remove,Services\
+keep,Services\Bases
+keep,Domain\Bases

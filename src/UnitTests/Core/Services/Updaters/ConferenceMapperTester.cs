@@ -1,6 +1,7 @@
 using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Forms;
 using NBehave.Spec.NUnit;
@@ -29,7 +30,6 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			form.TimeZone = "CST";
 			form.HtmlContent = "<h1>this is some html fragments</h1>";
 			form.LocationUrl = "http://foo";
-
 			var repository = M<IConferenceRepository>();
 			repository.Stub(x => x.GetById(form.Id)).Return(null);
 

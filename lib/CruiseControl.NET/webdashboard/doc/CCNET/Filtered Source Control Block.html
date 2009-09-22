@@ -1,0 +1,279 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>CruiseControl.NET : Filtered Source Control Block</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            CruiseControl.NET : Filtered Source Control Block
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Apr 28, 2008 by <font color="#0050B2">rosspatterson</font>.
+				    </div>
+
+				    <h3><a name="FilteredSourceControlBlock-WhatisFilteredSourceControl%3F"></a>What is FilteredSourceControl?</h3>
+
+<p>The FilteredSourceControl allows you to filter out modifications that are used to trigger a build.  If for example, you have certain files (such as web pages or document files) under source control that you don't want to have trigger the build, you can use this class to ensure that their changes will keep a new build from launching.</p>
+
+<p>The FilteredSourceControl works together with all of the source controls supported by CCNet (including the <a href="Multi Source Control Block.html" title="Multi Source Control Block">Multi Source Control Block</a>).  It can also be included under the <a href="Multi Source Control Block.html" title="Multi Source Control Block">Multi Source Control Block</a> provider so that you could have multiple FilterSourceControls each filtering a different set of modifications from different source control providers.  Essentially, it acts as a decorator (or an example of the <a href="http://www.eaipatterns.com/PipesAndFilters.html">pipes and filters pattern </a>), wrapping around the specific SourceControl provider that you want to use.  </p>
+
+<p>The FilteredSourceControl includes both <b>inclusion</b> and <b>exclusion</b> filters for specifying what modifications should be included/excluded.  Multiple inclusion and exclusion filters can be specified or, alternately, no inclusion or exclusion filter could be specified.  If a modification is matched by both the inclusion and exclusion filter, then the exclusion filter will take preference and the modification will not be included in the modification set.  At this point, CCNet only supports three types of filters: <a href="#FilteredSourceControlBlock-PathFilter">PathFilters</a>, <a href="#FilteredSourceControlBlock-UserFilter">UserFilters</a>, and <a href="#FilteredSourceControlBlock-ActionFilter">ActionFilters</a>.  It is relatively straightforward to build new filters, (such as one to filter modifications based on email address).</p>
+
+<h3><a name="FilteredSourceControlBlock-ConfigurationExamples"></a>Configuration Examples</h3>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-xml"><span class="code-tag">&lt;sourcecontrol type=<span class="code-quote">"filtered"</span>&gt;</span>
+    <span class="code-tag">&lt;sourceControlProvider type=<span class="code-quote">"vss"</span> autoGetSource=<span class="code-quote">"true"</span>&gt;</span>
+      <span class="code-tag">&lt;project&gt;</span>$/Kunigunda/ServiceLocator<span class="code-tag">&lt;/project&gt;</span>
+      <span class="code-tag">&lt;workingDirectory&gt;</span>C:\CCNet\Kunigunda\ServiceLocator<span class="code-tag">&lt;/workingDirectory&gt;</span>
+      <span class="code-tag">&lt;username&gt;</span>urosn<span class="code-tag">&lt;/username&gt;</span>
+      <span class="code-tag">&lt;password&gt;</span><span class="code-tag">&lt;/password&gt;</span>
+      <span class="code-tag">&lt;ssdir&gt;</span>c:\localvss<span class="code-tag">&lt;/ssdir&gt;</span>
+    <span class="code-tag">&lt;/sourceControlProvider&gt;</span>
+    <span class="code-tag">&lt;inclusionFilters&gt;</span>
+      <span class="code-tag">&lt;pathFilter&gt;</span>
+      	<span class="code-tag">&lt;pattern&gt;</span>$/Kunigunda/ServiceLocator/Sources/**/*.*<span class="code-tag">&lt;/pattern&gt;</span>
+      <span class="code-tag">&lt;/pathFilter&gt;</span>
+    <span class="code-tag">&lt;/inclusionFilters&gt;</span>
+    <span class="code-tag">&lt;exclusionFilters&gt;</span>
+    	<span class="code-tag">&lt;pathFilter&gt;</span>
+    		<span class="code-tag">&lt;pattern&gt;</span>$/Kunigunda/ServiceLocator/Sources/Kunigunda.ServiceLocator/AssemblyInfo.cs<span class="code-tag">&lt;/pattern&gt;</span>
+    	<span class="code-tag">&lt;/pathFilter&gt;</span>
+	<span class="code-tag">&lt;pathFilter&gt;</span>
+		<span class="code-tag">&lt;pattern&gt;</span>$/**/*.vssscc<span class="code-tag">&lt;/pattern&gt;</span>
+	<span class="code-tag">&lt;/pathFilter&gt;</span>
+	<span class="code-tag">&lt;userFilter&gt;</span>
+		<span class="code-tag">&lt;names&gt;</span><span class="code-tag">&lt;name&gt;</span>Perry<span class="code-tag">&lt;/name&gt;</span><span class="code-tag">&lt;name&gt;</span>Joe<span class="code-tag">&lt;/name&gt;</span><span class="code-tag">&lt;/names&gt;</span>
+	<span class="code-tag">&lt;/userFilter&gt;</span>
+	<span class="code-tag">&lt;actionFilter&gt;</span>
+		<span class="code-tag">&lt;actions&gt;</span><span class="code-tag">&lt;action&gt;</span>deleted<span class="code-tag">&lt;/action&gt;</span><span class="code-tag">&lt;/actions&gt;</span>
+	<span class="code-tag">&lt;/actionFilter&gt;</span>
+        <span class="code-tag">&lt;commentFilter&gt;</span>
+                <span class="code-tag">&lt;pattern&gt;</span>Ignore: .*<span class="code-tag">&lt;/pattern&gt;</span>
+        <span class="code-tag">&lt;commentFilter&gt;</span>
+    <span class="code-tag">&lt;/exclusionFilters&gt;</span>
+<span class="code-tag">&lt;/sourcecontrol&gt;</span></pre>
+</div></div>
+
+<p>This example filters out any modifications to the <b>AssemblyInfo.cs</b> file that have been checked in to <a href="Visual Source Safe Source Control Block.html" title="Visual Source Safe Source Control Block">Visual Source Safe Source Control Block</a>.  Although it shows the use of all four types of filters, you can choose to use only fewer types of filter as well.</p>
+
+<h3><a name="FilteredSourceControlBlock-ConfigurationElements%3A"></a>Configuration Elements:</h3>
+
+<p><b>FilteredSourceControl root element</b></p>
+
+<p>This is the root configuration element for the FilteredSourceControl.</p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Node </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Type </th>
+<th class='confluenceTh'> Required</th>
+</tr>
+<tr>
+<td class='confluenceTd'> sourceControlProvider </td>
+<td class='confluenceTd'> This element is used to specify the type of source control provider to retrieve modifications from. With the exception of the element name, the configuration for this element is identical to the xml configuration for the specific source control provider you intend to use. </td>
+<td class='confluenceTd'> xml element </td>
+<td class='confluenceTd'> true </td>
+</tr>
+<tr>
+<td class='confluenceTd'> inclusionFilters </td>
+<td class='confluenceTd'> Specifies the filters that should be used to determine which modifications should be included. This element should contain the xml configuration for one or more filters. </td>
+<td class='confluenceTd'> xml element </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> exclusionFilters </td>
+<td class='confluenceTd'> Specifies the filters that should be used to determine which modifications should be excluded. This element should contain the xml configuration for one or more filters. </td>
+<td class='confluenceTd'> xml element </td>
+<td class='confluenceTd'> false </td>
+</tr>
+</tbody></table>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Unlike most source control blocks, this one does not support the <b>timeout</b> configuration element</td></tr></table></div>
+
+<p><a name="FilteredSourceControlBlock-PathFilter"></a> <b>PathFilter element</b></p>
+
+<p>The PathFilter can be used to filter modifications on the basis of their file path.</p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Node </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Type </th>
+<th class='confluenceTh'> Required</th>
+</tr>
+<tr>
+<td class='confluenceTd'> pattern </td>
+<td class='confluenceTd'> This is the pattern used to compare the modification path against. The pattern should match the path of the files in the repository (not the path of the files in the working directory). See <a href="#FilteredSourceControlBlock-PathFilter">below</a> for examples of the syntax for this element.  Each PathFilter contains a single pattern element. </td>
+<td class='confluenceTd'> string </td>
+<td class='confluenceTd'> true </td>
+</tr>
+</tbody></table>
+
+<p><a name="FilteredSourceControlBlock-UserFilter"></a> <b>UserFilter element</b></p>
+
+<p>The UserFilter can be used to filter modifications on the basis of the username that committed the changes.</p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Node </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Type </th>
+<th class='confluenceTh'> Required</th>
+</tr>
+<tr>
+<td class='confluenceTd'> names </td>
+<td class='confluenceTd'> This element consists of multiple &lt;name&gt; elements for each username to be filtered. </td>
+<td class='confluenceTd'> string </td>
+<td class='confluenceTd'> true </td>
+</tr>
+</tbody></table>
+
+<p><a name="FilteredSourceControlBlock-ActionFilter"></a> <b>ActionFilter element</b></p>
+
+<p>The ActionFilter can be used to filter modifications on the basis of the type of modification that was committed.  Modification types are specific to each source control provider.  Consult each source control provider for the list of actions to filter.</p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Node </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Type </th>
+<th class='confluenceTh'> Required</th>
+</tr>
+<tr>
+<td class='confluenceTd'> actions </td>
+<td class='confluenceTd'> This element consists of multiple &lt;action&gt; elements for each action to be filtered. </td>
+<td class='confluenceTd'> string </td>
+<td class='confluenceTd'> true </td>
+</tr>
+</tbody></table>
+
+<p><a name="FilteredSourceControlBlock-CommentFilter"></a> <b>CommentFilter element</b></p>
+
+<p>The CommentFilter can be used to filter modifications on the basis of the comment that was supplied with the modification.</p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Node </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Type </th>
+<th class='confluenceTh'> Required</th>
+</tr>
+<tr>
+<td class='confluenceTd'> pattern </td>
+<td class='confluenceTd'> This is the pattern used to compare the modification comment against. The pattern is specified according to the rules of the .net <a href="http://msdn2.microsoft.com/en-us/library/system.text.regularexpressions.regex.aspx">System.Text.RegularExpressions.Regex</a> class.  Each CommentFilter contains a single pattern element. </td>
+<td class='confluenceTd'> string </td>
+<td class='confluenceTd'> true </td>
+</tr>
+</tbody></table>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Comment filters are available starting with build #1.3.0.3052.</td></tr></table></div>
+
+<h3><a name="FilteredSourceControlBlock-UsingthePathFilter%3A"></a>Using the PathFilter:</h3>
+
+<p>PathFilter supports following wildcards:</p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Wildcard </th>
+<th class='confluenceTh'> Used as </th>
+<th class='confluenceTh'> Matches </th>
+<th class='confluenceTh'> Example </th>
+</tr>
+<tr>
+<td class='confluenceTd'> &#42;" </td>
+<td class='confluenceTd'> part of the path </td>
+<td class='confluenceTd'> none or exactly one subfolder </td>
+<td class='confluenceTd'> Pattern "/Kunigunda/&#42;/Sources/&#42;.&#42;" matches "/Kunigunda/Sources/&#42;.&#42;", "/Kunigunda/Service/Sources/&#42;.&#42;", and "/Kunigunda/Web/Sources/&#42;.&#42;" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> "&#42;" </td>
+<td class='confluenceTd'> part of the folder name </td>
+<td class='confluenceTd'> zero or more characters that can appear in the folder name </td>
+<td class='confluenceTd'> Pattern "/Kunigunda/Sources/Test&#42;/&#42;.&#42;" matches "/Kunigunda/Sources/Test/&#42;.&#42;" and "/Kunigunda/Sources/Tests/&#42;.&#42;" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> "&#42;" </td>
+<td class='confluenceTd'> part of the filename </td>
+<td class='confluenceTd'> zero or more characters that can appear in the file name </td>
+<td class='confluenceTd'> Pattern<br/>
+"/Kunigunda/Sources/&#42;.cs" matches all filenames in the "/Kunigunda/Sources" folder ending in ".cs". Pattern "/Kunigunda/Sources/&#42;Test.cs", matches all filenames in the "/Kunigunda/Sources/" folder that end with "Test.cs". </td>
+</tr>
+<tr>
+<td class='confluenceTd'> "&#42;" </td>
+<td class='confluenceTd'> part of the extension </td>
+<td class='confluenceTd'> zero or more characters that can appear in the extension. </td>
+<td class='confluenceTd'> Pattern "/Kunigunda/Sources/Build.&#42;" matches all files in "/Kunigunda/Sources" folder starting with "Build.". </td>
+</tr>
+<tr>
+<td class='confluenceTd'> "&#42;" </td>
+<td class='confluenceTd'> filename </td>
+<td class='confluenceTd'> any file name and extension </td>
+<td class='confluenceTd'> Pattern "/Kunigunda/Sources/&#42;" matches all files in "/Kunigunda/Sources" folder. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> "&#42;.&#42;" </td>
+<td class='confluenceTd'> filename </td>
+<td class='confluenceTd'> any file name and extension </td>
+<td class='confluenceTd'> Pattern "/Kunigunda/Sources/&#42;.&#42;" matches all files in "/Kunigunda/Sources" folder. Note: "&#42;.&#42;" is exactly the same as "&#42;" as a filename. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> "&#42;&#42;" </td>
+<td class='confluenceTd'> part of the path </td>
+<td class='confluenceTd'> zero or more subfolders. </td>
+<td class='confluenceTd'> Pattern "/Kunigunda/Sources/&#42;&#42;/Test/&#42;.&#42;" matches all files stored in any "Test" subfolder anywhere below the "/Kunigunda/Sources" tree (<em>e.g.</em>, "/Kunigunda/Sources/Test/&#42;.&#42;", "/Kunigunda/Sources/Core/Test/&#42;.&#42;"). </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ? </td>
+<td class='confluenceTd'> anywhere </td>
+<td class='confluenceTd'> any single character </td>
+<td class='confluenceTd'> Pattern "/Kunigunda/Sources/Test?.cs" matches all files in "/Kunigunda/Sources" are named "Test" followed by one more character and that end in ".cs". </td>
+</tr>
+</tbody></table>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b>Paths do not include the roots</b><br />Paths do not include the root server identifiers. For example, if you are using subversion source control on server "myserver" and trying to exclude path "svn://myserver/project1/excludedir/&#42;.&#42;" your node should be "/project1/excludedir/&#42;.&#42;".</td></tr></table></div>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b>Path separators are not characters</b><br />Path separators are not compared as characters, but rather as separations between path elements.  The separators "\", "/" and the .Net System.IO.Path.DirectorySeparatorChar are all treated interchangably.  This means that the patterns "/Kunigunda/Sources/Test.cs" and "\Kunigunda\Sources\Test.cs" both match the file named "Test.cs" in the folder named "Sources" under the folder named "Kunigunda".</td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b>StarTeam needs the full path</b><br />With StarTeam, use the entire file path as recognized by StarTeam, such<br/>
+as what is displayed when clicking File/Properties/Working File within<br/>
+StarTeam.
+
+<p>Examples:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">c:\project\module1\**
+c:\project\module2\**\filethatdoesntaffectbuild.txt</pre>
+</div></div></td></tr></table></div>
+
+
+<h3><a name="FilteredSourceControlBlock-Potentialenhancements%3A"></a>Potential enhancements:</h3>
+
+<ol>
+	<li>Case insensitive pattern matching.</li>
+	<li>Current patterns are only an approximation of the patterns used in NAnt filesets. Pattern translation and evaluation types in NAnt assembly are not public so it is not possible to use them directly but it would be a nice optimization.</li>
+</ol>
+
+
+<p>Implemented and contributed by <b>Uros Novak</b>.<br/>
+UserFilter and ActionFilter by <b>Perry Ismangil</b>.</p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="http://confluence.public.thoughtworks.org//images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on May 28, 2008 12:44</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>
