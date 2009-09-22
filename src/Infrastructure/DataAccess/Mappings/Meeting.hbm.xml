@@ -5,10 +5,10 @@
 
   <joined-subclass name="Meeting" extends="Event" table="Meetings" dynamic-update="true">
     <key column="Id"/>
-    <property name="Topic"/>
-    <property name="Summary"/>
+    <property name="Topic" length="500"/>
+    <property name="Summary" length="500"/>
     <property name="SpeakerName"/>
-    <property name="SpeakerBio"/>
-    <property name="SpeakerUrl"/>
+    <property name="SpeakerBio" length="500"/>
+    <property name="SpeakerUrl" length="255"/>
   </joined-subclass>
 </hibernate-mapping>
