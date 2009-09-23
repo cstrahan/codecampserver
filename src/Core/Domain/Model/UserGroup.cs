@@ -8,7 +8,6 @@ namespace CodeCampServer.Core.Domain.Model
 	{
 		private readonly IList<User> _users = new List<User>();
 		private readonly IList<Sponsor> _sponsors = new List<Sponsor>();
-		private readonly IList<RssFeed> _rssFeeds = new List<RssFeed>();
 		public virtual string Name { get; set; }
 		public virtual string HomepageHTML { get; set; }
 		public virtual string City { get; set; }
@@ -27,21 +26,7 @@ namespace CodeCampServer.Core.Domain.Model
 			_sponsors.Remove(child);
 		}
 
-		public virtual void Add(RssFeed feed)
-		{
-			_rssFeeds.Add(feed);
-		}
-
-		public virtual void Remove(RssFeed feed)
-		{
-			_rssFeeds.Remove(feed);
-		}
-
-		public virtual RssFeed[] GetRssFeeds()
-		{
-			return _rssFeeds.ToArray();
-		}
-
+	
 		public virtual Sponsor[] GetSponsors()
 		{
 			return _sponsors.ToArray();

@@ -1,7 +1,6 @@
 using System;
 using AutoMapper;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Domain.Model.Planning;
 using CodeCampServer.UI.Models.CustomResolvers;
 using CodeCampServer.UI.Models.Forms;
 
@@ -40,8 +39,6 @@ namespace CodeCampServer.UI
 
 			Mapper.CreateMap<User, UserSelector>();
 
-			Mapper.CreateMap<RssFeed, RssFeedForm>()
-				.ForMember(x => x.ParentID, o => o.Ignore());
 
 			Mapper.CreateMap<Sponsor, SponsorForm>()
 				.ForMember(x => x.ParentID, o => o.Ignore());
@@ -53,18 +50,6 @@ namespace CodeCampServer.UI
 			Mapper.CreateMap<Meeting, MeetingForm>()
 				.ForMember(x => x.StartDate, o => o.AddFormatter<StandardDateTimeFormatter>())
 				.ForMember(x => x.EndDate, o => o.AddFormatter<StandardDateTimeFormatter>());
-
-			Mapper.CreateMap<Track, TrackForm>();
-
-			Mapper.CreateMap<TimeSlot, TimeSlotForm>();
-			Mapper.CreateMap<Speaker, SpeakerForm>();
-			Mapper.CreateMap<Session, SessionForm>();
-
-			Mapper.CreateMap<Attendee, AttendeeForm>()
-				.ForMember(a => a.AttendeeID, o => o.MapFrom(a => a.Id))
-				.ForMember(a => a.ConferenceID, o => o.Ignore());
-
-			Mapper.CreateMap<Proposal, ProposalForm>();
 
 			Mapper.CreateMap<UserGroup, UserGroupForm>();
 			//.ForMember(a => a.Users, o => o.  MapFrom(a => a.GetUsers() ));

@@ -28,7 +28,6 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			                 		PostalCode = "78234",
 			                 		PhoneNumber = "512-555-1234"
 			                 	};
-			conference.AddAttendee(new Attendee {EmailAddress = "werwer@asdfasd.com"});
 			return conference;
 		}
 
@@ -37,24 +36,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			return new ConferenceRepository(GetSessionBuilder());
 		}
 
-		[Test]
-		public void Should_remove_an_attendee_from_its_collection()
-		{
-			Conference conference = CreateConference();
-
-			IConferenceRepository repository = new ConferenceRepository(new HybridSessionBuilder());
-			repository.Save(conference);
-			conference.RemoveAttendee(conference.GetAttendees()[0]);
-			repository.Save(conference);
-
-			Conference rehydratedConference;
-			using (ISession session = GetSession())
-			{
-				rehydratedConference = session.Load<Conference>(conference.Id);
-				rehydratedConference.GetAttendees().Length.ShouldEqual(0);
-			}
-		}
-
+		
 		[Test]
 		public void should_retrieve_conferences_for_a_usergroup()
 		{
@@ -124,21 +106,5 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			conferences[0].ShouldEqual(conference2);
 		}
 
-		[Test]
-		public void Should_update_an_attendee()
-		{
-			Conference conference = CreateConference();
-			conference.GetAttendees()[0].Status = AttendanceStatus.Interested;
-
-			IConferenceRepository repository = new ConferenceRepository(new HybridSessionBuilder());
-
-			repository.Save(conference);
-			conference.GetAttendees()[0].Status = AttendanceStatus.Confirmed;
-			repository.Save(conference);
-
-			Conference rehydratedConference = repository.GetById(conference.Id);
-			rehydratedConference.GetAttendees()[0].Status.ShouldEqual(
-				AttendanceStatus.Confirmed);
-		}
 	}
 }

@@ -51,31 +51,6 @@ namespace CodeCampServer.UnitTests.UI.Routes
                 .ShouldUseDomainNameRouteHandler();
 		}
 
-		[Test]
-		public void Session_index_should_use_the_session_key()
-		{
-			"~/austinCodeCamp2008/sessions/di-ioc-mvc-soc"
-				.ShouldMapTo<SessionController>(c => c.Index(null))
-                .ShouldUseDomainNameRouteHandler()
-				.Values["sessionKey"].ShouldEqual("di-ioc-mvc-soc");
-		}
-
-		[Test]
-		public void Speaker_actions_should_map_to_the_controller_action_without_the_conferenceKey()
-		{
-		    "~/asdfd/speaker"
-		        .ShouldMapTo<SpeakerController>(c => c.Index(null))
-		        .ShouldUseDomainNameRouteHandler();
-		}
-
-		[Test]
-		public void Speakers_index_should_use_the_session_key()
-		{
-			"~/austinCodeCamp2008/speakers/fredflinstone".Route()
-				.ShouldMapTo<SpeakerController>(c => c.Index(null))
-                .ShouldUseDomainNameRouteHandler()
-				.Values["speakerKey"].ShouldEqual("fredflinstone");
-		}
 
 		[Test]
 		public void Unknown_root_names_should_map_to_the_conference_index_and_pass_the_conference_key()
@@ -85,13 +60,6 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		        .ShouldUseDomainNameRouteHandler();
 		}
 
-		[Test]
-		public void Proposal_actions_should_map_to_ProposalController()
-		{
-			"~/confkey/proposal/new"
-                .ShouldMapTo<ProposalController>(c => c.New(null))
-                .ShouldUseDomainNameRouteHandler();
-		}
 	}
 
     public static  class RouteTestExtension

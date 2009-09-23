@@ -23,17 +23,9 @@ namespace CodeCampServer.IntegrationTests.DependencyResolution
 			[Test]
 			public void Reflection_helper_can_resolve_repositories()
 			{				
-				ReflectionHelper.IsConcreteAssignableFromGeneric(typeof(SpeakerRepository), typeof(IKeyedRepository<>)).ShouldNotBeNull();
-				ReflectionHelper.IsConcreteAssignableFromGeneric(typeof(SessionRepository), typeof(IKeyedRepository<>)).ShouldNotBeNull();
 				ReflectionHelper.IsConcreteAssignableFromGeneric(typeof(ConferenceRepository), typeof(IKeyedRepository<>)).ShouldNotBeNull();
-				ReflectionHelper.IsConcreteAssignableFromGeneric(typeof(TimeSlotRepository), typeof(IKeyedRepository<>)).ShouldBeNull();
-				ReflectionHelper.IsConcreteAssignableFromGeneric(typeof(TrackRepository), typeof(IKeyedRepository<>)).ShouldBeNull();
 
-				ReflectionHelper.IsConcreteAssignableFromGeneric(typeof(SpeakerRepository), typeof(IRepository<>)).ShouldNotBeNull();
-				ReflectionHelper.IsConcreteAssignableFromGeneric(typeof(SessionRepository), typeof(IRepository<>)).ShouldNotBeNull();
 				ReflectionHelper.IsConcreteAssignableFromGeneric(typeof(ConferenceRepository), typeof(IRepository<>)).ShouldNotBeNull();
-				ReflectionHelper.IsConcreteAssignableFromGeneric(typeof(TimeSlotRepository), typeof(IRepository<>)).ShouldNotBeNull();
-				ReflectionHelper.IsConcreteAssignableFromGeneric(typeof(TrackRepository), typeof(IRepository<>)).ShouldNotBeNull();
 			}
 
 			[Test]

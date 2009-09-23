@@ -32,7 +32,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		public void The_index_should_retrieve_the_user_group_by_its_domain_name()
 		{
 			var userGroup = new UserGroup();
-
+		    userGroup.Key = "adnug";
 
 			var mapper = S<IUserGroupMapper>();
 			mapper.Stub(groupMapper => groupMapper.Map(userGroup)).Return(new UserGroupForm());

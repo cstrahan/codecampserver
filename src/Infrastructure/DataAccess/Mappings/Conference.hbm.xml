@@ -13,9 +13,5 @@
 
     <many-to-one name="UserGroup" column="UserGroupID" class="UserGroup" />
 
-    <bag name="Attendees" access="field.camelcase-underscore" cascade="all-delete-orphan" >
-      <key column="ConferenceId"  />
-      <one-to-many class="Attendee" />
-    </bag>
   </joined-subclass>
 </hibernate-mapping>

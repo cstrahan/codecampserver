@@ -30,16 +30,8 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 			                 		HasRegistration = true,
 			                 		LocationUrl = "http://foobar"
 			                 	};
-			conference.AddAttendee(new Attendee
-			                       	{
-			                       		EmailAddress = "asdfasd",
-			                       		FirstName = "first name",
-			                       		LastName = "last name",
-			                       		Status = AttendanceStatus.Interested
-			                       	});
 
 			AssertObjectCanBePersisted(userGroup);
-			AssertObjectCanBePersisted(conference.GetAttendees()[0]);
 			AssertObjectCanBePersisted(conference);
 		}
 	}

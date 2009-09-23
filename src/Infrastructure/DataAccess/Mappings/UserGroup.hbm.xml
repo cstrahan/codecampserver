@@ -27,9 +27,5 @@
       <key column="UserGroupId"  />
       <many-to-many class="Sponsor" column="SponsorID" />
     </bag>
-    <bag name="RssFeeds" access="field.camelcase-underscore"  table="UserGroupRssFeeds" cascade="save-update" >
-      <key column="UserGroupId"  />
-      <many-to-many class="RssFeed" column="RssFeedID" />
-    </bag>
   </class>
 </hibernate-mapping>

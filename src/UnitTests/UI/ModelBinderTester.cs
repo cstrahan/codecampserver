@@ -110,11 +110,11 @@ namespace CodeCampServer.UnitTests.UI
 	}
 
 	[TestFixture]
-	public class SampleModelBinderTester : ModelBinderTester<Track, ITrackRepository>
+	public class SampleModelBinderTester : ModelBinderTester<Meeting, IMeetingRepository>
 	{
 		public override Type return_model_binder()
 		{
-			return typeof (ModelBinder<Track, ITrackRepository>);
+			return typeof (ModelBinder<Meeting, IMeetingRepository>);
 		}
 	}
 

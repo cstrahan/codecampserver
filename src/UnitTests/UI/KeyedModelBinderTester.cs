@@ -102,11 +102,11 @@ namespace CodeCampServer.UnitTests.UI
 	}
 
 	[TestFixture]
-	public class SampleKeyedModelBinderTester : KeyedModelBinderTester<Speaker, ISpeakerRepository>
+	public class SampleKeyedModelBinderTester : KeyedModelBinderTester<Conference, IConferenceRepository>
 	{
 		public override Type return_model_binder()
 		{
-			return typeof (KeyedModelBinder<Speaker, ISpeakerRepository>);
+			return typeof (KeyedModelBinder<Conference, IConferenceRepository>);
 		}
 	}
 }

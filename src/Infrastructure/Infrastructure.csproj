@@ -92,12 +92,7 @@
     <Compile Include="DataAccess\Impl\EventRepository.cs" />
     <Compile Include="DataAccess\Impl\KeyedRepository.cs" />
     <Compile Include="DataAccess\Impl\MeetingRepository.cs" />
-    <Compile Include="DataAccess\Impl\Planning\ProposalRepository.cs" />
     <Compile Include="DataAccess\Impl\RepositoryBase.cs" />
-    <Compile Include="DataAccess\Impl\SessionRepository.cs" />
-    <Compile Include="DataAccess\Impl\SpeakerRepository.cs" />
-    <Compile Include="DataAccess\Impl\TimeSlotRepository.cs" />
-    <Compile Include="DataAccess\Impl\TrackRepository.cs" />
     <Compile Include="DataAccess\Impl\UserGroupRepository.cs" />
     <Compile Include="DataAccess\Impl\UserRepository.cs" />
     <Compile Include="DependencyRegistry.cs" />
@@ -143,31 +138,10 @@
     <EmbeddedResource Include="DataAccess\Mappings\Conference.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataAccess\Mappings\Attendee.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DataAccess\Mappings\Track.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DataAccess\Mappings\TimeSlot.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DataAccess\Mappings\Speaker.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DataAccess\Mappings\Session.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DataAccess\Mappings\Planning\Proposal.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="DataAccess\Mappings\UserGroup.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DataAccess\Mappings\Sponsor.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DataAccess\Mappings\RssFeed.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DataAccess\Mappings\Meeting.hbm.xml" />

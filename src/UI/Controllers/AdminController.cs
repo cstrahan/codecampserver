@@ -27,11 +27,5 @@ namespace CodeCampServer.UI.Controllers
 
             return View(model);
         }
-        public ActionResult AttendeeEmail(Conference conference)
-        {
-            ViewData.Add(conference.GetAttendees());
-            
-            return View();
-        }
     }
 }
