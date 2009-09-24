@@ -6,7 +6,7 @@
 		        <li><a href="<%=Url.Action<AdminController>(c=>c.Index(null)) %>">admin</a></li>
 	        </LoggedInTemplate>
         </asp:LoginView>
-        <%if (!ViewData.Get<UserGroup>().IsDefault())
+        <%if (ViewData.Contains<UserGroup>())
           { %>
         <li><a href="<%=Url.Action<HomeController>(c=>c.Index(null)) %>">upcoming events</a></li>
         <li><a href="<%=Url.Action<HomeController>(c=>c.Events(null)) %>">all events</a></li>        
