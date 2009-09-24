@@ -6,7 +6,7 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI
 {
-	public class CodeCampServerProfile : Profile
+	public class AutoMapperProfile : Profile
 	{
 		public const string VIEW_MODEL = "CodeCampServer";
 
@@ -53,6 +53,8 @@ namespace CodeCampServer.UI
 
 			Mapper.CreateMap<UserGroup, UserGroupForm>();
 			//.ForMember(a => a.Users, o => o.  MapFrom(a => a.GetUsers() ));
+
+            Mapper.CreateMap<Event,EventList>();
 		}
 	}
 }

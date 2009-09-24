@@ -81,5 +81,55 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			events.Length.ShouldEqual(2);
 			events[0].ShouldEqual(event2);
 		}
+	
+
+		[Test]
+		public void Should_retrieve_all_upcoming_events()
+		{
+			SystemTime.Now = () => new DateTime(2009, 5, 5);
+			var usergroup = new UserGroup();
+            var usergroup1 = new UserGroup();
+			var event1 = new Conference
+			                  	{
+			                  		UserGroup = usergroup1,
+			                  		StartDate = new DateTime(2000, 1, 2),
+			                  		EndDate = new DateTime(2009, 4, 6)
+			                  	};
+			var event4 = new Meeting
+			                  	{
+			                  		UserGroup = usergroup,
+			                  		StartDate = new DateTime(2000, 1, 3),
+			                  		EndDate = new DateTime(2009, 5, 4, 20, 0, 0)
+			                  	};
+			var event2 = new Conference
+			                  	{
+			                  		UserGroup = usergroup1,
+			                  		StartDate = new DateTime(2000, 1, 4),
+			                  		EndDate = new DateTime(2009, 5, 5, 20, 0, 0)
+			                  	};
+			var event3 = new Meeting
+			                  	{
+			                  		UserGroup = usergroup,
+			                  		StartDate = new DateTime(2000, 1, 5),
+			                  		EndDate = new DateTime(2009, 5, 7)
+			                  	};
+
+			using (ISession session = GetSession())
+			{
+				session.SaveOrUpdate(usergroup);
+                session.SaveOrUpdate(usergroup1);
+				session.SaveOrUpdate(event1);
+				session.SaveOrUpdate(event2);
+				session.SaveOrUpdate(event3);
+				session.SaveOrUpdate(event4);
+				session.Flush();
+			}
+
+			IEventRepository repository = new EventRepository(new HybridSessionBuilder());
+			Event[] events = repository.GetAllFutureEvents();
+
+			events.Length.ShouldEqual(2);
+			events[0].ShouldEqual(event2);
+		}
 	}
 }

@@ -1,3 +1,5 @@
+using System;
+
 namespace CodeCampServer.Core.Domain.Model
 {
 	public class Meeting : Event
@@ -7,5 +9,9 @@ namespace CodeCampServer.Core.Domain.Model
 		public virtual string SpeakerName { get; set; }
 		public virtual string SpeakerBio { get; set; }
 		public virtual string SpeakerUrl { get; set; }
+	    public override string Title()
+	    {
+	        return Name + ": " + Topic;
+	    }
 	}
 }

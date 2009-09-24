@@ -21,7 +21,7 @@ namespace CodeCampServer.UI.Controllers
 			UserGroupForm form = MapToForm(userGroup);
             if (userGroup.IsDefault())
             {
-                return View("about", form);
+                return View("defaultIndex", form);
             }
 			return View(form);
 		}

@@ -70,5 +70,20 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			result.ViewName.ShouldEqual("list");
 			result.ViewData.Model.ShouldEqual(new[] { "meeting1", "conference1" });
 		}
-	}
+
+        [Test]
+        public void Should_list_all_future_events()
+        {
+            var repository = S<IEventRepository>();
+            var usergroup = new UserGroup();
+            var userGroup1 = new UserGroup(){Name = "foo",DomainName = "bar"};
+            var meeting = new Meeting() { Key = "meeting1" ,Name = "monthly meeting", Topic = "Visual Studio Tips and Tricks",UserGroup = userGroup1};
+            var conference = new Conference() { Key = "conference1" , Name = "Austin Code Camp",UserGroup = userGroup1};
+            repository.Stub(s => s.GetAllFutureEvents()).Return(new Event[] { meeting, conference });
+
+            var controller = new EventController(repository, null, null);
+            ViewResult result = controller.AllUpcomingEvents();
+            result.ViewName.ShouldEqual("");
+            result.ViewData.Model.ShouldBeInstanceOf<EventList[]>();        }
+    }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
@@ -13,13 +14,15 @@ namespace CodeCampServer.UI.Controllers
 		private readonly IEventRepository _eventRepository;
 		private readonly IConferenceMapper _conferenceMapper;
 		private readonly IMeetingMapper _meetingMapper;
+	    
 
-		public EventController(IEventRepository eventRepository, IConferenceMapper conferenceMapper,
+	    public EventController(IEventRepository eventRepository, IConferenceMapper conferenceMapper,
 		                       IMeetingMapper meetingMapper)
 		{
 			_eventRepository = eventRepository;
 			_meetingMapper = meetingMapper;
-			_conferenceMapper = conferenceMapper;
+		
+		    _conferenceMapper = conferenceMapper;
 		}
 
 		public ViewResult Announcement(Event @event)
@@ -54,5 +57,18 @@ namespace CodeCampServer.UI.Controllers
 			string[] keys = (from e in events select e.Key).ToArray();
 			return View("list", keys);
 		}
+
+        public ViewResult AllUpcomingEvents()
+        {
+            var events = _eventRepository.GetAllFutureEvents()
+                .Select(currentEvent => new EventList()
+                {
+                    Date = currentEvent.Date(),
+                    Title = currentEvent.Title(),
+                    UserGroupName = currentEvent.UserGroup.Name,
+                    UserGroupDomainName = currentEvent.UserGroup.DomainName
+                }).ToArray();
+            return View(events);
+        }
 	}
 }

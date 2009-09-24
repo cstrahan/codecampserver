@@ -12,5 +12,9 @@ namespace CodeCampServer.Core.Domain.Model
 		public virtual bool HasRegistration { get; set; }
 
 
+	    public override string Title()
+	    {
+	        return Name;
+	    }
 	}
 }

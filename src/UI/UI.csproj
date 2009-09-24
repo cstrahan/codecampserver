@@ -100,6 +100,7 @@
     <Compile Include="InputBuilderConventions.cs" />
     <Compile Include="Models\Forms\AdminForm.cs" />
     <Compile Include="Models\Forms\EventForm.cs" />
+    <Compile Include="Models\Forms\EventList.cs" />
     <Compile Include="Models\Forms\MeetingForm.cs" />
     <Compile Include="Models\Forms\SponsorForm.cs" />
     <Compile Include="Models\Forms\UserGroupForm.cs" />
@@ -120,7 +121,7 @@
     <Compile Include="ViewPages.cs" />
     <Compile Include="Views\AutoMapperConfiguration.cs" />
     <Compile Include="Services\ConferenceKeyCannotBeAControllerNameConstraint.cs" />
-    <Compile Include="CodeCampServerProfile.cs" />
+    <Compile Include="AutoMapperProfile.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SaveController.cs" />
@@ -288,6 +289,8 @@
     <Content Include="Views\Event\ConferenceAnnouncement.ascx" />
     <Content Include="Views\Event\MeetingAnnouncement.ascx" />
     <Content Include="Views\Home\About.aspx" />
+    <Content Include="Views\Event\AllUpcomingEvents.aspx" />
+    <Content Include="Views\Home\DefaultIndex.aspx" />
     <Content Include="Views\Home\Events.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Login\Index.aspx" />

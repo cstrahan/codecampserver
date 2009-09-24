@@ -458,3 +458,11 @@ ul.validation-summary-errors
 {
     color:Red;
 }
+.sidebarTitle
+{
+    text-align:left;
+}
+.sidebarCopy
+{
+    text-align:left;
+}

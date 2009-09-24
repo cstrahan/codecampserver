@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Domain;
@@ -25,5 +26,13 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 				.SetDateTime("datetime", SystemTime.Now().Midnight())
 				.List<Event>().ToArray();
 		}
+
+	    public Event[] GetAllFutureEvents()
+	    {
+            return GetSession().CreateQuery(
+                "from Event e where e.EndDate >= :datetime order by e.StartDate")
+                .SetDateTime("datetime", SystemTime.Now().Midnight())
+                .List<Event>().ToArray();
+        }
 	}
 }
