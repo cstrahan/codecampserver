@@ -56,8 +56,6 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Abstractions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\aspnetmvc\System.Web.Abstractions.dll</HintPath>
@@ -100,8 +98,6 @@
     <Compile Include="Helpers\Mappers\IUserGroupMapper.cs" />
     <Compile Include="Helpers\Mappers\UserGroupMapper.cs" />
     <Compile Include="Helpers\Validation\Attributes\ValidateKeyAttribute.cs" />
-    <Compile Include="Helpers\ViewPage\InputBuilders\NoInputBuilder.cs" />
-    <Compile Include="Helpers\ViewPage\InputBuilders\UserInputBuilder.cs" />
     <Compile Include="Models\Forms\AdminForm.cs" />
     <Compile Include="Models\Forms\EventForm.cs" />
     <Compile Include="Models\Forms\MeetingForm.cs" />
@@ -171,17 +167,6 @@
     <Compile Include="Helpers\SubController.cs" />
     <Compile Include="Helpers\Extensions\InputTextExtensions.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Helpers\ViewPage\BaseInputBuilder.cs" />
-    <Compile Include="Helpers\ViewPage\DisplayErrorMessages.cs" />
-    <Compile Include="Helpers\ViewPage\IDisplayErrorMessages.cs" />
-    <Compile Include="Helpers\ViewPage\IInputSpecification.cs" />
-    <Compile Include="Helpers\ViewPage\IInputSpecificationExpression.cs" />
-    <Compile Include="Helpers\ViewPage\InputBuilders\PersistentObjectInputBuilder.cs" />
-    <Compile Include="Helpers\ViewPage\InputBuilders\EnumerationInputBuilder.cs" />
-    <Compile Include="Helpers\ViewPage\InputBuilders\RadioInputBuilder.cs" />
-    <Compile Include="Helpers\ViewPage\InputSpecification.cs" />
-    <Compile Include="Helpers\ViewPage\IViewBase.cs" />
-    <Compile Include="Helpers\ViewPage\ViewBaseExtensions.cs" />
     <Compile Include="HtmlExtensions.cs" />
     <Compile Include="Models\CustomResolvers\BaseFormatter.cs" />
     <Compile Include="Models\CustomResolvers\BaseResolver.cs" />
@@ -197,26 +182,6 @@
     <Compile Include="Models\Forms\UserForm.cs" />
     <Compile Include="Helpers\Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Helpers\Extensions\ViewDataExtensions.cs" />
-    <Compile Include="Helpers\ViewPage\BaseViewPageT.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Helpers\ViewPage\BaseViewUserControlT.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Helpers\ViewPage\InputBuilders\CheckboxInputBuilder.cs" />
-    <Compile Include="Helpers\ViewPage\InputBuilders\DateInputBuilder.cs" />
-    <Compile Include="Helpers\ViewPage\InputBuilders\HiddenInputBuilder.cs" />
-    <Compile Include="Helpers\ViewPage\IInputBuilder.cs" />
-    <Compile Include="Helpers\ViewPage\BaseViewPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Helpers\ViewPage\BaseViewUserControl.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Helpers\ViewPage\IInputBuilderFactory.cs" />
-    <Compile Include="Helpers\ViewPage\InputBuilderFactory.cs" />
-    <Compile Include="Helpers\ViewPage\InputBuilders\TextBoxInputBuilder.cs" />
-    <Compile Include="Helpers\ViewPage\InputBuilders\YesNoRadioInputBuilder.cs" />
     <Compile Include="Controllers\ConferenceController.cs" />
     <Compile Include="Models\Forms\ConferenceForm.cs" />
     <Compile Include="Models\Forms\EditForm.cs" />
@@ -228,8 +193,6 @@
       <DependentUpon>PartialViewGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="RouteConfigurator.cs" />
-    <Compile Include="Views\InputBuilderExtender.cs" />
-    <Compile Include="Views\InputSpecificationBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\hibernate.cfg.xml">
@@ -331,6 +294,9 @@
     <Content Include="Views\Login\Index.aspx" />
     <Content Include="Views\Meeting\Edit.aspx" />
     <Content Include="Views\Shared\AddMeetingLink.ascx" />
+    <None Include="Views\Shared\Field.Master" />
+    <Content Include="Views\Shared\DatePicker.aspx" />
+    <Content Include="Views\Shared\_textarea.aspx" />
     <Content Include="Views\Shared\DeleteConferenceLink.ascx" />
     <Content Include="Views\Shared\DeleteMeetingLink.ascx" />
     <Content Include="Views\Shared\EditMeetingLink.ascx" />

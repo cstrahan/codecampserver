@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserForm>"%>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" Inherits="ViewPage<UserForm>"%>
+<%@ Import Namespace="MvcContrib.UI.InputBuilder"%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
 </asp:Content>
@@ -6,7 +7,7 @@
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 
 <% using(Html.BeginForm("Save")) { %>
-        <%=Errors.Display()%>
+        <%=Html.ValidationSummary()%>
         
         <fieldset>
             <legend>User Profile</legend>

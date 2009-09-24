@@ -23,8 +23,8 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			form.Name = "name";
 			form.PostalCode = "postal";
 			form.Region = "region";
-			form.StartDate = new DateTime(2008, 1, 1).ToShortDateString();
-			form.EndDate = new DateTime(2008, 1, 2).ToShortDateString();
+			form.StartDate = new DateTime(2008, 1, 1);//.ToShortDateString();
+			form.EndDate = new DateTime(2008, 1, 2);//.ToShortDateString();
 			form.TimeZone = "CST";
 			form.LocationUrl = "http://foo";
 			form.Topic = "topic";
@@ -68,8 +68,8 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			form.Name = "name";
 			form.PostalCode = "postal";
 			form.Region = "region";
-			form.StartDate = new DateTime(2008, 1, 1).ToShortDateString();
-			form.EndDate = new DateTime(2008, 1, 2).ToShortDateString();
+			form.StartDate = new DateTime(2008, 1, 1);//.ToShortDateString();
+			form.EndDate = new DateTime(2008, 1, 2);//.ToShortDateString();
 			form.TimeZone = "CST";
 			form.LocationUrl = "http://foo";
 			form.Topic = "topic";

@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
-Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<SponsorForm>"%>
+Inherits="ViewPage<SponsorForm>"%>
+<%@ Import Namespace="MvcContrib.UI.InputBuilder"%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
 </asp:Content>
@@ -8,7 +9,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<SponsorForm>"%>
         <div>
 	        <h1>Edit Sponsor</h1>
             
-            <%=Errors.Display()%>
+            <%=Html.ValidationSummary()%>
 
 	        <table class="dataEntry">
 		        <tr>

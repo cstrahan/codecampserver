@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserForm[]>"%>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="ViewPage<UserForm[]>"%>
 <%@ Import Namespace="CodeCampServer.UI.Helpers"%>
 <%@ Import Namespace="MvcContrib.UI.Grid"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="Main" runat="server">

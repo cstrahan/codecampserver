@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true"  validateRequest="false"
-Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm>"%>
+Inherits="ViewPage<ConferenceForm>"%>
+<%@ Import Namespace="MvcContrib.UI.InputBuilder"%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
 <script type="text/javascript" src="/scripts/tiny_mce/tiny_mce.js"></script>
@@ -22,7 +23,7 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm>"%>
         <fieldset id="conference">
             <legend>Edit Conference</legend>    
             
-            <%=Errors.Display()%>
+            <%=Html.ValidationSummary()%>                
 
 			<%=Html.Input(a => a.Id)%>            	
 		    <%=Html.Input(a => a.UserGroupId)%>

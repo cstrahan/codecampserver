@@ -1,5 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
-Inherits="System.Web.Mvc.ViewPage<UserGroupForm>"%>
+Inherits="ViewPage<UserGroupForm>"%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Menu" runat="server">
 <% Html.RenderPartial("HomeMenu"); %>

@@ -11,7 +11,7 @@ namespace CodeCampServer.UnitTests.Core.Domain.Model
 		public void Should_be_default_if_url_has_localhost()
 		{
 			var @group = new UserGroup();
-			group.Key = "localhost";
+			group.DomainName = "www.codecampserver.com";
 			group.IsDefault().ShouldBeTrue();
 		}
 

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" 
-AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<AdminForm>"%>
+AutoEventWireup="true" Inherits="ViewPage<AdminForm>"%>
 
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">

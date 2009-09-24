@@ -100,7 +100,6 @@
     <Compile Include="HttpFileDownloaderService.cs" />
     <Compile Include="SystemClock.cs" />
     <Compile Include="UI\Services\AssemblyVersion.cs" />
-    <Compile Include="UI\UIRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\lib\nhibernate\nhibernate-configuration.xsd">

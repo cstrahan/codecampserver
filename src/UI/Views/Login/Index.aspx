@@ -1,12 +1,13 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master"
- AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<LoginForm>"%>
+ AutoEventWireup="true" Inherits="ViewPage<LoginForm>"%>
+<%@ Import Namespace="MvcContrib.UI.InputBuilder"%>
 
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">  
        <form action="<%= Url.Action<LoginController>(x => x.Login(null)) %>" method="post">
 		
 	    <h2>Please Log In:</h2>
-        <%=Errors.Display()%>
+        <%=Html.ValidationSummary()%>
         
         <fieldset id="login">
             <legend>Login Details</legend>

@@ -1,0 +1,2 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewPage<MvcContrib.UI.InputBuilder.ModelProperty<object>>" %>
+<%= Html.TextArea(Model.Name,Model.Value.ToString(),new{rows=10}) %>

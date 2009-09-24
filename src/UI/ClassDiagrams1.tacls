@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ModelRoot dslVersion="1.0.0.0" Name="" xmlns="http://www.tangiblearchitect.com/dsltools/ClassDiagrams">
-  <Types>
-    <ModelClass Name="ModelClass1" />
-  </Types>
-</ModelRoot>

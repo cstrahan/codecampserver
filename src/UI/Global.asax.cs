@@ -19,6 +19,7 @@ namespace CodeCampServer.UI
 		{
 			RegisterRoutes(RouteTable.Routes);
 			AutoMapperConfiguration.Configure();
+            MvcContrib.UI.InputBuilder.InputBuilder.BootStrap();
 			ControllerBuilder.Current.SetControllerFactory(new ControllerFactory());
 
 			ModelBinders.Binders.DefaultBinder = new SmartBinder();

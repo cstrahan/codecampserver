@@ -1,5 +1,6 @@
 <%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
-Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserGroupForm>"%>
+Inherits="ViewPage<UserGroupForm>"%>
+<%@ Import Namespace="MvcContrib.UI.InputBuilder"%>
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
@@ -31,8 +32,8 @@ Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<UserGroupForm>"%>
         <%=Html.Input(a => a.City)%>
         <%=Html.Input(a => a.Region)%>
         <%=Html.Input(a => a.Country)%>
-        <%=Html.Input(a => a.Users)%>
-        <%=Html.Input(a => a.HomepageHTML, new { rows = 20 }.ToDictionary())%>
+        <%//Html.Input(a => a.Users)%>
+        <%=Html.Input(a => a.HomepageHTML).Partial("MultilineText")%>
         <%=Html.Input(a => a.GoogleAnalysticsCode)%>        
         
         <p class="buttons">

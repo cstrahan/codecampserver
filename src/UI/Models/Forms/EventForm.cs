@@ -21,10 +21,10 @@ namespace CodeCampServer.UI.Models.Forms
 		public virtual string Description { get; set; }
 
 		[BetterValidateDateTime("Start Date")]
-		public virtual string StartDate { get; set; }
+		public virtual DateTime StartDate { get; set; }
 
 		[BetterValidateDateTime("End Date")]
-		public virtual string EndDate { get; set; }
+		public virtual DateTime EndDate { get; set; }
 
 		[BetterValidateNonEmpty("Location")]
 		public virtual string LocationName { get; set; }
@@ -46,9 +46,9 @@ namespace CodeCampServer.UI.Models.Forms
 		{
 		    try
 		    {
-                string start = DateTime.Parse(StartDate).ToString("h:mm");
-                string end = DateTime.Parse(EndDate).ToString("h:mm tt");
-                string date = DateTime.Parse(StartDate).ToShortDateString();
+                string start = DateTime.Parse(StartDate.ToString()).ToString("h:mm");
+                string end = DateTime.Parse(EndDate.ToString()).ToString("h:mm tt");
+                string date = DateTime.Parse(StartDate.ToString()).ToShortDateString();
 
                 return string.Format("{0} {1} - {2} {3}", date, start, end, TimeZone);
             }

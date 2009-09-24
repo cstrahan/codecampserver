@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" 
-AutoEventWireup="true" Inherits="CodeCampServer.UI.Helpers.ViewPage.BaseViewPage<ConferenceForm[]>"%>
+AutoEventWireup="true" Inherits="ViewPage<ConferenceForm[]>"%>
 <%@ Import Namespace="CodeCampServer.UI.Helpers"%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Menu" runat="server">

@@ -51,7 +51,9 @@ namespace CodeCampServer.Core.Domain.Model
 
 		public virtual bool IsDefault()
 		{
-			return Key.Equals("localhost", StringComparison.InvariantCultureIgnoreCase);
+            if(string.IsNullOrEmpty(DomainName))
+                return false;
+            return DomainName.ToLower().Equals("www.codecampserver.com", StringComparison.InvariantCultureIgnoreCase);
 		}
 	}
 }
