@@ -76,9 +76,6 @@ fieldset {
 	border: none;
 }
 
-legend {
-	display: none;
-}
 
 input, textarea, select {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -386,7 +383,7 @@ html>body #footer {
 fieldset 
 {
 	background-color: #eee;
-	padding: 20px;
+	padding: 0px ,20px,20px,20px;
 	margin: 10px auto;
 	border: solid 4px #aba;
 	width: 480px;
@@ -448,4 +445,16 @@ fieldset p.buttons
 {
 	clear: both;
 	height: 0px;
+}
+.required
+{
+    color:Red;
+}
+fieldset input[type="text"] date, .date
+{
+    width:100px;
+}
+ul.validation-summary-errors
+{
+    color:Red;
 }

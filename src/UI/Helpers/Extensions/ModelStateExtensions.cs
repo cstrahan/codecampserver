@@ -35,5 +35,14 @@ namespace CodeCampServer.UI.Helpers
 				}
 			}
 		}
+        //public static void AddException(this ModelStateDictionary state,System.Exception e)
+        //{
+        //    while(e.InnerException!=null)
+        //    {
+        //        e = e.InnerException;
+        //    }
+        //    state.AddModelError()
+        //        .Add("error",e.Message);
+        //}
 	}
 }

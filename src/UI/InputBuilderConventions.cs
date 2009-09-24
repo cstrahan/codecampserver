@@ -6,7 +6,9 @@ using System.Web.Mvc;
 using Castle.Components.Validator;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.UI.Helpers.Attributes;
+using CodeCampServer.UI.Helpers.Validation.Attributes;
 using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Validation.Attributes;
 using MvcContrib.UI.InputBuilder;
 
 namespace CodeCampServer.UI
@@ -39,6 +41,12 @@ namespace CodeCampServer.UI
 
         public string LabelForPropertyConvention(PropertyInfo propertyInfo)
         {
+            if(propertyInfo.AttributeExists<LabelAttribute>())
+                return propertyInfo.GetAttribute<LabelAttribute>().Value;
+
+            if (propertyInfo.AttributeExists<BetterValidateNonEmptyAttribute>())
+                return propertyInfo.GetAttribute<BetterValidateNonEmptyAttribute>().Label;
+            
             return _default.LabelForPropertyConvention(propertyInfo);
         }
 
@@ -63,6 +71,8 @@ namespace CodeCampServer.UI
                 return "UserPicker";
             if (propertyInfo.Name.ToLower().Contains("password"))
                 return "Password";
+            if (typeof(DateTime).IsAssignableFrom(propertyInfo.PropertyType))
+                return "DatePicker";
             return _default.PartialNameConvention(propertyInfo);
         }
 
@@ -79,6 +89,9 @@ namespace CodeCampServer.UI
                 return true;
 
             if (propertyInfo.AttributeExists<ValidateNonEmptyAttribute>())
+                return true;
+
+            if (propertyInfo.AttributeExists<BetterValidateDateTimeAttribute>())
                 return true;
 
             return _default.PropertyIsRequiredConvention(propertyInfo);

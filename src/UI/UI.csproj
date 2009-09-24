@@ -85,7 +85,6 @@
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserGroupController.cs" />
-    <Compile Include="Helpers\Attributes\NoInputAttribute.cs" />
     <Compile Include="Helpers\Binders\UserGroupModelBinder.cs" />
     <Compile Include="Helpers\ConferenceViewExtensions.cs" />
     <Compile Include="Helpers\Filters\AddUserGroupToViewDataActionFilterAttribute.cs" />
@@ -155,7 +154,6 @@
     <Compile Include="Helpers\Mappers\UserMapper.cs" />
     <Compile Include="Helpers\Extensions\ModelStateExtensions.cs" />
     <Compile Include="Helpers\Attributes\ShowAsRequiredAttribute.cs" />
-    <Compile Include="Helpers\Attributes\UserDropDownAttribute.cs" />
     <Compile Include="Helpers\Attributes\HiddenAttribute.cs" />
     <Compile Include="Helpers\Attributes\LabelAttribute.cs" />
     <Compile Include="Helpers\UserSession.cs" />

@@ -29,10 +29,10 @@ Inherits="ViewPage<ConferenceForm>"%>
 		    <%=Html.Input(a => a.UserGroupId)%>
 		    <%=Html.Input(a => a.Name)%>
 		    <%=Html.Input(a => a.Key)%>
-		    <%=Html.Input(a => a.Description)%>
 		    <%=Html.Input(a => a.StartDate)%>
 		    <%=Html.Input(a => a.EndDate)%>
 		    <%=Html.Input(a => a.TimeZone)%>
+		    <%=Html.Input(a => a.Description)%>
 		    <%=Html.Input(a => a.HasRegistration)%>
 		    <%=Html.Input(a => a.LocationName)%>
 		    <%=Html.Input(a => a.LocationUrl)%>

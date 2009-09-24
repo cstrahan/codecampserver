@@ -21,7 +21,20 @@ namespace CodeCampServer.UI.Controllers
 
 		protected ActionResult ProcessSave(TForm form, Func<TModel, ActionResult> successRedirect)
 		{
-			return ProcessSave(form, successRedirect, model => {});
+		    try
+		    {
+                return ProcessSave(form, successRedirect, model => { });
+		    }
+		    catch (Exception e)
+		    {
+		        while (e.InnerException!=null)
+		        {
+		            e = e.InnerException;
+		        }
+                ModelState.AddModelError("form",e.Message);
+		        return View("edit",form);
+		    }
+			
 		}
 
 		protected ActionResult ProcessSave(TForm form, Func<TModel, ActionResult> successRedirect, Action<TModel> preSaveAction)

@@ -16,18 +16,18 @@ Inherits="ViewPage<MeetingForm>"%>
 			<%=Html.Input(a => a.Id)%>            	
 		    <%=Html.Input(a => a.UserGroupId)%>
 		    <%=Html.Input(a => a.Name)%>
+		    <%=Html.Input(a => a.Topic)%>
+		    <%=Html.Input(a => a.Summary).Partial("MultilineText")%>
 		    <%=Html.Input(a => a.Key)%>
-		    <%=Html.Input(a => a.Description)%>
 		    <%=Html.Input(a => a.StartDate).Partial("DatePicker")%>
 		    <%=Html.Input(a => a.EndDate).Partial("DatePicker")%>
 		    <%=Html.Input(a => a.TimeZone)%>
+		    <%=Html.Input(a => a.Description)%>
 		    <%=Html.Input(a => a.LocationName)%>
 		    <%=Html.Input(a => a.LocationUrl)%>
 		    <%=Html.Input(a => a.Address)%>
 		    <%=Html.Input(a => a.City)%>
 		    <%=Html.Input(a => a.Region)%>
-		    <%=Html.Input(a => a.Topic)%>
-		    <%=Html.Input(a => a.Summary).Partial("MultilineText")%>
 		    <%=Html.Input(a => a.SpeakerName)%>
 		    <%=Html.Input(a => a.SpeakerUrl)%>
 		    <%=Html.Input(a => a.SpeakerBio).Partial("MultilineText")%>
@@ -35,7 +35,7 @@ Inherits="ViewPage<MeetingForm>"%>
 		    <p>
 	        <p class="buttons">
       			<input type="submit" value="Save" />
-      			<%= Html.ActionLink<EventController>("Cancel", x=>x.List(null)) %>
+      			<%= Html.ActionLink<HomeController>("Cancel", x=>x.Index(null)) %>
 	        </p>	        			        
 	    </fieldset>
     <% } %>

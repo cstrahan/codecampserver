@@ -5,8 +5,7 @@
     Example.Visible = Model.HasExample();
 %>
 <asp:ContentPlaceHolder ID="Label" runat="server">
-<label for="<%=Model.Name%>"><%=Html.Encode(Model.Label)%><%=Model.PropertyIsRequired?"*":""%><%=Model.Label.Length>0?":":"" %></label></asp:ContentPlaceHolder>
-
+<label for="<%=Model.Name%>"><%=Model.PropertyIsRequired?"<span class=\"required\">*</span> ":""%><%=Html.Encode(Model.Label)%><%=Model.Label.Length>0?":":"" %></label></asp:ContentPlaceHolder>
 <asp:ContentPlaceHolder ID="Input" runat="server"/>
 <asp:ContentPlaceHolder ID="Validation" runat="server">
 <%=Html.ValidationMessage(Model.Name,"*") %>

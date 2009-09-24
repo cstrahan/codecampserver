@@ -1,3 +1,4 @@
+using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 
 namespace CodeCampServer.UI.Models.Forms
@@ -16,7 +17,7 @@ namespace CodeCampServer.UI.Models.Forms
 		[BetterValidateNonEmpty("Bio")]
 		public virtual string SpeakerBio { get; set; }
 
-		[BetterValidateNonEmpty("Speaker Website")]
+		[Label("Speaker Website")]
 		public virtual string SpeakerUrl { get; set; }
 	}
 }

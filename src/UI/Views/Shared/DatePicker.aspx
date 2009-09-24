@@ -2,11 +2,9 @@
 Inherits="ViewPage<ModelProperty<DateTime>>" %>
 <%@ Import Namespace="MvcContrib.UI.InputBuilder"%>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="Label" runat="server"><label for="<%=Model.Name%>"><%=Model.Label%></label></asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="Input" runat="server">
 <%=Html.Hidden(Model.Name,Model.Value) %>
-<%=Html.TextBox(Model.Name+"_date",Model.Value.ToString("MM/dd/yyyy"),new {@id=Model.Name+"_date"}) %>
+<%=Html.TextBox(Model.Name+"_date",Model.Value.ToString("MM/dd/yyyy"),new {@id=Model.Name+"_date",@style="width:110px"}) %>
 <%=Html.DropDownList(Model.Name + "_hour", GetHourSelectItems(Model.Value.Hour), new { @id = Model.Name + "_hour" })%>
 <%=Html.DropDownList(Model.Name + "_minute", GetMinuteSelectItems(Model.Value.Minute), new { @id = Model.Name + "_minute" })%>
 <%=Html.DropDownList(Model.Name + "_noon", GetNoonSelectItems(Model.Value.TimeOfDay), new { @id = Model.Name + "_noon" })%>
