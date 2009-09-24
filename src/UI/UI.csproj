@@ -98,6 +98,7 @@
     <Compile Include="Helpers\Mappers\IUserGroupMapper.cs" />
     <Compile Include="Helpers\Mappers\UserGroupMapper.cs" />
     <Compile Include="Helpers\Validation\Attributes\ValidateKeyAttribute.cs" />
+    <Compile Include="InputBuilderConventions.cs" />
     <Compile Include="Models\Forms\AdminForm.cs" />
     <Compile Include="Models\Forms\EventForm.cs" />
     <Compile Include="Models\Forms\MeetingForm.cs" />
@@ -109,9 +110,13 @@
     <Compile Include="Helpers\Filters\UrlReferrerFilterAttribute.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Services\IAssemblyVersion.cs" />
-    <Compile Include="Services\IUrlService.cs" />
-    <Compile Include="Services\UrlService.cs" />
     <Compile Include="DomainnameRouteHandler.cs" />
+    <Compile Include="Services\IUrlService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\UrlService.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ViewNames.cs" />
     <Compile Include="ViewPages.cs" />
     <Compile Include="Views\AutoMapperConfiguration.cs" />
@@ -142,7 +147,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ISubController.cs" />
     <Compile Include="Helpers\Mappers\ConferenceMapper.cs" />
     <Compile Include="Helpers\Mappers\EditMode.cs" />
     <Compile Include="Helpers\Mappers\IConferenceMapper.cs" />
@@ -161,10 +165,7 @@
     <Compile Include="Helpers\Validation\Attributes\BetterValidateDateTimeAttribute.cs" />
     <Compile Include="Helpers\Validation\Attributes\BetterValidateDecimalAttribute.cs" />
     <Compile Include="Helpers\Validation\Attributes\BetterValidateEmailAttribute.cs" />
-    <Compile Include="Helpers\Validation\Validators\DateNotInFutureValidator.cs" />
-    <Compile Include="Helpers\Validation\Attributes\ValidateDateNotInFutureAttribute.cs" />
     <Compile Include="Helpers\Extensions\MvcHelperExtensions.cs" />
-    <Compile Include="Helpers\SubController.cs" />
     <Compile Include="Helpers\Extensions\InputTextExtensions.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="HtmlExtensions.cs" />
@@ -295,6 +296,8 @@
     <Content Include="Views\Meeting\Edit.aspx" />
     <Content Include="Views\Shared\AddMeetingLink.ascx" />
     <None Include="Views\Shared\Field.Master" />
+    <Content Include="Views\Shared\Password.aspx" />
+    <Content Include="Views\Shared\UserPicker.aspx" />
     <Content Include="Views\Shared\DatePicker.aspx" />
     <Content Include="Views\Shared\_textarea.aspx" />
     <Content Include="Views\Shared\DeleteConferenceLink.ascx" />
@@ -364,6 +367,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\" />
+    <Folder Include="Helpers\Validation\Validators\" />
     <Folder Include="images\Buttons\" />
     <Folder Include="images\layout\" />
     <Folder Include="images\samples\" />

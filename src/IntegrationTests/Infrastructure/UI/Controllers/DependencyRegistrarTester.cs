@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.UI;
 using CodeCampServer.UI.Controllers;
+using MvcContrib;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
@@ -18,7 +19,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.UI.Controllers
                    && type != typeof (ISubController)
                    && type != typeof (SubController)
                    && type != typeof (SmartController)
-                   && !type.IsAbstract;
+                   && !type.IsAbstract; 
         }
 
         [Test]

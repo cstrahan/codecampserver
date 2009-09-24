@@ -32,7 +32,7 @@ Inherits="ViewPage<UserGroupForm>"%>
         <%=Html.Input(a => a.City)%>
         <%=Html.Input(a => a.Region)%>
         <%=Html.Input(a => a.Country)%>
-        <%//Html.Input(a => a.Users)%>
+        <%=Html.Input(a => a.Users)%>
         <%=Html.Input(a => a.HomepageHTML).Partial("MultilineText")%>
         <%=Html.Input(a => a.GoogleAnalysticsCode)%>        
         
