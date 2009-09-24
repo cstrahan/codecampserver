@@ -12,7 +12,40 @@
 		<exec failonerror="false" program="${svn.executable}" commandline="revert LatestVersion -R" />
 	</target>
 
-	<target name="commonassemblyinfo">
+  <target name="continousIntegration">
+    <exec failonerror="false" program="${svn.executable}" commandline="info --xml --revision HEAD ${svnargs}" output="svninfo.xml" append="false" verbose="false"/>
+    <xmlpeek failonerror="true" file="svninfo.xml" xpath="/info/entry/url" property="trunkurl"/>
+
+    <echo message="Current SVN URL: ${trunkurl}"/>
+    <property name="ci.dir" value="..\${project::get-name()}-CI"/>
+    <copy todir="${ci.dir}" flatten="false">
+      <fileset basedir="lib/CruiseControl.Net">
+        <include name="**/*.*" />
+      </fileset>
+    </copy>
+    <xmlpoke failonerror="false" file="${ci.dir}\Server\CCNet.config"
+			xpath="/cruisecontrol/project/sourcecontrol/sourceControlProvider/trunkUrl" value="${trunkurl}"/>
+
+    <exec failonerror="true"
+        workingdir="${ci.dir}\Server"
+        program="cmd.exe" 
+        commandline="/C start /MIN ccnet.exe"  
+          verbose="true"/>
+
+    <exec failonerror="true"
+        workingdir="${ci.dir}"
+        program="cmd.exe"
+        commandline="/C start /MIN ConsoleCassini-v35.exe webdashboard 82"
+          verbose="true"/>
+
+    <exec failonerror="true"
+        workingdir="${ci.dir}\x10"
+        program="cmd.exe"
+        commandline="/C start /MIN URLAlert.exe"
+          verbose="true"/>
+  </target>
+
+  <target name="commonassemblyinfo">
 
     
     <exec failonerror="false" program="${svn.executable}" commandline="info LatestVersion --xml --revision HEAD ${svnargs}" output="svninfo.xml" append="false" verbose="false"/>
