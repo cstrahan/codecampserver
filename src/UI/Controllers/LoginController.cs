@@ -22,17 +22,19 @@ namespace CodeCampServer.UI.Controllers
 			_userSession = userSession;
 		}
 
+		[AcceptVerbs(HttpVerbs.Get)]
 		public ViewResult Index()
 		{
 			return View(new LoginForm());
 		}
 
+		[AcceptVerbs(HttpVerbs.Post)]
 		[ValidateModel(typeof (LoginForm))]
-		public ViewResult Login([Bind(Prefix = "")] LoginForm form)
+		public ViewResult Index(LoginForm form)
 		{
 			if (!ModelState.IsValid)
 			{
-				return View("index", form);
+				return View(form);
 			}
 
 			User user = _repository.GetByUserName(form.Username);

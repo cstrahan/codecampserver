@@ -10,6 +10,11 @@ namespace CodeCampServer.UI.Models.Forms
     //    [TypeConverter(typeof(UserFormTypeConverter))]
 	public class UserForm : ValueObject<UserForm>
 	{
+		[BetterValidateNonEmpty("Username")]
+		[ValidateRegExp(@"^([a-zA-Z])[a-zA-Z_-]*[\w_-]*[\S]$|^([a-zA-Z])[0-9_-]*[\S]$|^[a-zA-Z]*[\S]$",
+			"Username is not valid.")]
+		public virtual string Username { get; set; }
+
 		[BetterValidateNonEmpty("Name")]
 		public virtual string Name { get; set; }
 
@@ -22,11 +27,6 @@ namespace CodeCampServer.UI.Models.Forms
 
 		[BetterValidateNonEmpty("Password")]
 		public virtual string Password { get; set; }
-
-		[BetterValidateNonEmpty("Username")]
-		[ValidateRegExp(@"^([a-zA-Z])[a-zA-Z_-]*[\w_-]*[\S]$|^([a-zA-Z])[0-9_-]*[\S]$|^[a-zA-Z]*[\S]$",
-			"Username is not valid.")]
-		public virtual string Username { get; set; }
 
 		[ValidateSameAs("Password")]
 		[BetterValidateNonEmpty("Confirm Password")]

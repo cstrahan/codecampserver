@@ -2,6 +2,6 @@
 <%@ Import Namespace="CodeCampServer.UI.Helpers" %>
 <%if (ViewContext.HttpContext.User.Identity.IsAuthenticated){%>
     <%= Html.ImageLink<MeetingController>(
-            t=>t.Edit(null), new{Meeting = Model.Key},
+            t=>t.Edit((Meeting)null), new{Meeting = Model.Key},
             "~/images/icons/application_edit.png", "Edit the meeting") %>
 <%}%>

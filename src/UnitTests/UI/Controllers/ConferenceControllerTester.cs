@@ -22,9 +22,9 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<IConferenceRepository>();
 			repository.Stub(repo => repo.GetAll()).Return(new Conference[0]);
 
-			var controller = new ConferenceController(repository, null,null,null);
+			var controller = new ConferenceController(repository, null,null);
 
-			ActionResult result = controller.Edit(null);
+			ActionResult result = controller.Edit((Conference)null);
 			result.AssertActionRedirect().ToAction<ConferenceController>(e => e.List(null));
 			controller.TempData["Message"].ShouldEqual(
 				"Conference has been deleted.");
@@ -39,7 +39,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<IConferenceRepository>();
 			repository.Stub(repo => repo.GetAllForUserGroup(usergroup)).Return(new Conference[0]);
 
-			var controller = new ConferenceController(repository, null,null,null);
+			var controller = new ConferenceController(repository, null,null);
 
 			ActionResult result = controller.List(usergroup);
 
@@ -59,8 +59,8 @@ namespace CodeCampServer.UnitTests.UI.Controllers
             var securityContext = S<ISecurityContext>();
             securityContext.Stub(context => context.HasPermissionsForUserGroup(Guid.Empty)).Return(true);
 
-            var controller = new ConferenceController(repository, mapper, securityContext, S<IUserGroupRepository>());
-            var result = (RedirectToRouteResult)controller.Save(form);
+            var controller = new ConferenceController(repository, mapper, securityContext);
+            var result = (RedirectToRouteResult)controller.Edit(form);
 
 			repository.AssertWasCalled(r => r.Save(conference));
 			result.AssertActionRedirect().ToAction<HomeController>(a => a.Index(null));
@@ -73,7 +73,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
             var securityContext = S<ISecurityContext>();
             securityContext.Stub(context => context.HasPermissionsFor(new Conference())).IgnoreArguments().Return(false);
 
-            var controller = new ConferenceController(null, null, securityContext, null);
+            var controller = new ConferenceController(null, null, securityContext);
             var result = (ViewResult)controller.Edit(new Conference());
 
             result.AssertViewRendered().ViewName.ShouldEqual(ViewPages.NotAuthorized);
@@ -84,8 +84,8 @@ namespace CodeCampServer.UnitTests.UI.Controllers
             var securityContext = S<ISecurityContext>();
             securityContext.Stub(context => context.HasPermissionsFor(new Conference())).IgnoreArguments().Return(false);
 
-            var controller = new ConferenceController(null, null, securityContext, S<IUserGroupRepository>());
-            var result = (ViewResult)controller.Save(new ConferenceForm());
+            var controller = new ConferenceController(null, null, securityContext);
+            var result = (ViewResult)controller.Edit(new ConferenceForm());
 
             result.AssertViewRendered().ViewName.ShouldEqual(ViewPages.NotAuthorized);
         }
@@ -106,8 +106,8 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		    var securityContext = S<ISecurityContext>();
 		    securityContext.Stub(context => context.HasPermissionsForUserGroup(Guid.Empty)).Return(true);
 
-		    var controller = new ConferenceController(repository, mapper, securityContext, S<IUserGroupRepository>());
-			var result = (ViewResult) controller.Save(form);
+		    var controller = new ConferenceController(repository, mapper, securityContext);
+			var result = (ViewResult) controller.Edit(form);
 
 			result.AssertViewRendered().ViewName.ShouldEqual("Edit");
 			controller.ModelState.Values.Count.ShouldEqual(1);

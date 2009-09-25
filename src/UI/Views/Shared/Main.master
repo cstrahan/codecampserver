@@ -27,6 +27,18 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
     <link href="<%=Url.Content("~/css/datepicker.css")%>" id="Link1" rel="Stylesheet" type="text/css" media="all" />
     <link href="<%=Url.Content("~/css/datatable.css")%>" id="Link2" rel="Stylesheet" type="text/css" media="all" />
     <script type="text/javascript" src="/scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="/scripts/tiny_mce/tiny_mce.js"></script>
+    <script type="text/javascript">
+        tinyMCE.init({
+            mode: "textareas",
+            theme: "advanced",
+            theme_advanced_buttons1: "justifyleft,justifycenter,justifyright,bold,italic,bullist,numlist,indent,outdent,forecolor",
+            theme_advanced_buttons2: "",        
+            plugins : "style",
+	        theme_advanced_buttons1_add : "",
+	        verify_html: false
+        });
+    </script>
     <asp:ContentPlaceHolder ID="Stylesheets" runat="server"></asp:ContentPlaceHolder>
 </head> 
 <body> 
@@ -37,7 +49,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 	<h2>
 	    <asp:LoginView ID="LoginView3" runat="server">
 		    <LoggedInTemplate>
-			    Welcome, <%=ViewData.Get<User>().Name%>	(<a href="<%=Url.Action<LoginController>(c=>c.LogOut()) %>">Log out</a>) | <%=Html.ActionLink<UserController>("My Profile", c=>c.Edit(null)) %>
+			    Welcome, <%=ViewData.Get<User>().Name%>	(<a href="<%=Url.Action<LoginController>(c=>c.LogOut()) %>">Log out</a>) | <%=Html.ActionLink<UserController>("My Profile", c=>c.Edit((User)null)) %>
 		    </LoggedInTemplate>
 		    <AnonymousTemplate>
 			    <%=Html.ActionButton<LoginController>("Log in", c => c.Index())%>

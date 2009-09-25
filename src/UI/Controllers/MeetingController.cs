@@ -1,4 +1,3 @@
-using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
@@ -9,54 +8,59 @@ using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Controllers
 {
-    public class MeetingController : SaveController<Meeting, MeetingForm>
-    {
-        private readonly IMeetingRepository _meetingRepository;
-        private readonly IMeetingMapper _meetingMapper;
-        private readonly ISecurityContext _securityContext;
+	public class MeetingController : SaveController<Meeting, MeetingForm>
+	{
+		private readonly IMeetingRepository _meetingRepository;
+		private readonly IMeetingMapper _meetingMapper;
+		private readonly ISecurityContext _securityContext;
 
-        public MeetingController(IMeetingRepository meetingRepository, IMeetingMapper meetingMapper, ISecurityContext securityContext)
-            : base(meetingRepository, meetingMapper)
+		public MeetingController(IMeetingRepository meetingRepository, IMeetingMapper meetingMapper,
+		                         ISecurityContext securityContext)
+			: base(meetingRepository, meetingMapper)
 		{
-            _meetingRepository = meetingRepository;
-            _meetingMapper = meetingMapper;
-            _securityContext = securityContext;
+			_meetingRepository = meetingRepository;
+			_meetingMapper = meetingMapper;
+			_securityContext = securityContext;
 		}
 
-        public ActionResult Edit(Meeting meeting)
-        {
-            return View(_meetingMapper.Map(meeting));
-        }
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult Edit(Meeting meeting)
+		{
+			return View(_meetingMapper.Map(meeting));
+		}
 
-        [RequireAuthenticationFilter]
-        [ValidateModel(typeof(MeetingForm))]
-        public ActionResult Save(MeetingForm form)
-        {
-            if (_securityContext.HasPermissionsForUserGroup(form.UserGroupId))
-            {
-                return ProcessSave(form, meeting => RedirectToAction<HomeController>(c => c.Index(meeting.UserGroup)));
-            }
-            return View(ViewPages.NotAuthorized);
-        }
+		[AcceptVerbs(HttpVerbs.Post)]
+		[RequireAuthenticationFilter]
+		[ValidateInput(false)]
+		[ValidateModel(typeof (MeetingForm))]
+		public ActionResult Edit(MeetingForm form)
+		{
+			if (_securityContext.HasPermissionsForUserGroup(form.UserGroupId))
+			{
+				return ProcessSave(form, meeting => RedirectToAction<HomeController>(c => c.Index(meeting.UserGroup)));
+			}
 
-        [RequireAuthenticationFilter]
-        public ActionResult Delete(Meeting meeting)
-        {
-            if (!_securityContext.HasPermissionsFor(meeting))
-            {
-                return NotAuthorizedView;
-            }
+			return View(ViewPages.NotAuthorized);
+		}
 
-            _meetingRepository.Delete(meeting);
+		[RequireAuthenticationFilter]
+		public ActionResult Delete(Meeting meeting)
+		{
+			if (!_securityContext.HasPermissionsFor(meeting))
+			{
+				return NotAuthorizedView;
+			}
 
-            TempData.Add("message", meeting.Name + " was deleted.");
-            
-            return RedirectToAction<HomeController>(c => c.Index(meeting.UserGroup));
-        }
+			_meetingRepository.Delete(meeting);
 
-        public ActionResult New(UserGroup usergroup)
-        {
-            return View("Edit", _meetingMapper.Map(new Meeting { UserGroup = usergroup }));
-        }
-    }
+			TempData.Add("message", meeting.Name + " was deleted.");
+
+			return RedirectToAction<HomeController>(c => c.Index(meeting.UserGroup));
+		}
+
+		public ActionResult New(UserGroup usergroup)
+		{
+			return View("Edit", _meetingMapper.Map(new Meeting {UserGroup = usergroup}));
+		}
+	}
 }

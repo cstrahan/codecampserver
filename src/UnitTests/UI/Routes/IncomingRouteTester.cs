@@ -46,8 +46,8 @@ namespace CodeCampServer.UnitTests.UI.Routes
                 .ShouldMapTo<LoginController>(c => c.Index())
                 .ShouldUseDomainNameRouteHandler();
             
-            "~/login/login"
-                .ShouldMapTo<LoginController>(c => c.Login(null))
+            "~/login/index"
+                .ShouldMapTo<LoginController>(c => c.Index(null))
                 .ShouldUseDomainNameRouteHandler();
 		}
 

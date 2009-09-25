@@ -26,6 +26,7 @@ namespace CodeCampServer.UI.Controllers
 			_session = session;
 		}
 
+		[AcceptVerbs(HttpVerbs.Get)]
 		public ViewResult Edit(User user)
 		{
 			if (user == null)
@@ -41,9 +42,10 @@ namespace CodeCampServer.UI.Controllers
 			return View(form);
 		}
 
+		[AcceptVerbs(HttpVerbs.Post)]
 		[ValidateInput(false)]
 		[ValidateModel(typeof (UserForm))]
-		public ActionResult Save([Bind(Prefix = "")] UserForm form)
+		public ActionResult Edit(UserForm form)
 		{
 			return ProcessSave(form, user => RedirectToAction<HomeController>(c => c.Index(null)));
 		}

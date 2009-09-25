@@ -15,7 +15,7 @@
         </tr>
         <% foreach(var user in Model) { %>
         <tr>
-            <td><%= Html.ActionLink<UserController>(c=>c.Edit(null), user.Username, new{user=user.Id}) %></td>
+            <td><%= Html.ActionLink<UserController>(c=>c.Edit((User)null), user.Username, new{user=user.Id}) %></td>
             <td><%= user.Name %></td>
         </tr>
         <% } %>

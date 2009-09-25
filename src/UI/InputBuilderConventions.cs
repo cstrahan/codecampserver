@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 using Castle.Components.Validator;
 using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.DependencyResolution;
 using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 using CodeCampServer.UI.Models.Forms;
@@ -13,93 +16,97 @@ using MvcContrib.UI.InputBuilder;
 
 namespace CodeCampServer.UI
 {
-    public class InputBuilderConventions:MvcContrib.UI.InputBuilder.IModelPropertyConventions
-    {
-        private IModelPropertyConventions _default = new DefaultConventions();
-        public string ExampleForPropertyConvention(PropertyInfo propertyInfo)
-        {
-            return _default.ExampleForPropertyConvention(propertyInfo);
-        }
+	public class InputBuilderConventions : IModelPropertyConventions
+	{
+		private readonly IModelPropertyConventions _default = new DefaultConventions();
 
-        public object ValueFromModelPropertyConvention(PropertyInfo propertyInfo, object model)
-        {
-            if (typeof(IEnumerable<UserSelector>).IsAssignableFrom(propertyInfo.PropertyType))
-            {
-                IEnumerable<UserSelector> value = propertyInfo.GetValue(model,null) as IEnumerable<UserSelector>;
-                var items = new List<SelectListItem>();
-                var repo = DependencyResolution.DependencyRegistrar.Resolve<IUserRepository>();
-                foreach(var user in repo.GetAll())
-                {
-                    bool isChecked = value != null && (value).Where(form => form.Id == user.Id).Count() > 0; 
-                    items.Add(new SelectListItem(){Selected = isChecked,Text = user.Name,Value = user.Id.ToString()});
-                }
-                return items;                
-            }
-            
-            return _default.ValueFromModelPropertyConvention(propertyInfo, model);
-        }
+		public string ExampleForPropertyConvention(PropertyInfo propertyInfo)
+		{
+			return _default.ExampleForPropertyConvention(propertyInfo);
+		}
 
-        public string LabelForPropertyConvention(PropertyInfo propertyInfo)
-        {
-            if(propertyInfo.AttributeExists<LabelAttribute>())
-                return propertyInfo.GetAttribute<LabelAttribute>().Value;
+		public object ValueFromModelPropertyConvention(PropertyInfo propertyInfo, object model)
+		{
+			if (typeof (IEnumerable<UserSelector>).IsAssignableFrom(propertyInfo.PropertyType))
+			{
+				var value = propertyInfo.GetValue(model, null) as IEnumerable<UserSelector>;
+				var items = new List<SelectListItem>();
+				var repo = DependencyRegistrar.Resolve<IUserRepository>();
+				foreach (User user in repo.GetAll())
+				{
+					bool isChecked = value != null && (value).Where(form => form.Id == user.Id).Count() > 0;
+					items.Add(new SelectListItem {Selected = isChecked, Text = user.Name, Value = user.Id.ToString()});
+				}
+				return items;
+			}
 
-            if (propertyInfo.AttributeExists<BetterValidateNonEmptyAttribute>())
-                return propertyInfo.GetAttribute<BetterValidateNonEmptyAttribute>().Label;
-            
-            return _default.LabelForPropertyConvention(propertyInfo);
-        }
+			return _default.ValueFromModelPropertyConvention(propertyInfo, model);
+		}
 
-        public bool ModelIsInvalidConvention<T>(PropertyInfo propertyInfo, HtmlHelper<T> htmlHelper) where T : class
-        {
-            return _default.ModelIsInvalidConvention(propertyInfo, htmlHelper);
-        }
+		public string LabelForPropertyConvention(PropertyInfo propertyInfo)
+		{
+			if (propertyInfo.AttributeExists<LabelAttribute>())
+				return propertyInfo.GetAttribute<LabelAttribute>().Value;
 
-        public string PropertyNameConvention(PropertyInfo propertyInfo)
-        {
-            return _default.PropertyNameConvention(propertyInfo);
-        }
+			if (propertyInfo.AttributeExists<BetterValidateNonEmptyAttribute>())
+				return propertyInfo.GetAttribute<BetterValidateNonEmptyAttribute>().Label;
 
-        public Type PropertyTypeConvention(PropertyInfo propertyInfo)
-        {
-            return _default.PropertyTypeConvention(propertyInfo);
-        }
+			return _default.LabelForPropertyConvention(propertyInfo);
+		}
 
-        public string PartialNameConvention(PropertyInfo propertyInfo)
-        {
-            if (typeof(IEnumerable<UserSelector>).IsAssignableFrom(propertyInfo.PropertyType))
-                return "UserPicker";
-            if (propertyInfo.Name.ToLower().Contains("password"))
-                return "Password";
-            if (typeof(DateTime).IsAssignableFrom(propertyInfo.PropertyType))
-                return "DatePicker";
-            return _default.PartialNameConvention(propertyInfo);
-        }
+		public bool ModelIsInvalidConvention<T>(PropertyInfo propertyInfo, HtmlHelper<T> htmlHelper) where T : class
+		{
+			return _default.ModelIsInvalidConvention(propertyInfo, htmlHelper);
+		}
 
-        public InputModelProperty ModelPropertyBuilder(PropertyInfo propertyInfo, object model)
-        {
-            if(typeof(IEnumerable<UserSelector>).IsAssignableFrom(propertyInfo.PropertyType))
-                return new ModelProperty<IEnumerable<SelectListItem>>(){Value = (IEnumerable<SelectListItem>) model};
-            return _default.ModelPropertyBuilder(propertyInfo, model);
-        }
+		public string PropertyNameConvention(PropertyInfo propertyInfo)
+		{
+			return _default.PropertyNameConvention(propertyInfo);
+		}
 
-        public bool PropertyIsRequiredConvention(PropertyInfo propertyInfo)
-        {
-            if(propertyInfo.AttributeExists<ShowAsRequiredAttribute>())
-                return true;
+		public Type PropertyTypeConvention(PropertyInfo propertyInfo)
+		{
+			return _default.PropertyTypeConvention(propertyInfo);
+		}
 
-            if (propertyInfo.AttributeExists<ValidateNonEmptyAttribute>())
-                return true;
+		public string PartialNameConvention(PropertyInfo propertyInfo)
+		{
+			if (typeof (IEnumerable<UserSelector>).IsAssignableFrom(propertyInfo.PropertyType))
+				return "UserPicker";
+			if (propertyInfo.Name.ToLower().Contains("password"))
+				return "Password";
+			if (typeof (DateTime).IsAssignableFrom(propertyInfo.PropertyType))
+				return "DatePicker";
+			if (propertyInfo.AttributeExists<MultilineAttribute>())
+				return "MultilineText";
 
-            if (propertyInfo.AttributeExists<BetterValidateDateTimeAttribute>())
-                return true;
+			return _default.PartialNameConvention(propertyInfo);
+		}
 
-            return _default.PropertyIsRequiredConvention(propertyInfo);
-        }
+		public InputModelProperty ModelPropertyBuilder(PropertyInfo propertyInfo, object model)
+		{
+			if (typeof (IEnumerable<UserSelector>).IsAssignableFrom(propertyInfo.PropertyType))
+				return new ModelProperty<IEnumerable<SelectListItem>> {Value = (IEnumerable<SelectListItem>) model};
+			return _default.ModelPropertyBuilder(propertyInfo, model);
+		}
 
-        public string Layout(string partialName)
-        {
-            return _default.Layout(partialName);
-        }
-    }
+		public bool PropertyIsRequiredConvention(PropertyInfo propertyInfo)
+		{
+			if (propertyInfo.AttributeExists<ShowAsRequiredAttribute>())
+				return true;
+
+			if (propertyInfo.AttributeExists<ValidateNonEmptyAttribute>())
+				return true;
+
+			if (propertyInfo.AttributeExists<BetterValidateDateTimeAttribute>())
+				return true;
+
+			return _default.PropertyIsRequiredConvention(propertyInfo);
+		}
+
+		public string Layout(string partialName)
+		{
+			return _default.Layout(partialName);
+		}
+	}
 }

@@ -1,6 +1,4 @@
 using System;
-using Castle.Components.Validator;
-using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 using CodeCampServer.UI.Models.Validation.Attributes;
 
@@ -8,54 +6,30 @@ namespace CodeCampServer.UI.Models.Forms
 {
 	public abstract class EventForm
 	{
-		[BetterValidateNonEmpty("Event Key")]
-		[ValidateRegExp(@"^[A-Za-z0-9\-]+$", "Key should only contain letters, numbers, and hypens.")]
-		public virtual string Key { get; set; }
-
-		public virtual Guid Id { get; set; }
-		public virtual Guid UserGroupId { get; set; }
-
-		[BetterValidateNonEmpty("Name")]
-		public virtual string Name { get; set; }
-
-		public virtual string Description { get; set; }
-
 		[BetterValidateDateTime("Start Date")]
-		public virtual DateTime StartDate { get; set; }
+		public abstract DateTime StartDate { get; set; }
 
 		[BetterValidateDateTime("End Date")]
-		public virtual DateTime EndDate { get; set; }
-
-		[BetterValidateNonEmpty("Location")]
-		public virtual string LocationName { get; set; }
-
-		public virtual string LocationUrl { get; set; }
-		public virtual string Address { get; set; }
-		public virtual string City { get; set; }
-
-		[Label("State")]
-		public virtual string Region { get; set; }
-
-		[Label("Zip Code")]
-		public virtual string PostalCode { get; set; }
+		public abstract DateTime EndDate { get; set; }
 
 		[BetterValidateNonEmpty("Time Zone")]
-		public virtual string TimeZone { get; set; }
+		public abstract string TimeZone { get; set; }
 
 		public string GetDate()
 		{
-		    try
-		    {
-                string start = DateTime.Parse(StartDate.ToString()).ToString("h:mm");
-                string end = DateTime.Parse(EndDate.ToString()).ToString("h:mm tt");
-                string date = DateTime.Parse(StartDate.ToString()).ToShortDateString();
+			try
+			{
+				string start = DateTime.Parse(StartDate.ToString()).ToString("h:mm");
+				string end = DateTime.Parse(EndDate.ToString()).ToString("h:mm tt");
+				string date = DateTime.Parse(StartDate.ToString()).ToShortDateString();
 
-                return string.Format("{0} {1} - {2} {3}", date, start, end, TimeZone);
-            }
-            catch {
-                ;
-            }
-		    return "";
+				return string.Format("{0} {1} - {2} {3}", date, start, end, TimeZone);
+			}
+			catch
+			{
+				;
+			}
+			return "";
 		}
 	}
 }

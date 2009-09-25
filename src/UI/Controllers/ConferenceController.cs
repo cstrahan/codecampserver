@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
@@ -17,16 +16,14 @@ namespace CodeCampServer.UI.Controllers
 		private readonly IConferenceMapper _mapper;
 		private readonly IConferenceRepository _repository;
 		private readonly ISecurityContext _securityContext;
-		private readonly IUserGroupRepository _userGroupRepository;
 
 		public ConferenceController(IConferenceRepository repository, IConferenceMapper mapper,
-		                            ISecurityContext securityContext, IUserGroupRepository userGroupRepository)
+		                            ISecurityContext securityContext)
 			: base(repository, mapper)
 		{
 			_repository = repository;
 			_mapper = mapper;
 			_securityContext = securityContext;
-			_userGroupRepository = userGroupRepository;
 		}
 
 		[RequiresConferenceFilter]
@@ -49,6 +46,7 @@ namespace CodeCampServer.UI.Controllers
 			return View(conferenceListDto);
 		}
 
+		[AcceptVerbs(HttpVerbs.Get)]
 		[RequireAuthenticationFilter]
 		public ActionResult Edit(Conference conference)
 		{
@@ -56,7 +54,6 @@ namespace CodeCampServer.UI.Controllers
 			{
 				TempData.Add("message", "Conference has been deleted.");
 
-				//TODO: this won't work, where to redirect?
 				return RedirectToAction<ConferenceController>(c => c.List(conference.UserGroup));
 			}
 
@@ -67,10 +64,11 @@ namespace CodeCampServer.UI.Controllers
 			return View(ViewPages.NotAuthorized);
 		}
 
+		[AcceptVerbs(HttpVerbs.Post)]
 		[RequireAuthenticationFilter]
 		[ValidateInput(false)]
 		[ValidateModel(typeof (ConferenceForm))]
-		public ActionResult Save([Bind(Prefix = "")] ConferenceForm form)
+		public ActionResult Edit(ConferenceForm form)
 		{
 			if (_securityContext.HasPermissionsForUserGroup(form.UserGroupId))
 			{
@@ -101,19 +99,18 @@ namespace CodeCampServer.UI.Controllers
 			return View("Edit", _mapper.Map(new Conference {UserGroup = usergroup}));
 		}
 
-	    public ActionResult Delete(Conference conference)
-	    {
-            if (!_securityContext.HasPermissionsFor(conference))
-            {
-                return NotAuthorizedView;
-            }
+		public ActionResult Delete(Conference conference)
+		{
+			if (!_securityContext.HasPermissionsFor(conference))
+			{
+				return NotAuthorizedView;
+			}
 
-            _repository.Delete(conference);
+			_repository.Delete(conference);
 
-            TempData.Add("message", conference.Name + " was deleted.");
+			TempData.Add("message", conference.Name + " was deleted.");
 
-            return RedirectToAction<HomeController>(c => c.Index(conference.UserGroup));
-
-        }
+			return RedirectToAction<HomeController>(c => c.Index(conference.UserGroup));
+		}
 	}
 }

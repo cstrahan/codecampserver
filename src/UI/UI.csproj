@@ -85,11 +85,11 @@
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserGroupController.cs" />
+    <Compile Include="Helpers\Attributes\MultilineAttribute.cs" />
     <Compile Include="Helpers\Binders\UserGroupModelBinder.cs" />
     <Compile Include="Helpers\ConferenceViewExtensions.cs" />
     <Compile Include="Helpers\Filters\AddUserGroupToViewDataActionFilterAttribute.cs" />
     <Compile Include="Helpers\ImageLinkHelper.cs" />
-    <Compile Include="Helpers\Mappers\EventMapperBase.cs" />
     <Compile Include="Helpers\Mappers\IMeetingMapper.cs" />
     <Compile Include="Helpers\Mappers\MeetingMapper.cs" />
     <Compile Include="Helpers\Mappers\UserGroupSponsorMapper.cs" />

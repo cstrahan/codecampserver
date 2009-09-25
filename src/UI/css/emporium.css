@@ -415,6 +415,13 @@ fieldset.wide
     width: 650px;
 }
 
+fieldset a
+{
+    display:block;
+    text-align:center;
+    margin-left:15px;
+}
+
 fieldset label
 {
     float: left;
@@ -469,10 +476,7 @@ fieldset input[type="text"] date, .date
 {
     width: 100px;
 }
-ul.validation-summary-errors
-{
-    color: Red;
-}
+
 .sidebarTitle
 {
     text-align: left;
@@ -480,4 +484,19 @@ ul.validation-summary-errors
 .sidebarCopy
 {
     text-align: left;
+}
+
+.field-validation-error
+{
+    color:Red;
+    font-size:28px;
+    vertical-align:top;
+}
+
+.validation-summary-errors
+{
+    background-color: #FFBBBB;
+    color: Black;
+    border: solid 1px red;
+    font-size: 14px;
 }

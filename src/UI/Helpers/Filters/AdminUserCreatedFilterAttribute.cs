@@ -1,7 +1,9 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.UI.Controllers;
+using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Filters
 {
@@ -28,7 +30,7 @@ namespace CodeCampServer.UI.Helpers.Filters
 		public virtual void RedirectToAdminNew(ActionExecutingContext context)
 		{
 			var urlhelper = new UrlHelper(context.RequestContext);
-			string url = urlhelper.Action<UserController>(c => c.Edit(null));
+			string url = urlhelper.Action<UserController>(c => c.Edit((User)null));
 			context.Result = new RedirectResult(url);
 		}
 	}

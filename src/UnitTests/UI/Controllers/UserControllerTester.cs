@@ -71,7 +71,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<IUserRepository>();
 			var controller = new UserController(repository, mapper, PermisiveSecurityContext(), S<IUserSession>());
 
-			var result = (RedirectToRouteResult) controller.Save(form);
+			var result = (RedirectToRouteResult) controller.Edit(form);
 
 			repository.AssertWasCalled(r => r.Save(user));
 			result.AssertActionRedirect().ToAction<HomeController>(a => a.Index(null));
@@ -90,7 +90,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			repository.Stub(r => r.GetByKey("foo")).Return(new User());
 
 			var controller = new UserController(repository, mapper, PermisiveSecurityContext(), S<IUserSession>());
-			var result = (ViewResult) controller.Save(form);
+			var result = (ViewResult) controller.Edit(form);
 
 			result.AssertViewRendered().ViewName.ShouldEqual("Edit");
 			controller.ModelState.Values.Count.ShouldEqual(1);
@@ -107,7 +107,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			session.Stub(userSession => userSession.GetCurrentUser()).Return(user);
 			var controller = new UserController(null, mapper, PermisiveSecurityContext(), session);
 
-			controller.Edit(null)
+			controller.Edit((User)null)
 				.AssertViewRendered()
 				.ForView(ViewNames.Default)
 				.ModelShouldBe<UserForm>();
@@ -132,7 +132,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			mapper.Stub(m => m.Map(form)).Return(newUser);
 
 			var controller = new UserController(S<IUserRepository>(), mapper, PermisiveSecurityContext(), S<IUserSession>());
-			ActionResult result = controller.Save(form);
+			ActionResult result = controller.Edit(form);
 			result.AssertActionRedirect();
 		}
 	}

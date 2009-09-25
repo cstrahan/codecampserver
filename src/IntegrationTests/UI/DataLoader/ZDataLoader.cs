@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CodeCampServer.Core;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.Core.Services.Impl;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
@@ -29,13 +27,13 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 		private void LoadData()
 		{
 			var mapper = new UserMapper(new UserRepository(GetSessionBuilder()), new Cryptographer());
-			var user = mapper.Map(new UserForm
-			                      	{
-			                      		Name = "Joe User",
-			                      		Username = "admin",
-			                      		EmailAddress = "joe@user.com",
-			                      		Password = "password"
-			                      	});
+			User user = mapper.Map(new UserForm
+			                       	{
+			                       		Name = "Joe User",
+			                       		Username = "admin",
+			                       		EmailAddress = "joe@user.com",
+			                       		Password = "password"
+			                       	});
 
 
 			var userGroup = new UserGroup
@@ -48,7 +46,13 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			                		HomepageHTML = "Austin .Net Users Group",
 			                	};
 			userGroup.Add(user);
-            userGroup.Add(new Sponsor() { Level = SponsorLevel.Platinum, Name = "Microsoft", Url = "http://microsoft.com/", BannerUrl = "http://www.microsoft.com/presspass/images/gallery/logos/web/net_v_web.jpg" });
+			userGroup.Add(new Sponsor
+			              	{
+			              		Level = SponsorLevel.Platinum,
+			              		Name = "Microsoft",
+			              		Url = "http://microsoft.com/",
+			              		BannerUrl = "http://www.microsoft.com/presspass/images/gallery/logos/web/net_v_web.jpg"
+			              	});
 			var conference = new Conference
 			                 	{
 			                 		Address = "123 Guadalupe Street",
@@ -63,7 +67,8 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			                 		PostalCode = "78787",
 			                 		Region = "Texas",
 			                 		UserGroup = userGroup,
-                                    HtmlContent = @"
+			                 		HtmlContent =
+			                 			@"
                                     <p>
 <script type=""text/javascript"" src=""http://feeds2.feedburner.com/AustinCodeCamp?format=sigpro""></script>
 </p>
@@ -76,20 +81,17 @@ href=""http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&a
 View Larger Map</a></small></p>"
 			                 	};
 
- 
 
-			var list = new List<PersistentObject>()
+			var list = new List<PersistentObject>
 			           	{
-
 			           		user,
-                            userGroup.GetSponsors()[0],
+			           		userGroup.GetSponsors()[0],
 			           		userGroup,
 			           		conference,
-
 			           	};
 
-			var conferences = CreateConferences(userGroup);
-			var meetings = CreateMeetings(userGroup);
+			IEnumerable<Conference> conferences = CreateConferences(userGroup);
+			IEnumerable<Meeting> meetings = CreateMeetings(userGroup);
 			list.AddRange(conferences.ToArray());
 			list.AddRange(meetings.ToArray());
 
@@ -102,7 +104,7 @@ View Larger Map</a></small></p>"
 
 		private IEnumerable<Conference> CreateConferences(UserGroup userGroup)
 		{
-			DateTime startDate = DateTime.Now.AddDays(-7*5);
+			DateTime startDate = DateTime.Now.AddDays(-7*5).AddMinutes(1);
 			for (int i = 0; i < 10; i++)
 			{
 				DateTime conferenceDate = startDate.AddDays(7*i);
@@ -111,9 +113,9 @@ View Larger Map</a></small></p>"
 				             		Address = "123 Guadalupe Street",
 				             		City = "Austin",
 				             		Description = "Community Event",
-				             		EndDate =  conferenceDate.AddDays(1),
+				             		EndDate = conferenceDate.AddDays(1),
 				             		StartDate = conferenceDate,
-				             		Key = "conference"+i,
+				             		Key = "conference" + i,
 				             		LocationName = "St. Edward's Professional Education Center",
 				             		Name = "Conference " + i,
 				             		PhoneNumber = "(512) 555-1212",
@@ -121,17 +123,15 @@ View Larger Map</a></small></p>"
 				             		Region = "Texas",
 				             		UserGroup = userGroup
 				             	};
-	            
 			}
-
 		}
 
 		private IEnumerable<Meeting> CreateMeetings(UserGroup userGroup)
 		{
-			DateTime startDate = DateTime.Now.AddDays(-7 * 5);
+			DateTime startDate = DateTime.Now.AddDays(-7*5);
 			for (int i = 0; i < 10; i++)
 			{
-				DateTime conferenceDate = startDate.AddDays(7 * i);
+				DateTime conferenceDate = startDate.AddDays(7*i);
 				yield return new Meeting
 				             	{
 				             		Address = "123 Guadalupe Street",
@@ -149,25 +149,23 @@ View Larger Map</a></small></p>"
 				             		Summary = "Summary stuff",
 				             		LocationUrl = "http://maps.google.com",
 				             		TimeZone = "CST",
-                        SpeakerName = "Jeffrey Palermo",
-												SpeakerBio = "some bio stuff",
-												SpeakerUrl = "http://jeffreypalermo.com"
-				};
-
+				             		SpeakerName = "Jeffrey Palermo",
+				             		SpeakerBio = "some bio stuff",
+				             		SpeakerUrl = "http://jeffreypalermo.com"
+				             	};
 			}
-
 		}
 
 		private User[] CreateUsers()
 		{
 			var mapper = new UserMapper(new UserRepository(GetSessionBuilder()), new Cryptographer());
-			var user = mapper.Map(new UserForm
-			                      	{
-			                      		Name = "Joe User",
-			                      		Username = "admin",
-			                      		EmailAddress = "joe@user.com",
-			                      		Password = "password"
-			                      	});
+			User user = mapper.Map(new UserForm
+			                       	{
+			                       		Name = "Joe User",
+			                       		Username = "admin",
+			                       		EmailAddress = "joe@user.com",
+			                       		Password = "password"
+			                       	});
 			return new[]
 			       	{
 			       		mapper.Map(new UserForm
@@ -194,7 +192,7 @@ View Larger Map</a></small></p>"
 			       	};
 		}
 
-		private static int _seed = 0;
+		private static int _seed;
 
 		private static bool RandomlyDecideWhetherToSkip()
 		{

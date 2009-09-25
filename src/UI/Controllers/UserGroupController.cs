@@ -77,7 +77,7 @@ namespace CodeCampServer.UI.Controllers
 
 	    [ValidateInput(false)] 
 		[ValidateModel(typeof (UserGroupForm))]
-		public ActionResult Save([Bind(Prefix = "")] UserGroupForm form)
+		public ActionResult Save(UserGroupForm form)
 		{
             if(_securityContext.HasPermissionsForUserGroup(form.Id))
             {
