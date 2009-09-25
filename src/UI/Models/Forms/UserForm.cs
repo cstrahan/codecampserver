@@ -1,5 +1,6 @@
 using System;
 using Castle.Components.Validator;
+using CodeCampServer.Core;
 using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 using CodeCampServer.UI.Models.Validation.Attributes;
@@ -7,7 +8,7 @@ using CodeCampServer.UI.Models.Validation.Attributes;
 namespace CodeCampServer.UI.Models.Forms
 {
     //    [TypeConverter(typeof(UserFormTypeConverter))]
-	public class UserForm : EditForm<UserForm>
+	public class UserForm : ValueObject<UserForm>
 	{
 		[BetterValidateNonEmpty("Name")]
 		public virtual string Name { get; set; }
@@ -17,7 +18,7 @@ namespace CodeCampServer.UI.Models.Forms
 		public virtual string EmailAddress { get; set; }
 
 		[Hidden]
-		public override Guid Id { get; set; }
+		public Guid Id { get; set; }
 
 		[BetterValidateNonEmpty("Password")]
 		public virtual string Password { get; set; }

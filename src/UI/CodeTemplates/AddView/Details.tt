@@ -56,7 +56,7 @@ if(!String.IsNullOrEmpty(mvcHost.ViewDataTypeGenericString)) {
 	FilterProperties(mvcHost.ViewDataType, properties);
 #>
     <fieldset>
-        <legend>Fields</legend>
+        <h3>Fields</h3>
 <#
 	foreach(string propertyName in properties) {
 #>

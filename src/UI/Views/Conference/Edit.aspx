@@ -21,7 +21,7 @@ Inherits="ViewPage<ConferenceForm>"%>
 
     <% using(Html.BeginForm<ConferenceController>(x=>x.Save(null))) { %>
         <fieldset id="conference">
-            <legend>Edit Conference</legend>    
+            <h3>Edit Conference</h3>    
             
             <%=Html.ValidationSummary()%>                
 

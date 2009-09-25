@@ -22,8 +22,9 @@ Inherits="ViewPage<UserGroupForm>"%>
     <% using(Html.BeginForm<UserGroupController>(x=>x.Save(null))) { %>
     <%= Html.ValidationSummary() %>
     
+    
     <fieldset class="wide">
-        <legend>Edit User Group</legend>
+        <h3>Edit User Group</h3>
         
         <%=Html.Input(a => a.Key)%>
         <%=Html.Input(a => a.DomainName)%>

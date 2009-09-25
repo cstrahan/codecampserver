@@ -184,7 +184,6 @@
     <Compile Include="Helpers\Extensions\ViewDataExtensions.cs" />
     <Compile Include="Controllers\ConferenceController.cs" />
     <Compile Include="Models\Forms\ConferenceForm.cs" />
-    <Compile Include="Models\Forms\EditForm.cs" />
     <Compile Include="Models\Forms\LoginForm.cs" />
     <Compile Include="Models\CustomResolvers\NullValueResolver.cs" />
     <Compile Include="PartialViewGenerator.cs">
@@ -222,12 +221,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\datatable.css" />
-    <Content Include="css\stylesheet.css" />
     <Content Include="css\datePicker.css" />
-    <Content Include="css\codecampserver.css" />
-    <Content Include="css\themes\green.css" />
-    <Content Include="css\jqModal.css" />
-    <Content Include="css\jquery.autocomplete.css" />
     <Content Include="images\icons\accept.png" />
     <Content Include="images\icons\star.png" />
     <Content Include="images\img01.jpg" />
@@ -296,11 +290,58 @@
     <Content Include="Views\Login\Index.aspx" />
     <Content Include="Views\Meeting\Edit.aspx" />
     <Content Include="Views\Shared\AddMeetingLink.ascx" />
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\ActionLink.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ActionLink.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\Controller.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Controller.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\ControllerUnitTest.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ControllerUnitTest.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\IMapper.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IMapper.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\Mapper.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Mapper.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\View-Edit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>View-Edit.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\View-Index.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>View-Index.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\View-List.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>View-List.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\View-show.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>View-show.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\ViewModelMapper.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ViewModelMapper.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\ViewModelMapperInterface.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ViewModelMapperInterface.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\ViewModelMapperUnitTest.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ViewModelMapperUnitTest.cs</LastGenOutput>
+    </None>
     <None Include="Views\Shared\Field.Master" />
     <Content Include="Views\Shared\Password.aspx" />
     <Content Include="Views\Shared\UserPicker.aspx" />
     <Content Include="Views\Shared\DatePicker.aspx" />
-    <Content Include="Views\Shared\_textarea.aspx" />
     <Content Include="Views\Shared\DeleteConferenceLink.ascx" />
     <Content Include="Views\Shared\DeleteMeetingLink.ascx" />
     <Content Include="Views\Shared\EditMeetingLink.ascx" />
@@ -331,21 +372,12 @@
     </None>
     <None Include="CodeTemplates\AddView\List.tt">
     </None>
-    <None Include="Controllers\ClassDiagram1.cd" />
     <None Include="PartialViewGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PartialViewGenerator.cs</LastGenOutput>
     </None>
     <None Include="xhtml1-transitional.dtd">
     </None>
-    <Content Include="css\Baseline.css" />
-    <Content Include="css\Buttons.css" />
-    <Content Include="css\Classes.css" />
-    <Content Include="css\GenericClasses.css" />
-    <Content Include="css\Ids.css" />
-    <Content Include="css\jquery.cluetip.css" />
-    <Content Include="css\Menu.css" />
-    <Content Include="css\Redefinitions.css" />
     <Content Include="images\indicator.gif" />
     <Content Include="scripts\jquery-1.2.6.min.js" />
     <Content Include="scripts\jquery.cascade.ext.js" />
@@ -367,7 +399,6 @@
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\" />
     <Folder Include="Helpers\Validation\Validators\" />
     <Folder Include="images\Buttons\" />
     <Folder Include="images\layout\" />

@@ -10,7 +10,7 @@
         <%=Html.ValidationSummary()%>
         
         <fieldset id="login">
-            <legend>Login Details</legend>
+            <h3>Login Details</h3>
             
             <%=Html.Input(f=>f.Username) %>
 		    <%=Html.Input(f=>f.Password) %>

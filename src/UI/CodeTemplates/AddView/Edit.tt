@@ -60,7 +60,7 @@ if(!String.IsNullOrEmpty(mvcHost.ViewDataTypeGenericString)) {
     <% using (Html.BeginForm()) {%>
 
         <fieldset>
-            <legend>Fields</legend>
+            <h3>Fields</h3>
 <#
 	foreach(string propertyName in properties) {
 #>

@@ -169,13 +169,9 @@
     <None Include="RenameForeignKeys.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="UI\FullSchedulePresentationModel.cd" />
-    <None Include="UI\MediumSchedulePresentationModel.cd" />
-    <None Include="UI\SmallestSchedulePresentationModel.cd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="UI\Filters\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

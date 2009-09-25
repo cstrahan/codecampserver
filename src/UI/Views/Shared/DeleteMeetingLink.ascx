@@ -4,7 +4,9 @@
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 
 		<%if (ViewContext.HttpContext.User.Identity.IsAuthenticated){%>
-				<a id="deleteMeeting<%=Model.Key%>" href="<%= Url.Action<MeetingController>(t => t.Delete(null), new{meeting = Model.Id}).ToXHTMLLink() %>"><img src="/images/icons/application_delete.png" /></a>
+				<a id="deleteMeeting<%=Model.Key%>" 
+				    href="<%= Url.Action<MeetingController>(t => t.Delete(null), new{meeting = Model.Id}).ToXHTMLLink() %>">
+				<img src="/images/icons/application_delete.png" title="Delete the meeting" /></a>
                 <script  type="text/javascript">
                     $(function() {
                     $('#deleteMeeting<%=Model.Key%>').click(function() {
