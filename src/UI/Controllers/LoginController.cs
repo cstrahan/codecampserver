@@ -37,20 +37,27 @@ namespace CodeCampServer.UI.Controllers
 				return View(form);
 			}
 
+			LoginAndRedirect(form);
+
+			ModelState.AddModelError("Login", "Login incorrect");
+			return View(form);
+		}
+
+		private void LoginAndRedirect(LoginForm form)
+		{
 			User user = _repository.GetByUserName(form.Username);
 			if (user != null)
 			{
-				bool passwordMatches = _authenticationService.PasswordMatches(user, form.Password);
-
-				if (passwordMatches)
+				if (PasswordMatches(form, user))
 				{
 					_userSession.LogIn(user);
-					return View("index", form);
 				}
 			}
+		}
 
-			ModelState.AddModelError("Login", "Login incorrect");
-			return View("index", form);
+		private bool PasswordMatches(LoginForm form, User user)
+		{
+			return _authenticationService.PasswordMatches(user, form.Password);
 		}
 
 		public ActionResult LogOut()
