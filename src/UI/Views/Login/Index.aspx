@@ -7,6 +7,7 @@
 <fieldset>
   <h3>Please log in</h3>
   <%=Html.ValidationSummary() %>
+  
   <form action="/Login" method="post"> 
     <label for="Username"><span class="required">*</span> Username:</label> 
     <%=Html.TextBox("Username") %><%=Html.ValidationMessage("Username", "*") %>
@@ -20,7 +21,8 @@
     <input type="submit" Value="Submit" /> 
     <div class="cleaner"></div> 
   </form> 
-  <%=Html.ActionLink<HomeController>("Cancel", x=>x.Index(null)) %>				
+  <%=Html.ActionLink<HomeController>("Cancel", x=>x.Index(null)) %>		
+  		
 </fieldset>	
                 	
 </asp:Content>
