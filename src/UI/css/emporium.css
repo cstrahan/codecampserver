@@ -415,11 +415,12 @@ fieldset.wide
     width: 650px;
 }
 
-fieldset a
+fieldset a.cancel
 {
-    display:block;
     text-align:center;
-    margin-left:15px;
+    margin-left:250px;
+    position:relative;
+    top:-28px;
 }
 
 fieldset label
@@ -454,13 +455,7 @@ fieldset input[type="checkbox"]
 
 fieldset input[type='submit']
 {
-    width: inherit;
-}
-
-fieldset p.buttons
-{
-    text-align: right;
-    margin: 6px;
+    text-align:center;
 }
 
 .cleaner

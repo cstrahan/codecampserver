@@ -288,6 +288,7 @@
     <Content Include="Views\Home\Events.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Login\Index.aspx" />
+    <Content Include="Views\Shared\Submit.aspx" />
     <Content Include="Views\Meeting\Edit.aspx" />
     <Content Include="Views\Shared\AddMeetingLink.ascx" />
     <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\ActionLink.tt">

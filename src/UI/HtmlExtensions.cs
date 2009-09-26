@@ -172,7 +172,7 @@ namespace CodeCampServer.UI
 			string controllerName = typeof (TController).GetControllerName();
 			string actionName = actionExpression.GetActionName();
 
-			return helper.ActionLink(linkText, actionName, controllerName);
+			return helper.ActionLink(linkText, actionName, controllerName, null, new {@class="action-link " + linkText.ToLower()});
 		}
 
 		public static IGridColumn<T> PartialCell<T>(this IGridColumn<T> column, string partialName) where T : class

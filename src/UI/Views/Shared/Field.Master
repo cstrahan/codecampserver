@@ -13,4 +13,6 @@
 <asp:ContentPlaceHolder ID="Example" runat="Server" Visible="false">
 <span class="example">ex.: <%=Html.Encode(Model.Example)%></span>
 </asp:ContentPlaceHolder>
-<div class="cleaner"></div>
+<asp:ContentPlaceHolder ID="FieldBreak" runat="Server">
+  <div class="cleaner"></div>
+</asp:ContentPlaceHolder>

@@ -38,7 +38,7 @@ namespace CodeCampServer.UI
 				                 	{
 				                 		conferenceKey = new ConferenceKeyCannotBeAControllerNameConstraint(),
 				                 		controller =
-                                    "schedule|session|timeslot|track|attendee|conference|speaker|admin|proposal|user|sponsort|meeting"
+                                    "schedule|session|timeslot|track|attendee|conference|speaker|admin|proposal|user|sponsor|meeting"
 				                 	})
 				.AddWithName("conferenceDefault", routes)
 				.RouteHandler = new DomainNameRouteHandler();
