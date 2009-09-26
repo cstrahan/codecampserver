@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
@@ -14,15 +14,15 @@ namespace CodeCampServer.UI.Controllers
 		private readonly IEventRepository _eventRepository;
 		private readonly IConferenceMapper _conferenceMapper;
 		private readonly IMeetingMapper _meetingMapper;
-	    
 
-	    public EventController(IEventRepository eventRepository, IConferenceMapper conferenceMapper,
+
+		public EventController(IEventRepository eventRepository, IConferenceMapper conferenceMapper,
 		                       IMeetingMapper meetingMapper)
 		{
 			_eventRepository = eventRepository;
 			_meetingMapper = meetingMapper;
-		
-		    _conferenceMapper = conferenceMapper;
+
+			_conferenceMapper = conferenceMapper;
 		}
 
 		public ViewResult Announcement(Event @event)
@@ -44,31 +44,33 @@ namespace CodeCampServer.UI.Controllers
 
 		public ViewResult UpComing(UserGroup userGroup)
 		{
-			return GetEvents(_eventRepository.GetFutureForUserGroup(userGroup));
+			Event[] events = _eventRepository.GetFutureForUserGroup(userGroup);
+			return GetEvents(events);
 		}
 
 		public ViewResult List(UserGroup userGroup)
 		{
-			return GetEvents(_eventRepository.GetAllForUserGroup(userGroup));
+			Event[] events = _eventRepository.GetAllForUserGroup(userGroup);
+			return GetEvents(events);
 		}
 
-		private ViewResult GetEvents(Event[] events)
+		private ViewResult GetEvents(IEnumerable<Event> events)
 		{
 			string[] keys = (from e in events select e.Key).ToArray();
 			return View("list", keys);
 		}
 
-        public ViewResult AllUpcomingEvents()
-        {
-            var events = _eventRepository.GetAllFutureEvents()
-                .Select(currentEvent => new EventList()
-                {
-                    Date = currentEvent.Date(),
-                    Title = currentEvent.Title(),
-                    UserGroupName = currentEvent.UserGroup.Name,
-                    UserGroupDomainName = currentEvent.UserGroup.DomainName
-                }).ToArray();
-            return View(events);
-        }
+		public ViewResult AllUpcomingEvents()
+		{
+			EventList[] events = _eventRepository.GetAllFutureEvents()
+				.Select(currentEvent => new EventList
+				                        	{
+				                        		Date = currentEvent.Date(),
+				                        		Title = currentEvent.Title(),
+				                        		UserGroupName = currentEvent.UserGroup.Name,
+				                        		UserGroupDomainName = currentEvent.UserGroup.DomainName
+				                        	}).ToArray();
+			return View(events);
+		}
 	}
 }

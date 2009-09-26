@@ -8,18 +8,20 @@ namespace CodeCampServer.UI.Helpers.Binders
 	{
 		public UserGroupModelBinder(IUserGroupRepository repository) : base(repository) {}
 
-		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+		public override object BindModel(ControllerContext controllerContext,
+		                                 ModelBindingContext bindingContext)
 		{
-			ValueProviderResult value = GetRequestValue(bindingContext, bindingContext.ModelName);
+			ValueProviderResult value = GetRequestValue(bindingContext,
+			                                            bindingContext.ModelName);
 
-
-			if (value == null || string.IsNullOrEmpty(value.AttemptedValue)) return _repository.GetDefaultUserGroup();
+			if (value == null || string.IsNullOrEmpty(value.AttemptedValue))
+				return _repository.GetDefaultUserGroup();
 
 			UserGroup match = _repository.GetByKey(value.AttemptedValue);
 			if (match != null)
 				return match;
-			else
-				return _repository.GetDefaultUserGroup();
+			
+			return _repository.GetDefaultUserGroup();
 		}
 	}
 }

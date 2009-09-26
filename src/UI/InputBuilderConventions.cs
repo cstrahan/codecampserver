@@ -11,7 +11,6 @@ using CodeCampServer.DependencyResolution;
 using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 using CodeCampServer.UI.Models.Forms;
-using CodeCampServer.UI.Models.Validation.Attributes;
 using MvcContrib.UI.InputBuilder;
 
 namespace CodeCampServer.UI
@@ -48,8 +47,8 @@ namespace CodeCampServer.UI
 			if (propertyInfo.AttributeExists<LabelAttribute>())
 				return propertyInfo.GetAttribute<LabelAttribute>().Value;
 
-			if (propertyInfo.AttributeExists<BetterValidateNonEmptyAttribute>())
-				return propertyInfo.GetAttribute<BetterValidateNonEmptyAttribute>().Label;
+			if (propertyInfo.AttributeExists<RequiredAttribute>())
+				return propertyInfo.GetAttribute<RequiredAttribute>().Label;
 
 			return _default.LabelForPropertyConvention(propertyInfo);
 		}
@@ -98,7 +97,7 @@ namespace CodeCampServer.UI
 			if (propertyInfo.AttributeExists<ValidateNonEmptyAttribute>())
 				return true;
 
-			if (propertyInfo.AttributeExists<BetterValidateDateTimeAttribute>())
+			if (propertyInfo.AttributeExists<RequiredDateTimeAttribute>())
 				return true;
 
 			return _default.PropertyIsRequiredConvention(propertyInfo);

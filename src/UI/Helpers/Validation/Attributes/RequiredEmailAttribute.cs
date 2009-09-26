@@ -1,12 +1,12 @@
 using Castle.Components.Validator;
 
-namespace CodeCampServer.UI.Models.Validation.Attributes
+namespace CodeCampServer.UI.Helpers.Validation.Attributes
 {
-	public class BetterValidateIntegerAttribute : ValidateIntegerAttribute
+	public class RequiredEmailAttribute : ValidateEmailAttribute
 	{
 		private readonly string _label;
 
-		public BetterValidateIntegerAttribute(string label)
+		public RequiredEmailAttribute(string label)
 		{
 			_label = label;
 		}
@@ -18,25 +18,25 @@ namespace CodeCampServer.UI.Models.Validation.Attributes
 
 		public override IValidator Build()
 		{
-			IValidator validator = new BetterIntegerValidator(_label);
+			IValidator validator = new BetterEmailValidator(_label);
 
 			ConfigureValidatorMessage(validator);
 
 			return validator;
 		}
 
-		private class BetterIntegerValidator : IntegerValidator
+		private class BetterEmailValidator : EmailValidator
 		{
 			private readonly string _label;
 
-			public BetterIntegerValidator(string label)
+			public BetterEmailValidator(string label)
 			{
 				_label = label;
 			}
 
 			protected override string BuildErrorMessage()
 			{
-				return string.Format("'{0}' is not a valid integer ", _label);
+				return string.Format("'{0}' is not a valid email address ", _label);
 			}
 		}
 	}

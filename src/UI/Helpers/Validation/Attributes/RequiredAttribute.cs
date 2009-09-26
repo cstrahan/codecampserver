@@ -1,12 +1,12 @@
 using Castle.Components.Validator;
 
-namespace CodeCampServer.UI.Models.Validation.Attributes
+namespace CodeCampServer.UI.Helpers.Validation.Attributes
 {
-	public class BetterValidateEmailAttribute : ValidateEmailAttribute
+	public class RequiredAttribute : ValidateNonEmptyAttribute
 	{
 		private readonly string _label;
 
-		public BetterValidateEmailAttribute(string label)
+		public RequiredAttribute(string label)
 		{
 			_label = label;
 		}
@@ -18,25 +18,25 @@ namespace CodeCampServer.UI.Models.Validation.Attributes
 
 		public override IValidator Build()
 		{
-			IValidator validator = new BetterEmailValidator(_label);
+			IValidator validator = new BetterValidateNonEmptyValidator(_label);
 
 			ConfigureValidatorMessage(validator);
 
 			return validator;
 		}
 
-		private class BetterEmailValidator : EmailValidator
+		private class BetterValidateNonEmptyValidator : NonEmptyValidator
 		{
 			private readonly string _label;
 
-			public BetterEmailValidator(string label)
+			public BetterValidateNonEmptyValidator(string label)
 			{
 				_label = label;
 			}
 
 			protected override string BuildErrorMessage()
 			{
-				return string.Format("'{0}' is not a valid email address ", _label);
+				return string.Format("'{0}' is a required field", _label);
 			}
 		}
 	}

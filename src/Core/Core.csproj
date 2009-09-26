@@ -88,7 +88,6 @@
     <Compile Include="Services\ISecurityContext.cs" />
     <Compile Include="Services\IUserSession.cs" />
     <Compile Include="SystemTime.cs" />
-    <Compile Include="Domain\Model\ValueObject.cs" />
     <Compile Include="TimeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

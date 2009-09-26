@@ -1,18 +1,17 @@
 using System;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
-using CodeCampServer.UI.Models.Validation.Attributes;
 
 namespace CodeCampServer.UI.Models.Forms
 {
 	public abstract class EventForm
 	{
-		[BetterValidateDateTime("Start Date")]
+		[RequiredDateTime("Start Date")]
 		public abstract DateTime StartDate { get; set; }
 
-		[BetterValidateDateTime("End Date")]
+		[RequiredDateTime("End Date")]
 		public abstract DateTime EndDate { get; set; }
 
-		[BetterValidateNonEmpty("Time Zone")]
+		[Required("Time Zone")]
 		public abstract string TimeZone { get; set; }
 
 		public string GetDate()

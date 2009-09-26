@@ -110,7 +110,6 @@
     <Compile Include="Core\Domain\Model\ObjectExtensionsTester.cs" />
     <Compile Include="Core\Domain\Model\UserGroupTester.cs" />
     <Compile Include="Core\Domain\Model\UserTester.cs" />
-    <Compile Include="Core\Domain\Model\ValueObjectTester.cs" />
     <Compile Include="Core\Domain\PersistentObjectTester.cs" />
     <Compile Include="Core\Domain\ValidationResultTester.cs" />
     <Compile Include="Core\Services\AuthenticationServiceTester.cs" />

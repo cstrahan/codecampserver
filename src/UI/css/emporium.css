@@ -41,7 +41,6 @@ h3
 
 p, ul, ol
 {
-    margin: 0 0 2em 0;
     text-align: justify;
 }
 
@@ -256,8 +255,9 @@ input, textarea, select
     color: #28313A;
 }
 
-.post .entry
+.post .entry p b
 {
+    font-size:15px;
 }
 
 .addMeeting

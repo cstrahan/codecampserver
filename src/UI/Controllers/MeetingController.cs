@@ -26,7 +26,8 @@ namespace CodeCampServer.UI.Controllers
 		[AcceptVerbs(HttpVerbs.Get)]
 		public ActionResult Edit(Meeting meeting)
 		{
-			return View(_meetingMapper.Map(meeting));
+			MeetingForm model = _meetingMapper.Map(meeting);
+			return View(model);
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]

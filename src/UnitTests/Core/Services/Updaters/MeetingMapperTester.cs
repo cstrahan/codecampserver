@@ -21,8 +21,8 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			form.Description = "desc";
 			form.LocationName = "location";
 			form.Name = "name";
-			form.PostalCode = "postal";
-			form.Region = "region";
+//			form.PostalCode = "postal";
+//			form.Region = "region";
 			form.StartDate = new DateTime(2008, 1, 1);//.ToShortDateString();
 			form.EndDate = new DateTime(2008, 1, 2);//.ToShortDateString();
 			form.TimeZone = "CST";
@@ -45,8 +45,8 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			mapped.Description.ShouldEqual("desc");
 			mapped.LocationName.ShouldEqual("location");
 			mapped.Name.ShouldEqual("name");
-			mapped.PostalCode.ShouldEqual("postal");
-			mapped.Region.ShouldEqual("region");
+//			mapped.PostalCode.ShouldEqual("postal");
+//			mapped.Region.ShouldEqual("region");
 			mapped.StartDate.ShouldEqual(new DateTime(2008, 1, 1));
 			mapped.EndDate.ShouldEqual(new DateTime(2008, 1, 2));
 			mapped.TimeZone.ShouldEqual("CST");
@@ -66,8 +66,8 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			form.Description = "desc";
 			form.LocationName = "location";
 			form.Name = "name";
-			form.PostalCode = "postal";
-			form.Region = "region";
+//			form.PostalCode = "postal";
+//			form.Region = "region";
 			form.StartDate = new DateTime(2008, 1, 1);//.ToShortDateString();
 			form.EndDate = new DateTime(2008, 1, 2);//.ToShortDateString();
 			form.TimeZone = "CST";
@@ -90,8 +90,8 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			mapped.Description.ShouldEqual("desc");
 			mapped.LocationName.ShouldEqual("location");
 			mapped.Name.ShouldEqual("name");
-			mapped.PostalCode.ShouldEqual("postal");
-			mapped.Region.ShouldEqual("region");
+//			mapped.PostalCode.ShouldEqual("postal");
+//			mapped.Region.ShouldEqual("region");
 			mapped.StartDate.ShouldEqual(new DateTime(2008, 1, 1));
 			mapped.EndDate.ShouldEqual(new DateTime(2008, 1, 2));
 			mapped.TimeZone.ShouldEqual("CST");

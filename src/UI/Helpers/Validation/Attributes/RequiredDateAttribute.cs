@@ -2,11 +2,11 @@ using Castle.Components.Validator;
 
 namespace CodeCampServer.UI.Helpers.Validation.Attributes
 {
-	public class BetterValidateNonEmptyAttribute : ValidateNonEmptyAttribute
+	public class RequiredDateAttribute : ValidateDateAttribute
 	{
 		private readonly string _label;
 
-		public BetterValidateNonEmptyAttribute(string label)
+		public RequiredDateAttribute(string label)
 		{
 			_label = label;
 		}
@@ -18,25 +18,25 @@ namespace CodeCampServer.UI.Helpers.Validation.Attributes
 
 		public override IValidator Build()
 		{
-			IValidator validator = new BetterValidateNonEmptyValidator(_label);
+			IValidator validator = new BetterDateValidator(_label);
 
 			ConfigureValidatorMessage(validator);
 
 			return validator;
 		}
 
-		private class BetterValidateNonEmptyValidator : NonEmptyValidator
+		private class BetterDateValidator : DateValidator
 		{
 			private readonly string _label;
 
-			public BetterValidateNonEmptyValidator(string label)
+			public BetterDateValidator(string label)
 			{
 				_label = label;
 			}
 
 			protected override string BuildErrorMessage()
 			{
-				return string.Format("'{0}' is a required field", _label);
+				return string.Format("'{0}' is not a valid date format", _label);
 			}
 		}
 	}

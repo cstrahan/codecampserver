@@ -29,10 +29,10 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			model.EndDate = form.EndDate;
 			model.LocationName = form.LocationName;
 			model.LocationUrl = form.LocationUrl;
-			model.Address = form.Address;
-			model.City = form.City;
-			model.Region = form.Region;
-			model.PostalCode = form.PostalCode;
+//			model.Address = form.Address;
+//			model.City = form.City;
+//			model.Region = form.Region;
+//			model.PostalCode = form.PostalCode;
 			model.UserGroup = _groupRepository.GetById(form.UserGroupId);
 			model.TimeZone = form.TimeZone;
 			model.Topic = form.Topic;

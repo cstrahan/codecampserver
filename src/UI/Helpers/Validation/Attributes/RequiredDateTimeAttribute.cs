@@ -1,12 +1,12 @@
 using Castle.Components.Validator;
 
-namespace CodeCampServer.UI.Models.Validation.Attributes
+namespace CodeCampServer.UI.Helpers.Validation.Attributes
 {
-	public class BetterValidateDateTimeAttribute : ValidateDateTimeAttribute
+	public class RequiredDateTimeAttribute : ValidateDateTimeAttribute
 	{
 		private readonly string _label;
 
-		public BetterValidateDateTimeAttribute(string label)
+		public RequiredDateTimeAttribute(string label)
 		{
 			_label = label;
 		}

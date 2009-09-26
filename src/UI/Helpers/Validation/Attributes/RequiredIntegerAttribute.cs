@@ -1,12 +1,12 @@
 using Castle.Components.Validator;
 
-namespace CodeCampServer.UI.Models.Validation.Attributes
+namespace CodeCampServer.UI.Helpers.Validation.Attributes
 {
-	public class BetterValidateDateAttribute : ValidateDateAttribute
+	public class RequiredIntegerAttribute : ValidateIntegerAttribute
 	{
 		private readonly string _label;
 
-		public BetterValidateDateAttribute(string label)
+		public RequiredIntegerAttribute(string label)
 		{
 			_label = label;
 		}
@@ -18,25 +18,25 @@ namespace CodeCampServer.UI.Models.Validation.Attributes
 
 		public override IValidator Build()
 		{
-			IValidator validator = new BetterDateValidator(_label);
+			IValidator validator = new BetterIntegerValidator(_label);
 
 			ConfigureValidatorMessage(validator);
 
 			return validator;
 		}
 
-		private class BetterDateValidator : DateValidator
+		private class BetterIntegerValidator : IntegerValidator
 		{
 			private readonly string _label;
 
-			public BetterDateValidator(string label)
+			public BetterIntegerValidator(string label)
 			{
 				_label = label;
 			}
 
 			protected override string BuildErrorMessage()
 			{
-				return string.Format("'{0}' is not a valid date format", _label);
+				return string.Format("'{0}' is not a valid integer ", _label);
 			}
 		}
 	}

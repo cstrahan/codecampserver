@@ -2,7 +2,6 @@ using System;
 using Castle.Components.Validator;
 using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
-using CodeCampServer.UI.Models.Validation.Attributes;
 
 namespace CodeCampServer.UI.Models.Forms
 {
@@ -12,20 +11,20 @@ namespace CodeCampServer.UI.Models.Forms
 
 		public virtual Guid UserGroupId { get; set; }
 
-		[BetterValidateNonEmpty("Name")]
+		[Required("Name")]
 		public virtual string Name { get; set; }
 
-		[BetterValidateNonEmpty("Event Key")]
+		[Required("Event Key")]
 		[ValidateRegExp(@"^[A-Za-z0-9\-]+$", "Key should only contain letters, numbers, and hypens.")]
 		public virtual string Key { get; set; }
 
-		[BetterValidateDateTime("Start Date")]
+		[RequiredDateTime("Start Date")]
 		public override DateTime StartDate { get; set; }
 
-		[BetterValidateDateTime("End Date")]
+		[RequiredDateTime("End Date")]
 		public override DateTime EndDate { get; set; }
 
-		[BetterValidateNonEmpty("Time Zone")]
+		[Required("Time Zone")]
 		public override string TimeZone { get; set; }
 
 		[Multiline]
@@ -33,7 +32,7 @@ namespace CodeCampServer.UI.Models.Forms
 
 		public virtual bool HasRegistration { get; set; }
 
-		[BetterValidateNonEmpty("Location")]
+		[Required("Location")]
 		public virtual string LocationName { get; set; }
 
 		public virtual string LocationUrl { get; set; }

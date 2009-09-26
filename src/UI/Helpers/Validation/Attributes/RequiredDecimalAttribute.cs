@@ -1,12 +1,12 @@
 using Castle.Components.Validator;
 
-namespace CodeCampServer.UI.Models.Validation.Attributes
+namespace CodeCampServer.UI.Helpers.Validation.Attributes
 {
-	public class BetterValidateDecimalAttribute : ValidateDecimalAttribute
+	public class RequiredDecimalAttribute : ValidateDecimalAttribute
 	{
 		private readonly string _label;
 
-		public BetterValidateDecimalAttribute(string label)
+		public RequiredDecimalAttribute(string label)
 		{
 			_label = label;
 		}

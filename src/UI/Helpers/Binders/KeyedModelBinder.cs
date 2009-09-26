@@ -5,18 +5,14 @@ using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.UI.Helpers.Binders
 {
-	public interface IKeyedModelBinder : IModelBinder
-	{
-	}
+	public interface IKeyedModelBinder : IModelBinder {}
 
 	public class KeyedModelBinder<TEntity, TRepository> : ModelBinder<TEntity, TRepository>, IKeyedModelBinder
 		where TEntity : KeyedObject
 		where TRepository :
 			IKeyedRepository<TEntity>
 	{
-		public KeyedModelBinder(TRepository repository) : base(repository)
-		{
-		}
+		public KeyedModelBinder(TRepository repository) : base(repository) {}
 
 		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
@@ -25,13 +21,14 @@ namespace CodeCampServer.UI.Helpers.Binders
 				ValueProviderResult value = GetRequestValue(bindingContext, bindingContext.ModelName);
 
 
-				if (value == null || string.IsNullOrEmpty(value.AttemptedValue)) return base.BindModel(controllerContext,bindingContext);
+				if (value == null || string.IsNullOrEmpty(value.AttemptedValue))
+					return base.BindModel(controllerContext, bindingContext);
 
 				TEntity match = _repository.GetByKey(value.AttemptedValue);
 				if (match != null)
 					return match;
 				else
-					return base.BindModel(controllerContext,bindingContext);
+					return base.BindModel(controllerContext, bindingContext);
 			}
 			catch (Exception ex)
 			{

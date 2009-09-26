@@ -7,13 +7,13 @@ namespace CodeCampServer.UI.Models.Forms
 {
     public class UserGroupForm
     {
-        [BetterValidateNonEmpty("User Group Key")]
+        [Required("User Group Key")]
         [ValidateKey]
         public virtual string Key { get; set; }
 
         public virtual Guid Id { get; set; }
 
-        [BetterValidateNonEmpty("Name")]
+        [Required("Name")]
         public virtual string Name { get; set; }
 
         public virtual string DomainName { get; set; }
