@@ -1,5 +1,5 @@
 <%@ Page Title="" Language="C#" 
-Inherits="ViewPage<ModelProperty<object>>" %>
+Inherits="ViewPage<PropertyViewModel<object>>" %>
 <%@ Import Namespace="MvcContrib.UI.InputBuilder"%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Input" runat="server">

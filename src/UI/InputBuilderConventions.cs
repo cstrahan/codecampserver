@@ -82,10 +82,11 @@ namespace CodeCampServer.UI
 			return _default.PartialNameConvention(propertyInfo);
 		}
 
-		public InputModelProperty ModelPropertyBuilder(PropertyInfo propertyInfo, object model)
+
+		public PropertyViewModel ModelPropertyBuilder(PropertyInfo propertyInfo, object model)
 		{
 			if (typeof (IEnumerable<UserSelector>).IsAssignableFrom(propertyInfo.PropertyType))
-				return new ModelProperty<IEnumerable<SelectListItem>> {Value = (IEnumerable<SelectListItem>) model};
+				return new PropertyViewModel<IEnumerable<SelectListItem>> { Value = (IEnumerable<SelectListItem>)model };
 			return _default.ModelPropertyBuilder(propertyInfo, model);
 		}
 
@@ -106,6 +107,16 @@ namespace CodeCampServer.UI
 		public string Layout(string partialName)
 		{
 			return _default.Layout(partialName);
+		}
+
+		public string PartialNameForTypeConvention(Type type)
+		{
+			return _default.PartialNameForTypeConvention(type);
+		}
+
+		public string LabelForTypeConvention(Type type)
+		{
+			return _default.LabelForTypeConvention(type);
 		}
 	}
 }

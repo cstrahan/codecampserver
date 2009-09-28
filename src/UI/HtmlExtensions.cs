@@ -248,12 +248,12 @@ namespace CodeCampServer.UI
 		}
 
 
-		public static string InputForm<TModel>(this HtmlHelper<TModel> helper) where TModel : class
-		{
-			helper.ViewContext.HttpContext.Response.Write(helper.ValidationSummary());
-      string action = helper.ViewContext.RouteData.GetRequiredString("action");
-			string controller = helper.ViewContext.RouteData.GetRequiredString("controller");
-			return helper.InputForm(controller, action).ToString();
-		}
+	  //  public static string InputForm<TModel>(this HtmlHelper<TModel> helper) where TModel : class
+	  //  {
+	  //      helper.ViewContext.HttpContext.Response.Write(helper.ValidationSummary());
+	  //string action = helper.ViewContext.RouteData.GetRequiredString("action");
+	  //      string controller = helper.ViewContext.RouteData.GetRequiredString("controller");
+	  //      return helper.InputForm().ToString();
+	  //  }
 	}
 }
