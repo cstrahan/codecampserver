@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true"
   ValidateRequest="false" Inherits="ViewPage<MeetingForm>" %>
-<%@ Import Namespace="MvcContrib.UI.InputBuilder" %>
+
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
   <fieldset id="meeting">

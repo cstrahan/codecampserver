@@ -1,7 +1,6 @@
 <%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
 Inherits="ViewPage<UserGroupForm>"%>
-<%@ Import Namespace="MvcContrib.UI.InputBuilder"%>
-
+<%@ Import Namespace="Microsoft.Web.Mvc" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
 <script type="text/javascript" src="/scripts/tiny_mce/tiny_mce.js"></script>

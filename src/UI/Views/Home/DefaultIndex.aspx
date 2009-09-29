@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true"
     Inherits="ViewPage<UserGroupForm>" %>
+<%@ Import Namespace="Microsoft.Web.Mvc"%>
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
     <script type="text/javascript" src="/scripts/rsswidget.js"></script>
 </asp:Content>

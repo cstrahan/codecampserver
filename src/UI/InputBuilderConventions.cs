@@ -12,6 +12,8 @@ using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 using CodeCampServer.UI.Models.Forms;
 using MvcContrib.UI.InputBuilder;
+using MvcContrib.UI.InputBuilder.Conventions;
+using MvcContrib.UI.InputBuilder.Views;
 
 namespace CodeCampServer.UI
 {

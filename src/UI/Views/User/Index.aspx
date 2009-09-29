@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="ViewPage<UserForm[]>"%>
 <%@ Import Namespace="CodeCampServer.UI.Helpers"%>
 <%@ Import Namespace="MvcContrib.UI.Grid"%>
+<%@ Import Namespace="Microsoft.Web.Mvc"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="Main" runat="server">
 	 <h2>Users
 		<%if (User.Identity.IsAuthenticated){%>
@@ -15,7 +16,7 @@
         </tr>
         <% foreach(var user in Model) { %>
         <tr>
-            <td><%= Html.ActionLink<UserController>(c=>c.Edit((User)null), user.Username, new{user=user.Id}) %></td>
+			<td><%= Html.ActionLink<UserController>(c=>c.Edit((User)null), user.Username, new{user=user.Id}) %></td>
             <td><%= user.Name %></td>
         </tr>
         <% } %>
