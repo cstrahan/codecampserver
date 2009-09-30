@@ -1,1 +1,0 @@
-%SystemRoot%\Microsoft.NET\Framework\v1.1.4322\installutil.exe /ServiceName="CCNetService" ccservice.exe
