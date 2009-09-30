@@ -6,7 +6,7 @@ using CodeCampServer.Core.Services;
 using CodeCampServer.Infrastructure.UI.Services.Impl;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 using MvcContrib.TestHelper;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -25,7 +25,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
             
             .AssertViewRendered()
             .ForView(ViewNames.Default)
-            .ModelShouldBe<SponsorForm[]>();
+            .ModelShouldBe<SponsorInput[]>();
 		}
 
 	    [Test]
@@ -37,7 +37,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
             .AssertViewRendered()
             .ForView(ViewNames.Edit)
-            .ModelShouldBe<SponsorForm>();
+            .ModelShouldBe<SponsorInput>();
 	        
 	    }
 
@@ -53,7 +53,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
             .AssertViewRendered()
             .ForView(ViewNames.Default)
-            .ModelShouldBe<SponsorForm>();
+            .ModelShouldBe<SponsorInput>();
 
         }
 
@@ -65,7 +65,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
             var repository = S<IUserGroupRepository>();
             var controller = new SponsorController(repository, S<IUserGroupSponsorMapper>(), PermisiveSecurityContext());
 
-	        controller.Save(userGroup, new SponsorForm())
+	        controller.Save(userGroup, new SponsorInput())
 
 	            .AssertActionRedirect()
 	            .ToAction<SponsorController>(c => c.Index(userGroup));

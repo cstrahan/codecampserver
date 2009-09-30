@@ -1,7 +1,7 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Controllers
 {
@@ -22,7 +22,7 @@ namespace CodeCampServer.UI.Controllers
 			{
 				return RedirectToAction<UserController>(c => c.Edit((User)null));
 			}
-			var model = new AdminForm {ConferenceIsSelected = conference != null};
+			var model = new AdminInput {ConferenceIsSelected = conference != null};
 
 			return View(model);
 		}

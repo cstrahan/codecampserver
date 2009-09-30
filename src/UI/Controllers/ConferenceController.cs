@@ -6,12 +6,12 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Controllers
 {
 	[AdminUserCreatedFilter]
-	public class ConferenceController : SaveController<Conference, ConferenceForm>
+	public class ConferenceController : SaveController<Conference, ConferenceInput>
 	{
 		private readonly IConferenceMapper _mapper;
 		private readonly IConferenceRepository _repository;
@@ -29,8 +29,8 @@ namespace CodeCampServer.UI.Controllers
 		[RequiresConferenceFilter]
 		public ActionResult Index(Conference conference)
 		{
-			ConferenceForm form = _mapper.Map(conference);
-			return View(form);
+			ConferenceInput input = _mapper.Map(conference);
+			return View(input);
 		}
 
 		public ActionResult List(UserGroup usergroup)
@@ -42,7 +42,7 @@ namespace CodeCampServer.UI.Controllers
 				return RedirectToAction<ConferenceController>(c => c.New(null));
 			}
 
-			object conferenceListDto = Mapper.Map(conferences, typeof (Conference[]), typeof (ConferenceForm[]));
+			object conferenceListDto = Mapper.Map(conferences, typeof (Conference[]), typeof (ConferenceInput[]));
 			return View(conferenceListDto);
 		}
 
@@ -67,27 +67,27 @@ namespace CodeCampServer.UI.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		[RequireAuthenticationFilter]
 		[ValidateInput(false)]
-		[ValidateModel(typeof (ConferenceForm))]
-		public ActionResult Edit(ConferenceForm form)
+		[ValidateModel(typeof (ConferenceInput))]
+		public ActionResult Edit(ConferenceInput input)
 		{
-			if (_securityContext.HasPermissionsForUserGroup(form.UserGroupId))
+			if (_securityContext.HasPermissionsForUserGroup(input.UserGroupId))
 			{
-				return ProcessSave(form, conference => RedirectToAction<HomeController>(c => c.Index(conference.UserGroup)));
+				return ProcessSave(input, conference => RedirectToAction<HomeController>(c => c.Index(conference.UserGroup)));
 			}
 			return View(ViewPages.NotAuthorized);
 		}
 
-		protected override IDictionary<string, string[]> GetFormValidationErrors(ConferenceForm form)
+		protected override IDictionary<string, string[]> GetFormValidationErrors(ConferenceInput input)
 		{
 			var result = new ValidationResult();
-			if (ConferenceKeyAlreadyExists(form))
+			if (ConferenceKeyAlreadyExists(input))
 			{
-				result.AddError<ConferenceForm>(x => x.Key, "This conference key already exists");
+				result.AddError<ConferenceInput>(x => x.Key, "This conference key already exists");
 			}
 			return result.GetAllErrors();
 		}
 
-		private bool ConferenceKeyAlreadyExists(ConferenceForm message)
+		private bool ConferenceKeyAlreadyExists(ConferenceInput message)
 		{
 			Conference conference = _repository.GetByKey(message.Key);
 			return conference != null && conference.Id != message.Id;

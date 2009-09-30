@@ -1,8 +1,8 @@
 using Castle.Components.Validator;
 
-namespace CodeCampServer.UI.Models.Forms
+namespace CodeCampServer.UI.Models.Input
 {
-	public class LoginForm
+	public class LoginInput
 	{
 		[ValidateNonEmpty]
 		public string Username { get; set; }

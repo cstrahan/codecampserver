@@ -5,7 +5,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 using CodeCampServer.Core.Services.Impl;
 using MvcContrib;
 using CodeCampServer.UI;
@@ -14,7 +14,7 @@ using CodeCampServer.Core.Services;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public class UserGroupController : SaveController<UserGroup, UserGroupForm>
+	public class UserGroupController : SaveController<UserGroup, UserGroupInput>
 	{
 		private readonly IUserGroupRepository _repository;
 		private readonly IUserGroupMapper _mapper;
@@ -31,8 +31,8 @@ namespace CodeCampServer.UI.Controllers
 		public ActionResult Index(UserGroup usergroup)
 		{
 
-            UserGroupForm form = _mapper.Map(usergroup);
-			return View(form);
+            UserGroupInput input = _mapper.Map(usergroup);
+			return View(input);
 		}
 
 		public ActionResult List()
@@ -43,7 +43,7 @@ namespace CodeCampServer.UI.Controllers
 			{
 				return RedirectToAction<UserGroupController>(c => c.New());
 			}
-			object entityListDto = AutoMapper.Mapper .Map(entities, typeof (UserGroup[]), typeof (UserGroupForm[]));
+			object entityListDto = AutoMapper.Mapper .Map(entities, typeof (UserGroup[]), typeof (UserGroupInput[]));
 			return View(entityListDto);
 		}
 		
@@ -76,28 +76,28 @@ namespace CodeCampServer.UI.Controllers
         }
 
 	    [ValidateInput(false)] 
-		[ValidateModel(typeof (UserGroupForm))]
-		public ActionResult Save(UserGroupForm form)
+		[ValidateModel(typeof (UserGroupInput))]
+		public ActionResult Save(UserGroupInput input)
 		{
-            if(_securityContext.HasPermissionsForUserGroup(form.Id))
+            if(_securityContext.HasPermissionsForUserGroup(input.Id))
             {
-                return ProcessSave(form, entity => RedirectToAction<UserGroupController>(c => c.List()));
+                return ProcessSave(input, entity => RedirectToAction<UserGroupController>(c => c.List()));
             }
 	        return View(ViewPages.NotAuthorized);
 		}
         
 
-		protected override IDictionary<string, string[]> GetFormValidationErrors(UserGroupForm form)
+		protected override IDictionary<string, string[]> GetFormValidationErrors(UserGroupInput input)
 		{
 			var result = new ValidationResult();
-			if (CurrentUserHasPermissionToEditUserGroup(form.Id) && UserGroupKeyAlreadyExists(form))
+			if (CurrentUserHasPermissionToEditUserGroup(input.Id) && UserGroupKeyAlreadyExists(input))
 			{
-				result.AddError<UserGroupForm>(x => x.Key, "This entity key already exists");
+				result.AddError<UserGroupInput>(x => x.Key, "This entity key already exists");
 			}
 			return result.GetAllErrors();
 		}
 
-	    private bool UserGroupKeyAlreadyExists(UserGroupForm message)
+	    private bool UserGroupKeyAlreadyExists(UserGroupInput message)
 		{
 			UserGroup entity = _repository.GetByKey(message.Key);
 			return entity != null && entity.Id != message.Id;

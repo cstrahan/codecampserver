@@ -5,35 +5,16 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.DependencyResolution;
-using CodeCampServer.UI.Models.Forms;
 
 namespace CodeCampServer.UI.Helpers.Binders
 {
-    public class UserFormTypeConverter:System.ComponentModel.TypeConverter
-    {
-        public override bool CanConvertFrom(System.ComponentModel.ITypeDescriptorContext context, Type sourceType)
-        {
-            if(sourceType==typeof(string))
-                return true;
-            else
-                return base.CanConvertFrom(context, sourceType);
-        }
-
-        public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
-        {
-            var returnValue =new UserSelector();
-            returnValue.Id = new Guid(value.ToString());
-            return returnValue;
-        }
-        
-    }
 	public class SmartBinder : DefaultModelBinder
 	{
 		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			if (ShouldBuildInstanceFromContainer(bindingContext.ModelType))
 			{
-				return BindFromContainer(controllerContext, bindingContext);
+				return BindFromContainer(bindingContext);
 			}
 
 			if (ShouldBuildInstanceFromKeyedModelBinder(bindingContext.ModelType))
@@ -54,7 +35,7 @@ namespace CodeCampServer.UI.Helpers.Binders
 			return base.BindModel(controllerContext, bindingContext);
 		}
 
-		private static object BindFromContainer(ControllerContext controllerContext, ModelBindingContext bindingContext)
+		private static object BindFromContainer(ModelBindingContext bindingContext)
 		{
 			object instance = DependencyRegistrar.Resolve(bindingContext.ModelType);
 			return instance;
@@ -109,14 +90,14 @@ namespace CodeCampServer.UI.Helpers.Binders
 			return !TypeIsACollection(type) && TypeIsAnInterfaceOrController(type);
 		}
 
-	    private static bool TypeIsACollection(Type type)
-	    {
-	        return (typeof (IEnumerable)).IsAssignableFrom(type);
-	    }
+		private static bool TypeIsACollection(Type type)
+		{
+			return (typeof (IEnumerable)).IsAssignableFrom(type);
+		}
 
-	    private static bool TypeIsAnInterfaceOrController(Type type)
-	    {
-	        return type.IsInterface || (typeof (IController)).IsAssignableFrom(type);
-	    }
+		private static bool TypeIsAnInterfaceOrController(Type type)
+		{
+			return type.IsInterface || (typeof (IController)).IsAssignableFrom(type);
+		}
 	}
 }

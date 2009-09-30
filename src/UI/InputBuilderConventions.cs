@@ -10,7 +10,7 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 using MvcContrib.UI.InputBuilder;
 using MvcContrib.UI.InputBuilder.Conventions;
 using MvcContrib.UI.InputBuilder.Views;
@@ -28,9 +28,9 @@ namespace CodeCampServer.UI
 
 		public object ValueFromModelPropertyConvention(PropertyInfo propertyInfo, object model)
 		{
-			if (typeof (IEnumerable<UserSelector>).IsAssignableFrom(propertyInfo.PropertyType))
+			if (typeof (IEnumerable<UserSelectorInput>).IsAssignableFrom(propertyInfo.PropertyType))
 			{
-				var value = propertyInfo.GetValue(model, null) as IEnumerable<UserSelector>;
+				var value = propertyInfo.GetValue(model, null) as IEnumerable<UserSelectorInput>;
 				var items = new List<SelectListItem>();
 				var repo = DependencyRegistrar.Resolve<IUserRepository>();
 				foreach (User user in repo.GetAll())
@@ -72,7 +72,7 @@ namespace CodeCampServer.UI
 
 		public string PartialNameConvention(PropertyInfo propertyInfo)
 		{
-			if (typeof (IEnumerable<UserSelector>).IsAssignableFrom(propertyInfo.PropertyType))
+			if (typeof (IEnumerable<UserSelectorInput>).IsAssignableFrom(propertyInfo.PropertyType))
 				return "UserPicker";
 			if (propertyInfo.Name.ToLower().Contains("password"))
 				return "Password";
@@ -87,7 +87,7 @@ namespace CodeCampServer.UI
 
 		public PropertyViewModel ModelPropertyBuilder(PropertyInfo propertyInfo, object model)
 		{
-			if (typeof (IEnumerable<UserSelector>).IsAssignableFrom(propertyInfo.PropertyType))
+			if (typeof (IEnumerable<UserSelectorInput>).IsAssignableFrom(propertyInfo.PropertyType))
 				return new PropertyViewModel<IEnumerable<SelectListItem>> { Value = (IEnumerable<SelectListItem>)model };
 			return _default.ModelPropertyBuilder(propertyInfo, model);
 		}

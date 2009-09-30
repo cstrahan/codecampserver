@@ -6,7 +6,7 @@ using CodeCampServer.Core.Services;
 using CodeCampServer.UI;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 using MvcContrib.TestHelper;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -49,7 +49,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void Should_save_the_conference()
 		{
-			var form = new ConferenceForm();
+			var form = new ConferenceInput();
 			var conference = new Conference();
 
 			var mapper = S<IConferenceMapper>();
@@ -85,7 +85,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
             securityContext.Stub(context => context.HasPermissionsFor(new Conference())).IgnoreArguments().Return(false);
 
             var controller = new ConferenceController(null, null, securityContext);
-            var result = (ViewResult)controller.Edit(new ConferenceForm());
+            var result = (ViewResult)controller.Edit(new ConferenceInput());
 
             result.AssertViewRendered().ViewName.ShouldEqual(ViewPages.NotAuthorized);
         }
@@ -94,7 +94,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void Should_not_save_conference_if_key_already_exists()
 		{
-			var form = new ConferenceForm {Key = "foo", Id = Guid.NewGuid()};
+			var form = new ConferenceInput {Key = "foo", Id = Guid.NewGuid()};
 			var conference = new Conference();
 
 			var mapper = S<IConferenceMapper>();

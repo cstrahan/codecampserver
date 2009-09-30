@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true"
-  ValidateRequest="false" Inherits="ViewPage<ConferenceForm>" %>
+  ValidateRequest="false" Inherits="ViewPage<ConferenceInput>" %>
 
 <%@ Import Namespace="MvcContrib.UI.InputBuilder" %>
 

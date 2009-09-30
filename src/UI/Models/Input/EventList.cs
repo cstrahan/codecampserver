@@ -1,4 +1,4 @@
-namespace CodeCampServer.UI.Models.Forms
+namespace CodeCampServer.UI.Models.Input
 {
     public class EventList
     {

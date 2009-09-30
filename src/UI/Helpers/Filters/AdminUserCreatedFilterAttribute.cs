@@ -3,7 +3,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.UI.Controllers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Helpers.Filters
 {

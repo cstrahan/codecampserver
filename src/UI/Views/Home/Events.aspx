@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true"
-    Inherits="ViewPage<UserGroupForm>" %>
+    Inherits="ViewPage<UserGroupInput>" %>
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">

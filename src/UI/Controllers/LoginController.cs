@@ -4,7 +4,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Filters;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Controllers
 {
@@ -25,39 +25,39 @@ namespace CodeCampServer.UI.Controllers
 		[AcceptVerbs(HttpVerbs.Get)]
 		public ViewResult Index()
 		{
-			return View(new LoginForm());
+			return View(new LoginInput());
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		[ValidateModel(typeof (LoginForm))]
-		public ViewResult Index(LoginForm form)
+		[ValidateModel(typeof (LoginInput))]
+		public ViewResult Index(LoginInput input)
 		{
 			if (!ModelState.IsValid)
 			{
-				return View(form);
+				return View(input);
 			}
 
-			LoginAndRedirect(form);
+			LoginAndRedirect(input);
 
 			ModelState.AddModelError("Login", "Login incorrect");
-			return View(form);
+			return View(input);
 		}
 
-		private void LoginAndRedirect(LoginForm form)
+		private void LoginAndRedirect(LoginInput input)
 		{
-			User user = _repository.GetByUserName(form.Username);
+			User user = _repository.GetByUserName(input.Username);
 			if (user != null)
 			{
-				if (PasswordMatches(form, user))
+				if (PasswordMatches(input, user))
 				{
 					_userSession.LogIn(user);
 				}
 			}
 		}
 
-		private bool PasswordMatches(LoginForm form, User user)
+		private bool PasswordMatches(LoginInput input, User user)
 		{
-			return _authenticationService.PasswordMatches(user, form.Password);
+			return _authenticationService.PasswordMatches(user, input.Password);
 		}
 
 		public ActionResult LogOut()

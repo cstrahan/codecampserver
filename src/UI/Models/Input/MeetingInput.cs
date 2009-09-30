@@ -3,9 +3,9 @@ using Castle.Components.Validator;
 using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 
-namespace CodeCampServer.UI.Models.Forms
+namespace CodeCampServer.UI.Models.Input
 {
-	public class MeetingForm : EventForm
+	public class MeetingInput : EventInput
 	{
 		public Guid Id { get; set; }
 		public Guid UserGroupId { get; set; }

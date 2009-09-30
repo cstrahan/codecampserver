@@ -7,7 +7,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 using CodeCampServer.Core.Services.Impl;
 using MvcContrib;
 using CodeCampServer.UI;
@@ -16,7 +16,7 @@ using CodeCampServer.Core.Services;
 
 namespace CodeCampServer.UI.Controllers
 {
-    public class SponsorController : SaveController<UserGroup, SponsorForm>
+    public class SponsorController : SaveController<UserGroup, SponsorInput>
     {
         private readonly IUserGroupRepository _repository;
         private readonly IUserGroupSponsorMapper _mapper;
@@ -35,21 +35,21 @@ namespace CodeCampServer.UI.Controllers
         {
             var entities = usergroup.GetSponsors();
 
-            var entityListDto = (SponsorForm[]) AutoMapper.Mapper.Map(entities, typeof(Sponsor[]), typeof(SponsorForm[]));
+            var entityListDto = (SponsorInput[]) AutoMapper.Mapper.Map(entities, typeof(Sponsor[]), typeof(SponsorInput[]));
             
             return View(entityListDto);
         }
 
         public ActionResult New(UserGroup userGroup)
         {
-            return View("edit",new SponsorForm());  
+            return View("edit",new SponsorInput());  
         }
 
-        [ValidateModel(typeof(SponsorForm))]
-        public ActionResult Save(UserGroup userGroup, SponsorForm sponsorForm)
+        [ValidateModel(typeof(SponsorInput))]
+        public ActionResult Save(UserGroup userGroup, SponsorInput sponsorInput)
         {
-            sponsorForm.ParentID = userGroup.Id;
-            return ProcessSave(sponsorForm, entity => RedirectToAction<SponsorController>(s => s.Index(null)));
+            sponsorInput.ParentID = userGroup.Id;
+            return ProcessSave(sponsorInput, entity => RedirectToAction<SponsorController>(s => s.Index(null)));
         }
 
         public ActionResult Delete(UserGroup userGroup, Sponsor sponsor)
@@ -64,14 +64,14 @@ namespace CodeCampServer.UI.Controllers
         {
             var sponsor = userGroup.GetSponsors().Where(sponsor1 => sponsor1.Id == sponsorID).FirstOrDefault();
 
-            return View(AutoMapper.Mapper.Map<Sponsor, SponsorForm>(sponsor));
+            return View(AutoMapper.Mapper.Map<Sponsor, SponsorInput>(sponsor));
         }
 
         public ActionResult List(UserGroup userGroup)
         {
             var entities = userGroup.GetSponsors();
 
-            var entityListDto = (SponsorForm[]) AutoMapper.Mapper.Map(entities, typeof(Sponsor[]), typeof(SponsorForm[]));
+            var entityListDto = (SponsorInput[]) AutoMapper.Mapper.Map(entities, typeof(Sponsor[]), typeof(SponsorInput[]));
 
             return View("HomePageWidget", entityListDto);
         }

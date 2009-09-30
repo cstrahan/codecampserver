@@ -2,9 +2,9 @@ using System;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 
-namespace CodeCampServer.UI.Models.Forms
+namespace CodeCampServer.UI.Models.Input
 {
-	public class SponsorForm
+	public class SponsorInput
 	{
 		public virtual Guid? ID { get; set; }
 

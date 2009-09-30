@@ -2,17 +2,17 @@ using System;
 using AutoMapper;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Models.CustomResolvers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI
 {
 	public class AutoMapperProfile : Profile
 	{
-		public const string VIEW_MODEL = "CodeCampServer";
+		private const string CodeCampServer = "CodeCampServer";
 
 		protected override string ProfileName
 		{
-			get { return VIEW_MODEL; }
+			get { return CodeCampServer; }
 		}
 
 		protected override void Configure()
@@ -33,28 +33,26 @@ namespace CodeCampServer.UI
 
 		private static void CreateMaps()
 		{
-			Mapper.CreateMap<User, UserForm>()
+			Mapper.CreateMap<User, UserInput>()
 				.ForMember(u => u.Password, o => o.Ignore())
 				.ForMember(f => f.ConfirmPassword, o => o.Ignore());
 
-			Mapper.CreateMap<User, UserSelector>();
+			Mapper.CreateMap<User, UserSelectorInput>();
 
-
-			Mapper.CreateMap<Sponsor, SponsorForm>()
+			Mapper.CreateMap<Sponsor, SponsorInput>()
 				.ForMember(x => x.ParentID, o => o.Ignore());
 
-			Mapper.CreateMap<Conference, ConferenceForm>()
+			Mapper.CreateMap<Conference, ConferenceInput>()
 				.ForMember(x => x.StartDate, o => o.AddFormatter<StandardDateTimeFormatter>())
 				.ForMember(x => x.EndDate, o => o.AddFormatter<StandardDateTimeFormatter>());
 
-			Mapper.CreateMap<Meeting, MeetingForm>()
+			Mapper.CreateMap<Meeting, MeetingInput>()
 				.ForMember(x => x.StartDate, o => o.AddFormatter<StandardDateTimeFormatter>())
 				.ForMember(x => x.EndDate, o => o.AddFormatter<StandardDateTimeFormatter>());
 
-			Mapper.CreateMap<UserGroup, UserGroupForm>();
-			//.ForMember(a => a.Users, o => o.  MapFrom(a => a.GetUsers() ));
+			Mapper.CreateMap<UserGroup, UserGroupInput>();
 
-            Mapper.CreateMap<Event,EventList>();
+			Mapper.CreateMap<Event, EventList>();
 		}
 	}
 }

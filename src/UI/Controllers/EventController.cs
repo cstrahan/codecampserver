@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Controllers
 {
@@ -28,18 +28,18 @@ namespace CodeCampServer.UI.Controllers
 		public ViewResult Announcement(Event @event)
 		{
 			string typeName = @event.GetType().Name;
-			EventForm form = null;
+			EventInput input = null;
 
 			if (@event is Conference)
 			{
-				form = _conferenceMapper.Map((Conference) @event);
+				input = _conferenceMapper.Map((Conference) @event);
 			}
 			else
 			{
-				form = _meetingMapper.Map((Meeting) @event);
+				input = _meetingMapper.Map((Meeting) @event);
 			}
 
-			return View(typeName + ANNOUNCEMENT_PARTIAL_SUFFIX, form);
+			return View(typeName + ANNOUNCEMENT_PARTIAL_SUFFIX, input);
 		}
 
 		public ViewResult UpComing(UserGroup userGroup)

@@ -2,7 +2,7 @@ using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -15,7 +15,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
         [Test]
         public void Should_add_new_usergroup()
         {
-            var form = S<UserGroupForm>();
+            var form = S<UserGroupInput>();
             form.Id = Guid.Empty;
             form.Key = "key";
             form.Name = "name";
@@ -25,7 +25,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
             form.City = "austin";
             form.Country = "USA";
             Guid newGuid = Guid.NewGuid();
-            form.Users = new[] {new UserSelector() {Id = newGuid},};
+            form.Users = new[] {new UserSelectorInput() {Id = newGuid},};
             var userRepository = S<IUserRepository>();
             userRepository.Stub(repository => repository.GetAll()).Return(new[] {new User(){Id=newGuid}, new User()});
             var userGroupRepository = M<IUserGroupRepository>();
@@ -49,7 +49,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
         [Test]
         public void Should_map_existing_conference()
         {
-            var form = S<UserGroupForm>();
+            var form = S<UserGroupInput>();
             form.Id = Guid.NewGuid();
             form.Key = "key";
             form.Name = "name";
@@ -58,7 +58,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
             form.HomepageHTML = "<h1>hello world</h1>";
             form.City = "austin";
             form.Country = "USA";
-            form.Users = new[] {new UserSelector() {}};
+            form.Users = new[] {new UserSelectorInput() {}};
             
             
             var userGroup = new UserGroup();
@@ -67,7 +67,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
             repository.Stub(x => x.GetById(form.Id)).Return(userGroup);
             
             Guid newGuid = Guid.NewGuid();
-            form.Users = new[] { new UserSelector() { Id = newGuid }, };
+            form.Users = new[] { new UserSelectorInput() { Id = newGuid }, };
             var userRepository = S<IUserRepository>();
             userRepository.Stub(r => r.GetAll()).Return(new[] { new User() { Id = newGuid }, new User() });
             

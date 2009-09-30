@@ -3,7 +3,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Infrastructure.UI.Services.Impl;
 using CodeCampServer.UI.Controllers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 using MvcContrib.TestHelper;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -34,7 +34,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			result.AssertActionRedirect();
 
 			var redirectResult = result as RedirectToRouteResult;
-			redirectResult.ToAction<UserController>(a => a.Edit((UserForm) null));
+			redirectResult.ToAction<UserController>(a => a.Edit((UserInput) null));
 		}
 	}
 }

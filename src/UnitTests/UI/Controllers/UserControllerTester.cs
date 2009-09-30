@@ -7,7 +7,7 @@ using CodeCampServer.Infrastructure.UI.Services.Impl;
 using CodeCampServer.UI;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 using MvcContrib.TestHelper;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -22,10 +22,10 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			public TestUserMapper() : base(null, null) {}
 			public User MappedUser { get; set; }
 
-			public override UserForm Map(User form)
+			public override UserInput Map(User form)
 			{
 				MappedUser = form;
-				return new UserForm();
+				return new UserInput();
 			}
 		}
 
@@ -57,7 +57,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			
 				//Assert
 				.ForView("Edit")
-				.ModelShouldBe<UserForm>();
+				.ModelShouldBe<UserInput>();
 		}
 
 
@@ -66,7 +66,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var user = new User {Username = "admin", Id = Guid.NewGuid()};
 			var mapper = S<IUserMapper>();
-			var form = new UserForm {Id = user.Id, Password = "pass"};
+			var form = new UserInput {Id = user.Id, Password = "pass"};
 			mapper.Stub(u => u.Map(form)).Return(user);
 			var repository = S<IUserRepository>();
 			var controller = new UserController(repository, mapper, PermisiveSecurityContext(), S<IUserSession>());
@@ -80,7 +80,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void Should_not_save_user_if_key_already_exists()
 		{
-			var form = new UserForm {Username = "foo"};
+			var form = new UserInput {Username = "foo"};
 			var user = new User();
 
 			var mapper = S<IUserMapper>();
@@ -110,7 +110,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			controller.Edit((User)null)
 				.AssertViewRendered()
 				.ForView(ViewNames.Default)
-				.ModelShouldBe<UserForm>();
+				.ModelShouldBe<UserInput>();
 			mapper.MappedUser.ShouldNotBeNull();
 			mapper.MappedUser.Id.ShouldEqual(user.Id);
 		}
@@ -118,7 +118,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void When_new_user_is_saved_Should_map_from_form_and_call_repository()
 		{
-			var form = new UserForm
+			var form = new UserInput
 			           	{
 			           		Id = Guid.Empty,
 			           		Username = "username",

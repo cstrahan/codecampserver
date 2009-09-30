@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" 
-AutoEventWireup="true" Inherits="ViewPage<AdminForm>"%>
+AutoEventWireup="true" Inherits="ViewPage<AdminInput>"%>
 
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">

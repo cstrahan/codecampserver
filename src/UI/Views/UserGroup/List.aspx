@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="ViewPage<UserGroupForm[]>"%>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="ViewPage<UserGroupInput[]>"%>
 <%@ Import Namespace="CodeCampServer.UI.Helpers"%>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">

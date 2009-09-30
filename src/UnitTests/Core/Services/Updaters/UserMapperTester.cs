@@ -3,7 +3,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -16,7 +16,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_map_new_user_from_form()
 		{
-			var form = S<UserForm>();
+			var form = S<UserInput>();
 			form.Id = Guid.Empty;
 			form.Username = "username";
 			form.Password = "password";
@@ -42,7 +42,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_map_existing_user_from_form()
 		{
-			var form = S<UserForm>();
+			var form = S<UserInput>();
 			form.Id = Guid.Empty;
 			form.Username = "username";
 			form.Password = "password";

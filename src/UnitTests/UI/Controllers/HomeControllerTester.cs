@@ -2,7 +2,7 @@
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 using MvcContrib.TestHelper;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -18,7 +18,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var userGroup = new UserGroup();
 
 			var mapper = S<IUserGroupMapper>();
-			var groupForm = new UserGroupForm();
+			var groupForm = new UserGroupInput();
 			mapper.Stub(m => m.Map(userGroup)).Return(groupForm);
 
 			var home = new HomeController(mapper);
@@ -35,13 +35,13 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		    userGroup.Key = "adnug";
 
 			var mapper = S<IUserGroupMapper>();
-			mapper.Stub(groupMapper => groupMapper.Map(userGroup)).Return(new UserGroupForm());
+			mapper.Stub(groupMapper => groupMapper.Map(userGroup)).Return(new UserGroupInput());
 
 			var home = new HomeController(mapper);
 
 			ViewResult result = home.Index(userGroup);
 			result.ForView("");
-			result.WithViewData<UserGroupForm>().ShouldNotBeNull();
+			result.WithViewData<UserGroupInput>().ShouldNotBeNull();
 		}
 	}
 }

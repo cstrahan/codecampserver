@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master"
- AutoEventWireup="true" Inherits="ViewPage<LoginForm>"%>
+ AutoEventWireup="true" Inherits="ViewPage<LoginInput>"%>
 <%@ Import Namespace="MvcContrib.UI.InputBuilder"%>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">  

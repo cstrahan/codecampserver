@@ -87,6 +87,7 @@
     <Compile Include="Controllers\UserGroupController.cs" />
     <Compile Include="Helpers\Attributes\MultilineAttribute.cs" />
     <Compile Include="Helpers\Binders\UserGroupModelBinder.cs" />
+    <Compile Include="Helpers\Binders\UserSelectorInputTypeConverter.cs" />
     <Compile Include="Helpers\ConferenceViewExtensions.cs" />
     <Compile Include="Helpers\Filters\AddUserGroupToViewDataActionFilterAttribute.cs" />
     <Compile Include="Helpers\ImageLinkHelper.cs" />
@@ -98,13 +99,13 @@
     <Compile Include="Helpers\Mappers\UserGroupMapper.cs" />
     <Compile Include="Helpers\Validation\Attributes\ValidateKeyAttribute.cs" />
     <Compile Include="InputBuilderConventions.cs" />
-    <Compile Include="Models\Forms\AdminForm.cs" />
-    <Compile Include="Models\Forms\EventForm.cs" />
-    <Compile Include="Models\Forms\EventList.cs" />
-    <Compile Include="Models\Forms\MeetingForm.cs" />
-    <Compile Include="Models\Forms\SponsorForm.cs" />
-    <Compile Include="Models\Forms\UserGroupForm.cs" />
-    <Compile Include="Models\Forms\UserSelector.cs" />
+    <Compile Include="Models\Input\AdminInput.cs" />
+    <Compile Include="Models\Input\EventInput.cs" />
+    <Compile Include="Models\Input\EventList.cs" />
+    <Compile Include="Models\Input\MeetingInput.cs" />
+    <Compile Include="Models\Input\SponsorInput.cs" />
+    <Compile Include="Models\Input\UserGroupInput.cs" />
+    <Compile Include="Models\Input\UserSelectorInput.cs" />
     <Compile Include="Helpers\Binders\SmartBinder.cs" />
     <Compile Include="Helpers\Filters\AssemblyVersionrFilterAttribute.cs" />
     <Compile Include="Helpers\Filters\UrlReferrerFilterAttribute.cs" />
@@ -151,7 +152,7 @@
     <Compile Include="Helpers\Mappers\EditMode.cs" />
     <Compile Include="Helpers\Mappers\IConferenceMapper.cs" />
     <Compile Include="Helpers\Mappers\IUserMapper.cs" />
-    <Compile Include="Helpers\Mappers\AutoFormMapper.cs" />
+    <Compile Include="Helpers\Mappers\AutoInputMapper.cs" />
     <Compile Include="Helpers\Mappers\UserMapper.cs" />
     <Compile Include="Helpers\Extensions\ModelStateExtensions.cs" />
     <Compile Include="Helpers\Attributes\ShowAsRequiredAttribute.cs" />
@@ -179,12 +180,12 @@
     <Compile Include="Models\CustomResolvers\StandardTimeFormatter.cs" />
     <Compile Include="Models\CustomResolvers\TimeSpanFormatter.cs" />
     <Compile Include="Models\CustomResolvers\YesNoBooleanFormatter.cs" />
-    <Compile Include="Models\Forms\UserForm.cs" />
+    <Compile Include="Models\Input\UserInput.cs" />
     <Compile Include="Helpers\Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Helpers\Extensions\ViewDataExtensions.cs" />
     <Compile Include="Controllers\ConferenceController.cs" />
-    <Compile Include="Models\Forms\ConferenceForm.cs" />
-    <Compile Include="Models\Forms\LoginForm.cs" />
+    <Compile Include="Models\Input\ConferenceInput.cs" />
+    <Compile Include="Models\Input\LoginInput.cs" />
     <Compile Include="Models\CustomResolvers\NullValueResolver.cs" />
     <Compile Include="PartialViewGenerator.cs">
       <AutoGen>True</AutoGen>

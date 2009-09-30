@@ -1,11 +1,11 @@
 using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class ConferenceMapper : AutoFormMapper<Conference, ConferenceForm>, IConferenceMapper
+	public class ConferenceMapper : AutoInputMapper<Conference, ConferenceInput>, IConferenceMapper
 	{
 		private readonly IUserGroupRepository _userGroupRepository;
 
@@ -16,29 +16,29 @@ namespace CodeCampServer.UI.Helpers.Mappers
 		}
 
 
-		protected override Guid GetIdFromMessage(ConferenceForm message)
+		protected override Guid GetIdFromMessage(ConferenceInput message)
 		{
 			return message.Id;
 		}
 
-		protected override void MapToModel(ConferenceForm form, Conference model)
+		protected override void MapToModel(ConferenceInput input, Conference model)
 		{
-			model.Key = form.Key;
-			model.Name = form.Name;
-			model.Description = form.Description;
-			model.StartDate = form.StartDate;
-			model.EndDate = form.EndDate;
-			model.LocationName = form.LocationName;
-			model.LocationUrl = form.LocationUrl;
-			model.Address = form.Address;
-			model.City = form.City;
-			model.Region = form.Region;
-			model.PostalCode = form.PostalCode;
-			model.UserGroup = _userGroupRepository.GetById(form.UserGroupId);
-			model.TimeZone = form.TimeZone;
-			model.PhoneNumber = form.PhoneNumber;
-			model.HtmlContent = form.HtmlContent;
-			model.HasRegistration = form.HasRegistration;
+			model.Key = input.Key;
+			model.Name = input.Name;
+			model.Description = input.Description;
+			model.StartDate = input.StartDate;
+			model.EndDate = input.EndDate;
+			model.LocationName = input.LocationName;
+			model.LocationUrl = input.LocationUrl;
+			model.Address = input.Address;
+			model.City = input.City;
+			model.Region = input.Region;
+			model.PostalCode = input.PostalCode;
+			model.UserGroup = _userGroupRepository.GetById(input.UserGroupId);
+			model.TimeZone = input.TimeZone;
+			model.PhoneNumber = input.PhoneNumber;
+			model.HtmlContent = input.HtmlContent;
+			model.HasRegistration = input.HasRegistration;
 		}
 	}
 }

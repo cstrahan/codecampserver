@@ -6,11 +6,11 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public class UserController : SaveController<User, UserForm>
+	public class UserController : SaveController<User, UserInput>
 	{
 		private readonly IUserMapper _mapper;
 		private readonly IUserRepository _repository;
@@ -38,39 +38,39 @@ namespace CodeCampServer.UI.Controllers
 			{
 				return NotAuthorizedView;
 			}
-			UserForm form = _mapper.Map(user);
-			return View(form);
+			UserInput input = _mapper.Map(user);
+			return View(input);
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
 		[ValidateInput(false)]
-		[ValidateModel(typeof (UserForm))]
-		public ActionResult Edit(UserForm form)
+		[ValidateModel(typeof (UserInput))]
+		public ActionResult Edit(UserInput input)
 		{
-			return ProcessSave(form, user => RedirectToAction<HomeController>(c => c.Index(null)));
+			return ProcessSave(input, user => RedirectToAction<HomeController>(c => c.Index(null)));
 		}
 
-		protected override IDictionary<string, string[]> GetFormValidationErrors(UserForm form)
+		protected override IDictionary<string, string[]> GetFormValidationErrors(UserInput input)
 		{
 			var result = new ValidationResult();
-			if (UsernameIsDuplicate(form))
+			if (UsernameIsDuplicate(input))
 			{
-				result.AddError<UserForm>(u => u.Username, "This username already exists");
+				result.AddError<UserInput>(u => u.Username, "This username already exists");
 			}
 
 			return result.GetAllErrors();
 		}
 
-		private bool UsernameIsDuplicate(UserForm form)
+		private bool UsernameIsDuplicate(UserInput input)
 		{
-			if (form.Id != Guid.Empty) return false;
+			if (input.Id != Guid.Empty) return false;
 
-			return _repository.GetByKey(form.Username) != null;
+			return _repository.GetByKey(input.Username) != null;
 		}
 
 		public ViewResult New()
 		{
-			return View("Edit", new UserForm());
+			return View("Edit", new UserInput());
 		}
 
 		public ViewResult Index()

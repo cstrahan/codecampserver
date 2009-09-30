@@ -1,12 +1,12 @@
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public interface IUserMapper : IMapper<User, UserForm>
+	public interface IUserMapper : IMapper<User, UserInput>
 	{
-        UserForm[] Map(User[] model);
-        User[] Map(UserForm[] message);
+        UserInput[] Map(User[] model);
+        User[] Map(UserInput[] message);
 	}
 }

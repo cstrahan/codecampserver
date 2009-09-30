@@ -3,11 +3,11 @@ using System.Linq;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class UserMapper : AutoFormMapper<User, UserForm>, IUserMapper
+	public class UserMapper : AutoInputMapper<User, UserInput>, IUserMapper
 	{
 		private readonly ICryptographer _cryptographer;
 
@@ -16,28 +16,28 @@ namespace CodeCampServer.UI.Helpers.Mappers
 			_cryptographer = cryptographer;
 		}
 
-		protected override Guid GetIdFromMessage(UserForm form)
+		protected override Guid GetIdFromMessage(UserInput input)
 		{
-			return form.Id;
+			return input.Id;
 		}
 
-		protected override void MapToModel(UserForm form, User model)
+		protected override void MapToModel(UserInput input, User model)
 		{
-			model.Id = form.Id;
-			model.Name = form.Name;
-			model.EmailAddress = form.EmailAddress;
+			model.Id = input.Id;
+			model.Name = input.Name;
+			model.EmailAddress = input.EmailAddress;
 			model.PasswordSalt = _cryptographer.CreateSalt();
-			model.PasswordHash = _cryptographer.GetPasswordHash(form.Password,
+			model.PasswordHash = _cryptographer.GetPasswordHash(input.Password,
 			                                                    model.PasswordSalt);
-			model.Username = form.Username;
+			model.Username = input.Username;
 		}
 
-	    public UserForm[] Map(User[] model)
+	    public UserInput[] Map(User[] model)
 	    {
 	        return model.Select(user => Map(user)).ToArray();
 	    }
 
-	    public User[] Map(UserForm[] message)
+	    public User[] Map(UserInput[] message)
 	    {
 	        return message.Select(form => Map(form)).ToArray();
 	    }

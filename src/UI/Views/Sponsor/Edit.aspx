@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
-Inherits="ViewPage<SponsorForm>"%>
+Inherits="ViewPage<SponsorInput>"%>
 <%@ Import Namespace="CodeCampServer.Core.Common"%>
 <%@ Import Namespace="MvcContrib.UI.InputBuilder"%>
 <%@ Import Namespace="Microsoft.Web.Mvc" %>

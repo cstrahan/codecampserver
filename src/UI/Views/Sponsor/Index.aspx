@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" 
-AutoEventWireup="true" Inherits="ViewPage<SponsorForm[]>"%>
+AutoEventWireup="true" Inherits="ViewPage<SponsorInput[]>"%>
 <%@ Import Namespace="MvcContrib.UI.Grid"%>
 <%@ Import Namespace="CodeCampServer.Core.Domain.Model"%>
 <%@ Import Namespace="CodeCampServer.UI"%>

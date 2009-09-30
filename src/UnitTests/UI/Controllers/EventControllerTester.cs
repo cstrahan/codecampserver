@@ -3,7 +3,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 using NUnit.Framework;
 using Rhino.Mocks;
 using NBehave.Spec.NUnit;
@@ -18,7 +18,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var mapper = S<IConferenceMapper>();
 			var conference = new Conference();
-			var form = new ConferenceForm();
+			var form = new ConferenceInput();
 			mapper.Stub(s => s.Map(conference)).Return(form);
 
 			var controller = new EventController(null, mapper, null);
@@ -32,7 +32,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var mapper = S<IMeetingMapper>();
 			var meeting = new Meeting();
-			var form = new MeetingForm();
+			var form = new MeetingInput();
 			mapper.Stub(s => s.Map(meeting)).Return(form);
 
 			var controller = new EventController(null, null, mapper);

@@ -5,7 +5,7 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 using MvcContrib.TestHelper;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -47,7 +47,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void Should_save_the_UserGroup()
 		{
-			var form = new UserGroupForm();
+			var form = new UserGroupInput();
 			var UserGroup = new UserGroup();
 
 			var mapper = S<IUserGroupMapper>();
@@ -65,7 +65,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void Should_not_save_UserGroup_if_key_already_exists()
 		{
-			var form = new UserGroupForm {Key = "foo", Id = Guid.NewGuid()};
+			var form = new UserGroupInput {Key = "foo", Id = Guid.NewGuid()};
 			var UserGroup = new UserGroup();
 
 			var mapper = S<IUserGroupMapper>();

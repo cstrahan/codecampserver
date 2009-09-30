@@ -7,7 +7,7 @@ using CodeCampServer.DependencyResolution;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
 using CodeCampServer.IntegrationTests.Infrastructure.DataAccess;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 using NUnit.Framework;
 
 namespace CodeCampServer.IntegrationTests.UI.DataLoader
@@ -27,7 +27,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 		private void LoadData()
 		{
 			var mapper = new UserMapper(new UserRepository(GetSessionBuilder()), new Cryptographer());
-			User user = mapper.Map(new UserForm
+			User user = mapper.Map(new UserInput
 			                       	{
 			                       		Name = "Joe User",
 			                       		Username = "admin",
@@ -159,7 +159,7 @@ View Larger Map</a></small></p>"
 		private User[] CreateUsers()
 		{
 			var mapper = new UserMapper(new UserRepository(GetSessionBuilder()), new Cryptographer());
-			User user = mapper.Map(new UserForm
+			User user = mapper.Map(new UserInput
 			                       	{
 			                       		Name = "Joe User",
 			                       		Username = "admin",
@@ -168,21 +168,21 @@ View Larger Map</a></small></p>"
 			                       	});
 			return new[]
 			       	{
-			       		mapper.Map(new UserForm
+			       		mapper.Map(new UserInput
 			       		           	{
 			       		           		Name = "Jeffrey Palermo",
 			       		           		EmailAddress = "jeffis@theman.com",
 			       		           		Username = "jpalermo",
 			       		           		Password = "beer"
 			       		           	}),
-			       		mapper.Map(new UserForm
+			       		mapper.Map(new UserInput
 			       		           	{
 			       		           		Name = "Homer Simpson",
 			       		           		EmailAddress = "homer@simpsons.com",
 			       		           		Username = "hsimpson",
 			       		           		Password = "beer"
 			       		           	}),
-			       		mapper.Map(new UserForm
+			       		mapper.Map(new UserInput
 			       		           	{
 			       		           		Name = "Bart Simpson",
 			       		           		EmailAddress = "bart@simpsons.com",

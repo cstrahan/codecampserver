@@ -1,6 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl<ConferenceForm>" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl<ConferenceInput>" %>
 <%@ Import Namespace="CodeCampServer.Core.Common"%>
-<%@ Import Namespace="CodeCampServer.UI.Models.Forms"%>
 <%@ Import Namespace="CodeCampServer.UI.Controllers"%>
 
 		<%if (ViewContext.HttpContext.User.Identity.IsAuthenticated){%>

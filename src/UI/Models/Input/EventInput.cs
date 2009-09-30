@@ -1,9 +1,9 @@
 using System;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 
-namespace CodeCampServer.UI.Models.Forms
+namespace CodeCampServer.UI.Models.Input
 {
-	public abstract class EventForm
+	public abstract class EventInput
 	{
 		[RequiredDateTime("Start Date")]
 		public abstract DateTime StartDate { get; set; }

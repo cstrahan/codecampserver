@@ -119,7 +119,6 @@
     <Compile Include="Core\Services\Updaters\ConferenceMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\MeetingMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\UserGroupMapperTester.cs" />
-    <Compile Include="Core\Services\Updaters\FormMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\UserMapperTester.cs" />
     <Compile Include="Core\TimeExtensionsTester.cs" />
     <Compile Include="MvcMockHelpers.cs" />
@@ -141,7 +140,7 @@
     <Compile Include="UI\Helpers\UserGroupModelBinderTester.cs" />
     <Compile Include="UI\KeyedModelBinderTester.cs" />
     <Compile Include="UI\ModelBinderTester.cs" />
-    <Compile Include="UI\Models\Forms\EventFormTester.cs" />
+    <Compile Include="UI\Models\Forms\EventInputTester.cs" />
     <Compile Include="UI\Routes\ConferenceKeyControllerNameConstraintTester.cs" />
     <Compile Include="UI\Routes\DomainNameRouteHandlerTester.cs" />
     <Compile Include="UI\Routes\IncomingRouteTester.cs" />

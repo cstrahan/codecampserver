@@ -4,11 +4,11 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public class MeetingController : SaveController<Meeting, MeetingForm>
+	public class MeetingController : SaveController<Meeting, MeetingInput>
 	{
 		private readonly IMeetingRepository _meetingRepository;
 		private readonly IMeetingMapper _meetingMapper;
@@ -31,19 +31,19 @@ namespace CodeCampServer.UI.Controllers
 				return View(_meetingMapper.Map(new Meeting { UserGroup = usergroup }));
 			}
 
-			MeetingForm model = _meetingMapper.Map(meeting);
+			MeetingInput model = _meetingMapper.Map(meeting);
 			return View(model);
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
 		[RequireAuthenticationFilter]
 		[ValidateInput(false)]
-		[ValidateModel(typeof (MeetingForm))]
-		public ActionResult Edit(MeetingForm form)
+		[ValidateModel(typeof (MeetingInput))]
+		public ActionResult Edit(MeetingInput input)
 		{
-			if (_securityContext.HasPermissionsForUserGroup(form.UserGroupId))
+			if (_securityContext.HasPermissionsForUserGroup(input.UserGroupId))
 			{
-				return ProcessSave(form, meeting => RedirectToAction<HomeController>(c => c.Index(meeting.UserGroup)));
+				return ProcessSave(input, meeting => RedirectToAction<HomeController>(c => c.Index(meeting.UserGroup)));
 			}
 
 			return View(ViewPages.NotAuthorized);

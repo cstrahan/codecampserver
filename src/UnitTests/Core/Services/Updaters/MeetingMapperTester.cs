@@ -2,7 +2,7 @@ using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Mappers;
-using CodeCampServer.UI.Models.Forms;
+using CodeCampServer.UI.Models.Input;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -15,7 +15,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_map_new_meeting()
 		{
-			var form = S<MeetingForm>();
+			var form = S<MeetingInput>();
 			form.Id = Guid.Empty;
 			form.Key = "key";
 			form.Description = "desc";
@@ -60,7 +60,7 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 		[Test]
 		public void Should_map_bad_date_to_null()
 		{
-						var form = S<MeetingForm>();
+						var form = S<MeetingInput>();
 			form.Id = Guid.Empty;
 			form.Key = "key";
 			form.Description = "desc";

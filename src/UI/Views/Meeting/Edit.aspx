@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true"
-  ValidateRequest="false" Inherits="ViewPage<MeetingForm>" %>
+  ValidateRequest="false" Inherits="ViewPage<MeetingInput>" %>
 
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
