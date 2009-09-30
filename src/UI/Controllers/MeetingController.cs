@@ -24,8 +24,13 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult Edit(Meeting meeting)
+		public ActionResult Edit(Meeting meeting,UserGroup usergroup)
 		{
+			if(meeting==null)
+			{
+				return View(_meetingMapper.Map(new Meeting { UserGroup = usergroup }));
+			}
+
 			MeetingForm model = _meetingMapper.Map(meeting);
 			return View(model);
 		}
@@ -61,7 +66,7 @@ namespace CodeCampServer.UI.Controllers
 
 		public ActionResult New(UserGroup usergroup)
 		{
-			return View("Edit", _meetingMapper.Map(new Meeting {UserGroup = usergroup}));
+			return RedirectToAction<MeetingController>(c => c.Edit(null, null));
 		}
 	}
 }
