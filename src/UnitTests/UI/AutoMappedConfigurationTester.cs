@@ -1,6 +1,4 @@
-using System;
 using AutoMapper;
-using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.UI.Views;
 using NUnit.Framework;

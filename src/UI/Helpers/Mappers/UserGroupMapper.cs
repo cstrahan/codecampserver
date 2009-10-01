@@ -8,7 +8,8 @@ using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class UserGroupMapper : AutoInputMapper<UserGroup, UserGroupInput>, IUserGroupMapper, ITypeConverter<string, UserGroup>, ITypeConverter<Guid, UserGroup>
+	public class UserGroupMapper : AutoInputMapper<UserGroup, UserGroupInput>, IUserGroupMapper,
+	                               ITypeConverter<string, UserGroup>, ITypeConverter<Guid, UserGroup>
 	{
 		private readonly IUserGroupRepository _repository;
 		private readonly IUserRepository _userRepository;

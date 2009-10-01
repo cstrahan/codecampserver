@@ -57,6 +57,8 @@
     <Compile Include="Domain\IMeetingRepository.cs" />
     <Compile Include="Domain\IUserGroupRepository.cs" />
     <Compile Include="Domain\Model\Event.cs" />
+    <Compile Include="Domain\Model\IGloballyUnique.cs" />
+    <Compile Include="Domain\Model\IKeyable.cs" />
     <Compile Include="Domain\Model\Meeting.cs" />
     <Compile Include="Domain\Mapper.cs" />
     <Compile Include="Domain\IMapper.cs" />

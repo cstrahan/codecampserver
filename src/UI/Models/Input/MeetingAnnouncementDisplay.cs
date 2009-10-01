@@ -1,7 +1,12 @@
+using System;
+using CodeCampServer.Core.Domain.Model;
+
 namespace CodeCampServer.UI.Models.Input
 {
-	public class MeetingAnnouncementDisplay
+	public class MeetingAnnouncementDisplay : IKeyable, IGloballyUnique
 	{
+		public Guid Id { get; set; }
+		public string Key { get; set; }
 		public string Heading { get; set; }
 		public string Topic { get; set; }
 		public string Summary { get; set; }

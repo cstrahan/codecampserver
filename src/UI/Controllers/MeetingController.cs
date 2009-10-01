@@ -4,26 +4,21 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Filters;
-using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public class MeetingController : SaveController<Meeting, MeetingInput>
+	public class MeetingController : SmartController
 	{
-		private readonly IMeetingRepository _meetingRepository;
-		private readonly IMappingEngine _mappingEngine;
+		private readonly IMeetingRepository _repository;
+		private readonly IMappingEngine _mapper;
 		private readonly ISecurityContext _securityContext;
-		private IMeetingMapper _meetingMapper;
 
-		public MeetingController(IMeetingRepository repository, IMeetingMapper mapper,
-		                         IMeetingRepository meetingRepository, IMappingEngine mappingEngine,
-		                         ISecurityContext securityContext, IMeetingMapper meetingMapper) : base(repository, mapper)
+		public MeetingController(IMeetingRepository repository, IMappingEngine mappingEngine, ISecurityContext securityContext)
 		{
-			_meetingRepository = meetingRepository;
-			_mappingEngine = mappingEngine;
+			_repository = repository;
+			_mapper = mappingEngine;
 			_securityContext = securityContext;
-			_meetingMapper = meetingMapper;
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
@@ -32,11 +27,11 @@ namespace CodeCampServer.UI.Controllers
 			var input = new MeetingInput();
 			if (meeting == null)
 			{
-				_mappingEngine.Map(new Meeting {UserGroup = usergroup}, input);
+				_mapper.Map(new Meeting {UserGroup = usergroup}, input);
 				return View(input);
 			}
 
-			_mappingEngine.Map(meeting, input);
+			_mapper.Map(meeting, input);
 			return View(input);
 		}
 
@@ -46,12 +41,19 @@ namespace CodeCampServer.UI.Controllers
 		[ValidateModel(typeof (MeetingInput))]
 		public ActionResult Edit(MeetingInput input)
 		{
-			if (_securityContext.HasPermissionsForUserGroup(input.UserGroupId))
+			if (!_securityContext.HasPermissionsForUserGroup(input.UserGroupId))
 			{
-				return ProcessSave(input, meeting => RedirectToAction<HomeController>(c => c.Index(meeting.UserGroup)));
+				return View(ViewPages.NotAuthorized);
 			}
 
-			return View(ViewPages.NotAuthorized);
+			if (!ModelState.IsValid)
+			{
+				return View(input);
+			}
+
+			Meeting meeting = _mapper.Map<MeetingInput, Meeting>(input);
+			_repository.Save(meeting);
+			return RedirectToAction<HomeController>(c => c.Index(meeting.UserGroup));
 		}
 
 		[RequireAuthenticationFilter]
@@ -62,7 +64,7 @@ namespace CodeCampServer.UI.Controllers
 				return NotAuthorizedView;
 			}
 
-			_meetingRepository.Delete(meeting);
+			_repository.Delete(meeting);
 
 			TempData.Add("message", meeting.Name + " was deleted.");
 

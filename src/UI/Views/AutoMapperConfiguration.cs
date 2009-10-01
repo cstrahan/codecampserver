@@ -10,7 +10,7 @@ namespace CodeCampServer.UI.Views
 		{
 			Mapper.Initialize(x =>
 			                  	{
-														x.ConstructTypeConvertersUsing(type => DependencyRegistrar.Resolve(type));
+			                  		x.ConstructTypeConvertersUsing(type => DependencyRegistrar.Resolve(type));
 			                  		x.AddProfile<AutoMapperProfile>();
 			                  		x.AddProfile<MeetingMapperProfile>();
 			                  		x.AddProfile<UserGroupMapperProfile>();

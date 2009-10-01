@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl<MeetingInput>" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl<IKeyable>" %>
 <%@ Import Namespace="CodeCampServer.UI.Helpers" %>
 <%if (ViewContext.HttpContext.User.Identity.IsAuthenticated){%>
     <%= Html.ImageLink<MeetingController>(
