@@ -1,4 +1,4 @@
 cd ..
-lib\nant\nant.exe -buildfile:nant.build  continousIntegration & pause
+lib\nant\nant.exe -buildfile:nant.build  continousIntegration 
 
 
