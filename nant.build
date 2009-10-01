@@ -7,7 +7,9 @@
   	<!-- ******************** -->
   	<target name="build" depends="init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test"/>
   	<target name="cruise" depends="build, package"/>
+  	<target name="integrationBuild" depends="init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, coverage, inspection,package"/>
   	<target name="publish" depends="init, revert, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test, package,commitPackage"/>
+  	<target name="inspection" depends="sourcemonitor"/>
 
   	<!-- ************** -->
 	<!-- Initialization -->
@@ -285,6 +287,7 @@
 	</target>
 
 	<target name="sourcemonitor">
+	<property name="MaxCcValue" value="11"/>
 	 <!-- Create input command file -->
 	 <property name="sourcemonitor.input" value="${dir.test}\sm_cmd.xml" /> 
 	 <echo file="${sourcemonitor.input}" append="false" failonerror="false">
@@ -331,26 +334,24 @@
 	</target>
 
 	<target name="coverage">
-		<ncover
-      assemblyList="${project::get-name()}.Core;${project::get-name()}.DependencyResolution;${project::get-name()}.Infrastructure;${project::get-name()}.UI"
-      coverageFile="${dir.results}\coverage.xml"
-      program="lib\ncover\NCover.Console.exe"
-      commandLineExe="lib\nant\nant.exe"
-      commandLineArgs="-buildfile:nant.build test"
-      >
-		</ncover>
+		<delete dir="${dir.results}" if="${directory::exists('${dir.results}')}" />
+		<mkdir dir="${dir.results}"/>
 
-		<ncoverexplorer program="lib\ncover\ncoverexplorer.console.exe"
-                        projectName="${project::get-name()}"
-                        outputDir="${dir.results}"
-                        satisfactoryCoverage="99"
-                        reportType="ModuleClassSummary"
-                        xmlReportName="CoverageSummary.xml"
-                        htmlReportName="CoverageSummary.html">
-			<fileset>
-				<include name="${dir.results}\coverage.xml" />
-			</fileset>
-		</ncoverexplorer>
+    		<exec 
+			program=".\lib\ncover\NCover.Console.exe"
+			commandline=" .\lib\nunit\nunit-console.exe ${assembly.unittests} /noshadow /nologo /nodots  /xml=..\..\${dir.results}/${assembly.unittests}.tests.xml  //x ${dir.results}/${assembly.unittests}.Coverage.xml  //ias ${project::get-name()}.Core;${project::get-name()}.UI;${project::get-name()}.Infrastructure;${project::get-name()}.DependencyInjection //w ${dir.test}"
+		/>
+
+    		<exec 
+			program=".\lib\ncover\NCover.Console.exe"
+			commandline=" .\lib\nunit\nunit-console.exe ${assembly.integrationtests} /exclude:DataLoader /noshadow /nologo /nodots  /xml=..\..\${dir.results}/${assembly.integrationtests}.tests.xml  //x ${dir.results}/${assembly.integrationtests}.Coverage.xml  //ias ${project::get-name()}.Core;${project::get-name()}.UI;${project::get-name()}.Infrastructure;${project::get-name()}.DependencyInjection //w ${dir.test}"
+		/>
+
+    		<exec 
+			program="lib\ncover\NCoverExplorer.Console.exe"
+			commandline="${dir.results}\*.coverage.xml /x:${dir.results}\coverage.xml /h:${dir.results}\CodeCoverage.html /r:ModuleClassSummary /p:${project::get-name()}"
+		/>
+
 	</target>
 
 	<!-- ******************************* -->
