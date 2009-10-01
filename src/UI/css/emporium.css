@@ -495,3 +495,16 @@ fieldset input[type="text"] date, .date
     border: solid 1px red;
     font-size: 14px;
 }
+
+.display-label
+{
+    font-weight:bold;
+    font-size: larger;
+}
+
+.topic-value
+{
+    font-weight:bold;
+    font-size: larger;
+    font-style:italic;
+}

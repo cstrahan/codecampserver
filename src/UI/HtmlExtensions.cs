@@ -8,11 +8,12 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Domain.Model.Enumerations;
+using CodeCampServer.UI.Views;
 using MvcContrib;
 using MvcContrib.UI.Grid;
 using MvcContrib.UI.Grid.Syntax;
-using CodeCampServer.UI;
-using MvcContrib.UI.InputBuilder;
+using MvcContrib.UI.InputBuilder.InputSpecification;
+using MvcContrib.UI.InputBuilder.Views;
 
 namespace CodeCampServer.UI
 {
@@ -172,7 +173,8 @@ namespace CodeCampServer.UI
 			string controllerName = typeof (TController).GetControllerName();
 			string actionName = actionExpression.GetActionName();
 
-			return helper.ActionLink(linkText, actionName, controllerName, null, new {@class="action-link " + linkText.ToLower()});
+			return helper.ActionLink(linkText, actionName, controllerName, null,
+			                         new {@class = "action-link " + linkText.ToLower()});
 		}
 
 		public static IGridColumn<T> PartialCell<T>(this IGridColumn<T> column, string partialName) where T : class
@@ -248,12 +250,24 @@ namespace CodeCampServer.UI
 		}
 
 
-	  //  public static string InputForm<TModel>(this HtmlHelper<TModel> helper) where TModel : class
-	  //  {
-	  //      helper.ViewContext.HttpContext.Response.Write(helper.ValidationSummary());
-	  //string action = helper.ViewContext.RouteData.GetRequiredString("action");
-	  //      string controller = helper.ViewContext.RouteData.GetRequiredString("controller");
-	  //      return helper.InputForm().ToString();
-	  //  }
+		public static IInputSpecification<PropertyViewModel> Display<TModel>(this HtmlHelper<TModel> helper,
+		                                                                     Expression<Func<TModel, object>> expression)
+			where TModel : class
+		{
+			IInputSpecification<PropertyViewModel> specification = helper.Input(expression);
+			specification.Model.Layout = "Display";
+			specification.Model.PartialName = DisplayPartial.Paragraph;
+			return specification;
+		}
+
+		public static IInputSpecification<PropertyViewModel> Label<TModel>(this HtmlHelper<TModel> helper,
+		                                   Expression<Func<TModel, object>> expression)
+			where TModel : class
+		{
+			IInputSpecification<PropertyViewModel> specification = helper.Input(expression);
+			specification.Model.Layout = "Display";
+			specification.Model.PartialName = DisplayPartial.Label;
+			return specification;
+		}
 	}
 }

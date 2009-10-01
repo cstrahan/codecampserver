@@ -197,6 +197,7 @@
       <DependentUpon>PartialViewGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="RouteConfigurator.cs" />
+    <Compile Include="Views\DisplayPartial.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\hibernate.cfg.xml">
@@ -293,6 +294,9 @@
     <Content Include="Views\Home\Events.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Login\Index.aspx" />
+    <Content Include="Views\Shared\DisplayLabel.aspx" />
+    <Content Include="Views\Shared\DisplayParagraph.aspx" />
+    <Content Include="Views\Shared\DisplayInline.aspx" />
     <Content Include="Views\Shared\Submit.aspx" />
     <Content Include="Views\Meeting\Edit.aspx" />
     <Content Include="Views\Shared\AddMeetingLink.ascx" />
@@ -344,6 +348,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ViewModelMapperUnitTest.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Shared\Display.Master" />
     <None Include="Views\Shared\Field.Master" />
     <Content Include="Views\Shared\Password.aspx" />
     <Content Include="Views\Shared\UserPicker.aspx" />
