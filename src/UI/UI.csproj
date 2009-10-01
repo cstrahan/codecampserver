@@ -93,6 +93,8 @@
     <Compile Include="Helpers\ImageLinkHelper.cs" />
     <Compile Include="Helpers\Mappers\IMeetingMapper.cs" />
     <Compile Include="Helpers\Mappers\MeetingMapper.cs" />
+    <Compile Include="Helpers\Mappers\MeetingMapperProfile.cs" />
+    <Compile Include="Helpers\Mappers\UserGroupMapperProfile.cs" />
     <Compile Include="Helpers\Mappers\UserGroupSponsorMapper.cs" />
     <Compile Include="Helpers\Mappers\IUserGroupSponsorMapper.cs" />
     <Compile Include="Helpers\Mappers\IUserGroupMapper.cs" />
@@ -100,8 +102,10 @@
     <Compile Include="Helpers\Validation\Attributes\ValidateKeyAttribute.cs" />
     <Compile Include="InputBuilderConventions.cs" />
     <Compile Include="Models\Input\AdminInput.cs" />
+    <Compile Include="Models\Input\DateTimeSpan.cs" />
     <Compile Include="Models\Input\EventInput.cs" />
     <Compile Include="Models\Input\EventList.cs" />
+    <Compile Include="Models\Input\MeetingAnnouncementDisplay.cs" />
     <Compile Include="Models\Input\MeetingInput.cs" />
     <Compile Include="Models\Input\SponsorInput.cs" />
     <Compile Include="Models\Input\UserGroupInput.cs" />

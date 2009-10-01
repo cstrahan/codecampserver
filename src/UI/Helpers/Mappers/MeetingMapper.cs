@@ -1,45 +1,31 @@
-using System;
-using CodeCampServer.Core.Domain;
+using AutoMapper;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Helpers.Mappers
 {
-	public class MeetingMapper : AutoInputMapper<Meeting, MeetingInput>, IMeetingMapper
+	public class MeetingMapper : IMeetingMapper
 	{
-		private readonly IUserGroupRepository _groupRepository;
+		private readonly IMappingEngine _mappingEngine;
 
-		public MeetingMapper(IMeetingRepository repository, IUserGroupRepository groupRepository)
-			: base(repository)
+		public MeetingMapper(IMappingEngine mappingEngine)
 		{
-			_groupRepository = groupRepository;
+			_mappingEngine = mappingEngine;
 		}
 
-		protected override Guid GetIdFromMessage(MeetingInput message)
+		public MeetingInput Map(Meeting model)
 		{
-			return message.Id;
+			return _mappingEngine.Map<Meeting, MeetingInput>(model);
 		}
 
-		protected override void MapToModel(MeetingInput input, Meeting model)
+		public TMessage2 Map<TMessage2>(Meeting model)
 		{
-			model.Key = input.Key;
-			model.Name = input.Name;
-			model.Description = input.Description;
-			model.StartDate = input.StartDate;
-			model.EndDate = input.EndDate;
-			model.LocationName = input.LocationName;
-			model.LocationUrl = input.LocationUrl;
-//			model.Address = input.Address;
-//			model.City = input.City;
-//			model.Region = input.Region;
-//			model.PostalCode = input.PostalCode;
-			model.UserGroup = _groupRepository.GetById(input.UserGroupId);
-			model.TimeZone = input.TimeZone;
-			model.Topic = input.Topic;
-			model.Summary = input.Summary;
-			model.SpeakerName = input.SpeakerName;
-			model.SpeakerBio = input.SpeakerBio;
-			model.SpeakerUrl = input.SpeakerUrl;
+			return _mappingEngine.Map<Meeting, TMessage2>(model);
+		}
+
+		public Meeting Map(MeetingInput message)
+		{
+			return _mappingEngine.Map<MeetingInput, Meeting>(message);
 		}
 	}
 }

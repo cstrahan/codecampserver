@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using AutoMapper;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
@@ -11,28 +12,32 @@ namespace CodeCampServer.UI.Controllers
 	public class MeetingController : SaveController<Meeting, MeetingInput>
 	{
 		private readonly IMeetingRepository _meetingRepository;
-		private readonly IMeetingMapper _meetingMapper;
+		private readonly IMappingEngine _mappingEngine;
 		private readonly ISecurityContext _securityContext;
+		private IMeetingMapper _meetingMapper;
 
-		public MeetingController(IMeetingRepository meetingRepository, IMeetingMapper meetingMapper,
-		                         ISecurityContext securityContext)
-			: base(meetingRepository, meetingMapper)
+		public MeetingController(IMeetingRepository repository, IMeetingMapper mapper,
+		                         IMeetingRepository meetingRepository, IMappingEngine mappingEngine,
+		                         ISecurityContext securityContext, IMeetingMapper meetingMapper) : base(repository, mapper)
 		{
 			_meetingRepository = meetingRepository;
-			_meetingMapper = meetingMapper;
+			_mappingEngine = mappingEngine;
 			_securityContext = securityContext;
+			_meetingMapper = meetingMapper;
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult Edit(Meeting meeting,UserGroup usergroup)
+		public ActionResult Edit(Meeting meeting, UserGroup usergroup)
 		{
-			if(meeting==null)
+			var input = new MeetingInput();
+			if (meeting == null)
 			{
-				return View(_meetingMapper.Map(new Meeting { UserGroup = usergroup }));
+				_mappingEngine.Map(new Meeting {UserGroup = usergroup}, input);
+				return View(input);
 			}
 
-			MeetingInput model = _meetingMapper.Map(meeting);
-			return View(model);
+			_mappingEngine.Map(meeting, input);
+			return View(input);
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]

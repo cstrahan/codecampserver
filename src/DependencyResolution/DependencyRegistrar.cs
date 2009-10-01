@@ -16,11 +16,8 @@ namespace CodeCampServer.DependencyResolution
 			                         	{
 			                         		x.Scan(y =>
 			                         		       	{
-			                         		       		//y.AssemblyContainingType<CoreDependencyRegistry>();
-			                         		       		//y.AssemblyContainingType<InfrastructureDependencyRegistry>();
-			                         		       		//y.AssemblyContainingType<NaakRegistry>();
 			                         		       		y.AssemblyContainingType<DependencyRegistry>();
-																						y.LookForRegistries();
+			                         		       		y.LookForRegistries();
 			                         		       	});
 			                         		x.AddRegistry<CastleValidatorRegistry>();
 			                         	});

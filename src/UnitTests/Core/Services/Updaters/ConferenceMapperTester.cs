@@ -1,7 +1,6 @@
 using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
 using NBehave.Spec.NUnit;
@@ -25,8 +24,8 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			form.PhoneNumber = "phone";
 			form.PostalCode = "postal";
 			form.Region = "region";
-			form.StartDate = new DateTime(2008, 1, 1);//.ToShortDateString();
-			form.EndDate = new DateTime(2008, 1, 2);//.ToShortDateString();
+			form.StartDate = new DateTime(2008, 1, 1); //.ToShortDateString();
+			form.EndDate = new DateTime(2008, 1, 2); //.ToShortDateString();
 			form.TimeZone = "CST";
 			form.HtmlContent = "<h1>this is some html fragments</h1>";
 			form.LocationUrl = "http://foo";
@@ -63,8 +62,8 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			form.PhoneNumber = "phone";
 			form.PostalCode = "postal";
 			form.Region = "region";
-			form.StartDate = new DateTime(2008, 1, 1);//.ToShortDateString();
-			form.EndDate = new DateTime(2008, 1, 2);//.ToShortDateString();
+			form.StartDate = new DateTime(2008, 1, 1); //.ToShortDateString();
+			form.EndDate = new DateTime(2008, 1, 2); //.ToShortDateString();
 			form.HasRegistration = true;
 
 			var repository = S<IConferenceRepository>();
@@ -86,26 +85,26 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			conference.HasRegistration.ShouldBeTrue();
 		}
 
-        //[Test]
-        //public void Should_map_bad_date_to_null()
-        //{
-        //    var form = S<ConferenceInput>();
-        //    form.Id = Guid.NewGuid();
-        //    form.Key = "key";
-        //    form.StartDate = "alskd";
-        //    form.EndDate = "";
-        //    form.HasRegistration = true;
+		//[Test]
+		//public void Should_map_bad_date_to_null()
+		//{
+		//    var form = S<ConferenceInput>();
+		//    form.Id = Guid.NewGuid();
+		//    form.Key = "key";
+		//    form.StartDate = "alskd";
+		//    form.EndDate = "";
+		//    form.HasRegistration = true;
 
-        //    var repository = S<IConferenceRepository>();
-        //    var conference = new Conference();
-        //    repository.Stub(x => x.GetById(form.Id)).Return(conference);
-        //    var mapper = new ConferenceMapper(repository, S<IUserGroupRepository>());
+		//    var repository = S<IConferenceRepository>();
+		//    var conference = new Conference();
+		//    repository.Stub(x => x.GetById(form.Id)).Return(conference);
+		//    var mapper = new ConferenceMapper(repository, S<IUserGroupRepository>());
 
-        //    Conference mapped = mapper.Map(form);
-        //    conference.ShouldEqual(mapped);
-        //    conference.Key.ShouldEqual("key");
-        //    conference.StartDate.HasValue.ShouldBeFalse();
-        //    conference.EndDate.HasValue.ShouldBeFalse();
-        //}
+		//    Conference mapped = mapper.Map(form);
+		//    conference.ShouldEqual(mapped);
+		//    conference.Key.ShouldEqual("key");
+		//    conference.StartDate.HasValue.ShouldBeFalse();
+		//    conference.EndDate.HasValue.ShouldBeFalse();
+		//}
 	}
 }

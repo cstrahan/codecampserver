@@ -1,6 +1,7 @@
 using System;
 using AutoMapper;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.CustomResolvers;
 using CodeCampServer.UI.Models.Input;
 
@@ -45,12 +46,6 @@ namespace CodeCampServer.UI
 			Mapper.CreateMap<Conference, ConferenceInput>()
 				.ForMember(x => x.StartDate, o => o.AddFormatter<StandardDateTimeFormatter>())
 				.ForMember(x => x.EndDate, o => o.AddFormatter<StandardDateTimeFormatter>());
-
-			Mapper.CreateMap<Meeting, MeetingInput>()
-				.ForMember(x => x.StartDate, o => o.AddFormatter<StandardDateTimeFormatter>())
-				.ForMember(x => x.EndDate, o => o.AddFormatter<StandardDateTimeFormatter>());
-
-			Mapper.CreateMap<UserGroup, UserGroupInput>();
 
 			Mapper.CreateMap<Event, EventList>();
 		}
