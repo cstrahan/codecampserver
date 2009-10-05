@@ -23,9 +23,10 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ViewResult Index()
+		public ViewResult Index(string username)
 		{
-			return View(new LoginInput());
+			var model = new LoginInput{Username = username};
+			return View(model);
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]

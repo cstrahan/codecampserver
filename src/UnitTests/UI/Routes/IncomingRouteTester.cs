@@ -43,11 +43,11 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		public void Login_controller_routes_should_map_correctly()
 		{
             "~/login"
-                .ShouldMapTo<LoginController>(c => c.Index())
+                .ShouldMapTo<LoginController>(c => c.Index((string)null))
                 .ShouldUseDomainNameRouteHandler();
             
             "~/login/index"
-                .ShouldMapTo<LoginController>(c => c.Index(null))
+                .ShouldMapTo<LoginController>(c => c.Index((string)null))
                 .ShouldUseDomainNameRouteHandler();
 		}
 
