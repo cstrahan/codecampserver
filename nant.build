@@ -9,7 +9,7 @@
   	<target name="cruise" depends="build, package"/>
   	<target name="integrationBuild" depends="init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, coverage, inspection,package"/>
   	<target name="publish" depends="init, revert, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test, package,commitPackage"/>
-  	<target name="inspection" depends="sourcemonitor,fxcop"/>
+  	<target name="inspection" depends="sourcemonitor,fxcop,stylecop"/>
 
   	<!-- ************** -->
 	<!-- Initialization -->
@@ -336,7 +336,11 @@
 
 	<target name="fxcop">
 		<exec program="lib\FxCop\FxCopCmd.exe" commandline="/out:${dir.results}\FxCopy.xml  /file:${dir.test}\${project::get-name()}.*.dll /quiet /d:${dir.test} /c /summary" failonerror="false" />
+	</target>
 
+
+	<target name="stylecop">
+		<exec program="lib\StyleCop\Net.SF.StyleCopCmd.Console\StyleCopCmd.exe" commandline="-sf ${file.solution} -of ${dir.results}\stylecop.xml" failonerror="false" />			        
 	</target>
 
 

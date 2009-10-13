@@ -1,0 +1,21 @@
+usage: StyleCopCmd [-?] [-cs <symbols>] [-d <dirPaths>] [-f <filePaths>]
+       [-ifp <patterns>] [-of <filePath>] [-pf <filePaths>] [-r] [-sc <filePath>]
+       [-sf <filePaths>] [-tf <filePath>]
+ -?,--help                               Print this help screen
+ -cs,--configurationSymbols <symbols>    Configuration symbols to pass to
+                                         StyleCop (ex. DEBUG, RELEASE)
+ -d,--directories <dirPaths>             Directories to check for CSharp
+                                         files
+ -f,--files <filePaths>                  Files to check
+ -ifp,--ignoreFilePattern <patterns>     Regular expression patterns that
+                                         can be used to ignore files
+ -of,--outputXmlFile <filePath>          The file the XML output is
+                                         written to
+ -pf,--projectFiles <filePaths>          Visual Studio project files to
+                                         check
+ -r,--recurse                            Recursive directory search
+ -sc,--styleCopSettingsFile <filePath>   Use the given StyleCop settings
+                                         file
+ -sf,--solutionFiles <filePaths>         Visual Studio solutions files to
+                                         check
+ -tf,--xslFile <filePath>                The transform file
