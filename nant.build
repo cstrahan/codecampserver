@@ -84,7 +84,7 @@
 				<include name="*.cfg.xml"/>
 			</fileset>
 		</copy>
-<property name="local.connection.string" value="server=.\SQLExpress;database=${database.name};Integrated Security=true;"/>
+<property name="local.connection.string" value="server=${database.server};database=${database.name};Integrated Security=true;"/>
     <xmlpoke file="${dir.test}/hibernate.cfg.xml"	xpath="//*/hbm:property[@name='connection.connection_string']"	value="${local.connection.string}">
       <namespaces>
         <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>

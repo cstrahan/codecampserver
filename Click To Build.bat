@@ -1,3 +1,3 @@
-build.bat build & pause
+build.bat build -D:database.server=.\Sqlexpress & pause
 
 

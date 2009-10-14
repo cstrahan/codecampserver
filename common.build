@@ -214,7 +214,7 @@
             </xmlpoke>
           </if>
     
-    <xmlpoke file="src/hibernate.cfg.xml" xpath="//*/hbm:property[@name='connection.connection_string']" value="server=.\SQLExpress;database=${project::get-name()};Integrated Security=true;">
+    <xmlpoke file="src/hibernate.cfg.xml" xpath="//*/hbm:property[@name='connection.connection_string']" value="server=${database.server};database=${database.name};Integrated Security=true;">
       <namespaces>
         <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
       </namespaces>
