@@ -2,6 +2,9 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd">
 
 	<target name="init" description="Initializes build properties">
+		<echo message="Using database.server=${database.server}"/>
+		<echo message="To override, set environment variable '%NANT_DATABASE_SERVER_PROPERTY_ARG_SQL2008X64%'"/>
+		<echo message="Example: SET NANT_DATABASE_SERVER_PROPERTY_ARG_SQL2008X64=&quot;-D:database.server=localhost\something&quot;"/>
 		<delete dir="${dir.build}" failonerror="false" includeemptydirs="true" />
 		<mkdir dir="${dir.build}" />
 		<echo message="Current Directory: ${project::get-base-directory()}"/>
