@@ -10,7 +10,7 @@
 		</id>
 		<property name="Key" column="EventKey" length="100"/>
 		<property name="Name" length="100"/>
-		<property name="Description" length="300"/>
+		<property name="Description" length="500"/>
 		<property name="StartDate" />
 		<property name="EndDate" />
     <property name="LocationName" />
