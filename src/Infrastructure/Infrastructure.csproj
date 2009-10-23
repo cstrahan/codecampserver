@@ -149,6 +149,15 @@
     <Compile Include="UI\Binders\ModelBinder.cs" />
     <Compile Include="UI\Binders\SmartBinder.cs" />
     <Compile Include="UI\Binders\UserGroupModelBinder.cs" />
+    <Compile Include="UI\InputBuilders\DatePickerPropertyConvention.cs" />
+    <Compile Include="UI\InputBuilders\EnumerationPropertyConvention.cs" />
+    <Compile Include="UI\InputBuilders\GuidPropertyConvention.cs" />
+    <Compile Include="UI\InputBuilders\InputBuilderPropertyConvention.cs" />
+    <Compile Include="UI\InputBuilders\InputBuilderPropertyFactory.cs" />
+    <Compile Include="UI\InputBuilders\MultiLinePropertyConvention.cs" />
+    <Compile Include="UI\InputBuilders\NullableGuidPropertyConvention.cs" />
+    <Compile Include="UI\InputBuilders\PasswordPropertyConvention.cs" />
+    <Compile Include="UI\InputBuilders\UserPickerPropertyConvention.cs" />
     <Compile Include="UI\Mappers\AutoInputMapper.cs" />
     <Compile Include="UI\Mappers\ConferenceMapper.cs" />
     <Compile Include="UI\Mappers\IUserGroupInputToUserGroupTypeConverter.cs" />

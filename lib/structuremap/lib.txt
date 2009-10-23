@@ -1,0 +1,7 @@
+lib.txt
+StructureMap.AutoMocking.dll
+StructureMap.DataAccess.dll
+StructureMap.DeploymentTasks.dll
+StructureMap.dll
+StructureMap.xml
+StructureMapDoctor.exe
