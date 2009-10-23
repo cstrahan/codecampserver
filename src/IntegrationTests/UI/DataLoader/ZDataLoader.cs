@@ -5,8 +5,8 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services.Impl;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
+using CodeCampServer.Infrastructure.UI.Mappers;
 using CodeCampServer.IntegrationTests.Infrastructure.DataAccess;
-using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
 using NUnit.Framework;
 

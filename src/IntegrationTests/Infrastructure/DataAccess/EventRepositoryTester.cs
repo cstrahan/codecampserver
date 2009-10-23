@@ -29,7 +29,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				session.Flush();
 			}
 
-			IEventRepository repository = new EventRepository(new HybridSessionBuilder());
+			IEventRepository repository = new EventRepository(GetSessionBuilder());
 			Event[] events = repository.GetAllForUserGroup(usergroup);
 
 			events.Length.ShouldEqual(2);
@@ -75,7 +75,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				session.Flush();
 			}
 
-			IEventRepository repository = new EventRepository(new HybridSessionBuilder());
+			IEventRepository repository = new EventRepository(GetSessionBuilder());
 			Event[] events = repository.GetFutureForUserGroup(usergroup);
 
 			events.Length.ShouldEqual(2);
@@ -125,7 +125,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				session.Flush();
 			}
 
-			IEventRepository repository = new EventRepository(new HybridSessionBuilder());
+			IEventRepository repository = new EventRepository(GetSessionBuilder());
 			Event[] events = repository.GetAllFutureEvents();
 
 			events.Length.ShouldEqual(2);

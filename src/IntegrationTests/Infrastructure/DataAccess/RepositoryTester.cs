@@ -33,6 +33,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			var two = new T();
 			var three = new T();
 			PersistEntities(one, two, three);
+			
 
 			TRepository repository = CreateRepository();
 
@@ -67,8 +68,10 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			TRepository repository = CreateRepository();
 
 			repository.Delete(one);
-
+			GetSession().Transaction.Commit();
 			GetSession().Dispose();
+
+			repository = CreateRepository();
 
 			T[] all = repository.GetAll();
 			CollectionAssert.DoesNotContain(all, one);

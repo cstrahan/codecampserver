@@ -1,6 +1,6 @@
 using AutoMapper;
 using CodeCampServer.DependencyResolution;
-using CodeCampServer.UI.Views;
+using CodeCampServer.Infrastructure.ObjectMapping;
 using NUnit.Framework;
 
 namespace CodeCampServer.UnitTests.UI
@@ -12,7 +12,6 @@ namespace CodeCampServer.UnitTests.UI
 		public void Should_map_dtos()
 		{
 			DependencyRegistrar.EnsureDependenciesRegistered();
-
 			AutoMapperConfiguration.Configure();
 			Mapper.AssertConfigurationIsValid();
 		}

@@ -1,7 +1,7 @@
-namespace RssRepository.UnitTests.Services
+namespace CodeCampServer.Core.Services
 {
-    public interface IHttpFileDownloaderService
-    {
-        string GetStringFromUrl(string url);
-    }
+	public interface IHttpFileDownloaderService
+	{
+		string GetStringFromUrl(string url);
+	}
 }

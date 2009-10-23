@@ -6,7 +6,7 @@ AutoEventWireup="true" Inherits="ViewPage<SponsorInput[]>"%>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 	 <h2><%=ViewData.Get<PageInfo>().SubTitle%> / Sponsors 
 		<%if (User.Identity.IsAuthenticated){%>
-			<a class="" href="<%=Url.Action<SponsorController>(c=>c.New(null))%>" title="Add a new Sponsor"><img src="/images/icons/application_add.png" /></a>
+			<a class="" href="<%=Url.Action<SponsorController>(c=>c.Edit(null,(Sponsor)null))%>" title="Add a new Sponsor"><img src="/images/icons/application_add.png" /></a>
 		<%}%>
 	</h2>
 	<%=Html.ValidationSummary() %>	

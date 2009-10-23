@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Reflection;
+using CodeCampServer.UI.Services;
 
 namespace CodeCampServer.Infrastructure.UI.Services
 {

@@ -1,6 +1,5 @@
 using System.Web.Mvc;
 using CodeCampServer.DependencyResolution;
-using CodeCampServer.Infrastructure.UI.Services;
 using CodeCampServer.UI.Services;
 
 namespace CodeCampServer.UI.Helpers.Filters

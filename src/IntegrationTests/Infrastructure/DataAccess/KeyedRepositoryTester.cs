@@ -1,6 +1,7 @@
 using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Infrastructure.DataAccess;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -31,7 +32,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		[Test]
 		public void Should_be_able_to_instantiate()
 		{
-			Activator.CreateInstance(typeof (KeyedRepository<T>), MockRepository.GenerateStub<ISessionBuilder>());
+			Activator.CreateInstance(typeof (KeyedRepository<T>), MockRepository.GenerateStub<IUnitOfWork>());
 		}
 	}
 }

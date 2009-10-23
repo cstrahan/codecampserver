@@ -1,82 +1,102 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Castle.Components.Validator.Attributes;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
-using CodeCampServer.Core.Services.Impl;
-using MvcContrib;
-using CodeCampServer.UI;
-using CodeCampServer.Core.Services;
-
+using CommandProcessor;
+using Tarantino.RulesEngine;
 
 namespace CodeCampServer.UI.Controllers
 {
-    public class SponsorController : SaveController<UserGroup, SponsorInput>
-    {
-        private readonly IUserGroupRepository _repository;
-        private readonly IUserGroupSponsorMapper _mapper;
-        private readonly ISecurityContext _securityContext;
+	public class SponsorController : SmartController
+	{
+		private readonly IUserGroupRepository _repository;
+		private readonly IUserGroupSponsorMapper _mapper;
+		private readonly ISecurityContext _securityContext;
+		private readonly IRulesEngine _rulesEngine;
 
-        public SponsorController(IUserGroupRepository repository, IUserGroupSponsorMapper mapper, ISecurityContext securityContext)
-            : base(repository, mapper)
-        {
-            _repository = repository;
-            _mapper = mapper;
-            _securityContext = securityContext;
-        }
-
-
-        public ActionResult Index(UserGroup usergroup)
-        {
-            var entities = usergroup.GetSponsors();
-
-            var entityListDto = (SponsorInput[]) AutoMapper.Mapper.Map(entities, typeof(Sponsor[]), typeof(SponsorInput[]));
-            
-            return View(entityListDto);
-        }
-
-        public ActionResult New(UserGroup userGroup)
-        {
-            return View("edit",new SponsorInput());  
-        }
-
-        [ValidateModel(typeof(SponsorInput))]
-        public ActionResult Save(UserGroup userGroup, SponsorInput sponsorInput)
-        {
-            sponsorInput.ParentID = userGroup.Id;
-            return ProcessSave(sponsorInput, entity => RedirectToAction<SponsorController>(s => s.Index(null)));
-        }
-
-        public ActionResult Delete(UserGroup userGroup, Sponsor sponsor)
-        {
-            userGroup.Remove(sponsor);
-            _repository.Save(userGroup);
-            return RedirectToAction<SponsorController>(c => c.Index(null));
-        }
+		public SponsorController(IUserGroupRepository repository, IUserGroupSponsorMapper mapper, ISecurityContext securityContext, IRulesEngine rulesEngine)
+			
+		{
+			_repository = repository;
+			_mapper = mapper;
+			_securityContext = securityContext;
+			_rulesEngine = rulesEngine;
+		}
 
 
-        public ActionResult Edit(UserGroup userGroup, Guid sponsorID)
-        {
-            var sponsor = userGroup.GetSponsors().Where(sponsor1 => sponsor1.Id == sponsorID).FirstOrDefault();
+		public ActionResult Index(UserGroup usergroup)
+		{
+			var group = _repository.GetById(usergroup.Id);
 
-            return View(AutoMapper.Mapper.Map<Sponsor, SponsorInput>(sponsor));
-        }
+			Sponsor[] entities = group.GetSponsors();
 
-        public ActionResult List(UserGroup userGroup)
-        {
-            var entities = userGroup.GetSponsors();
+			SponsorInput[] displayModel = _mapper.Map(entities);
 
-            var entityListDto = (SponsorInput[]) AutoMapper.Mapper.Map(entities, typeof(Sponsor[]), typeof(SponsorInput[]));
+			return View(displayModel);
+		}
 
-            return View("HomePageWidget", entityListDto);
-        }
-    }
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		[RequireAuthenticationFilter]
+		[ValidateInput(false)]
+		[ValidateModel(typeof (SponsorInput))]
+		public ActionResult Edit(UserGroup userGroup, SponsorInput sponsorInput)
+		{
+			if (ModelState.IsValid)
+			{
+				ExecutionResult result = _rulesEngine.Process(sponsorInput);
+				if (result.Successful)
+				{
+					return RedirectToAction<SponsorController>(c => c.Index(null));
+				}
+
+				foreach (var errorMessage in result.Messages)
+				{
+					ModelState.AddModelError(errorMessage.IncorrectAttribute, errorMessage.MessageText);
+				}
+			}
+			return View(sponsorInput);
+		}
+
+		public ActionResult Delete(UserGroup userGroup, Sponsor sponsor)
+		{
+			userGroup.Remove(sponsor);
+			_repository.Save(userGroup);
+			return RedirectToAction<SponsorController>(c => c.Index(null));
+		}
+
+
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ViewResult Edit(UserGroup userGroup, Sponsor sponsor)
+		{
+			if (!_securityContext.IsAdmin())
+			{
+				return NotAuthorizedView;
+			}
+
+			if (sponsor == null)
+			{
+				sponsor = new Sponsor();
+			}
+
+			SponsorInput input = _mapper.Map(sponsor);
+			input.UserGroupId = userGroup.Id;
+
+			return View(input);
+		}
+
+		public ActionResult List(UserGroup userGroup)
+		{
+			Sponsor[] entities = userGroup.GetSponsors();
+
+			SponsorInput[] entityListDto = _mapper.Map(entities);
+
+			return View("HomePageWidget", entityListDto);
+		}
+	}
 }
-
-
-

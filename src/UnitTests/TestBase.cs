@@ -1,11 +1,12 @@
 using CodeCampServer.Core.Services;
-using CodeCampServer.UI.Views;
+using CodeCampServer.Infrastructure.ObjectMapping;
 using NUnit.Framework;
 using Rhino.Mocks;
 using StructureMap;
 
 namespace CodeCampServer.UnitTests
 {
+	[TestFixture]
 	public abstract class TestBase
 	{
 		[TestFixtureSetUp]

@@ -30,14 +30,14 @@ namespace CodeCampServer.UnitTests.UI.Routes
 				.ShouldUseDomainNameRouteHandler();
 		}
 
-		[Test]
-		public void Confernce_actions_should_map_to_the_controller_action_without_the_conferenceKey()
-		{
-			"~/conference/new"
-                .ShouldMapTo<ConferenceController>(c => c.New(null))
-                .ShouldUseDomainNameRouteHandler();
+		//[Test]
+		//public void Confernce_actions_should_map_to_the_controller_action_without_the_conferenceKey()
+		//{
+		//    "~/conference/new"
+		//        .ShouldMapTo<ConferenceController>(c => c.New(null))
+		//        .ShouldUseDomainNameRouteHandler();
             
-		}
+		//}
 
 		[Test]
 		public void Login_controller_routes_should_map_correctly()
@@ -52,13 +52,13 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		}
 
 
-		[Test]
-		public void Unknown_root_names_should_map_to_the_conference_index_and_pass_the_conference_key()
-		{
-		    "~/austinCodeCamp2008"
-		        .ShouldMapTo<ConferenceController>(c => c.Index(null))
-		        .ShouldUseDomainNameRouteHandler();
-		}
+		//[Test]
+		//public void Unknown_root_names_should_map_to_the_conference_index_and_pass_the_conference_key()
+		//{
+		//    "~/austinCodeCamp2008"
+		//        .ShouldMapTo<ConferenceController>(c => c.Index(null))
+		//        .ShouldUseDomainNameRouteHandler();
+		//}
 
 	}
 

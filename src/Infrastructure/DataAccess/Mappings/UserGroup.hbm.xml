@@ -3,8 +3,7 @@
 									namespace="CodeCampServer.Core.Domain.Model"
 									assembly="CodeCampServer.Core">
 
-	<class name="UserGroup" table="UserGroups" dynamic-update="true">
-		<cache usage="read-write"/>
+	<class name="UserGroup" table="UserGroups" dynamic-update="true">		
 		<id name="Id" column="Id" type="Guid">
 			<generator class="guid.comb"/>
 		</id>
@@ -23,9 +22,9 @@
 			<key column="UserGroupId"  />
 			<many-to-many class="User" column="UserID"/>
 		</bag>
-    <bag name="Sponsors" access="field.camelcase-underscore"  table="UserGroupSponsors" cascade="save-update" >
+    <set name="Sponsors" access="field.camelcase-underscore"  table="UserGroupSponsors">
       <key column="UserGroupId"  />
-      <many-to-many class="Sponsor" column="SponsorID" />
-    </bag>
+      <one-to-many class="Sponsor" />
+    </set>
   </class>
 </hibernate-mapping>

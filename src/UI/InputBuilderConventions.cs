@@ -1,17 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 using Castle.Components.Validator;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 using CodeCampServer.UI.Models.Input;
-using MvcContrib.UI.InputBuilder;
 using MvcContrib.UI.InputBuilder.Conventions;
 using MvcContrib.UI.InputBuilder.Views;
 
@@ -41,6 +40,19 @@ namespace CodeCampServer.UI
 				return items;
 			}
 
+
+			if (typeof(SponsorLevel).IsAssignableFrom(propertyInfo.PropertyType))
+			{
+				var value = propertyInfo.GetValue(model, null) as SponsorLevel;
+				var items = new List<SelectListItem>();
+				
+				foreach (var level in SponsorLevel.GetAll<SponsorLevel>())
+				{
+					bool isChecked = value != null && value == level;
+					items.Add(new SelectListItem { Selected = isChecked, Text = level.DisplayName , Value = level.Value.ToString() });
+				}
+				return items;
+			}
 			return _default.ValueFromModelPropertyConvention(propertyInfo, model);
 		}
 
@@ -73,13 +85,23 @@ namespace CodeCampServer.UI
 		public string PartialNameConvention(PropertyInfo propertyInfo)
 		{
 			if (typeof (IEnumerable<UserSelectorInput>).IsAssignableFrom(propertyInfo.PropertyType))
-				return "UserPicker";
+				return "ListBox";
+			
+			if (typeof(SponsorLevel).IsAssignableFrom(propertyInfo.PropertyType))
+				return "DropDown";
+			
+			if (typeof(Enumeration).IsAssignableFrom(propertyInfo.PropertyType))
+				return "Enum";
+
 			if (propertyInfo.Name.ToLower().Contains("password"))
 				return "Password";
 			if (typeof (DateTime).IsAssignableFrom(propertyInfo.PropertyType))
 				return "DatePicker";
 			if (propertyInfo.AttributeExists<MultilineAttribute>())
 				return "MultilineText";
+			if (typeof (Guid?).IsAssignableFrom(propertyInfo.PropertyType))
+				return "Guid";
+
 
 			return _default.PartialNameConvention(propertyInfo);
 		}
@@ -88,6 +110,8 @@ namespace CodeCampServer.UI
 		public PropertyViewModel ModelPropertyBuilder(PropertyInfo propertyInfo, object model)
 		{
 			if (typeof (IEnumerable<UserSelectorInput>).IsAssignableFrom(propertyInfo.PropertyType))
+				return new PropertyViewModel<IEnumerable<SelectListItem>> {Value = (IEnumerable<SelectListItem>) model};
+			if (typeof(SponsorLevel).IsAssignableFrom(propertyInfo.PropertyType))
 				return new PropertyViewModel<IEnumerable<SelectListItem>> { Value = (IEnumerable<SelectListItem>)model };
 			return _default.ModelPropertyBuilder(propertyInfo, model);
 		}

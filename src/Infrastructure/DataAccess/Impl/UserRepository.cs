@@ -3,12 +3,14 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using NHibernate;
 using NHibernate.Criterion;
+using Tarantino.RulesEngine;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Impl
 {
 	public class UserRepository : KeyedRepository<User>, IUserRepository
 	{
-		public UserRepository(ISessionBuilder sessionFactory) : base(sessionFactory)
+		public UserRepository(IUnitOfWork unitOfWork)
+			: base(unitOfWork) 
 		{
 		}
 
@@ -32,6 +34,7 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 				.List<User>()
 				.ToArray();
 		}
+
 
 		protected override string GetEntityNaturalKeyName()
 		{

@@ -7,70 +7,70 @@ using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
+using CommandProcessor;
+using Tarantino.RulesEngine;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public class UserController : SaveController<User, UserInput>
+	public class UserController : SmartController
 	{
 		private readonly IUserMapper _mapper;
 		private readonly IUserRepository _repository;
 		private readonly ISecurityContext _securityContext;
 		private readonly IUserSession _session;
+		private readonly IRulesEngine _rulesEngine;
 
-		public UserController(IUserRepository repository, IUserMapper mapper, ISecurityContext securityContext,
-		                      IUserSession session) : base(repository, mapper)
+		public UserController(IUserRepository repository, IUserMapper mapper, ISecurityContext securityContext, IUserSession session, IRulesEngine rulesEngine) 
 		{
 			_repository = repository;
 			_mapper = mapper;
 			_securityContext = securityContext;
 			_session = session;
+			_rulesEngine = rulesEngine;
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ViewResult Edit(User user)
-		{
-			if (user == null)
+			[AcceptVerbs(HttpVerbs.Get)]
+			public ViewResult Edit(User user)
 			{
-				return View(_mapper.Map(_session.GetCurrentUser()));
-			}
+				if (!_securityContext.IsAdmin())
+				{
+					return NotAuthorizedView;
+				}
 
-			if (!_securityContext.IsAdmin())
-			{
-				return NotAuthorizedView;
+				if (user == null)
+				{
+					return View(_mapper.Map(new User()));
+				}
+
+				UserInput input = _mapper.Map(user);
+				return View(input);
 			}
-			UserInput input = _mapper.Map(user);
-			return View(input);
-		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		[RequireAuthenticationFilter]
 		[ValidateInput(false)]
 		[ValidateModel(typeof (UserInput))]
 		public ActionResult Edit(UserInput input)
 		{
-			return ProcessSave(input, user => RedirectToAction<HomeController>(c => c.Index(null)));
-		}
-
-		protected override IDictionary<string, string[]> GetFormValidationErrors(UserInput input)
-		{
-			var result = new ValidationResult();
-			if (UsernameIsDuplicate(input))
+			if (!_securityContext.HasPermissionsForUserGroup(input.Id))
 			{
-				result.AddError<UserInput>(u => u.Username, "This username already exists");
+				return View(ViewPages.NotAuthorized);
 			}
 
-			return result.GetAllErrors();
-		}
+			if (ModelState.IsValid)
+			{
+				ExecutionResult result = _rulesEngine.Process(input);
+				if (result.Successful)
+				{
+					return RedirectToAction<HomeController>(c => c.Index(null));
+				}
 
-		private bool UsernameIsDuplicate(UserInput input)
-		{
-			if (input.Id != Guid.Empty) return false;
-
-			return _repository.GetByKey(input.Username) != null;
-		}
-
-		public ViewResult New()
-		{
-			return View("Edit", new UserInput());
+				foreach (var errorMessage in result.Messages)
+				{
+					ModelState.AddModelError(errorMessage.IncorrectAttribute, errorMessage.MessageText);
+				}
+			}
+			return View(input);
 		}
 
 		public ViewResult Index()

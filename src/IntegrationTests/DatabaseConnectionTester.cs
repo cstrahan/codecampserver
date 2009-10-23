@@ -17,6 +17,9 @@ namespace CodeCampServer.IntegrationTests
         public void Database_connection_should_work()
         {
             ISession session = GetSession();
+			if(session.Transaction.IsActive)
+				session.Transaction.Rollback();
+        	
             IDbConnection connection = session.Connection;
             IDbCommand command = connection.CreateCommand();
             command.CommandText = "select 1+1 from Users";

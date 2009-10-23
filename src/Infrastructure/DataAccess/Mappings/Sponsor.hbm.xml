@@ -4,7 +4,6 @@
 									assembly="CodeCampServer.Core">
 
 	<class name="Sponsor" table="Sponsors" dynamic-update="true">
-		<cache usage="read-write"/>
 		<id name="Id" column="Id" type="Guid">
 			<generator class="guid.comb"/>
 		</id>

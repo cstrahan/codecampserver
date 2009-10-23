@@ -31,10 +31,10 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void Should_render_meeting_announcement_for_meeting()
 		{
-			var mapper = S<IMappingEngine>();
+			var mapper = S<IMeetingMapper>();
 			var meeting = new Meeting();
 			var display = new MeetingAnnouncementDisplay();
-			mapper.Stub(s => s.Map<Meeting, MeetingAnnouncementDisplay>(meeting)).Return(display);
+			mapper.Stub(s => s.Map<MeetingAnnouncementDisplay>(meeting)).Return(display);
 
 			var controller = new EventController(null, null, mapper);
 			ViewResult result = controller.Announcement(meeting);

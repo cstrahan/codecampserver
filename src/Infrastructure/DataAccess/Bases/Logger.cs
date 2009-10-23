@@ -4,7 +4,7 @@ using System.IO;
 using log4net;
 using log4net.Config;
 
-namespace Tarantino.Core.Commons.Services.Logging
+namespace CodeCampServer.Infrastructure.DataAccess.Bases
 {
 	public static class Logger
 	{

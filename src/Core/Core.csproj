@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommandProcessor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\tinorulesengine\CommandProcessor.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.0.3, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\nhibernate\Iesi.Collections.dll</HintPath>
@@ -79,18 +83,32 @@
     <Compile Include="Domain\Model\KeyedObject.cs" />
     <Compile Include="Domain\Model\User.cs" />
     <Compile Include="Services\Bases\ISystemClock.cs" />
+    <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandHandler.cs" />
+    <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandMessage.cs" />
+    <Compile Include="Services\BusinessRule\Login\LoginCommandHandler.cs" />
+    <Compile Include="Services\BusinessRule\Login\UpdateMeetingCommandMessage.cs" />
+    <Compile Include="Services\BusinessRule\UpdateMeeting\UpdateMeetingCommandHandler.cs" />
+    <Compile Include="Services\BusinessRule\UpdateMeeting\UpdateMeetingCommandMessage.cs" />
+    <Compile Include="Services\BusinessRule\DeleteMeeting\DeleteMeetingCommandHandler.cs" />
+    <Compile Include="Services\BusinessRule\DeleteMeeting\DeleteMeetingCommandMessage.cs" />
+    <Compile Include="Services\BusinessRule\UpdateSponsor\UpdateSponsorCommandHandler.cs" />
+    <Compile Include="Services\BusinessRule\UpdateSponsor\UpdateSponsorCommandMessage.cs" />
+    <Compile Include="Services\BusinessRule\UpdateUserGroup\UpdateUserGroupCommandHandler.cs" />
+    <Compile Include="Services\BusinessRule\UpdateUserGroup\UpdateUserGroupCommandMessage.cs" />
+    <Compile Include="Services\BusinessRule\UpdateUser\UpdateUserCommandHandler.cs" />
+    <Compile Include="Services\BusinessRule\UpdateUser\UpdateUserCommandMessage.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\ICryptographer.cs" />
     <Compile Include="Services\IHttpFileDownloaderService.cs" />
     <Compile Include="Services\Impl\AuthenticationService.cs" />
     <Compile Include="Services\Impl\Cryptographer.cs" />
-    <Compile Include="ObjectExtensions.cs" />
-    <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="Common\ObjectExtensions.cs" />
+    <Compile Include="Common\EnumerableExtensions.cs" />
     <Compile Include="Services\Impl\SecurityContext.cs" />
     <Compile Include="Services\ISecurityContext.cs" />
     <Compile Include="Services\IUserSession.cs" />
     <Compile Include="SystemTime.cs" />
-    <Compile Include="TimeExtensions.cs" />
+    <Compile Include="Common\TimeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

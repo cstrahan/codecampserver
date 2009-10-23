@@ -8,14 +8,12 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 	{
 		protected const string KEY_NAME = "Key";
 
-		public KeyedRepository(ISessionBuilder sessionFactory)
-			: base(sessionFactory)
-		{
-		}
+		public KeyedRepository(IUnitOfWork unitOfWork)
+			: base(unitOfWork) {}
 
 		public virtual T GetByKey(string key)
 		{
-			return GetSession().CreateCriteria(typeof (T)).Add(Restrictions.Eq(GetEntityNaturalKeyName(), key)).UniqueResult<T>();
+			return GetSession().CreateCriteria(typeof (T)).Add(Restrictions.Eq(GetEntityNaturalKeyName(), key))				.UniqueResult<T>();
 		}
 
 		protected virtual string GetEntityNaturalKeyName()

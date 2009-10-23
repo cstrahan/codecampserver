@@ -1,0 +1,33 @@
+using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Services.BusinessRule.UpdateUser;
+using Tarantino.RulesEngine;
+
+namespace CodeCampServer.Infrastructure.BusinessRules.Validation
+{
+	public class UsernameMustBeUnique : IValidationRule
+	{
+		private readonly IUserRepository _repository;
+
+		public UsernameMustBeUnique(IUserRepository repository)
+		{
+			_repository = repository;
+		}
+
+		public bool StopProcessing
+		{
+			get { return false; }
+		}
+
+		public string IsValid(object input)
+		{
+			return UsernameAlreadyExists((UpdateUserCommandMessage) input) ? "Username is already taken." : null;
+		}
+
+		private bool UsernameAlreadyExists(UpdateUserCommandMessage message)
+		{
+			User entity = _repository.GetByUserName(message.Username);
+			return entity != null && entity.Id != message.Id;
+		}
+	}
+}

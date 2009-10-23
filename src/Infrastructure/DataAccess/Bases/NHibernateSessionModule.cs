@@ -1,6 +1,6 @@
 using System;
 using System.Web;
-using Tarantino.Core.Commons.Services.Logging;
+using CodeCampServer.Infrastructure.DataAccess.Bases;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Impl
 {

@@ -53,7 +53,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				session.Flush();
 			}
 
-			IConferenceRepository repository = new ConferenceRepository(new HybridSessionBuilder());
+			IConferenceRepository repository = new ConferenceRepository(GetSessionBuilder());
 			Conference[] conferences = repository.GetAllForUserGroup(usergroup);
 
 			conferences.Length.ShouldEqual(1);
@@ -99,7 +99,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				session.Flush();
 			}
 
-			IConferenceRepository repository = new ConferenceRepository(new HybridSessionBuilder());
+			IConferenceRepository repository = new ConferenceRepository(GetSessionBuilder());
 			Conference[] conferences = repository.GetFutureForUserGroup(usergroup);
 
 			conferences.Length.ShouldEqual(2);

@@ -2,10 +2,11 @@ using System;
 using Castle.Components.Validator;
 using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
+using Tarantino.RulesEngine.CommandProcessor;
 
 namespace CodeCampServer.UI.Models.Input
 {
-	public class MeetingInput : EventInput
+	public class MeetingInput : EventInput,IMessage
 	{
 		public Guid Id { get; set; }
 		public Guid UserGroupId { get; set; }
@@ -33,6 +34,7 @@ namespace CodeCampServer.UI.Models.Input
 		[Required("Time Zone")]
 		public override string TimeZone { get; set; }
 
+		[Multiline]
 		public string Description { get; set; }
 
 		[Required("Location")]

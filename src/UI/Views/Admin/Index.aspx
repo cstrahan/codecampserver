@@ -9,9 +9,6 @@ AutoEventWireup="true" Inherits="ViewPage<AdminInput>"%>
 			<li><a href="<%=Url.Action<UserGroupController>(c=>c.List()) %>"> Edit User Groups</a></li>
 			<li><a href="<%=Url.Action<UserController>(c=>c.Index()) %>"> Edit Users</a></li>
 			<li><a href="<%=Url.Action<SponsorController>(c=>c.Index(null)) %>"> Edit Sponsors</a></li>
-       <%if (Model.ConferenceIsSelected){%>
-		    <li><a href="<%=Url.Action<ConferenceController>(c=>c.Edit((Conference)null)) %>"> Edit Conference</a></li>
-    <%} %>
 	  </ul>
   </div>
 </asp:Content>

@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using AutoMapper;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
@@ -11,7 +11,7 @@ using CodeCampServer.UI.Models.Input;
 namespace CodeCampServer.UI.Controllers
 {
 	[AdminUserCreatedFilter]
-	public class ConferenceController : SaveController<Conference, ConferenceInput>
+	public class ConferenceController : SmartController
 	{
 		private readonly IConferenceMapper _mapper;
 		private readonly IConferenceRepository _repository;
@@ -19,7 +19,7 @@ namespace CodeCampServer.UI.Controllers
 
 		public ConferenceController(IConferenceRepository repository, IConferenceMapper mapper,
 		                            ISecurityContext securityContext)
-			: base(repository, mapper)
+			
 		{
 			_repository = repository;
 			_mapper = mapper;
@@ -42,7 +42,7 @@ namespace CodeCampServer.UI.Controllers
 				return RedirectToAction<ConferenceController>(c => c.New(null));
 			}
 
-			object conferenceListDto = Mapper.Map(conferences, typeof (Conference[]), typeof (ConferenceInput[]));
+			ConferenceInput[] conferenceListDto = _mapper.Map(conferences);
 			return View(conferenceListDto);
 		}
 
@@ -70,22 +70,23 @@ namespace CodeCampServer.UI.Controllers
 		[ValidateModel(typeof (ConferenceInput))]
 		public ActionResult Edit(ConferenceInput input)
 		{
+			throw new Exception("Not Implemented");
 			if (_securityContext.HasPermissionsForUserGroup(input.UserGroupId))
 			{
-				return ProcessSave(input, conference => RedirectToAction<HomeController>(c => c.Index(conference.UserGroup)));
+				//return ProcessSave(input, conference => RedirectToAction<HomeController>(c => c.Index(conference.UserGroup)));
 			}
 			return View(ViewPages.NotAuthorized);
 		}
 
-		protected override IDictionary<string, string[]> GetFormValidationErrors(ConferenceInput input)
-		{
-			var result = new ValidationResult();
-			if (ConferenceKeyAlreadyExists(input))
-			{
-				result.AddError<ConferenceInput>(x => x.Key, "This conference key already exists");
-			}
-			return result.GetAllErrors();
-		}
+		//protected override IDictionary<string, string[]> GetFormValidationErrors(ConferenceInput input)
+		//{
+		//    var result = new ValidationResult();
+		//    if (ConferenceKeyAlreadyExists(input))
+		//    {
+		//        result.AddError<ConferenceInput>(x => x.Key, "This conference key already exists");
+		//    }
+		//    return result.GetAllErrors();
+		//}
 
 		private bool ConferenceKeyAlreadyExists(ConferenceInput message)
 		{

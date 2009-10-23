@@ -5,9 +5,9 @@
   	<!-- ******************** -->
   	<!-- Master Build Targets -->
   	<!-- ******************** -->
-  	<target name="build" depends="init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test"/>
+  	<target name="build" depends="init, commonassemblyinfo, dropDatabase, createDatabase, compile, move-for-test, test"/>
   	<target name="cruise" depends="build, package"/>
-  	<target name="integrationBuild" depends="init, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, coverage, inspection,package"/>
+  	<target name="integrationBuild" depends="init, commonassemblyinfo, dropDatabase, createDatabase,, compile, move-for-test, coverage, inspection,package"/>
   	<target name="publish" depends="init, revert, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test, package,commitPackage"/>
   	<target name="inspection" depends="sourcemonitor,fxcop,stylecop"/>
 
@@ -287,7 +287,7 @@
 	</target>
 
 	<target name="sourcemonitor">
-	<property name="MaxCcValue" value="11"/>
+	<property name="MaxCcValue" value="18"/>
 	 <!-- Create input command file -->
 	 <property name="sourcemonitor.input" value="${dir.test}\sm_cmd.xml" /> 
 	 <echo file="${sourcemonitor.input}" append="false" failonerror="false">

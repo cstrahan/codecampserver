@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using AutoMapper;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Mappers;
@@ -14,11 +13,11 @@ namespace CodeCampServer.UI.Controllers
 		public const string ANNOUNCEMENT_PARTIAL_SUFFIX = "Announcement";
 		private readonly IEventRepository _eventRepository;
 		private readonly IConferenceMapper _conferenceMapper;
-		private readonly IMappingEngine _meetingMapper;
+		private readonly IMeetingMapper _meetingMapper;
 
 
 		public EventController(IEventRepository eventRepository, IConferenceMapper conferenceMapper,
-		                       IMappingEngine meetingMapper)
+		                       IMeetingMapper meetingMapper)
 		{
 			_eventRepository = eventRepository;
 			_meetingMapper = meetingMapper;
@@ -37,8 +36,9 @@ namespace CodeCampServer.UI.Controllers
 			}
 			else
 			{
-				announcementDisplay = 
-					_meetingMapper.Map<Meeting, MeetingAnnouncementDisplay>((Meeting) @event);
+				announcementDisplay =
+					_meetingMapper.Map<MeetingAnnouncementDisplay>((Meeting)@event);
+//					.Map<Meeting, MeetingAnnouncementDisplay>();
 			}
 
 			return View(typeName + ANNOUNCEMENT_PARTIAL_SUFFIX, announcementDisplay);

@@ -63,7 +63,7 @@ namespace CodeCampServer.Core.Common
 
 		public static string ToSeparatedWords(this string value)
 		{
-			return Regex.Replace(value, "([A-Z][a-z])", " $1").Trim();
+			return Regex.Replace(value, "([A-Z][a-z]?)", " $1").Trim();
 		}
 
 		public static string WrapEachWith(this IEnumerable values, string before, string after, string separator)

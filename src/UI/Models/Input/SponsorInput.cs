@@ -1,10 +1,11 @@
 using System;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
+using Tarantino.RulesEngine.CommandProcessor;
 
 namespace CodeCampServer.UI.Models.Input
 {
-	public class SponsorInput
+	public class SponsorInput : IMessage
 	{
 		public virtual Guid? ID { get; set; }
 
@@ -19,6 +20,6 @@ namespace CodeCampServer.UI.Models.Input
 
 		public virtual SponsorLevel Level { get; set; }
 
-		public Guid ParentID { get; set; }
+		public Guid UserGroupId { get; set; }
 	}
 }

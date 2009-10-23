@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using AutoMapper;
 using MvcContrib;
 
 namespace CodeCampServer.UI.Helpers.Filters

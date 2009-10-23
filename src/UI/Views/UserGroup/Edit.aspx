@@ -18,7 +18,7 @@ Inherits="ViewPage<UserGroupInput>"%>
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-    <% using(Html.BeginForm<UserGroupController>(x=>x.Save(null))) { %>
+    <% using(Html.BeginForm()) { %>
     <%= Html.ValidationSummary() %>
     
     

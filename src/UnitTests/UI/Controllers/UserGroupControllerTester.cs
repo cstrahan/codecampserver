@@ -6,10 +6,12 @@ using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
+using CommandProcessor;
 using MvcContrib.TestHelper;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Tarantino.RulesEngine;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
@@ -21,28 +23,12 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<IUserGroupRepository>();
 			repository.Stub(repo => repo.GetById(Guid.Empty)).Return(new UserGroup());
 
-			var controller = new UserGroupController(repository, null,null,null,null);
+			var controller = new UserGroupController(repository, S<IUserGroupMapper>(),null,null);
 
 			ActionResult result = controller.Edit(Guid.Empty);
-			result.AssertActionRedirect().ToAction<UserGroupController>(e => e.List());
-			controller.TempData["Message"].ShouldEqual(
-				"UserGroup has been deleted.");
+			result.AssertViewRendered().ForView("");
 		}
 
-		[Test]
-		public void
-			When_a_UserGroup_does_not_exist_Index_action_should_redirect_to_new_when_UserGroup_does_not_exist
-			()
-		{
-			var repository = S<IUserGroupRepository>();
-			repository.Stub(repo => repo.GetAll()).Return(new UserGroup[0]);
-
-			var controller = new UserGroupController(repository, null,null,null,null);
-
-			ActionResult result = controller.List();
-
-			result.AssertActionRedirect().ToAction<UserGroupController>(a => a.New());
-		}
 
 		[Test]
 		public void Should_save_the_UserGroup()
@@ -53,33 +39,16 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var mapper = S<IUserGroupMapper>();
 			mapper.Stub(m => m.Map(form)).Return(UserGroup);
 
-			var repository = S<IUserGroupRepository>();
 
-			var controller = new UserGroupController(repository, mapper,null,null,PermisiveSecurityContext());
-			var result = (RedirectToRouteResult) controller.Save(form);
+			var engine = S<IRulesEngine>();
+			var executionResult = new ExecutionResult();
+			executionResult.ReturnItems.Add(new UserGroup());
+			engine.Stub(rulesEngine => rulesEngine.Process(form)).Return(executionResult);
 
-			repository.AssertWasCalled(r => r.Save(UserGroup));
-			result.AssertActionRedirect().ToAction<UserGroupController>(a => a.List());
-		}
+			var controller = new UserGroupController(null, mapper, PermisiveSecurityContext(), engine);
+			var result = (RedirectToRouteResult) controller.Edit(form);
 
-		[Test]
-		public void Should_not_save_UserGroup_if_key_already_exists()
-		{
-			var form = new UserGroupInput {Key = "foo", Id = Guid.NewGuid()};
-			var UserGroup = new UserGroup();
-
-			var mapper = S<IUserGroupMapper>();
-			mapper.Stub(m => m.Map(form)).Return(UserGroup);
-
-			var repository = S<IUserGroupRepository>();
-			repository.Stub(r => r.GetByKey("foo")).Return(new UserGroup());
-
-			var controller = new UserGroupController(repository, mapper,null,null,PermisiveSecurityContext());
-			var result = (ViewResult) controller.Save(form);
-
-			result.AssertViewRendered().ViewName.ShouldEqual("Edit");
-			controller.ModelState.Values.Count.ShouldEqual(1);
-			controller.ModelState["Key"].Errors[0].ErrorMessage.ShouldEqual("This entity key already exists");
+			result.AssertActionRedirect().ToAction<HomeController>(a => a.Index(null));
 		}
 
 	}

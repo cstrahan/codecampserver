@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Iesi.Collections.Generic;
 
 namespace CodeCampServer.Core.Domain.Model
 {
 	public class UserGroup : KeyedObject
 	{
 		private readonly IList<User> _users = new List<User>();
-		private readonly IList<Sponsor> _sponsors = new List<Sponsor>();
+		private readonly ISet<Sponsor> _sponsors = new HashedSet<Sponsor>();
 		public virtual string Name { get; set; }
 		public virtual string HomepageHTML { get; set; }
 		public virtual string City { get; set; }
@@ -26,7 +27,7 @@ namespace CodeCampServer.Core.Domain.Model
 			_sponsors.Remove(child);
 		}
 
-	
+
 		public virtual Sponsor[] GetSponsors()
 		{
 			return _sponsors.ToArray();
@@ -51,9 +52,9 @@ namespace CodeCampServer.Core.Domain.Model
 
 		public virtual bool IsDefault()
 		{
-            if(string.IsNullOrEmpty(DomainName))
-                return false;
-            return DomainName.ToLower().Equals("www.codecampserver.com", StringComparison.InvariantCultureIgnoreCase);
+			if (string.IsNullOrEmpty(DomainName))
+				return false;
+			return DomainName.ToLower().Equals("www.codecampserver.com", StringComparison.InvariantCultureIgnoreCase);
 		}
 	}
 }

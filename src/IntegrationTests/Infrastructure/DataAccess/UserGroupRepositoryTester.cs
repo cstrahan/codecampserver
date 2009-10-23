@@ -15,9 +15,12 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		{
 			var userGroup = new UserGroup
 			                	{
+									Key = "theKey",
 			                		Name = "sdf",
 			                	};
 			userGroup.Add(new User {EmailAddress = "werwer@asdfasd.com"});
+			userGroup.Add(new Sponsor { Name = "sponsor 1"});
+			userGroup.Add(new Sponsor { Name = "sponsor 2" });
 			return userGroup;
 		}
 
@@ -37,7 +40,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				session.Flush();
 			}
 
-			IUserGroupRepository repository = new UserGroupRepository(new HybridSessionBuilder());
+			IUserGroupRepository repository = new UserGroupRepository(GetSessionBuilder());
 			repository.Save(userGroup);
 			userGroup.Remove(userGroup.GetUsers()[0]);
 			repository.Save(userGroup);
@@ -51,6 +54,29 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		}
 
 		[Test]
+		public void Should_add_a_sponsor_to_its_collection()
+		{
+			UserGroup userGroup = CreateUserGroup();
+			using (ISession session = GetSession())
+			{
+				userGroup.GetUsers().ForEach(o => session.SaveOrUpdate(o));
+				session.Flush();
+			}
+
+			IUserGroupRepository repository = new UserGroupRepository(GetSessionBuilder());
+			repository.Save(userGroup);
+			
+
+			UserGroup rehydratedGroup;
+			IUserGroupRepository repository2 = new UserGroupRepository(GetSessionBuilder());
+			rehydratedGroup = repository2.GetByKey(userGroup.Key);
+			rehydratedGroup.GetSponsors().Length.ShouldEqual(2);
+
+			GetSession().Flush();
+			
+		}
+
+		[Test]
 		public void Should_retrieve_the_default_usergroup()
 		{
 			UserGroup userGroup = CreateUserGroup();
@@ -59,12 +85,13 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			using (ISession session = GetSession())
 			{
 				userGroup.GetUsers().ForEach(o => session.SaveOrUpdate(o));
+				userGroup.GetSponsors().ForEach(o => session.SaveOrUpdate(o));
 				session.SaveOrUpdate(userGroup);
 				session.Flush();
 			}
 
 
-			IUserGroupRepository repository = new UserGroupRepository(new HybridSessionBuilder());
+			IUserGroupRepository repository = new UserGroupRepository(GetSessionBuilder());
 			UserGroup group = repository.GetDefaultUserGroup();
 
 			group.ShouldEqual(userGroup);

@@ -1,3 +1,5 @@
+    using System;
+    using System.Linq;
     using System.Reflection;
     using CodeCampServer.Core.Domain.Model;
     using CodeCampServer.Infrastructure.DataAccess.Impl;
@@ -26,7 +28,7 @@
 
                 using (ISession session = GetSession())
                 {
-                    var reloadedObject = session.Load<T>(persistentObject.Id);
+                    var reloadedObject = session.Get<T>(persistentObject.Id);
                     Assert.That(reloadedObject, Is.EqualTo(persistentObject));
                     Assert.That(reloadedObject, Is.Not.SameAs(persistentObject));
                     AssertObjectsMatch(persistentObject, reloadedObject);
@@ -45,6 +47,15 @@
                     var value2 = info.GetValue(obj2, null);
                     Assert.AreEqual(value1, value2, string.Format("Property {0} doesn't match", info.Name));
                 }
+            	var fields = obj1.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic|BindingFlags.GetField);
+					//.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+				foreach (var info in fields.Where(info => !info.Name.EndsWith("BackingField")))
+				{
+					var value1 = info.GetValue(obj1);
+					var value2 = info.GetValue(obj2);
+					Assert.AreEqual(value1, value2, string.Format("Property {0} doesn't match", info.Name));
+				}
+
             }
             protected ISession GetSession()
             {

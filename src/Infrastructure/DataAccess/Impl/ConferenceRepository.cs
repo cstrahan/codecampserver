@@ -3,12 +3,13 @@ using System.Linq;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using Tarantino.RulesEngine;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Impl
 {
 	public class ConferenceRepository : KeyedRepository<Conference>, IConferenceRepository
 	{
-		public ConferenceRepository(ISessionBuilder sessionFactory) : base(sessionFactory) {}
+		public ConferenceRepository(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
 		public Conference GetNextConference()
 		{

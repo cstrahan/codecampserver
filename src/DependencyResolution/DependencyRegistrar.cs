@@ -10,8 +10,6 @@ namespace CodeCampServer.DependencyResolution
 
 		public void RegisterDependencies()
 		{
-			//Logger.Debug(this, "Registering types with StructureMap");
-
 			ObjectFactory.Initialize(x =>
 			                         	{
 			                         		x.Scan(y =>
@@ -19,10 +17,19 @@ namespace CodeCampServer.DependencyResolution
 			                         		       		y.AssemblyContainingType<DependencyRegistry>();
 			                         		       		y.LookForRegistries();
 			                         		       	});
-			                         		x.AddRegistry<CastleValidatorRegistry>();
+
 			                         	});
 		}
 
+		public void ConfigureOnStartup()
+		{
+			RegisterDependencies();
+			var dependenciesToInitialized = ObjectFactory.GetAllInstances<IRequiresConfigurationOnStartup>();
+			foreach (var dependency in dependenciesToInitialized)
+			{
+				dependency.Configure();
+			}
+		}
 		public static T Resolve<T>()
 		{
 			return ObjectFactory.GetInstance<T>();
@@ -33,11 +40,11 @@ namespace CodeCampServer.DependencyResolution
 			return ObjectFactory.GetInstance(modelType);
 		}
 
-		public static bool Registered<T>()
-		{
-			EnsureDependenciesRegistered();
-			return ObjectFactory.GetInstance<T>() != null;
-		}
+		//public static bool Registered<T>()
+		//{
+		//    EnsureDependenciesRegistered();
+		//    return ObjectFactory.GetInstance<T>() != null;
+		//}
 
 		public static bool Registered(Type type)
 		{
@@ -55,6 +62,7 @@ namespace CodeCampServer.DependencyResolution
 					{
 						new DependencyRegistrar().RegisterDependencies();
 						_dependenciesRegistered = true;
+						
 					}
 				}
 			}

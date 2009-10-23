@@ -1,4 +1,4 @@
-namespace CodeCampServer.Infrastructure.UI.Services
+namespace CodeCampServer.UI.Services
 {
 	public interface IAssemblyVersion
 	{

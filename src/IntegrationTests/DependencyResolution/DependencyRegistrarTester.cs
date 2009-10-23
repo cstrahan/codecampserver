@@ -7,8 +7,8 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
+using CodeCampServer.Infrastructure.UI.Binders;
 using CodeCampServer.UI.Controllers;
-using CodeCampServer.UI.Helpers.Binders;
 using NBehave.Spec.NUnit;
 
 namespace CodeCampServer.IntegrationTests.DependencyResolution

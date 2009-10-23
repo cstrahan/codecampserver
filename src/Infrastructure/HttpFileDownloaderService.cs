@@ -1,22 +1,22 @@
 ﻿using System.Net;
-using RssRepository.UnitTests.Services;
+using CodeCampServer.Core.Services;
 
-namespace RssRepository.Services.Impl
+namespace CodeCampServer.Infrastructure
 {
-    public class HttpFileDownloaderService : IHttpFileDownloaderService
-    {
-        public string GetStringFromUrl(string url)
-        {
-            var webClient = new WebClient();
-            try
-            {
-                string fileContents = webClient.DownloadString(url);
-                return fileContents;
-            }
-            catch
-            {
-                return string.Empty;
-            }
-        }
-    }
+	public class HttpFileDownloaderService : IHttpFileDownloaderService
+	{
+		public string GetStringFromUrl(string url)
+		{
+			var webClient = new WebClient();
+			try
+			{
+				string fileContents = webClient.DownloadString(url);
+				return fileContents;
+			}
+			catch
+			{
+				return string.Empty;
+			}
+		}
+	}
 }

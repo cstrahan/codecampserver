@@ -31,13 +31,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=0.4.0.126, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\AutoMapper\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Components.Validator, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\castle\Castle.Components.Validator.dll</HintPath>
     </Reference>
+    <Reference Include="CommandProcessor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\tinorulesengine\CommandProcessor.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\nhibernate\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\tinorulesengine\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="MvcContrib, Version=0.0.1.168, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -83,11 +95,23 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="BusinessRules\CommandConfiguration\LoginUserConfiguration.cs" />
+    <Compile Include="BusinessRules\CommandConfiguration\DeleteUserGroupMessageConfiguration.cs" />
+    <Compile Include="BusinessRules\CommandConfiguration\UpdateUserConfiguration.cs" />
+    <Compile Include="BusinessRules\CommandConfiguration\UpdateUserGroupMessageConfiguration.cs" />
+    <Compile Include="BusinessRules\CommandConfiguration\UpdateMeetingMessageConfiguration.cs" />
+    <Compile Include="BusinessRules\CommandConfiguration\DeleteMeetingMessageConfiguration.cs" />
+    <Compile Include="BusinessRules\RulesEngineConfiguration.cs" />
+    <Compile Include="BusinessRules\Validation\UsernameMustBeUnique.cs" />
+    <Compile Include="BusinessRules\Validation\UserGroupKeyMustBeUnique.cs" />
+    <Compile Include="DataAccess\UnitOfWork.cs" />
+    <Compile Include="DataAccess\UnitOfWorkModule.cs" />
+    <Compile Include="DataAccess\IUnitOfWork.cs" />
+    <Compile Include="ObjectMapping\AutoMapperConfiguration.cs" />
     <Compile Include="DataAccess\Bases\HybridSessionBuilder.cs" />
     <Compile Include="DataAccess\Bases\ISessionBuilder.cs" />
     <Compile Include="DataAccess\Bases\Logger.cs" />
     <Compile Include="DataAccess\Bases\NHibernateSessionModule.cs" />
-    <Compile Include="DataAccess\Bases\TarantinoRepositoryBase.cs" />
     <Compile Include="DataAccess\Impl\ConferenceRepository.cs" />
     <Compile Include="DataAccess\Impl\EventRepository.cs" />
     <Compile Include="DataAccess\Impl\KeyedRepository.cs" />
@@ -95,11 +119,47 @@
     <Compile Include="DataAccess\Impl\RepositoryBase.cs" />
     <Compile Include="DataAccess\Impl\UserGroupRepository.cs" />
     <Compile Include="DataAccess\Impl\UserRepository.cs" />
-    <Compile Include="DependencyRegistry.cs" />
+    <Compile Include="IfrastructureRegistry.cs" />
     <Compile Include="EnumerationType.cs" />
     <Compile Include="HttpFileDownloaderService.cs" />
+    <Compile Include="ObjectMapping\ConfigurationProfiles\AutoMapperProfile.cs" />
+    <Compile Include="ObjectMapping\ConfigurationProfiles\LoginMapperProfile.cs" />
+    <Compile Include="ObjectMapping\ConfigurationProfiles\UserMapperProfile.cs" />
+    <Compile Include="ObjectMapping\CustomResolvers\UserToUserSelectorInputResolver.cs" />
+    <Compile Include="ObjectMapping\CustomResolvers\BaseFormatter.cs" />
+    <Compile Include="ObjectMapping\CustomResolvers\BaseResolver.cs" />
+    <Compile Include="ObjectMapping\CustomResolvers\HtmlEncoderFormatter.cs" />
+    <Compile Include="ObjectMapping\CustomResolvers\MoneyFormatter.cs" />
+    <Compile Include="ObjectMapping\CustomResolvers\NullValueResolver.cs" />
+    <Compile Include="ObjectMapping\CustomResolvers\SpanWrappingFormatter.cs" />
+    <Compile Include="ObjectMapping\CustomResolvers\StandardDateFormatter.cs" />
+    <Compile Include="ObjectMapping\CustomResolvers\StandardDateTimeFormatter.cs" />
+    <Compile Include="ObjectMapping\CustomResolvers\StandardTimeFormatter.cs" />
+    <Compile Include="ObjectMapping\CustomResolvers\TimeSpanFormatter.cs" />
+    <Compile Include="ObjectMapping\CustomResolvers\YesNoBooleanFormatter.cs" />
+    <Compile Include="ObjectMapping\ConfigurationProfiles\MeetingMapperProfile.cs" />
+    <Compile Include="ObjectMapping\ConfigurationProfiles\MeetingMessageMapperProfile.cs" />
+    <Compile Include="ObjectMapping\ConfigurationProfiles\UserGroupMapperProfile.cs" />
+    <Compile Include="ObjectMapping\TypeConverters\UserGroupInputToUserGroupTypeConverter.cs" />
+    <Compile Include="StructureMapServiceLocator.cs" />
     <Compile Include="SystemClock.cs" />
+    <Compile Include="ObjectMapping\TypeConverters\IdToEntityTypeConverter.cs" />
+    <Compile Include="UI\Binders\EnumerationModelBinder.cs" />
+    <Compile Include="UI\Binders\KeyedModelBinder.cs" />
+    <Compile Include="UI\Binders\ModelBinder.cs" />
+    <Compile Include="UI\Binders\SmartBinder.cs" />
+    <Compile Include="UI\Binders\UserGroupModelBinder.cs" />
+    <Compile Include="UI\Mappers\AutoInputMapper.cs" />
+    <Compile Include="UI\Mappers\ConferenceMapper.cs" />
+    <Compile Include="UI\Mappers\IUserGroupInputToUserGroupTypeConverter.cs" />
+    <Compile Include="UI\Mappers\MeetingMapper.cs" />
+    <Compile Include="ObjectMapping\TypeConverters\SponsorInputToSponsorTypeConverter.cs" />
+    <Compile Include="UI\Mappers\UserGroupMapper.cs" />
+    <Compile Include="UI\Mappers\UserGroupSponsorMapper.cs" />
+    <Compile Include="UI\Mappers\UserMapper.cs" />
+    <Compile Include="UI\MvcStartupConfiguration.cs" />
     <Compile Include="UI\Services\AssemblyVersion.cs" />
+    <Compile Include="UI\Services\ControllerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\lib\nhibernate\nhibernate-configuration.xsd">
@@ -124,6 +184,10 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{9C81B684-40CC-472A-804D-7C0F963315F5}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DependencyResolution\DependencyResolution.csproj">
+      <Project>{3A222037-75A5-4DFF-BA27-9487BF3A8536}</Project>
+      <Name>DependencyResolution</Name>
     </ProjectReference>
     <ProjectReference Include="..\UI\UI.csproj">
       <Project>{98200972-A038-4DA8-8917-CBC4895175DC}</Project>

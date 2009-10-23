@@ -42,6 +42,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\castle\Castle.Components.Validator.dll</HintPath>
     </Reference>
+    <Reference Include="CommandProcessor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\tinorulesengine\CommandProcessor.dll</HintPath>
+    </Reference>
     <Reference Include="MvcContrib, Version=0.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\mvccontrib\MvcContrib.dll</HintPath>
@@ -117,24 +121,27 @@
     <Compile Include="Core\Services\SecurityContextTester.cs" />
     <Compile Include="Core\Services\SystemTimeTester.cs" />
     <Compile Include="Core\Services\Updaters\ConferenceMapperTester.cs" />
+    <Compile Include="Core\Services\Updaters\UserGroupInputToUserGroupTypeconverterTester.cs" />
     <Compile Include="Core\Services\Updaters\UserGroupMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\UserMapperTester.cs" />
     <Compile Include="Core\TimeExtensionsTester.cs" />
     <Compile Include="MvcMockHelpers.cs" />
+    <Compile Include="PrimitiveExtensionsTester.cs" />
     <Compile Include="SpecExtensions.cs" />
     <Compile Include="TestBase.cs" />
+    <Compile Include="UINameHelperTester.cs" />
     <Compile Include="UI\AutoMappedConfigurationTester.cs" />
     <Compile Include="UI\BinderTester.cs" />
     <Compile Include="UI\Controllers\AdminControllerTester.cs" />
-    <Compile Include="UI\Controllers\ConferenceControllerTester.cs" />
     <Compile Include="UI\Controllers\EventControllerTester.cs" />
+    <Compile Include="UI\Controllers\SaveControllerTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="UI\Controllers\SponsorControllerTester.cs" />
     <Compile Include="UI\Controllers\HomeControllerTester.cs" />
     <Compile Include="UI\Controllers\RedirectToRouteExtensions.cs" />
-    <Compile Include="UI\Controllers\SaveControllerTester.cs" />
     <Compile Include="UI\Controllers\UserControllerTester.cs" />
     <Compile Include="UI\Controllers\UserGroupControllerTester.cs" />
-    <Compile Include="UI\Helpers\Filters\AutoMappedFilterAttributeTester.cs" />
     <Compile Include="UI\Helpers\Filters\FilterAttributeTester.cs" />
     <Compile Include="UI\Helpers\UserGroupModelBinderTester.cs" />
     <Compile Include="UI\KeyedModelBinderTester.cs" />
@@ -146,6 +153,7 @@
     <Compile Include="UI\Routes\IncomingRouteTester.cs" />
     <Compile Include="UI\Routes\RouteConstraintTestingExtension.cs" />
     <Compile Include="UI\Routes\UrlGenerationTester.cs" />
+    <Compile Include="UnitOfWorkTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

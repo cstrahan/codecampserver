@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.UI.Services.Impl;
+using CodeCampServer.UI;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Models.Input;
 using MvcContrib.TestHelper;
