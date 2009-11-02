@@ -16,6 +16,7 @@ namespace CodeCampServer.Infrastructure.UI.InputBuilders
 			Add(new PasswordPropertyConvention());
 			Add(new NullableGuidPropertyConvention());
 			Add(new MultiLinePropertyConvention());
+			Add(new EmailPropertyConvention());
 			Add(new InputBuilderPropertyConvention());
 		}
 	}

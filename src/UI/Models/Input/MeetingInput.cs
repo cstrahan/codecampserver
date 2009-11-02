@@ -1,5 +1,5 @@
 using System;
-using Castle.Components.Validator;
+using System.ComponentModel.DataAnnotations;
 using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 using Tarantino.RulesEngine.CommandProcessor;
@@ -11,45 +11,46 @@ namespace CodeCampServer.UI.Models.Input
 		public Guid Id { get; set; }
 		public Guid UserGroupId { get; set; }
 
-		[Required("Name")]
+		[Required()]
 		public string Name { get; set; }
 
-		[Required("Topic")]
+		[Required()]
 		public string Topic { get; set; }
 
-		[Required("Summary")]
+		[Required()]
 		[Multiline]
 		public string Summary { get; set; }
 
-		[Required("Event Key")]
-		[ValidateRegExp(@"^[A-Za-z0-9\-]+$", "Key should only contain letters, numbers, and hypens.")]
+		[Required()]
+		[RegularExpression(@"^[A-Za-z0-9\-]+$",ErrorMessage = "Key should only contain letters, numbers, and hypens.")]
 		public string Key { get; set; }
 
-		[RequiredDateTime("Start Date")]
+		[Required()]
 		public override DateTime StartDate { get; set; }
 
-		[RequiredDateTime("End Date")]
+		[Required()]
 		public override DateTime EndDate { get; set; }
 
-		[Required("Time Zone")]
+		[Required()]
 		public override string TimeZone { get; set; }
 
 		[Multiline]
 		public string Description { get; set; }
 
-		[Required("Location")]
+		[Required()]
 		public string LocationName { get; set; }
 
 		public string LocationUrl { get; set; }
 
-		[Required("Speaker")]
+		[Required()]
 		public string SpeakerName { get; set; }
 
 		[Label("Speaker Website")]
 		public string SpeakerUrl { get; set; }
 
-		[Required("Bio")]
+		[Required()]
 		[Multiline]
+		[Label("Bio")]
 		public string SpeakerBio { get; set; }
 	}
 }

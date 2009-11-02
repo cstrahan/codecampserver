@@ -33,10 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Components.Validator, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\castle\Castle.Components.Validator.dll</HintPath>
-    </Reference>
     <Reference Include="CommandProcessor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\tinorulesengine\CommandProcessor.dll</HintPath>
@@ -54,6 +50,9 @@
       <HintPath>..\..\lib\mvccontrib\MvcContrib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -102,13 +101,13 @@
     <Compile Include="Helpers\ImageLinkHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\Validation\Attributes\SameAs.cs" />
     <Compile Include="Messages\DeleteMeetingMessage.cs" />
     <Compile Include="Models\Input\DeleteUserGroupInput.cs" />
     <Compile Include="Services\Mappers\IMeetingMapper.cs" />
     <Compile Include="Services\Mappers\IUserGroupSponsorMapper.cs" />
     <Compile Include="Services\Mappers\IUserGroupMapper.cs" />
     <Compile Include="Helpers\UserSelectorInputTypeConverter.cs" />
-    <Compile Include="Helpers\Validation\Attributes\ValidateKeyAttribute.cs" />
     <Compile Include="HtmlExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -150,7 +149,6 @@
     <Compile Include="Helpers\Filters\BaseActionFilter.cs" />
     <Compile Include="Helpers\Filters\AdminUserCreatedFilterAttribute.cs" />
     <Compile Include="Helpers\Filters\RequireAuthenticationFilterAttribute.cs" />
-    <Compile Include="Helpers\Filters\ValidateModelAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -160,12 +158,6 @@
     <Compile Include="Helpers\Attributes\HiddenAttribute.cs" />
     <Compile Include="Helpers\Attributes\LabelAttribute.cs" />
     <Compile Include="Helpers\UserSession.cs" />
-    <Compile Include="Helpers\Validation\Attributes\RequiredIntegerAttribute.cs" />
-    <Compile Include="Helpers\Validation\Attributes\RequiredAttribute.cs" />
-    <Compile Include="Helpers\Validation\Attributes\RequiredDateAttribute.cs" />
-    <Compile Include="Helpers\Validation\Attributes\RequiredDateTimeAttribute.cs" />
-    <Compile Include="Helpers\Validation\Attributes\RequiredDecimalAttribute.cs" />
-    <Compile Include="Helpers\Validation\Attributes\RequiredEmailAttribute.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Models\Input\UserInput.cs" />
     <Compile Include="Models\Input\ConferenceInput.cs" />

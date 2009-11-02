@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using CodeCampServer.UI.Helpers.Validation.Attributes;
 using Tarantino.RulesEngine.CommandProcessor;
 
@@ -13,13 +14,13 @@ namespace CodeCampServer.UI.Models.Input
 		//    Sponsors = new List<SponsorInput>();
 		//}
 
-		[Required("User Group Key")]
-		[ValidateKey]
+		[Required()]
+		//[ValidateKey]
 		public virtual string Key { get; set; }
 
 		public virtual Guid Id { get; set; }
 
-		[Required("Name")]
+		[Required()]
 		public virtual string Name { get; set; }
 
 		public virtual string DomainName { get; set; }

@@ -35,10 +35,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\AutoMapper\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Components.Validator, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\castle\Castle.Components.Validator.dll</HintPath>
-    </Reference>
     <Reference Include="CommandProcessor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\tinorulesengine\CommandProcessor.dll</HintPath>
@@ -68,6 +64,9 @@
       <HintPath>..\..\lib\structuremap\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -149,6 +148,7 @@
     <Compile Include="UI\Binders\ModelBinder.cs" />
     <Compile Include="UI\Binders\SmartBinder.cs" />
     <Compile Include="UI\Binders\UserGroupModelBinder.cs" />
+    <Compile Include="UI\InputBuilders\EmailPropertyConvention.cs" />
     <Compile Include="UI\InputBuilders\DatePickerPropertyConvention.cs" />
     <Compile Include="UI\InputBuilders\EnumerationPropertyConvention.cs" />
     <Compile Include="UI\InputBuilders\GuidPropertyConvention.cs" />

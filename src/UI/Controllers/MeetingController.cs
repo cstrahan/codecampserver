@@ -40,7 +40,7 @@ namespace CodeCampServer.UI.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		[RequireAuthenticationFilter]
 		[ValidateInput(false)]
-		[ValidateModel(typeof (MeetingInput))]
+		//[ValidateModel(typeof (MeetingInput))]
 		public ActionResult Edit(MeetingInput input)
 		{
 			if (!_securityContext.HasPermissionsForUserGroup(input.UserGroupId))

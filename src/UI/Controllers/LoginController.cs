@@ -28,7 +28,7 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		[ValidateModel(typeof (LoginInput))]
+		//[ValidateModel(typeof (LoginInput))]
 		public ViewResult Index(LoginInput input)
 		{
 			if (!ModelState.IsValid)

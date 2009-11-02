@@ -50,7 +50,7 @@ namespace CodeCampServer.UI.Helpers
                 }
             }
 
-            builder.InnerHtml = html.Image(relativeImageUrl, imgAlt);
+            builder.InnerHtml = html.Image(relativeImageUrl, imgAlt).ToString();
 
             return builder.ToString(TagRenderMode.Normal);
         }        

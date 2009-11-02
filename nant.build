@@ -267,10 +267,6 @@
 		<!--<exec program="${svn.executable}" workingdir="." commandline="up latestVersion ${svnargs}" verbose="true" />-->
 		<delete file="${dir.installerpackage}/${project::get-name()}Package.exe" />
 		<exec  program="lib\7zip\7za.exe" workingdir="${dir.package}" commandline=" a -mx=9 -r -sfx ..\..\${dir.installerpackage}/${project::get-name()}Package.exe *.*" verbose="true" />
-<!--
-		<exec failonerror="false" program="lib\msdeploy\msdeploy.exe" workingdir="${dir.package}" commandline=" -verb:sync -source:contentPath=${path::get-full-path(dir.package)} -dest:package=${path::get-full-path(  dir.installerpackage + '/' + project::get-name() + 'Package.zip')}" verbose="true" />
--->
-
   	</target>
 
 	<target name="commitPackage" depends="package">

@@ -49,7 +49,7 @@ namespace CodeCampServer.UI.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		[RequireAuthenticationFilter]
 		[ValidateInput(false)]
-		[ValidateModel(typeof (UserInput))]
+		//[ValidateModel(typeof (UserInput))]
 		public ActionResult Edit(UserInput input)
 		{
 			if (!_securityContext.HasPermissionsForUserGroup(input.Id))

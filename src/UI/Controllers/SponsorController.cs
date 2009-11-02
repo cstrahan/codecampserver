@@ -44,7 +44,7 @@ namespace CodeCampServer.UI.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		[RequireAuthenticationFilter]
 		[ValidateInput(false)]
-		[ValidateModel(typeof (SponsorInput))]
+		//[ValidateModel(typeof (SponsorInput))]
 		public ActionResult Edit(UserGroup userGroup, SponsorInput sponsorInput)
 		{
 			if (ModelState.IsValid)

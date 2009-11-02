@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Castle.Components.Validator;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Infrastructure.DataAccess;
@@ -32,16 +31,7 @@ namespace CodeCampServer.Infrastructure
 			     		x.ConnectImplementationsToTypesClosing(typeof (Command<>));
 			     	});
 		}
-	}
-
-	public class CastleValidatorRegistry : Registry
-	{
-		public CastleValidatorRegistry()
-		{
-			ForRequestedType<IValidatorRunner>().TheDefault.Is.ConstructedBy(
-				() => new ValidatorRunner(new CachedValidationRegistry()));
-		}
-	}
+	}	
 
 	public class AutoMapperRegistry : Registry
 	{

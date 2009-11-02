@@ -48,7 +48,6 @@ namespace CodeCampServer.UnitTests.UI.Helpers
             return new ModelBindingContext()
                        {
                            ModelName = "usergroupkey",
-                           ModelType = typeof(UserGroup),
                            ValueProvider = CreateValueProvider(value, "usergroupkey")
                        };
         }

@@ -43,7 +43,7 @@ namespace CodeCampServer.UI
 			IEnumerable<SelectListItem> selectList = GetSelectListForDropDown<T>(Enumeration.GetAll<T>(),
 			                                                                     includeBlankOption, selectedValue, null);
 
-			string html = helper.DropDownList(listName, selectList);
+			string html = helper.DropDownList(listName, selectList).ToString();
 			return html;
 		}
 
@@ -55,7 +55,7 @@ namespace CodeCampServer.UI
 			                                                                     includeBlankOption, selectedValue,
 			                                                                     displayValueToExclude);
 
-			string html = helper.DropDownList(listName, selectList);
+			string html = helper.DropDownList(listName, selectList).ToString();
 			return html;
 		}
 
@@ -171,7 +171,7 @@ namespace CodeCampServer.UI
 			string actionName = actionExpression.GetActionName();
 
 			return helper.ActionLink(linkText, actionName, controllerName, null,
-			                         new {@class = "action-link " + linkText.ToLower()});
+			                         new {@class = "action-link " + linkText.ToLower()}).ToString();
 		}
 
 		public static IGridColumn<T> PartialCell<T>(this IGridColumn<T> column, string partialName) where T : class

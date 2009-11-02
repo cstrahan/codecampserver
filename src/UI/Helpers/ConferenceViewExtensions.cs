@@ -10,7 +10,7 @@ namespace CodeCampServer.UI.Helpers
         public static string ConferenceLink(this HtmlHelper html, ConferenceInput conferenceInput)
         {            
             return html.RouteLink(conferenceInput.Name, "conferencedefault", 
-                new { controller="conference", action="index", conferenceKey = conferenceInput.Key });
+                new { controller="conference", action="index", conferenceKey = conferenceInput.Key }).ToString();
         }
 
         private static string GetDateBadge(DateTime dtm)

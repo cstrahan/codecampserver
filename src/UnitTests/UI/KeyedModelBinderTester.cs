@@ -34,7 +34,7 @@ namespace CodeCampServer.UnitTests.UI
 			ControllerContext controllerContext1 = GetControllerContext("fooKey", "key"); //capitalize
 			ControllerContext controllerContext2 = GetControllerContext("barkey", "key"); //lowercase
 
-			var modelBindingContext1 = new ModelBindingContext {ModelType = typeof (TEntity), ModelName = "foo",ValueProvider = new Dictionary<string, ValueProviderResult>()};
+			var modelBindingContext1 = new ModelBindingContext { ModelName = "foo",ValueProvider = new Dictionary<string, ValueProviderResult>()};
 			modelBindingContext1.ValueProvider.Add("fookey",new ValueProviderResult("key","key",null));
 
 			object result = binder.BindModel(controllerContext1,
@@ -44,7 +44,7 @@ namespace CodeCampServer.UnitTests.UI
 
 			Assert.That(result, Is.EqualTo(entity));
 
-			var modelBindingContext2 = new ModelBindingContext{ModelType = typeof (TEntity),ModelName = "bar",ValueProvider = new Dictionary<string, ValueProviderResult>()};
+			var modelBindingContext2 = new ModelBindingContext{ModelName = "bar",ValueProvider = new Dictionary<string, ValueProviderResult>()};
 			modelBindingContext2.ValueProvider.Add("barkey", new ValueProviderResult("key","key",null));
 			result = binder.BindModel(controllerContext2, modelBindingContext2);
 			Assert.That(result, Is.EqualTo(entity));
@@ -59,7 +59,7 @@ namespace CodeCampServer.UnitTests.UI
 			ControllerContext controllerContext = GetControllerContext("foo", badParameter);
 			
 
-			var context = new ModelBindingContext{ModelType = typeof (TEntity),ModelName = "foo"};
+			var context = new ModelBindingContext{ModelName = "foo"};
 
 			var binder = new KeyedModelBinder<TEntity, TRepository>(null);
 			binder.BindModel(controllerContext, context);
@@ -71,7 +71,7 @@ namespace CodeCampServer.UnitTests.UI
 			const string badParameter = "";
 			ControllerContext controllerContext = GetControllerContext("foo", badParameter);
 
-			var context = new ModelBindingContext {ModelType = typeof (TEntity), ModelName = "foo", ValueProvider = new Dictionary<string, ValueProviderResult>()};
+			var context = new ModelBindingContext { ModelName = "foo", ValueProvider = new Dictionary<string, ValueProviderResult>()};
 			
 		    context.ValueProvider.Add("foo",new ValueProviderResult("","",null));                                  
 
@@ -91,7 +91,7 @@ namespace CodeCampServer.UnitTests.UI
 			var binder = new KeyedModelBinder<TEntity, TRepository>(repository);
 			ControllerContext controllerContext = GetControllerContext("foo", "key");
 
-			var context = new ModelBindingContext {ModelType = typeof (TEntity), ModelName = "foo",ValueProvider = new Dictionary<string, ValueProviderResult>()};
+			var context = new ModelBindingContext { ModelName = "foo",ValueProvider = new Dictionary<string, ValueProviderResult>()};
 			                                      
 			context.ValueProvider.Add("foo",new ValueProviderResult("key","key",null));
 

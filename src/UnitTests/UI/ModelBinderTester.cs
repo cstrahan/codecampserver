@@ -36,7 +36,6 @@ namespace CodeCampServer.UnitTests.UI
 
 			var modelBindingContext = new ModelBindingContext
 			                          	{
-			                          		ModelType = typeof (TEntity),
 			                          		ModelName = "foo",
 
 											ValueProvider = new Dictionary<string, ValueProviderResult>()
@@ -47,7 +46,6 @@ namespace CodeCampServer.UnitTests.UI
 
 			var modelBindingContext2 = new ModelBindingContext
 			                           	{
-			                           		ModelType = typeof (TEntity),
 			                           		ModelName = "bar",
 											ValueProvider = new Dictionary<string, ValueProviderResult>()
 			                           	};
@@ -67,7 +65,7 @@ namespace CodeCampServer.UnitTests.UI
 			ControllerContext controllerContext = GetControllerContext("foo", guid.ToString());
 
 
-			var context = new ModelBindingContext {ModelType = typeof (TEntity), ModelName = "foo",ValueProvider = new Dictionary<string, ValueProviderResult>()};
+			var context = new ModelBindingContext { ModelName = "foo",ValueProvider = new Dictionary<string, ValueProviderResult>()};
 			context.ValueProvider.AddKeyAndValue("foo",guid);
 
 			var result = binder.BindModel(controllerContext, context);
@@ -83,7 +81,7 @@ namespace CodeCampServer.UnitTests.UI
 
 			ControllerContext controllerContext = GetControllerContext("foo", badParameter);
 
-			var context = new ModelBindingContext {ModelType = typeof (TEntity), ModelName = "foo"};
+			var context = new ModelBindingContext { ModelName = "foo"};
 			                                      
 
 			var binder = new ModelBinder<TEntity, TRepository>(null);
@@ -99,7 +97,7 @@ namespace CodeCampServer.UnitTests.UI
 			//valueProvider.Stub(v => v.GetValue("foo")).Return(new ValueProviderResult(null, "", CultureInfo.CurrentCulture));
 
 			var context = new ModelBindingContext
-			              	{ModelName = "foo", ModelType = typeof (TEntity),ValueProvider = new Dictionary<string, ValueProviderResult>()};
+			              	{ModelName = "foo", ValueProvider = new Dictionary<string, ValueProviderResult>()};
 
 			context.ValueProvider.AddKeyAndValue("foo",null);
 
