@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using CodeCampServer.UI.Helpers.Validation.Attributes;
 
 namespace CodeCampServer.UI.Models.Input
 {

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using CodeCampServer.UI.Helpers.Validation.Attributes;
 using Tarantino.RulesEngine.CommandProcessor;
 
 namespace CodeCampServer.UI.Models.Input

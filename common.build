@@ -250,4 +250,22 @@
             ]]>
     </code>
   </script>
+
+  <target name="deploy">
+    <!-- the following properties will be passed in 
+      deploy.server = app4 
+      deploy.cmd deploy.bat
+      deploy.installdir c:\installs\dev
+    -->
+    <property name="msdeployexe" value="lib\msdeploy\msdeploy.exe"/>
+    
+    <exec workingdir="../"
+    program="${msdeployexe}"
+    commandline="-verb:sync -source:dirPath=${path::get-full-path(dir.installerpackage)} -dest:dirPath='${deploy.installdir}',computername=${deploy.server} -verbose" />
+
+    <exec workingdir="../"
+    program="${msdeployexe}"
+    commandline="-verb:sync -source:runCommand='${deploy.installdir}\${deploy.cmd} ${deploy.installdir}',waitInterval=5000,waitAttempts=40 -dest:auto,computername=${deploy.server} -verbose" />
+  </target>
+
 </project>

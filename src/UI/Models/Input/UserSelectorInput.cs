@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Binders;
-using CodeCampServer.UI.Helpers.Validation.Attributes;
 
 namespace CodeCampServer.UI.Models.Input
 {
