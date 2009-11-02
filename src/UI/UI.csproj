@@ -101,7 +101,6 @@
     <Compile Include="Helpers\ImageLinkHelper.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Helpers\Validation\Attributes\SameAs.cs" />
     <Compile Include="Messages\DeleteMeetingMessage.cs" />
     <Compile Include="Models\Input\DeleteUserGroupInput.cs" />
     <Compile Include="Services\Mappers\IMeetingMapper.cs" />
@@ -578,6 +577,7 @@
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Helpers\Validation\" />
     <Folder Include="images\icons\" />
     <Folder Include="Properties\" />
   </ItemGroup>
