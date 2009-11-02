@@ -1,9 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using Tarantino.RulesEngine.CommandProcessor;
 
 namespace CodeCampServer.UI.Models.Input
 {
-	public class LoginInput : IMessage
+	public class LoginInput
 	{
 		[Required]
 		public string Username { get; set; }

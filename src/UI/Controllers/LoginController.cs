@@ -1,11 +1,10 @@
 using System;
 using System.Web.Mvc;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
-using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Models.Input;
 using CommandProcessor;
+using Tarantino.RulesEngine;
 
 namespace CodeCampServer.UI.Controllers
 {
@@ -13,6 +12,7 @@ namespace CodeCampServer.UI.Controllers
 	{
 		private readonly IUserSession _userSession;
 		private readonly IRulesEngine _rulesEngine;
+
 		public LoginController(IUserSession userSession, IRulesEngine rulesEngine)
 		{
 			_userSession = userSession;
@@ -23,7 +23,7 @@ namespace CodeCampServer.UI.Controllers
 		[AcceptVerbs(HttpVerbs.Get)]
 		public ViewResult Index(string username)
 		{
-			var model = new LoginInput{Username = username};
+			var model = new LoginInput {Username = username};
 			return View(model);
 		}
 
@@ -36,9 +36,9 @@ namespace CodeCampServer.UI.Controllers
 				return View(input);
 			}
 
-			var result = _rulesEngine.Process(input);
+			ExecutionResult result = _rulesEngine.Process(input);
 
-			if (result.ReturnItems.Get<User>()!=null)
+			if (result.ReturnItems.Get<User>() != null)
 			{
 				_userSession.LogIn(result.ReturnItems.Get<User>());
 			}

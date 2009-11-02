@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
+using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
@@ -19,7 +19,8 @@ namespace CodeCampServer.UI.Controllers
 		private readonly ISecurityContext _securityContext;
 		private readonly IRulesEngine _rulesEngine;
 
-		public UserGroupController(IUserGroupRepository repository, IUserGroupMapper mapper, ISecurityContext securityContext, IRulesEngine rulesEngine) 
+		public UserGroupController(IUserGroupRepository repository, IUserGroupMapper mapper, ISecurityContext securityContext,
+		                           IRulesEngine rulesEngine)
 		{
 			_repository = repository;
 			_mapper = mapper;
@@ -39,7 +40,7 @@ namespace CodeCampServer.UI.Controllers
 			return View(_mapper.Map(entities));
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
+		[HttpGet]
 		[RequireAuthenticationFilter]
 		public ActionResult Edit(Guid? entityToEdit)
 		{
@@ -59,10 +60,9 @@ namespace CodeCampServer.UI.Controllers
 			return View(_mapper.Map(model));
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
+		[HttpPost]
 		[RequireAuthenticationFilter]
 		[ValidateInput(false)]
-		//[ValidateModel(typeof (UserGroupInput))]
 		public ActionResult Edit(UserGroupInput input)
 		{
 			if (!_securityContext.HasPermissionsForUserGroup(input.Id))
@@ -78,10 +78,10 @@ namespace CodeCampServer.UI.Controllers
 					var userGroup = result.ReturnItems.Get<UserGroup>();
 					return RedirectToAction<HomeController>(c => c.Index(userGroup));
 				}
-				
-				foreach (var errorMessage in result.Messages)
+
+				foreach (ErrorMessage errorMessage in result.Messages)
 				{
-					ModelState.AddModelError(errorMessage.IncorrectAttribute,errorMessage.MessageText);					
+					ModelState.AddModelError(UINameHelper.BuildNameFrom(errorMessage.IncorrectAttribute), errorMessage.MessageText);
 				}
 			}
 			return View(input);
@@ -105,7 +105,7 @@ namespace CodeCampServer.UI.Controllers
 				return NotAuthorizedView;
 			}
 
-			var result = _rulesEngine.Process(input);
+			ExecutionResult result = _rulesEngine.Process(input);
 
 			if (result.Successful)
 			{

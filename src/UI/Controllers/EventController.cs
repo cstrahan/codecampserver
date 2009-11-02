@@ -37,7 +37,7 @@ namespace CodeCampServer.UI.Controllers
 			else
 			{
 				announcementDisplay =
-					_meetingMapper.Map<MeetingAnnouncementDisplay>((Meeting)@event);
+					_meetingMapper.Map<MeetingAnnouncementDisplay>((Meeting) @event);
 //					.Map<Meeting, MeetingAnnouncementDisplay>();
 			}
 

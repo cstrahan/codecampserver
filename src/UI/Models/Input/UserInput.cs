@@ -1,32 +1,32 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using CodeCampServer.UI.Helpers.Attributes;
-using Tarantino.RulesEngine.CommandProcessor;
 
 namespace CodeCampServer.UI.Models.Input
 {
 	//[SameAs("ConfirmPassword","Password")]
-	public class UserInput:IMessage
+	public class UserInput
 	{
-		[Required()]
-		[RegularExpression(@"^([a-zA-Z])[a-zA-Z_-]*[\w_-]*[\S]$|^([a-zA-Z])[0-9_-]*[\S]$|^[a-zA-Z]*[\S]$",ErrorMessage = "Username is not valid.")]
+		[Required]
+		[RegularExpression(@"^([a-zA-Z])[a-zA-Z_-]*[\w_-]*[\S]$|^([a-zA-Z])[0-9_-]*[\S]$|^[a-zA-Z]*[\S]$",
+			ErrorMessage = "Username is not valid.")]
 		public virtual string Username { get; set; }
 
-		[Required()]
+		[Required]
 		public virtual string Name { get; set; }
 
-		[Required()]
+		[Required]
 		[DataType(DataType.EmailAddress)]
 		public virtual string EmailAddress { get; set; }
 
 		[Hidden]
 		public Guid Id { get; set; }
 
-		[Required()]
+		[Required]
 		public virtual string Password { get; set; }
 
-		
-		[Required()]        		
+
+		[Required]
 		public virtual string ConfirmPassword { get; set; }
 	}
 }

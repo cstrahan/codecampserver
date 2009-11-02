@@ -3,7 +3,7 @@ using Tarantino.RulesEngine.CommandProcessor;
 
 namespace CodeCampServer.Core.Services.BusinessRule.DeleteUserGroup
 {
-	public class DeleteUserGroupCommandMessage : ICommandMessage
+	public class DeleteUserGroupCommandMessage 
 	{
 		public UserGroup UserGroup { get; set; }
 	}

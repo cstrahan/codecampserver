@@ -1,6 +1,5 @@
-using System;
-using System.Linq;
 using System.Web.Mvc;
+using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
@@ -19,8 +18,9 @@ namespace CodeCampServer.UI.Controllers
 		private readonly ISecurityContext _securityContext;
 		private readonly IRulesEngine _rulesEngine;
 
-		public SponsorController(IUserGroupRepository repository, IUserGroupSponsorMapper mapper, ISecurityContext securityContext, IRulesEngine rulesEngine)
-			
+		public SponsorController(IUserGroupRepository repository, IUserGroupSponsorMapper mapper,
+		                         ISecurityContext securityContext, IRulesEngine rulesEngine)
+
 		{
 			_repository = repository;
 			_mapper = mapper;
@@ -31,7 +31,7 @@ namespace CodeCampServer.UI.Controllers
 
 		public ActionResult Index(UserGroup usergroup)
 		{
-			var group = _repository.GetById(usergroup.Id);
+			UserGroup group = _repository.GetById(usergroup.Id);
 
 			Sponsor[] entities = group.GetSponsors();
 
@@ -41,10 +41,9 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 
-		[AcceptVerbs(HttpVerbs.Post)]
+		[HttpPost]
 		[RequireAuthenticationFilter]
 		[ValidateInput(false)]
-		//[ValidateModel(typeof (SponsorInput))]
 		public ActionResult Edit(UserGroup userGroup, SponsorInput sponsorInput)
 		{
 			if (ModelState.IsValid)
@@ -55,9 +54,9 @@ namespace CodeCampServer.UI.Controllers
 					return RedirectToAction<SponsorController>(c => c.Index(null));
 				}
 
-				foreach (var errorMessage in result.Messages)
+				foreach (ErrorMessage errorMessage in result.Messages)
 				{
-					ModelState.AddModelError(errorMessage.IncorrectAttribute, errorMessage.MessageText);
+					ModelState.AddModelError(UINameHelper.BuildNameFrom(errorMessage.IncorrectAttribute), errorMessage.MessageText);
 				}
 			}
 			return View(sponsorInput);
@@ -71,7 +70,7 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 
-		[AcceptVerbs(HttpVerbs.Get)]
+		[HttpGet]
 		public ViewResult Edit(UserGroup userGroup, Sponsor sponsor)
 		{
 			if (!_securityContext.IsAdmin())

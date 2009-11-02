@@ -1,9 +1,8 @@
 using System;
-using Tarantino.RulesEngine.CommandProcessor;
 
 namespace CodeCampServer.UI.Messages
 {
-	public class DeleteMeetingMessage : IMessage
+	public class DeleteMeetingMessage 
 	{
 		public Guid Meeting { get; set; }
 	}

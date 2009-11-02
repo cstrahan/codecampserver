@@ -1,6 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
+using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
@@ -20,7 +19,8 @@ namespace CodeCampServer.UI.Controllers
 		private readonly IUserSession _session;
 		private readonly IRulesEngine _rulesEngine;
 
-		public UserController(IUserRepository repository, IUserMapper mapper, ISecurityContext securityContext, IUserSession session, IRulesEngine rulesEngine) 
+		public UserController(IUserRepository repository, IUserMapper mapper, ISecurityContext securityContext,
+		                      IUserSession session, IRulesEngine rulesEngine)
 		{
 			_repository = repository;
 			_mapper = mapper;
@@ -29,27 +29,26 @@ namespace CodeCampServer.UI.Controllers
 			_rulesEngine = rulesEngine;
 		}
 
-			[AcceptVerbs(HttpVerbs.Get)]
-			public ViewResult Edit(User user)
+		[HttpGet]
+		public ViewResult Edit(User user)
+		{
+			if (!_securityContext.IsAdmin())
 			{
-				if (!_securityContext.IsAdmin())
-				{
-					return NotAuthorizedView;
-				}
-
-				if (user == null)
-				{
-					return View(_mapper.Map(new User()));
-				}
-
-				UserInput input = _mapper.Map(user);
-				return View(input);
+				return NotAuthorizedView;
 			}
 
-		[AcceptVerbs(HttpVerbs.Post)]
+			if (user == null)
+			{
+				return View(_mapper.Map(new User()));
+			}
+
+			UserInput input = _mapper.Map(user);
+			return View(input);
+		}
+
+		[HttpPost]
 		[RequireAuthenticationFilter]
 		[ValidateInput(false)]
-		//[ValidateModel(typeof (UserInput))]
 		public ActionResult Edit(UserInput input)
 		{
 			if (!_securityContext.HasPermissionsForUserGroup(input.Id))
@@ -65,9 +64,9 @@ namespace CodeCampServer.UI.Controllers
 					return RedirectToAction<HomeController>(c => c.Index(null));
 				}
 
-				foreach (var errorMessage in result.Messages)
+				foreach (ErrorMessage errorMessage in result.Messages)
 				{
-					ModelState.AddModelError(errorMessage.IncorrectAttribute, errorMessage.MessageText);
+					ModelState.AddModelError(UINameHelper.BuildNameFrom(errorMessage.IncorrectAttribute), errorMessage.MessageText);
 				}
 			}
 			return View(input);

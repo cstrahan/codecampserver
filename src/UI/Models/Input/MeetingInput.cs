@@ -1,53 +1,52 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using CodeCampServer.UI.Helpers.Attributes;
-using Tarantino.RulesEngine.CommandProcessor;
 
 namespace CodeCampServer.UI.Models.Input
 {
-	public class MeetingInput : EventInput,IMessage
+	public class MeetingInput : EventInput
 	{
 		public Guid Id { get; set; }
 		public Guid UserGroupId { get; set; }
 
-		[Required()]
+		[Required]
 		public string Name { get; set; }
 
-		[Required()]
+		[Required]
 		public string Topic { get; set; }
 
-		[Required()]
+		[Required]
 		[Multiline]
 		public string Summary { get; set; }
 
-		[Required()]
-		[RegularExpression(@"^[A-Za-z0-9\-]+$",ErrorMessage = "Key should only contain letters, numbers, and hypens.")]
+		[Required]
+		[RegularExpression(@"^[A-Za-z0-9\-]+$", ErrorMessage = "Key should only contain letters, numbers, and hypens.")]
 		public string Key { get; set; }
 
-		[Required()]
+		[Required]
 		public override DateTime StartDate { get; set; }
 
-		[Required()]
+		[Required]
 		public override DateTime EndDate { get; set; }
 
-		[Required()]
+		[Required]
 		public override string TimeZone { get; set; }
 
 		[Multiline]
 		public string Description { get; set; }
 
-		[Required()]
+		[Required]
 		public string LocationName { get; set; }
 
 		public string LocationUrl { get; set; }
 
-		[Required()]
+		[Required]
 		public string SpeakerName { get; set; }
 
 		[Label("Speaker Website")]
 		public string SpeakerUrl { get; set; }
 
-		[Required()]
+		[Required]
 		[Multiline]
 		[Label("Bio")]
 		public string SpeakerBio { get; set; }

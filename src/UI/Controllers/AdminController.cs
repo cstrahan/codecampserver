@@ -20,7 +20,7 @@ namespace CodeCampServer.UI.Controllers
 			User user = _repository.GetByUserName("admin");
 			if (user == null)
 			{
-				return RedirectToAction<UserController>(c => c.Edit((User)null));
+				return RedirectToAction<UserController>(c => c.Edit((User) null));
 			}
 			var model = new AdminInput {ConferenceIsSelected = conference != null};
 

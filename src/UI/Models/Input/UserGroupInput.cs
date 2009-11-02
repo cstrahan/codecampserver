@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Tarantino.RulesEngine.CommandProcessor;
 
 namespace CodeCampServer.UI.Models.Input
 {
-	public class UserGroupInput:IMessage
+	public class UserGroupInput
 	{
 		//public UserGroupInput()
 		//{
@@ -13,13 +12,13 @@ namespace CodeCampServer.UI.Models.Input
 		//    Sponsors = new List<SponsorInput>();
 		//}
 
-		[Required()]
+		[Required]
 		//[ValidateKey]
-		public virtual string Key { get; set; }
+			public virtual string Key { get; set; }
 
 		public virtual Guid Id { get; set; }
 
-		[Required()]
+		[Required]
 		public virtual string Name { get; set; }
 
 		public virtual string DomainName { get; set; }

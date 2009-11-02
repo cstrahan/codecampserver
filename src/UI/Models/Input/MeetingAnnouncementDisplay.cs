@@ -14,9 +14,10 @@ namespace CodeCampServer.UI.Models.Input
 		public DateTimeSpan When { get; set; }
 		public string LocationName { get; set; }
 		public string LocationUrl { get; set; }
-		
+
 		[Label("Speaker")]
 		public string SpeakerName { get; set; }
+
 		public string SpeakerUrl { get; set; }
 		public string SpeakerBio { get; set; }
 		public string MeetingInfo { get; set; }

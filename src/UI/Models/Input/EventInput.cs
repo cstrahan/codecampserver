@@ -11,7 +11,7 @@ namespace CodeCampServer.UI.Models.Input
 		[Required]
 		public abstract DateTime EndDate { get; set; }
 
-		[Required()]
+		[Required]
 		public abstract string TimeZone { get; set; }
 
 		public string GetDate()

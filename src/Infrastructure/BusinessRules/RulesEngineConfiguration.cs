@@ -19,9 +19,9 @@ namespace CodeCampServer.Infrastructure.BusinessRules
 
 		private class CcsMessageMapper : IMessageMapper
 		{
-			public ICommandMessage MapUiMessageToCommandMessage(IMessage message, Type messageType, Type destinationType)
+			public object MapUiMessageToCommandMessage(object message, Type messageType, Type destinationType)
 			{
-				return (ICommandMessage) Mapper.Map(message, message.GetType(), destinationType);
+				return Mapper.Map(message, message.GetType(), destinationType);
 			}
 		}
 

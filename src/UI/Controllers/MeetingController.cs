@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Filters;
@@ -7,6 +6,7 @@ using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Messages;
 using CodeCampServer.UI.Models.Input;
 using CommandProcessor;
+using Tarantino.RulesEngine;
 
 namespace CodeCampServer.UI.Controllers
 {
@@ -50,27 +50,27 @@ namespace CodeCampServer.UI.Controllers
 
 			if (ModelState.IsValid)
 			{
-				var result = _rulesEngine.Process(input); 
+				ExecutionResult result = _rulesEngine.Process(input);
 				if (result.Successful)
 				{
 					var meeting = result.ReturnItems.Get<Meeting>();
 					return RedirectToAction<HomeController>(c => c.Index(meeting.UserGroup));
-				}				
+				}
 			}
 			return View(input);
 		}
 
 		[RequireAuthenticationFilter]
-		public ActionResult Delete(DeleteMeetingMessage message,UserGroup userGroup)
+		public ActionResult Delete(DeleteMeetingMessage message, UserGroup userGroup)
 		{
 			if (!_securityContext.HasPermissionsFor(userGroup))
 			{
 				return NotAuthorizedView;
 			}
 
-			var result = _rulesEngine.Process(message);
-			
-			if(result.Successful)
+			ExecutionResult result = _rulesEngine.Process(message);
+
+			if (result.Successful)
 			{
 				TempData.Add("message", result.ReturnItems.Get<Meeting>().Name + " was deleted.");
 			}
@@ -78,7 +78,7 @@ namespace CodeCampServer.UI.Controllers
 			{
 				TempData.Add("message", result.Messages[0]);
 			}
-			return RedirectToAction<HomeController>(c => c.Index(userGroup));			
+			return RedirectToAction<HomeController>(c => c.Index(userGroup));
 		}
 
 		public ActionResult New(UserGroup usergroup)

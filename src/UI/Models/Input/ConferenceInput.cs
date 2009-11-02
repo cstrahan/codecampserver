@@ -10,10 +10,10 @@ namespace CodeCampServer.UI.Models.Input
 
 		public virtual Guid UserGroupId { get; set; }
 
-		[Required()]
+		[Required]
 		public virtual string Name { get; set; }
 
-		[Required()]
+		[Required]
 		[RegularExpression(@"^[A-Za-z0-9\-]+$", ErrorMessage = "Key should only contain letters, numbers, and hypens.")]
 		public virtual string Key { get; set; }
 
@@ -21,7 +21,7 @@ namespace CodeCampServer.UI.Models.Input
 		[Label("Start Date")]
 		public override DateTime StartDate { get; set; }
 
-		[Required()]
+		[Required]
 		public override DateTime EndDate { get; set; }
 
 		[Required]

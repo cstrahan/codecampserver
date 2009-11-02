@@ -4,7 +4,7 @@ using Tarantino.RulesEngine.CommandProcessor;
 
 namespace CodeCampServer.Core.Services.BusinessRule.Login
 {
-	public class LoginUserCommandMessage : ICommandMessage
+	public class LoginUserCommandMessage 
 	{
 		public string Username { get; set; }
 
