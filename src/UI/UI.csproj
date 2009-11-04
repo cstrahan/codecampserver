@@ -75,8 +75,8 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Controllers\ActionActionResult.cs" />
-    <Compile Include="Controllers\CommandResult.cs" />
+    <Compile Include="Helpers\ActionResults\ActionActionResult.cs" />
+    <Compile Include="Helpers\ActionResults\CommandResult.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
@@ -130,7 +130,7 @@
     <Compile Include="Services\ConferenceKeyCannotBeAControllerNameConstraint.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\ConventionController.cs" />
+    <Compile Include="Helpers\ActionResults\ConventionController.cs" />
     <Compile Include="Helpers\Filters\AddUserToViewDataAttribute.cs" />
     <Compile Include="Helpers\Filters\BaseActionFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -463,54 +463,6 @@
     <Content Include="Views\Shared\Submit.aspx" />
     <Content Include="Views\Meeting\Edit.aspx" />
     <Content Include="Views\Shared\AddMeetingLink.ascx" />
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\ActionLink.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ActionLink.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\Controller.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Controller.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\ControllerUnitTest.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ControllerUnitTest.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\IMapper.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IMapper.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\Mapper.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Mapper.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\View-Edit.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>View-Edit.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\View-Index.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>View-Index.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\View-List.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>View-List.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\View-show.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>View-show.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\ViewModelMapper.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ViewModelMapper.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\ViewModelMapperInterface.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ViewModelMapperInterface.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\Headspring ASP Net MVC Crud Controller\ViewModelMapperUnitTest.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ViewModelMapperUnitTest.cs</LastGenOutput>
-    </None>
     <Content Include="Views\Shared\Display.Master" />
     <None Include="Views\Shared\Field.Master" />
     <Content Include="Views\Shared\Password.aspx" />
@@ -530,20 +482,6 @@
     <Content Include="Views\Sponsor\Index.aspx" />
     <Content Include="Views\Shared\AdminMenu.ascx" />
     <Content Include="Views\Shared\Modal.Master" />
-    <None Include="CodeTemplates\AddController\Controller.tt">
-    </None>
-    <None Include="CodeTemplates\AddView\Create.tt">
-    </None>
-    <None Include="CodeTemplates\AddView\Details.tt">
-    </None>
-    <None Include="CodeTemplates\AddView\Edit.tt">
-    </None>
-    <None Include="CodeTemplates\AddView\Empty.tt">
-    </None>
-    <None Include="CodeTemplates\AddView\IndexTemplate.tt">
-    </None>
-    <None Include="CodeTemplates\AddView\List.tt">
-    </None>
     <None Include="xhtml1-transitional.dtd">
     </None>
     <Content Include="Views\Shared\http404.ascx" />
@@ -558,7 +496,6 @@
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Helpers\Validation\" />
     <Folder Include="images\icons\" />
     <Folder Include="Properties\" />
   </ItemGroup>
