@@ -6,11 +6,12 @@ using System.Web.Routing;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Models;
+using CodeCampServer.UI.Models.Input;
 using MvcContrib;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public abstract class SmartController : Controller
+	public abstract class ConventionController : Controller
 	{
 		protected ViewResult NotAuthorizedView
 		{
@@ -50,11 +51,8 @@ namespace CodeCampServer.UI.Controllers
 		protected override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
 			//temporarily putting it here.
-			var authentication = new AuthenticationFilterAttribute();
+			var authentication = new AddUserToViewDataAttribute();
 			authentication.OnActionExecuting(filterContext);
-
-			var referrer = new UrlReferrerFilterAttribute();
-			referrer.OnActionExecuting(filterContext);
 
 			var version = new AssemblyVersionFilterAttribute();
 			version.OnActionExecuting(filterContext);
@@ -89,6 +87,28 @@ namespace CodeCampServer.UI.Controllers
 
 			return RedirectToAction(actionName, controllerName,
 			                        new RouteValueDictionary(values));
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <typeparam name="TMessage"></typeparam>
+		/// <typeparam name="TResult"></typeparam>
+		/// <param name="message">The user interface message that will be sent to the rules engine.</param>
+		/// <param name="success">The Action Result to perform on a successful command execution.</param>
+		/// <param name="failure">The Action Result to perofmr on a failed command execution.</param>
+		/// <returns></returns>
+		public CommandResult  Command<TMessage,TResult>(TMessage message, Func<TResult,ActionResult> success, Func<TMessage,ActionResult> failure)
+		{
+			return new CommandResult<TMessage,TResult>(message, success, failure);
+		}
+		public CommandResult Command<TMessage>(TMessage message, Func<TMessage, ActionResult> result)
+		{
+			return new CommandResult<TMessage, TMessage>(message, result, result);
+		}
+
+		public ActionResult Action(Action action)
+		{
+			return new ActionActionResult(action);
 		}
 	}
 }

@@ -18,7 +18,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.UI.Controllers
             return typeof (IController).IsAssignableFrom(type)
                    && type != typeof (ISubController)
                    && type != typeof (SubController)
-                   && type != typeof (SmartController)
+                   && type != typeof (ConventionController)
                    && !type.IsAbstract; 
         }
 
@@ -38,7 +38,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.UI.Controllers
 
         private Assembly GetUiAssembly()
         {
-            return typeof(SmartController).Assembly;
+            return typeof(ConventionController).Assembly;
         }
 
         [Test]

@@ -21,7 +21,7 @@ namespace CodeCampServer.UnitTests
 		/// </summary>
 		/// <typeparam name="T">Type to be mocked</typeparam>
 		/// <param name="argumentsForConstructor">Constructor arguments</param>
-		/// <returns>T</returns>
+		/// <returns>TMessage</returns>
 		protected static T M<T>(params object[] argumentsForConstructor) where T : class
 		{
 			return MockRepository.GenerateMock<T>(argumentsForConstructor);
@@ -32,7 +32,7 @@ namespace CodeCampServer.UnitTests
 		/// </summary>
 		/// <typeparam name="T">Type to be stubbed</typeparam>
 		/// <param name="argumentsForConstructor">Constructor arguments</param>
-		/// <returns>T</returns>
+		/// <returns>TMessage</returns>
 		protected static T S<T>(params object[] argumentsForConstructor) where T : class
 		{
 			return MockRepository.GenerateStub<T>(argumentsForConstructor);

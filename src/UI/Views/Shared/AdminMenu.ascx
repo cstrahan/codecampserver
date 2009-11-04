@@ -6,6 +6,5 @@
   <ul>
         <li><a href="<%=Url.Action<UserController>(c=>c.Edit((User)null)) %>"> My Profile</a></li>
           <li><a href="<%=Url.Action<UserController>(c=>c.Index()) %>"> Edit Users</a></li>
-        <li><a href="<%=Url.Action<ConferenceController>(c=>c.Edit((Conference)null)) %>"> Edit Conference</a></li>
   </ul>
   </div>

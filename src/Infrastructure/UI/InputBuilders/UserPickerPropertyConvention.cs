@@ -25,7 +25,7 @@ namespace CodeCampServer.Infrastructure.UI.InputBuilders
 
 		public override string PartialNameConvention(PropertyInfo propertyInfo)
 		{
-			return "UserPicker";
+			return "ListBox";
 		}
 
 		public override PropertyViewModel CreateViewModel<T>()

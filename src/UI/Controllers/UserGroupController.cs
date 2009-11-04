@@ -7,25 +7,20 @@ using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
-using CommandProcessor;
-using Tarantino.RulesEngine;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public class UserGroupController : SmartController
+	public class UserGroupController : ConventionController
 	{
 		private readonly IUserGroupRepository _repository;
 		private readonly IUserGroupMapper _mapper;
 		private readonly ISecurityContext _securityContext;
-		private readonly IRulesEngine _rulesEngine;
 
-		public UserGroupController(IUserGroupRepository repository, IUserGroupMapper mapper, ISecurityContext securityContext,
-		                           IRulesEngine rulesEngine)
+		public UserGroupController(IUserGroupRepository repository, IUserGroupMapper mapper, ISecurityContext securityContext)
 		{
 			_repository = repository;
 			_mapper = mapper;
 			_securityContext = securityContext;
-			_rulesEngine = rulesEngine;
 		}
 
 
@@ -41,7 +36,7 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[HttpGet]
-		[RequireAuthenticationFilter]
+		[Authorize]
 		public ActionResult Edit(Guid? entityToEdit)
 		{
 			UserGroup model;
@@ -61,7 +56,7 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[HttpPost]
-		[RequireAuthenticationFilter]
+		[Authorize]
 		[ValidateInput(false)]
 		public ActionResult Edit(UserGroupInput input)
 		{
@@ -70,21 +65,10 @@ namespace CodeCampServer.UI.Controllers
 				return View(ViewPages.NotAuthorized);
 			}
 
-			if (ModelState.IsValid)
-			{
-				ExecutionResult result = _rulesEngine.Process(input);
-				if (result.Successful)
-				{
-					var userGroup = result.ReturnItems.Get<UserGroup>();
-					return RedirectToAction<HomeController>(c => c.Index(userGroup));
-				}
-
-				foreach (ErrorMessage errorMessage in result.Messages)
-				{
-					ModelState.AddModelError(UINameHelper.BuildNameFrom(errorMessage.IncorrectAttribute), errorMessage.MessageText);
-				}
-			}
-			return View(input);
+			return Command<UserGroupInput, UserGroup>(
+								input, 
+								r => RedirectToAction<HomeController>(c => c.Index(r)),
+								i => View(input));
 		}
 
 		protected bool CurrentUserHasPermissionToEditUserGroup(Guid Id)
@@ -97,7 +81,7 @@ namespace CodeCampServer.UI.Controllers
 			return _securityContext.HasPermissionsFor(userGroup);
 		}
 
-		[RequireAdminAuthorizationFilter]
+		[Authorize]
 		public ActionResult Delete(DeleteUserGroupInput input)
 		{
 			if (CurrentUserHasPermissionToEditUserGroup(input.UserGroup))
@@ -105,17 +89,11 @@ namespace CodeCampServer.UI.Controllers
 				return NotAuthorizedView;
 			}
 
-			ExecutionResult result = _rulesEngine.Process(input);
-
-			if (result.Successful)
-			{
-				TempData.Add("message", result.ReturnItems.Get<UserGroup>().Name + " was deleted.");
-			}
-			else
-			{
-				TempData.Add("message", result.Messages[0]);
-			}
-			return RedirectToAction<UserGroupController>(c => c.List());
+			return Command<DeleteUserGroupInput, UserGroup>(
+								input, 
+								r => RedirectToAction<UserGroupController>(c => c.List()),
+								i => RedirectToAction<UserGroupController>(c => c.List()));
+			
 		}
 	}
 }

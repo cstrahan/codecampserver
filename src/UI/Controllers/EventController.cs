@@ -8,7 +8,7 @@ using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public class EventController : SmartController
+	public class EventController : ConventionController
 	{
 		public const string ANNOUNCEMENT_PARTIAL_SUFFIX = "Announcement";
 		private readonly IEventRepository _eventRepository;

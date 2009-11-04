@@ -18,6 +18,8 @@ namespace CodeCampServer.Infrastructure.UI
 			InputBuilder.SetPropertyConvention(() => new InputBuilderPropertyFactory());
 			ControllerBuilder.Current.SetControllerFactory(new ControllerFactory());
 			ModelBinders.Binders.DefaultBinder = new SmartBinder();
+
+			MvcContrib.Services.DependencyResolver.InitializeWith( new StructureMapServiceLocator());
 		}
 	}
 }

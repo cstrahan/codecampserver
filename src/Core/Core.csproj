@@ -105,6 +105,7 @@
     <Compile Include="Common\ObjectExtensions.cs" />
     <Compile Include="Common\EnumerableExtensions.cs" />
     <Compile Include="Services\Impl\SecurityContext.cs" />
+    <Compile Include="Services\IRulesEngine.cs" />
     <Compile Include="Services\ISecurityContext.cs" />
     <Compile Include="Services\IUserSession.cs" />
     <Compile Include="SystemTime.cs" />

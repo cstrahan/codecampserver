@@ -6,8 +6,7 @@ using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Controllers
 {
-	[AdminUserCreatedFilter]
-	public class HomeController : SmartController
+	public class HomeController : ConventionController
 	{
 		private readonly IUserGroupMapper _mapper;
 

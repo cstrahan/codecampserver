@@ -1,3 +1,4 @@
+using System;
 using System.Security.Authentication;
 using System.Security.Principal;
 using System.Web;
@@ -33,13 +34,18 @@ namespace CodeCampServer.UI.Helpers
 		public void LogIn(User user)
 		{
 			blowUpIfEmployeeCannotLogin(user);
-			FormsAuthentication.RedirectFromLoginPage(user.Username, false);
+			LogIn(user.Username);
 		}
 
 		public void LogOut()
 		{
 			FormsAuthentication.SignOut();
 			HttpContext.Current.Response.Redirect("~/");
+		}
+
+		public void LogIn(string username)
+		{
+			FormsAuthentication.RedirectFromLoginPage(username, false);
 		}
 
 		private static void blowUpIfEmployeeCannotLogin(User user)

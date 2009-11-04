@@ -25,7 +25,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			mapper.Stub(sponsorMapper => sponsorMapper.Map((Sponsor[]) null)).IgnoreArguments().Return(new SponsorInput[0]);
 			var repository = S<IUserGroupRepository>();
 			repository.Stub(groupRepository => groupRepository.GetById(Guid.NewGuid())).IgnoreArguments().Return(new UserGroup());
-			var controller = new SponsorController(repository,mapper,PermisiveSecurityContext(), null);
+			var controller = new SponsorController(repository,mapper,PermisiveSecurityContext());
 
 		    controller.Index(new UserGroup())
             
@@ -41,7 +41,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
         {
         	var mapper = S<IUserGroupSponsorMapper>();
         	mapper.Stub(sponsorMapper => sponsorMapper.Map((Sponsor) null)).IgnoreArguments().Return(new SponsorInput());
-        	var controller = new SponsorController(S<IUserGroupRepository>(), mapper, PermisiveSecurityContext(), null);
+        	var controller = new SponsorController(S<IUserGroupRepository>(), mapper, PermisiveSecurityContext());
 
             var userGroup = new UserGroup();
             userGroup.Add(new Sponsor(){Id = Guid.Empty});
@@ -61,14 +61,12 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var input = new SponsorInput();
 
-	    	var engine = S<IRulesEngine>();	    	
-	    	engine.Stub(rulesEngine => rulesEngine.Process(input)).Return(new ExecutionResult());
 
-	    	var controller = new SponsorController(null, null, PermisiveSecurityContext(), engine);
+	    	var controller = new SponsorController(null, null, PermisiveSecurityContext());
 
-	        controller.Edit(userGroup, input)
+	        var result = (CommandResult)controller.Edit(userGroup, input);
 
-	            .AssertActionRedirect()
+	            result.Success.AssertActionRedirect()
 	            .ToAction<SponsorController>(c => c.Index(userGroup));
 	    }
 
@@ -76,7 +74,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 	    public void Should_delete_a_sponsor_from_the_delete_action()
 	    {
             var repository = S<IUserGroupRepository>();
-            var controller = new SponsorController(repository, S<IUserGroupSponsorMapper>(), PermisiveSecurityContext(), null);
+            var controller = new SponsorController(repository, S<IUserGroupSponsorMapper>(), PermisiveSecurityContext());
 
 	        var userGroup = new UserGroup();
 

@@ -132,6 +132,7 @@
     <Compile Include="UINameHelperTester.cs" />
     <Compile Include="UI\AutoMappedConfigurationTester.cs" />
     <Compile Include="UI\BinderTester.cs" />
+    <Compile Include="UI\CommandResultTester.cs" />
     <Compile Include="UI\Controllers\AdminControllerTester.cs" />
     <Compile Include="UI\Controllers\EventControllerTester.cs" />
     <Compile Include="UI\Controllers\SaveControllerTester.cs">

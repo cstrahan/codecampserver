@@ -11,7 +11,7 @@
     <RootNamespace>CodeCampServer.UI</RootNamespace>
     <AssemblyName>CodeCampServer.UI</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
+    <MvcBuildViews>true</MvcBuildViews>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,10 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandProcessor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\tinorulesengine\CommandProcessor.dll</HintPath>
-    </Reference>
     <Reference Include="Exceptioneer.WebClient, Version=1.0.0.45, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\exceptioneer\Exceptioneer.WebClient.dll</HintPath>
@@ -79,6 +75,8 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controllers\ActionActionResult.cs" />
+    <Compile Include="Controllers\CommandResult.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
@@ -86,9 +84,6 @@
     <Compile Include="Controllers\UserGroupController.cs" />
     <Compile Include="Helpers\Attributes\MultilineAttribute.cs" />
     <Compile Include="Helpers\ConferenceViewExtensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Helpers\Extensions\ModelStateExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helpers\Extensions\MvcHelperExtensions.cs">
@@ -101,8 +96,8 @@
     <Compile Include="Helpers\ImageLinkHelper.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Messages\DeleteMeetingMessage.cs" />
-    <Compile Include="Models\Input\DeleteUserGroupInput.cs" />
+    <Compile Include="Models\Messages\DeleteMeetingMessage.cs" />
+    <Compile Include="Models\Messages\DeleteUserGroupInput.cs" />
     <Compile Include="Services\Mappers\IMeetingMapper.cs" />
     <Compile Include="Services\Mappers\IUserGroupSponsorMapper.cs" />
     <Compile Include="Services\Mappers\IUserGroupMapper.cs" />
@@ -113,14 +108,13 @@
     <Compile Include="Models\Input\AdminInput.cs" />
     <Compile Include="Models\Input\DateTimeSpan.cs" />
     <Compile Include="Models\Input\EventInput.cs" />
-    <Compile Include="Models\Input\EventList.cs" />
-    <Compile Include="Models\Input\MeetingAnnouncementDisplay.cs" />
+    <Compile Include="Models\Display\EventList.cs" />
+    <Compile Include="Models\Display\MeetingAnnouncementDisplay.cs" />
     <Compile Include="Models\Input\MeetingInput.cs" />
     <Compile Include="Models\Input\SponsorInput.cs" />
     <Compile Include="Models\Input\UserGroupInput.cs" />
     <Compile Include="Models\Input\UserSelectorInput.cs" />
     <Compile Include="Helpers\Filters\AssemblyVersionrFilterAttribute.cs" />
-    <Compile Include="Helpers\Filters\UrlReferrerFilterAttribute.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Services\IAssemblyVersion.cs" />
     <Compile Include="DomainnameRouteHandler.cs" />
@@ -136,18 +130,9 @@
     <Compile Include="Services\ConferenceKeyCannotBeAControllerNameConstraint.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\SmartController.cs" />
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\Filters\AuthenticationFilterAttribute.cs" />
+    <Compile Include="Controllers\ConventionController.cs" />
+    <Compile Include="Helpers\Filters\AddUserToViewDataAttribute.cs" />
     <Compile Include="Helpers\Filters\BaseActionFilter.cs" />
-    <Compile Include="Helpers\Filters\AdminUserCreatedFilterAttribute.cs" />
-    <Compile Include="Helpers\Filters\RequireAuthenticationFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -459,9 +444,6 @@
     <Content Include="scripts\tiny_mce\utils\mctabs.js" />
     <Content Include="scripts\tiny_mce\utils\validate.js" />
     <Content Include="Views\Admin\Index.aspx" />
-    <Content Include="Views\Conference\Index.aspx" />
-    <Content Include="Views\Conference\Edit.aspx" />
-    <Content Include="Views\Conference\List.aspx" />
     <Content Include="css\emporium.css" />
     <Content Include="Views\Event\ConferenceAnnouncement.ascx" />
     <Content Include="Views\Event\MeetingAnnouncement.aspx" />
@@ -534,7 +516,6 @@
     <Content Include="Views\Shared\Password.aspx" />
     <Content Include="Views\Shared\ListBox.aspx" />
     <Content Include="Views\Shared\DatePicker.aspx" />
-    <Content Include="Views\Shared\DeleteConferenceLink.ascx" />
     <Content Include="Views\Shared\DeleteMeetingLink.ascx" />
     <Content Include="Views\Shared\EditMeetingLink.ascx" />
     <Content Include="Views\Shared\Main.master" />

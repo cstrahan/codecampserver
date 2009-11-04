@@ -7,7 +7,7 @@ namespace CodeCampServer.UI.Models.Input
 {
 	public class SponsorInput
 	{
-		public virtual Guid? ID { get; set; }
+		public virtual Guid ID { get; set; }
 
 		[Required]
 		public virtual string Name { get; set; }

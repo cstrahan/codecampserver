@@ -34,7 +34,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void Edit_should_only_allow_system_admins_to_edit_other_users()
 		{
-			var controller = new UserController(null, null, RestrictiveSecurityContext(), S<IUserSession>(), null);
+			var controller = new UserController(null, null, RestrictiveSecurityContext(), S<IUserSession>());
 
 			controller.Edit(new User())
 				.AssertViewRendered()
@@ -44,7 +44,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void Index_should_list_the_users()
 		{
-			var controller = new UserController(S<IUserRepository>(), S<IUserMapper>(), PermisiveSecurityContext(), null, null);
+			var controller = new UserController(S<IUserRepository>(), S<IUserMapper>(), PermisiveSecurityContext(), null);
 			ViewResult result = controller.Index();
 			result.AssertViewRendered();
 			result.ForView("");
@@ -57,13 +57,11 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var user = new User {Username = "admin", Id = Guid.NewGuid()};
 			var form = new UserInput {Id = user.Id, Password = "pass"};
-			var engine = S<IRulesEngine>();
-			engine.Stub(rulesEngine => rulesEngine.Process(form)).Return(new ExecutionResult());
-			var controller = new UserController(null, null, PermisiveSecurityContext(), null, engine);
+			var controller = new UserController(null, null, PermisiveSecurityContext(), null);
 
-			var result = (RedirectToRouteResult) controller.Edit(form);
+			var result = (CommandResult) controller.Edit(form);
 
-			result.AssertActionRedirect().ToAction<HomeController>(a => a.Index(null));
+			result.Success.AssertActionRedirect().ToAction<HomeController>(a => a.Index(null));
 		}
 
 		[Test]
@@ -71,7 +69,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var mapper = new TestUserMapper();
 
-			var controller = new UserController(null, mapper, PermisiveSecurityContext(), null, null);
+			var controller = new UserController(null, mapper, PermisiveSecurityContext(), null);
 
 			controller.Edit((User)null)
 				.AssertViewRendered()

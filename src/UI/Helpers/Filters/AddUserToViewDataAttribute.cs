@@ -6,16 +6,16 @@ using MvcContrib;
 
 namespace CodeCampServer.UI.Helpers.Filters
 {
-	public class AuthenticationFilterAttribute : ActionFilterAttribute
+	public class AddUserToViewDataAttribute : ActionFilterAttribute
 	{
 		private readonly IUserSession _session;
 
-		public AuthenticationFilterAttribute(IUserSession session)
+		public AddUserToViewDataAttribute(IUserSession session)
 		{
 			_session = session;
 		}
 
-		public AuthenticationFilterAttribute()
+		public AddUserToViewDataAttribute()
 			: this(DependencyRegistrar.Resolve<IUserSession>()) {}
 
 		public override void OnActionExecuting(ActionExecutingContext filterContext)

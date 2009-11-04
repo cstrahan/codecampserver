@@ -6,26 +6,21 @@ using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
-using CommandProcessor;
-using Tarantino.RulesEngine;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public class SponsorController : SmartController
+	public class SponsorController : ConventionController
 	{
 		private readonly IUserGroupRepository _repository;
 		private readonly IUserGroupSponsorMapper _mapper;
 		private readonly ISecurityContext _securityContext;
-		private readonly IRulesEngine _rulesEngine;
 
-		public SponsorController(IUserGroupRepository repository, IUserGroupSponsorMapper mapper,
-		                         ISecurityContext securityContext, IRulesEngine rulesEngine)
+		public SponsorController(IUserGroupRepository repository, IUserGroupSponsorMapper mapper, ISecurityContext securityContext)
 
 		{
 			_repository = repository;
 			_mapper = mapper;
 			_securityContext = securityContext;
-			_rulesEngine = rulesEngine;
 		}
 
 
@@ -42,24 +37,13 @@ namespace CodeCampServer.UI.Controllers
 
 
 		[HttpPost]
-		[RequireAuthenticationFilter]
+		[Authorize]
 		[ValidateInput(false)]
 		public ActionResult Edit(UserGroup userGroup, SponsorInput sponsorInput)
 		{
-			if (ModelState.IsValid)
-			{
-				ExecutionResult result = _rulesEngine.Process(sponsorInput);
-				if (result.Successful)
-				{
-					return RedirectToAction<SponsorController>(c => c.Index(null));
-				}
-
-				foreach (ErrorMessage errorMessage in result.Messages)
-				{
-					ModelState.AddModelError(UINameHelper.BuildNameFrom(errorMessage.IncorrectAttribute), errorMessage.MessageText);
-				}
-			}
-			return View(sponsorInput);
+			return Command<SponsorInput, Sponsor>(sponsorInput,
+			               r => RedirectToAction<SponsorController>(c => c.Index(null)), 
+			               input => View(sponsorInput) );
 		}
 
 		public ActionResult Delete(UserGroup userGroup, Sponsor sponsor)

@@ -5,7 +5,7 @@ using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Controllers
 {
-	public class AdminController : SmartController
+	public class AdminController : ConventionController
 	{
 		private readonly IUserRepository _repository;
 
