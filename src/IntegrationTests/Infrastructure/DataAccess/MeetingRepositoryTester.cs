@@ -1,10 +1,14 @@
 using System;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Infrastructure.DataAccess.Impl;
+using NUnit.Framework;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
-	public class MeetingRepositoryTester
+	[TestFixture]
+	public class MeetingRepositoryTester : RepositoryTester<Meeting, MeetingRepository>
 	{
+		
 		private static Meeting CreateMeeting()
 		{
 			var meeting = new Meeting
@@ -28,5 +32,9 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			return meeting;
 		}
 
+		protected override MeetingRepository CreateRepository()
+		{
+			return GetInstance<MeetingRepository>();
+		}
 	}
 }

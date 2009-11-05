@@ -5,7 +5,7 @@ using Tarantino.RulesEngine.CommandProcessor;
 
 namespace CodeCampServer.Core.Services.BusinessRule.DeleteUserGroup
 {
-	public class DeleteUserGroupCommandHandler:Command<DeleteUserGroupCommandMessage>
+	public class DeleteUserGroupCommandHandler : Command<DeleteUserGroupCommandMessage>
 	{
 		private readonly IUserGroupRepository _userGroupRepository;
 

@@ -1,3 +1,4 @@
+using System.Linq;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using NBehave.Spec.NUnit;
@@ -33,7 +34,6 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			var two = new T();
 			var three = new T();
 			PersistEntities(one, two, three);
-			
 
 			TRepository repository = CreateRepository();
 
@@ -48,7 +48,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			TRepository repository = CreateRepository();
 			repository.Save(one);
 
-			GetSession().Dispose();
+			CommitChanges();
 
 			using (ISession session = GetSession())
 			{
@@ -63,20 +63,23 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			var one = new T();
 			var two = new T();
 			var three = new T();
+
 			PersistEntities(one, two, three);
 
 			TRepository repository = CreateRepository();
 
 			repository.Delete(one);
-			GetSession().Transaction.Commit();
-			GetSession().Dispose();
 
-			repository = CreateRepository();
+			CommitChanges();
 
-			T[] all = repository.GetAll();
-			CollectionAssert.DoesNotContain(all, one);
-			CollectionAssert.Contains(all, two);
-			CollectionAssert.Contains(all, three);
+			using (var session = GetSession())
+			{
+				T[] all = session.CreateCriteria(typeof(T)).List<T>().ToArray();
+
+				CollectionAssert.DoesNotContain(all, one);
+				CollectionAssert.Contains(all, two);
+				CollectionAssert.Contains(all, three);
+			}
 		}
 	}
 }

@@ -62,7 +62,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 		protected override UserRepository CreateRepository()
 		{
-			return new UserRepository(GetSessionBuilder());
+			return GetInstance<UserRepository>();
 		}
 	}
 }

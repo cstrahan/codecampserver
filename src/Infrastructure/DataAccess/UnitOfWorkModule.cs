@@ -6,13 +6,15 @@ namespace CodeCampServer.Infrastructure.DataAccess
 {
 	public class UnitOfWorkModule : IHttpModule
 	{
-		private HttpApplication _context;
-
 		public void Init(HttpApplication context)
 		{
-			_context = context;
 			context.BeginRequest += context_BeginRequest;
 			context.EndRequest += context_EndRequest;
+		}
+
+		public void Dispose()
+		{
+
 		}
 
 		private void context_BeginRequest(object sender, EventArgs e)
@@ -23,12 +25,15 @@ namespace CodeCampServer.Infrastructure.DataAccess
 
 		private void context_EndRequest(object sender, EventArgs e)
 		{
-
-			
-		}
-
-		public void Dispose()
-		{
+			var instance = ObjectFactory.GetInstance<IUnitOfWork>();
+			try
+			{
+				instance.Commit();
+			}
+			finally
+			{
+				instance.Dispose();				
+			}			
 		}
 	}
 }

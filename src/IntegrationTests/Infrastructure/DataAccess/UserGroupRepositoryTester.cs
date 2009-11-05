@@ -26,7 +26,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 		protected override UserGroupRepository CreateRepository()
 		{
-			return new UserGroupRepository(GetSessionBuilder());
+			return GetInstance<UserGroupRepository>();
 		}
 
 
@@ -40,11 +40,11 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				session.Flush();
 			}
 
-			IUserGroupRepository repository = new UserGroupRepository(GetSessionBuilder());
+			IUserGroupRepository repository = CreateRepository();
 			repository.Save(userGroup);
 			userGroup.Remove(userGroup.GetUsers()[0]);
 			repository.Save(userGroup);
-
+			CommitChanges();
 			UserGroup rehydratedGroup;
 			using (ISession session = GetSession())
 			{
@@ -63,12 +63,12 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				session.Flush();
 			}
 
-			IUserGroupRepository repository = new UserGroupRepository(GetSessionBuilder());
+			IUserGroupRepository repository = CreateRepository();
 			repository.Save(userGroup);
 			
 
 			UserGroup rehydratedGroup;
-			IUserGroupRepository repository2 = new UserGroupRepository(GetSessionBuilder());
+			IUserGroupRepository repository2 = CreateRepository();
 			rehydratedGroup = repository2.GetByKey(userGroup.Key);
 			rehydratedGroup.GetSponsors().Length.ShouldEqual(2);
 
@@ -91,7 +91,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			}
 
 
-			IUserGroupRepository repository = new UserGroupRepository(GetSessionBuilder());
+			IUserGroupRepository repository = CreateRepository();
 			UserGroup group = repository.GetDefaultUserGroup();
 
 			group.ShouldEqual(userGroup);

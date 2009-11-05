@@ -26,7 +26,8 @@ namespace CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles
 				.ForMember(x => x.Address, o => o.Ignore())
 				.ForMember(x => x.City, o => o.Ignore())
 				.ForMember(x => x.Region, o => o.Ignore())
-				.ForMember(x => x.PostalCode, o => o.Ignore());
+				.ForMember(x => x.PostalCode, o => o.Ignore())
+				.ForMember(x => x.ChangeAuditInfo, o => o.Ignore());
 		}
 	}
 }

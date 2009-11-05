@@ -3,6 +3,7 @@ using CodeCampServer.Core;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
+using MvcContrib.UI;
 using NBehave.Spec.NUnit;
 using NHibernate;
 using NUnit.Framework;
@@ -33,7 +34,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 		protected override ConferenceRepository CreateRepository()
 		{
-			return new ConferenceRepository(GetSessionBuilder());
+			return GetInstance<ConferenceRepository>();
 		}
 
 		
@@ -53,7 +54,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				session.Flush();
 			}
 
-			IConferenceRepository repository = new ConferenceRepository(GetSessionBuilder());
+			IConferenceRepository repository = CreateRepository();
 			Conference[] conferences = repository.GetAllForUserGroup(usergroup);
 
 			conferences.Length.ShouldEqual(1);
@@ -99,7 +100,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				session.Flush();
 			}
 
-			IConferenceRepository repository = new ConferenceRepository(GetSessionBuilder());
+			IConferenceRepository repository = CreateRepository();
 			Conference[] conferences = repository.GetFutureForUserGroup(usergroup);
 
 			conferences.Length.ShouldEqual(2);

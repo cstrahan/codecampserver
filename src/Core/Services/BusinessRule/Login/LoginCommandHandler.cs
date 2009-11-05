@@ -1,4 +1,3 @@
-using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using Tarantino.RulesEngine;
@@ -11,7 +10,7 @@ namespace CodeCampServer.Core.Services.BusinessRule.Login
 		private readonly IAuthenticationService _authenticationService;
 		private readonly IUserRepository _repository;
 
-		public LoginCommandHandler(IAuthenticationService authenticationService, 
+		public LoginCommandHandler(IAuthenticationService authenticationService,
 		                           IUserRepository repository)
 		{
 			_authenticationService = authenticationService;
@@ -26,10 +25,10 @@ namespace CodeCampServer.Core.Services.BusinessRule.Login
 			{
 				if (_authenticationService.PasswordMatches(user, commandMessage.Password))
 				{
-					return new ReturnValue(){Type = typeof(User),Value = user};
+					return new ReturnValue {Type = typeof (User), Value = user};
 				}
 			}
-			return new ReturnValue(){Type = typeof(User),Value = null};			
+			return new ReturnValue {Type = typeof (User), Value = null};
 		}
 	}
 }

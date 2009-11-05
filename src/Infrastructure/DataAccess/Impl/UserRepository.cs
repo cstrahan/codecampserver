@@ -3,7 +3,6 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using NHibernate;
 using NHibernate.Criterion;
-using Tarantino.RulesEngine;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Impl
 {

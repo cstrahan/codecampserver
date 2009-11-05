@@ -7,8 +7,8 @@ namespace CodeCampServer.Core.Domain.Model
 {
 	public class UserGroup : KeyedObject
 	{
-		private readonly IList<User> _users = new List<User>();
 		private readonly ISet<Sponsor> _sponsors = new HashedSet<Sponsor>();
+		private readonly IList<User> _users = new List<User>();
 		public virtual string Name { get; set; }
 		public virtual string HomepageHTML { get; set; }
 		public virtual string City { get; set; }

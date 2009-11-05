@@ -15,6 +15,17 @@ namespace CodeCampServer.Core.Common
 			return string.Format("{0}_{1}", BuildIdFrom(expression), value);
 		}
 
+		public static string BuildIdFrom<TModel>(Expression<Func<TModel, object>> expression)
+		{
+			return BuildIdFrom((Expression)expression);
+		}
+
+		public static string BuildNameFrom<TModel>(Expression<Func<TModel, object>> expression)
+		{
+			var expressionText = BuildNameFrom((Expression)expression);
+			return expressionText;
+		}
+
 		public static string BuildNameFrom(Expression expression)
 		{
 			Expression expressionToCheck = expression;

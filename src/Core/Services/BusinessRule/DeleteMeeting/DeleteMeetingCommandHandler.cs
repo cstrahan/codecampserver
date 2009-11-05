@@ -5,7 +5,7 @@ using Tarantino.RulesEngine.CommandProcessor;
 
 namespace CodeCampServer.Core.Services.BusinessRule.DeleteMeeting
 {
-	public class DeleteMeetingCommandHandler:Command<DeleteMeetingCommandMessage>
+	public class DeleteMeetingCommandHandler : Command<DeleteMeetingCommandMessage>
 	{
 		private readonly IMeetingRepository _meetingRepository;
 
@@ -21,12 +21,12 @@ namespace CodeCampServer.Core.Services.BusinessRule.DeleteMeeting
 		}
 	}
 
-	interface ICommandHandler<TMessage>
+	internal interface ICommandHandler<TMessage>
 	{
 		void Execute(TMessage message);
 	}
 
-	interface ICommandHandler<TMessage, TReturn>
+	internal interface ICommandHandler<TMessage, TReturn>
 	{
 		TReturn Execute(TMessage message);
 	}

@@ -1,19 +1,17 @@
 using System;
-using CodeCampServer.Infrastructure.DataAccess.Bases;
-using CodeCampServer.Infrastructure.DataAccess.Impl;
 using NHibernate;
 
 namespace CodeCampServer.Infrastructure.DataAccess
 {
 	public class UnitOfWork : IUnitOfWork
 	{
-		private readonly ISessionBuilder _sessionSource;
+		private readonly ISessionSource _sessionSource;
 		private ITransaction _transaction;
 		private bool _begun;
 		private bool _disposed;
 		private bool _rolledBack;
 
-		public UnitOfWork(ISessionBuilder sessionSource)
+		public UnitOfWork(ISessionSource sessionSource)
 		{
 			_sessionSource = sessionSource;
 		}
@@ -22,9 +20,7 @@ namespace CodeCampServer.Infrastructure.DataAccess
 		{
 			CheckIsDisposed();
 
-			CurrentSession = _sessionSource.GetSession();
-			
-			//.CreateSession();
+			CurrentSession = _sessionSource.CreateSession();
 
 			BeginNewTransaction();
 			_begun = true;
@@ -37,7 +33,6 @@ namespace CodeCampServer.Infrastructure.DataAccess
 
 			if (_transaction.IsActive && !_rolledBack)
 			{
-				Logger.Debug(this, string.Format("Commit transaction {0}", _transaction.GetHashCode()));
 				_transaction.Commit();
 			}
 
@@ -51,7 +46,6 @@ namespace CodeCampServer.Infrastructure.DataAccess
 
 			if (_transaction.IsActive)
 			{
-				Logger.Debug(this, string.Format("Rollback transaction {0}", _transaction.GetHashCode()));
 				_transaction.Rollback();
 				_rolledBack = true;
 			}
@@ -67,19 +61,18 @@ namespace CodeCampServer.Infrastructure.DataAccess
 
 		public ISession CurrentSession
 		{
-			get; private set;
+			get;
+			private set;
 		}
 
 		private void BeginNewTransaction()
 		{
 			if (_transaction != null)
 			{
-				Logger.Debug(this, string.Format("Dispose transaction {0}", _transaction.GetHashCode()));
 				_transaction.Dispose();
 			}
 
 			_transaction = CurrentSession.BeginTransaction();
-			Logger.Debug(this, string.Format("Begin transaction {0}", _transaction.GetHashCode()));
 		}
 
 		protected virtual void Dispose(bool disposing)
@@ -89,10 +82,8 @@ namespace CodeCampServer.Infrastructure.DataAccess
 
 			if (disposing)
 			{
-				Logger.Debug(this, string.Format("Dispose transaction {0}", _transaction.GetHashCode()));
 				_transaction.Dispose();
 				CurrentSession.Dispose();
-				CurrentSession = null;
 			}
 
 			_disposed = true;
@@ -106,7 +97,7 @@ namespace CodeCampServer.Infrastructure.DataAccess
 
 		private void CheckIsDisposed()
 		{
-			if (_disposed) 
+			if (_disposed)
 				throw new ObjectDisposedException(GetType().Name);
 		}
 

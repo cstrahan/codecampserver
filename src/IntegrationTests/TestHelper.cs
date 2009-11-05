@@ -1,43 +1,41 @@
-using CodeCampServer.Infrastructure.DataAccess.Impl;
+using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Services;
+using CodeCampServer.DependencyResolution;
+using NHibernate;
+using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
+using Rhino.Mocks;
+using StructureMap;
 
 namespace CodeCampServer.IntegrationTests
 {
 	[TestFixture]
-	public class TestHelper
+	public static class TestHelper
 	{
+		public static User CurrentUser;
+
+		static TestHelper()
+		{
+			DependencyRegistrar.EnsureDependenciesRegistered();
+		}
+
 		private static bool _databaseRecreated;
-
-		[Test, Explicit("To output and apply the schema export script")]
-		public void ExportSchema()
-		{
-			new SchemaExport(GetSessionBuilder().GetConfiguration())
-				.Create(true, true);
-		}
-
-		[Test, Explicit("To drop the database")]
-		public void DropSchema()
-		{
-			new SchemaExport(GetSessionBuilder().GetConfiguration()).Drop(true, true);
-		}
-
-		[Test, Explicit("To drop the database")]
-		public void DeleteAllData()
-		{
-			DeleteAllObjects();
-		}
 
 		private static void RecreateDatabase()
 		{
-			ISessionBuilder sessionBuilder = GetSessionBuilder();
-			var exporter = new SchemaExport(sessionBuilder.GetConfiguration());
-			exporter.Execute(false, true, false, false);
+			var exporter = new SchemaExport(GetConfiguration());
+			exporter.Execute(false, true, false);
 		}
 
-		private static ISessionBuilder GetSessionBuilder()
+		public static ISessionFactory GetSessionFactory()
 		{
-			return new HybridSessionBuilder();
+			return ObjectFactory.GetInstance<ISessionFactory>();
+		}
+
+		public static Configuration GetConfiguration()
+		{
+			return ObjectFactory.GetInstance<Configuration>();
 		}
 
 		public static void DeleteAllObjects()
@@ -52,6 +50,14 @@ namespace CodeCampServer.IntegrationTests
 				RecreateDatabase();
 				_databaseRecreated = true;
 			}
+		}
+
+		public static void ResetCurrentUser()
+		{
+			var userSession = MockRepository.GenerateStub<IUserSession>();
+			CurrentUser = new User();
+			userSession.Stub(us => us.GetCurrentUser()).Return(CurrentUser);
+			ObjectFactory.Inject(userSession);
 		}
 	}
 }

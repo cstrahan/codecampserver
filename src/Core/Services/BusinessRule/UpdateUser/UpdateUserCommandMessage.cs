@@ -1,10 +1,8 @@
 using System;
-using CodeCampServer.Core.Domain.Model;
-using Tarantino.RulesEngine.CommandProcessor;
 
 namespace CodeCampServer.Core.Services.BusinessRule.UpdateUser
 {
-	public class UpdateUserCommandMessage 
+	public class UpdateUserCommandMessage
 	{
 		public string Username { get; set; }
 

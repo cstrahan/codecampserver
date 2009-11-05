@@ -16,7 +16,7 @@ namespace CodeCampServer.Core.Services.BusinessRule.UpdateUserGroup
 
 		protected override ReturnValue Execute(UpdateSponsorCommandMessage commandMessage)
 		{
-			var userGroup = commandMessage.UserGroup;
+			UserGroup userGroup = commandMessage.UserGroup;
 			userGroup.Add(commandMessage.Sponsor);
 			_userGroupRepository.Save(userGroup);
 			return new ReturnValue {Type = typeof (Sponsor), Value = commandMessage.Sponsor};
