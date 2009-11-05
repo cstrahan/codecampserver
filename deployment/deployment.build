@@ -3,6 +3,8 @@
 <!--EXTERNAL_PROPERTIES: driver.class;connection.string;website.target.dir;dialect;local.connection.string;database.server;-->
 <project name="CodeCampServer" default="deploy" xmlns="http://nant.sf.net/release/0.85-rc4/nant.xsd">
 
+ <loadtasks assembly="nant\NAnt.NUnit2Tasks.dll" />
+
   <property name="nant.settings.currentframework" value="net-3.5" />
 
   <!-- Database migration settings -->
@@ -12,92 +14,24 @@
 
     <call target="updateDatabase" />
 
-    <!--
-		<echo message="STEP 1 - Configuring ${project::get-name()}..." />
+    <echo message="STEP 1 - Configuring ${project::get-name()}..." />
 
-		<property name="driver.class.path" value="//*/hbm:property[@name='connection.driver_class']" />
     <property name="connection.string.path" value="//*/hbm:property[@name='connection.connection_string']" />
-    <property name="dialect.path" value="//*/hbm:property[@name='dialect']" />
 
-    
-    <xmlpoke file="website/bin/hibernate.cfg.xml"	xpath="${driver.class.path}" value="${driver.class}">
-      <namespaces>
-        <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
-      </namespaces>
-    </xmlpoke>
-    <xmlpoke file="website/bin/hibernate.cfg.xml"	xpath="${connection.string.path}"	value="${local.connection.string}">
-      <namespaces>
-        <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
-      </namespaces>
-    </xmlpoke>
-    <xmlpoke file="website/bin/hibernate.cfg.xml"	xpath="${dialect.path}"	value="${dialect}">
+
+    <xmlpoke file="website/bin/hibernate.cfg.xml"	xpath="${connection.string.path}"	value="${connection.string}">
       <namespaces>
         <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
       </namespaces>
     </xmlpoke>
 
-    
-		
-    <xmlpoke file="database/hibernate.cfg.xml" xpath="${driver.class.path}"	value="${driver.class}">
-      <namespaces>
-        <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
-      </namespaces>
-    </xmlpoke>
+    <echo message="STEP 5 - Removing Existing ${project::get-name()} Application Files..." />
 
-    <xmlpoke file="database/hibernate.cfg.xml" xpath="${connection.string.path}" value="${connection.string}">
-      <namespaces>
-        <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
-      </namespaces>
-    </xmlpoke>
+    <delete dir="${website.target.dir}" />
 
-    <xmlpoke file="database/hibernate.cfg.xml" xpath="${dialect.path}" value="${dialect}">
-      <namespaces>
-        <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
-      </namespaces>
-    </xmlpoke>
+    <echo message="STEP 6 - Deploying ${project::get-name()} Application Files..." />
 
--->
-<!--		<echo message="STEP 3 - Rebuilding Transactional Database..." />
-
-	<nunit2 failonerror="true" verbose="true">
-      <formatter type="Plain" />
-      <test assemblyname="database/${project::get-name()}.IntegrationTests.dll">
-        <categories>
-          <include name="SchemaDrop" />
-          <exclude name="*" />
-        </categories>
-      </test>
-    </nunit2>
-    <nunit2 failonerror="true" verbose="true">
-      <formatter type="Plain" />
-      <test assemblyname="database/${project::get-name()}.IntegrationTests.dll">
-        <categories>
-          <include name="SchemaExport" />
-          <exclude name="*" />
-        </categories>
-      </test>
-    </nunit2>
--->
-    <!--
-    <echo message="STEP 4 - Populating Transactional Database with Test Data..." />
-
-    <nunit2 failonerror="true" verbose="true">
-      <formatter type="Plain" />
-      <test assemblyname="database/${project::get-name()}.IntegrationTests.dll">
-        <categories>
-          <include name="DataLoader"/>
-          <exclude name="*"/>
-        </categories>
-      </test>
-    </nunit2>
--->
-		<echo message="STEP 5 - Removing Existing ${project::get-name()} Application Files..." />
-
-		<delete dir="${website.target.dir}" />
-		
-		<echo message="STEP 6 - Deploying ${project::get-name()} Application Files..." />
-
-		<!-- Copy files to the target machine -->
+    <!-- Copy files to the target machine -->
     <copy todir="${website.target.dir}" overwrite="true" includeemptydirs="true" >
       <fileset basedir="website">
         <include name="**" />
@@ -112,17 +46,6 @@
     <call target="manageSqlDatabase" />
   </target>
 
-<!--
- <target name="createDatabase">
-    <property name="action" value="Create" />
-    <call target="manageSqlDatabase" />
-  </target>
-
-  <target name="dropDatabase">
-    <property name="action" value="Drop" />
-    <call target="manageSqlDatabase" failonerror="false"/>
-  </target>
--->
   <target name="manageSqlDatabase">
     <echo message="database server: ${database.server}" />
     <manageSqlDatabase
@@ -131,8 +54,6 @@
 			server="${database.server}"
 			integratedAuthentication="${database.integrated}"
 			database="${database.name}"
-      username="${database.username}"
-      password="${database.password}"
 		/>
 
     <if test="${action != 'Drop'}">
@@ -140,4 +61,29 @@
     </if>
 
   </target>
+
+	<target name="loadDevData">
+
+    <property name="connection.string.path" value="//*/hbm:property[@name='connection.connection_string']" />
+
+
+    <xmlpoke file="tests/hibernate.cfg.xml"	xpath="${connection.string.path}"	value="${connection.string}">
+      <namespaces>
+        <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
+      </namespaces>
+    </xmlpoke>
+
+
+
+    <nunit2 failonerror="true" verbose="true">
+      <formatter type="Plain" />
+      <test assemblyname="tests/${project::get-name()}.IntegrationTests.dll">
+        <categories>
+          <include name="DataLoader"/>
+          <exclude name="*"/>
+        </categories>
+      </test>
+    </nunit2>
+	</target>
+
 </project>

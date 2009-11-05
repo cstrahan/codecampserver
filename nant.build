@@ -440,4 +440,5 @@
 
 		<fail if="${property::exists('test.failure')}" message="Failure occured in testing"/>
 	</target>
+
 </project>
