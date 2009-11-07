@@ -2,42 +2,24 @@ using System;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Services.Bases;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
-using MvcContrib.UI;
 using NBehave.Spec.NUnit;
 using NHibernate;
 using NUnit.Framework;
+using StructureMap;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
 	[TestFixture]
 	public class ConferenceRepositoryTester : KeyedRepositoryTester<Conference, ConferenceRepository>
 	{
-		private static Conference CreateConference()
-		{
-			var conference = new Conference
-			                 	{
-			                 		Name = "sdf",
-			                 		Description = "description",
-			                 		StartDate = new DateTime(2008, 12, 2),
-			                 		EndDate = new DateTime(2008, 12, 3),
-			                 		LocationName =
-			                 			"St Edwards Professional Education Center",
-			                 		Address = "12343 Research Blvd",
-			                 		City = "Austin",
-			                 		Region = "Tx",
-			                 		PostalCode = "78234",
-			                 		PhoneNumber = "512-555-1234"
-			                 	};
-			return conference;
-		}
-
 		protected override ConferenceRepository CreateRepository()
 		{
-			return GetInstance<ConferenceRepository>();
+			return (ConferenceRepository) ObjectFactory.GetInstance<IConferenceRepository>();
 		}
 
-		
+
 		[Test]
 		public void should_retrieve_conferences_for_a_usergroup()
 		{
@@ -63,7 +45,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		[Test]
 		public void Should_retrieve_upcoming_conferences_for_a_usergroup()
 		{
-			SystemTime.Now = () => new DateTime(2009, 5, 5);
+			ObjectFactory.Inject(typeof (ISystemClock), new ClockStub(new DateTime(2009, 5, 5)));
 			var usergroup = new UserGroup();
 			var conference1 = new Conference
 			                  	{
@@ -106,6 +88,5 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			conferences.Length.ShouldEqual(2);
 			conferences[0].ShouldEqual(conference2);
 		}
-
 	}
 }

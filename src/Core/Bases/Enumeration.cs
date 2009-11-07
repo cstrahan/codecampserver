@@ -1,124 +1,132 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Linq;
+using System.Reflection;
 
-namespace CodeCampServer.Core.Domain.Model.Enumerations
+namespace CodeCampServer.Core.Bases
 {
-    [Serializable]
-    public abstract class Enumeration : IComparable
-    {
-        private readonly int _value;
-        private readonly string _displayName;
+	[Serializable]
+	public abstract class Enumeration : IComparable
+	{
+		private readonly int _value;
+		private readonly string _displayName;
 
-        protected Enumeration()
-        {
-        }
+		protected Enumeration() {}
 
-        protected Enumeration(int value, string displayName)
-        {
-            _value = value;
-            _displayName = displayName;
-        }
+		protected Enumeration(int value, string displayName)
+		{
+			_value = value;
+			_displayName = displayName;
+		}
 
-        public int Value
-        {
-            get { return _value; }
-        }
+		public int Value
+		{
+			get { return _value; }
+		}
 
-        public string DisplayName
-        {
-            get { return _displayName; }
-        }
+		public string DisplayName
+		{
+			get { return _displayName; }
+		}
 
-        public override string ToString()
-        {
-            return DisplayName;
-        }
+		public override string ToString()
+		{
+			return DisplayName;
+		}
 
-        public static IEnumerable<T> GetAll<T>() where T : Enumeration, new()
-        {
-            var type = typeof(T);
-            var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
+		public static IEnumerable<T> GetAll<T>() where T : Enumeration, new()
+		{
+			Type type = typeof (T);
+			FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
 
-            foreach (var info in fields)
-            {
-                var instance = new T();
-                var locatedValue = info.GetValue(instance) as T;
+			foreach (FieldInfo info in fields)
+			{
+				var instance = new T();
+				var locatedValue = info.GetValue(instance) as T;
 
-                if (locatedValue != null)
-                {
-                    yield return locatedValue;
-                }
-            }
-        }
+				if (locatedValue != null)
+				{
+					yield return locatedValue;
+				}
+			}
+		}
 
-        public static IEnumerable GetAll(Type type)
-        {
-            var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
+		public static IEnumerable<Enumeration> GetAll(Type type)
+		{
+			FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
 
-            foreach (var info in fields)
-            {
-                object instance = Activator.CreateInstance(type);
-                yield return info.GetValue(instance);
-            }
-        }
+			foreach (FieldInfo info in fields)
+			{
+				object instance = Activator.CreateInstance(type);
+				yield return (Enumeration) info.GetValue(instance);
+			}
+		}
 
-        public override bool Equals(object obj)
-        {
-            var otherValue = obj as Enumeration;
+		public override bool Equals(object obj)
+		{
+			var otherValue = obj as Enumeration;
 
-            if (otherValue == null)
-            {
-                return false;
-            }
+			if (otherValue == null)
+			{
+				return false;
+			}
 
-            var typeMatches = GetType().Equals(obj.GetType());
-            var valueMatches = _value.Equals(otherValue.Value);
+			bool typeMatches = GetType().Equals(obj.GetType());
+			bool valueMatches = _value.Equals(otherValue.Value);
 
-            return typeMatches && valueMatches;
-        }
+			return typeMatches && valueMatches;
+		}
 
-        public override int GetHashCode()
-        {
-            return _value.GetHashCode();
-        }
+		public override int GetHashCode()
+		{
+			return _value.GetHashCode();
+		}
 
-        public static int AbsoluteDifference(Enumeration firstValue, Enumeration secondValue)
-        {
-            var absoluteDifference = Math.Abs(firstValue.Value - secondValue.Value);
-            return absoluteDifference;
-        }
+		public static int AbsoluteDifference(Enumeration firstValue, Enumeration secondValue)
+		{
+			int absoluteDifference = Math.Abs(firstValue.Value - secondValue.Value);
+			return absoluteDifference;
+		}
 
-        public static T FromValue<T>(int value) where T : Enumeration, new()
-        {
-            var matchingItem = parse<T, int>(value, "value", item => item.Value == value);
-            return matchingItem;
-        }
+		public static T FromValue<T>(int value) where T : Enumeration, new()
+		{
+			T matchingItem = parse<T, int>(value, "value", item => item.Value == value);
+			return matchingItem;
+		}
 
-        public static T FromDisplayName<T>(string displayName) where T : Enumeration, new()
-        {
-            var matchingItem = parse<T, string>(displayName, "display name", item => item.DisplayName == displayName);
-            return matchingItem;
-        }
+		public static T FromDisplayName<T>(string displayName) where T : Enumeration, new()
+		{
+			T matchingItem = parse<T, string>(displayName, "display name", item => item.DisplayName == displayName);
+			return matchingItem;
+		}
 
-        private static T parse<T, K>(K value, string description, Func<T, bool> predicate) where T : Enumeration, new()
-        {
-            var matchingItem = GetAll<T>().FirstOrDefault(predicate);
+		private static T parse<T, K>(K value, string description, Func<T, bool> predicate) where T : Enumeration, new()
+		{
+			T matchingItem = GetAll<T>().FirstOrDefault(predicate);
 
-            if (matchingItem == null)
-            {
-                var message = string.Format("'{0}' is not a valid {1} in {2}", value, description, typeof(T));
-                throw new ApplicationException(message);
-            }
+			if (matchingItem == null)
+			{
+				string message = string.Format("'{0}' is not a valid {1} in {2}", value, description, typeof (T));
+				throw new ApplicationException(message);
+			}
 
-            return matchingItem;
-        }
+			return matchingItem;
+		}
 
-        public virtual int CompareTo(object other)
-        {
-            return Value.CompareTo(((Enumeration)other).Value);
-        }
-    }
+		public virtual int CompareTo(object other)
+		{
+			return Value.CompareTo(((Enumeration) other).Value);
+		}
+
+		public static Enumeration FromValueOrDefault(Type enumerationType, int enumerationValue)
+		{
+			return GetAll(enumerationType).SingleOrDefault(e => e.Value == enumerationValue);
+		}
+
+		public static Enumeration FromDisplayNameOrDefault(Type enumerationType, string displayName)
+		{
+			return GetAll(enumerationType).SingleOrDefault(e => e.DisplayName == displayName);
+		}
+	}
 }

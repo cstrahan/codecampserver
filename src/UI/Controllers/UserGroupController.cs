@@ -1,10 +1,9 @@
 using System;
 using System.Web.Mvc;
-using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
-using CodeCampServer.UI.Helpers.Filters;
+using CodeCampServer.UI.Helpers.ActionResults;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
 
@@ -66,9 +65,9 @@ namespace CodeCampServer.UI.Controllers
 			}
 
 			return Command<UserGroupInput, UserGroup>(
-								input, 
-								r => RedirectToAction<HomeController>(c => c.Index(r)),
-								i => View(input));
+				input,
+				r => RedirectToAction<HomeController>(c => c.Index(r)),
+				i => View(input));
 		}
 
 		protected bool CurrentUserHasPermissionToEditUserGroup(Guid Id)
@@ -90,10 +89,9 @@ namespace CodeCampServer.UI.Controllers
 			}
 
 			return Command<DeleteUserGroupInput, UserGroup>(
-								input, 
-								r => RedirectToAction<UserGroupController>(c => c.List()),
-								i => RedirectToAction<UserGroupController>(c => c.List()));
-			
+				input,
+				r => RedirectToAction<UserGroupController>(c => c.List()),
+				i => RedirectToAction<UserGroupController>(c => c.List()));
 		}
 	}
 }

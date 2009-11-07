@@ -4,12 +4,12 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Routing;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.Models;
-using CodeCampServer.UI.Models.Input;
 using MvcContrib;
 
-namespace CodeCampServer.UI.Controllers
+namespace CodeCampServer.UI.Helpers.ActionResults
 {
 	public abstract class ConventionController : Controller
 	{
@@ -88,6 +88,7 @@ namespace CodeCampServer.UI.Controllers
 			return RedirectToAction(actionName, controllerName,
 			                        new RouteValueDictionary(values));
 		}
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -97,10 +98,12 @@ namespace CodeCampServer.UI.Controllers
 		/// <param name="success">The Action Result to perform on a successful command execution.</param>
 		/// <param name="failure">The Action Result to perofmr on a failed command execution.</param>
 		/// <returns></returns>
-		public CommandResult  Command<TMessage,TResult>(TMessage message, Func<TResult,ActionResult> success, Func<TMessage,ActionResult> failure)
+		public CommandResult Command<TMessage, TResult>(TMessage message, Func<TResult, ActionResult> success,
+		                                                Func<TMessage, ActionResult> failure)
 		{
-			return new CommandResult<TMessage,TResult>(message, success, failure);
+			return new CommandResult<TMessage, TResult>(message, success, failure);
 		}
+
 		public CommandResult Command<TMessage>(TMessage message, Func<TMessage, ActionResult> result)
 		{
 			return new CommandResult<TMessage, TMessage>(message, result, result);

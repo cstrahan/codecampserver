@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="System.Web.Mvc.ViewPage<UserGroupInput>" %>
+<%@ Import Namespace="CodeCampServer.Core.Common"%>
 <%@ Import Namespace="Microsoft.Web.Mvc"%>
-<%@ Import Namespace="CodeCampServer.Core"%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
     <script type="text/javascript" src="/scripts/rsswidget.js"></script>

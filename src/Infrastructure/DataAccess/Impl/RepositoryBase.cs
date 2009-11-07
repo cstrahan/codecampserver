@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
+using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
-using CodeCampServer.Core.Domain.Model;
 using NHibernate;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Impl

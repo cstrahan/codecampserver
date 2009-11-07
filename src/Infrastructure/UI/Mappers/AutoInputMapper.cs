@@ -1,6 +1,6 @@
 using AutoMapper;
+using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
-using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.Infrastructure.UI.Mappers
 {

@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Mappings
@@ -15,6 +13,7 @@ namespace CodeCampServer.Infrastructure.DataAccess.Mappings
 			Map(x => x.Level);
 		}
 	}
+
 /*
 		<class name="Sponsor" table="Sponsors" dynamic-update="true">
 		<id name="Id" column="Id" type="Guid">
@@ -23,6 +22,6 @@ namespace CodeCampServer.Infrastructure.DataAccess.Mappings
 		<property name="Name" length="100"/>
 		<property name="Url" length="255"/>
     <property name="BannerUrl" length="255"/>
-    <property name="Level" type="CodeCampServer.Infrastructure.EnumerationType`1[[CodeCampServer.Core.Domain.Model.SponsorLevel, CodeCampServer.Core]], CodeCampServer.Infrastructure"/>
+    <property name="Level" type="CodeCampServer.Infrastructure.EnumerationType`1[[CodeCampServer.Core.Domain.Model.Enumerations.SponsorLevel, CodeCampServer.Core]], CodeCampServer.Infrastructure"/>
 	</class>*/
 }

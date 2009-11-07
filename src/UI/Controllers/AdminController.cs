@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.UI.Helpers.ActionResults;
 using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Controllers

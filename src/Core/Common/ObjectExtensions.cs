@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace CodeCampServer.Core
+namespace CodeCampServer.Core.Common
 {
 	public static class ObjectExtensions
 	{

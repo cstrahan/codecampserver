@@ -1,7 +1,7 @@
 using System;
 using System.Web.Mvc;
+using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
-using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.Infrastructure.UI.Binders
 {

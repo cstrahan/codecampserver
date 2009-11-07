@@ -6,6 +6,6 @@ namespace CodeCampServer.Core.Domain
 	{
 		Event[] GetAllForUserGroup(UserGroup usergroup);
 		Event[] GetFutureForUserGroup(UserGroup usergroup);
-	    Event[] GetAllFutureEvents();
+		Event[] GetAllFutureEvents();
 	}
 }

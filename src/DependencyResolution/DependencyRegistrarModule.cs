@@ -16,12 +16,12 @@ namespace CodeCampServer.DependencyResolution
 
 		public void Dispose() {}
 
-		private void context_BeginRequest(object sender, EventArgs e)
+		private static void context_BeginRequest(object sender, EventArgs e)
 		{
 			EnsureDependenciesRegistered();
 		}
 
-		private void EnsureDependenciesRegistered()
+		private static void EnsureDependenciesRegistered()
 		{
 			if (!_dependenciesRegistered)
 			{

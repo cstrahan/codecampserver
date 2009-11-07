@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Web.Mvc;
+using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.DependencyResolution;
 
 namespace CodeCampServer.Infrastructure.UI.Binders

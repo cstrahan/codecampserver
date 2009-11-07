@@ -1,7 +1,7 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
-using CodeCampServer.UI.Helpers.Filters;
+using CodeCampServer.UI.Helpers.ActionResults;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Messages;
 using CodeCampServer.UI.Models.Input;
@@ -12,13 +12,11 @@ namespace CodeCampServer.UI.Controllers
 	{
 		private readonly IMeetingMapper _mapper;
 		private readonly ISecurityContext _securityContext;
-		private readonly IRulesEngine _rulesEngine;
 
-		public MeetingController(IMeetingMapper meetingMapper, ISecurityContext securityContext, IRulesEngine rulesEngine)
+		public MeetingController(IMeetingMapper meetingMapper, ISecurityContext securityContext)
 		{
 			_mapper = meetingMapper;
 			_securityContext = securityContext;
-			_rulesEngine = rulesEngine;
 		}
 
 		[HttpGet]
@@ -44,9 +42,9 @@ namespace CodeCampServer.UI.Controllers
 			{
 				return View(ViewPages.NotAuthorized);
 			}
-			return Command<MeetingInput,Meeting>(input,
-			               r => RedirectToAction<HomeController>(c => c.Index(r.UserGroup)),
-			               r => View(input));
+			return Command<MeetingInput, Meeting>(input,
+			                                      r => RedirectToAction<HomeController>(c => c.Index(r.UserGroup)),
+			                                      r => View(input));
 		}
 
 		[Authorize]
@@ -56,7 +54,7 @@ namespace CodeCampServer.UI.Controllers
 			{
 				return NotAuthorizedView;
 			}
-			return Command(message,r => RedirectToAction<HomeController>(c => c.Index(userGroup)));
+			return Command(message, r => RedirectToAction<HomeController>(c => c.Index(userGroup)));
 		}
 
 		public ActionResult New(UserGroup usergroup)

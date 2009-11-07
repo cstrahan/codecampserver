@@ -1,7 +1,7 @@
 using System;
 using System.Linq.Expressions;
+using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Common;
-using CodeCampServer.Core.Domain.Model.Enumerations;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 

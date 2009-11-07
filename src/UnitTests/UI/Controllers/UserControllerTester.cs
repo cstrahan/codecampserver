@@ -8,16 +8,13 @@ using CodeCampServer.UI;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
-using CommandProcessor;
 using MvcContrib.TestHelper;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Tarantino.RulesEngine;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
-	public class UserControllerTester : SaveControllerTester
+	public class UserControllerTester : ControllerTester
 	{
 		private class TestUserMapper : UserMapper
 		{
@@ -51,7 +48,6 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		}
 
 
-
 		[Test]
 		public void Save_should_update_an_existing_user()
 		{
@@ -71,13 +67,12 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var controller = new UserController(null, mapper, PermisiveSecurityContext(), null);
 
-			controller.Edit((User)null)
+			controller.Edit((User) null)
 				.AssertViewRendered()
 				.ForView(ViewNames.Default)
 				.ModelShouldBe<UserInput>();
 			mapper.MappedUser.ShouldNotBeNull();
 			mapper.MappedUser.Id.ShouldEqual(Guid.Empty);
 		}
-
 	}
 }

@@ -2,6 +2,7 @@ using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
+using CodeCampServer.UI.Helpers.ActionResults;
 using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Controllers
@@ -26,11 +27,11 @@ namespace CodeCampServer.UI.Controllers
 		[HttpPost]
 		public CommandResult Index(LoginInput input)
 		{
-			return Command<LoginInput,User>(input, 
-							r => Action(() => _userSession.LogIn(r)), 
-							r => View(input));
+			return Command<LoginInput, User>(input,
+			                                 r => Action(() => _userSession.LogIn(r)),
+			                                 r => View(input));
 		}
-		
+
 
 		public ActionResult LogOut()
 		{

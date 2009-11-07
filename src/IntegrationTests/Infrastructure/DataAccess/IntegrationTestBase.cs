@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Reflection;
-using CodeCampServer.Core;
-using CodeCampServer.Core.Services;
+using CodeCampServer.Core.Common;
+using CodeCampServer.DependencyResolution;
 using CodeCampServer.Infrastructure.DataAccess;
 using CodeCampServer.UnitTests;
 using NHibernate;
@@ -19,12 +18,19 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		private readonly IDictionary<Type, Object> injectedInstances = new Dictionary<Type, Object>();
 		private IUnitOfWork _unitOfWork;
 
+		[TestFixtureSetUp]
+		public virtual void FixtureSetup()
+		{
+			DependencyRegistrar.EnsureDependenciesRegistered();	
+		}
+
 		[SetUp]
 		public virtual void Setup()
 		{
 			injectedInstances.Clear();
 			_unitOfWork = new UnitOfWork(GetSessionSource());
 			_unitOfWork.Begin();
+			ObjectFactory.Inject(typeof (IUnitOfWork), _unitOfWork);
 		}
 
 		[TearDown]
@@ -52,7 +58,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 		protected void InjectInstance<T>(T instance)
 		{
-			Type type = typeof(T);
+			Type type = typeof (T);
 			injectedInstances.Add(type, instance);
 		}
 
@@ -84,7 +90,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			Assert.AreEqual(obj1, obj2);
 
 			PropertyInfo[] infos = obj1.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
-			foreach (var info in infos)
+			foreach (PropertyInfo info in infos)
 			{
 				object value1 = info.GetValue(obj1, null);
 				object value2 = info.GetValue(obj2, null);
@@ -94,29 +100,9 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 		protected static int CountRowsInTable(ISession session, string table)
 		{
-			var sql = string.Format("select count(*) from {0}", table);
-			var cmd = new SqlCommand(sql, (SqlConnection)session.Connection);
-			return (int)cmd.ExecuteScalar();
-		}
-
-		public class TestSessionSource : ISessionSource
-		{
-			private readonly ISessionFactory _sessionFactory;
-			private ISession _session;
-
-			public TestSessionSource(ISessionFactory sessionFactory)
-			{
-				_sessionFactory = sessionFactory;
-			}
-
-			public ISession CreateSession()
-			{
-				if ((_session == null) || (!_session.IsOpen))
-				{
-					_session = _sessionFactory.OpenSession();
-				}
-				return _session;
-			}
+			string sql = string.Format("select count(*) from {0}", table);
+			var cmd = new SqlCommand(sql, (SqlConnection) session.Connection);
+			return (int) cmd.ExecuteScalar();
 		}
 	}
 }

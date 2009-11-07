@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.UI.Helpers.Filters;
+using CodeCampServer.UI.Helpers.ActionResults;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
 

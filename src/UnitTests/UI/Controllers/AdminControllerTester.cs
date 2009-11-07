@@ -11,7 +11,7 @@ using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
-	public class AdminControllerTester : SaveControllerTester
+	public class AdminControllerTester : ControllerTester
 	{
 		[Test]
 		public void When_a_user_does_exist_Contoller_should_show_the_default_view()

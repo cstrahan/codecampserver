@@ -1,19 +1,18 @@
-﻿using System.Reflection;
-using CodeCampServer.Infrastructure.DataAccess.Mappings;
+﻿using CodeCampServer.Infrastructure.DataAccess.Mappings;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Conventions.Helpers;
 using NHibernate.Cfg;
 
 namespace CodeCampServer.Infrastructure.DataAccess
 {
-	public static class ConfigurationFactory
+	public class ConfigurationFactory
 	{
 		public static Configuration Build()
 		{
-			return Build(null);
+			return new ConfigurationFactory().Build(null);
 		}
 
-		public static Configuration Build(string configurationFile)
+		public Configuration Build(string configurationFile)
 		{
 			var configuration = new Configuration();
 
@@ -25,11 +24,11 @@ namespace CodeCampServer.Infrastructure.DataAccess
 			return Fluently.Configure(configuration)
 				.Mappings(cfg =>
 				          	{
-								cfg.HbmMappings.AddFromAssembly(typeof(UserMap).Assembly);
-								cfg.FluentMappings.AddFromAssembly(typeof(UserMap).Assembly)
+				          		cfg.HbmMappings.AddFromAssembly(typeof (UserMap).Assembly);
+				          		cfg.FluentMappings.AddFromAssembly(typeof (UserMap).Assembly)
 				          			.Conventions.Setup(mappings =>
 				          			                   	{
-				          			                   		mappings.AddAssembly(typeof(UserMap).Assembly);
+				          			                   		mappings.AddAssembly(typeof (UserMap).Assembly);
 				          			                   		mappings.Add(ForeignKey.EndsWith("Id"));
 				          			                   	});
 				          	}).BuildConfiguration();

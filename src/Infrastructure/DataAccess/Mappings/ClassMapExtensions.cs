@@ -1,4 +1,5 @@
-﻿using CodeCampServer.Core.Domain.Model;
+﻿using CodeCampServer.Core.Bases;
+using CodeCampServer.Core.Domain.Model;
 using FluentNHibernate.Mapping;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Mappings

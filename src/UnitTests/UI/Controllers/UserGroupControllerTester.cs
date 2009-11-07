@@ -2,20 +2,16 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
-using CommandProcessor;
 using MvcContrib.TestHelper;
-using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Tarantino.RulesEngine;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
-	public class UserGroupControllerTester : SaveControllerTester
+	public class UserGroupControllerTester : ControllerTester
 	{
 		[Test]
 		public void When_a_UserGroup_does_not_exist_Edit_should_redirect_to_the_index_with_a_message()
@@ -23,7 +19,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<IUserGroupRepository>();
 			repository.Stub(repo => repo.GetById(Guid.Empty)).Return(new UserGroup());
 
-			var controller = new UserGroupController(repository, S<IUserGroupMapper>(),null);
+			var controller = new UserGroupController(repository, S<IUserGroupMapper>(), null);
 
 			ActionResult result = controller.Edit(Guid.Empty);
 			result.AssertViewRendered().ForView("");
@@ -44,6 +40,5 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			result.Success.AssertActionRedirect().ToAction<HomeController>(a => a.Index(null));
 		}
-
 	}
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using CodeCampServer.Core.Domain.Model.Enumerations;
+using CodeCampServer.Core.Bases;
 using NUnit.Framework;
 
 namespace CodeCampServer.UnitTests.Core.Domain

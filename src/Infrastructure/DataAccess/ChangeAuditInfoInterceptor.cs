@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
@@ -24,7 +23,7 @@ namespace CodeCampServer.Infrastructure.DataAccess
 		}
 
 		public override bool OnFlushDirty(object entity, object id, object[] currentState, object[] previousState,
-										  string[] propertyNames, IType[] types)
+		                                  string[] propertyNames, IType[] types)
 		{
 			if (!AuditingEnabled)
 				return false;
@@ -33,7 +32,7 @@ namespace CodeCampServer.Infrastructure.DataAccess
 
 			if (entity is IAuditable && !(entity is User))
 			{
-				var auditable = (IAuditable)entity;
+				var auditable = (IAuditable) entity;
 
 				Action<object> setter = GetSetter(propertyNames, currentState, propertyName);
 				CommonAudit(auditable, setter);
@@ -51,7 +50,7 @@ namespace CodeCampServer.Infrastructure.DataAccess
 
 			if (entity is IAuditable && !(entity is User))
 			{
-				var auditable = (IAuditable)entity;
+				var auditable = (IAuditable) entity;
 
 				Action<object> setter = GetSetter(propertyNames, state, propertyName);
 				CommonAudit(auditable, setter);
@@ -64,10 +63,10 @@ namespace CodeCampServer.Infrastructure.DataAccess
 		{
 			if (auditable.ChangeAuditInfo.Created == null) //create
 			{
-				auditable.ChangeAuditInfo.Created = _clock.GetCurrentDateTime();
+				auditable.ChangeAuditInfo.Created = _clock.Now();
 				auditable.ChangeAuditInfo.CreatedBy = _userSession.GetCurrentUser();
 			}
-			auditable.ChangeAuditInfo.Updated = _clock.GetCurrentDateTime();
+			auditable.ChangeAuditInfo.Updated = _clock.Now();
 			auditable.ChangeAuditInfo.UpdatedBy = _userSession.GetCurrentUser();
 
 

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CodeCampServer.Core
+namespace CodeCampServer.Core.Common
 {
 	public static class EnumerableExtensions
 	{

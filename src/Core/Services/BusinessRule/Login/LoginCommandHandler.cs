@@ -17,7 +17,6 @@ namespace CodeCampServer.Core.Services.BusinessRule.Login
 			_repository = repository;
 		}
 
-
 		protected override ReturnValue Execute(LoginUserCommandMessage commandMessage)
 		{
 			User user = _repository.GetByUserName(commandMessage.Username);

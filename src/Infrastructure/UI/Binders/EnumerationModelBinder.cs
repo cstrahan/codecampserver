@@ -1,5 +1,6 @@
 using System;
 using System.Web.Mvc;
+using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 
 namespace CodeCampServer.Infrastructure.UI.Binders
@@ -34,10 +35,10 @@ namespace CodeCampServer.Infrastructure.UI.Binders
 			bool success = int.TryParse(value, out enumValue);
 			if (success)
 			{
-				return EnumerationHelper.FromValueOrDefault(enumerationType, enumValue);
+				return Enumeration.FromValueOrDefault(enumerationType, enumValue);
 			}
 
-			return EnumerationHelper.FromDisplayNameOrDefault(enumerationType, value);
+			return Enumeration.FromDisplayNameOrDefault(enumerationType, value);
 		}
 
 		private static string GetAttemptedValue(ModelBindingContext bindingContext)

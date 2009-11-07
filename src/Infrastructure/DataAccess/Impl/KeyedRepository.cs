@@ -1,5 +1,5 @@
+using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
-using CodeCampServer.Core.Domain.Model;
 using NHibernate.Criterion;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Impl
@@ -13,7 +13,9 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 
 		public virtual T GetByKey(string key)
 		{
-			return GetSession().CreateCriteria(typeof (T)).Add(Restrictions.Eq(GetEntityNaturalKeyName(), key))				.UniqueResult<T>();
+			return GetSession().CreateCriteria(typeof (T))
+				.Add(Restrictions.Eq(GetEntityNaturalKeyName(), key))
+				.UniqueResult<T>();
 		}
 
 		protected virtual string GetEntityNaturalKeyName()

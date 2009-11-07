@@ -1,7 +1,7 @@
 using AutoMapper;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Services.BusinessRule.CreateMeeting;
 using CodeCampServer.Core.Services.BusinessRule.DeleteMeeting;
+using CodeCampServer.Core.Services.BusinessRule.UpdateMeeting;
 using CodeCampServer.UI.Messages;
 using CodeCampServer.UI.Models.Input;
 

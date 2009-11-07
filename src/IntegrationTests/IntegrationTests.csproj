@@ -132,6 +132,7 @@
     <Compile Include="Infrastructure\DataAccess\Mappings\MeetingMappingsTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\SponsorMappingsTester.cs" />
     <Compile Include="Infrastructure\DataAccess\MeetingRepositoryTester.cs" />
+    <Compile Include="Infrastructure\DataAccess\TestSessionSource.cs" />
     <Compile Include="Infrastructure\DataAccess\UserGroupRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\KeyedRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\UserGroupMappingsTester.cs" />

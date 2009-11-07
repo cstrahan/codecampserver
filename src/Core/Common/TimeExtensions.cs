@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CodeCampServer.Core
+namespace CodeCampServer.Core.Common
 {
 	public static class TimeExtensions
 	{

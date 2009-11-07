@@ -8,20 +8,16 @@ namespace CodeCampServer.DependencyResolution
 		private static bool _dependenciesRegistered;
 		private static readonly object sync = new object();
 
-		public void RegisterDependencies()
+		private static void RegisterDependencies()
 		{
-			ObjectFactory.Initialize(x =>
-			                         	{
-			                         		x.Scan(y =>
-			                         		       	{
-			                         		       		y.AssemblyContainingType<DependencyRegistry>();
-			                         		       		y.LookForRegistries();
-			                         		       	});
-
-			                         	});
+			ObjectFactory.Initialize(x => x.Scan(y =>
+			                                     	{
+			                                     		y.AssemblyContainingType<DependencyRegistry>();
+			                                     		y.LookForRegistries();
+			                                     	}));
 		}
 
-		public void ConfigureOnStartup()
+		internal void ConfigureOnStartup()
 		{
 			RegisterDependencies();
 			var dependenciesToInitialized = ObjectFactory.GetAllInstances<IRequiresConfigurationOnStartup>();
@@ -40,12 +36,6 @@ namespace CodeCampServer.DependencyResolution
 			return ObjectFactory.GetInstance(modelType);
 		}
 
-		//public static bool Registered<T>()
-		//{
-		//    EnsureDependenciesRegistered();
-		//    return ObjectFactory.GetInstance<T>() != null;
-		//}
-
 		public static bool Registered(Type type)
 		{
 			EnsureDependenciesRegistered();
@@ -60,7 +50,7 @@ namespace CodeCampServer.DependencyResolution
 				{
 					if (!_dependenciesRegistered)
 					{
-						new DependencyRegistrar().RegisterDependencies();
+						RegisterDependencies();
 						_dependenciesRegistered = true;
 						
 					}

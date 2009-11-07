@@ -1,3 +1,5 @@
+using CodeCampServer.Core.Domain.Model.Enumerations;
+
 namespace CodeCampServer.Core.Domain.Model
 {
 	public class Sponsor : AuditedPersistentObject

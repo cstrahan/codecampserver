@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using AutoMapper;
-using CodeCampServer.Core;
+using CodeCampServer.Core.Common;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles;
 

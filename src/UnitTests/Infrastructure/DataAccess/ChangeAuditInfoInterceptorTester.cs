@@ -1,7 +1,9 @@
 using System;
+using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
+using CodeCampServer.Core.Services.Bases;
 using CodeCampServer.Infrastructure.DataAccess;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -36,7 +38,7 @@ namespace CodeCampServer.UnitTests.Infrastructure.DataAccess
 
 			var conference = new Conference();
 
-			var interceptor = new ChangeAuditInfoInterceptor(userSession, ClockStub(new DateTime(2008, 10, 20)));
+			var interceptor = new ChangeAuditInfoInterceptor(userSession, new ClockStub(new DateTime(2008, 10, 20)));
 
 			interceptor.OnSave(conference, null, new[] {new ChangeAuditInfo()}, new[] {"ChangeAuditInfo"}, null);
 
@@ -57,7 +59,7 @@ namespace CodeCampServer.UnitTests.Infrastructure.DataAccess
 			var conference = new Conference
 			             	{ChangeAuditInfo = new ChangeAuditInfo {Created = new DateTime(2008, 10, 1), CreatedBy = createdUser}};
 
-			var interceptor = new ChangeAuditInfoInterceptor(userSession, ClockStub(new DateTime(2008, 10, 20)));
+			var interceptor = new ChangeAuditInfoInterceptor(userSession, new ClockStub(new DateTime(2008, 10, 20)));
 
 			interceptor.OnFlushDirty(conference, null, new[] {conference.ChangeAuditInfo}, null, new[] {"ChangeAuditInfo"}, null);
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Web.Mvc;
-using CodeCampServer.Core.Domain.Model.Enumerations;
+using CodeCampServer.Core.Bases;
 using MvcContrib.UI.InputBuilder.Views;
 
 namespace CodeCampServer.Infrastructure.UI.InputBuilders

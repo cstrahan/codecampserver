@@ -1,15 +1,20 @@
 using System;
 using System.Linq;
-using CodeCampServer.Core;
+using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using Tarantino.RulesEngine;
+using CodeCampServer.Core.Services.Bases;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Impl
 {
 	public class ConferenceRepository : KeyedRepository<Conference>, IConferenceRepository
 	{
-		public ConferenceRepository(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		private readonly ISystemClock _clock;
+
+		public ConferenceRepository(IUnitOfWork unitOfWork, ISystemClock clock) : base(unitOfWork)
+		{
+			_clock = clock;
+		}
 
 		public Conference GetNextConference()
 		{
@@ -31,7 +36,7 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 			return GetSession().CreateQuery(
 				"from Conference conf where conf.UserGroup = :usergroup and conf.EndDate >= :datetime order by conf.StartDate")
 				.SetEntity("usergroup", usergroup)
-				.SetDateTime("datetime", SystemTime.Now().Midnight())
+				.SetDateTime("datetime", _clock.Now().Midnight())
 				.List<Conference>().ToArray();
 		}
 	}

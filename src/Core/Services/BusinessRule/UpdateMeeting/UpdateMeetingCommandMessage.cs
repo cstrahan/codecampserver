@@ -1,6 +1,6 @@
 using CodeCampServer.Core.Domain.Model;
 
-namespace CodeCampServer.Core.Services.BusinessRule.CreateMeeting
+namespace CodeCampServer.Core.Services.BusinessRule.UpdateMeeting
 {
 	public class UpdateMeetingCommandMessage
 	{

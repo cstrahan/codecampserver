@@ -7,6 +7,5 @@ namespace CodeCampServer.Core.Services
 		User GetCurrentUser();
 		void LogIn(User user);
 		void LogOut();
-		void LogIn(string username);
 	}
 }

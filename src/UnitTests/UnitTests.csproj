@@ -117,8 +117,6 @@
     <Compile Include="Core\Common\UINameHelperTester.cs" />
     <Compile Include="Core\Domain\EnumerationTester.cs" />
     <Compile Include="Core\Domain\Model\ConferenceTester.cs" />
-    <Compile Include="Core\Domain\Model\Enumerations\OrderedEnumerationTester.cs" />
-    <Compile Include="Core\Domain\Model\Enumerations\YesNoTester.cs" />
     <Compile Include="Core\Domain\Model\ObjectExtensionsTester.cs" />
     <Compile Include="Core\Domain\Model\UserGroupTester.cs" />
     <Compile Include="Core\Domain\Model\UserTester.cs" />
@@ -143,9 +141,10 @@
     <Compile Include="UI\AutoMappedConfigurationTester.cs" />
     <Compile Include="UI\BinderTester.cs" />
     <Compile Include="UI\CommandResultTester.cs" />
+    <Compile Include="UI\Controllers\ActionResultSecutiryExtension.cs" />
     <Compile Include="UI\Controllers\AdminControllerTester.cs" />
     <Compile Include="UI\Controllers\EventControllerTester.cs" />
-    <Compile Include="UI\Controllers\SaveControllerTester.cs">
+    <Compile Include="UI\Controllers\ControllerTester.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UI\Controllers\SponsorControllerTester.cs" />
@@ -191,6 +190,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Core\Domain\Model\Enumerations\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

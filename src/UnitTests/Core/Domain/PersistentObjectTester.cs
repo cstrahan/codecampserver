@@ -1,5 +1,5 @@
 using System;
-using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Bases;
 using NUnit.Framework;
 
 namespace Tarantino.UnitTests.Core.Commons.Model

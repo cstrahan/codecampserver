@@ -1,6 +1,6 @@
 using System.Linq;
+using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
-using CodeCampServer.Core.Domain.Model;
 using NBehave.Spec.NUnit;
 using NHibernate;
 using NUnit.Framework;

@@ -57,33 +57,32 @@
     <Compile Include="Common\PrimitiveExtensions.cs" />
     <Compile Include="Common\ReflectionExtensions.cs" />
     <Compile Include="Common\UINameHelper.cs" />
+    <Compile Include="Domain\ChangeAuditInfo.cs" />
     <Compile Include="Domain\IAuditable.cs" />
     <Compile Include="Domain\IEventRepository.cs" />
     <Compile Include="Domain\IMeetingRepository.cs" />
     <Compile Include="Domain\IUserGroupRepository.cs" />
+    <Compile Include="Domain\Model\AuditedPersistentObject.cs" />
     <Compile Include="Domain\Model\Event.cs" />
     <Compile Include="Domain\Model\IGloballyUnique.cs" />
     <Compile Include="Domain\Model\IKeyable.cs" />
     <Compile Include="Domain\Model\Meeting.cs" />
     <Compile Include="Domain\Mapper.cs" />
     <Compile Include="Domain\IMapper.cs" />
-    <Compile Include="Domain\Model\Enumerations\EnumerationHelper.cs" />
-    <Compile Include="Domain\Model\Enumerations\OrderedEnumeration.cs" />
-    <Compile Include="Domain\Model\Enumerations\YesNo.cs" />
     <Compile Include="Domain\Model\Sponsor.cs" />
-    <Compile Include="Domain\Model\SponsorLevel.cs" />
+    <Compile Include="Domain\Model\Enumerations\SponsorLevel.cs" />
     <Compile Include="Domain\Model\UserGroup.cs" />
-    <Compile Include="Domain\Model\Enumerations\WebsiteTheme.cs" />
     <Compile Include="Domain\ValidationResult.cs" />
     <Compile Include="Domain\IConferencerRepository.cs" />
     <Compile Include="Domain\IKeyedRepository.cs" />
     <Compile Include="Domain\IRepository.cs" />
     <Compile Include="Domain\IUserRepository.cs" />
     <Compile Include="Domain\Model\Conference.cs" />
-    <Compile Include="Domain\Model\Enumerations\SessionLevel.cs" />
     <Compile Include="Domain\Model\KeyedObject.cs" />
     <Compile Include="Domain\Model\User.cs" />
+    <Compile Include="Domain\ValueObject.cs" />
     <Compile Include="Services\Bases\ISystemClock.cs" />
+    <Compile Include="Services\Bases\SystemClockStub.cs" />
     <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandHandler.cs" />
     <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandMessage.cs" />
     <Compile Include="Services\BusinessRule\Login\LoginCommandHandler.cs" />
@@ -109,6 +108,7 @@
     <Compile Include="Services\IRulesEngine.cs" />
     <Compile Include="Services\ISecurityContext.cs" />
     <Compile Include="Services\IUserSession.cs" />
+    <Compile Include="Services\UserSessionStub.cs" />
     <Compile Include="SystemTime.cs" />
     <Compile Include="Common\TimeExtensions.cs" />
   </ItemGroup>
@@ -116,7 +116,6 @@
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Domain\Messages\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

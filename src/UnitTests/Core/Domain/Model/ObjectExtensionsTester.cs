@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using CodeCampServer.Core;
+using CodeCampServer.Core.Common;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 

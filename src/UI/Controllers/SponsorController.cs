@@ -1,9 +1,8 @@
 using System.Web.Mvc;
-using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
-using CodeCampServer.UI.Helpers.Filters;
+using CodeCampServer.UI.Helpers.ActionResults;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
 
@@ -15,7 +14,8 @@ namespace CodeCampServer.UI.Controllers
 		private readonly IUserGroupSponsorMapper _mapper;
 		private readonly ISecurityContext _securityContext;
 
-		public SponsorController(IUserGroupRepository repository, IUserGroupSponsorMapper mapper, ISecurityContext securityContext)
+		public SponsorController(IUserGroupRepository repository, IUserGroupSponsorMapper mapper,
+		                         ISecurityContext securityContext)
 
 		{
 			_repository = repository;
@@ -42,8 +42,8 @@ namespace CodeCampServer.UI.Controllers
 		public ActionResult Edit(UserGroup userGroup, SponsorInput sponsorInput)
 		{
 			return Command<SponsorInput, Sponsor>(sponsorInput,
-			               r => RedirectToAction<SponsorController>(c => c.Index(null)), 
-			               input => View(sponsorInput) );
+			                                      r => RedirectToAction<SponsorController>(c => c.Index(null)),
+			                                      input => View(sponsorInput));
 		}
 
 		public ActionResult Delete(UserGroup userGroup, Sponsor sponsor)

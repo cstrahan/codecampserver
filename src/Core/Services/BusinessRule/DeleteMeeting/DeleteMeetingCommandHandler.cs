@@ -20,14 +20,4 @@ namespace CodeCampServer.Core.Services.BusinessRule.DeleteMeeting
 			return new ReturnValue {Type = typeof (Meeting), Value = commandMessage.Meeting};
 		}
 	}
-
-	internal interface ICommandHandler<TMessage>
-	{
-		void Execute(TMessage message);
-	}
-
-	internal interface ICommandHandler<TMessage, TReturn>
-	{
-		TReturn Execute(TMessage message);
-	}
 }

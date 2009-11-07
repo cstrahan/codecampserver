@@ -1,6 +1,6 @@
 using System;
+using CodeCampServer.Core.Common;
 using NUnit.Framework;
-using CodeCampServer.Core;
 using NBehave.Spec.NUnit;
 
 namespace CodeCampServer.UnitTests.Core

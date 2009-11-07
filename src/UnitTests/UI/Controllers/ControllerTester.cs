@@ -1,17 +1,13 @@
 using System;
-using System.Web.Mvc;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
-using CodeCampServer.UI;
-using MvcContrib.TestHelper;
-using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
 	[TestFixture]
-	public abstract class SaveControllerTester : TestBase
+	public abstract class ControllerTester : TestBase
 	{
 		protected ISecurityContext PermisiveSecurityContext()
 		{
@@ -27,28 +23,13 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			return context;
 		}
 
-		private void SetSecurityReturn(ISecurityContext context, bool allowPermision)
+		private static void SetSecurityReturn(ISecurityContext context, bool allowPermision)
 		{
-			context.Stub(securityContext => securityContext.HasPermissionsFor(new Conference())).IgnoreArguments().
-				Return(allowPermision).Repeat.Any();
 			context.Stub(securityContext => securityContext.HasPermissionsFor(new UserGroup())).IgnoreArguments().
 				Return(allowPermision).Repeat.Any();
 			context.Stub(securityContext => securityContext.HasPermissionsForUserGroup(Guid.Empty)).IgnoreArguments().
 				Return(allowPermision).Repeat.Any();
 			context.Stub(securityContext => securityContext.IsAdmin()).Return(allowPermision).Repeat.Any();
-		}
-	}
-
-	public static class ActionResultSecutiryExtension
-	{
-		public static void ShouldBeNotAuthorized(this ActionResult result)
-		{
-			result.AssertViewRendered().ForView(ViewPages.NotAuthorized);
-		}
-
-		public static void ModelShouldBe<Type>(this ViewResult result)
-		{
-			result.ViewData.Model.ShouldBeInstanceOfType(typeof (Type));
 		}
 	}
 }

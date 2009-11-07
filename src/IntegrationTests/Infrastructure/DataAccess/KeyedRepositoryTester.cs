@@ -1,11 +1,7 @@
-using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.DataAccess;
-using CodeCampServer.Infrastructure.DataAccess.Impl;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
@@ -32,7 +28,8 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		[Test]
 		public void Should_be_able_to_instantiate()
 		{
-			Activator.CreateInstance(typeof (KeyedRepository<T>), MockRepository.GenerateStub<IUnitOfWork>());
+			TRepository repository = CreateRepository();
+			repository.ShouldNotBeNull();
 		}
 	}
 }

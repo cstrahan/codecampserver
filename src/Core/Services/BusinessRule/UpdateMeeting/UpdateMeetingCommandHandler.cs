@@ -1,6 +1,5 @@
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Services.BusinessRule.CreateMeeting;
 using Tarantino.RulesEngine;
 using Tarantino.RulesEngine.CommandProcessor;
 

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using CodeCampServer.Core.Domain.Model.Enumerations;
+using CodeCampServer.Core.Bases;
 
 namespace CodeCampServer.Core.Common
 {

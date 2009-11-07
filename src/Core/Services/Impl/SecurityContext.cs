@@ -42,16 +42,5 @@ namespace CodeCampServer.Core.Services.Impl
 			}
 			return false;
 		}
-
-
-	    public bool HasPermissionsFor(Meeting meeting)
-	    {
-	        return HasPermissionsFor(meeting.UserGroup);
-	    }
-
-		public virtual bool HasPermissionsFor(Conference conference)
-		{
-			return HasPermissionsFor(conference.UserGroup);
-		}
 	}
 }

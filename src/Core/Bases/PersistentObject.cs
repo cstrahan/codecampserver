@@ -1,37 +1,37 @@
 using System;
 
-namespace CodeCampServer.Core.Domain.Model
+namespace CodeCampServer.Core.Bases
 {
-    public abstract class PersistentObject
-    {
-        public const string ID = "Id";
+	public abstract class PersistentObject
+	{
+		public const string ID = "Id";
 
-        public virtual Guid Id { get; set; }
+		public virtual Guid Id { get; set; }
 
-        public virtual bool IsPersistent
-        {
-            get { return isPersistentObject(); }
-        }
+		public virtual bool IsPersistent
+		{
+			get { return isPersistentObject(); }
+		}
 
-        public override bool Equals(object obj)
-        {
-            if (isPersistentObject())
-            {
-                var persistentObject = obj as PersistentObject;
-                return (persistentObject != null) && (Id == persistentObject.Id);
-            }
+		public override bool Equals(object obj)
+		{
+			if (isPersistentObject())
+			{
+				var persistentObject = obj as PersistentObject;
+				return (persistentObject != null) && (Id == persistentObject.Id);
+			}
 
-            return base.Equals(obj);
-        }
+			return base.Equals(obj);
+		}
 
-        public override int GetHashCode()
-        {
-            return isPersistentObject() ? Id.GetHashCode() : base.GetHashCode();
-        }
+		public override int GetHashCode()
+		{
+			return isPersistentObject() ? Id.GetHashCode() : base.GetHashCode();
+		}
 
-        private bool isPersistentObject()
-        {
-            return (Id != Guid.Empty);
-        }
-    }
+		private bool isPersistentObject()
+		{
+			return (Id != Guid.Empty);
+		}
+	}
 }

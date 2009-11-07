@@ -1,5 +1,5 @@
 ﻿using System;
-using CodeCampServer.Core.Domain.Model.Enumerations;
+using CodeCampServer.Core.Bases;
 using FluentNHibernate.Conventions;
 using FluentNHibernate.Conventions.AcceptanceCriteria;
 using FluentNHibernate.Conventions.Inspections;

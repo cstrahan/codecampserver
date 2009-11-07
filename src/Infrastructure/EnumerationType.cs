@@ -1,6 +1,6 @@
 using System;
 using System.Data;
-using CodeCampServer.Core.Domain.Model.Enumerations;
+using CodeCampServer.Core.Bases;
 using NHibernate.Dialect;
 using NHibernate.SqlTypes;
 using NHibernate.Type;

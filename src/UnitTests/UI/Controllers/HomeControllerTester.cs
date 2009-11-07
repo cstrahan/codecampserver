@@ -10,7 +10,7 @@ using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
-	public class HomeControllerTester : SaveControllerTester
+	public class HomeControllerTester : ControllerTester
 	{
 		[Test]
 		public void About_should_go_to_about_view()
