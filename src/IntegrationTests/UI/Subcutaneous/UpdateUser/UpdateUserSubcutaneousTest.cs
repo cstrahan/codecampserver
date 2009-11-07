@@ -8,6 +8,7 @@ using Tarantino.RulesEngine;
 
 namespace CodeCampServer.IntegrationTests.UI.Subcutaneous.UpdateUser
 {
+	[TestFixture]
 	public class UpdateUserSubcutaneousTest : SubcutaneousTest<UserInput>
 	{
 		[SetUp]
