@@ -1,7 +1,7 @@
 using System;
+using CodeCampServer.Core;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
-using CodeCampServer.Core.Services.Bases;
 using CodeCampServer.Infrastructure.DataAccess;
 using NBehave.Spec.NUnit;
 using NHibernate;
@@ -74,7 +74,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		{
 			return
 				TestHelper.GetSessionFactory().OpenSession(new ChangeAuditInfoInterceptor(new UserSessionStub(user),
-				                                                                          new ClockStub(today)));
+				                                                                          new Clock(today)));
 		}
 	}
 }

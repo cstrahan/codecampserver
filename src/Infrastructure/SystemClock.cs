@@ -1,5 +1,5 @@
 using System;
-using CodeCampServer.Core.Services.Bases;
+using CodeCampServer.Core;
 
 namespace CodeCampServer.Infrastructure
 {

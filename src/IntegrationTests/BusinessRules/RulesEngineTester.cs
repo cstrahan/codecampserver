@@ -10,6 +10,7 @@ using CodeCampServer.Infrastructure.BusinessRules.CommandConfiguration;
 using CodeCampServer.Infrastructure.ObjectMapping;
 using CodeCampServer.UI.Messages;
 using CodeCampServer.UI.Models.Input;
+using CodeCampServer.UI.Models.Messages;
 using CodeCampServer.UnitTests;
 using CommandProcessor;
 using NBehave.Spec.NUnit;
@@ -23,6 +24,12 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 	[TestFixture]
 	public class RulesEngineTester : TestBase
 	{
+		[SetUp]
+		public void Setup()
+		{
+			ObjectFactory.ResetDefaults();	
+		}
+
 		[Test]
 		public void DeleteMeeting_message_should_delete_a_meeting()
 		{
@@ -115,8 +122,8 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			repository.Stub(repository1 => repository1.GetById(Guid.Empty)).Return(new UserGroup());
 			ObjectFactory.Inject(typeof (IUserGroupRepository), repository);
 
-			//var userRepository = S<IUserRepository>();
-			//ObjectFactory.Inject(typeof(IUserRepository), userRepository);
+			var userRepository = S<IUserRepository>();
+			ObjectFactory.Inject(typeof(IUserRepository), userRepository);
 
 
 			RulesEngineConfiguration.Configure(typeof (DeleteUserGroupMessageConfiguration));

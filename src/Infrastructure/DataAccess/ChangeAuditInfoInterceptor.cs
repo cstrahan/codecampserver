@@ -1,9 +1,9 @@
 using System;
+using CodeCampServer.Core;
 using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
-using CodeCampServer.Core.Services.Bases;
 using NHibernate;
 using NHibernate.Type;
 

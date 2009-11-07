@@ -6,6 +6,7 @@ using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.ActionResults;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
+using CodeCampServer.UI.Models.Messages;
 
 namespace CodeCampServer.UI.Controllers
 {

@@ -1,4 +1,5 @@
 using System;
+using CodeCampServer.Core;
 using StructureMap;
 
 namespace CodeCampServer.DependencyResolution

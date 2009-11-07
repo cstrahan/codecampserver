@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
+using CodeCampServer.Core;
 using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Services.Bases;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Impl
 {

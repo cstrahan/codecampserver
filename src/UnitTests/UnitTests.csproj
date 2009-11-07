@@ -34,13 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=0.1.0.28717, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AutoMapper, Version=0.4.0.132, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\AutoMapper\AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Components.Validator, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\castle\Castle.Components.Validator.dll</HintPath>
     </Reference>
     <Reference Include="CommandProcessor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -82,10 +78,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\rhinomocks\Rhino.Mocks.dll</HintPath>
     </Reference>
-    <Reference Include="StructureMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\structuremap\StructureMap.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -126,7 +118,6 @@
     <Compile Include="Core\Services\AuthenticationServiceTester.cs" />
     <Compile Include="Core\Services\CryptographerTester.cs" />
     <Compile Include="Core\Services\SecurityContextTester.cs" />
-    <Compile Include="Core\Services\SystemTimeTester.cs" />
     <Compile Include="Core\Services\Updaters\ConferenceMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\UserGroupInputToUserGroupTypeconverterTester.cs" />
     <Compile Include="Core\Services\Updaters\UserGroupMapperTester.cs" />
@@ -138,7 +129,6 @@
     <Compile Include="SpecExtensions.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="UINameHelperTester.cs" />
-    <Compile Include="UI\AutoMappedConfigurationTester.cs" />
     <Compile Include="UI\BinderTester.cs" />
     <Compile Include="UI\CommandResultTester.cs" />
     <Compile Include="UI\Controllers\ActionResultSecutiryExtension.cs" />
@@ -169,10 +159,6 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{9C81B684-40CC-472A-804D-7C0F963315F5}</Project>
       <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DependencyResolution\DependencyResolution.csproj">
-      <Project>{3A222037-75A5-4DFF-BA27-9487BF3A8536}</Project>
-      <Name>DependencyResolution</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{FBE3CFE2-CAC1-4652-9F49-18F35B65123D}</Project>

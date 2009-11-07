@@ -122,7 +122,6 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BusinessRules\RulesEngineTester.cs" />
-    <Compile Include="Core\SystemTimeTester.cs" />
     <Compile Include="DatabaseConnectionTester.cs" />
     <Compile Include="DependencyResolution\DependencyRegistrarTester.cs" />
     <Compile Include="Infrastructure\DataAccess\ChangeAuditInfoInterceptorTester.cs" />
@@ -146,6 +145,7 @@
     <Compile Include="SchemaExportTester.cs" />
     <Compile Include="SchemaImportTester.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="UI\AutoMappedConfigurationTester.cs" />
     <Compile Include="UI\DataLoader\ZDataLoader.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +190,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Core\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

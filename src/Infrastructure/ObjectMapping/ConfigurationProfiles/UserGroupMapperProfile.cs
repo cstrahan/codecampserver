@@ -5,6 +5,7 @@ using CodeCampServer.Core.Services.BusinessRule.DeleteUserGroup;
 using CodeCampServer.Core.Services.BusinessRule.UpdateUserGroup;
 using CodeCampServer.Infrastructure.UI.Mappers;
 using CodeCampServer.UI.Models.Input;
+using CodeCampServer.UI.Models.Messages;
 
 namespace CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles
 {

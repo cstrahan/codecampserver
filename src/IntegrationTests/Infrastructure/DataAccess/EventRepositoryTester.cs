@@ -38,7 +38,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		[Test]
 		public void Should_retrieve_upcoming_events_for_a_usergroup()
 		{
-			SystemTime.Now = () => new DateTime(2009, 5, 5);
+			SystemClockFactory.Default = () => new Clock(new DateTime(2009, 5, 5));
 			var usergroup = new UserGroup();
 			var event1 = new Conference
 			                  	{
@@ -86,7 +86,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		[Test]
 		public void Should_retrieve_all_upcoming_events()
 		{
-			SystemTime.Now = () => new DateTime(2009, 5, 5);
+			SystemClockFactory.Default = () => new Clock(new DateTime(2009, 5, 5));
 			var usergroup = new UserGroup();
             var usergroup1 = new UserGroup();
 			var event1 = new Conference

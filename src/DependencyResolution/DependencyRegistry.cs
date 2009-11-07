@@ -1,3 +1,4 @@
+using CodeCampServer.Core;
 using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
 

@@ -81,8 +81,9 @@
     <Compile Include="Domain\Model\KeyedObject.cs" />
     <Compile Include="Domain\Model\User.cs" />
     <Compile Include="Domain\ValueObject.cs" />
-    <Compile Include="Services\Bases\ISystemClock.cs" />
-    <Compile Include="Services\Bases\SystemClockStub.cs" />
+    <Compile Include="IRequiresConfigurationOnStartup.cs" />
+    <Compile Include="ISystemClock.cs" />
+    <Compile Include="Clock.cs" />
     <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandHandler.cs" />
     <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandMessage.cs" />
     <Compile Include="Services\BusinessRule\Login\LoginCommandHandler.cs" />
@@ -109,8 +110,9 @@
     <Compile Include="Services\ISecurityContext.cs" />
     <Compile Include="Services\IUserSession.cs" />
     <Compile Include="Services\UserSessionStub.cs" />
-    <Compile Include="SystemTime.cs" />
+    <Compile Include="StaticFactory.cs" />
     <Compile Include="Common\TimeExtensions.cs" />
+    <Compile Include="SystemClockFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

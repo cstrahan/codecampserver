@@ -1,6 +1,6 @@
 using System;
 
-namespace CodeCampServer.UI.Models.Input
+namespace CodeCampServer.UI.Models.Messages
 {
 	public class DeleteUserGroupInput
 	{

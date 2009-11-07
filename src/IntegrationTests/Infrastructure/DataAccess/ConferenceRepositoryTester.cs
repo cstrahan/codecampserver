@@ -2,7 +2,6 @@ using System;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Services.Bases;
 using CodeCampServer.Infrastructure.DataAccess.Impl;
 using NBehave.Spec.NUnit;
 using NHibernate;
@@ -45,7 +44,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		[Test]
 		public void Should_retrieve_upcoming_conferences_for_a_usergroup()
 		{
-			ObjectFactory.Inject(typeof (ISystemClock), new ClockStub(new DateTime(2009, 5, 5)));
+			ObjectFactory.Inject(typeof (ISystemClock), new Clock(new DateTime(2009, 5, 5)));
 			var usergroup = new UserGroup();
 			var conference1 = new Conference
 			                  	{

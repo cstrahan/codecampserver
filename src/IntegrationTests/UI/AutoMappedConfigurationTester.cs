@@ -3,7 +3,7 @@ using CodeCampServer.DependencyResolution;
 using CodeCampServer.Infrastructure.ObjectMapping;
 using NUnit.Framework;
 
-namespace CodeCampServer.UnitTests.UI
+namespace CodeCampServer.IntegrationTests.UI
 {
 	[TestFixture]
 	public class AutoMapperConfigurationTester

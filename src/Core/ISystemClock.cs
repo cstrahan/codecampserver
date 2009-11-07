@@ -1,6 +1,6 @@
 using System;
 
-namespace CodeCampServer.Core.Services.Bases
+namespace CodeCampServer.Core
 {
 	public interface ISystemClock
 	{

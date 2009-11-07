@@ -1,6 +1,6 @@
 using System;
 using AutoMapper;
-using CodeCampServer.DependencyResolution;
+using CodeCampServer.Core;
 using CommandProcessor;
 using Microsoft.Practices.ServiceLocation;
 using Tarantino.RulesEngine.CommandProcessor;

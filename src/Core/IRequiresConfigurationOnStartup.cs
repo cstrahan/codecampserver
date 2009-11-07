@@ -1,4 +1,4 @@
-namespace CodeCampServer.DependencyResolution
+namespace CodeCampServer.Core
 {
 	public interface IRequiresConfigurationOnStartup
 	{

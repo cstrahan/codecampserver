@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using CodeCampServer.DependencyResolution;
+using CodeCampServer.Core;
 using CodeCampServer.Infrastructure.UI.Binders;
 using CodeCampServer.Infrastructure.UI.InputBuilders;
 using CodeCampServer.Infrastructure.UI.Services;

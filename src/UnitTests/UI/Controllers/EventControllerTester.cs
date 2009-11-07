@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using AutoMapper;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Controllers;
