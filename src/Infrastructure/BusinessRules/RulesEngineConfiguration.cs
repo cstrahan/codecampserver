@@ -17,7 +17,7 @@ namespace CodeCampServer.Infrastructure.BusinessRules
 			rulesEngine.Initialize(typeToLocatorConfigurationAssembly.Assembly, new CcsMessageMapper());
 		}
 
-		private class CcsMessageMapper : IMessageMapper
+		public class CcsMessageMapper : IMessageMapper
 		{
 			public object MapUiMessageToCommandMessage(object message, Type messageType, Type destinationType)
 			{

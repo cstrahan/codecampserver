@@ -44,6 +44,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\NHibernate-2.1.0.GA-bin\Required_Bins\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\tinorulesengine\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=9.0.242.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\tarantino\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
@@ -126,6 +130,7 @@
     <Compile Include="DependencyResolution\DependencyRegistrarTester.cs" />
     <Compile Include="Infrastructure\DataAccess\ChangeAuditInfoInterceptorTester.cs" />
     <Compile Include="Infrastructure\DataAccess\ConferenceRepositoryTester.cs" />
+    <Compile Include="Infrastructure\DataAccess\DatabaseDeleter.cs" />
     <Compile Include="Infrastructure\DataAccess\EventRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\IntegrationTestBase.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\MeetingMappingsTester.cs" />
@@ -147,6 +152,9 @@
     <Compile Include="TestHelper.cs" />
     <Compile Include="UI\AutoMappedConfigurationTester.cs" />
     <Compile Include="UI\DataLoader\ZDataLoader.cs" />
+    <Compile Include="UI\Subcutaneous\SubcutaneousTest.cs" />
+    <Compile Include="UI\Subcutaneous\ExecutionResultAssertionExtensions.cs" />
+    <Compile Include="UI\Subcutaneous\UpdateUser\UpdateUserSubcutaneousTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

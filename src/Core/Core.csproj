@@ -54,6 +54,7 @@
     <Compile Include="Bases\PersistentObject.cs" />
     <Compile Include="Common\AttributeExtensions.cs" />
     <Compile Include="Common\ExpressionHelper.cs" />
+    <Compile Include="Common\Format.cs" />
     <Compile Include="Common\PrimitiveExtensions.cs" />
     <Compile Include="Common\ReflectionExtensions.cs" />
     <Compile Include="Common\UINameHelper.cs" />
@@ -109,8 +110,9 @@
     <Compile Include="Services\IRulesEngine.cs" />
     <Compile Include="Services\ISecurityContext.cs" />
     <Compile Include="Services\IUserSession.cs" />
-    <Compile Include="Services\UserSessionStub.cs" />
     <Compile Include="StaticFactory.cs" />
+    <Compile Include="Services\UserSessionStub.cs" />
+    <Compile Include="SystemTime.cs" />
     <Compile Include="Common\TimeExtensions.cs" />
     <Compile Include="SystemClockFactory.cs" />
   </ItemGroup>
@@ -119,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="Services\Bases\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -14,7 +14,7 @@ namespace CodeCampServer.Infrastructure.ObjectMapping.CustomResolvers
 			if (!(context.SourceValue is DateTime))
 				return context.SourceValue.ToNullSafeString();
 
-			return ((DateTime) context.SourceValue).ToString("MM/dd/yyyy");
+			return Format.Date((DateTime) context.SourceValue);
 		}
 	}
 }

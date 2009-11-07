@@ -18,6 +18,7 @@ namespace CodeCampServer.IntegrationTests
 		static TestHelper()
 		{
 			DependencyRegistrar.EnsureDependenciesRegistered();
+			ResetCurrentUser();
 		}
 
 		private static bool _databaseRecreated;
