@@ -35,22 +35,11 @@ namespace CodeCampServer.UnitTests.UI
 			ControllerContext controllerContext1 = GetControllerContext("fooId", guid.ToString()); //capitalize
 			ControllerContext controllerContext2 = GetControllerContext("barid", guid.ToString()); //lowercase
 
-			var modelBindingContext = new ModelBindingContext
-			                          	{
-			                          		ModelName = "foo",
-
-											ValueProvider = new Dictionary<string, ValueProviderResult>()
-			                          	};
-			modelBindingContext.ValueProvider.AddKeyAndValue("fooid",guid);
+			ModelBindingContext modelBindingContext = CreateBindingContext("fooid", guid.ToString());
 			object result = binder.BindModel(controllerContext1, modelBindingContext);
 			Assert.That(result, Is.EqualTo(entity));
 
-			var modelBindingContext2 = new ModelBindingContext
-			                           	{
-			                           		ModelName = "bar",
-											ValueProvider = new Dictionary<string, ValueProviderResult>()
-			                           	};
-			modelBindingContext2.ValueProvider.AddKeyAndValue("barid",guid);
+			ModelBindingContext modelBindingContext2 = CreateBindingContext("barid", guid.ToString());
 			result = binder.BindModel(controllerContext2, modelBindingContext2);
 			Assert.That(result, Is.EqualTo(entity));
 		}
@@ -66,10 +55,9 @@ namespace CodeCampServer.UnitTests.UI
 			ControllerContext controllerContext = GetControllerContext("foo", guid.ToString());
 
 
-			var context = new ModelBindingContext { ModelName = "foo",ValueProvider = new Dictionary<string, ValueProviderResult>()};
-			context.ValueProvider.AddKeyAndValue("foo",guid);
+			ModelBindingContext context = CreateBindingContext("foo", guid.ToString());
 
-			var result = binder.BindModel(controllerContext, context);
+			object result = binder.BindModel(controllerContext, context);
 
 			Assert.That(result, Is.EqualTo(entity));
 		}
@@ -82,8 +70,8 @@ namespace CodeCampServer.UnitTests.UI
 
 			ControllerContext controllerContext = GetControllerContext("foo", badParameter);
 
-			var context = new ModelBindingContext { ModelName = "foo"};
-			                                      
+			var context = new ModelBindingContext {ModelName = "foo"};
+
 
 			var binder = new ModelBinder<TEntity, TRepository>(null);
 			binder.BindModel(controllerContext, context);
@@ -92,15 +80,8 @@ namespace CodeCampServer.UnitTests.UI
 		[Test]
 		public void Should_return_null_when_query_string_parameter_value_is_null()
 		{
-			const string badParameter = "";
-			ControllerContext controllerContext = GetControllerContext("foo", badParameter);
-			//var valueProvider = MockRepository.GenerateMock<IValueProvider>();
-			//valueProvider.Stub(v => v.GetValue("foo")).Return(new ValueProviderResult(null, "", CultureInfo.CurrentCulture));
-
-			var context = new ModelBindingContext
-			              	{ModelName = "foo", ValueProvider = new Dictionary<string, ValueProviderResult>()};
-
-			context.ValueProvider.AddKeyAndValue("foo",null);
+			ModelBindingContext context = CreateBindingContext("foo", null);
+			;
 
 			var binder = new ModelBinder<TEntity, TRepository>(null);
 			object binderResult = binder.BindModel(GetControllerContext("foo", ""), context);
@@ -119,9 +100,9 @@ namespace CodeCampServer.UnitTests.UI
 
 	public static class ValueProviderExtensions
 	{
-		public static void AddKeyAndValue(this System.Collections.Generic.IDictionary<string,ValueProviderResult> collection,string key, object value)
+		public static void AddKeyAndValue(this IDictionary<string, ValueProviderResult> collection, string key, object value)
 		{
-			collection.Add(key, new ValueProviderResult(value, value==null? "": value.ToString(),null));
+			collection.Add(key, new ValueProviderResult(value, value == null ? "" : value.ToString(), null));
 		}
 	}
 }

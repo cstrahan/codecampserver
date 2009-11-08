@@ -5,7 +5,7 @@
     <script type="text/javascript" src="/scripts/rsswidget.js"></script>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-<%Html.RenderAction("allupcomingevents", "event"); %>
+<%ViewExtensions.RenderAction(Html, "allupcomingevents", "event"); %>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="SidebarPlaceHolder" runat="server">
 <h2 class="sidebarTitle">What is CodeCampServer.com?</h2>

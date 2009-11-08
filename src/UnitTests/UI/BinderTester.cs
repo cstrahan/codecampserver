@@ -6,7 +6,7 @@ using Rhino.Mocks;
 
 namespace CodeCampServer.UnitTests.UI
 {
-	public abstract class BinderTester
+	public abstract class BinderTester : TestBase
 	{
 		protected static ControllerContext GetControllerContext(string key, object value)
 		{
@@ -25,6 +25,22 @@ namespace CodeCampServer.UnitTests.UI
 			var routeData = new RouteData();
 			return new ControllerContext(mockHttpContext, routeData,
 			                             MockRepository.GenerateStub<ControllerBase>());
+		}
+
+		protected static ModelBindingContext CreateBindingContext(string key, string value)
+		{
+			ValueProviders.Providers.Clear();
+			ValueProviders.Providers.Add(CreateValueProvider(key, value));
+			var context = new ModelBindingContext();
+			context.ModelName = key;
+			return context;
+		}
+
+		private static IValueProvider CreateValueProvider(string key, string value)
+		{
+			var provider = new SimpleValueProvider();
+			provider.Add(key, value);
+			return provider;
 		}
 	}
 }

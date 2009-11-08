@@ -20,7 +20,7 @@ namespace CodeCampServer.Infrastructure.UI.Binders
 		{
 			try
 			{
-				ValueProviderResult value = GetRequestValue(bindingContext, bindingContext.ModelName);
+				ValueProviderResult value = GetRequestValue(bindingContext, bindingContext.ModelName, controllerContext);
 				if (value == null) return default(TEntity);
 
 				string attemptedValue = value.AttemptedValue;
@@ -38,21 +38,22 @@ namespace CodeCampServer.Infrastructure.UI.Binders
 			}
 		}
 
-		protected virtual ValueProviderResult GetRequestValue(ModelBindingContext bindingContext, string requestKey)
+		protected virtual ValueProviderResult GetRequestValue(ModelBindingContext bindingContext, string requestKey, ControllerContext controllerContext)
 		{
 			string key = requestKey;
-			ValueProviderResult value = null;
-			if (!bindingContext.ValueProvider.ContainsKey(key) && !key.EndsWith("id"))
+			ValueProviderResult valueProvider = bindingContext.ValueProvider.GetValue(controllerContext, requestKey);
+			if (valueProvider == null && !key.EndsWith(GetOptionalSuffix()))
 			{
 				//try appending "id" on the key
-				value = GetRequestValue(bindingContext, requestKey + "id");
+				valueProvider = GetRequestValue(bindingContext, requestKey + GetOptionalSuffix(), controllerContext);
 			}
-			else
-			{
-				value = bindingContext.ValueProvider[key];
-			}
+			
+			return valueProvider;
+		}
 
-			return value;
+		protected virtual string GetOptionalSuffix()
+		{
+			return "id";
 		}
 	}
 }

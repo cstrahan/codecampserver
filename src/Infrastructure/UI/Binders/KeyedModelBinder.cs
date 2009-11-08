@@ -18,7 +18,7 @@ namespace CodeCampServer.Infrastructure.UI.Binders
 		{
 			try
 			{
-				ValueProviderResult value = GetRequestValue(bindingContext, bindingContext.ModelName);
+				ValueProviderResult value = GetRequestValue(bindingContext, bindingContext.ModelName, controllerContext);
 
 
 				if (value == null || string.IsNullOrEmpty(value.AttemptedValue))
@@ -38,21 +38,9 @@ namespace CodeCampServer.Infrastructure.UI.Binders
 			}
 		}
 
-		protected override ValueProviderResult GetRequestValue(ModelBindingContext bindingContext, string requestKey)
+		protected override string GetOptionalSuffix()
 		{
-			string key = requestKey;
-
-			ValueProviderResult value = null;
-			if (!bindingContext.ValueProvider.ContainsKey(key) && !key.EndsWith("key"))
-			{
-				value = GetRequestValue(bindingContext, requestKey + "key");
-			}
-			else
-			{
-				value = bindingContext.ValueProvider[key];
-			}
-
-			return value;
+			return "key";
 		}
 	}
 }

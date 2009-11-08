@@ -10,5 +10,5 @@
 </asp:Content>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 	
-    <%Html.RenderAction("List", "Event", ViewContext.RouteData.DataTokens);%>    
+    <%ViewExtensions.RenderAction(Html, "List", "Event", ViewContext.RouteData.DataTokens);%>    
 </asp:Content>

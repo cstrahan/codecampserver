@@ -1,7 +1,6 @@
 using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Bases;
-using CodeCampServer.Core.Domain.Model.Enumerations;
 
 namespace CodeCampServer.Infrastructure.UI.Binders
 {
@@ -11,7 +10,7 @@ namespace CodeCampServer.Infrastructure.UI.Binders
 		{
 			try
 			{
-				string enumerationValue = GetAttemptedValue(bindingContext);
+				string enumerationValue = GetAttemptedValue(bindingContext, controllerContext);
 
 				if (enumerationValue == "")
 				{
@@ -41,9 +40,9 @@ namespace CodeCampServer.Infrastructure.UI.Binders
 			return Enumeration.FromDisplayNameOrDefault(enumerationType, value);
 		}
 
-		private static string GetAttemptedValue(ModelBindingContext bindingContext)
+		private static string GetAttemptedValue(ModelBindingContext bindingContext, ControllerContext controllerContext)
 		{
-			ValueProviderResult value = bindingContext.ValueProvider[bindingContext.ModelName];
+			ValueProviderResult value = bindingContext.ValueProvider.GetValue(controllerContext, bindingContext.ModelName);
 			return value == null ? string.Empty : value.AttemptedValue;
 		}
 	}

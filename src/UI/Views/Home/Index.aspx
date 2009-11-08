@@ -9,7 +9,7 @@
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 <% TempData.Select(pair => pair.Value).ForEach(o => Writer.Write(o)); %>
     <%=Html.ValidationSummary()%>
-    <%Html.RenderAction("UpComing", "Event", ViewContext.RouteData.DataTokens);%>
+    <%ViewExtensions.RenderAction(Html, "UpComing", "Event", ViewContext.RouteData.DataTokens);%>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="SidebarPlaceHolder" runat="server">
     <%Html.RenderPartial("Sponsors", Model.Sponsors);%>

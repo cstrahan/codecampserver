@@ -12,7 +12,7 @@ namespace CodeCampServer.Infrastructure.UI.Binders
 		                                 ModelBindingContext bindingContext)
 		{
 			ValueProviderResult value = GetRequestValue(bindingContext,
-			                                            bindingContext.ModelName);
+			                                            bindingContext.ModelName, controllerContext);
 
 			if (value == null || string.IsNullOrEmpty(value.AttemptedValue))
 				return _repository.GetDefaultUserGroup();

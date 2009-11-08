@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
@@ -34,35 +32,32 @@ namespace CodeCampServer.UnitTests.UI
 			ControllerContext controllerContext1 = GetControllerContext("fooKey", "key"); //capitalize
 			ControllerContext controllerContext2 = GetControllerContext("barkey", "key"); //lowercase
 
-			var modelBindingContext1 = new ModelBindingContext { ModelName = "foo",ValueProvider = new Dictionary<string, ValueProviderResult>()};
-			modelBindingContext1.ValueProvider.Add("fookey",new ValueProviderResult("key","key",null));
+			ModelBindingContext modelBindingContext1 = CreateBindingContext("fookey", "key");
 
 			object result = binder.BindModel(controllerContext1,
 			                                 modelBindingContext1);
 
 
-
 			Assert.That(result, Is.EqualTo(entity));
 
-			var modelBindingContext2 = new ModelBindingContext{ModelName = "bar",ValueProvider = new Dictionary<string, ValueProviderResult>()};
-			modelBindingContext2.ValueProvider.Add("barkey", new ValueProviderResult("key","key",null));
+			ModelBindingContext modelBindingContext2 = CreateBindingContext("barkey", "key");
 			result = binder.BindModel(controllerContext2, modelBindingContext2);
 			Assert.That(result, Is.EqualTo(entity));
 		}
 
-		[Test, ExpectedException(ExceptionType = typeof (ApplicationException),
-			ExpectedMessage = "Unable to locate a valid value for query string parameter 'foo'")]
+		[Test]
 		public void Should_throw_error_when_query_string_parameter_not_found()
 		{
 			const string badParameter = "Bad Value";
 
 			ControllerContext controllerContext = GetControllerContext("foo", badParameter);
-			
 
-			var context = new ModelBindingContext{ModelName = "foo"};
+
+			var context = new ModelBindingContext {ModelName = "foo"};
 
 			var binder = new KeyedModelBinder<TEntity, TRepository>(null);
-			binder.BindModel(controllerContext, context);
+			object model = binder.BindModel(controllerContext, context);
+			Assert.That(model, Is.Null);
 		}
 
 		[Test]
@@ -71,9 +66,7 @@ namespace CodeCampServer.UnitTests.UI
 			const string badParameter = "";
 			ControllerContext controllerContext = GetControllerContext("foo", badParameter);
 
-			var context = new ModelBindingContext { ModelName = "foo", ValueProvider = new Dictionary<string, ValueProviderResult>()};
-			
-		    context.ValueProvider.Add("foo",new ValueProviderResult("","",null));                                  
+			ModelBindingContext context = CreateBindingContext("foo", "");
 
 			var binder = new KeyedModelBinder<TEntity, TRepository>(null);
 
@@ -84,18 +77,15 @@ namespace CodeCampServer.UnitTests.UI
 		[Test]
 		public void Should_auto_append_id_when_looking_for_querystring_value()
 		{
-			Guid guid = Guid.NewGuid();
 			var repository = MockRepository.GenerateMock<TRepository>();
 			var entity = new TEntity();
 			repository.Stub(r => r.GetByKey("key")).Return(entity);
 			var binder = new KeyedModelBinder<TEntity, TRepository>(repository);
 			ControllerContext controllerContext = GetControllerContext("foo", "key");
 
-			var context = new ModelBindingContext { ModelName = "foo",ValueProvider = new Dictionary<string, ValueProviderResult>()};
-			                                      
-			context.ValueProvider.Add("foo",new ValueProviderResult("key","key",null));
+			ModelBindingContext context = CreateBindingContext("foo", "key");
 
-			var result = binder.BindModel(controllerContext, context);
+			object result = binder.BindModel(controllerContext, context);
 
 			Assert.That(result, Is.EqualTo(entity));
 		}
