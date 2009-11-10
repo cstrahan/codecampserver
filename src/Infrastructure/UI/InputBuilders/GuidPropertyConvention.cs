@@ -20,7 +20,7 @@ namespace CodeCampServer.Infrastructure.UI.InputBuilders
 		{
 			return base.CreateViewModel<Guid>();
 		}
-		public override string Layout()
+		public override string Layout(PropertyInfo propertyInfo)
 		{
 			return "HiddenField";
 		}

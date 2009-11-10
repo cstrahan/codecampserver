@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.ActionResults;
+using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Messages;
 using CodeCampServer.UI.Models.Input;
@@ -35,7 +36,7 @@ namespace CodeCampServer.UI.Controllers
 
 		[HttpPost]
 		[Authorize]
-		[ValidateInput(false)]
+		[AllowHtml]
 		public ActionResult Edit(MeetingInput input)
 		{
 			if (!_securityContext.HasPermissionsForUserGroup(input.UserGroupId))

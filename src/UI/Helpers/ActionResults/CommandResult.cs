@@ -38,6 +38,7 @@ namespace CodeCampServer.UI.Controllers
 				{
 					_result = result.Result<TResult>();
 					Success.ExecuteResult(context);
+					return;					
 				}
 
 				foreach (ErrorMessage errorMessage in result.Errors)

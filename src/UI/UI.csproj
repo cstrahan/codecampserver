@@ -81,6 +81,7 @@
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserGroupController.cs" />
+    <Compile Include="Helpers\Attributes\AllowHtml.cs" />
     <Compile Include="Helpers\Attributes\MultilineAttribute.cs" />
     <Compile Include="Helpers\ConferenceViewExtensions.cs">
       <SubType>Code</SubType>

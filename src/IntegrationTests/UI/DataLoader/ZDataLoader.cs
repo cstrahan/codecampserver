@@ -30,15 +30,6 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 
 		private void LoadData()
 		{
-			var mapper = new UserMapper(GetInstance<IUserRepository>(), new Cryptographer());
-			User user = mapper.Map(new UserInput
-			                       	{
-			                       		Name = "Joe User",
-			                       		Username = "admin",
-			                       		EmailAddress = "joe@user.com",
-			                       		Password = "password"
-			                       	});
-
 
 			var userGroup = new UserGroup
 			                	{
@@ -49,7 +40,6 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			                		Key = "localhost",
 			                		HomepageHTML = "Austin .Net Users Group",
 			                	};
-			userGroup.Add(user);
 			userGroup.Add(new Sponsor
 			              	{
 			              		Level = SponsorLevel.Platinum,
@@ -86,21 +76,19 @@ View Larger Map</a></small></p>"
 			                 	};
 
 
-			var list = new List<PersistentObject>
-			           	{
-			           		user,
-			           		userGroup.GetSponsors()[0],
-			           		userGroup,
-			           		conference,
-			           	};
+			var list = new List<PersistentObject>();
+			User[] users = CreateUsers();
+			list.AddRange(users);
+			userGroup.Add(users[0]);
+			list.Add(userGroup.GetSponsors()[0]);
+			list.Add(userGroup);
+			list.Add(conference);
 
 			IEnumerable<Conference> conferences = CreateConferences(userGroup);
 			IEnumerable<Meeting> meetings = CreateMeetings(userGroup);
 			list.AddRange(conferences.ToArray());
 			list.AddRange(meetings.ToArray());
 
-			User[] users = CreateUsers();
-			list.AddRange(users);
 
 
 			PersistEntities(list.ToArray());
@@ -165,16 +153,15 @@ View Larger Map</a></small></p>"
 		private User[] CreateUsers()
 		{
 			var mapper = new UserMapper(GetInstance<IUserRepository>(), new Cryptographer());
-			User user = mapper.Map(new UserInput
+			return new[]
+			       	{
+						mapper.Map(new UserInput
 			                       	{
 			                       		Name = "Joe User",
 			                       		Username = "admin",
 			                       		EmailAddress = "joe@user.com",
 			                       		Password = "password"
-			                       	});
-			return new[]
-			       	{
-			       		user,
+			                       	}),
 			       		mapper.Map(new UserInput
 			       		           	{
 			       		           		Name = "Jeffrey Palermo",

@@ -33,7 +33,7 @@ namespace CodeCampServer.Infrastructure.UI.InputBuilders
 			return base.CreateViewModel<IEnumerable<SelectListItem>>();
 		}
 
-		public override object ValueFromModelPropertyConvention(PropertyInfo propertyInfo, object model)
+		public override object ValueFromModelPropertyConvention(PropertyInfo propertyInfo, object model,string parentName)
 		{
 			var value = propertyInfo.GetValue(model, null) as IEnumerable<UserSelectorInput>;
 			var items = new List<SelectListItem>();
