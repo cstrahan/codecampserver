@@ -1,14 +1,18 @@
 using System.Web.Mvc;
-using CodeCampServer.DependencyResolution;
+using CodeCampServer.UI.Filters;
 using CodeCampServer.UI.Services;
 
 namespace CodeCampServer.UI.Helpers.Filters
 {
-	public class AssemblyVersionFilterAttribute : ActionFilterAttribute
+	public class AssemblyVersionFilterAttribute : ContainerBaseActionFilter,IConventionActionFilter
 	{
 		public const string AssemblyVersion = "AssemblyVersion";
 		private IAssemblyVersion _assemblyVersion;
-		public AssemblyVersionFilterAttribute() : this(DependencyRegistrar.Resolve<IAssemblyVersion>()) { }
+
+		public AssemblyVersionFilterAttribute() 
+		{
+			_assemblyVersion = CreateDependency <IAssemblyVersion>();
+		}
 
 		public AssemblyVersionFilterAttribute(IAssemblyVersion assemblyVersionService)
 		{

@@ -1,4 +1,4 @@
-﻿using CodeCampServer.DependencyResolution;
+﻿using System;
 using NHibernate;
 using NHibernate.Cfg;
 
@@ -6,6 +6,13 @@ namespace CodeCampServer.Infrastructure.DataAccess
 {
 	public class ConfigBasedSessionSource : ISessionSource
 	{
+		public static Func<Type, object> CreateDependencyCallback = (type) => Activator.CreateInstance(type);
+
+		private T CreateDependency<T>()
+		{
+			return (T)CreateDependencyCallback(typeof(T));
+		}
+
 		private readonly ISessionFactory _sessionFactory;
 
 		public ConfigBasedSessionSource(Configuration configuration)
@@ -15,7 +22,7 @@ namespace CodeCampServer.Infrastructure.DataAccess
 
 		public ISession CreateSession()
 		{
-			var interceptor = DependencyRegistrar.Resolve<ChangeAuditInfoInterceptor>();
+			var interceptor = CreateDependency<ChangeAuditInfoInterceptor>();
 
 			ISession session = _sessionFactory.OpenSession(interceptor);
 			session.FlushMode = FlushMode.Commit;

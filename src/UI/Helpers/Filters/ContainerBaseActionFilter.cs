@@ -1,9 +1,17 @@
+using System;
 using System.Web.Mvc;
 
 namespace CodeCampServer.UI.Filters
 {
-	public abstract class BaseActionFilter : IActionFilter, IResultFilter
+	public abstract class ContainerBaseActionFilter : IActionFilter, IResultFilter
 	{
+		public static Func<Type, object> CreateDependencyCallback = (type) => Activator.CreateInstance(type);
+
+		public T CreateDependency<T>()
+		{
+			return (T) CreateDependencyCallback(typeof (T));
+		}
+
 		public virtual void OnActionExecuting(ActionExecutingContext filterContext)
 		{
 		}

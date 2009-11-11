@@ -1,12 +1,12 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
-using CodeCampServer.DependencyResolution;
+using CodeCampServer.UI.Filters;
 using MvcContrib;
 
 namespace CodeCampServer.UI.Helpers.Filters
 {
-	public class AddUserToViewDataAttribute : ActionFilterAttribute
+	public class AddUserToViewDataAttribute : ContainerBaseActionFilter,IConventionActionFilter
 	{
 		private readonly IUserSession _session;
 
@@ -16,7 +16,9 @@ namespace CodeCampServer.UI.Helpers.Filters
 		}
 
 		public AddUserToViewDataAttribute()
-			: this(DependencyRegistrar.Resolve<IUserSession>()) {}
+		{
+			_session= CreateDependency<IUserSession>();
+		}
 
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{

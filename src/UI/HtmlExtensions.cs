@@ -243,7 +243,25 @@ namespace CodeCampServer.UI
 			return
 				string.Format(
 					"<div class=\"buttonLeftEndCap\"></div><div class=\"buttonContentBackground\">{0}</div><div class=\"buttonRightEndCap\"></div>",
-					helper.ActionLink(linkText, actionName, controllerName));
+					helper.ActionLink(linkText, actionName, controllerName,helper.ViewContext.RouteData,null));
+		}
+		public static string RouteButton(this HtmlHelper helper, string linkText,
+													   string routeName)
+		{
+			return
+				string.Format(
+					"<div class=\"buttonLeftEndCap\"></div><div class=\"buttonContentBackground\">{0}</div><div class=\"buttonRightEndCap\"></div>",
+					helper.RouteLink(linkText, routeName));
+					
+		}
+		public static string UrlButton(this HtmlHelper helper, string linkText,
+													   string url)
+		{
+			return
+				string.Format(
+					"<div class=\"buttonLeftEndCap\"></div><div class=\"buttonContentBackground\">{0}</div><div class=\"buttonRightEndCap\"></div>",
+					"<a href="+ url+">"+linkText+"</a>");
+
 		}
 	}
 }

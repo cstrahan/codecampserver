@@ -1,4 +1,5 @@
 using CodeCampServer.Core;
+using CodeCampServer.UI.Helpers.Filters;
 using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
 
@@ -19,6 +20,7 @@ namespace CodeCampServer.DependencyResolution
 				x.With<DefaultConventionScanner>();
 				x.LookForRegistries();
 				x.AddAllTypesOf<IRequiresConfigurationOnStartup>();
+				x.AddAllTypesOf<IConventionActionFilter>();
 			});
 		}
 

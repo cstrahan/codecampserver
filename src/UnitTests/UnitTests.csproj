@@ -142,7 +142,6 @@
     <Compile Include="UI\Controllers\RedirectToRouteExtensions.cs" />
     <Compile Include="UI\Controllers\UserControllerTester.cs" />
     <Compile Include="UI\Controllers\UserGroupControllerTester.cs" />
-    <Compile Include="UI\Helpers\Filters\FilterAttributeTester.cs" />
     <Compile Include="UI\Helpers\UserGroupModelBinderTester.cs" />
     <Compile Include="UI\KeyedModelBinderTester.cs" />
     <Compile Include="UI\ModelBinderTester.cs" />
@@ -178,6 +177,7 @@
   <ItemGroup>
     <Folder Include="Core\Domain\Model\Enumerations\" />
     <Folder Include="Properties\" />
+    <Folder Include="UI\Helpers\Filters\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

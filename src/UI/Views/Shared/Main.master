@@ -1,3 +1,4 @@
+<%@ Import Namespace="LoginPortableArea.Controllers"%>
 <%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
 
 <%@ Import Namespace="CodeCampServer.UI.Helpers.Filters" %>
@@ -67,12 +68,12 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
         <asp:LoginView ID="LoginView3" runat="server">
           <LoggedInTemplate>
             Welcome,
-            <%=ViewData.Get<User>().Name%>
-            (<a href="<%=Url.Action<LoginController>(c=>c.LogOut()) %>">Log out</a>) |
+            <%=ViewData.Get<User>().Name%>            
+            (<a href="/login/login/logout">Log out</a>) |
             <%=Html.ActionLink<UserController>("My Profile", c=>c.Edit((User)null)) %>
           </LoggedInTemplate>
           <AnonymousTemplate>
-            <%=Html.ActionButton<LoginController>("Log in", c => c.Index((string)null))%>
+            <%=Html.UrlButton("Log in","/login/login/index")%>
           </AnonymousTemplate>
         </asp:LoginView>
       </h2>

@@ -1,16 +1,19 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.DependencyResolution;
+using CodeCampServer.UI.Filters;
 using MvcContrib;
 
 namespace CodeCampServer.UI.Helpers.Filters
 {
-	public class AddUserGroupToViewDataActionFilterAttribute : ActionFilterAttribute
+	public class AddUserGroupToViewDataActionFilterAttribute : ContainerBaseActionFilter, IConventionActionFilter
 	{
 		private readonly IUserGroupRepository _repository;
 
-		public AddUserGroupToViewDataActionFilterAttribute() : this(DependencyRegistrar.Resolve<IUserGroupRepository>()) {}
+		public AddUserGroupToViewDataActionFilterAttribute() 
+		{
+			_repository = CreateDependency<IUserGroupRepository>();
+		}
 
 		public AddUserGroupToViewDataActionFilterAttribute(IUserGroupRepository repository)
 		{

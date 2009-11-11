@@ -1,17 +1,20 @@
 using System;
 using System.Web.Mvc;
-using StructureMap;
+using System.Web.Routing;
 
 namespace CodeCampServer.Infrastructure.UI.Services
 {
 	public class ControllerFactory : DefaultControllerFactory
 	{
+		public static Func<Type, object> CreateDependencyCallback = (type) => Activator.CreateInstance(type);
 
-		protected override IController GetControllerInstance(System.Web.Routing.RequestContext requestContext, Type controllerType)
+		protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
 		{
 			if (controllerType != null)
-			{
-				return (IController)ObjectFactory.GetInstance(controllerType);
+			{				
+				var controller = (Controller) CreateDependencyCallback(controllerType);
+				controller.ActionInvoker = (IActionInvoker) CreateDependencyCallback(typeof (ConventionActionInvoker));
+				return controller;
 			}
 			return null;
 		}

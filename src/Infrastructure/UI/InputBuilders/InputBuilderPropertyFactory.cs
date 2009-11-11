@@ -1,16 +1,23 @@
+using System;
 using System.Collections.Generic;
-using CodeCampServer.DependencyResolution;
 using MvcContrib.UI.InputBuilder.Conventions;
 
 namespace CodeCampServer.Infrastructure.UI.InputBuilders
 {
 	public class InputBuilderPropertyFactory : List<IPropertyViewModelFactory>
 	{
+		public static Func<Type, object> CreateDependencyCallback = (type) => Activator.CreateInstance(type);
+
+		public T CreateDependency<T>()
+		{
+			return (T)CreateDependencyCallback(typeof(T));
+		}
+		
 		public InputBuilderPropertyFactory()
 		{
 			Add(new GuidPropertyConvention());
 			Add(new DatePickerPropertyConvention());
-			Add(DependencyRegistrar.Resolve(typeof (UserPickerPropertyConvention)) 
+			Add(CreateDependencyCallback(typeof (UserPickerPropertyConvention)) 
 			    as IPropertyViewModelFactory);
 			Add(new EnumerationPropertyConvention());
 			Add(new PasswordPropertyConvention());

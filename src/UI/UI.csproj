@@ -92,7 +92,9 @@
     <Compile Include="Helpers\Extensions\UrlHelperExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\Filters\AddPageInfoForMasterPage.cs" />
     <Compile Include="Helpers\Filters\AddUserGroupToViewDataActionFilterAttribute.cs" />
+    <Compile Include="Helpers\Filters\IConventionActionFilter.cs" />
     <Compile Include="Helpers\ImageLinkHelper.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -129,10 +131,9 @@
     </Compile>
     <Compile Include="Services\ConferenceKeyCannotBeAControllerNameConstraint.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Helpers\ActionResults\ConventionController.cs" />
     <Compile Include="Helpers\Filters\AddUserToViewDataAttribute.cs" />
-    <Compile Include="Helpers\Filters\BaseActionFilter.cs" />
+    <Compile Include="Helpers\Filters\ContainerBaseActionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -171,10 +172,6 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{9C81B684-40CC-472A-804D-7C0F963315F5}</Project>
       <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DependencyResolution\DependencyResolution.csproj">
-      <Project>{3A222037-75A5-4DFF-BA27-9487BF3A8536}</Project>
-      <Name>DependencyResolution</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -4,12 +4,18 @@ using System.Web.Mvc;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.DependencyResolution;
 
 namespace CodeCampServer.Infrastructure.UI.Binders
 {
 	public class SmartBinder : DefaultModelBinder
 	{
+		public static Func<Type, object> CreateDependencyCallback = (type) => Activator.CreateInstance(type);
+
+		public T CreateDependency<T>()
+		{
+			return (T)CreateDependencyCallback(typeof(T));
+		}
+
 		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			if (ShouldBuildInstanceFromContainer(bindingContext.ModelType))
@@ -37,7 +43,7 @@ namespace CodeCampServer.Infrastructure.UI.Binders
 
 		private static object BindFromContainer(ModelBindingContext bindingContext)
 		{
-			object instance = DependencyRegistrar.Resolve(bindingContext.ModelType);
+			object instance = CreateDependencyCallback(bindingContext.ModelType);
 			return instance;
 		}
 
@@ -54,7 +60,7 @@ namespace CodeCampServer.Infrastructure.UI.Binders
 			Type repositoryType = typeof (IRepository<>).MakeGenericType(bindingContext.ModelType);
 			Type modelBinderType = typeof (ModelBinder<,>).MakeGenericType(bindingContext.ModelType, repositoryType);
 
-			var binder = (IModelBinder) DependencyRegistrar.Resolve(modelBinderType);
+			var binder = (IModelBinder)CreateDependencyCallback(modelBinderType);
 
 			return binder.BindModel(controllerContext, bindingContext);
 		}
@@ -65,7 +71,7 @@ namespace CodeCampServer.Infrastructure.UI.Binders
 			Type repositoryType = typeof (IKeyedRepository<>).MakeGenericType(bindingContext.ModelType);
 			Type modelBinderType = typeof (KeyedModelBinder<,>).MakeGenericType(bindingContext.ModelType, repositoryType);
 
-			var binder = (IModelBinder) DependencyRegistrar.Resolve(modelBinderType);
+			var binder = (IModelBinder)CreateDependencyCallback(modelBinderType);
 
 			return binder.BindModel(controllerContext, bindingContext);
 		}

@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Routing;
-using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Controllers;
-using CodeCampServer.UI.Helpers.Filters;
-using CodeCampServer.UI.Models;
-using MvcContrib;
 
 namespace CodeCampServer.UI.Helpers.ActionResults
 {
@@ -16,49 +12,6 @@ namespace CodeCampServer.UI.Helpers.ActionResults
 		protected ViewResult NotAuthorizedView
 		{
 			get { return View(ViewPages.NotAuthorized); }
-		}
-
-		protected override void OnActionExecuted(ActionExecutedContext filterContext)
-		{
-			PageInfo pageInfo = null;
-
-			if (!ViewData.Contains<PageInfo>())
-			{
-				pageInfo = new PageInfo {Title = "Code Camp Server v1.0"};
-				ViewData.Add(pageInfo);
-			}
-			else
-			{
-				pageInfo = ViewData.Get<PageInfo>();
-			}
-
-			if (ViewData.Contains<UserGroup>())
-			{
-				var usergroup = ViewData.Get<UserGroup>();
-				pageInfo.Title = usergroup.Name;
-
-				if (!usergroup.IsDefault())
-					pageInfo.TrackingCode = usergroup.GoogleAnalysticsCode;
-			}
-
-			if (ViewData.Contains<Conference>())
-			{
-				pageInfo.SubTitle = ViewData.Get<Conference>().Name;
-			}
-		}
-
-
-		protected override void OnActionExecuting(ActionExecutingContext filterContext)
-		{
-			//temporarily putting it here.
-			var authentication = new AddUserToViewDataAttribute();
-			authentication.OnActionExecuting(filterContext);
-
-			var version = new AssemblyVersionFilterAttribute();
-			version.OnActionExecuting(filterContext);
-
-			var usergroup = new AddUserGroupToViewDataActionFilterAttribute();
-			usergroup.OnActionExecuting(filterContext);
 		}
 
 		public RedirectToRouteResult RedirectToAction<TController>(Expression<Func<TController, object>> actionExpression)

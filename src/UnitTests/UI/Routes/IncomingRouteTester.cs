@@ -39,17 +39,17 @@ namespace CodeCampServer.UnitTests.UI.Routes
             
 		//}
 
-		[Test]
-		public void Login_controller_routes_should_map_correctly()
-		{
-            "~/login"
-                .ShouldMapTo<LoginController>(c => c.Index((string)null))
-                .ShouldUseDomainNameRouteHandler();
+		//[Test]
+		//public void Login_controller_routes_should_map_correctly()
+		//{
+		//    "~/login"
+		//        .ShouldMapTo<LoginController>(c => c.Index((string)null))
+		//        .ShouldUseDomainNameRouteHandler();
             
-            "~/login/index"
-                .ShouldMapTo<LoginController>(c => c.Index((string)null))
-                .ShouldUseDomainNameRouteHandler();
-		}
+		//    "~/login/index"
+		//        .ShouldMapTo<LoginController>(c => c.Index((string)null))
+		//        .ShouldUseDomainNameRouteHandler();
+		//}
 
 
 		//[Test]
