@@ -23,7 +23,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 <% PageInfo pageInfo = ViewData.Get<PageInfo>(); %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>
+  <title> 
     <%=pageInfo.Title%></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link href="/css/emporium.css" id="cssStyleSheet" rel="Stylesheet" type="text/css"/>
