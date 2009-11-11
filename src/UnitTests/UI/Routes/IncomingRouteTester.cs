@@ -13,7 +13,7 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		[TestFixtureSetUp]
 		public void SetUp()
 		{
-			new RouteConfigurator().RegisterRoutes();
+			new RouteConfigurator().RegisterRoutes(() => { return; });
 		}
 
 		[Test]

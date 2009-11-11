@@ -39,7 +39,6 @@ namespace CodeCampServer.UI.Controllers
 			{
 				announcementDisplay =
 					_meetingMapper.Map<MeetingAnnouncementDisplay>((Meeting) @event);
-//					.Map<Meeting, MeetingAnnouncementDisplay>();
 			}
 
 			return View(typeName + ANNOUNCEMENT_PARTIAL_SUFFIX, announcementDisplay);

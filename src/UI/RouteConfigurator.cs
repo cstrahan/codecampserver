@@ -7,11 +7,6 @@ namespace CodeCampServer.UI
 {
 	public class RouteConfigurator
 	{
-		public virtual void RegisterRoutes()
-		{
-
-
-		}
 
 		public virtual void RegisterRoutes(Action action)
 		{

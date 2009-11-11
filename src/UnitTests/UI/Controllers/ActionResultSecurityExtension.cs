@@ -5,7 +5,7 @@ using NBehave.Spec.NUnit;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
-	public static class ActionResultSecutiryExtension
+	public static class ActionResultSecurityExtension
 	{
 		public static void ShouldBeNotAuthorized(this ActionResult result)
 		{

@@ -131,7 +131,7 @@
     <Compile Include="UINameHelperTester.cs" />
     <Compile Include="UI\BinderTester.cs" />
     <Compile Include="UI\CommandResultTester.cs" />
-    <Compile Include="UI\Controllers\ActionResultSecutiryExtension.cs" />
+    <Compile Include="UI\Controllers\ActionResultSecurityExtension.cs" />
     <Compile Include="UI\Controllers\AdminControllerTester.cs" />
     <Compile Include="UI\Controllers\EventControllerTester.cs" />
     <Compile Include="UI\Controllers\ControllerTester.cs">
@@ -177,7 +177,6 @@
   <ItemGroup>
     <Folder Include="Core\Domain\Model\Enumerations\" />
     <Folder Include="Properties\" />
-    <Folder Include="UI\Helpers\Filters\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

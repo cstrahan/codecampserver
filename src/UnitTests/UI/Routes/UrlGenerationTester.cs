@@ -16,7 +16,7 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		[Test]
 		public void Should_correctly_generate_session_url()
 		{
-			new RouteConfigurator().RegisterRoutes();
+			new RouteConfigurator().RegisterRoutes(() => { });
 			var builder = new TestControllerBuilder();
 			var context = new RequestContext(builder.HttpContext, new RouteData());
 			context.HttpContext.Response.Expect(x => x.ApplyAppPathModifier(null)).IgnoreArguments().Do(new Func<string, string>(s => s)).Repeat.Any();
@@ -28,7 +28,7 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		[Test]
 		public void Should_correctly_generate_speaker_url()
 		{
-			new RouteConfigurator().RegisterRoutes();
+			new RouteConfigurator().RegisterRoutes(()=>{});
 			var builder = new TestControllerBuilder();
 			var context = new RequestContext(builder.HttpContext, builder.RouteData);
 			context.HttpContext.Response.Expect(x => x.ApplyAppPathModifier(null)).IgnoreArguments().Do(new Func<string, string>(s => s)).Repeat.Any();

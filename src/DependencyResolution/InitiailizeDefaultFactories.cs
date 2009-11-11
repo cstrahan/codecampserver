@@ -15,6 +15,8 @@ namespace CodeCampServer.DependencyResolution
 	{
 		public void Configure()
 		{
+			//what a mess this is huh?  how about a reflection based way to find all static methods with this 
+			//name and signature and just replace them with this.
 			ContainerBaseActionFilter.CreateDependencyCallback = (t) => ObjectFactory.GetInstance(t);
 			SmartBinder.CreateDependencyCallback = (t) => ObjectFactory.GetInstance(t);
 			ConfigBasedSessionSource.CreateDependencyCallback = (t) => ObjectFactory.GetInstance(t);

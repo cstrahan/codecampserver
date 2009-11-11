@@ -14,8 +14,6 @@ namespace CodeCampServer.UnitTests.UI
 			var result = new CommandResult<Message,Entity>(new Message(), entity => new ViewResult(){ViewName = "foo"},message=> new ViewResult() {ViewName = "bar"});
 			result.Success.AssertViewRendered().ForView("foo");
 			result.Failure.AssertViewRendered().ForView("bar");
-
-
 		}
 		
 	}
