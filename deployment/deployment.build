@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-qerqwer
 <!--EXTERNAL_PROPERTIES: driver.class;connection.string;website.target.dir;dialect;local.connection.string;database.server;-->
 <project name="CodeCampServer" default="deploy" xmlns="http://nant.sf.net/release/0.85-rc4/nant.xsd">
 
@@ -12,7 +11,11 @@ qerqwer
 
   <target name="deploy">
 
-    <call target="updateDatabase" />
+    <property name="action" value="Update" />
+    <if test="${reloaddatabase=='true'}">
+	    <property name="action" value="Rebuild" />	
+    </if>
+    <call target="manageSqlDatabase" />
 
     <echo message="STEP 1 - Configuring ${project::get-name()}..." />
 
@@ -37,14 +40,14 @@ qerqwer
         <include name="**" />
       </fileset>
     </copy>
+
+    <if test="${reloaddatabase=='true'}">
+	    <call target="loadDevData" />
+    </if>
   </target>
 
   <!-- Database change management -->
  
-  <target name="updateDatabase">
-    <property name="action" value="Update" />
-    <call target="manageSqlDatabase" />
-  </target>
 
   <target name="manageSqlDatabase">
     <echo message="database server: ${database.server}" />
@@ -52,7 +55,7 @@ qerqwer
 			scriptDirectory="${database.script.directory}"
 			action="${action}"
 			server="${database.server}"
-			integratedAuthentication="${database.integrated}"
+			integratedAuthentication="true"
 			database="${database.name}"
 		/>
 
@@ -62,7 +65,7 @@ qerqwer
 
   </target>
 
-	<target name="loadDevData">
+   <target name="loadDevData">
 
     <property name="connection.string.path" value="//*/hbm:property[@name='connection.connection_string']" />
 

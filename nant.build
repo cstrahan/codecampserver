@@ -248,10 +248,24 @@
 			</fileset>
 		</copy>
 
+		<copy todir="${dir.package}\test\tools" includeemptydirs="false">
+			<fileset basedir="lib">
+				<include name="cassini\**\*.*"/>
+				<include name="nunit\**\*.*"/>
+				<include name="gallio\**\*.*"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${dir.package}\tests" flatten="true">
+			<fileset basedir="${dir.solution}">
+				<include name="/**/bin/${project.config}/**" />
+				<include name="*.config"/>
+				<include name="*.cfg.xml"/>
+			</fileset>
+		</copy>
+
 		<copy todir="${dir.package}\nant" includeemptydirs="false">
 			<fileset basedir="${nant::get-base-directory()}">
-		        <exclude name="extensions\**"/>
-        		<exclude name="lib\**"/>
 		        <exclude name="**\*.pdb"/>
 		        <exclude name="**\*.xml"/>
 			<include name="**" />
