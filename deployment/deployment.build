@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+qerqwer
 <!--EXTERNAL_PROPERTIES: driver.class;connection.string;website.target.dir;dialect;local.connection.string;database.server;-->
 <project name="CodeCampServer" default="deploy" xmlns="http://nant.sf.net/release/0.85-rc4/nant.xsd">
 
