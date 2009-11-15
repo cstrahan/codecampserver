@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{9820
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyResolution", "DependencyResolution\DependencyResolution.csproj", "{3A222037-75A5-4DFF-BA27-9487BF3A8536}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITests", "UITests\UITests.csproj", "{472E5A68-10F2-46B5-A935-0C77FE8DAE3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AutomatedDebug|Any CPU = AutomatedDebug|Any CPU
@@ -55,6 +57,12 @@ Global
 		{3A222037-75A5-4DFF-BA27-9487BF3A8536}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A222037-75A5-4DFF-BA27-9487BF3A8536}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A222037-75A5-4DFF-BA27-9487BF3A8536}.Release|Any CPU.Build.0 = Release|Any CPU
+		{472E5A68-10F2-46B5-A935-0C77FE8DAE3C}.AutomatedDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{472E5A68-10F2-46B5-A935-0C77FE8DAE3C}.AutomatedDebug|Any CPU.Build.0 = Debug|Any CPU
+		{472E5A68-10F2-46B5-A935-0C77FE8DAE3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{472E5A68-10F2-46B5-A935-0C77FE8DAE3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{472E5A68-10F2-46B5-A935-0C77FE8DAE3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{472E5A68-10F2-46B5-A935-0C77FE8DAE3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

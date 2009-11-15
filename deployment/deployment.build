@@ -89,4 +89,11 @@
     </nunit2>
 	</target>
 
+   <target name="pokeUIConfig">
+     <xmlpoke
+         file="tests/UITests.dll.config"
+         xpath="/configuration/appSettings/add[@key = 'url']/@value"
+         value="${uitesturl}" />
+	</target>
+
 </project>
