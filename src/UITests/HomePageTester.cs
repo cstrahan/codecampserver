@@ -22,6 +22,12 @@ namespace UITests
 				ie.TextField("Password").TypeText("password");
 				ie.Forms[0].Submit();
 				ie.Link(Find.ByText("My Profile")).Click();
+				ie.Link(Find.ByText("admin")).Click();
+				ie.Link(Find.ByText("Edit User Groups")).Click();
+				ie.Link(Find.ByText("admin")).Click();
+				ie.Link(Find.ByText("Edit Users")).Click();
+				ie.Link(Find.ByText("admin")).Click();
+				ie.Link(Find.ByText("Edit Sponsors")).Click();
 				ie.Link(Find.ByText("Log out")).Click();
 			}
 		}

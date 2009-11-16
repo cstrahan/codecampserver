@@ -91,7 +91,7 @@
 
    <target name="pokeUIConfig">
      <xmlpoke
-         file="tests/UITests.dll.config"
+         file="tests/${project::get-name()}.UiTests.dll.config"
          xpath="/configuration/appSettings/add[@key = 'url']/@value"
          value="${uitesturl}" />
 	</target>
