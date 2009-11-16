@@ -248,7 +248,7 @@
 			</fileset>
 		</copy>
 
-		<copy todir="${dir.package}\test\tools" includeemptydirs="false">
+		<copy todir="${dir.package}\tests\tools" includeemptydirs="false">
 			<fileset basedir="lib">
 				<include name="cassini\**\*.*"/>
 				<include name="nunit\**\*.*"/>
