@@ -197,12 +197,6 @@
     <Compile Include="UI\Services\RulesEngine.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\lib\nhibernate\nhibernate-configuration.xsd">
-      <Link>nhibernate-configuration.xsd</Link>
-    </None>
-    <None Include="..\..\lib\nhibernate\nhibernate-mapping.xsd">
-      <Link>nhibernate-mapping.xsd</Link>
-    </None>
     <None Include="Database\Update\0001_AddDatabaseUser.sql" />
     <None Include="Database\Update\0002_Version1Schema.sql" />
     <None Include="Database\Update\0003_AddConferenceIDToSpeaker.sql" />

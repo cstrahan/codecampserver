@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
@@ -23,7 +24,13 @@ namespace CodeCampServer.UI.Helpers.Filters
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
 			ControllerBase controller = filterContext.Controller;
-			User user = _session.GetCurrentUser();
+			User user=null;
+			try
+			{
+				user = _session.GetCurrentUser();
+			}
+			catch {}
+
 			if (user != null)
 			{
 				controller.ViewData.Add(user);

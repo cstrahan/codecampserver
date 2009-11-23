@@ -4,7 +4,7 @@
     <div class="addMeeting"><%Html.RenderPartial("AddMeetingLink"); %></div>
 <% foreach (string eventKey in Model){%>
     <div class="post"> 
-			<%ViewExtensions.RenderAction(Html, "announcement", "event", new { @event = eventKey }); %>
+			<%Html.RenderAction("announcement", "event", new { @event = eventKey }); %>
 		</div> 
 		<hr /> 
 <%}%>

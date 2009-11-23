@@ -173,32 +173,6 @@
              e.g. QueryString = 4, Form = 6, TempData = 2, RouteData = 1 "4,6,3,2"
             </summary>
         </member>
-        <member name="T:MvcContrib.Attributes.AcceptGetAttribute">
-            <summary>
-            Ensures that an action is not executed unless it is accessed through an HTTP GET.
-            </summary>
-        </member>
-        <member name="M:MvcContrib.Attributes.AcceptGetAttribute.IsValidForRequest(System.Web.Mvc.ControllerContext,System.Reflection.MethodInfo)">
-            <summary>
-            Ensures that the action decorated by this attribute is only valid if the HTTP method is a GET.
-            </summary>
-            <param name="controllerContext">The current controller context</param>
-            <param name="methodInfo">The current action method</param>
-            <returns>True if the action is being accessed via an HTTP GET</returns>
-        </member>
-        <member name="T:MvcContrib.Attributes.AcceptPostAttribute">
-            <summary>
-            Ensures that an action is not executed unless it is accessed through an HTTP POST.
-            </summary>
-        </member>
-        <member name="M:MvcContrib.Attributes.AcceptPostAttribute.IsValidForRequest(System.Web.Mvc.ControllerContext,System.Reflection.MethodInfo)">
-            <summary>
-            Ensures that the action decorated by this attribute is only valid if the HTTP method is a POST.
-            </summary>
-            <param name="controllerContext">The current controller context</param>
-            <param name="methodInfo">The current action method</param>
-            <returns>True if the action is being accessed via an HTTP POST</returns>
-        </member>
         <member name="T:MvcContrib.Binders.SubControllerBinder">
             <summary>
              Binder that creates SubControllers that are needed for an action method

@@ -4,7 +4,7 @@
 <asp:Content ContentPlaceHolderID="Main" runat="server">
     <h2>User Groups
 		<%if (User.Identity.IsAuthenticated) { %>
-		    <%= Html.ImageLink<UserGroupController>(c=>c.Edit(Guid.Empty), "~/images/icons/application_add.png", "Add a new User Group") %>
+			<a href="<%=Url.Action<UserGroupController>(t=>t.Edit(Guid.Empty)) %>"><img src="/images/icons/application_add.png" /></a>
 		<%}%>
     </h2>
 		<table class="default datatable">

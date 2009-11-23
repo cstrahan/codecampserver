@@ -13,6 +13,7 @@ using CodeCampServer.UI.Models.Input;
 using CodeCampServer.UI.Models.Messages;
 using CodeCampServer.UnitTests;
 using CommandProcessor;
+using LoginPortableArea.Models;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;

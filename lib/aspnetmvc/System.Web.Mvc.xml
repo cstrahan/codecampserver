@@ -240,8 +240,8 @@
     </member>
     <member name="M:System.Web.Mvc.AjaxHelper.JavaScriptStringEncode(System.String)">
       <summary>Serializes the specified message and returns the resulting JSON string.</summary>
-      <returns>The serialized message as a JSON string.</returns>
-      <param name="message">String to be serialized.</param>
+      <returns>The serialized message as a JSON-formatted string.</returns>
+      <param name="message">The message to serialize.</param>
     </member>
     <member name="P:System.Web.Mvc.AjaxHelper.RouteCollection">
       <summary>Gets the collection of URL routes for the application.</summary>
@@ -564,9 +564,16 @@
       <param name="bindingContext">The context within which the model is bound. The context includes information such as the model object, model name, model type, property filter, and value provider.</param>
       <exception cref="T:System.ArgumentNullException">The <paramref name="bindingContext" /> parameter is null.</exception>
     </member>
-    <member name="T:System.Web.Mvc.ChildActionOnlyAttribute"></member>
-    <member name="M:System.Web.Mvc.ChildActionOnlyAttribute.#ctor"></member>
-    <member name="M:System.Web.Mvc.ChildActionOnlyAttribute.OnAuthorization(System.Web.Mvc.AuthorizationContext)"></member>
+    <member name="T:System.Web.Mvc.ChildActionOnlyAttribute">
+      <summary>Represents an attribute that is used to indicate that an action method should only be called as a child action.</summary>
+    </member>
+    <member name="M:System.Web.Mvc.ChildActionOnlyAttribute.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.ChildActionOnlyAttribute" /> class.</summary>
+    </member>
+    <member name="M:System.Web.Mvc.ChildActionOnlyAttribute.OnAuthorization(System.Web.Mvc.AuthorizationContext)">
+      <summary>Called when authorization is required.</summary>
+      <param name="filterContext">Encapsulates the information required for authorizing access to the child action.</param>
+    </member>
     <member name="T:System.Web.Mvc.ContentResult">
       <summary>Represents a user-defined content type that is the result of an action method.</summary>
     </member>
@@ -1624,22 +1631,35 @@
       <returns>The cache time span.</returns>
     </member>
     <member name="T:System.Web.Mvc.DictionaryValueProvider`1">
-      <typeparam name="TValue"></typeparam>
+      <summary>Represents the base class for value providers whose values come from a collection that implements the <see cref="T:System.Collections.Generic.IDictionary`2" /> interface.</summary>
+      <typeparam name="TValue">The type of the value.</typeparam>
     </member>
-    <member name="M:System.Web.Mvc.DictionaryValueProvider`1.#ctor"></member>
+    <member name="M:System.Web.Mvc.DictionaryValueProvider`1.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.DictionaryValueProvider`1" /> class.</summary>
+    </member>
     <member name="M:System.Web.Mvc.DictionaryValueProvider`1.ContainsPrefix(System.Web.Mvc.ControllerContext,System.String)">
-      <param name="controllerContext"></param>
-      <param name="prefix"></param>
+      <summary>Determines whether the collection contains the specified prefix using the specified controller context.</summary>
+      <returns>true if the collection contains the specified prefix; otherwise, false.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
+      <param name="prefix">The prefix string to search for.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="prefix" /> parameter is null.</exception>
     </member>
     <member name="M:System.Web.Mvc.DictionaryValueProvider`1.GetCulture(System.Web.Mvc.ControllerContext)">
-      <param name="controllerContext"></param>
+      <summary>Retrieves the current culture using the specified controller context.</summary>
+      <returns>An object containing information about the current culture.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
     </member>
     <member name="M:System.Web.Mvc.DictionaryValueProvider`1.GetDictionary(System.Web.Mvc.ControllerContext)">
-      <param name="controllerContext"></param>
+      <summary>Retrieves the dictionary containing the values.</summary>
+      <returns>A container that implements the <see cref="T:System.Collections.Generic.IDictionary`2" /> interface and contains the values for the provider.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
     </member>
     <member name="M:System.Web.Mvc.DictionaryValueProvider`1.GetValue(System.Web.Mvc.ControllerContext,System.String)">
-      <param name="controllerContext"></param>
-      <param name="key"></param>
+      <summary>Retrieves the value object for the specified key using the specified controller context.</summary>
+      <returns>The value object for the specified key.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
+      <param name="key">The key to retrieve the value object for.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="key" /> parameter is null.</exception>
     </member>
     <member name="T:System.Web.Mvc.EmptyModelMetadataProvider">
       <summary>Provides an empty metadata provider for data models that do not require metadata.</summary>
@@ -1899,7 +1919,7 @@
     </member>
     <member name="P:System.Web.Mvc.FormContext.ValidationSummaryId">
       <summary>Gets or sets the identifier for the validation summary.</summary>
-      <returns>The validation summary identifer.</returns>
+      <returns>The identifier for the validation summary.</returns>
     </member>
     <member name="T:System.Web.Mvc.FormMethod">
       <summary>Enumerates the HTTP request types for a form.</summary>
@@ -1910,8 +1930,12 @@
     <member name="F:System.Web.Mvc.FormMethod.Post">
       <summary>Specifies a POST request.</summary>
     </member>
-    <member name="T:System.Web.Mvc.FormValueProvider"></member>
-    <member name="M:System.Web.Mvc.FormValueProvider.#ctor"></member>
+    <member name="T:System.Web.Mvc.FormValueProvider">
+      <summary>Represents a value provider for form values that are contained in a <see cref="T:System.Collections.Specialized.NameValueCollection" /> object.</summary>
+    </member>
+    <member name="M:System.Web.Mvc.FormValueProvider.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.FormValueProvider" /> class.</summary>
+    </member>
     <member name="T:System.Web.Mvc.HandleErrorAttribute">
       <summary>Represents an attribute that is used to handle an exception that is thrown by an action method.</summary>
     </member>
@@ -2117,17 +2141,23 @@
       <returns>The collection of routes for the application.</returns>
     </member>
     <member name="F:System.Web.Mvc.HtmlHelper.ValidationInputCssClassName">
-      <summary>The name of a CSS input validation error.</summary>
+      <summary>The name of the CSS class used for an input validation error message.</summary>
     </member>
-    <member name="F:System.Web.Mvc.HtmlHelper.ValidationInputValidCssClassName"></member>
+    <member name="F:System.Web.Mvc.HtmlHelper.ValidationInputValidCssClassName">
+      <summary>The name of the CSS class used to style the input validation message.</summary>
+    </member>
     <member name="F:System.Web.Mvc.HtmlHelper.ValidationMessageCssClassName">
-      <summary>The name of a CSS field validation error.</summary>
+      <summary>The name of the CSS class used for a field-validation error message.</summary>
     </member>
-    <member name="F:System.Web.Mvc.HtmlHelper.ValidationMessageValidCssClassName"></member>
+    <member name="F:System.Web.Mvc.HtmlHelper.ValidationMessageValidCssClassName">
+      <summary>The name of the CSS class used to style the validation message when the input is valid.</summary>
+    </member>
     <member name="F:System.Web.Mvc.HtmlHelper.ValidationSummaryCssClassName">
-      <summary>The name of the CSS validation error summary.</summary>
+      <summary>The name of the CSS class used for validation summary error messages.</summary>
     </member>
-    <member name="F:System.Web.Mvc.HtmlHelper.ValidationSummaryValidCssClassName"></member>
+    <member name="F:System.Web.Mvc.HtmlHelper.ValidationSummaryValidCssClassName">
+      <summary>The name of the CSS class used to style the validation summary when the input is valid.</summary>
+    </member>
     <member name="P:System.Web.Mvc.HtmlHelper.ViewContext">
       <summary>Gets or sets the context information about the view.</summary>
       <returns>The context of the view.</returns>
@@ -2186,15 +2216,24 @@
       <param name="controllerContext">The context within which the controller operates. The context information includes the controller, HTTP content, request context, and route data.</param>
       <param name="methodInfo">Encapsulates information about a method, such as its type, return type, and arguments.</param>
     </member>
-    <member name="T:System.Web.Mvc.HttpFileCollectionValueProvider"></member>
-    <member name="M:System.Web.Mvc.HttpFileCollectionValueProvider.#ctor"></member>
+    <member name="T:System.Web.Mvc.HttpFileCollectionValueProvider">
+      <summary>Represents a value provider for use with values that come from a collection of HTTP files.</summary>
+    </member>
+    <member name="M:System.Web.Mvc.HttpFileCollectionValueProvider.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.HttpFileCollectionValueProvider" /> class.</summary>
+    </member>
     <member name="M:System.Web.Mvc.HttpFileCollectionValueProvider.ContainsPrefix(System.Web.Mvc.ControllerContext,System.String)">
-      <param name="controllerContext"></param>
-      <param name="prefix"></param>
+      <summary>Determines whether the collection contains the specified prefix using the specified controller context.</summary>
+      <returns>true if the collection contains the specified prefix; otherwise, false.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
+      <param name="prefix">The prefix string to search for.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="prefix" /> parameter is null.</exception>
     </member>
     <member name="M:System.Web.Mvc.HttpFileCollectionValueProvider.GetValue(System.Web.Mvc.ControllerContext,System.String)">
-      <param name="controllerContext"></param>
-      <param name="key"></param>
+      <summary>Retrieves the value object for the specified key using the specified controller context.</summary>
+      <returns>Always returns null.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
+      <param name="key">The key to retrieve the value object for.</param>
     </member>
     <member name="T:System.Web.Mvc.HttpGetAttribute">
       <summary>Represents an attribute that is used to restrict an action method so that the method handles only HTTP GET requests.</summary>
@@ -2396,14 +2435,20 @@
       <param name="controllerContext">The controller context.</param>
       <param name="values">The values.</param>
     </member>
-    <member name="T:System.Web.Mvc.IValueProvider"></member>
+    <member name="T:System.Web.Mvc.IValueProvider">
+      <summary>Defines the methods that are required for a value provider in ASP.NET MVC.</summary>
+    </member>
     <member name="M:System.Web.Mvc.IValueProvider.ContainsPrefix(System.Web.Mvc.ControllerContext,System.String)">
-      <param name="controllerContext"></param>
-      <param name="prefix"></param>
+      <summary>Determines whether the collection contains the specified prefix using the specified controller context.</summary>
+      <returns>true if the collection contains the specified prefix; otherwise, false.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
+      <param name="prefix">The prefix string to search for.</param>
     </member>
     <member name="M:System.Web.Mvc.IValueProvider.GetValue(System.Web.Mvc.ControllerContext,System.String)">
-      <param name="controllerContext"></param>
-      <param name="key"></param>
+      <summary>Retrieves the value object for the specified key using the specified controller context.</summary>
+      <returns>The value object for the specified key.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
+      <param name="key">The key to retrieve the value object for.</param>
     </member>
     <member name="T:System.Web.Mvc.IView">
       <summary>Defines the methods that are required for a view.</summary>
@@ -3208,13 +3253,23 @@
       <summary>Adds the version header by using the specified HTTP context.</summary>
       <param name="httpContext">The HTTP context.</param>
     </member>
-    <member name="M:System.Web.Mvc.MvcHandler.BeginProcessRequest(System.Web.HttpContext,System.AsyncCallback,System.Object)"></member>
-    <member name="M:System.Web.Mvc.MvcHandler.BeginProcessRequest(System.Web.HttpContextBase,System.AsyncCallback,System.Object)"></member>
+    <member name="M:System.Web.Mvc.MvcHandler.BeginProcessRequest(System.Web.HttpContext,System.AsyncCallback,System.Object)">
+      <param name="httpContext"></param>
+      <param name="callback"></param>
+      <param name="state"></param>
+    </member>
+    <member name="M:System.Web.Mvc.MvcHandler.BeginProcessRequest(System.Web.HttpContextBase,System.AsyncCallback,System.Object)">
+      <param name="httpContext"></param>
+      <param name="callback"></param>
+      <param name="state"></param>
+    </member>
     <member name="P:System.Web.Mvc.MvcHandler.DisableMvcResponseHeader">
       <summary>Gets or sets a value that indicates whether the MVC response header is disabled.</summary>
       <returns>true if the MVC response header is disabled; otherwise, false.</returns>
     </member>
-    <member name="M:System.Web.Mvc.MvcHandler.EndProcessRequest(System.IAsyncResult)"></member>
+    <member name="M:System.Web.Mvc.MvcHandler.EndProcessRequest(System.IAsyncResult)">
+      <param name="asyncResult"></param>
+    </member>
     <member name="P:System.Web.Mvc.MvcHandler.IsReusable">
       <summary>Gets a value that indicates whether another request can use the <see cref="T:System.Web.IHttpHandler" /> instance.</summary>
       <returns>true if the <see cref="T:System.Web.IHttpHandler" /> instance is reusable; otherwise, false.</returns>
@@ -3234,8 +3289,14 @@
       <summary>Gets the request context.</summary>
       <returns>The request context.</returns>
     </member>
-    <member name="M:System.Web.Mvc.MvcHandler.System#Web#IHttpAsyncHandler#BeginProcessRequest(System.Web.HttpContext,System.AsyncCallback,System.Object)"></member>
-    <member name="M:System.Web.Mvc.MvcHandler.System#Web#IHttpAsyncHandler#EndProcessRequest(System.IAsyncResult)"></member>
+    <member name="M:System.Web.Mvc.MvcHandler.System#Web#IHttpAsyncHandler#BeginProcessRequest(System.Web.HttpContext,System.AsyncCallback,System.Object)">
+      <param name="context"></param>
+      <param name="cb"></param>
+      <param name="extraData"></param>
+    </member>
+    <member name="M:System.Web.Mvc.MvcHandler.System#Web#IHttpAsyncHandler#EndProcessRequest(System.IAsyncResult)">
+      <param name="result"></param>
+    </member>
     <member name="P:System.Web.Mvc.MvcHandler.System#Web#IHttpHandler#IsReusable">
       <summary>Gets a value that indicates whether another request can use the <see cref="T:System.Web.IHttpHandler" /> instance.</summary>
       <returns>true if the <see cref="T:System.Web.IHttpHandler" /> instance is reusable; otherwise, false.</returns>
@@ -3310,21 +3371,35 @@
       <param name="destination">The destination.</param>
       <param name="replaceEntries">true to replace previous entries; otherwise, false.</param>
     </member>
-    <member name="T:System.Web.Mvc.NameValueCollectionValueProvider"></member>
-    <member name="M:System.Web.Mvc.NameValueCollectionValueProvider.#ctor"></member>
+    <member name="T:System.Web.Mvc.NameValueCollectionValueProvider">
+      <summary>Represents the base class for value providers whose values come from a <see cref="T:System.Collections.Specialized.NameValueCollection" /> object.</summary>
+    </member>
+    <member name="M:System.Web.Mvc.NameValueCollectionValueProvider.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.NameValueCollectionValueProvider" /> class.</summary>
+    </member>
     <member name="M:System.Web.Mvc.NameValueCollectionValueProvider.ContainsPrefix(System.Web.Mvc.ControllerContext,System.String)">
-      <param name="controllerContext"></param>
-      <param name="prefix"></param>
+      <summary>Determines whether the collection contains the specified prefix using the specified controller context.</summary>
+      <returns>true if the collection contains the specified prefix; otherwise, false.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
+      <param name="prefix">The prefix string to search for.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="prefix" /> parameter is null.</exception>
     </member>
     <member name="M:System.Web.Mvc.NameValueCollectionValueProvider.GetCulture(System.Web.Mvc.ControllerContext)">
-      <param name="controllerContext"></param>
+      <summary>Retrieves the current culture using the specified controller context.</summary>
+      <returns>An object containing information about the current culture.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
     </member>
     <member name="M:System.Web.Mvc.NameValueCollectionValueProvider.GetNameValueCollection(System.Web.Mvc.ControllerContext)">
-      <param name="controllerContext"></param>
+      <summary>Retrieves the dictionary containing the values.</summary>
+      <returns>A container that implements the <see cref="T:System.Collections.Generic.IDictionary`2" /> interface and contains the values for the provider.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
     </member>
     <member name="M:System.Web.Mvc.NameValueCollectionValueProvider.GetValue(System.Web.Mvc.ControllerContext,System.String)">
-      <param name="controllerContext"></param>
-      <param name="key"></param>
+      <summary>Retrieves the value object for the specified key using the specified controller context.</summary>
+      <returns>The value object for the specified key.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
+      <param name="key">The key to retrieve the value object for.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="key" /> parameter is null.</exception>
     </member>
     <member name="T:System.Web.Mvc.NoAsyncTimeoutAttribute"></member>
     <member name="M:System.Web.Mvc.NoAsyncTimeoutAttribute.#ctor"></member>
@@ -3470,8 +3545,12 @@
       <param name="context">The controller context.</param>
       <exception cref="T:System.InvalidOperationException">An error occurred while the method was attempting to find the view.</exception>
     </member>
-    <member name="T:System.Web.Mvc.QueryStringValueProvider"></member>
-    <member name="M:System.Web.Mvc.QueryStringValueProvider.#ctor"></member>
+    <member name="T:System.Web.Mvc.QueryStringValueProvider">
+      <summary>Represents a value provider for query strings that are contained in a <see cref="T:System.Collections.Specialized.NameValueCollection" /> object.</summary>
+    </member>
+    <member name="M:System.Web.Mvc.QueryStringValueProvider.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.QueryStringValueProvider" /> class.</summary>
+    </member>
     <member name="T:System.Web.Mvc.RedirectResult">
       <summary>Controls the processing of application actions by redirecting to a specified URI.</summary>
     </member>
@@ -3677,7 +3756,7 @@
       <returns>The type of the parameter.</returns>
     </member>
     <member name="T:System.Web.Mvc.RequireHttpsAttribute">
-      <summary>Represents an attribute that forces an unsecured HTTP request to be resent over HTTPS.</summary>
+      <summary>Represents an attribute that forces an unsecured HTTP request to be re-sent over HTTPS.</summary>
     </member>
     <member name="M:System.Web.Mvc.RequireHttpsAttribute.#ctor">
       <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.RequireHttpsAttribute" /> class.</summary>
@@ -3830,8 +3909,12 @@
       <param name="namespaces">A set of namespaces for the application.</param>
       <exception cref="T:System.ArgumentNullException">The <paramref name="routes" /> or <paramref name="url" /> parameter is null.</exception>
     </member>
-    <member name="T:System.Web.Mvc.RouteDataValueProvider"></member>
-    <member name="M:System.Web.Mvc.RouteDataValueProvider.#ctor"></member>
+    <member name="T:System.Web.Mvc.RouteDataValueProvider">
+      <summary>Represents a value provider for route data contained in an object that implements the <see cref="T:System.Collections.Generic.IDictionary`2" /> interface.</summary>
+    </member>
+    <member name="M:System.Web.Mvc.RouteDataValueProvider.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.RouteDataValueProvider" /> class.</summary>
+    </member>
     <member name="T:System.Web.Mvc.SelectList">
       <summary>Represents a list that lets users select one item.</summary>
     </member>
@@ -3897,18 +3980,29 @@
       <param name="values">The values.</param>
       <exception cref="T:System.InvalidOperationException">An error occurred the session context was being retrieved.</exception>
     </member>
-    <member name="T:System.Web.Mvc.SimpleValueProvider"></member>
-    <member name="M:System.Web.Mvc.SimpleValueProvider.#ctor"></member>
+    <member name="T:System.Web.Mvc.SimpleValueProvider">
+      <summary>Represents a basic implementation of the <see cref="T:System.Web.Mvc.IValueProvider" /> interface.</summary>
+    </member>
+    <member name="M:System.Web.Mvc.SimpleValueProvider.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.SimpleValueProvider" /> class.</summary>
+    </member>
     <member name="M:System.Web.Mvc.SimpleValueProvider.#ctor(System.Globalization.CultureInfo)">
-      <param name="culture"></param>
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.SimpleValueProvider" /> class and set the culture information.</summary>
+      <param name="culture">An object containing information about the current culture.</param>
     </member>
     <member name="M:System.Web.Mvc.SimpleValueProvider.ContainsPrefix(System.Web.Mvc.ControllerContext,System.String)">
-      <param name="controllerContext"></param>
-      <param name="prefix"></param>
+      <summary>Determines whether the collection contains the specified prefix using the specified controller context.</summary>
+      <returns>true if the collection contains the specified prefix; otherwise, false.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
+      <param name="prefix">The prefix string to search for.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="prefix" /> parameter is null.</exception>
     </member>
     <member name="M:System.Web.Mvc.SimpleValueProvider.GetValue(System.Web.Mvc.ControllerContext,System.String)">
-      <param name="controllerContext"></param>
-      <param name="key"></param>
+      <summary>Retrieves the value object for the specified key using the specified controller context.</summary>
+      <returns>The value object for the specified key.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
+      <param name="key">The key to retrieve the value object for.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="key" /> parameter is null.</exception>
     </member>
     <member name="T:System.Web.Mvc.TagBuilder">
       <summary>Represents a class that is used by HTML helpers to build HTML elements.</summary>
@@ -4048,10 +4142,15 @@
     <member name="P:System.Web.Mvc.TempDataDictionary.Item(System.String)">
       <summary>Gets or sets the object that has the specified key.</summary>
       <returns>The object that has the specified key.</returns>
-      <param name="key">The key.</param>
+      <param name="key">The key to access.</param>
     </member>
-    <member name="M:System.Web.Mvc.TempDataDictionary.Keep"></member>
-    <member name="M:System.Web.Mvc.TempDataDictionary.Keep(System.String)"></member>
+    <member name="M:System.Web.Mvc.TempDataDictionary.Keep">
+      <summary>Marks all keys in the dictionary for retention.</summary>
+    </member>
+    <member name="M:System.Web.Mvc.TempDataDictionary.Keep(System.String)">
+      <summary>Marks the specified key in the dictionary for retention.</summary>
+      <param name="key">The key to retain in the dicitonary.</param>
+    </member>
     <member name="P:System.Web.Mvc.TempDataDictionary.Keys">
       <summary>Gets an <see cref="T:System.Collections.Generic.ICollection`1" /> object that contains the keys of elements in the <see cref="T:System.Collections.Generic.IDictionary`2" /> object.</summary>
       <returns>The keys of the elements in the <see cref="T:System.Collections.Generic.IDictionary`2" /> object.</returns>
@@ -4088,7 +4187,10 @@
       <param name="array">The target array.</param>
       <param name="index">The index.</param>
     </member>
-    <member name="P:System.Web.Mvc.TempDataDictionary.System#Collections#Generic#ICollection{T}#IsReadOnly"></member>
+    <member name="P:System.Web.Mvc.TempDataDictionary.System#Collections#Generic#ICollection{T}#IsReadOnly">
+      <summary>Gets a value indicating whether the dictionary is read-only.</summary>
+      <returns>true if the dictionary is read-only; otherwise, false.</returns>
+    </member>
     <member name="M:System.Web.Mvc.TempDataDictionary.System#Collections#Generic#ICollection{T}#Remove(System.Collections.Generic.KeyValuePair{System.String,System.Object})">
       <summary>Deletes the specified key/value pair from the dictionary.</summary>
       <returns>true if the key/value pair was removed successfully; otherwise, false.</returns>
@@ -4311,26 +4413,39 @@
       <param name="filterContext">The filter context.</param>
       <exception cref="T:System.ArgumentNullException">The <paramref name="filterContext" /> parameter is null.</exception>
     </member>
-    <member name="T:System.Web.Mvc.ValueProviderCollection"></member>
-    <member name="M:System.Web.Mvc.ValueProviderCollection.#ctor"></member>
+    <member name="T:System.Web.Mvc.ValueProviderCollection">
+      <summary>Represents the collection of value provider objects for the application.</summary>
+    </member>
+    <member name="M:System.Web.Mvc.ValueProviderCollection.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.ValueProviderCollection" /> class.</summary>
+    </member>
     <member name="M:System.Web.Mvc.ValueProviderCollection.#ctor(System.Collections.Generic.IList{System.Web.Mvc.IValueProvider})">
-      <param name="list"></param>
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.ValueProviderCollection" /> class and registers the specified value providers.</summary>
+      <param name="list">A list of value providers to be registered.</param>
     </member>
     <member name="M:System.Web.Mvc.ValueProviderCollection.ContainsPrefix(System.Web.Mvc.ControllerContext,System.String)">
-      <param name="controllerContext"></param>
-      <param name="prefix"></param>
+      <summary>Determines whether the collection contains the specified prefix using the specified controller context.</summary>
+      <returns>true if the collection contains the specified prefix; otherwise, false.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
+      <param name="prefix">The prefix string to search for.</param>
     </member>
     <member name="M:System.Web.Mvc.ValueProviderCollection.GetValue(System.Web.Mvc.ControllerContext,System.String)">
-      <param name="controllerContext"></param>
-      <param name="key"></param>
+      <summary>Retrieves the value object for the specified key using the specified controller context.</summary>
+      <returns>The value object for the specified key.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
+      <param name="key">The key to retrieve the value object for.</param>
     </member>
     <member name="M:System.Web.Mvc.ValueProviderCollection.InsertItem(System.Int32,System.Web.Mvc.IValueProvider)">
-      <param name="index"></param>
-      <param name="item"></param>
+      <summary>Inserts the specified value provider object into the collection at the specified index location.</summary>
+      <param name="index">The zero-based index location to insert the value provider into the collection.</param>
+      <param name="item">The value provider object to insert.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="item" /> parameter is null.</exception>
     </member>
     <member name="M:System.Web.Mvc.ValueProviderCollection.SetItem(System.Int32,System.Web.Mvc.IValueProvider)">
-      <param name="index"></param>
-      <param name="item"></param>
+      <summary>Replaces the value provider at the specified index location with a new value provider.</summary>
+      <param name="index">The zero-based index of the element to replace.</param>
+      <param name="item">The new value for the element at the specified index.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="item" /> parameter is null.</exception>
     </member>
     <member name="T:System.Web.Mvc.ValueProviderDictionary">
       <summary>Represents a dictionary of value providers for the application.</summary>
@@ -4351,7 +4466,7 @@
       <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.IDictionary`2" /> object is read-only.</exception>
       <exception cref="T:System.ArgumentNullException">
         <paramref name="key" /> is null.</exception>
-      <exception cref="T:System.ArgumentException">An element that has the same key already exists in the <see cref="T:System.Collections.Generic.IDictionary`2" /> object.</exception>
+      <exception cref="T:System.ArgumentException">An element that has the specified key already exists in the <see cref="T:System.Collections.Generic.IDictionary`2" /> object.</exception>
     </member>
     <member name="M:System.Web.Mvc.ValueProviderDictionary.Add(System.String,System.Web.Mvc.ValueProviderResult)">
       <summary>Adds an element that has the specified key and value to the collection of value providers.</summary>
@@ -4360,7 +4475,7 @@
       <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.IDictionary`2" /> object is read-only.</exception>
       <exception cref="T:System.ArgumentNullException">
         <paramref name="key" /> is null.</exception>
-      <exception cref="T:System.ArgumentException">An element that has the same key already exists in the <see cref="T:System.Collections.Generic.IDictionary`2" /> object.</exception>
+      <exception cref="T:System.ArgumentException">An element that has the specified key already exists in the <see cref="T:System.Collections.Generic.IDictionary`2" /> object.</exception>
     </member>
     <member name="M:System.Web.Mvc.ValueProviderDictionary.Clear">
       <summary>Removes all items from the collection of value providers.</summary>
@@ -4383,7 +4498,7 @@
       <returns>The controller context.</returns>
     </member>
     <member name="M:System.Web.Mvc.ValueProviderDictionary.CopyTo(System.Collections.Generic.KeyValuePair{System.String,System.Web.Mvc.ValueProviderResult}[],System.Int32)">
-      <summary>Copies the elements of the collection of value providers to an array, starting at the specified index.</summary>
+      <summary>Copies the elements of the collection to an array, starting at the specified index.</summary>
       <param name="array">The one-dimensional array that is the destination of the elements copied from the <see cref="T:System.Collections.Generic.ICollection`1" /> object. The array must have zero-based indexing.</param>
       <param name="arrayIndex">The zero-based index in <paramref name="array" /> at which copying starts.</param>
       <exception cref="T:System.ArgumentNullException">
@@ -4391,7 +4506,7 @@
       <exception cref="T:System.ArgumentOutOfRangeException">
         <paramref name="arrayIndex" /> is less than 0.</exception>
       <exception cref="T:System.ArgumentException">
-        <paramref name="array" /> is multidimensional.-or-<paramref name="arrayIndex" /> is equal to or greater than the length of <paramref name="array" />.-or-The number of elements in the source collection is greater than the available space from <paramref name="arrayIndex" /> to the end of the destination <paramref name="array" />.-or-Type <paramref name="T" /> cannot be cast automatically to the type of the destination <paramref name="array" />.</exception>
+        <paramref name="array" /> is multidimensional.-or-<paramref name="arrayIndex" /> is equal to or greater than the length of <paramref name="array" />.-or-The number of elements in the source collection is greater than the available space from <paramref name="arrayIndex" /> to the end of the destination <paramref name="array" />.-or-Type <paramref name="T" /> cannot be cast automatically to the type of the destination array.</exception>
     </member>
     <member name="P:System.Web.Mvc.ValueProviderDictionary.Count">
       <summary>Gets the number of elements in the collection.</summary>
@@ -4432,8 +4547,18 @@
       <summary>Returns an enumerator that can be used to iterate through a collection.</summary>
       <returns>An enumerator that can be used to iterate through the collection.</returns>
     </member>
-    <member name="M:System.Web.Mvc.ValueProviderDictionary.System#Web#Mvc#IValueProvider#ContainsPrefix(System.Web.Mvc.ControllerContext,System.String)"></member>
-    <member name="M:System.Web.Mvc.ValueProviderDictionary.System#Web#Mvc#IValueProvider#GetValue(System.Web.Mvc.ControllerContext,System.String)"></member>
+    <member name="M:System.Web.Mvc.ValueProviderDictionary.System#Web#Mvc#IValueProvider#ContainsPrefix(System.Web.Mvc.ControllerContext,System.String)">
+      <summary>Determines whether the collection contains the specified prefix given the controller context.</summary>
+      <returns>true if the collection contains the specified prefix; otherwise, false.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
+      <param name="prefix">The prefix string to search for.</param>
+    </member>
+    <member name="M:System.Web.Mvc.ValueProviderDictionary.System#Web#Mvc#IValueProvider#GetValue(System.Web.Mvc.ControllerContext,System.String)">
+      <summary>Retrieves the value object for the specified key using the specified controller context.</summary>
+      <returns>The value object for the specified key.</returns>
+      <param name="controllerContext">An object that encapsulates information about the current HTTP request.</param>
+      <param name="key">The key to retrieve the value object for.</param>
+    </member>
     <member name="M:System.Web.Mvc.ValueProviderDictionary.TryGetValue(System.String,System.Web.Mvc.ValueProviderResult@)">
       <summary>Gets the value of the element that has the specified key.</summary>
       <returns>true if the object that implements <see cref="T:System.Collections.Generic.IDictionary`2" /> contains an element that has the specified key; otherwise, false.</returns>
@@ -4483,8 +4608,13 @@
       <summary>Gets or set the raw value that is supplied by the value provider.</summary>
       <returns>The raw value.</returns>
     </member>
-    <member name="T:System.Web.Mvc.ValueProviders"></member>
-    <member name="P:System.Web.Mvc.ValueProviders.Providers"></member>
+    <member name="T:System.Web.Mvc.ValueProviders">
+      <summary>Provides a collection of value providers available for the application.</summary>
+    </member>
+    <member name="P:System.Web.Mvc.ValueProviders.Providers">
+      <summary>Returns a collection of value providers for the application.</summary>
+      <returns>A collection of value providers for the application.</returns>
+    </member>
     <member name="T:System.Web.Mvc.ViewContext">
       <summary>Encapsulates information that is related to rendering a view.</summary>
     </member>
@@ -4499,12 +4629,17 @@
       <param name="tempData">The temporary data.</param>
       <exception cref="T:System.ArgumentNullException">One of the parameters is null.</exception>
     </member>
-    <member name="P:System.Web.Mvc.ViewContext.ClientValidationEnabled"></member>
+    <member name="P:System.Web.Mvc.ViewContext.ClientValidationEnabled">
+      <summary>Gets or sets a value that indicates whether client-side validation is enabled.</summary>
+      <returns>true if client-side validation is enabled; otherwise, false.</returns>
+    </member>
     <member name="P:System.Web.Mvc.ViewContext.FormContext">
       <summary>Gets or sets an object that encapsulates information that is required in order to validate and process the input data from an HTML form.</summary>
       <returns>An object that encapsulates information that is required in order to validate and process the input data from an HTML form.</returns>
     </member>
-    <member name="M:System.Web.Mvc.ViewContext.OutputClientValidation"></member>
+    <member name="M:System.Web.Mvc.ViewContext.OutputClientValidation">
+      <summary>Writes the client validation information to the HTTP response.</summary>
+    </member>
     <member name="P:System.Web.Mvc.ViewContext.TempData">
       <summary>Gets data that is associated with this request and that is available for only one request.</summary>
       <returns>The temporary data.</returns>
@@ -4696,7 +4831,10 @@
     <member name="M:System.Web.Mvc.ViewDataInfo.#ctor">
       <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.ViewDataInfo" /> class.</summary>
     </member>
-    <member name="M:System.Web.Mvc.ViewDataInfo.#ctor(System.Func{System.Object})"></member>
+    <member name="M:System.Web.Mvc.ViewDataInfo.#ctor(System.Func{System.Object})">
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.ViewDataInfo" /> class and associates a delegate for accessing the view data information.</summary>
+      <param name="valueAccessor">Delegate that defines how the view data information is accessed.</param>
+    </member>
     <member name="P:System.Web.Mvc.ViewDataInfo.Container">
       <summary>Gets or sets the object that contains the values to be displayed by the template.</summary>
       <returns>The object that contains the values to be displayed by the template.</returns>
@@ -5696,57 +5834,87 @@
     <member name="F:System.Web.Mvc.Ajax.InsertionMode.InsertAfter">
       <summary>Insert after the element.</summary>
     </member>
-    <member name="T:System.Web.Mvc.Async.AsyncActionDescriptor"></member>
-    <member name="M:System.Web.Mvc.Async.AsyncActionDescriptor.#ctor"></member>
+    <member name="T:System.Web.Mvc.Async.AsyncActionDescriptor">
+      <summary>Provides information about an asynchronous action method, such as its name, controller, parameters, attributes, and filters.</summary>
+    </member>
+    <member name="M:System.Web.Mvc.Async.AsyncActionDescriptor.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.Async.AsyncActionDescriptor" /> class.</summary>
+    </member>
     <member name="M:System.Web.Mvc.Async.AsyncActionDescriptor.BeginExecute(System.Web.Mvc.ControllerContext,System.Collections.Generic.IDictionary{System.String,System.Object},System.AsyncCallback,System.Object)">
-      <param name="controllerContext">x</param>
-      <param name="parameters">x</param>
-      <param name="callback">x</param>
-      <param name="state">x</param>
+      <summary>Begins running the asynchronous action method by using the specified parameters and controller context.</summary>
+      <returns>An object containing the result of an asynchronous operation.</returns>
+      <param name="controllerContext">The controller context.</param>
+      <param name="parameters">The parameters of the action method.</param>
+      <param name="callback">The callback method.</param>
+      <param name="state">An object containing information to be used by the callback method or null.</param>
     </member>
     <member name="M:System.Web.Mvc.Async.AsyncActionDescriptor.EndExecute(System.IAsyncResult)">
-      <param name="asyncResult">x</param>
+      <summary>Returns the result of an asynchronous operation.</summary>
+      <returns>The result of an asynchronous operation.</returns>
+      <param name="asyncResult">Represents the status of an asynchronous operation.</param>
     </member>
     <member name="M:System.Web.Mvc.Async.AsyncActionDescriptor.Execute(System.Web.Mvc.ControllerContext,System.Collections.Generic.IDictionary{System.String,System.Object})">
-      <param name="controllerContext">x</param>
-      <param name="parameters">x</param>
+      <summary>Executes the asynchronous action method by using the specified parameters and controller context.</summary>
+      <returns>The result of executing the asynchronous action method.</returns>
+      <param name="controllerContext">The controller context.</param>
+      <param name="parameters">The parameters of the action method.</param>
     </member>
-    <member name="T:System.Web.Mvc.Async.AsyncControllerActionInvoker"></member>
-    <member name="M:System.Web.Mvc.Async.AsyncControllerActionInvoker.#ctor"></member>
+    <member name="T:System.Web.Mvc.Async.AsyncControllerActionInvoker">
+      <summary>Represents a class that is responsible for invoking the action methods of an asynchronous controller.</summary>
+    </member>
+    <member name="M:System.Web.Mvc.Async.AsyncControllerActionInvoker.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.Async.AsyncControllerActionInvoker" />, class.</summary>
+    </member>
     <member name="M:System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeAction(System.Web.Mvc.ControllerContext,System.String,System.AsyncCallback,System.Object)">
-      <param name="controllerContext">x</param>
-      <param name="actionName">x</param>
-      <param name="callback">x</param>
-      <param name="state">x</param>
+      <summary>Begins running the asynchronous action method by using the controller context, action name, call back and state.</summary>
+      <returns>An object containing the result of an asynchronous operation.</returns>
+      <param name="controllerContext">The controller context.</param>
+      <param name="actionName">The name of the action.</param>
+      <param name="callback">The callback method.</param>
+      <param name="state">An object containing information to be used by the callback method or null</param>
     </member>
     <member name="M:System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethod(System.Web.Mvc.ControllerContext,System.Web.Mvc.ActionDescriptor,System.Collections.Generic.IDictionary{System.String,System.Object},System.AsyncCallback,System.Object)">
-      <param name="controllerContext">x</param>
-      <param name="actionDescriptor">x</param>
-      <param name="parameters">x</param>
-      <param name="callback">x</param>
-      <param name="state">x</param>
+      <summary>Begins running the asynchronous action method by using the controller context, action descriptor, specified parameters, call back and state.</summary>
+      <returns>An object containing the result of an asynchronous operation.</returns>
+      <param name="controllerContext">The controller context.</param>
+      <param name="actionDescriptor">The action descriptor.</param>
+      <param name="parameters">The parameters of the asynchronous action method.</param>
+      <param name="callback">The callback method.</param>
+      <param name="state">An object containing information to be used by the callback method or null.</param>
     </member>
     <member name="M:System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(System.Web.Mvc.ControllerContext,System.Collections.Generic.IList{System.Web.Mvc.IActionFilter},System.Web.Mvc.ActionDescriptor,System.Collections.Generic.IDictionary{System.String,System.Object},System.AsyncCallback,System.Object)">
-      <param name="controllerContext">x</param>
-      <param name="filters">x</param>
-      <param name="actionDescriptor">x</param>
-      <param name="parameters">x</param>
-      <param name="callback">x</param>
-      <param name="state">x</param>
+      <summary>Begins running the asynchronous action method by using the controller context, filters, action descriptor, specified parameters, call back and state.</summary>
+      <returns>An object containing the result of an asynchronous operation.</returns>
+      <param name="controllerContext">The controller context.</param>
+      <param name="filters">The filters.</param>
+      <param name="actionDescriptor">The action descriptor.</param>
+      <param name="parameters">The parameters of the asynchronous action method.</param>
+      <param name="callback">The callback method.</param>
+      <param name="state">An object containing information to be used by the callback method or null.</param>
     </member>
     <member name="M:System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(System.IAsyncResult)">
-      <param name="asyncResult">x</param>
+      <summary>Ends the invoke action.</summary>
+      <returns>True if the action is ended; otherwise, false.</returns>
+      <param name="asyncResult">The result of the asynchronous operation.</param>
     </member>
     <member name="M:System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(System.IAsyncResult)">
-      <param name="asyncResult">x</param>
+      <summary>Ends the invoke action.</summary>
+      <returns>True if the action is ended; otherwise, false.</returns>
+      <param name="asyncResult">The result of the asynchronous operation.</param>
     </member>
     <member name="M:System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(System.IAsyncResult)">
-      <param name="asyncResult">x</param>
+      <summary>Ends the invoke action.</summary>
+      <returns>True if the action is ended; otherwise, false.</returns>
+      <param name="asyncResult">The result of the asynchronous operation.</param>
     </member>
     <member name="M:System.Web.Mvc.Async.AsyncControllerActionInvoker.GetControllerDescriptor(System.Web.Mvc.ControllerContext)">
-      <param name="controllerContext">x</param>
+      <summary>Returns the controller descriptor.</summary>
+      <returns>The controller descriptor.</returns>
+      <param name="controllerContext">The controller context.</param>
     </member>
-    <member name="T:System.Web.Mvc.Async.AsyncException"></member>
+    <member name="T:System.Web.Mvc.Async.AsyncException">
+      <summary>Describes an exception that occurred during the processing of HTTP requests in the MVC asynchronous pipeline.</summary>
+    </member>
     <member name="M:System.Web.Mvc.Async.AsyncException.#ctor">
       <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.Async.AsyncException" /> class with a system-supplied message that describes the error.</summary>
     </member>
@@ -5805,39 +5973,73 @@
     <member name="M:System.Web.Mvc.Async.OperationCounter.Increment(System.Int32)">
       <param name="value">x</param>
     </member>
-    <member name="T:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor"></member>
+    <member name="T:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor">
+      <summary>Provides information about an asynchronous action method, such as its name, controller, parameters, attributes, and filters.</summary>
+    </member>
     <member name="M:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.#ctor(System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.String,System.Web.Mvc.ControllerDescriptor)">
-      <param name="asyncMethodInfo">x</param>
-      <param name="completedMethodInfo">x</param>
-      <param name="actionName">x</param>
-      <param name="controllerDescriptor">x</param>
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor" />, class.</summary>
+      <param name="asyncMethodInfo">Contains information on the asynchronous method.</param>
+      <param name="completedMethodInfo">Contains information on the completion method.</param>
+      <param name="actionName">The name of the action.</param>
+      <param name="controllerDescriptor">The controller descriptor.</param>
     </member>
-    <member name="P:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.ActionName"></member>
-    <member name="P:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.AsyncMethodInfo"></member>
+    <member name="P:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.ActionName">
+      <summary>Gets the name of the action method.</summary>
+      <returns>The name of the action method.</returns>
+    </member>
+    <member name="P:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.AsyncMethodInfo">
+      <summary>Gets the method information for the asynchronous action method.</summary>
+      <returns>The method information for the asynchronous action method.</returns>
+    </member>
     <member name="M:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.BeginExecute(System.Web.Mvc.ControllerContext,System.Collections.Generic.IDictionary{System.String,System.Object},System.AsyncCallback,System.Object)">
-      <param name="controllerContext">x</param>
-      <param name="parameters">x</param>
-      <param name="callback">x</param>
-      <param name="state">x</param>
+      <summary>Begins running the asynchronous action method by using the specified parameters and controller context.</summary>
+      <returns>An object containing the result of an asynchronous operation.</returns>
+      <param name="controllerContext">The controller context.</param>
+      <param name="parameters">The parameters of the action method.</param>
+      <param name="callback">The callback method.</param>
+      <param name="state">An object containing information to be used by the callback method or null.</param>
     </member>
-    <member name="P:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.CompletedMethodInfo"></member>
-    <member name="P:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.ControllerDescriptor"></member>
+    <member name="P:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.CompletedMethodInfo">
+      <summary>Gets the method information for the asynchronous completion method.</summary>
+      <returns>The method information for the asynchronous completion method.</returns>
+    </member>
+    <member name="P:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.ControllerDescriptor">
+      <summary>Gets the controller descriptor for the asynchronous action method.</summary>
+      <returns>The controller descriptor for the asynchronous action method.</returns>
+    </member>
     <member name="M:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.EndExecute(System.IAsyncResult)">
-      <param name="asyncResult">x</param>
+      <summary>Returns the result of an asynchronous operation.</summary>
+      <returns>The result of an asynchronous operation.</returns>
+      <param name="asyncResult">Represents the status of an asynchronous operation.</param>
     </member>
     <member name="M:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.GetCustomAttributes(System.Boolean)">
-      <param name="inherit">x</param>
+      <summary>Returns an array of custom attributes that are defined for this member, excluding named attributes.</summary>
+      <returns>An array of custom attributes, or an empty array if no custom attributes exist.</returns>
+      <param name="inherit">true to look up the hierarchy chain for the inherited custom attribute; otherwise, false.</param>
     </member>
     <member name="M:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.GetCustomAttributes(System.Type,System.Boolean)">
-      <param name="attributeType">x</param>
-      <param name="inherit">x</param>
+      <summary>Returns an array of custom attributes that are defined for this member, identified by type.</summary>
+      <returns>An array of custom attributes, or an empty array if no custom attributes of the specified type exist.</returns>
+      <param name="attributeType">The type of the custom attributes.</param>
+      <param name="inherit">true to look up the hierarchy chain for the inherited custom attribute; otherwise, false.</param>
     </member>
-    <member name="M:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.GetFilters"></member>
-    <member name="M:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.GetParameters"></member>
-    <member name="M:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.GetSelectors"></member>
+    <member name="M:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.GetFilters">
+      <summary>Returns the filters that are associated with this action method.</summary>
+      <returns>The filters that are associated with this action method.</returns>
+    </member>
+    <member name="M:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.GetParameters">
+      <summary>Returns the parameters of the action method.</summary>
+      <returns>The parameters of the action method.</returns>
+    </member>
+    <member name="M:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.GetSelectors">
+      <summary>Returns the action-method selectors.</summary>
+      <returns>The action-method selectors.</returns>
+    </member>
     <member name="M:System.Web.Mvc.Async.ReflectedAsyncActionDescriptor.IsDefined(System.Type,System.Boolean)">
-      <param name="attributeType">x</param>
-      <param name="inherit">x</param>
+      <summary>Determines whether one or more instances of the specified attribute type are defined for this member.</summary>
+      <returns>true if the <paramref name="attributeType" /> is defined for this member; otherwise, false.</returns>
+      <param name="attributeType">The type of the custom attribute.</param>
+      <param name="inherit">true to look up the hierarchy chain for the inherited custom attribute; otherwise, false.</param>
     </member>
     <member name="T:System.Web.Mvc.Async.ReflectedAsyncControllerDescriptor"></member>
     <member name="M:System.Web.Mvc.Async.ReflectedAsyncControllerDescriptor.#ctor(System.Type)">
@@ -5860,68 +6062,124 @@
       <param name="attributeType">x</param>
       <param name="inherit">x</param>
     </member>
-    <member name="T:System.Web.Mvc.Html.ChildActionExtensions"></member>
+    <member name="T:System.Web.Mvc.Html.ChildActionExtensions">
+      <summary>Represents support for calling child action methods and rendering the result inline within a parent view.</summary>
+    </member>
     <member name="M:System.Web.Mvc.Html.ChildActionExtensions.Action(System.Web.Mvc.HtmlHelper,System.String)">
-      <param name="htmlHelper"></param>
-      <param name="actionName"></param>
+      <summary>Invokes a child action method and returns the result as an HTML string.</summary>
+      <returns>The child action result as an HTML string.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="actionName">The name of the action method to be invoked.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="htmlHelper" /> parameter is null.</exception>
+      <exception cref="T:System.ArgumentException">The <paramref name="actionName" /> parameter is null or empty.</exception>
+      <exception cref="T:System.InvalidOperationException">The required virtual path data cannot be found.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.ChildActionExtensions.Action(System.Web.Mvc.HtmlHelper,System.String,System.Object)">
-      <param name="htmlHelper"></param>
-      <param name="actionName"></param>
-      <param name="routeValues"></param>
+      <summary>Invokes a child action method and returns the result as an HTML string.</summary>
+      <returns>The child action result as an HTML string.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="actionName">The name of the action method to be invoked.</param>
+      <param name="routeValues">An object that contains the parameters for a route.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="htmlHelper" /> parameter is null.</exception>
+      <exception cref="T:System.ArgumentException">The <paramref name="actionName" /> parameter is null or empty.</exception>
+      <exception cref="T:System.InvalidOperationException">The required virtual path data cannot be found.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.ChildActionExtensions.Action(System.Web.Mvc.HtmlHelper,System.String,System.String)">
-      <param name="htmlHelper"></param>
-      <param name="actionName"></param>
-      <param name="controllerName"></param>
+      <summary>Invokes a child action method and returns the result as an HTML string.</summary>
+      <returns>The child action result as an HTML string.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="actionName">The name of the action method to be invoked.</param>
+      <param name="controllerName">The name of the controller containing the action method.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="htmlHelper" /> parameter is null.</exception>
+      <exception cref="T:System.ArgumentException">The <paramref name="actionName" /> parameter is null or empty.</exception>
+      <exception cref="T:System.InvalidOperationException">The required virtual path data cannot be found.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.ChildActionExtensions.Action(System.Web.Mvc.HtmlHelper,System.String,System.String,System.Object)">
-      <param name="htmlHelper"></param>
-      <param name="actionName"></param>
-      <param name="controllerName"></param>
-      <param name="routeValues"></param>
+      <summary>Invokes a child action method and returns the result as an HTML string.</summary>
+      <returns>The child action result as an HTML string.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="actionName">The name of the action method to be invoked.</param>
+      <param name="controllerName">The name of the controller containing the action method.</param>
+      <param name="routeValues">An object that contains the parameters for a route.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="htmlHelper" /> parameter is null.</exception>
+      <exception cref="T:System.ArgumentException">The <paramref name="actionName" /> parameter is null or empty.</exception>
+      <exception cref="T:System.InvalidOperationException">The required virtual path data cannot be found.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.ChildActionExtensions.Action(System.Web.Mvc.HtmlHelper,System.String,System.String,System.Web.Routing.RouteValueDictionary)">
-      <param name="htmlHelper"></param>
-      <param name="actionName"></param>
-      <param name="controllerName"></param>
-      <param name="routeValues"></param>
+      <summary>Invokes a child action method and returns the result as an HTML string.</summary>
+      <returns>The child action result as an HTML string.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="actionName">The name of the action method to be invoked.</param>
+      <param name="controllerName">The name of the controller containing the action method.</param>
+      <param name="routeValues">A dictionary that contains the parameters for a route.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="htmlHelper" /> parameter is null.</exception>
+      <exception cref="T:System.ArgumentException">The <paramref name="actionName" /> parameter is null or empty.</exception>
+      <exception cref="T:System.InvalidOperationException">The required virtual path data cannot be found.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.ChildActionExtensions.Action(System.Web.Mvc.HtmlHelper,System.String,System.Web.Routing.RouteValueDictionary)">
-      <param name="htmlHelper"></param>
-      <param name="actionName"></param>
-      <param name="routeValues"></param>
+      <summary>Invokes a child action method and returns the result as an HTML string.</summary>
+      <returns>The child action result as an HTML string.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="actionName">The name of the action method to be invoked.</param>
+      <param name="routeValues">A dictionary that contains the parameters for a route.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="htmlHelper" /> parameter is null.</exception>
+      <exception cref="T:System.ArgumentException">The <paramref name="actionName" /> parameter is null or empty.</exception>
+      <exception cref="T:System.InvalidOperationException">The required virtual path data cannot be found.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.ChildActionExtensions.RenderAction(System.Web.Mvc.HtmlHelper,System.String)">
-      <param name="htmlHelper"></param>
-      <param name="actionName"></param>
+      <summary>Invokes a child action method and renders the result inline within the parent view.</summary>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="actionName">The name of the child action method to be invoked.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="htmlHelper" /> parameter is null.</exception>
+      <exception cref="T:System.ArgumentException">The <paramref name="actionName" /> parameter is null or empty.</exception>
+      <exception cref="T:System.InvalidOperationException">The required virtual path data cannot be found.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.ChildActionExtensions.RenderAction(System.Web.Mvc.HtmlHelper,System.String,System.Object)">
-      <param name="htmlHelper"></param>
-      <param name="actionName"></param>
-      <param name="routeValues"></param>
+      <summary>Invokes a child action method and renders the result inline within the parent view.</summary>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="actionName">The name of the child action method to be invoked.</param>
+      <param name="routeValues">An object that contains the parameters for a route.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="htmlHelper" /> parameter is null.</exception>
+      <exception cref="T:System.ArgumentException">The <paramref name="actionName" /> parameter is null or empty.</exception>
+      <exception cref="T:System.InvalidOperationException">The required virtual path data cannot be found.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.ChildActionExtensions.RenderAction(System.Web.Mvc.HtmlHelper,System.String,System.String)">
-      <param name="htmlHelper"></param>
-      <param name="actionName"></param>
-      <param name="controllerName"></param>
+      <summary>Invokes a child action method and renders the result inline within the parent view.</summary>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="actionName">The name of the child action method to be invoked.</param>
+      <param name="controllerName">The name of the controller containing the action method.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="htmlHelper" /> parameter is null.</exception>
+      <exception cref="T:System.ArgumentException">The <paramref name="actionName" /> parameter is null or empty.</exception>
+      <exception cref="T:System.InvalidOperationException">The required virtual path data cannot be found.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.ChildActionExtensions.RenderAction(System.Web.Mvc.HtmlHelper,System.String,System.String,System.Object)">
-      <param name="htmlHelper"></param>
-      <param name="actionName"></param>
-      <param name="controllerName"></param>
-      <param name="routeValues"></param>
+      <summary>Invokes a child action method and renders the result inline within the parent view.</summary>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="actionName">The name of the child action method to be invoked.</param>
+      <param name="controllerName">The name of the controller containing the action method.</param>
+      <param name="routeValues">An object that contains the parameters for a route.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="htmlHelper" /> parameter is null.</exception>
+      <exception cref="T:System.ArgumentException">The <paramref name="actionName" /> parameter is null or empty.</exception>
+      <exception cref="T:System.InvalidOperationException">The required virtual path data cannot be found.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.ChildActionExtensions.RenderAction(System.Web.Mvc.HtmlHelper,System.String,System.String,System.Web.Routing.RouteValueDictionary)">
-      <param name="htmlHelper"></param>
-      <param name="actionName"></param>
-      <param name="controllerName"></param>
-      <param name="routeValues"></param>
+      <summary>Invokes a child action method and renders the result inline within the parent view.</summary>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="actionName">The name of the child action method to be invoked.</param>
+      <param name="controllerName">The name of the controller containing the action method.</param>
+      <param name="routeValues">A dictionary that contains the parameters for a route.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="htmlHelper" /> parameter is null.</exception>
+      <exception cref="T:System.ArgumentException">The <paramref name="actionName" /> parameter is null or empty.</exception>
+      <exception cref="T:System.InvalidOperationException">The required virtual path data cannot be found.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.ChildActionExtensions.RenderAction(System.Web.Mvc.HtmlHelper,System.String,System.Web.Routing.RouteValueDictionary)">
-      <param name="htmlHelper"></param>
-      <param name="actionName"></param>
-      <param name="routeValues"></param>
+      <summary>Invokes a child action method and renders the result inline within the parent view.</summary>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="actionName">The name of the child action method to be invoked.</param>
+      <param name="routeValues">A dictionary that contains the parameters for a route.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="htmlHelper" /> parameter is null.</exception>
+      <exception cref="T:System.ArgumentException">The <paramref name="actionName" /> parameter is null or empty.</exception>
+      <exception cref="T:System.InvalidOperationException">The required virtual path data cannot be found.</exception>
     </member>
     <member name="T:System.Web.Mvc.Html.DisplayExtensions">
       <summary>Represents support for rendering object values as HTML.</summary>
@@ -6337,16 +6595,33 @@
       <param name="htmlAttributes">An object that contains the HTML attributes to set for the element.</param>
     </member>
     <member name="M:System.Web.Mvc.Html.InputExtensions.HiddenFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML hidden element for each property in the object that is represented by the expression parameter.</summary>
+      <returns>An HTML hidden element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentException">The <paramref name="expression" /> parameter is null or empty.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.InputExtensions.HiddenFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML hidden element for each property in the object that is represented by the expression parameter, using the specified HTML attributes.</summary>
+      <returns>An HTML hidden element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="htmlAttributes">A dictionary that contains the HTML attributes to set for the element.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentException">The <paramref name="expression" /> parameter is null or empty.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.InputExtensions.HiddenFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML hidden element for each property in the object that is represented by the expression parameter, using the specified HTML attributes.</summary>
+      <returns>An HTML hidden element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="htmlAttributes">An object that contains the HTML attributes to set for the element.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentException">The <paramref name="expression" /> parameter is null or empty.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.InputExtensions.Password(System.Web.Mvc.HtmlHelper,System.String)">
       <summary>Returns a password input element by using the specified HTML helper and the name of the form field.</summary>
@@ -6468,16 +6743,33 @@
       <param name="htmlAttributes">An object that contains the HTML attributes to set for the element.</param>
     </member>
     <member name="M:System.Web.Mvc.Html.InputExtensions.TextBoxFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML textbox element for each property in the object that is represented by the expression parameter.</summary>
+      <returns>An HTML textbox element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentException">The <paramref name="expression" /> parameter is null or empty.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.InputExtensions.TextBoxFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML textbox element for each property in the object that is represented by the expression parameter, using the specified HTML attributes.</summary>
+      <returns>An HTML textbox element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="htmlAttributes">A dictionary that contains the HTML attributes to set for the element.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentException">The <paramref name="expression" /> parameter is null or empty.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.InputExtensions.TextBoxFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML textbox element for each property in the object that is represented by the expression parameter, using the specified HTML attributes.</summary>
+      <returns>An HTML textbox element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="htmlAttributes">An object that contains the HTML attributes to set for the element.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentException">The <paramref name="expression" /> parameter is null or empty.</exception>
     </member>
     <member name="T:System.Web.Mvc.Html.LabelExtensions">
       <summary>Represents support for the HTML label element in an ASP.NET MVC view.</summary>
@@ -6626,7 +6918,14 @@
       <param name="htmlAttributes">An object that contains the HTML attributes to set for the element.</param>
       <exception cref="T:System.ArgumentException">The <paramref name="linkText" /> parameter is null or empty.</exception>
     </member>
-    <member name="M:System.Web.Mvc.Html.LinkExtensions.RouteLink(System.Web.Mvc.HtmlHelper,System.String,System.String)"></member>
+    <member name="M:System.Web.Mvc.Html.LinkExtensions.RouteLink(System.Web.Mvc.HtmlHelper,System.String,System.String)">
+      <summary>Returns an anchor element (a element) that contains the virtual path of the specified action.</summary>
+      <returns>An anchor element (a element).</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="linkText">The inner text of the anchor element.</param>
+      <param name="routeName">The name of the route that is used to return a virtual path.</param>
+      <exception cref="T:System.ArgumentException">The <paramref name="linkText" /> parameter is null or empty.</exception>
+    </member>
     <member name="M:System.Web.Mvc.Html.LinkExtensions.RouteLink(System.Web.Mvc.HtmlHelper,System.String,System.String,System.Object)">
       <summary>Returns an anchor element (a element) that contains the virtual path of the specified action.</summary>
       <returns>An anchor element (a element).</returns>
@@ -6712,10 +7011,15 @@
       <summary>Represents an HTML form element in an MVC view.</summary>
     </member>
     <member name="M:System.Web.Mvc.Html.MvcForm.#ctor(System.Web.HttpResponseBase)">
-      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.Html.MvcForm" /> class.</summary>
-      <param name="httpResponse">The HTTP response.</param>
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.Html.MvcForm" /> class using the specified HTTP response object.</summary>
+      <param name="httpResponse">The HTTP response object.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="httpResponse " />parameter is null.</exception>
     </member>
-    <member name="M:System.Web.Mvc.Html.MvcForm.#ctor(System.Web.Mvc.ViewContext)"></member>
+    <member name="M:System.Web.Mvc.Html.MvcForm.#ctor(System.Web.Mvc.ViewContext)">
+      <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.Html.MvcForm" /> class using the specified view context.</summary>
+      <param name="viewContext">An object that encapsulates the information that is required in order to render a view.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="viewContext" /> parameter is null.</exception>
+    </member>
     <member name="M:System.Web.Mvc.Html.MvcForm.Dispose">
       <summary>Releases all resources that are used by the current instance of the <see cref="T:System.Web.Mvc.Html.MvcForm" /> class.</summary>
     </member>
@@ -6850,28 +7154,70 @@
       <param name="optionLabel">The text for a default empty item. This parameter can be null.</param>
     </member>
     <member name="M:System.Web.Mvc.Html.SelectExtensions.DropDownListFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Web.Mvc.SelectListItem})">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML select element for each property in the object that is represented by the expression parameter using the specified list items.</summary>
+      <returns>An HTML select element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="selectList">A collection of <see cref="T:System.Web.Mvc.SelectListItem" /> objects that are used to populate the drop-down list.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="expression" /> parameter is null.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.SelectExtensions.DropDownListFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Web.Mvc.SelectListItem},System.Collections.Generic.IDictionary{System.String,System.Object})">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML select element for each property in the object that is represented by the expression parameter using the specified list items and HTML attributes.</summary>
+      <returns>An HTML select element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="selectList">A collection of <see cref="T:System.Web.Mvc.SelectListItem" /> objects that are used to populate the drop-down list.</param>
+      <param name="htmlAttributes">A dictionary that contains the HTML attributes to set for the element.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="expression" /> parameter is null.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.SelectExtensions.DropDownListFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Web.Mvc.SelectListItem},System.Object)">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML select element for each property in the object that is represented by the expression parameter using the specified list items and HTML attributes.</summary>
+      <returns>An HTML select element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="selectList">A collection of <see cref="T:System.Web.Mvc.SelectListItem" /> objects that are used to populate the drop-down list.</param>
+      <param name="htmlAttributes">An object that contains the HTML attributes to set for the element.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="expression" /> parameter is null.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.SelectExtensions.DropDownListFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Web.Mvc.SelectListItem},System.String)">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML select element for each property in the object that is represented by the expression parameter using the specified list items and option label.</summary>
+      <returns>An HTML select element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="selectList">A collection of <see cref="T:System.Web.Mvc.SelectListItem" /> objects that are used to populate the drop-down list.</param>
+      <param name="optionLabel">The text for a default empty item. This parameter can be null.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="expression" /> parameter is null.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.SelectExtensions.DropDownListFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Web.Mvc.SelectListItem},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML select element for each property in the object that is represented by the expression parameter using the specified list items, option label, and HTML attributes.</summary>
+      <returns>An HTML select element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="selectList">A collection of <see cref="T:System.Web.Mvc.SelectListItem" /> objects that are used to populate the drop-down list.</param>
+      <param name="optionLabel">The text for a default empty item. This parameter can be null.</param>
+      <param name="htmlAttributes">A dictionary that contains the HTML attributes to set for the element.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="expression" /> parameter is null.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.SelectExtensions.DropDownListFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Web.Mvc.SelectListItem},System.String,System.Object)">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML select element for each property in the object that is represented by the expression parameter using the specified list items, option label, and HTML attributes.</summary>
+      <returns>An HTML select element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="selectList">A collection of <see cref="T:System.Web.Mvc.SelectListItem" /> objects that are used to populate the drop-down list.</param>
+      <param name="optionLabel">The text for a default empty item. This parameter can be null.</param>
+      <param name="htmlAttributes">An object that contains the HTML attributes to set for the element.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
     </member>
     <member name="M:System.Web.Mvc.Html.SelectExtensions.ListBox(System.Web.Mvc.HtmlHelper,System.String)">
       <summary>Returns a select element that lets users select one item, by using the specified HTML helper and the name of the form field.</summary>
@@ -6956,8 +7302,8 @@
       <param name="htmlHelper">The HTML helper instance that this method extends.</param>
       <param name="name">The name of the form field to return.</param>
       <param name="value">The text content.</param>
-      <param name="rows">The rows.</param>
-      <param name="columns">The columns.</param>
+      <param name="rows">The number of rows.</param>
+      <param name="columns">The number of columns.</param>
       <param name="htmlAttributes">An object that contains the HTML attributes to set for the element.</param>
     </member>
     <member name="M:System.Web.Mvc.Html.TextAreaExtensions.TextArea(System.Web.Mvc.HtmlHelper,System.String,System.String,System.Object)">
@@ -6969,24 +7315,57 @@
       <param name="htmlAttributes">An object that contains the HTML attributes to set for the element.</param>
     </member>
     <member name="M:System.Web.Mvc.Html.TextAreaExtensions.TextAreaFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML textarea element for each property in the object that is represented by the expression parameter.</summary>
+      <returns>An HTML textarea element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="expression" /> parameter is null.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.TextAreaExtensions.TextAreaFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML textarea element for each property in the object that is represented by the expression parameter.</summary>
+      <returns>An HTML textarea element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="htmlAttributes">A dictionary that contains the HTML attributes to set for the element.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="expression" /> parameter is null.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.TextAreaExtensions.TextAreaFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Int32,System.Int32,System.Collections.Generic.IDictionary{System.String,System.Object})">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML textarea element for each property in the object that is represented by the expression parameter.</summary>
+      <returns>An HTML textarea element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="rows">The number of rows.</param>
+      <param name="columns">The number of columns.</param>
+      <param name="htmlAttributes">A dictionary that contains the HTML attributes to set for the element.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="expression" /> parameter is null.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.TextAreaExtensions.TextAreaFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Int32,System.Int32,System.Object)">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML textarea element for each property in the object that is represented by the expression parameter.</summary>
+      <returns>An HTML textarea element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="rows">The number of rows.</param>
+      <param name="columns">The number of columns.</param>
+      <param name="htmlAttributes">An object that contains the HTML attributes to set for the element.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="expression" /> parameter is null.</exception>
     </member>
     <member name="M:System.Web.Mvc.Html.TextAreaExtensions.TextAreaFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns an HTML textarea element for each property in the object that is represented by the expression parameter.</summary>
+      <returns>An HTML textarea element for each property in the object that is represented by the expression.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="htmlAttributes">An object that contains the HTML attributes to set for the element.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="expression" /> parameter is null.</exception>
     </member>
     <member name="T:System.Web.Mvc.Html.ValidationExtensions">
       <summary>Provides support for validating the input from an HTML form.</summary>
@@ -6995,10 +7374,18 @@
       <summary>Gets or sets the name of the resource file (class key) that contains localized string values.</summary>
       <returns>The name of the resource file (class key).</returns>
     </member>
-    <member name="M:System.Web.Mvc.Html.ValidationExtensions.Validate(System.Web.Mvc.HtmlHelper,System.String)"></member>
+    <member name="M:System.Web.Mvc.Html.ValidationExtensions.Validate(System.Web.Mvc.HtmlHelper,System.String)">
+      <summary>Retrieves the validation metadata for the specified model and applies each rule to the data field.</summary>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="modelName">The name of the property or model object that is being validated.</param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="modelName" /> parameter is null.</exception>
+    </member>
     <member name="M:System.Web.Mvc.Html.ValidationExtensions.ValidateFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Retrieves the validation metadata and validates each data field that is represented by the expression parameter.</summary>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
     </member>
     <member name="M:System.Web.Mvc.Html.ValidationExtensions.ValidationMessage(System.Web.Mvc.HtmlHelper,System.String)">
       <summary>Displays a validation message if an error exists for the specified field in the <see cref="T:System.Web.Mvc.ModelStateDictionary" /> object.</summary>
@@ -7018,7 +7405,7 @@
       <returns>If the property or object is valid, an empty string; otherwise, a span element that contains an error message.</returns>
       <param name="htmlHelper">The HTML helper instance that this method extends.</param>
       <param name="modelName">The name of the property or model object that is being validated.</param>
-      <param name="htmlAttributes">An object that contains the HTML attributes for the element. The attributes are retrieved through reflection by examining the properties of the object. The object is typically created by using object initializer syntax.</param>
+      <param name="htmlAttributes">An object that contains the HTML attributes for the element. </param>
     </member>
     <member name="M:System.Web.Mvc.Html.ValidationExtensions.ValidationMessage(System.Web.Mvc.HtmlHelper,System.String,System.String)">
       <summary>Displays a validation message if an error exists for the specified field in the <see cref="T:System.Web.Mvc.ModelStateDictionary" /> object.</summary>
@@ -7041,23 +7428,44 @@
       <param name="htmlHelper">The HTML helper instance that this method extends.</param>
       <param name="modelName">The name of the property or model object that is being validated.</param>
       <param name="validationMessage">The message to display if the specified field contains an error.</param>
-      <param name="htmlAttributes">An object that contains the HTML attributes for the element. The attributes are retrieved through reflection by examining the properties of the object. The object is typically created by using object initializer syntax.</param>
+      <param name="htmlAttributes">An object that contains the HTML attributes for the element. </param>
     </member>
     <member name="M:System.Web.Mvc.Html.ValidationExtensions.ValidationMessageFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns the HTML markup for a validation-error message for each data field that is represented by the expression parameter.</summary>
+      <returns>The HTML markup for a validation-error message for each data field that is represented by the expression. If no validation error occurs or client validation is disabled, this method will return null.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
     </member>
     <member name="M:System.Web.Mvc.Html.ValidationExtensions.ValidationMessageFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String)">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns the HTML markup for a validation-error message for each data field that is represented by the expression parameter, using the specified message.</summary>
+      <returns>The HTML markup for a validation-error message for each data field that is represented by the expression. If no validation error occurs or client validation is disabled, this method will return null.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="validationMessage">The message to display if the specified field contains an error.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
     </member>
     <member name="M:System.Web.Mvc.Html.ValidationExtensions.ValidationMessageFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns the HTML markup for a validation-error message for each data field that is represented by the expression parameter, using the specified message and HTML attributes.</summary>
+      <returns>The HTML markup for a validation-error message for each data field that is represented by the expression. If no validation error occurs or client validation is disabled, this method will return null.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="validationMessage">The message to display if the specified field contains an error.</param>
+      <param name="htmlAttributes">A dictionary that contains the HTML attributes for the element.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
     </member>
     <member name="M:System.Web.Mvc.Html.ValidationExtensions.ValidationMessageFor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Object)">
-      <typeparam name="TModel"></typeparam>
-      <typeparam name="TProperty"></typeparam>
+      <summary>Returns the HTML markup for a validation-error message for each data field that is represented by the expression parameter, using the specified message and HTML attributes.</summary>
+      <returns>The HTML markup for a validation-error message for each data field that is represented by the expression. If no validation error occurs or client validation is disabled, this method will return null.</returns>
+      <param name="htmlHelper">The HTML helper instance that this method extends.</param>
+      <param name="expression">An expression that identifies the object that contains the properties to render.</param>
+      <param name="validationMessage">The message to display if the specified field contains an error.</param>
+      <param name="htmlAttributes">An object that contains the HTML attributes for the element.</param>
+      <typeparam name="TModel">The type of the model.</typeparam>
+      <typeparam name="TProperty">The type of the value.</typeparam>
     </member>
     <member name="M:System.Web.Mvc.Html.ValidationExtensions.ValidationSummary(System.Web.Mvc.HtmlHelper)">
       <summary>Returns an unordered list (ul element) of validation messages that are in the <see cref="T:System.Web.Mvc.ModelStateDictionary" /> object.</summary>
@@ -7075,14 +7483,14 @@
       <returns>A string that contains an unordered list (ul element) of validation messages.</returns>
       <param name="htmlHelper">The HTML helper instance that this method extends.</param>
       <param name="message">The message to display if the specified field contains an error.</param>
-      <param name="htmlAttributes">An object that contains the HTML attributes for the element. The attributes are retrieved through reflection by examining the properties of the object. The object is typically created by using object initializer syntax.</param>
+      <param name="htmlAttributes">A dictionary that contains the HTML attributes for the element..</param>
     </member>
     <member name="M:System.Web.Mvc.Html.ValidationExtensions.ValidationSummary(System.Web.Mvc.HtmlHelper,System.String,System.Object)">
       <summary>Returns an unordered list (ul element) of validation messages in the <see cref="T:System.Web.Mvc.ModelStateDictionary" /> object.</summary>
       <returns>A string that contains an unordered list (ul element) of validation messages.</returns>
       <param name="htmlHelper">The HTML helper instance that this method extends.</param>
       <param name="message">The message to display if the specified field contains an error.</param>
-      <param name="htmlAttributes">An object that contains the HTML attributes for the element. The attributes are retrieved through reflection by examining the properties of the object. The object is typically created by using object initializer syntax.</param>
+      <param name="htmlAttributes">An object that contains the HTML attributes for the element. </param>
     </member>
   </members>
 </doc>

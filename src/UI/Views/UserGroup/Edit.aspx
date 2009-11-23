@@ -1,7 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" AutoEventWireup="true" 
 Inherits="ViewPage<UserGroupInput>"%>
-<%@ Import Namespace="Microsoft.Web.Mvc" %>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">
 <script type="text/javascript" src="/scripts/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript">
@@ -38,7 +36,7 @@ Inherits="ViewPage<UserGroupInput>"%>
         
         <p class="buttons">
             <input type="submit" value="Save" />
-            <%= Html.ActionLink<UserGroupController>(x=>x.List(), "Cancel") %>				
+            <%= Html.ActionLink<UserGroupController>( "Cancel",x=>x.List()) %>				
         </p>
     </fieldset>
     <% } %>

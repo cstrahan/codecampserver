@@ -8,6 +8,7 @@ using CodeCampServer.Infrastructure.UI.Services;
 using CodeCampServer.UI;
 using CodeCampServer.UI.Models.Input;
 using LoginPortableArea.Messages;
+using LoginPortableArea.Models;
 using MvcContrib;
 using MvcContrib.PortableAreas;
 using MvcContrib.Services;

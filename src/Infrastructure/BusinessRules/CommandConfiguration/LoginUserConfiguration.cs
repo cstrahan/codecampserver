@@ -1,5 +1,6 @@
 using CodeCampServer.Core.Services.BusinessRule.Login;
 using CodeCampServer.UI.Models.Input;
+using LoginPortableArea.Models;
 using Tarantino.RulesEngine.Configuration;
 using Tarantino.RulesEngine.ValidationRules;
 

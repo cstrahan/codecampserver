@@ -37,10 +37,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\exceptioneer\Exceptioneer.WebClient.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\aspnetmvc\Microsoft.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="MvcContrib, Version=0.0.1.168, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\mvccontrib\MvcContrib.dll</HintPath>
@@ -146,7 +142,6 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Models\Input\UserInput.cs" />
     <Compile Include="Models\Input\ConferenceInput.cs" />
-    <Compile Include="Models\Input\LoginInput.cs" />
     <Compile Include="RouteConfigurator.cs" />
     <Compile Include="ViewPages.cs">
       <SubType>Code</SubType>
@@ -460,7 +455,6 @@
     <Content Include="Views\Home\DefaultIndex.aspx" />
     <Content Include="Views\Home\Events.aspx" />
     <Content Include="Views\Home\Index.aspx" />
-    <Content Include="Views\Login\Index.aspx" />
     <Content Include="Views\Shared\EditUserLink.ascx" />
     <Content Include="Views\Shared\DropDown.aspx" />
     <Content Include="Views\Shared\EditSponsorLink.ascx" />
@@ -472,6 +466,7 @@
     <Content Include="Views\Meeting\Edit.aspx" />
     <Content Include="Views\Shared\AddMeetingLink.ascx" />
     <Content Include="Views\Shared\Display.Master" />
+    <Content Include="Areas\Web.config" />
     <None Include="Views\Shared\Field.Master" />
     <Content Include="Views\Shared\Password.aspx" />
     <Content Include="Views\Shared\ListBox.aspx" />
@@ -490,6 +485,7 @@
     <Content Include="Views\Sponsor\Index.aspx" />
     <Content Include="Views\Shared\AdminMenu.ascx" />
     <Content Include="Views\Shared\Modal.Master" />
+    <Content Include="Views\Shared\LoginPortableArea.Master" />
     <None Include="xhtml1-transitional.dtd">
     </None>
     <Content Include="Views\Shared\http404.ascx" />
