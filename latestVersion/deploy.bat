@@ -3,14 +3,14 @@ cd %3
 SET applicationname=codecampserver
 
 IF "%1"=="" (
-SET databaseServer=%1
-ELSE(
-SET databaseServer=.\sqlexpress)
+SET databaseServer=.\sqlexpress
+) ELSE (
+SET databaseServer=%1 )
 
 IF "%2"=="" (
-SET instance=%2
-ELSE(
-SET instance=local)
+SET instance=local
+) ELSE (
+SET instance=%2)
 
 Set codedir=..\codeToDeploy_%instance%\
 
@@ -20,5 +20,5 @@ rd %codedir% /s /q
 cd %codedir%
 cmd /c %systemroot%\system32\inetsrv\appcmd stop site %appinstance%
 iisreset
-CommonDeploy.bat %databaseserver% %appinstance%
+CommonDeploy.bat %databaseserver% %appinstance% false
 cmd /c %systemroot%\system32\inetsrv\appcmd start site %appinstance%
