@@ -183,9 +183,9 @@
     <Compile Include="UI\InputBuilders\NullableGuidPropertyConvention.cs" />
     <Compile Include="UI\InputBuilders\PasswordPropertyConvention.cs" />
     <Compile Include="UI\InputBuilders\UserPickerPropertyConvention.cs" />
-    <Compile Include="UI\Mappers\IUserGroupInputToUserGroupTypeConverter.cs" />
+    <Compile Include="ObjectMapping\TypeConverters\IUserGroupInputToUserGroupTypeConverter.cs" />
     <Compile Include="ObjectMapping\TypeConverters\SponsorInputToSponsorTypeConverter.cs" />
-    <Compile Include="UI\Mappers\UserGroupMapper.cs">
+    <Compile Include="ObjectMapping\TypeConverters\GuidToUserGroupTypeConverter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UI\MvcStartupConfiguration.cs" />
