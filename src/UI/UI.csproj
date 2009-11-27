@@ -182,6 +182,9 @@
     <Content Include="css\custom-theme\images\ui-icons_ffffff_256x240.png" />
     <Content Include="css\custom-theme\jquery-ui-1.7.2.custom.css" />
     <Content Include="css\standard.css" />
+    <Content Include="images\icons\application_add.png" />
+    <Content Include="images\icons\application_delete.png" />
+    <Content Include="images\icons\application_edit.png" />
     <Content Include="images\img01.jpg" />
     <Content Include="images\img02.jpg" />
     <Content Include="images\img03.jpg" />
@@ -496,7 +499,6 @@
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="images\icons\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
