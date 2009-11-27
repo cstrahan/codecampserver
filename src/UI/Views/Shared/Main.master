@@ -25,9 +25,9 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
     <%=pageInfo.Title%></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link href="/css/emporium.css" id="cssStyleSheet" rel="Stylesheet" type="text/css"/>
-  <link href="/css/custom-theme/jquery-ui-1.7.2.custom.css" type="text/css" rel="stylesheet" />
   <link href="/css/standard.css" rel="stylesheet" type="text/css"/>
-
+  <link href="/css/custom-theme/jquery-ui-1.7.2.custom.css" type="text/css" rel="Stylesheet" />
+  
   <script type="text/javascript" src="/scripts/jquery-1.3.2.min.js"></script>
 
   <script type="text/javascript" src="/scripts/jquery-ui-1.7.2.custom.min.js"></script>
@@ -55,7 +55,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
   <asp:ContentPlaceHolder ID="Stylesheets" runat="server">
   </asp:ContentPlaceHolder>
 </head>
-<body>
+<body class="<%=Css.UniversalFont%>">
   <div id="wrapper">
     <!-- start header -->
     <div id="logo">
@@ -90,7 +90,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
     <!-- end header -->
   </div>
   <!-- start page -->
-  <div id="page">
+  <div id="page" class="<%= Css.UniversalColors %>">
     <!-- start content -->
     <div id="content">
       <asp:ContentPlaceHolder ID="Main" runat="server" />

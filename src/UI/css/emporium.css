@@ -9,10 +9,8 @@ body
     margin: 0;
     padding: 0;
     background: #28313A url(/images/img01.jpg) repeat-x left top;
-    font-size: 12px;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif !important;
     text-align: justify;
-    color: #5C5C5C;
 }
 
 h1, h2, h3

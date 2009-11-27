@@ -42,27 +42,27 @@
 * jQuery UI CSS Framework
 * Copyright (c) 2009 AUTHORS.txt (http://jqueryui.com/about)
 * Dual licensed under the MIT (MIT-LICENSE.txt) and GPL (GPL-LICENSE.txt) licenses.
-* To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Lucida%20Grande,%20Lucida%20Sans,%20Arial,%20sans-serif&fwDefault=bold&fsDefault=1.1em&cornerRadius=6px&bgColorHeader=87cbf8&bgTextureHeader=12_gloss_wave.png&bgImgOpacityHeader=100&borderColorHeader=aed0ea&fcHeader=222222&iconColorHeader=72a7cf&bgColorContent=f2f5f7&bgTextureContent=04_highlight_hard.png&bgImgOpacityContent=100&borderColorContent=dddddd&fcContent=362b36&iconColorContent=72a7cf&bgColorDefault=d7ebf9&bgTextureDefault=12_gloss_wave.png&bgImgOpacityDefault=80&borderColorDefault=aed0ea&fcDefault=2779aa&iconColorDefault=3d80b3&bgColorHover=e4f1fb&bgTextureHover=12_gloss_wave.png&bgImgOpacityHover=100&borderColorHover=74b2e2&fcHover=0070a3&iconColorHover=2694e8&bgColorActive=3baae3&bgTextureActive=12_gloss_wave.png&bgImgOpacityActive=50&borderColorActive=2694e8&fcActive=ffffff&iconColorActive=ffffff&bgColorHighlight=ffef8f&bgTextureHighlight=03_highlight_soft.png&bgImgOpacityHighlight=25&borderColorHighlight=f9dd34&fcHighlight=363636&iconColorHighlight=2e83ff&bgColorError=cd0a0a&bgTextureError=01_flat.png&bgImgOpacityError=15&borderColorError=cd0a0a&fcError=ffffff&iconColorError=ffffff&bgColorOverlay=eeeeee&bgTextureOverlay=04_highlight_hard.png&bgImgOpacityOverlay=90&opacityOverlay=80&bgColorShadow=000000&bgTextureShadow=04_highlight_hard.png&bgImgOpacityShadow=70&opacityShadow=30&thicknessShadow=7px&offsetTopShadow=-7px&offsetLeftShadow=-7px&cornerRadiusShadow=8px
+* To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Arial,%20Helvetica,%20sans-serif&fwDefault=normal&fsDefault=12px&cornerRadius=6px&bgColorHeader=87cbf8&bgTextureHeader=12_gloss_wave.png&bgImgOpacityHeader=100&borderColorHeader=aed0ea&fcHeader=222222&iconColorHeader=72a7cf&bgColorContent=FFFFFF&bgTextureContent=04_highlight_hard.png&bgImgOpacityContent=0&borderColorContent=FFFFFF&fcContent=5C5C5C&iconColorContent=72a7cf&bgColorDefault=d7ebf9&bgTextureDefault=12_gloss_wave.png&bgImgOpacityDefault=80&borderColorDefault=aed0ea&fcDefault=1B75A9&iconColorDefault=3d80b3&bgColorHover=e4f1fb&bgTextureHover=12_gloss_wave.png&bgImgOpacityHover=100&borderColorHover=74b2e2&fcHover=1B75A9&iconColorHover=2694e8&bgColorActive=3baae3&bgTextureActive=12_gloss_wave.png&bgImgOpacityActive=50&borderColorActive=2694e8&fcActive=1B75A9&iconColorActive=ffffff&bgColorHighlight=ffef8f&bgTextureHighlight=03_highlight_soft.png&bgImgOpacityHighlight=25&borderColorHighlight=f9dd34&fcHighlight=363636&iconColorHighlight=2e83ff&bgColorError=cd0a0a&bgTextureError=01_flat.png&bgImgOpacityError=15&borderColorError=cd0a0a&fcError=ffffff&iconColorError=ffffff&bgColorOverlay=eeeeee&bgTextureOverlay=04_highlight_hard.png&bgImgOpacityOverlay=90&opacityOverlay=80&bgColorShadow=000000&bgTextureShadow=04_highlight_hard.png&bgImgOpacityShadow=70&opacityShadow=30&thicknessShadow=7px&offsetTopShadow=-7px&offsetLeftShadow=-7px&cornerRadiusShadow=8px
 */
 
 
 /* Component containers
 ----------------------------------*/
-.ui-widget { font-family: Lucida Grande, Lucida Sans, Arial, sans-serif; font-size: 1.1em; }
-.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Lucida Grande, Lucida Sans, Arial, sans-serif; font-size: 1em; }
-.ui-widget-content { border: 1px solid #dddddd; background: #f2f5f7 url(images/ui-bg_highlight-hard_100_f2f5f7_1x100.png) 50% top repeat-x; color: #362b36; }
-.ui-widget-content a { color: #362b36; }
+.ui-widget { font-family: Arial, Helvetica, sans-serif; font-size: 12px; }
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Arial, Helvetica, sans-serif; font-size: 1em; }
+.ui-widget-content { border: 1px solid #FFFFFF; background: #FFFFFF url(images/ui-bg_highlight-hard_0_FFFFFF_1x100.png) 50% top repeat-x; color: #5C5C5C; }
+.ui-widget-content a { color: #5C5C5C; }
 .ui-widget-header { border: 1px solid #aed0ea; background: #87cbf8 url(images/ui-bg_gloss-wave_100_87cbf8_500x100.png) 50% 50% repeat-x; color: #222222; font-weight: bold; }
 .ui-widget-header a { color: #222222; }
 
 /* Interaction states
 ----------------------------------*/
-.ui-state-default, .ui-widget-content .ui-state-default { border: 1px solid #aed0ea; background: #d7ebf9 url(images/ui-bg_gloss-wave_80_d7ebf9_500x100.png) 50% 50% repeat-x; font-weight: bold; color: #2779aa; outline: none; }
-.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #2779aa; text-decoration: none; outline: none; }
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus { border: 1px solid #74b2e2; background: #e4f1fb url(images/ui-bg_gloss-wave_100_e4f1fb_500x100.png) 50% 50% repeat-x; font-weight: bold; color: #0070a3; outline: none; }
-.ui-state-hover a, .ui-state-hover a:hover { color: #0070a3; text-decoration: none; outline: none; }
-.ui-state-active, .ui-widget-content .ui-state-active { border: 1px solid #2694e8; background: #3baae3 url(images/ui-bg_gloss-wave_50_3baae3_500x100.png) 50% 50% repeat-x; font-weight: bold; color: #ffffff; outline: none; }
-.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #ffffff; outline: none; text-decoration: none; }
+.ui-state-default, .ui-widget-content .ui-state-default { border: 1px solid #aed0ea; background: #d7ebf9 url(images/ui-bg_gloss-wave_80_d7ebf9_500x100.png) 50% 50% repeat-x; font-weight: normal; color: #1B75A9; outline: none; }
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #1B75A9; text-decoration: none; outline: none; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus { border: 1px solid #74b2e2; background: #e4f1fb url(images/ui-bg_gloss-wave_100_e4f1fb_500x100.png) 50% 50% repeat-x; font-weight: normal; color: #1B75A9; outline: none; }
+.ui-state-hover a, .ui-state-hover a:hover { color: #1B75A9; text-decoration: none; outline: none; }
+.ui-state-active, .ui-widget-content .ui-state-active { border: 1px solid #2694e8; background: #3baae3 url(images/ui-bg_gloss-wave_50_3baae3_500x100.png) 50% 50% repeat-x; font-weight: normal; color: #1B75A9; outline: none; }
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #1B75A9; outline: none; text-decoration: none; }
 
 /* Interaction Cues
 ----------------------------------*/
