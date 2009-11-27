@@ -179,6 +179,8 @@
     <Content Include="css\custom-theme\images\ui-bg_gloss-wave_100_e4f1fb_500x100.png" />
     <Content Include="css\custom-theme\images\ui-bg_gloss-wave_50_3baae3_500x100.png" />
     <Content Include="css\custom-theme\images\ui-bg_gloss-wave_80_d7ebf9_500x100.png" />
+    <Content Include="css\custom-theme\images\ui-bg_highlight-hard_0_f2f5f7_1x100.png" />
+    <Content Include="css\custom-theme\images\ui-bg_highlight-hard_0_FFFFFF_1x100.png" />
     <Content Include="css\custom-theme\images\ui-bg_highlight-hard_100_f2f5f7_1x100.png" />
     <Content Include="css\custom-theme\images\ui-bg_highlight-hard_70_000000_1x100.png" />
     <Content Include="css\custom-theme\images\ui-bg_highlight-hard_90_eeeeee_1x100.png" />

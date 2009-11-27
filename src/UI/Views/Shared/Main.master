@@ -62,7 +62,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
       <h1>
         <a href="/">
           <%=pageInfo.Title%></a></h1>
-      <h2>
+      <h2 class="<%=Css.OuterControls%>">
         <asp:LoginView ID="LoginView3" runat="server">
           <LoggedInTemplate>
             Welcome,
@@ -107,16 +107,12 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
   </div>
   <!-- end page -->
   <!-- start footer -->
-  <div id="footer">
+  <div id="footer" class="<%=Css.OuterControls%>">
     <p id="legal">
-      Powered by <a href="http://codecampserver.com" title="Code Camp Server">Code Camp
-        Server</a> (<span id="revisionNumber"><%=ViewData[AssemblyVersionFilterAttribute.AssemblyVersion].ToString() %></span>)
+      Powered by <a href="http://codecampserver.com" target="_blank" title="Code Camp Server">Code Camp Server</a> (<span id="revisionNumber"><%=ViewData[AssemblyVersionFilterAttribute.AssemblyVersion].ToString() %></span>)
       <br />
       &copy;
-      <%=DateTime.Now.Year %>. All Rights Reserved.
-      <br />
-      designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a> -
-      <a href="http://www.freecsstemplates.org/">Emporium</a></p>
+      <%=DateTime.Now.Year %>. All Rights Reserved.</p>
   </div>
   <!-- end footer -->
   <!-- CodeCampServer.com tracking-->

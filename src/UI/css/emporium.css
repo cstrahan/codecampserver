@@ -1,9 +1,3 @@
-/*
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-*/
-
 body
 {
     margin: 0;
@@ -42,21 +36,10 @@ p, ul, ol
     text-align: justify;
 }
 
-a
-{
-    color: #1B75A9;
-}
+a:hover { text-decoration: none; }
 
-a:hover, a:active
-{
-    text-decoration: none;
-    color: #1B75A9;
-}
 
-a:visited
-{
-    color: #1B75A9;
-}
+
 
 img
 {
@@ -188,20 +171,12 @@ input, textarea, select
     float: right;
     padding: 5px;
     font-size: 18px;
-    color: #28313A;
 }
 
-#logo p a
-{
-    text-decoration: none;
-    color: #28313A;
-}
 
-#logo p a:hover
-{
-    text-decoration: underline;
-}
+#logo p a { }
 
+#logo p a:hover { }
 
 
 /* Page */
@@ -369,10 +344,8 @@ input, textarea, select
 
 #footer
 {
-    width: 880px;
+    width: 898px;
     margin: 0 auto;
-    background: #E5E5E5;
-    border: 10px #FFFFFF solid;
 }
 
 html > body #footer
@@ -380,24 +353,15 @@ html > body #footer
     height: auto;
 }
 
-#footer p
-{
-    font-size: 12px;
-}
+
 
 #legal
 {
     clear: both;
-    padding-top: 17px;
+    padding: 10px 0px 10px 0px;
     text-align: center;
-    color: #595959;
 }
 
-#legal a
-{
-    font-weight: normal;
-    color: #1B75A9;
-}
 
 fieldset
 {
@@ -506,5 +470,3 @@ fieldset input[type="text"] date, .date
     font-size: larger;
     font-style:italic;
 }
-
-
