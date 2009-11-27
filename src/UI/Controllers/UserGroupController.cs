@@ -4,7 +4,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.ActionResults;
-using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Models.Input;
 using CodeCampServer.UI.Models.Messages;
 
@@ -13,26 +13,23 @@ namespace CodeCampServer.UI.Controllers
 	public class UserGroupController : ConventionController
 	{
 		private readonly IUserGroupRepository _repository;
-		private readonly IUserGroupMapper _mapper;
 		private readonly ISecurityContext _securityContext;
 
-		public UserGroupController(IUserGroupRepository repository, IUserGroupMapper mapper, ISecurityContext securityContext)
+		public UserGroupController(IUserGroupRepository repository, ISecurityContext securityContext)
 		{
 			_repository = repository;
-			_mapper = mapper;
 			_securityContext = securityContext;
 		}
 
 
 		public ActionResult Index(UserGroup usergroup)
 		{
-			return View(_mapper.Map(usergroup));
+			return AutoMappedView<UserGroupInput>(usergroup);
 		}
 
 		public ActionResult List()
 		{
-			UserGroup[] entities = _repository.GetAll();
-			return View(_mapper.Map(entities));
+			return AutoMappedView<UserGroupInput[]>(_repository.GetAll());
 		}
 
 		[HttpGet]
@@ -52,12 +49,12 @@ namespace CodeCampServer.UI.Controllers
 					return View(ViewPages.NotAuthorized);
 				}
 			}
-			return View(_mapper.Map(model));
+			return AutoMappedView<UserGroupInput>(model);
 		}
 
 		[HttpPost]
 		[Authorize]
-		[ValidateInput(false)]
+		[AllowHtml]
 		public ActionResult Edit(UserGroupInput input)
 		{
 			if (!_securityContext.HasPermissionsForUserGroup(input.Id))

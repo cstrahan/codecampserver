@@ -2,11 +2,12 @@ using System;
 using System.Web.Mvc;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Services;
+using CodeCampServer.Infrastructure.ObjectMapping;
 using CodeCampServer.Infrastructure.UI.Binders;
 using CodeCampServer.Infrastructure.UI.InputBuilders;
 using CodeCampServer.Infrastructure.UI.Services;
 using CodeCampServer.UI;
-using CodeCampServer.UI.Models.Input;
+using CodeCampServer.UI.Helpers.ActionResults;
 using LoginPortableArea.Messages;
 using LoginPortableArea.Models;
 using MvcContrib;
@@ -20,7 +21,6 @@ namespace CodeCampServer.Infrastructure.UI
 	{
 		public void Configure()
 		{
-
 			InputBuilder.BootStrap();
 			InputBuilder.SetPropertyConvention(() => new InputBuilderPropertyFactory());
 			ControllerBuilder.Current.SetControllerFactory(new ControllerFactory());
@@ -32,6 +32,7 @@ namespace CodeCampServer.Infrastructure.UI
 			Bus.Instance.SetMessageHandlerFactory(new ConventionMessageHandlerFactory());
 
 			new RouteConfigurator().RegisterRoutes(AreaRegistration.RegisterAllAreas);
+			AutoMappedViewResult.Map = (a, b, c) => AutoMappedWrapper.Map(a, b, c);
 		}
 	}
 
@@ -47,7 +48,8 @@ namespace CodeCampServer.Infrastructure.UI
 
 	public class LoginHandler : MessageHandler<LoginInputMessage>
 	{
-		private IRulesEngine _rulesEngine;
+		private readonly IRulesEngine _rulesEngine;
+
 		public LoginHandler(IRulesEngine rulesEngine)
 		{
 			_rulesEngine = rulesEngine;
@@ -55,15 +57,14 @@ namespace CodeCampServer.Infrastructure.UI
 
 		public override void Handle(LoginInputMessage message)
 		{
-			
-			var uimessage = new LoginInput() {Password = message.Input.Password, Username = message.Input.Username};
-			
+			var uimessage = new LoginInput {Password = message.Input.Password, Username = message.Input.Username};
+
 			ICanSucceed result = _rulesEngine.Process(uimessage);
-			
+
 			if (result.Successful)
 			{
 				message.Result.Success = true;
-				message.Result.Username = message.Input.Username;				
+				message.Result.Username = message.Input.Username;
 			}
 			foreach (ErrorMessage errorMessage in result.Errors)
 			{

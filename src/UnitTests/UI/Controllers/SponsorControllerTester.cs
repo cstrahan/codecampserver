@@ -3,7 +3,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI;
 using CodeCampServer.UI.Controllers;
-using CodeCampServer.UI.Helpers.Mappers;
+//using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
 using MvcContrib.TestHelper;
 using NUnit.Framework;
@@ -16,25 +16,24 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void Should_list_the_sponors_for_a_user_group()
 		{
-			var mapper = S<IUserGroupSponsorMapper>();
-			mapper.Stub(sponsorMapper => sponsorMapper.Map((Sponsor[]) null)).IgnoreArguments().Return(new SponsorInput[0]);
+
 			var repository = S<IUserGroupRepository>();
 			repository.Stub(groupRepository => groupRepository.GetById(Guid.NewGuid())).IgnoreArguments().Return(new UserGroup());
-			var controller = new SponsorController(repository, mapper, PermisiveSecurityContext());
+			var controller = new SponsorController(repository, PermisiveSecurityContext());
 
 			controller.Index(new UserGroup())
 				.AssertViewRendered()
 				.ForView(ViewNames.Default)
-				.ModelShouldBe<SponsorInput[]>();
+				.ModelShouldBe<Sponsor[]>()
+				.AutoMappedModelShouldBe<SponsorInput[]>()
+				;
 		}
 
 
 		[Test]
 		public void Should_edit_an_existing_sponsor()
 		{
-			var mapper = S<IUserGroupSponsorMapper>();
-			mapper.Stub(sponsorMapper => sponsorMapper.Map((Sponsor) null)).IgnoreArguments().Return(new SponsorInput());
-			var controller = new SponsorController(S<IUserGroupRepository>(), mapper, PermisiveSecurityContext());
+			var controller = new SponsorController(S<IUserGroupRepository>(), PermisiveSecurityContext());
 
 			var userGroup = new UserGroup();
 			userGroup.Add(new Sponsor {Id = Guid.Empty});
@@ -42,7 +41,9 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			controller.Edit(userGroup, new Sponsor())
 				.AssertViewRendered()
 				.ForView(ViewNames.Default)
-				.ModelShouldBe<SponsorInput>();
+				.ModelShouldBe<Sponsor>()
+				.AutoMappedModelShouldBe<SponsorInput>()
+				;
 		}
 
 		[Test]
@@ -53,7 +54,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var input = new SponsorInput();
 
 
-			var controller = new SponsorController(null, null, PermisiveSecurityContext());
+			var controller = new SponsorController(null, PermisiveSecurityContext());
 
 			var result = (CommandResult) controller.Edit(userGroup, input);
 
@@ -65,7 +66,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		public void Should_delete_a_sponsor_from_the_delete_action()
 		{
 			var repository = S<IUserGroupRepository>();
-			var controller = new SponsorController(repository, S<IUserGroupSponsorMapper>(), PermisiveSecurityContext());
+			var controller = new SponsorController(repository, PermisiveSecurityContext());
 
 			var userGroup = new UserGroup();
 

@@ -118,10 +118,7 @@
     <Compile Include="Core\Services\AuthenticationServiceTester.cs" />
     <Compile Include="Core\Services\CryptographerTester.cs" />
     <Compile Include="Core\Services\SecurityContextTester.cs" />
-    <Compile Include="Core\Services\Updaters\ConferenceMapperTester.cs" />
     <Compile Include="Core\Services\Updaters\UserGroupInputToUserGroupTypeconverterTester.cs" />
-    <Compile Include="Core\Services\Updaters\UserGroupMapperTester.cs" />
-    <Compile Include="Core\Services\Updaters\UserMapperTester.cs" />
     <Compile Include="Core\TimeExtensionsTester.cs" />
     <Compile Include="Infrastructure\DataAccess\ChangeAuditInfoInterceptorTester.cs" />
     <Compile Include="MvcMockHelpers.cs" />

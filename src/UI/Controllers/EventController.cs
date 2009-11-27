@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.ActionResults;
-using CodeCampServer.UI.Helpers.Mappers;
+//using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.UI.Controllers
@@ -13,35 +13,24 @@ namespace CodeCampServer.UI.Controllers
 	{
 		public const string ANNOUNCEMENT_PARTIAL_SUFFIX = "Announcement";
 		private readonly IEventRepository _eventRepository;
-		private readonly IConferenceMapper _conferenceMapper;
-		private readonly IMeetingMapper _meetingMapper;
 
 
-		public EventController(IEventRepository eventRepository, IConferenceMapper conferenceMapper,
-		                       IMeetingMapper meetingMapper)
+		public EventController(IEventRepository eventRepository)
 		{
 			_eventRepository = eventRepository;
-			_meetingMapper = meetingMapper;
-
-			_conferenceMapper = conferenceMapper;
 		}
 
 		public ViewResult Announcement(Event @event)
 		{
-			string typeName = @event.GetType().Name;
-			object announcementDisplay = null;
+			var result = AutoMappedView<ConferenceInput>(@event);
+			result.ViewName = @event.GetType().Name + ANNOUNCEMENT_PARTIAL_SUFFIX;
 
-			if (@event is Conference)
+			if (@event is Meeting)
 			{
-				announcementDisplay = _conferenceMapper.Map((Conference) @event);
-			}
-			else
-			{
-				announcementDisplay =
-					_meetingMapper.Map<MeetingAnnouncementDisplay>((Meeting) @event);
+				result.ViewModelType = typeof (MeetingAnnouncementDisplay);
 			}
 
-			return View(typeName + ANNOUNCEMENT_PARTIAL_SUFFIX, announcementDisplay);
+			return result;
 		}
 
 		public ViewResult UpComing(UserGroup userGroup)

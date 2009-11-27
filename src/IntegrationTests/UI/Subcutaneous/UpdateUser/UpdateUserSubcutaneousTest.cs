@@ -16,22 +16,23 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous.UpdateUser
 		{
 			base.Setup();
 
-			var mapper = GetInstance<UserMapper>();
-			_user = mapper.Map(new UserInput
-			                   	{
+			var cryptographer = GetInstance<ICryptographer>();
+			var salt = cryptographer.CreateSalt();
+			_user = new User()
+			        	{
 			                   		Name = "Joe Sub",
 			                   		Username = "admin",
 			                   		EmailAddress = "joe@user.com",
-			                   		Password = "password"
-			                   	});
-
-			_anotherUser = mapper.Map(new UserInput
-			                          	{
+                                    PasswordHash = cryptographer.GetPasswordHash("password",salt),
+                                    PasswordSalt = salt,
+			        	};
+			_anotherUser=	new User()			                          	{
 			                          		Name = "Joe Two",
 			                          		Username = "another",
 			                          		EmailAddress = "two@user.com",
-			                          		Password = "password"
-			                          	});
+                                    PasswordHash = cryptographer.GetPasswordHash("password",salt),
+                                    PasswordSalt = salt,
+			                          	};
 
 			PersistEntities(_user, _anotherUser);
 		}

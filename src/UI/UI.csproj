@@ -71,6 +71,7 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Helpers\ActionResults\ActionActionResult.cs" />
+    <Compile Include="Helpers\ActionResults\AutoMappedViewResult.cs" />
     <Compile Include="Helpers\ActionResults\CommandResult.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
@@ -96,9 +97,6 @@
     </Compile>
     <Compile Include="Models\Messages\DeleteMeetingMessage.cs" />
     <Compile Include="Models\Messages\DeleteUserGroupInput.cs" />
-    <Compile Include="Services\Mappers\IMeetingMapper.cs" />
-    <Compile Include="Services\Mappers\IUserGroupSponsorMapper.cs" />
-    <Compile Include="Services\Mappers\IUserGroupMapper.cs" />
     <Compile Include="Helpers\UserSelectorInputTypeConverter.cs" />
     <Compile Include="HtmlExtensions.cs">
       <SubType>Code</SubType>
@@ -133,8 +131,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Services\Mappers\IConferenceMapper.cs" />
-    <Compile Include="Services\Mappers\IUserMapper.cs" />
     <Compile Include="Helpers\Attributes\ShowAsRequiredAttribute.cs" />
     <Compile Include="Helpers\Attributes\HiddenAttribute.cs" />
     <Compile Include="Helpers\Attributes\LabelAttribute.cs" />
@@ -502,6 +498,7 @@
   <ItemGroup>
     <Folder Include="images\icons\" />
     <Folder Include="Properties\" />
+    <Folder Include="Services\Mappers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!--  <Import Project="$(ProjectDir)\Microsoft.WebApplication.targets" />-->

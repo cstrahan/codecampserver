@@ -3,7 +3,7 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.ActionResults;
 using CodeCampServer.UI.Helpers.Attributes;
-using CodeCampServer.UI.Helpers.Mappers;
+//using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Messages;
 using CodeCampServer.UI.Models.Input;
 
@@ -11,27 +11,17 @@ namespace CodeCampServer.UI.Controllers
 {
 	public class MeetingController : ConventionController
 	{
-		private readonly IMeetingMapper _mapper;
 		private readonly ISecurityContext _securityContext;
 
-		public MeetingController(IMeetingMapper meetingMapper, ISecurityContext securityContext)
+		public MeetingController(ISecurityContext securityContext)
 		{
-			_mapper = meetingMapper;
 			_securityContext = securityContext;
 		}
 
 		[HttpGet]
 		public ActionResult Edit(Meeting meeting, UserGroup usergroup)
 		{
-			MeetingInput input;
-			if (meeting == null)
-			{
-				input = _mapper.Map(new Meeting {UserGroup = usergroup});
-				return View(input);
-			}
-
-			input = _mapper.Map(meeting);
-			return View(input);
+			return AutoMappedView<MeetingInput>(meeting ?? new Meeting { UserGroup = usergroup });
 		}
 
 		[HttpPost]

@@ -2,7 +2,7 @@ using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Controllers;
-using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Helpers.ActionResults;
 using CodeCampServer.UI.Models.Input;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -16,29 +16,25 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void Should_render_conference_announcement_for_conference()
 		{
-			var mapper = S<IConferenceMapper>();
 			var conference = new Conference();
-			var input = new ConferenceInput();
-			mapper.Stub(s => s.Map(conference)).Return(input);
-
-			var controller = new EventController(null, mapper, null);
-			ViewResult result = controller.Announcement(conference);
+			var controller = new EventController(null);
+			AutoMappedViewResult result = (AutoMappedViewResult) controller.Announcement(conference);
 			result.ViewName.ShouldEqual("Conference" + EventController.ANNOUNCEMENT_PARTIAL_SUFFIX);
-			result.ViewData.Model.ShouldEqual(input);
+			result.ViewData.Model.ShouldEqual(conference);
+			result.ViewModelType.ShouldEqual(typeof(ConferenceInput));
 		}
 
 		[Test]
 		public void Should_render_meeting_announcement_for_meeting()
 		{
-			var mapper = S<IMeetingMapper>();
 			var meeting = new Meeting();
-			var display = new MeetingAnnouncementDisplay();
-			mapper.Stub(s => s.Map<MeetingAnnouncementDisplay>(meeting)).Return(display);
+			var controller = new EventController(null);
 
-			var controller = new EventController(null, null, mapper);
 			ViewResult result = controller.Announcement(meeting);
+	
 			result.ViewName.ShouldEqual("Meeting" + EventController.ANNOUNCEMENT_PARTIAL_SUFFIX);
-			result.ViewData.Model.ShouldEqual(display);
+			result.ViewData.Model.ShouldEqual(meeting);
+			((AutoMappedViewResult)result).ViewModelType.ShouldEqual(typeof(MeetingAnnouncementDisplay));
 		}
 
 		[Test]
@@ -50,7 +46,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var conference = new Conference {Key = "conference1"};
 			repository.Stub(s => s.GetFutureForUserGroup(usergroup)).Return(new Event[] {meeting, conference});
 
-			var controller = new EventController(repository, null, null);
+			var controller = new EventController(repository);
 			ViewResult result = controller.UpComing(usergroup);
 			result.ViewName.ShouldEqual("list");
 			result.ViewData.Model.ShouldEqual(new[] {"meeting1", "conference1"});
@@ -65,7 +61,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var conference = new Conference {Key = "conference1"};
 			repository.Stub(s => s.GetAllForUserGroup(usergroup)).Return(new Event[] {meeting, conference});
 
-			var controller = new EventController(repository, null, null);
+			var controller = new EventController(repository);
 			ViewResult result = controller.List(usergroup);
 			result.ViewName.ShouldEqual("list");
 			result.ViewData.Model.ShouldEqual(new[] {"meeting1", "conference1"});
@@ -86,7 +82,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var conference = new Conference {Key = "conference1", Name = "Austin Code Camp", UserGroup = userGroup1};
 			repository.Stub(s => s.GetAllFutureEvents()).Return(new Event[] {meeting, conference});
 
-			var controller = new EventController(repository, null, null);
+			var controller = new EventController(repository);
 			ViewResult result = controller.AllUpcomingEvents();
 			result.ViewName.ShouldEqual("");
 			result.ViewData.Model.ShouldBeInstanceOf<EventList[]>();

@@ -1,3 +1,4 @@
+using System;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 
 namespace CodeCampServer.Core.Domain.Model
@@ -8,5 +9,7 @@ namespace CodeCampServer.Core.Domain.Model
 		public virtual SponsorLevel Level { get; set; }
 		public virtual string Url { get; set; }
 		public virtual string BannerUrl { get; set; }
+
+		public virtual UserGroup UserGroup { get; set; }
 	}
 }

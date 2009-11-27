@@ -3,7 +3,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.Infrastructure.UI.Mappers;
-using CodeCampServer.UI.Helpers.Mappers;
+//using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -30,9 +30,9 @@ namespace CodeCampServer.UnitTests.Core.Services.Updaters
 			cryptographer.Stub(c => c.CreateSalt()).Return("salt");
 			cryptographer.Stub(c => c.GetPasswordHash("password", "salt")).Return("hash");
 
-			IUserMapper mapper = new UserMapper(repository, cryptographer);
+//			IUserMapper mapper = new UserMapper(repository, cryptographer);
 
-			User mapped = mapper.Map(form);
+//			User mapped = mapper.Map(form);
 			mapped.Username.ShouldEqual("username");
 			mapped.PasswordSalt.ShouldEqual("salt");
 			mapped.PasswordHash.ShouldEqual("hash");

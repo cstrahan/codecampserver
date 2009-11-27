@@ -152,37 +152,42 @@ View Larger Map</a></small></p>"
 
 		private User[] CreateUsers()
 		{
-			var mapper = new UserMapper(GetInstance<IUserRepository>(), new Cryptographer());
+			var crypto = new Cryptographer();
+			var salt = crypto.CreateSalt();
 			return new[]
 			       	{
-						mapper.Map(new UserInput
+						new User()
 			                       	{
 			                       		Name = "Joe User",
 			                       		Username = "admin",
 			                       		EmailAddress = "joe@user.com",
-			                       		Password = "password"
-			                       	}),
-			       		mapper.Map(new UserInput
+			                       		PasswordHash = crypto.GetPasswordHash("password",salt),
+										PasswordSalt = salt,
+			                       	},
+			       		new User()
 			       		           	{
 			       		           		Name = "Jeffrey Palermo",
 			       		           		EmailAddress = "jeffis@theman.com",
-			       		           		Username = "jpalermo",
-			       		           		Password = "beer"
-			       		           	}),
-			       		mapper.Map(new UserInput
+			       		           		Username = "jpalermo",			       		           		
+			                       		PasswordHash = crypto.GetPasswordHash("beer",salt),
+										PasswordSalt = salt,
+			       		           	},
+			       		new User()
 			       		           	{
 			       		           		Name = "Homer Simpson",
 			       		           		EmailAddress = "homer@simpsons.com",
 			       		           		Username = "hsimpson",
-			       		           		Password = "beer"
-			       		           	}),
-			       		mapper.Map(new UserInput
+			                       		PasswordHash = crypto.GetPasswordHash("beer",salt),
+										PasswordSalt = salt,
+			       		           	},
+			       		new User
 			       		           	{
 			       		           		Name = "Bart Simpson",
 			       		           		EmailAddress = "bart@simpsons.com",
 			       		           		Username = "bsimpson",
-			       		           		Password = "beer"
-			       		           	})
+			                       		PasswordHash = crypto.GetPasswordHash("beer",salt),
+										PasswordSalt = salt,
+			       		           	}
 			       	};
 		}
 	}

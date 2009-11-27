@@ -66,5 +66,16 @@ namespace CodeCampServer.UI.Helpers.ActionResults
 		{
 			return new ActionActionResult(action);
 		}
+
+		public AutoMappedViewResult AutoMappedView<TModel>(object Model)
+		{
+			ViewData.Model = Model;
+			return new AutoMappedViewResult(typeof(TModel))
+			       	{
+			       		ViewData = ViewData,
+						TempData = TempData
+			       	};
+		}
 	}
+
 }

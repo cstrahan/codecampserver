@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Controllers;
-using CodeCampServer.UI.Helpers.Mappers;
+//using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
 using MvcContrib.TestHelper;
 using NUnit.Framework;
@@ -19,7 +19,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<IUserGroupRepository>();
 			repository.Stub(repo => repo.GetById(Guid.Empty)).Return(new UserGroup());
 
-			var controller = new UserGroupController(repository, S<IUserGroupMapper>(), null);
+			var controller = new UserGroupController(repository, null);
 
 			ActionResult result = controller.Edit(Guid.Empty);
 			result.AssertViewRendered().ForView("");
@@ -32,10 +32,10 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var form = new UserGroupInput();
 			var UserGroup = new UserGroup();
 
-			var mapper = S<IUserGroupMapper>();
-			mapper.Stub(m => m.Map(form)).Return(UserGroup);
+//			var mapper = S<IUserGroupMapper>();
+//			mapper.Stub(m => m.Map(form)).Return(UserGroup);
 
-			var controller = new UserGroupController(null, mapper, PermisiveSecurityContext());
+			var controller = new UserGroupController(null, PermisiveSecurityContext());
 			var result = (CommandResult) controller.Edit(form);
 
 			result.Success.AssertActionRedirect().ToAction<HomeController>(a => a.Index(null));

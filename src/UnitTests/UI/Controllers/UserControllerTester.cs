@@ -6,7 +6,8 @@ using CodeCampServer.Core.Services;
 using CodeCampServer.Infrastructure.UI.Mappers;
 using CodeCampServer.UI;
 using CodeCampServer.UI.Controllers;
-using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Helpers.ActionResults;
+//using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
 using MvcContrib.TestHelper;
 using NBehave.Spec.NUnit;
@@ -16,22 +17,22 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 {
 	public class UserControllerTester : ControllerTester
 	{
-		private class TestUserMapper : UserMapper
-		{
-			public TestUserMapper() : base(null, null) {}
-			public User MappedUser { get; set; }
+		//private class TestUserMapper : UserMapper
+		//{
+		//    public TestUserMapper() : base(null, null) {}
+		//    public User MappedUser { get; set; }
 
-			public override UserInput Map(User form)
-			{
-				MappedUser = form;
-				return new UserInput();
-			}
-		}
+		//    public override UserInput Map(User form)
+		//    {
+		//        MappedUser = form;
+		//        return new UserInput();
+		//    }
+		//}
 
 		[Test]
 		public void Edit_should_only_allow_system_admins_to_edit_other_users()
 		{
-			var controller = new UserController(null, null, RestrictiveSecurityContext(), S<IUserSession>());
+			var controller = new UserController(null, RestrictiveSecurityContext());
 
 			controller.Edit(new User())
 				.AssertViewRendered()
@@ -41,7 +42,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void Index_should_list_the_users()
 		{
-			var controller = new UserController(S<IUserRepository>(), S<IUserMapper>(), PermisiveSecurityContext(), null);
+			var controller = new UserController(S<IUserRepository>(), PermisiveSecurityContext());
 			ViewResult result = controller.Index();
 			result.AssertViewRendered();
 			result.ForView("");
@@ -53,7 +54,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var user = new User {Username = "admin", Id = Guid.NewGuid()};
 			var form = new UserInput {Id = user.Id, Password = "pass"};
-			var controller = new UserController(null, null, PermisiveSecurityContext(), null);
+			var controller = new UserController(null, PermisiveSecurityContext());
 
 			var result = (CommandResult) controller.Edit(form);
 
@@ -63,16 +64,15 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void When_edit_is_passed_null_a_new_user_should_be_selected()
 		{
-			var mapper = new TestUserMapper();
 
-			var controller = new UserController(null, mapper, PermisiveSecurityContext(), null);
+			var controller = new UserController(null, PermisiveSecurityContext());
 
-			controller.Edit((User) null)
-				.AssertViewRendered()
+			var result = controller.Edit((User) null);
+			
+			result.AssertViewRendered()
 				.ForView(ViewNames.Default)
-				.ModelShouldBe<UserInput>();
-			mapper.MappedUser.ShouldNotBeNull();
-			mapper.MappedUser.Id.ShouldEqual(Guid.Empty);
+				.ModelShouldBe<User>();
+			((AutoMappedViewResult) result).ViewModelType.ShouldBe(typeof (UserInput));
 		}
 	}
 }
