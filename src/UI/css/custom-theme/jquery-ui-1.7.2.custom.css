@@ -42,7 +42,7 @@
 * jQuery UI CSS Framework
 * Copyright (c) 2009 AUTHORS.txt (http://jqueryui.com/about)
 * Dual licensed under the MIT (MIT-LICENSE.txt) and GPL (GPL-LICENSE.txt) licenses.
-* To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Arial,%20Helvetica,%20sans-serif&fwDefault=normal&fsDefault=12px&cornerRadius=6px&bgColorHeader=F4F4F4&bgTextureHeader=12_gloss_wave.png&bgImgOpacityHeader=0&borderColorHeader=F4F4F4&fcHeader=5C5C5C&iconColorHeader=72a7cf&bgColorContent=FFFFFF&bgTextureContent=04_highlight_hard.png&bgImgOpacityContent=0&borderColorContent=FFFFFF&fcContent=5C5C5C&iconColorContent=72a7cf&bgColorDefault=d7ebf9&bgTextureDefault=12_gloss_wave.png&bgImgOpacityDefault=80&borderColorDefault=aed0ea&fcDefault=1B75A9&iconColorDefault=3d80b3&bgColorHover=e4f1fb&bgTextureHover=12_gloss_wave.png&bgImgOpacityHover=100&borderColorHover=74b2e2&fcHover=1B75A9&iconColorHover=2694e8&bgColorActive=3baae3&bgTextureActive=12_gloss_wave.png&bgImgOpacityActive=50&borderColorActive=2694e8&fcActive=1B75A9&iconColorActive=ffffff&bgColorHighlight=ffef8f&bgTextureHighlight=03_highlight_soft.png&bgImgOpacityHighlight=25&borderColorHighlight=f9dd34&fcHighlight=363636&iconColorHighlight=2e83ff&bgColorError=cd0a0a&bgTextureError=01_flat.png&bgImgOpacityError=15&borderColorError=cd0a0a&fcError=ffffff&iconColorError=ffffff&bgColorOverlay=eeeeee&bgTextureOverlay=04_highlight_hard.png&bgImgOpacityOverlay=90&opacityOverlay=80&bgColorShadow=000000&bgTextureShadow=04_highlight_hard.png&bgImgOpacityShadow=70&opacityShadow=30&thicknessShadow=7px&offsetTopShadow=-7px&offsetLeftShadow=-7px&cornerRadiusShadow=8px
+* To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Arial,%20Helvetica,%20sans-serif&fwDefault=normal&fsDefault=12px&cornerRadius=6px&bgColorHeader=F4F4F4&bgTextureHeader=12_gloss_wave.png&bgImgOpacityHeader=0&borderColorHeader=F4F4F4&fcHeader=5C5C5C&iconColorHeader=72a7cf&bgColorContent=FFFFFF&bgTextureContent=04_highlight_hard.png&bgImgOpacityContent=0&borderColorContent=FFFFFF&fcContent=5C5C5C&iconColorContent=72a7cf&bgColorDefault=F5F5F5&bgTextureDefault=12_gloss_wave.png&bgImgOpacityDefault=0&borderColorDefault=F5F5F5&fcDefault=1B75A9&iconColorDefault=3d80b3&bgColorHover=F5F5F5&bgTextureHover=12_gloss_wave.png&bgImgOpacityHover=0&borderColorHover=F5F5F5&fcHover=1B75A9&iconColorHover=2694e8&bgColorActive=F5F5F5&bgTextureActive=12_gloss_wave.png&bgImgOpacityActive=0&borderColorActive=F5F5F5&fcActive=1B75A9&iconColorActive=ffffff&bgColorHighlight=F5F5F5&bgTextureHighlight=03_highlight_soft.png&bgImgOpacityHighlight=0&borderColorHighlight=F5F5F5&fcHighlight=1B75A9&iconColorHighlight=2e83ff&bgColorError=cd0a0a&bgTextureError=01_flat.png&bgImgOpacityError=15&borderColorError=cd0a0a&fcError=ffffff&iconColorError=ffffff&bgColorOverlay=eeeeee&bgTextureOverlay=04_highlight_hard.png&bgImgOpacityOverlay=90&opacityOverlay=80&bgColorShadow=000000&bgTextureShadow=04_highlight_hard.png&bgImgOpacityShadow=70&opacityShadow=30&thicknessShadow=7px&offsetTopShadow=-7px&offsetLeftShadow=-7px&cornerRadiusShadow=8px
 */
 
 
@@ -57,17 +57,17 @@
 
 /* Interaction states
 ----------------------------------*/
-.ui-state-default, .ui-widget-content .ui-state-default { border: 1px solid #aed0ea; background: #d7ebf9 url(images/ui-bg_gloss-wave_80_d7ebf9_500x100.png) 50% 50% repeat-x; font-weight: normal; color: #1B75A9; outline: none; }
+.ui-state-default, .ui-widget-content .ui-state-default { border: 1px solid #F5F5F5; background: #F5F5F5 url(images/ui-bg_gloss-wave_0_F5F5F5_500x100.png) 50% 50% repeat-x; font-weight: normal; color: #1B75A9; outline: none; }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #1B75A9; text-decoration: none; outline: none; }
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus { border: 1px solid #74b2e2; background: #e4f1fb url(images/ui-bg_gloss-wave_100_e4f1fb_500x100.png) 50% 50% repeat-x; font-weight: normal; color: #1B75A9; outline: none; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus { border: 1px solid #F5F5F5; background: #F5F5F5 url(images/ui-bg_gloss-wave_0_F5F5F5_500x100.png) 50% 50% repeat-x; font-weight: normal; color: #1B75A9; outline: none; }
 .ui-state-hover a, .ui-state-hover a:hover { color: #1B75A9; text-decoration: none; outline: none; }
-.ui-state-active, .ui-widget-content .ui-state-active { border: 1px solid #2694e8; background: #3baae3 url(images/ui-bg_gloss-wave_50_3baae3_500x100.png) 50% 50% repeat-x; font-weight: normal; color: #1B75A9; outline: none; }
+.ui-state-active, .ui-widget-content .ui-state-active { border: 1px solid #F5F5F5; background: #F5F5F5 url(images/ui-bg_gloss-wave_0_F5F5F5_500x100.png) 50% 50% repeat-x; font-weight: normal; color: #1B75A9; outline: none; }
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #1B75A9; outline: none; text-decoration: none; }
 
 /* Interaction Cues
 ----------------------------------*/
-.ui-state-highlight, .ui-widget-content .ui-state-highlight {border: 1px solid #f9dd34; background: #ffef8f url(images/ui-bg_highlight-soft_25_ffef8f_1x100.png) 50% top repeat-x; color: #363636; }
-.ui-state-highlight a, .ui-widget-content .ui-state-highlight a { color: #363636; }
+.ui-state-highlight, .ui-widget-content .ui-state-highlight {border: 1px solid #F5F5F5; background: #F5F5F5 url(images/ui-bg_highlight-soft_0_F5F5F5_1x100.png) 50% top repeat-x; color: #1B75A9; }
+.ui-state-highlight a, .ui-widget-content .ui-state-highlight a { color: #1B75A9; }
 .ui-state-error, .ui-widget-content .ui-state-error {border: 1px solid #cd0a0a; background: #cd0a0a url(images/ui-bg_flat_15_cd0a0a_40x100.png) 50% 50% repeat-x; color: #ffffff; }
 .ui-state-error a, .ui-widget-content .ui-state-error a { color: #ffffff; }
 .ui-state-error-text, .ui-widget-content .ui-state-error-text { color: #ffffff; }

@@ -175,6 +175,7 @@
     <Content Include="css\custom-theme\images\ui-bg_glass_75_dadada_1x400.png" />
     <Content Include="css\custom-theme\images\ui-bg_glass_75_e6e6e6_1x400.png" />
     <Content Include="css\custom-theme\images\ui-bg_glass_75_ffffff_1x400.png" />
+    <Content Include="css\custom-theme\images\ui-bg_gloss-wave_0_F5F5F5_500x100.png" />
     <Content Include="css\custom-theme\images\ui-bg_gloss-wave_100_87cbf8_500x100.png" />
     <Content Include="css\custom-theme\images\ui-bg_gloss-wave_100_e4f1fb_500x100.png" />
     <Content Include="css\custom-theme\images\ui-bg_gloss-wave_50_3baae3_500x100.png" />

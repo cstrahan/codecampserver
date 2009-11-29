@@ -67,11 +67,11 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
           <LoggedInTemplate>
             Welcome,
             <%=ViewData.Get<User>().Name%>            
-            (<a href="/login/login/logout">Log out</a>) |
-            <%=Html.ActionLink<UserController>("My Profile", c=>c.Edit((User)null)) %>
+            (<span class="<%=Css.OuterLinks%>"><a href="/login/login/logout">Log out</a></span>) |
+            <span class="<%=Css.OuterLinks%>"><%=Html.ActionLink<UserController>("My Profile", c=>c.Edit((User)null)) %></span>
           </LoggedInTemplate>
           <AnonymousTemplate>
-            <%=Html.UrlButton("Log in","/login/login/index")%>
+			<div class="<%=Css.OuterLinks%>"><%=Html.UrlButton("Log in","/login/login/index")%></div>
           </AnonymousTemplate>
         </asp:LoginView>
       </h2>
@@ -109,7 +109,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
   <!-- start footer -->
   <div id="footer" class="<%=Css.OuterControls%>">
     <p id="legal">
-      Powered by <a href="http://codecampserver.com" target="_blank" title="Code Camp Server">Code Camp Server</a> (<span id="revisionNumber"><%=ViewData[AssemblyVersionFilterAttribute.AssemblyVersion].ToString() %></span>)
+      Powered by <span class="<%=Css.OuterLinks%>"><a href="http://codecampserver.com" target="_blank" title="Code Camp Server">Code Camp Server</a></span> (<span id="revisionNumber"><%=ViewData[AssemblyVersionFilterAttribute.AssemblyVersion].ToString() %></span>)
       <br />
       &copy;
       <%=DateTime.Now.Year %>. All Rights Reserved.</p>
