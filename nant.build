@@ -454,5 +454,9 @@
 
 		<fail if="${property::exists('test.failure')}" message="Failure occured in testing"/>
 	</target>
-
+  <target name="create-template">    
+    <exec program="lib\solutionfactory\SolutionFactory-console.exe" commandline="export ${file.solution} c:\temp\solutionfactory"></exec>    
+    <exec program="lib\solutionfactory\SolutionFactory-console.exe" commandline="create c:\temp\solutionfactory\codecampserver\ ApplicationTest1 c:\temp\Solutionfactory\ApplicationTest1"></exec>    
+    <exec program="cmd" commandline="/c c:\temp\Solutionfactory\ApplicationTest1\build.bat build"></exec>
+  </target>
 </project>
