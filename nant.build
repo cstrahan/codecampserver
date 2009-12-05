@@ -6,7 +6,7 @@
   	<!-- Master Build Targets -->
   	<!-- ******************** -->
   	<target name="build" depends="init, commonassemblyinfo, dropDatabase, createDatabase, compile, move-for-test, test"/>
-  	<target name="cruise" depends="build, package"/>
+  	<target name="cruise" depends="build, package, create-template"/>
   	<target name="integrationBuild" depends="init, commonassemblyinfo, dropDatabase, createDatabase,, compile, move-for-test, coverage, inspection,package"/>
   	<target name="publish" depends="init, revert, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test, package,commitPackage"/>
   	<target name="inspection" depends="sourcemonitor,fxcop,stylecop"/>
@@ -37,7 +37,8 @@
 	<property name="project.config" value="release"/>
 
 	<!-- Folder references -->
-	<property name="dir.solution" value="src"/>
+  <property name="dir.root" value="${path::get-full-path('.')}"/>
+  <property name="dir.solution" value="src"/>
 	<property name="dir.ui" value="${dir.solution}/UI"/>
 	<property name="dir.build" value="build" dynamic="true"/>
 	<property name="dir.test" value="${dir.build}/${nant.settings.currentframework}-${project.config}"/>
@@ -278,7 +279,6 @@
 			</fileset>
 		</copy>
 
-		<!--<exec program="${svn.executable}" workingdir="." commandline="up latestVersion ${svnargs}" verbose="true" />-->
 		<delete file="${dir.installerpackage}/${project::get-name()}Package.exe" />
 		<exec  program="lib\7zip\7za.exe" workingdir="${dir.package}" commandline=" a -mx=9 -r -sfx ..\..\${dir.installerpackage}/${project::get-name()}Package.exe *.*" verbose="true" />
   	</target>
@@ -457,12 +457,19 @@
   <target name="create-template">
     <property name="newsolution" value="CcsArchitecture"/>
     <property name="templatedir" value="..\_CcsTemplate"/>
+    
     <exec program="lib\solutionfactory\SolutionFactory-console.exe" commandline="export ${file.solution} ${templatedir}"></exec>
     <delete dir="${templatedir}\template\build"  />
     <delete dir="${templatedir}\template\src\_ReSharper.CodeCampServer"  />
     <delete file="${templatedir}\template\latestversion\safesolutionnamepackage.exe"  />
     <delete file="${templatedir}\template\readme.txt"  />
-    <exec program="lib\solutionfactory\SolutionFactory-console.exe" commandline="create ${templatedir}\template\ ${newsolution} ${templatedir}\${newsolution}"></exec>
-    <exec program="cmd" commandline="/c build.bat build" workingdir="${templatedir}\${newsolution}\"></exec>
+    <exec program="lib\solutionfactory\SolutionFactory-console.exe" commandline="create ${templatedir}\template\ ${newsolution} ${templatedir}\..\${newsolution}"></exec>
+    <exec program="cmd" commandline="/c build.bat build" workingdir="${templatedir}\..\${newsolution}\"></exec>
+    <copy todir="${templatedir}\" flatten="true">
+      <fileset basedir="lib\solutionfactory">
+        <include name="*.*" />
+      </fileset>
+    </copy>
+    <exec  program="lib\7zip\7za.exe" workingdir="${templatedir}\template\" commandline=" a -mx=9 -r -sfx ${dir.root}\${dir.installerpackage}/VisualStudioTemplate.exe *.*" verbose="true" />
   </target>
 </project>
