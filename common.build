@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd">
 
 	<target name="init" description="Initializes build properties">
@@ -26,9 +26,15 @@
         <include name="**/*.*" />
       </fileset>
     </copy>
+    <copy todir="${ci.dir}\Server" flatten="false">
+      <fileset basedir="config">
+        <include name="ccnet.config" />
+      </fileset>
+    </copy>
+<!--
     <xmlpoke failonerror="false" file="${ci.dir}\Server\CCNet.config"
 			xpath="/cruisecontrol/project/sourcecontrol/sourceControlProvider/trunkUrl" value="${trunkurl}"/>
-
+-->    
     <exec failonerror="true"
         workingdir="${ci.dir}\Server"
         program="cmd.exe" 
@@ -41,11 +47,13 @@
         commandline="/C start /MIN ConsoleCassini-v35.exe webdashboard 82 /ccnet"
           verbose="true"/>
 
+<!--
     <exec failonerror="true"
         workingdir="${ci.dir}\x10"
         program="cmd.exe"
         commandline="/C start /MIN URLAlert.exe"
           verbose="true"/>
+-->
   </target>
 
   <target name="commonassemblyinfo">
@@ -197,26 +205,6 @@
 
 
   <target name="set-defaults-in-nhibernate-config">
-          <xmlpeek
-          file="src\hibernate.cfg.xml"
-          xpath="/x:hibernate-configuration/x:session-factory/x:mapping/@assembly"
-          property="assembly">
-            <namespaces>
-              <namespace prefix="x" uri="urn:nhibernate-configuration-2.2" />
-            </namespaces>
-          </xmlpeek>
-          <if test="${assembly!=project::get-name()+'.Infrastructure'}">
-            <echo>The nhibernate mapping file does not specify ${project::get-name()+'.Infrastructure'}</echo>
-            <xmlpoke
-            file="src\hibernate.cfg.xml"
-            xpath="/x:hibernate-configuration/x:session-factory/x:mapping/@assembly"
-              value="${project::get-name()+'.Infrastructure'}">
-              <namespaces>
-                <namespace prefix="x" uri="urn:nhibernate-configuration-2.2" />
-              </namespaces>
-            </xmlpoke>
-          </if>
-    
     <xmlpoke file="src/hibernate.cfg.xml" xpath="//*/hbm:property[@name='connection.connection_string']" value="server=${database.server};database=${database.name};Integrated Security=true;">
       <namespaces>
         <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
@@ -265,13 +253,7 @@
 
     <exec workingdir="../"
     program="${msdeployexe}"
-    commandline="-verb:sync -source:runCommand='${deploy.installdir}\${deploy.cmd} ${deploy.installdir}',waitInterval=5000,waitAttempts=40 -dest:auto,computername=${deploy.server} -verbose"
-    output="deploystep2.txt" />
-	<loadfile file="deploystep2.txt" property="deploystep2" />
-	<regex pattern="Info: BUILD (?'setupResultCode'.+)" input="${deploystep2}" />
-	<echo>Remote Build Result is ${setupResultCode}</echo>
-	<if test="${string::contains(setupResultCode, 'FAILED')}">
-		 <fail message="Remote Nant Result was ${setupResultCode}" />
-	</if>
+    commandline="-verb:sync -source:runCommand='${deploy.installdir}\${deploy.cmd} ${deploy.installdir}',waitInterval=5000,waitAttempts=40 -dest:auto,computername=${deploy.server} -verbose" />
   </target>
+
 </project>

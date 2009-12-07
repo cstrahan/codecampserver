@@ -1,3 +1,0 @@
-deploylocal.bat & pause
-
-
