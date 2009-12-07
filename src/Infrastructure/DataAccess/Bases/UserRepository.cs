@@ -6,7 +6,7 @@ using NHibernate.Criterion;
 
 namespace CodeCampServer.Infrastructure.DataAccess.Impl
 {
-	public class UserRepository : KeyedRepository<User>, IUserRepository
+	public class UserRepository : RepositoryBase<User>, IUserRepository
 	{
 		public UserRepository(IUnitOfWork unitOfWork)
 			: base(unitOfWork) 
@@ -35,9 +35,9 @@ namespace CodeCampServer.Infrastructure.DataAccess.Impl
 		}
 
 
-		protected override string GetEntityNaturalKeyName()
-		{
-			return "Username";
-		}
+        //protected override string GetEntityNaturalKeyName()
+        //{
+        //    return "Username";
+        //}
 	}
 }

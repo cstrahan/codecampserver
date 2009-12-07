@@ -1,5 +1,15 @@
-﻿remove,DataAccess\
+remove,DataAccess\Impl
+remove,DataAccess\Mappings
+remove,Database\Update
+remove,ObjectMapping\ConfigurationProfiles
+remove,UI\Binders\UserGroup
+remove,UI\Binders\Keyed
+
 remove,Services\
+remove,BusinessRules
 remove,DataBase\Update
+keep,BusinessRules\UpdateUser
+keep,BusinessRules\RulesEngineConfiguration
 keep,DataAccess\Bases
 keep,DataAccess\Mappings\Bases
+keep,ObjectMapping\ConfigurationProfiles\Bases

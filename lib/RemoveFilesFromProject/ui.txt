@@ -1,13 +1,20 @@
-﻿remove,Controllers\
+remove,Controllers\
 
 remove,Helpers\
-remove,Models\
-remove,Services\
-remove,Views\
-remove,Helpers\
-keep,Controllers\Bases
+remove,Models\Display
+remove,Models\Input
+remove,Services\Conference
+remove,Views\AddUserGroup
+remove,Helpers\Filters
+remove,Helpers\Conference
+remove,Helpers\UserSelector
+
+keep,Controllers\UserController
 keep,Services\Bases
 keep,Views\User\
 keep,Views\Login
 keep,Views\Home\Index.aspx
-keep,Models\Bases
+keep,Models\Input\UserInput
+
+
+

@@ -108,26 +108,26 @@
     </Compile>
     <Compile Include="BusinessRules\CommandConfiguration\LoginUserConfiguration.cs" />
     <Compile Include="BusinessRules\CommandConfiguration\DeleteUserGroupMessageConfiguration.cs" />
-    <Compile Include="BusinessRules\CommandConfiguration\UpdateUserConfiguration.cs" />
+    <Compile Include="BusinessRules\UpdateUser\UpdateUserConfiguration.cs" />
     <Compile Include="BusinessRules\CommandConfiguration\UpdateUserGroupMessageConfiguration.cs" />
     <Compile Include="BusinessRules\CommandConfiguration\UpdateMeetingMessageConfiguration.cs" />
     <Compile Include="BusinessRules\CommandConfiguration\DeleteMeetingMessageConfiguration.cs" />
     <Compile Include="BusinessRules\RulesEngineConfiguration.cs" />
-    <Compile Include="BusinessRules\Validation\UsernameMustBeUnique.cs" />
+    <Compile Include="BusinessRules\UpdateUser\UsernameMustBeUnique.cs" />
     <Compile Include="BusinessRules\Validation\UserGroupKeyMustBeUnique.cs" />
     <Compile Include="DataAccess\ChangeAuditInfoInterceptor.cs" />
     <Compile Include="DataAccess\ConfigBasedSessionSource.cs" />
     <Compile Include="DataAccess\ConfigurationFactory.cs" />
     <Compile Include="DataAccess\ISessionSource.cs" />
-    <Compile Include="DataAccess\Mappings\ClassMapExtensions.cs" />
+    <Compile Include="DataAccess\Bases\ClassMapExtensions.cs" />
     <Compile Include="DataAccess\Mappings\ConferenceMap.cs" />
-    <Compile Include="DataAccess\Mappings\AuditedEntityClassMap.cs" />
-    <Compile Include="DataAccess\Mappings\EnumerationTypeConvention.cs" />
+    <Compile Include="DataAccess\Bases\AuditedEntityClassMap.cs" />
+    <Compile Include="DataAccess\Bases\EnumerationTypeConvention.cs" />
     <Compile Include="DataAccess\Mappings\EventMap.cs" />
     <Compile Include="DataAccess\Mappings\MeetingMap.cs" />
     <Compile Include="DataAccess\Mappings\SponsorMap.cs" />
     <Compile Include="DataAccess\Mappings\UserGroupMap.cs" />
-    <Compile Include="DataAccess\Mappings\UserMap.cs" />
+    <Compile Include="DataAccess\Bases\UserMap.cs" />
     <Compile Include="DataAccess\NHibernateRegistry.cs" />
     <Compile Include="DataAccess\UnitOfWork.cs" />
     <Compile Include="DataAccess\UnitOfWorkModule.cs" />
@@ -140,15 +140,15 @@
     <Compile Include="DataAccess\Impl\EventRepository.cs" />
     <Compile Include="DataAccess\Impl\KeyedRepository.cs" />
     <Compile Include="DataAccess\Impl\MeetingRepository.cs" />
-    <Compile Include="DataAccess\Impl\RepositoryBase.cs" />
+    <Compile Include="DataAccess\Bases\RepositoryBase.cs" />
     <Compile Include="DataAccess\Impl\UserGroupRepository.cs" />
-    <Compile Include="DataAccess\Impl\UserRepository.cs" />
+    <Compile Include="DataAccess\Bases\UserRepository.cs" />
     <Compile Include="InfrastructureRegistry.cs" />
     <Compile Include="EnumerationType.cs" />
     <Compile Include="HttpFileDownloaderService.cs" />
-    <Compile Include="ObjectMapping\ConfigurationProfiles\AutoMapperProfile.cs" />
-    <Compile Include="ObjectMapping\ConfigurationProfiles\LoginMapperProfile.cs" />
-    <Compile Include="ObjectMapping\ConfigurationProfiles\UserMapperProfile.cs" />
+    <Compile Include="ObjectMapping\ConfigurationProfiles\Bases\AutoMapperProfile.cs" />
+    <Compile Include="ObjectMapping\ConfigurationProfiles\Bases\LoginMapperProfile.cs" />
+    <Compile Include="ObjectMapping\ConfigurationProfiles\Bases\UserMapperProfile.cs" />
     <Compile Include="ObjectMapping\CustomResolvers\UserToUserSelectorInputResolver.cs" />
     <Compile Include="ObjectMapping\CustomResolvers\BaseFormatter.cs" />
     <Compile Include="ObjectMapping\CustomResolvers\BaseResolver.cs" />
@@ -164,7 +164,7 @@
     <Compile Include="ObjectMapping\ConfigurationProfiles\MeetingMapperProfile.cs" />
     <Compile Include="ObjectMapping\ConfigurationProfiles\MeetingMessageMapperProfile.cs" />
     <Compile Include="ObjectMapping\ConfigurationProfiles\UserGroupMapperProfile.cs" />
-    <Compile Include="ObjectMapping\TypeConverters\UserGroupInputToUserGroupTypeConverter.cs" />
+    <Compile Include="ObjectMapping\ConfigurationProfiles\UserGroupInputToUserGroupTypeConverter.cs" />
     <Compile Include="StructureMapServiceLocator.cs" />
     <Compile Include="SystemClock.cs" />
     <Compile Include="ObjectMapping\TypeConverters\IdToEntityTypeConverter.cs" />
@@ -183,9 +183,9 @@
     <Compile Include="UI\InputBuilders\NullableGuidPropertyConvention.cs" />
     <Compile Include="UI\InputBuilders\PasswordPropertyConvention.cs" />
     <Compile Include="UI\InputBuilders\UserPickerPropertyConvention.cs" />
-    <Compile Include="ObjectMapping\TypeConverters\IUserGroupInputToUserGroupTypeConverter.cs" />
-    <Compile Include="ObjectMapping\TypeConverters\SponsorInputToSponsorTypeConverter.cs" />
-    <Compile Include="ObjectMapping\TypeConverters\GuidToUserGroupTypeConverter.cs">
+    <Compile Include="ObjectMapping\ConfigurationProfiles\IUserGroupInputToUserGroupTypeConverter.cs" />
+    <Compile Include="ObjectMapping\ConfigurationProfiles\SponsorInputToSponsorTypeConverter.cs" />
+    <Compile Include="ObjectMapping\ConfigurationProfiles\GuidToUserGroupTypeConverter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UI\MvcStartupConfiguration.cs" />
