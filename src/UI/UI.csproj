@@ -471,6 +471,8 @@
     <Content Include="Views\Home\DefaultIndex.aspx" />
     <Content Include="Views\Home\Events.aspx" />
     <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Shared\Display.aspx" />
+    <Content Include="Views\Shared\Edit.aspx" />
     <Content Include="Views\Shared\EditUserLink.ascx" />
     <Content Include="Views\Shared\DropDown.aspx" />
     <Content Include="Views\Shared\EditSponsorLink.ascx" />
@@ -478,6 +480,7 @@
     <Content Include="Views\Shared\DisplayParagraph.aspx" />
     <Content Include="Views\Shared\DisplayInline.aspx" />
     <Content Include="Views\Shared\Guid.aspx" />
+    <Content Include="Views\Shared\Index.aspx" />
     <Content Include="Views\Shared\Submit.aspx" />
     <Content Include="Views\Meeting\Edit.aspx" />
     <Content Include="Views\Shared\AddMeetingLink.ascx" />
@@ -509,14 +512,13 @@
     <Content Include="Views\UserGroup\Edit.aspx" />
     <Content Include="Views\UserGroup\Index.aspx" />
     <Content Include="Views\UserGroup\List.aspx" />
-    <Content Include="Views\User\Edit.aspx" />
-    <Content Include="Views\User\Index.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!--  <Import Project="$(ProjectDir)\Microsoft.WebApplication.targets" />-->

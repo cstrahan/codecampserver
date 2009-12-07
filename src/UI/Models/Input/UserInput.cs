@@ -1,10 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using CodeCampServer.UI.Helpers.Attributes;
+using MvcContrib.UI.InputBuilder.Attributes;
 
 namespace CodeCampServer.UI.Models.Input
 {
 	//[SameAs("ConfirmPassword","Password")]
+    [Label("User")]
 	public class UserInput
 	{
 		[Required]

@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.UI.Helpers.Attributes;
+using MvcContrib.UI.InputBuilder.Attributes;
 using NUnit.Framework;
 using NBehave.Spec.NUnit;
 

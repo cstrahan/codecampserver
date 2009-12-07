@@ -20,13 +20,13 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[HttpGet]
-		public ViewResult Edit(User user)
+		public ViewResult Edit(User entity)
 		{
 			if (!_securityContext.IsAdmin())
 			{
 				return NotAuthorizedView;
 			}
-			return AutoMappedView<UserInput>(user??new User());
+            return AutoMappedView<UserInput>(entity ?? new User());
 		}
 
 		[HttpPost]
@@ -44,6 +44,11 @@ namespace CodeCampServer.UI.Controllers
 				);
 		}
 
+        [HttpGet]
+        public ViewResult Display(User entity)
+        {
+            return AutoMappedView<UserInput>(entity);
+        }
 
 		public ViewResult Index()
 		{

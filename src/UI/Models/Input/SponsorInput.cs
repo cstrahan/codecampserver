@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.UI.Helpers.Attributes;
+using MvcContrib.UI.InputBuilder.Attributes;
 
 namespace CodeCampServer.UI.Models.Input
 {

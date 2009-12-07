@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using CodeCampServer.UI.Helpers.Attributes;
+using MvcContrib.UI.InputBuilder.Attributes;
 using MvcContrib.UI.InputBuilder.Conventions;
 
 namespace CodeCampServer.Infrastructure.UI.InputBuilders
@@ -21,7 +22,7 @@ namespace CodeCampServer.Infrastructure.UI.InputBuilders
 		public override string LabelForPropertyConvention(PropertyInfo propertyInfo)
 		{
 			if (propertyInfo.AttributeExists<LabelAttribute>())
-				return propertyInfo.GetAttribute<LabelAttribute>().Value;
+				return propertyInfo.GetAttribute<LabelAttribute>().Label;
 
 			return base.LabelForPropertyConvention(propertyInfo);
 		}

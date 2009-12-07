@@ -1,6 +1,7 @@
 using System;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Attributes;
+using MvcContrib.UI.InputBuilder.Attributes;
 
 namespace CodeCampServer.UI.Models.Input
 {
