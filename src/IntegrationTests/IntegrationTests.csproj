@@ -169,6 +169,14 @@
       <Project>{3A222037-75A5-4DFF-BA27-9487BF3A8536}</Project>
       <Name>DependencyResolution</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Automapper\Infrastructure.Automapper.csproj">
+      <Project>{D6EC5B3E-2094-4268-8633-DA498A4C52E2}</Project>
+      <Name>Infrastructure.Automapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.NHibernate\Infrastructure.NHibernate.csproj">
+      <Project>{CFBE2871-F3A7-411A-A494-AA0E66CE7B0D}</Project>
+      <Name>Infrastructure.NHibernate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{FBE3CFE2-CAC1-4652-9F49-18F35B65123D}</Project>
       <Name>Infrastructure</Name>

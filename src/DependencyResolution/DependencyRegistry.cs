@@ -1,7 +1,9 @@
 using CodeCampServer.Core;
+using CodeCampServer.Core.Common;
 using CodeCampServer.UI.Helpers.Filters;
 using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
+using System.Linq;
 
 namespace CodeCampServer.DependencyResolution
 {
@@ -13,9 +15,8 @@ namespace CodeCampServer.DependencyResolution
 
 			Scan(x =>
 			{
-				x.Assembly(assemblyPrefix + ".Core");
-				x.Assembly(assemblyPrefix + ".Infrastructure");
-				x.Assembly(assemblyPrefix + ".UI");
+			    GetType().Assembly.GetReferencedAssemblies().Where(name => name.Name.StartsWith(assemblyPrefix))
+			        .ForEach(name => x.Assembly(name.Name));
 				x.Assembly("CommandProcessor");
 				x.With<DefaultConventionScanner>();
 				x.LookForRegistries();

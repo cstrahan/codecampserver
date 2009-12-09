@@ -35,9 +35,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\AutoMapper\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="CommandProcessor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\tinorulesengine\CommandProcessor.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\tinorulesengine\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="MvcContrib, Version=2.0.22.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\mvccontrib\MvcContrib.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\NHibernate-2.1.0.GA-bin\Required_Bins\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -60,12 +72,23 @@
     <Compile Include="DependencyRegistrar.cs" />
     <Compile Include="DependencyRegistrarModule.cs" />
     <Compile Include="DependencyRegistry.cs" />
+    <Compile Include="InfrastructureRegistry.cs" />
     <Compile Include="InitiailizeDefaultFactories.cs" />
+    <Compile Include="NHibernateRegistry.cs" />
+    <Compile Include="StructureMapServiceLocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{9C81B684-40CC-472A-804D-7C0F963315F5}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Automapper\Infrastructure.Automapper.csproj">
+      <Project>{D6EC5B3E-2094-4268-8633-DA498A4C52E2}</Project>
+      <Name>Infrastructure.Automapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.NHibernate\Infrastructure.NHibernate.csproj">
+      <Project>{CFBE2871-F3A7-411A-A494-AA0E66CE7B0D}</Project>
+      <Name>Infrastructure.NHibernate</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{FBE3CFE2-CAC1-4652-9F49-18F35B65123D}</Project>

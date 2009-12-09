@@ -11,7 +11,6 @@ namespace CodeCampServer.Infrastructure.BusinessRules
 	{
 		public static void Configure(Type typeToLocatorConfigurationAssembly)
 		{
-			ServiceLocator.SetLocatorProvider(() => new StructureMapServiceLocator());
 			var rulesEngine = new RulesEngine();
 			RulesEngine.MessageProcessorFactory = new MessageProcessorFactory();
 			rulesEngine.Initialize(typeToLocatorConfigurationAssembly.Assembly, new CcsMessageMapper());

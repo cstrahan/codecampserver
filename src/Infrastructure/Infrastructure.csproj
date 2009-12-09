@@ -39,10 +39,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\tinorulesengine\CommandProcessor.dll</HintPath>
     </Reference>
-    <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\FluentNHibernate\FluentNHibernate.dll</HintPath>
-    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\NHibernate-2.1.0.GA-bin\Required_Bins\log4net.dll</HintPath>
@@ -58,22 +54,6 @@
     <Reference Include="MvcContrib, Version=0.0.1.168, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\mvccontrib\MvcContrib.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\NHibernate-2.1.0.GA-bin\Required_Bins\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate.ByteCode.LinFu, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\NHibernate-2.1.0.GA-bin\Required_For_LazyLoading\LinFu\NHibernate.ByteCode.LinFu.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate.Caches.SysCache, Version=2.1.0.4000, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\NHibernate-2.1.0.GA-bin\NHibernate.Caches.SysCache.dll</HintPath>
-    </Reference>
-    <Reference Include="StructureMap, Version=2.5.4.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\structuremap\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations">
@@ -115,59 +95,9 @@
     <Compile Include="BusinessRules\RulesEngineConfiguration.cs" />
     <Compile Include="BusinessRules\UpdateUser\UsernameMustBeUnique.cs" />
     <Compile Include="BusinessRules\Validation\UserGroupKeyMustBeUnique.cs" />
-    <Compile Include="DataAccess\ChangeAuditInfoInterceptor.cs" />
-    <Compile Include="DataAccess\ConfigBasedSessionSource.cs" />
-    <Compile Include="DataAccess\ConfigurationFactory.cs" />
-    <Compile Include="DataAccess\ISessionSource.cs" />
-    <Compile Include="DataAccess\Bases\ClassMapExtensions.cs" />
-    <Compile Include="DataAccess\Mappings\ConferenceMap.cs" />
-    <Compile Include="DataAccess\Bases\AuditedEntityClassMap.cs" />
-    <Compile Include="DataAccess\Bases\EnumerationTypeConvention.cs" />
-    <Compile Include="DataAccess\Mappings\EventMap.cs" />
-    <Compile Include="DataAccess\Mappings\MeetingMap.cs" />
-    <Compile Include="DataAccess\Mappings\SponsorMap.cs" />
-    <Compile Include="DataAccess\Mappings\UserGroupMap.cs" />
-    <Compile Include="DataAccess\Bases\UserMap.cs" />
-    <Compile Include="DataAccess\NHibernateRegistry.cs" />
-    <Compile Include="DataAccess\UnitOfWork.cs" />
-    <Compile Include="DataAccess\UnitOfWorkModule.cs" />
-    <Compile Include="DataAccess\IUnitOfWork.cs" />
     <Compile Include="FactoryConfiguration.cs" />
-    <Compile Include="ObjectMapping\AutoMappedWrapper.cs" />
-    <Compile Include="ObjectMapping\AutoMapperConfiguration.cs" />
-    <Compile Include="DataAccess\Bases\Logger.cs" />
-    <Compile Include="DataAccess\Impl\ConferenceRepository.cs" />
-    <Compile Include="DataAccess\Impl\EventRepository.cs" />
-    <Compile Include="DataAccess\Impl\KeyedRepository.cs" />
-    <Compile Include="DataAccess\Impl\MeetingRepository.cs" />
-    <Compile Include="DataAccess\Bases\RepositoryBase.cs" />
-    <Compile Include="DataAccess\Impl\UserGroupRepository.cs" />
-    <Compile Include="DataAccess\Bases\UserRepository.cs" />
-    <Compile Include="InfrastructureRegistry.cs" />
-    <Compile Include="EnumerationType.cs" />
     <Compile Include="HttpFileDownloaderService.cs" />
-    <Compile Include="ObjectMapping\ConfigurationProfiles\Bases\AutoMapperProfile.cs" />
-    <Compile Include="ObjectMapping\ConfigurationProfiles\Bases\LoginMapperProfile.cs" />
-    <Compile Include="ObjectMapping\ConfigurationProfiles\Bases\UserMapperProfile.cs" />
-    <Compile Include="ObjectMapping\CustomResolvers\UserToUserSelectorInputResolver.cs" />
-    <Compile Include="ObjectMapping\CustomResolvers\BaseFormatter.cs" />
-    <Compile Include="ObjectMapping\CustomResolvers\BaseResolver.cs" />
-    <Compile Include="ObjectMapping\CustomResolvers\HtmlEncoderFormatter.cs" />
-    <Compile Include="ObjectMapping\CustomResolvers\MoneyFormatter.cs" />
-    <Compile Include="ObjectMapping\CustomResolvers\NullValueResolver.cs" />
-    <Compile Include="ObjectMapping\CustomResolvers\SpanWrappingFormatter.cs" />
-    <Compile Include="ObjectMapping\CustomResolvers\StandardDateFormatter.cs" />
-    <Compile Include="ObjectMapping\CustomResolvers\StandardDateTimeFormatter.cs" />
-    <Compile Include="ObjectMapping\CustomResolvers\StandardTimeFormatter.cs" />
-    <Compile Include="ObjectMapping\CustomResolvers\TimeSpanFormatter.cs" />
-    <Compile Include="ObjectMapping\CustomResolvers\YesNoBooleanFormatter.cs" />
-    <Compile Include="ObjectMapping\ConfigurationProfiles\MeetingMapperProfile.cs" />
-    <Compile Include="ObjectMapping\ConfigurationProfiles\MeetingMessageMapperProfile.cs" />
-    <Compile Include="ObjectMapping\ConfigurationProfiles\UserGroupMapperProfile.cs" />
-    <Compile Include="ObjectMapping\ConfigurationProfiles\UserGroupInputToUserGroupTypeConverter.cs" />
-    <Compile Include="StructureMapServiceLocator.cs" />
     <Compile Include="SystemClock.cs" />
-    <Compile Include="ObjectMapping\TypeConverters\IdToEntityTypeConverter.cs" />
     <Compile Include="UI\Binders\EnumerationModelBinder.cs" />
     <Compile Include="UI\Binders\KeyedModelBinder.cs" />
     <Compile Include="UI\Binders\ModelBinder.cs" />
@@ -183,11 +113,6 @@
     <Compile Include="UI\InputBuilders\NullableGuidPropertyConvention.cs" />
     <Compile Include="UI\InputBuilders\PasswordPropertyConvention.cs" />
     <Compile Include="UI\InputBuilders\UserPickerPropertyConvention.cs" />
-    <Compile Include="ObjectMapping\ConfigurationProfiles\IUserGroupInputToUserGroupTypeConverter.cs" />
-    <Compile Include="ObjectMapping\ConfigurationProfiles\SponsorInputToSponsorTypeConverter.cs" />
-    <Compile Include="ObjectMapping\ConfigurationProfiles\GuidToUserGroupTypeConverter.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="UI\MvcStartupConfiguration.cs" />
     <Compile Include="UI\Services\AssemblyVersion.cs" />
     <Compile Include="UI\Services\ControllerFactory.cs" />

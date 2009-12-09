@@ -2,7 +2,6 @@ using System;
 using System.Web.Mvc;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Services;
-using CodeCampServer.Infrastructure.ObjectMapping;
 using CodeCampServer.Infrastructure.UI.Binders;
 using CodeCampServer.Infrastructure.UI.InputBuilders;
 using CodeCampServer.Infrastructure.UI.Services;
@@ -26,13 +25,12 @@ namespace CodeCampServer.Infrastructure.UI
 			ControllerBuilder.Current.SetControllerFactory(new ControllerFactory());
 			ModelBinders.Binders.DefaultBinder = new SmartBinder();
 
-			DependencyResolver.InitializeWith(new StructureMapServiceLocator());
+			
 
 			Bus.AddMessageHandler(typeof (LoginHandler));
 			Bus.Instance.SetMessageHandlerFactory(new ConventionMessageHandlerFactory());
 
 			new RouteConfigurator().RegisterRoutes(AreaRegistration.RegisterAllAreas);
-			AutoMappedViewResult.Map = (a, b, c) => AutoMappedWrapper.Map(a, b, c);
 		}
 	}
 
