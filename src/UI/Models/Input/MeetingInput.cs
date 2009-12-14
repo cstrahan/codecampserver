@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.UI.Helpers.Attributes;
 using MvcContrib.UI.InputBuilder.Attributes;
 
@@ -51,5 +52,9 @@ namespace CodeCampServer.UI.Models.Input
 		[Multiline]
 		[Label("Bio")]
 		public string SpeakerBio { get; set; }
+
+
+        public RefreshmentType Refreshments { get; set; }
+
 	}
 }

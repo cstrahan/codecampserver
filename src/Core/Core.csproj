@@ -64,6 +64,7 @@
     <Compile Include="Domain\IMeetingRepository.cs" />
     <Compile Include="Domain\IUserGroupRepository.cs" />
     <Compile Include="Bases\AuditedPersistentObject.cs" />
+    <Compile Include="Domain\Model\Enumerations\RefreshmentType.cs" />
     <Compile Include="Domain\Model\Event.cs" />
     <Compile Include="Bases\IGloballyUnique.cs" />
     <Compile Include="Domain\Model\IKeyable.cs" />
