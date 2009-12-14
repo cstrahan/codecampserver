@@ -1,9 +1,9 @@
-﻿using CodeCampServer.Infrastructure.DataAccess.Mappings;
+﻿using CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Conventions.Helpers;
 using NHibernate.Cfg;
 
-namespace CodeCampServer.Infrastructure.DataAccess
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 {
 	public class ConfigurationFactory
 	{

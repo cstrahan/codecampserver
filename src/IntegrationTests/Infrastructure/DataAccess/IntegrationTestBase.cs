@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Reflection;
 using CodeCampServer.Core.Common;
 using CodeCampServer.DependencyResolution;
-using CodeCampServer.Infrastructure.DataAccess;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 using CodeCampServer.UnitTests;
 using NHibernate;
 using NUnit.Framework;

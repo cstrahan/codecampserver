@@ -1,7 +1,7 @@
 using CodeCampServer.Core.Domain.Model;
 using FluentNHibernate.Mapping;
 
-namespace CodeCampServer.Infrastructure.DataAccess.Mappings
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings
 {
 	public class UserGroupMap : AuditedEntityClassMap<UserGroup>
 	{

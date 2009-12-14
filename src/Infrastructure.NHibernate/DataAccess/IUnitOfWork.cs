@@ -1,6 +1,6 @@
 using NHibernate;
 
-namespace CodeCampServer.Infrastructure.DataAccess
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 {
 	public interface IUnitOfWork : Tarantino.RulesEngine.IUnitOfWork
 	{

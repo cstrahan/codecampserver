@@ -1,4 +1,4 @@
-using CodeCampServer.Infrastructure.DataAccess;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 using NHibernate;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess

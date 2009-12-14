@@ -3,7 +3,7 @@ using CodeCampServer.Core.Domain.Model;
 using NHibernate;
 using NHibernate.Criterion;
 
-namespace CodeCampServer.Infrastructure.DataAccess.Impl
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl
 {
 	public class UserGroupRepository : KeyedRepository<UserGroup>, IUserGroupRepository
 	{

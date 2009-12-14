@@ -4,7 +4,7 @@ using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
 using NHibernate;
 
-namespace CodeCampServer.Infrastructure.DataAccess.Impl
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl
 {
 	public class RepositoryBase<T> :  IRepository<T> where T : PersistentObject
 	{

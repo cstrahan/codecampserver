@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.DataAccess;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {

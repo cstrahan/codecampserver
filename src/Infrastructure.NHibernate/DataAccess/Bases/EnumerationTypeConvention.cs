@@ -5,7 +5,7 @@ using FluentNHibernate.Conventions.AcceptanceCriteria;
 using FluentNHibernate.Conventions.Inspections;
 using FluentNHibernate.Conventions.Instances;
 
-namespace CodeCampServer.Infrastructure.DataAccess.Mappings
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings
 {
 	public class EnumerationTypeConvention : IPropertyConvention, IPropertyConventionAcceptance
 	{

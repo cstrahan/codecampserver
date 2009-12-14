@@ -1,7 +1,7 @@
 using System;
 using NHibernate;
 
-namespace CodeCampServer.Infrastructure.DataAccess
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 {
 	public class UnitOfWork : IUnitOfWork
 	{

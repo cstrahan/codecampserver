@@ -4,7 +4,7 @@ using System.IO;
 using log4net;
 using log4net.Config;
 
-namespace CodeCampServer.Infrastructure.DataAccess.Bases
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Bases
 {
 	public static class Logger
 	{

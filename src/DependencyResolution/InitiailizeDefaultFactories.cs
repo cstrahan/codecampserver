@@ -1,6 +1,6 @@
 using CodeCampServer.Core;
 using CodeCampServer.Infrastructure;
-using CodeCampServer.Infrastructure.DataAccess;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 using CodeCampServer.Infrastructure.ObjectMapping;
 using CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles;
 using CodeCampServer.Infrastructure.UI;

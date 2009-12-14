@@ -3,7 +3,7 @@ using NHibernate.Cfg;
 using StructureMap.Attributes;
 using StructureMap.Configuration.DSL;
 
-namespace CodeCampServer.Infrastructure.DataAccess
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 {
 	public class NHibernateRegistry : Registry
 	{

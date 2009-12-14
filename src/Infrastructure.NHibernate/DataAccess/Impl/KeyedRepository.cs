@@ -2,7 +2,7 @@ using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
 using NHibernate.Criterion;
 
-namespace CodeCampServer.Infrastructure.DataAccess.Impl
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl
 {
 	public class KeyedRepository<T> : RepositoryBase<T>, IKeyedRepository<T> where T : PersistentObject
 	{

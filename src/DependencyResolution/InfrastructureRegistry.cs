@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.DataAccess;
-using CodeCampServer.Infrastructure.DataAccess.Impl;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl;
 using StructureMap.Configuration.DSL;
 using Tarantino.RulesEngine.CommandProcessor;
 

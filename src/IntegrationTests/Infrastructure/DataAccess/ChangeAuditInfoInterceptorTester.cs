@@ -2,7 +2,7 @@ using System;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
-using CodeCampServer.Infrastructure.DataAccess;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 using NBehave.Spec.NUnit;
 using NHibernate;
 using NUnit.Framework;

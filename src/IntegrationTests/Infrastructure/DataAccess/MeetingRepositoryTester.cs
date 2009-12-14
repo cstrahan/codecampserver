@@ -1,6 +1,6 @@
 using System;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.DataAccess.Impl;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl;
 using NUnit.Framework;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess

@@ -1,5 +1,5 @@
-using CodeCampServer.Infrastructure.DataAccess;
-using CodeCampServer.Infrastructure.DataAccess.Impl;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 

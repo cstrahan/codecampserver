@@ -2,7 +2,7 @@ using System;
 using System.Web;
 
 
-namespace CodeCampServer.Infrastructure.DataAccess
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 {
 	public class UnitOfWorkModule : IHttpModule
 	{

@@ -1,7 +1,7 @@
 using System;
 using CodeCampServer.Core;
 
-namespace CodeCampServer.Infrastructure.DataAccess
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 {
     public class UnitOfWorkFactory:StaticFactory<IUnitOfWork>
     {

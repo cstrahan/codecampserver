@@ -7,7 +7,7 @@ using CodeCampServer.Core.Services;
 using NHibernate;
 using NHibernate.Type;
 
-namespace CodeCampServer.Infrastructure.DataAccess
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 {
 	public class ChangeAuditInfoInterceptor : EmptyInterceptor
 	{

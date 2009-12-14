@@ -1,6 +1,6 @@
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.DataAccess.Impl;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl;
 using NBehave.Spec.NUnit;
 using NHibernate;
 using NUnit.Framework;

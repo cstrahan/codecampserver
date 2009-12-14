@@ -4,7 +4,7 @@ using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
-using CodeCampServer.Infrastructure.DataAccess;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;

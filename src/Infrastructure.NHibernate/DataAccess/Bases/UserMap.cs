@@ -1,6 +1,6 @@
 using CodeCampServer.Core.Domain.Model;
 
-namespace CodeCampServer.Infrastructure.DataAccess.Mappings
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings
 {
 	public class UserMap : AuditedEntityClassMap<User>
 	{

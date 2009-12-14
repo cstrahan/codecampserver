@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.DataAccess;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 using NHibernate;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;

@@ -5,7 +5,7 @@ using NHibernate.Dialect;
 using NHibernate.SqlTypes;
 using NHibernate.Type;
 
-namespace CodeCampServer.Infrastructure
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 {
     public class EnumerationType<T> : PrimitiveType where T : Enumeration, new()
     {
