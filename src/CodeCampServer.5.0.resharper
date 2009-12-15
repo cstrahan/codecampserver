@@ -1,0 +1,121 @@
+<Configuration>
+  <CodeStyleSettings>
+    <ExternalPath IsNull="False">
+    </ExternalPath>
+    <Sharing>SOLUTION</Sharing>
+    <CSharp>
+      <FormatSettings>
+        <EMPTY_BLOCK_STYLE>TOGETHER_SAME_LINE</EMPTY_BLOCK_STYLE>
+        <MODIFIERS_ORDER IsNull="False">
+          <Item>public</Item>
+          <Item>protected</Item>
+          <Item>internal</Item>
+          <Item>private</Item>
+          <Item>new</Item>
+          <Item>abstract</Item>
+          <Item>virtual</Item>
+          <Item>override</Item>
+          <Item>sealed</Item>
+          <Item>static</Item>
+          <Item>readonly</Item>
+          <Item>extern</Item>
+          <Item>unsafe</Item>
+          <Item>volatile</Item>
+        </MODIFIERS_ORDER>
+      </FormatSettings>
+      <UsingsSettings />
+      <Naming2>
+        <EventHandlerPatternLong>$object$_On$event$</EventHandlerPatternLong>
+        <EventHandlerPatternShort>$event$Handler</EventHandlerPatternShort>
+      </Naming2>
+    </CSharp>
+    <VB>
+      <FormatSettings />
+      <ImportsSettings />
+      <Naming2>
+        <EventHandlerPatternLong>$object$_On$event$</EventHandlerPatternLong>
+        <EventHandlerPatternShort>$event$Handler</EventHandlerPatternShort>
+      </Naming2>
+    </VB>
+    <Web>
+      <Naming2 />
+    </Web>
+    <Xaml>
+      <Naming2 />
+    </Xaml>
+    <XML>
+      <FormatSettings />
+    </XML>
+    <GenerateMemberBody />
+    <Naming2>
+      <EventHandlerPatternLong>$object$_On$event$</EventHandlerPatternLong>
+      <EventHandlerPatternShort>$event$Handler</EventHandlerPatternShort>
+      <ExceptionName IsNull="False">
+      </ExceptionName>
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="Locals" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="Parameters" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="MethodPropertyEvent" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="TypesAndNamespaces" />
+      <PredefinedRule Inspect="True" Prefix="I" Suffix="" Style="AaBb" ElementKind="Interfaces" />
+      <PredefinedRule Inspect="True" Prefix="T" Suffix="" Style="AaBb" ElementKind="TypeParameters" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="LocalConstants" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PublicFields" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Constants" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="StaticReadonly" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="EnumMember" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Other" />
+      <PredefinedRule Inspect="True" Prefix="_" Suffix="" Style="aaBb" ElementKind="PrivateInstanceFields" />
+      <PredefinedRule Inspect="True" Prefix="_" Suffix="" Style="aaBb" ElementKind="PrivateStaticFields" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PrivateConstants" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PrivateStaticReadonly" />
+    </Naming2>
+  </CodeStyleSettings>
+  <SharedSolutionTemplateManager>
+    <LiveTemplates>
+      <Template uid="9385cb44-b637-4085-baad-40c19e656ca0" shortcut="pvt" description="Test Method" text="[Test]&#xD;&#xA;public void $NAME$()&#xD;&#xA;{&#xD;&#xA;	$END$&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
+        <Categories />
+        <Variables>
+          <Variable name="NAME" expression="" initialRange="0" />
+        </Variables>
+        <CustomProperties />
+      </Template>
+      <Template uid="f1d27305-326f-49fa-8421-ba8fa3bdb7d2" shortcut="tf" description="testfixture" text="[TestFixture]" reformat="True" shortenQualifiedReferences="True">
+        <Context>
+          <CSharpContext context="Everywhere" minimumLanguageVersion="2.0" />
+        </Context>
+        <Categories />
+        <Variables />
+        <CustomProperties />
+      </Template>
+      <Template uid="f5ea1d3d-2456-4007-8aa8-8d91d1effdab" shortcut="t" description="New test" text="[Test]&#xD;&#xA;public void $NAME$()&#xD;&#xA;{&#xD;&#xA;	$END$&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
+        <Context>
+          <CSharpContext context="TypeMember" minimumLanguageVersion="3.0" />
+        </Context>
+        <Categories />
+        <Variables>
+          <Variable name="NAME" expression="" initialRange="0" />
+        </Variables>
+        <CustomProperties />
+      </Template>
+    </LiveTemplates>
+    <FileTemplates>
+      <Template uid="91720a66-54dd-4bc6-a9f8-0a6ea096db03" shortcut="" description="NUnit Fixture" text="using NUnit.Framework;&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;  [TestFixture]&#xD;&#xA;  public class $NAME$&#xD;&#xA;  {&#xD;&#xA;    $END$&#xD;&#xA;  }&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
+        <Context>
+          <ProjectLanguageContext language="CSharp" />
+        </Context>
+        <Categories>
+          <Category name="Shared Solution Templates" />
+        </Categories>
+        <Variables>
+          <Variable name="NAMESPACE" expression="fileDefaultNamespace()" initialRange="-1" />
+          <Variable name="NAME" expression="getFileNameWithoutExtension()" initialRange="-1" />
+        </Variables>
+        <CustomProperties>
+          <Property key="FileName" value="SomethingTester" />
+          <Property key="Extension" value="cs" />
+          <Property key="ValidateFileName" value="False" />
+        </CustomProperties>
+      </Template>
+    </FileTemplates>
+  </SharedSolutionTemplateManager>
+</Configuration>

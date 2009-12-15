@@ -39,12 +39,7 @@ namespace CodeCampServer.IntegrationTests
 			return ObjectFactory.GetInstance<Configuration>();
 		}
 
-		public static void DeleteAllObjects()
-		{
-			RecreateDatabase();
-		}
-
-		public static void EnsureDatabaseRecreated()
+	    public static void EnsureDatabaseRecreated()
 		{
 			if (!_databaseRecreated)
 			{

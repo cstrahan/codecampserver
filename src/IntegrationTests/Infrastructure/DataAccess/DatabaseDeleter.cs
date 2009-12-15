@@ -24,7 +24,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 			foreach (var type in types)
 			{
-				_unitOfWork.CurrentSession.Delete("from " + type.Name + " o");
+                _unitOfWork.CurrentSession.CreateQuery(string.Format("delete {0}", type.Name)).ExecuteUpdate();
 			}
 			_unitOfWork.Commit();
 		}
