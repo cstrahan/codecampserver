@@ -13,7 +13,6 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings
 			Map(x => x.SpeakerName);
 			Map(x => x.SpeakerBio).Length(1000);
 			Map(x => x.SpeakerUrl).Length(255);
-		    Map(x => x.Refreshments);
 			this.ChangeAuditInfo();
 		}
 	}

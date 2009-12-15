@@ -1,6 +1,5 @@
 using System;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Domain.Model.Enumerations;
 using NUnit.Framework;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
@@ -30,8 +29,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 			              		Summary = "summary",
 			              		SpeakerName = "speakername",
 			              		SpeakerBio = "bio",
-			              		SpeakerUrl = "http://google.com",
-                                Refreshments = RefreshmentType.Pizza
+			              		SpeakerUrl = "http://google.com"
 			              	};
 
 			AssertObjectCanBePersisted(userGroup);
