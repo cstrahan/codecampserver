@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using CodeCampServer.Core.Common;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Tarantino.RulesEngine;

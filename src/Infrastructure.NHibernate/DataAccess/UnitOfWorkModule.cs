@@ -32,11 +32,6 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 			{
 				instance.Commit();
 			}
-			catch
-			{
-				instance.RollBack();
-				throw;
-			}
 			finally
 			{
 				instance.Dispose();				
