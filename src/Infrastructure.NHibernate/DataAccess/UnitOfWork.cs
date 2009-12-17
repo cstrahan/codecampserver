@@ -9,7 +9,7 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 		private ITransaction _transaction;
 		private bool _begun;
 		private bool _disposed;
-		private bool _rolledBack;
+		private bool _invalid;
 
 		public UnitOfWork(ISessionSource sessionSource)
 		{
@@ -31,12 +31,10 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 			CheckIsDisposed();
 			CheckHasBegun();
 
-			if (_transaction.IsActive && !_rolledBack)
+			if (_transaction.IsActive && !_invalid)
 			{
 				_transaction.Commit();
 			}
-
-			BeginNewTransaction();
 		}
 
 		public void RollBack()
@@ -47,10 +45,12 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 			if (_transaction.IsActive)
 			{
 				_transaction.Rollback();
-				_rolledBack = true;
 			}
+		}
 
-			BeginNewTransaction();
+		public void Invalidate()
+		{
+			_invalid = true;
 		}
 
 		public void Dispose()
