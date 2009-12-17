@@ -109,7 +109,7 @@ namespace CodeCampServer.UnitTests
 		}
 
 		[Test]
-		public void Should_not_commit_the_transaction_if_rolled_back()
+		public void Should_not_commit_the_transaction_if_invalidated()
 		{
 			var sessionSource = S<ISessionSource>();
 			var session = S<ISession>();
@@ -121,7 +121,7 @@ namespace CodeCampServer.UnitTests
 			var uow = new UnitOfWork(sessionSource);
 
 			uow.Begin();
-			uow.RollBack();
+			uow.Invalidate();
 
 			uow.Commit();
 			transaction.AssertWasNotCalled(t => t.Commit());
