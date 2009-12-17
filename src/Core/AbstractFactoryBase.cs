@@ -2,7 +2,7 @@ using System;
 
 namespace CodeCampServer.Core
 {
-	public class StaticFactory<T>
+	public class AbstractFactoryBase<T>
 	{
 		protected static T DefaultUnconfiguredState()
 		{

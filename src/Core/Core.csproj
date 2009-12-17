@@ -108,7 +108,7 @@
     <Compile Include="Services\IRulesEngine.cs" />
     <Compile Include="Services\ISecurityContext.cs" />
     <Compile Include="Services\IUserSession.cs" />
-    <Compile Include="StaticFactory.cs" />
+    <Compile Include="AbstractFactoryBase.cs" />
     <Compile Include="Services\UserSessionStub.cs" />
     <Compile Include="SystemTime.cs" />
     <Compile Include="Common\TimeExtensions.cs" />
