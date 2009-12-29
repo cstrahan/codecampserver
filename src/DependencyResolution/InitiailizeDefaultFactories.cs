@@ -1,5 +1,6 @@
 using CodeCampServer.Core;
 using CodeCampServer.Infrastructure;
+using CodeCampServer.Infrastructure.NHibernate;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 using CodeCampServer.Infrastructure.ObjectMapping;
 using CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles;
@@ -22,16 +23,15 @@ namespace CodeCampServer.DependencyResolution
 			//name and signature and just replace them with this.
 			ContainerBaseActionFilter.CreateDependencyCallback = (t) => ObjectFactory.GetInstance(t);
 			SmartBinder.CreateDependencyCallback = (t) => ObjectFactory.GetInstance(t);
-			ConfigBasedSessionSource.CreateDependencyCallback = (t) => ObjectFactory.GetInstance(t);
+			SessionBuilder.GetDefault = () => ObjectFactory.GetInstance<ChangeAuditInfoInterceptor>();
 			InputBuilderPropertyFactory.CreateDependencyCallback = (t) => ObjectFactory.GetInstance(t);
 			MeetingMapperProfile.CreateDependencyCallback = (t) => ObjectFactory.GetInstance(t);
 			AutoMapperConfiguration.CreateDependencyCallback = (t) => ObjectFactory.GetInstance(t);
 			ConventionMessageHandlerFactory.CreateDependencyCallback = (t) => ObjectFactory.GetInstance(t);
 			ControllerFactory.CreateDependencyCallback = (t) => ObjectFactory.GetInstance(t);
-            DependencyResolver.InitializeWith(new StructureMapServiceLocator());
-            ServiceLocator.SetLocatorProvider(() => new StructureMapServiceLocator());
-		    UnitOfWorkFactory.Default = () => ObjectFactory.GetInstance<IUnitOfWork>();
-
+			DependencyResolver.InitializeWith(new StructureMapServiceLocator());
+			ServiceLocator.SetLocatorProvider(() => new StructureMapServiceLocator());
+			UnitOfWorkFactory.GetDefault = () => ObjectFactory.GetInstance<IUnitOfWork>();
 		}
 	}
 }

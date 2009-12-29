@@ -8,11 +8,8 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl
 {
 	public class RepositoryBase<T> :  IRepository<T> where T : PersistentObject
 	{
-		private readonly IUnitOfWork _unitOfWork;
-
 		public RepositoryBase(IUnitOfWork unitOfWork )
 		{
-			_unitOfWork = unitOfWork;
 		}
 
 		public virtual T GetById(Guid id)
@@ -23,7 +20,7 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl
 
 		protected ISession GetSession()
 		{
-			return _unitOfWork.CurrentSession;
+			return new SessionBuilder().GetSession();
 		}
 
 		public virtual void Save(T entity)

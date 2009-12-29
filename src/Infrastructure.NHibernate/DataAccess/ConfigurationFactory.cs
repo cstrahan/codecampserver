@@ -7,19 +7,10 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 {
 	public class ConfigurationFactory
 	{
-		public static Configuration Build()
-		{
-			return new ConfigurationFactory().Build(null);
-		}
-
-		public Configuration Build(string configurationFile)
+		public Configuration Build()
 		{
 			var configuration = new Configuration();
-
-			if (string.IsNullOrEmpty(configurationFile))
-				configuration.Configure();
-			else
-				configuration.Configure(configurationFile);
+			configuration.Configure();
 
 			return Fluently.Configure(configuration)
 				.Mappings(cfg =>

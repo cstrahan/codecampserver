@@ -15,7 +15,6 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous.UpdateUser
 		public override void Setup()
 		{
 			base.Setup();
-
 			var cryptographer = GetInstance<ICryptographer>();
 			var salt = cryptographer.CreateSalt();
 			_user = new User()

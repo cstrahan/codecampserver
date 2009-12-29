@@ -2,8 +2,8 @@ using NHibernate;
 
 namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 {
-	public interface ISessionSource
+	public interface ISessionBuilder
 	{
-		ISession CreateSession();
+		ISession GetSession();
 	}
 }

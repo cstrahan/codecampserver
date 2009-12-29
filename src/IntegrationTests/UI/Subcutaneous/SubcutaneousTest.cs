@@ -28,8 +28,8 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous
 			RulesEngine.MessageProcessorFactory = new MessageProcessorFactory();
 			rulesEngine.Initialize(typeof (DeleteMeetingMessageConfiguration).Assembly,
 			                       new RulesEngineConfiguration.CcsMessageMapper());
-
 			base.Setup();
+			GetSession().Dispose();
 		}
 
 		private RulesEngine GetMasterHandler()
@@ -39,6 +39,7 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous
 
 		protected ExecutionResult ProcessForm(TForm form)
 		{
+			UnitOfWork.Begin();
 			ExecutionResult result = GetMasterHandler().Process(form, typeof (TForm));
 
 			if (result.Successful)

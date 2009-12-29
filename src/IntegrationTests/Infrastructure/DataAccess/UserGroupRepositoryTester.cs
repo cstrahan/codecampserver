@@ -36,15 +36,18 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			UserGroup userGroup = CreateUserGroup();
 			using (ISession session = GetSession())
 			{
-				userGroup.GetUsers().ForEach(o => session.SaveOrUpdate(o));
+				userGroup.GetUsers().ForEach(session.SaveOrUpdate);
 				session.Flush();
 			}
+			GetSession().Dispose();
 
 			IUserGroupRepository repository = CreateRepository();
 			repository.Save(userGroup);
 			userGroup.Remove(userGroup.GetUsers()[0]);
 			repository.Save(userGroup);
 			CommitChanges();
+			GetSession().Dispose();
+
 			UserGroup rehydratedGroup;
 			using (ISession session = GetSession())
 			{
@@ -65,7 +68,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 			IUserGroupRepository repository = CreateRepository();
 			repository.Save(userGroup);
-			
+			CommitChanges();
 
 			UserGroup rehydratedGroup;
 			IUserGroupRepository repository2 = CreateRepository();
@@ -73,7 +76,6 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			rehydratedGroup.GetSponsors().Length.ShouldEqual(2);
 
 			GetSession().Flush();
-			
 		}
 
 		[Test]

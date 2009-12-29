@@ -11,7 +11,7 @@ namespace CodeCampServer.Core.Services
 			_currentUser = currentUser;
 		}
 
-		public User GetCurrentUser()
+		public virtual User GetCurrentUser()
 		{
 			return _currentUser;
 		}

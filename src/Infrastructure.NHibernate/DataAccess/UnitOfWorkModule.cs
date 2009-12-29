@@ -1,7 +1,6 @@
 using System;
 using System.Web;
 
-
 namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 {
 	public class UnitOfWorkModule : IHttpModule
@@ -12,23 +11,18 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 			context.EndRequest += context_EndRequest;
 		}
 
-		public void Dispose()
-		{
-
-		}
+		public void Dispose() {}
 
 		private void context_BeginRequest(object sender, EventArgs e)
 		{
-			//var instance = ObjectFactory.GetInstance<IUnitOfWork>();
-		    var instance = UnitOfWorkFactory.Default();
+			IUnitOfWork instance = UnitOfWorkFactory.GetDefault();
 			instance.Begin();
 		}
 
 		private void context_EndRequest(object sender, EventArgs e)
 		{
-			//var instance = ObjectFactory.GetInstance<IUnitOfWork>();
-            var instance = UnitOfWorkFactory.Default();
-            try
+			IUnitOfWork instance = UnitOfWorkFactory.GetDefault();
+			try
 			{
 				instance.Commit();
 			}
@@ -39,8 +33,8 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 			}
 			finally
 			{
-				instance.Dispose();				
-			}			
+				instance.Dispose();
+			}
 		}
 	}
 }

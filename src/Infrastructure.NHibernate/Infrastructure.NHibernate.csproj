@@ -82,7 +82,6 @@
     <Compile Include="DataAccess\Bases\UserMap.cs" />
     <Compile Include="DataAccess\Bases\UserRepository.cs" />
     <Compile Include="DataAccess\ChangeAuditInfoInterceptor.cs" />
-    <Compile Include="DataAccess\ConfigBasedSessionSource.cs" />
     <Compile Include="DataAccess\ConfigurationFactory.cs" />
     <Compile Include="DataAccess\EnumerationType.cs" />
     <Compile Include="DataAccess\Impl\ConferenceRepository.cs" />
@@ -90,7 +89,7 @@
     <Compile Include="DataAccess\Impl\KeyedRepository.cs" />
     <Compile Include="DataAccess\Impl\MeetingRepository.cs" />
     <Compile Include="DataAccess\Impl\UserGroupRepository.cs" />
-    <Compile Include="DataAccess\ISessionSource.cs" />
+    <Compile Include="DataAccess\ISessionBuilder.cs" />
     <Compile Include="DataAccess\IUnitOfWork.cs" />
     <Compile Include="DataAccess\Mappings\ConferenceMap.cs" />
     <Compile Include="DataAccess\Mappings\EventMap.cs" />
@@ -100,7 +99,17 @@
     <Compile Include="DataAccess\UnitOfWork.cs" />
     <Compile Include="DataAccess\UnitOfWorkFactory.cs" />
     <Compile Include="DataAccess\UnitOfWorkModule.cs" />
+    <Compile Include="HttpContextInstanceScoper.cs" />
+    <Compile Include="HybridInstanceScoper.cs" />
+    <Compile Include="IInstanceScoper.cs" />
+    <Compile Include="InstanceScoperBase.cs" />
+    <Compile Include="ISessionBuilder.cs" />
+    <Compile Include="ISessionFactoryBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionBuilder.cs" />
+    <Compile Include="SessionFactoryBuilder.cs" />
+    <Compile Include="SingletonInstanceScoper.cs" />
+    <Compile Include="ThreadStaticInstanceScoper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

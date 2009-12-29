@@ -3,17 +3,17 @@ using NHibernate;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
-	public class TestSessionSource : ISessionSource
+	public class TestSessionBuilder : ISessionBuilder
 	{
 		private readonly ISessionFactory _sessionFactory;
 		private ISession _session;
 
-		public TestSessionSource(ISessionFactory sessionFactory)
+		public TestSessionBuilder(ISessionFactory sessionFactory)
 		{
 			_sessionFactory = sessionFactory;
 		}
 
-		public ISession CreateSession()
+		public ISession GetSession()
 		{
 			if ((_session == null) || (!_session.IsOpen))
 			{

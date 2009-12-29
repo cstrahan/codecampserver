@@ -1,8 +1,8 @@
 using System.Data;
+using CodeCampServer.Infrastructure.NHibernate;
 using CodeCampServer.IntegrationTests.Infrastructure.DataAccess;
 using NHibernate;
 using NUnit.Framework;
-using StructureMap;
 
 namespace CodeCampServer.IntegrationTests
 {
@@ -12,7 +12,7 @@ namespace CodeCampServer.IntegrationTests
 		[Test]
 		public void Database_connection_should_work()
 		{
-			var session = ObjectFactory.GetInstance<ISession>();
+			ISession session = new SessionBuilder().GetSession();
 			if (session.Transaction.IsActive)
 				session.Transaction.Rollback();
 

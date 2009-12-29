@@ -2,21 +2,34 @@ using System;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
+using CodeCampServer.Infrastructure.NHibernate;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 using NBehave.Spec.NUnit;
 using NHibernate;
 using NUnit.Framework;
+using Rhino.Mocks;
+using StructureMap;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
 	[TestFixture]
 	public class ChangeAuditInfoInterceptorTester : DataTestBase
 	{
+		private static User CurrentUser;
+
+		private static void ResetCurrentUser()
+		{
+			var userSession = MockRepository.GenerateStub<IUserSession>();
+			CurrentUser = new User();
+			userSession.Stub(us => us.GetCurrentUser()).Return(CurrentUser);
+			ObjectFactory.Inject(userSession);
+		}
+
 		[Test]
 		public void should_create_audit_info_on_save_and_update_child_entities()
 		{
-			TestHelper.ResetCurrentUser();
-			User user1 = TestHelper.CurrentUser;
+			ResetCurrentUser();
+			User user1 = CurrentUser;
 			PersistEntities(user1);
 
 			var group = new UserGroup();
@@ -38,12 +51,12 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		[Test]
 		public void should_not_update_user_audit_info()
 		{
-			TestHelper.ResetCurrentUser();
+			ResetCurrentUser();
 			var user = new User();
 
-			PersistEntities(TestHelper.CurrentUser);
+			PersistEntities(CurrentUser);
 
-			PersistEntitiesWithAuditing(TestHelper.CurrentUser, new DateTime(2009, 1, 1), user);
+			PersistEntitiesWithAuditing(CurrentUser, new DateTime(2009, 1, 1), user);
 
 			user.ChangeAuditInfo.Created.ShouldBeNull();
 			user.ChangeAuditInfo.CreatedBy.ShouldBeNull();
@@ -73,7 +86,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		protected virtual ISession GetAuditedSession(User user, DateTime today)
 		{
 			return
-				TestHelper.GetSessionFactory().OpenSession(new ChangeAuditInfoInterceptor(new UserSessionStub(user),
+				new SessionFactoryBuilder().GetFactory().OpenSession(new ChangeAuditInfoInterceptor(new UserSessionStub(user),
 				                                                                          new Clock(today)));
 		}
 	}

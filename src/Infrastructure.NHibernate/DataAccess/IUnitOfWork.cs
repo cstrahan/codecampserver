@@ -7,6 +7,6 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 		void Begin();
 		void Commit();
 		void RollBack();
-		ISession CurrentSession { get; }
+		ISession GetSession();
 	}
 }

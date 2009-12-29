@@ -5,101 +5,73 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 {
 	public class UnitOfWork : IUnitOfWork
 	{
-		private readonly ISessionSource _sessionSource;
-		private ITransaction _transaction;
-		private bool _begun;
-		private bool _disposed;
-		private bool _invalid;
+		private readonly ISessionBuilder _sessionBuilder;
 
-		public UnitOfWork(ISessionSource sessionSource)
+		public UnitOfWork(ISessionBuilder sessionBuilder)
 		{
-			_sessionSource = sessionSource;
+			_sessionBuilder = sessionBuilder;
 		}
 
 		public void Begin()
 		{
-			CheckIsDisposed();
-
-			CurrentSession = _sessionSource.CreateSession();
-
 			BeginNewTransaction();
-			_begun = true;
 		}
 
 		public void Commit()
 		{
-			CheckIsDisposed();
 			CheckHasBegun();
 
-			if (_transaction.IsActive && !_invalid)
+			ITransaction transaction = GetTransaction();
+			if (transaction.IsActive)
 			{
-				_transaction.Commit();
+				transaction.Commit();
 			}
+		}
+
+		private ITransaction GetTransaction()
+		{
+			return GetSession().Transaction;
 		}
 
 		public void RollBack()
 		{
-			CheckIsDisposed();
 			CheckHasBegun();
 
-			if (_transaction.IsActive)
+			if (GetTransaction().IsActive)
 			{
-				_transaction.Rollback();
+				GetTransaction().Rollback();
 			}
 		}
 
-		public void Invalidate()
+		public ISession GetSession()
 		{
-			_invalid = true;
-		}
-
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
-
-		public ISession CurrentSession
-		{
-			get;
-			private set;
+			return _sessionBuilder.GetSession();
 		}
 
 		private void BeginNewTransaction()
 		{
-			if (_transaction != null)
+			if (GetTransaction().IsActive || GetTransaction().WasCommitted || GetTransaction().WasRolledBack)
 			{
-				_transaction.Dispose();
+				GetTransaction().Dispose();
 			}
 
-			_transaction = CurrentSession.BeginTransaction();
-		}
-
-		protected virtual void Dispose(bool disposing)
-		{
-			if (!_begun || _disposed)
-				return;
-
-			if (disposing)
-			{
-				_transaction.Dispose();
-				CurrentSession.Dispose();
-			}
-
-			_disposed = true;
+			GetSession().BeginTransaction();
 		}
 
 		private void CheckHasBegun()
 		{
-			if (!_begun)
+			if (!GetTransaction().IsActive)
 				throw new InvalidOperationException("Must call Begin() on the unit of work before committing");
 		}
 
-		private void CheckIsDisposed()
+		public void Dispose()
 		{
-			if (_disposed)
-				throw new ObjectDisposedException(GetType().Name);
+			GetSession().Dispose();
 		}
 
+		public void Invalidate()
+		{
+			RollBack();
+		}
 	}
 }

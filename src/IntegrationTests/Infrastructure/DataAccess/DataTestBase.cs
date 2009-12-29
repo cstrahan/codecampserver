@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.NHibernate.DataAccess;
+using CodeCampServer.Core.Services;
+using CodeCampServer.Infrastructure.NHibernate;
 using NHibernate;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
@@ -20,6 +20,21 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			base.Setup();
 		}
 
+		public class UserSessionDataStub : UserSessionStub
+		{
+			private readonly Guid _id;
+
+			public UserSessionDataStub(Guid id) : base(null)
+			{
+				_id = id;
+			}
+
+			public override User GetCurrentUser()
+			{
+				return new SessionBuilder().GetSession().Load<User>(_id);
+			}
+		}
+
 		protected void PersistEntities(params PersistentObject[] entities)
 		{
 			using (ISession session = GetSession())
@@ -28,20 +43,9 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			}
 		}
 
-		protected void UsingSession(Action<ISession> doStuffInTheSession)
-		{
-			using (ISession session = GetSession())
-			{
-				doStuffInTheSession(session);
-			}
-		}
-
 		protected virtual void DeleteAllObjects()
 		{
-			var unit = new UnitOfWork(GetSessionSource());
-			unit.Begin();
-			new DatabaseDeleter(unit).DeleteAllObjects();
-			unit.Dispose();
+			new DatabaseDeleter(new SessionBuilder()).DeleteAllObjects();
 		}
 
 

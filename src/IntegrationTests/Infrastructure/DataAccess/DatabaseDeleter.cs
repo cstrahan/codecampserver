@@ -1,32 +1,56 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess.Bases;
+using Microsoft.SqlServer.Management.Smo;
+using NHibernate;
+using User = CodeCampServer.Core.Domain.Model.User;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
 	public class DatabaseDeleter
 	{
-		private readonly IUnitOfWork _unitOfWork;
-
-		public DatabaseDeleter(IUnitOfWork unitOfWork)
+		private readonly ISessionBuilder _builder;
+       
+		public DatabaseDeleter(ISessionBuilder builder)
 		{
-			_unitOfWork = unitOfWork;
+			_builder = builder;
 		}
 
 		internal virtual void DeleteAllObjects()
 		{
-			Type[] types =
-				typeof (User).Assembly.GetTypes().Where(
+			var tables = new List<string>();
+			tables.Add("usergroupadminusers");
+			tables.Add("conferences");
+			tables.Add("meetings");
+			tables.Add("events");
+			tables.Add("sponsors");
+			tables.Add("usergroups");
+			tables.Add("users");
+
+			Type[] unorderedTypes =	typeof (User).Assembly.GetTypes().Where(
 					type => typeof (PersistentObject).IsAssignableFrom(type) && !type.IsAbstract)
 					.OrderBy(type => type.Name).ToArray();
 
-			foreach (var type in types)
+			ISession session = _builder.GetSession();
+			session.BeginTransaction();
+
+			foreach (var table in tables)
 			{
-                _unitOfWork.CurrentSession.CreateQuery(string.Format("delete {0}", type.Name)).ExecuteUpdate();
+//				Console.WriteLine(table);
+				session.CreateSQLQuery(string.Format("delete from {0}", table)).ExecuteUpdate();
 			}
-			_unitOfWork.Commit();
+
+			foreach (var type in unorderedTypes)
+			{
+//				Console.WriteLine(type.Name);
+				session.CreateQuery(string.Format("delete {0}", type.Name)).ExecuteUpdate();
+			}
+
+			session.Transaction.Commit();
 		}
 	}
 }

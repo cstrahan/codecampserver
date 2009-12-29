@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Reflection;
 using CodeCampServer.Core.Common;
 using CodeCampServer.DependencyResolution;
+using CodeCampServer.Infrastructure.NHibernate;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 using CodeCampServer.UnitTests;
 using NHibernate;
@@ -21,45 +21,38 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		[TestFixtureSetUp]
 		public virtual void FixtureSetup()
 		{
-			DependencyRegistrar.EnsureDependenciesRegistered();	
+			DependencyRegistrar.EnsureDependenciesRegistered();
+			SessionBuilder.GetDefault = () => null;
 		}
 
 		[SetUp]
 		public virtual void Setup()
 		{
 			injectedInstances.Clear();
-			_unitOfWork = new UnitOfWork(GetSessionSource());
-			_unitOfWork.Begin();
-			ObjectFactory.Inject(typeof (IUnitOfWork), _unitOfWork);
-		}
-
-		[TearDown]
-		public virtual void TearDown()
-		{
-			_unitOfWork.Dispose();
-			_unitOfWork = null;
+			ObjectFactory.Inject(typeof (IUnitOfWork), UnitOfWork);
 		}
 
 		protected virtual ISession GetSession()
 		{
-			return TestHelper.GetSessionFactory().OpenSession();
+			return UnitOfWork.GetSession();
 		}
 
 		protected virtual void CommitChanges()
 		{
-			UnitOfWork.Commit();
+			new SessionBuilder().GetSession().Flush();
 		}
 
 
 		protected IUnitOfWork UnitOfWork
 		{
-			get { return _unitOfWork; }
-		}
-
-		protected void InjectInstance<T>(T instance)
-		{
-			Type type = typeof (T);
-			injectedInstances.Add(type, instance);
+			get
+			{
+				if(_unitOfWork == null)
+				{
+					_unitOfWork = new UnitOfWork(new SessionBuilder());
+				}
+				return _unitOfWork;
+			}
 		}
 
 		protected TPluginType GetInstance<TPluginType>()
@@ -69,18 +62,8 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			return expression.GetInstance<TPluginType>();
 		}
 
-		protected object GetInstance(Type pluginType)
-		{
-			return ObjectFactory.With(_unitOfWork).GetInstance(pluginType);
-		}
-
-		protected virtual ISessionSource GetSessionSource()
-		{
-			return new TestSessionSource(TestHelper.GetSessionFactory());
-		}
-
 		/// <summary>
-		/// Checks for equality and that all properties' values are equal.
+		///   Checks for equality and that all properties' values are equal.
 		/// </summary>
 		/// <param name="obj1"></param>
 		/// <param name="obj2"></param>
@@ -90,19 +73,12 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			Assert.AreEqual(obj1, obj2);
 
 			PropertyInfo[] infos = obj1.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
-			foreach (PropertyInfo info in infos)
+			foreach (var info in infos)
 			{
 				object value1 = info.GetValue(obj1, null);
 				object value2 = info.GetValue(obj2, null);
 				Assert.AreEqual(value1, value2, string.Format("Property {0} doesn't match", info.Name));
 			}
-		}
-
-		protected static int CountRowsInTable(ISession session, string table)
-		{
-			string sql = string.Format("select count(*) from {0}", table);
-			var cmd = new SqlCommand(sql, (SqlConnection) session.Connection);
-			return (int) cmd.ExecuteScalar();
 		}
 	}
 }
