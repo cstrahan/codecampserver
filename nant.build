@@ -6,7 +6,7 @@
   	<!-- Master Build Targets -->
   	<!-- ******************** -->
   	<target name="build" depends="init, commonassemblyinfo, dropDatabase, createDatabase, compile, move-for-test, test"/>
-  	<target name="cruise" depends="build, package, create-template"/>
+  	<target name="cruise" depends="build, package, create-template"/>	
   	<target name="integrationBuild" depends="init, commonassemblyinfo, dropDatabase, createDatabase,, compile, move-for-test, coverage, inspection,package"/>
   	<target name="publish" depends="init, revert, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test, package,commitPackage"/>
   	<target name="inspection" depends="sourcemonitor,fxcop,stylecop"/>
@@ -176,12 +176,12 @@
     	</if>
 
     	<if test="${file::exists('c:\program files\red gate\SQL Compare 8\SQLCompare.exe')}" >
-      		<property name="redgate.exe" value="c:\program files\red gate\SQL Compare 8\SQLCompare.exe"/>
+      		<property name="redgate.exe" value="c:\prog		ram files\red gate\SQL Compare 8\SQLCompare.exe"/>
     	</if>
 
     	<exec
       		program="${redgate.exe}"
-      		commandline="/f /v /server1:${database.server} /server2:${database.server} /database1:${database.name} /database2:${database.name}Versioned /scriptfile:${database.script.directory}/Update/_New_Script.sql /o:ii,ik /exclude:Table:usd_AppliedDatabaseScript"
+      		commandline="/f /v /server1:${database.server} /server2:${database.server} /database1:${database.name} /database2:${database.name}Versioned /scriptfile:${database.script.directory}/Update/_New_Script.sql  /exclude:Table:usd_AppliedDatabaseScript"
       		resultproperty="execReturnCode"
       		failonerror ="false"/>
       	<fail if="${execReturnCode != '0' and execReturnCode != '63'}" message="Redgate Compare Failed!"/>
@@ -200,7 +200,8 @@
   	</target>
 
   	<target name="create-versioned-database">
-    	<tstamp></tstamp>
+    	<echo message="Creating Versioned Database"/>
+		<tstamp></tstamp>
     	<manageSqlDatabase
 			action="Drop"
 			server="${database.server}"

@@ -30,6 +30,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		{
 			ResetCurrentUser();
 			User user1 = CurrentUser;
+			user1.Username = "foo";
 			PersistEntities(user1);
 
 			var group = new UserGroup();
@@ -38,14 +39,14 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			PersistEntitiesWithAuditing(user1, new DateTime(2009, 4, 5), group, sponsor);
 			var group1 = GetAuditedSession(user1, new DateTime(2009, 4, 5)).Load<UserGroup>(group.Id);
 			group1.ChangeAuditInfo.Created.ShouldEqual(new DateTime(2009, 4, 5));
-			group1.ChangeAuditInfo.CreatedBy.ShouldEqual(user1);
+			group1.ChangeAuditInfo.CreatedBy.ShouldEqual(user1.Username);
 			group1.ChangeAuditInfo.Updated.ShouldEqual(new DateTime(2009, 4, 5));
-			group1.ChangeAuditInfo.UpdatedBy.ShouldEqual(user1);
+			group1.ChangeAuditInfo.UpdatedBy.ShouldEqual(user1.Username);
 			Sponsor sponsor1 = group.GetSponsors()[0];
 			sponsor1.ChangeAuditInfo.Created.ShouldEqual(new DateTime(2009, 4, 5));
-			sponsor1.ChangeAuditInfo.CreatedBy.ShouldEqual(user1);
+			sponsor1.ChangeAuditInfo.CreatedBy.ShouldEqual(user1.Username);
 			sponsor1.ChangeAuditInfo.Updated.ShouldEqual(new DateTime(2009, 4, 5));
-			sponsor1.ChangeAuditInfo.UpdatedBy.ShouldEqual(user1);
+			sponsor1.ChangeAuditInfo.UpdatedBy.ShouldEqual(user1.Username);
 		}
 
 		[Test]

@@ -12,8 +12,8 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings
 			                                      	{
 			                                      		cp.Map(x => x.Created);
 			                                      		cp.Map(x => x.Updated);
-			                                      		cp.References(x => x.CreatedBy).Column("CreatedBy");
-			                                      		cp.References(x => x.UpdatedBy).Column("UpdatedBy");
+			                                      		cp.Map(x => x.CreatedBy).Column("CreatedBy");
+			                                      		cp.Map(x => x.UpdatedBy).Column("UpdatedBy");
 			                                      	});
 		}
 

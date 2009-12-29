@@ -64,10 +64,10 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 			if (auditable.ChangeAuditInfo.Created == null) //create
 			{
 				auditable.ChangeAuditInfo.Created = _clock.Now();
-				auditable.ChangeAuditInfo.CreatedBy = _userSession.GetCurrentUser();
+				auditable.ChangeAuditInfo.CreatedBy = _userSession.GetCurrentUser().Username;
 			}
 			auditable.ChangeAuditInfo.Updated = _clock.Now();
-			auditable.ChangeAuditInfo.UpdatedBy = _userSession.GetCurrentUser();
+			auditable.ChangeAuditInfo.UpdatedBy = _userSession.GetCurrentUser().Username;
 
 
 			setter(auditable.ChangeAuditInfo);

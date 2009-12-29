@@ -33,7 +33,7 @@ namespace CodeCampServer.UnitTests.Infrastructure.DataAccess
 		public void Should_tag_created_and_updated_info_when_no_created_date_exists()
 		{
 			var userSession = S<IUserSession>();
-			var currentUser = new User();
+			var currentUser = new User(){Username = "username"};
 			userSession.Stub(us => us.GetCurrentUser()).Return(currentUser);
 
 			var conference = new Conference();
@@ -43,30 +43,30 @@ namespace CodeCampServer.UnitTests.Infrastructure.DataAccess
 			interceptor.OnSave(conference, null, new[] {new ChangeAuditInfo()}, new[] {"ChangeAuditInfo"}, null);
 
 			conference.ChangeAuditInfo.Created.ShouldEqual(new DateTime(2008, 10, 20));
-			conference.ChangeAuditInfo.CreatedBy.ShouldEqual(currentUser);
+			conference.ChangeAuditInfo.CreatedBy.ShouldEqual(currentUser.Username);
 			conference.ChangeAuditInfo.Updated.ShouldEqual(new DateTime(2008, 10, 20));
-			conference.ChangeAuditInfo.UpdatedBy.ShouldEqual(currentUser);
+			conference.ChangeAuditInfo.UpdatedBy.ShouldEqual(currentUser.Username);
 		}
 
 		[Test]
 		public void Should_tag_updated_info_when_created_info_exists()
 		{
 			var userSession = S<IUserSession>();
-			var createdUser = new User();
-			var currentUser = new User();
+			var createdUser = new User(){Username = "created"};
+			var currentUser = new User(){Username = "current"};
 			userSession.Stub(us => us.GetCurrentUser()).Return(currentUser);
 
 			var conference = new Conference
-			             	{ChangeAuditInfo = new ChangeAuditInfo {Created = new DateTime(2008, 10, 1), CreatedBy = createdUser}};
+			             	{ChangeAuditInfo = new ChangeAuditInfo {Created = new DateTime(2008, 10, 1), CreatedBy = createdUser.Username}};
 
 			var interceptor = new ChangeAuditInfoInterceptor(userSession, new Clock(new DateTime(2008, 10, 20)));
 
 			interceptor.OnFlushDirty(conference, null, new[] {conference.ChangeAuditInfo}, null, new[] {"ChangeAuditInfo"}, null);
 
 			conference.ChangeAuditInfo.Created.ShouldEqual(new DateTime(2008, 10, 1));
-			conference.ChangeAuditInfo.CreatedBy.ShouldEqual(createdUser);
+			conference.ChangeAuditInfo.CreatedBy.ShouldEqual(createdUser.Username);
 			conference.ChangeAuditInfo.Updated.ShouldEqual(new DateTime(2008, 10, 20));
-			conference.ChangeAuditInfo.UpdatedBy.ShouldEqual(currentUser);
+			conference.ChangeAuditInfo.UpdatedBy.ShouldEqual(currentUser.Username);
 		}
 	}
 }

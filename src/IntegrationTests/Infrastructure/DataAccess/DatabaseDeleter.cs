@@ -4,17 +4,14 @@ using System.Linq;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess;
-using CodeCampServer.Infrastructure.NHibernate.DataAccess.Bases;
-using Microsoft.SqlServer.Management.Smo;
 using NHibernate;
-using User = CodeCampServer.Core.Domain.Model.User;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
 	public class DatabaseDeleter
 	{
 		private readonly ISessionBuilder _builder;
-       
+
 		public DatabaseDeleter(ISessionBuilder builder)
 		{
 			_builder = builder;
@@ -22,18 +19,11 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 		internal virtual void DeleteAllObjects()
 		{
-			var tables = new List<string>();
-			tables.Add("usergroupadminusers");
-			tables.Add("conferences");
-			tables.Add("meetings");
-			tables.Add("events");
-			tables.Add("sponsors");
-			tables.Add("usergroups");
-			tables.Add("users");
+			List<string> tables = GetTables();
 
-			Type[] unorderedTypes =	typeof (User).Assembly.GetTypes().Where(
-					type => typeof (PersistentObject).IsAssignableFrom(type) && !type.IsAbstract)
-					.OrderBy(type => type.Name).ToArray();
+			Type[] unorderedTypes = typeof (User).Assembly.GetTypes().Where(
+				type => typeof (PersistentObject).IsAssignableFrom(type) && !type.IsAbstract)
+				.OrderBy(type => type.Name).ToArray();
 
 			ISession session = _builder.GetSession();
 			session.BeginTransaction();
@@ -51,6 +41,19 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			}
 
 			session.Transaction.Commit();
+		}
+
+		public static List<string> GetTables()
+		{
+			var tables = new List<string>();
+			tables.Add("usergroupadminusers");
+			tables.Add("conferences");
+			tables.Add("meetings");
+			tables.Add("events");
+			tables.Add("sponsors");
+			tables.Add("usergroups");
+			tables.Add("users");
+			return tables;
 		}
 	}
 }

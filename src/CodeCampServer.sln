@@ -22,6 +22,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Automapper",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6A1AE1F2-F42C-457C-BD16-D2A9EF407AE8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{D6690A44-9B03-4A4F-B673-DCA1F38AE2CD}"
+	ProjectSection(SolutionItems) = preProject
+		..\build.bat = ..\build.bat
+		..\common.build = ..\common.build
+		..\nant.build = ..\nant.build
+		..\psake.ps1 = ..\psake.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AutomatedDebug|Any CPU = AutomatedDebug|Any CPU
@@ -94,9 +102,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9AA9FD4D-58F4-4148-9376-EE09868E2B73} = {6A1AE1F2-F42C-457C-BD16-D2A9EF407AE8}
-		{472E5A68-10F2-46B5-A935-0C77FE8DAE3C} = {6A1AE1F2-F42C-457C-BD16-D2A9EF407AE8}
 		{C01DA28B-6F9D-4378-A2DA-884DDFD224B1} = {6A1AE1F2-F42C-457C-BD16-D2A9EF407AE8}
+		{472E5A68-10F2-46B5-A935-0C77FE8DAE3C} = {6A1AE1F2-F42C-457C-BD16-D2A9EF407AE8}
 		{1A623D88-E936-4251-BD91-0F49F67FBC16} = {6A1AE1F2-F42C-457C-BD16-D2A9EF407AE8}
+		{9AA9FD4D-58F4-4148-9376-EE09868E2B73} = {6A1AE1F2-F42C-457C-BD16-D2A9EF407AE8}
 	EndGlobalSection
 EndGlobal
