@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.UI.Binders;
+using CodeCampServer.UI.Binders;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;

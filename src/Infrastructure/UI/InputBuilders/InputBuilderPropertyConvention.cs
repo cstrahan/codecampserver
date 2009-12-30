@@ -4,7 +4,7 @@ using CodeCampServer.UI.Helpers.Attributes;
 using MvcContrib.UI.InputBuilder.Attributes;
 using MvcContrib.UI.InputBuilder.Conventions;
 
-namespace CodeCampServer.Infrastructure.UI.InputBuilders
+namespace CodeCampServer.UI.InputBuilders
 {
 	public class InputBuilderPropertyConvention : DefaultProperyConvention
 	{

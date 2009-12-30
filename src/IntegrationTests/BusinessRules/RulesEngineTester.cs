@@ -186,7 +186,6 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			var repository = S<IUserRepository>();
 			ObjectFactory.Inject(typeof (IUserRepository), repository);
 
-
 			var auth = S<IAuthenticationService>();
 			ObjectFactory.Inject(typeof (IAuthenticationService), auth);
 			auth.Stub(service => service.PasswordMatches(null, "")).IgnoreArguments().Return(true);
@@ -196,11 +195,11 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 
 			var rulesRunner = new RulesEngine();
 
-			ExecutionResult result = rulesRunner.Process(new LoginInput
+			ExecutionResult result = rulesRunner.Process(new LoginInputProxy
 			                                             	{
 			                                             		Username = "foo",
 			                                             		Password = "thepass",
-			                                             	}, typeof (LoginInput));
+			                                             	}, typeof (LoginInputProxy));
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<User>().ShouldNotBeNull();
 		}

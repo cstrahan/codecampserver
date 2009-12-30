@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using MvcContrib.UI.InputBuilder.Views;
 
-namespace CodeCampServer.Infrastructure.UI.InputBuilders
+namespace CodeCampServer.UI.InputBuilders
 {
 	public class GuidPropertyConvention : InputBuilderPropertyConvention
 	{

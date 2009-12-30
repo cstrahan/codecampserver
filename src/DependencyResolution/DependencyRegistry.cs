@@ -1,5 +1,7 @@
 using CodeCampServer.Core;
 using CodeCampServer.Core.Common;
+using CodeCampServer.Core.Services;
+using CodeCampServer.Infrastructure.UI.Services;
 using CodeCampServer.UI.Helpers.Filters;
 using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
@@ -15,14 +17,18 @@ namespace CodeCampServer.DependencyResolution
 
 			Scan(x =>
 			{
-			    GetType().Assembly.GetReferencedAssemblies().Where(name => name.Name.StartsWith(assemblyPrefix))
-			        .ForEach(name => x.Assembly(name.Name));
+			    GetType().Assembly.GetReferencedAssemblies()
+					.Where(name => name.Name.StartsWith(assemblyPrefix))
+					.ForEach(name => x.Assembly(name.Name));
+
 				x.Assembly("CommandProcessor");
 				x.With<DefaultConventionScanner>();
 				x.LookForRegistries();
 				x.AddAllTypesOf<IRequiresConfigurationOnStartup>();
 				x.AddAllTypesOf<IConventionActionFilter>();
 			});
+
+			ForRequestedType<IRulesEngine>().TheDefaultIsConcreteType<RulesEngine>();
 		}
 
 		private string GetThisAssembliesPrefix()

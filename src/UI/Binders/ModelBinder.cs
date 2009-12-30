@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
 
-namespace CodeCampServer.Infrastructure.UI.Binders
+namespace CodeCampServer.UI.Binders
 {
 	public class ModelBinder<TEntity, TRepository> : DefaultModelBinder
 		where TRepository : IRepository<TEntity>

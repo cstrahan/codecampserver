@@ -1,13 +1,11 @@
 using System.Web.Mvc;
 using CodeCampServer.Core;
-using CodeCampServer.Infrastructure.UI.Binders;
-using CodeCampServer.Infrastructure.UI.InputBuilders;
-using CodeCampServer.Infrastructure.UI.Services;
-using CodeCampServer.UI;
+using CodeCampServer.UI.Binders;
+using CodeCampServer.UI.InputBuilders;
 using MvcContrib;
 using MvcContrib.UI.InputBuilder;
 
-namespace CodeCampServer.Infrastructure.UI
+namespace CodeCampServer.UI
 {
 	public class MvcStartupConfiguration : IRequiresConfigurationOnStartup
 	{

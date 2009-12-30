@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using CodeCampServer.Core.Bases;
 using MvcContrib.UI.InputBuilder.Views;
 
-namespace CodeCampServer.Infrastructure.UI.InputBuilders
+namespace CodeCampServer.UI.InputBuilders
 {
 	public class EnumerationPropertyConvention:InputBuilderPropertyConvention
 	{

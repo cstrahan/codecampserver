@@ -7,7 +7,7 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Models.Input;
 using MvcContrib.UI.InputBuilder.Views;
 
-namespace CodeCampServer.Infrastructure.UI.InputBuilders
+namespace CodeCampServer.UI.InputBuilders
 {
 	public class UserPickerPropertyConvention : InputBuilderPropertyConvention
 	{

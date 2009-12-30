@@ -1,5 +1,6 @@
 using System;
 using CodeCampServer.Core;
+using CodeCampServer.UI;
 using Naak.HtmlRules;
 using StructureMap;
 
@@ -14,7 +15,7 @@ namespace CodeCampServer.DependencyResolution
 		{
 			ObjectFactory.Initialize(x => x.Scan(y =>
 			                                     	{
-																							y.AssemblyContainingType<NaakRegistry>();
+														y.AssemblyContainingType<NaakRegistry>();
 			                                     		y.AssemblyContainingType<DependencyRegistry>();
 			                                     		y.LookForRegistries();
 			                                     	}));

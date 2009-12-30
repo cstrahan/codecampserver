@@ -8,7 +8,7 @@ namespace CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles
 	{
 		protected override void Configure()
 		{
-			Mapper.CreateMap<LoginInput, LoginUserCommandMessage>();
+			Mapper.CreateMap<LoginInputProxy, LoginUserCommandMessage>();
 		}
 	}
 }

@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace CodeCampServer.Infrastructure.UI.InputBuilders
+namespace CodeCampServer.UI.InputBuilders
 {
 	public class PasswordPropertyConvention:InputBuilderPropertyConvention
 	{

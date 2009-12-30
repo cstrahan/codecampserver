@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using MvcContrib.UI.InputBuilder.Conventions;
 
-namespace CodeCampServer.Infrastructure.UI.InputBuilders
+namespace CodeCampServer.UI.InputBuilders
 {
 	public class InputBuilderPropertyFactory : List<IPropertyViewModelFactory>
 	{

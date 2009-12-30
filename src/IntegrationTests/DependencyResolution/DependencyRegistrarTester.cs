@@ -7,7 +7,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl;
-using CodeCampServer.Infrastructure.UI.Binders;
+using CodeCampServer.UI.Binders;
 using CodeCampServer.UI.Controllers;
 using NBehave.Spec.NUnit;
 

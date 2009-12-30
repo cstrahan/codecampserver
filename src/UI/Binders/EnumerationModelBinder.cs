@@ -2,7 +2,7 @@ using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Bases;
 
-namespace CodeCampServer.Infrastructure.UI.Binders
+namespace CodeCampServer.UI.Binders
 {
 	public class EnumerationModelBinder : IModelBinder
 	{

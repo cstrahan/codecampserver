@@ -15,7 +15,7 @@ namespace CodeCampServer.UI
 
 		public override void Handle(LoginInputMessage message)
 		{
-			var uimessage = new LoginInput {Password = message.Input.Password, Username = message.Input.Username};
+			var uimessage = new LoginInputProxy {Password = message.Input.Password, Username = message.Input.Username};
 
 			ICanSucceed result = _rulesEngine.Process(uimessage);
 
@@ -32,7 +32,7 @@ namespace CodeCampServer.UI
 		}
 	}
 
-	public class LoginInput
+	public class LoginInputProxy
 	{
 		public string Password { get; set; }
 		public string Username { get; set; }

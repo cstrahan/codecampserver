@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{98200972-A038-4DA8-8917-CBC4895175DC}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -37,6 +37,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\exceptioneer\Exceptioneer.WebClient.dll</HintPath>
     </Reference>
+    <Reference Include="LoginPortableArea, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\mvccontrib\LoginPortableArea.dll</HintPath>
+    </Reference>
     <Reference Include="MvcContrib, Version=0.0.1.168, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\mvccontrib\MvcContrib.dll</HintPath>
@@ -70,6 +74,14 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Binders\EnumerationModelBinder.cs" />
+    <Compile Include="Binders\KeyedModelBinder.cs" />
+    <Compile Include="Binders\ModelBinder.cs" />
+    <Compile Include="Binders\SmartBinder.cs" />
+    <Compile Include="Binders\UserGroupModelBinder.cs" />
+    <Compile Include="ControllerFactory.cs" />
+    <Compile Include="ConventionActionInvoker.cs" />
+    <Compile Include="ConventionMessageHandlerFactory.cs" />
     <Compile Include="Css.cs" />
     <Compile Include="Helpers\ActionResults\ActionActionResult.cs" />
     <Compile Include="Helpers\ActionResults\AutoMappedViewResult.cs" />
@@ -97,6 +109,17 @@
     <Compile Include="Helpers\ImageLinkHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="InputBuilders\DatePickerPropertyConvention.cs" />
+    <Compile Include="InputBuilders\EmailPropertyConvention.cs" />
+    <Compile Include="InputBuilders\EnumerationPropertyConvention.cs" />
+    <Compile Include="InputBuilders\GuidPropertyConvention.cs" />
+    <Compile Include="InputBuilders\InputBuilderPropertyConvention.cs" />
+    <Compile Include="InputBuilders\InputBuilderPropertyFactory.cs" />
+    <Compile Include="InputBuilders\MultiLinePropertyConvention.cs" />
+    <Compile Include="InputBuilders\NullableGuidPropertyConvention.cs" />
+    <Compile Include="InputBuilders\PasswordPropertyConvention.cs" />
+    <Compile Include="InputBuilders\UserPickerPropertyConvention.cs" />
+    <Compile Include="LoginHandler.cs" />
     <Compile Include="Models\Messages\DeleteMeetingMessage.cs" />
     <Compile Include="Models\Messages\DeleteUserGroupInput.cs" />
     <Compile Include="Helpers\UserSelectorInputTypeConverter.cs" />
@@ -114,6 +137,7 @@
     <Compile Include="Models\Input\UserSelectorInput.cs" />
     <Compile Include="Helpers\Filters\AssemblyVersionrFilterAttribute.cs" />
     <Compile Include="Models\PageInfo.cs" />
+    <Compile Include="MvcStartupConfiguration.cs" />
     <Compile Include="Services\IAssemblyVersion.cs" />
     <Compile Include="DomainnameRouteHandler.cs" />
     <Compile Include="Services\IUrlService.cs">
@@ -544,6 +568,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

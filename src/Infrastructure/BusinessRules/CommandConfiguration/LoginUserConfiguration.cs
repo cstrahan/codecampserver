@@ -5,7 +5,7 @@ using Tarantino.RulesEngine.ValidationRules;
 
 namespace CodeCampServer.Infrastructure.BusinessRules.CommandConfiguration
 {
-	public class LoginUserConfiguration : MessageDefinition<LoginInput>
+	public class LoginUserConfiguration : MessageDefinition<LoginInputProxy>
 	{
 		public LoginUserConfiguration()
 		{
