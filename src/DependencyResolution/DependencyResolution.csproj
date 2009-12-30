@@ -94,6 +94,10 @@
       <Project>{CFBE2871-F3A7-411A-A494-AA0E66CE7B0D}</Project>
       <Name>Infrastructure.NHibernate</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Prince\Infrastructure.Prince.csproj">
+      <Project>{161EBC98-48AB-41EC-B080-EC7707D92DD1}</Project>
+      <Name>Infrastructure.Prince</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{FBE3CFE2-CAC1-4652-9F49-18F35B65123D}</Project>
       <Name>Infrastructure</Name>

@@ -17,10 +17,11 @@ namespace CodeCampServer.DependencyResolution
 
 			Scan(x =>
 			{
-			    GetType().Assembly.GetReferencedAssemblies()
-					.Where(name => name.Name.StartsWith(assemblyPrefix))
-					.ForEach(name => x.Assembly(name.Name));
+			    var enumerable = GetType().Assembly.GetReferencedAssemblies()
+			        .Where(name => name.Name.StartsWith(assemblyPrefix));
+			    enumerable.ForEach(name => x.Assembly(name.Name));
 
+                x.Assembly("CodeCampServer.Infrastructure.Prince");
 				x.Assembly("CommandProcessor");
 				x.With<DefaultConventionScanner>();
 				x.LookForRegistries();

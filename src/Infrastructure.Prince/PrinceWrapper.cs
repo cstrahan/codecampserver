@@ -2,23 +2,24 @@
 using System.Configuration;
 using System.IO;
 using System.Web;
+using CodeCampServer.Core.Services.Impl;
 
-namespace Infrastructure.Prince
+namespace CodeCampServer.Infrastructure.Prince
 {
-    public class PrinceWrapper
+    public class PrinceWrapper : IPrinceWrapper
     {
-        public void AttachPrinceFilter(HttpContext httpContext)
+        public void AttachPrinceFilter(HttpContextBase httpContextBase)
         {
-            var path = GetPrincePath(httpContext);
+            var path = GetPrincePath(httpContextBase);
             var prince = new global::Prince(path);
-            prince.SetBaseURL(httpContext.Request.Url.AbsoluteUri);
+            prince.SetBaseURL(httpContextBase.Request.Url.AbsoluteUri);
             prince.SetLog("prince.log");
             prince.SetInsecure(true);
 
-            httpContext.Response.Filter = new PrinceFilter(prince, httpContext.Response.Filter);
+            httpContextBase.Response.Filter = new PrinceFilter(prince, httpContextBase.Response.Filter);
         }
 
-        private string GetPrincePath(HttpContext httpContext)
+        private string GetPrincePath(HttpContextBase httpContext)
         {
             const string PRINCE_PATH = "PrincePathToExe";
 

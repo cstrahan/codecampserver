@@ -1,6 +1,5 @@
 using System;
 using CodeCampServer.Core;
-using CodeCampServer.UI;
 using Naak.HtmlRules;
 using StructureMap;
 

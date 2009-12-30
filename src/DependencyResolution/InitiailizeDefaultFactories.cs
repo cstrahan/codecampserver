@@ -1,4 +1,5 @@
 using CodeCampServer.Core;
+using CodeCampServer.Core.Services;
 using CodeCampServer.Infrastructure;
 using CodeCampServer.Infrastructure.NHibernate;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess;
@@ -31,6 +32,7 @@ namespace CodeCampServer.DependencyResolution
 			DependencyResolver.InitializeWith(new StructureMapServiceLocator());
 			ServiceLocator.SetLocatorProvider(() => new StructureMapServiceLocator());
 			UnitOfWorkFactory.GetDefault = () => ObjectFactory.GetInstance<IUnitOfWork>();
+            PrinceReportWrapperFactory.GetDefault = () => ObjectFactory.GetInstance<IPrinceReportWrapper>();
 		}
 	}
 }

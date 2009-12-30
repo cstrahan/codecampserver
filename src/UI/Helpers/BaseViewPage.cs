@@ -26,7 +26,9 @@ namespace CodeCampServer.UI.Helpers
             if (Request.Params["ViewAsPDF"] != null)
             {
                 Response.Clear();
-                new PrinceReportWrapper().AttachPrinceFilter(HttpContext.Current);
+
+                var princeReportWrapper = PrinceReportWrapperFactory.GetDefault();
+                princeReportWrapper.AttachPrinceFilter(new HttpContextWrapper(HttpContext.Current));
                 
                 Response.AddHeader("Content-Type", "binary/octet-stream");
                 Response.AddHeader("Content-Disposition", "attachment; filename=Report.pdf;");
