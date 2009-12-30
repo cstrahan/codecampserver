@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE catalog PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN" "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+
+    <rewriteURI
+	uriStartString="http://www.w3.org/TR/xhtml1/DTD"
+	rewritePrefix="xhtml1"/>
+
+    <rewriteURI
+	uriStartString="http://www.w3.org/TR/xhtml11/DTD"
+	rewritePrefix="xhtml11"/>
+
+    <rewriteURI
+	uriStartString="http://www.w3.org/TR/xhtml-modularization/DTD"
+	rewritePrefix="xhtml-mod"/>
+
+    <rewriteURI
+	uriStartString="http://www.w3.org/TR/ruby"
+	rewritePrefix="ruby"/>
+    
+    <rewriteURI
+	uriStartString="http://www.w3.org/TR/xhtml-basic"
+	rewritePrefix="xhtml-basic10"/>
+
+    <rewriteURI
+	uriStartString="http://www.w3.org/TR/2001/REC-SVG-20010904/DTD"
+	rewritePrefix="svg10"/>
+
+    <rewriteURI
+	uriStartString="http://www.w3.org/Graphics/SVG/1.1/DTD"
+	rewritePrefix="svg11"/>
+
+    <rewriteURI
+	uriStartString="http://www.w3.org/Math/DTD/mathml2"
+	rewritePrefix="mathml2"/>
+
+    <rewriteURI
+	uriStartString="http://www.w3.org/TR/MathML2/dtd"
+	rewritePrefix="xhtml-mathml2"/>
+
+    <rewriteURI
+	uriStartString="http://www.w3.org/2002/04/xhtml-math-svg"
+	rewritePrefix="xhtml-math-svg"/>
+
+</catalog>

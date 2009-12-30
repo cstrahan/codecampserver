@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9C81B684-40CC-472A-804D-7C0F963315F5}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -44,6 +44,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +84,7 @@
     <Compile Include="IRequiresConfigurationOnStartup.cs" />
     <Compile Include="ISystemClock.cs" />
     <Compile Include="Clock.cs" />
+    <Compile Include="PrinceReportWrapper.cs" />
     <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandHandler.cs" />
     <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandMessage.cs" />
     <Compile Include="Services\BusinessRule\Login\LoginCommandHandler.cs" />
@@ -116,6 +118,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure.Prince\Infrastructure.Prince.csproj">
+      <Project>{161EBC98-48AB-41EC-B080-EC7707D92DD1}</Project>
+      <Name>Infrastructure.Prince</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

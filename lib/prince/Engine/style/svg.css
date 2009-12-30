@@ -1,0 +1,12 @@
+/*
+    Prince - SVG stylesheet
+    http://www.princexml.com
+*/
+
+@namespace svg url("http://www.w3.org/2000/svg");
+
+|svg, svg|svg {
+    max-width: 100%;
+    max-height: 100%
+}
+

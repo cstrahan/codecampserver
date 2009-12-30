@@ -1,0 +1,19 @@
+/*
+    Prince - MathML stylesheet
+    http://www.princexml.com
+*/
+
+@namespace math url("http://www.w3.org/1998/Math/MathML");
+
+math[mode=inline] { display: inline }
+math[mode=display] { display: block }
+
+math[display=inline] { display: inline }
+math[display=block] { display: block }
+
+math|math[mode=inline] { display: inline }
+math|math[mode=display] { display: block }
+
+math|math[display=inline] { display: inline }
+math|math[display=block] { display: block }
+

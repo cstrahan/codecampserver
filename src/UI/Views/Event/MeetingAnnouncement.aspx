@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" 
-  Inherits="ViewPage<MeetingAnnouncementDisplay>" %>
+  Inherits="CodeCampServer.UI.Helpers.BaseViewPage<MeetingAnnouncementDisplay>" %>
 
 <%@ Import Namespace="CodeCampServer.UI.Helpers" %>
 <%@ Import Namespace="CodeCampServer.UI.Controllers" %>
@@ -18,7 +18,7 @@
     <%=Html.Label(m=>m.SpeakerName)%>
     <a href="<%=Model.SpeakerUrl %>"><%=Model.SpeakerName %></a>
   </p>
-  <%=Html.Display(m=>m.SpeakerBio).Label("") %>
+   <%=Html.Display(m=>m.SpeakerBio).Label("") %>
   <%=Html.Display(m=>m.MeetingInfo) %>
 </div>
 

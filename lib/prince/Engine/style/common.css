@@ -1,0 +1,10 @@
+/*
+    Prince - Common stylesheet
+    http://www.princexml.com
+*/
+
+@import url("hyph.css");
+@import url("xlink.css");
+@import url("mathml.css");
+@import url("svg.css");
+

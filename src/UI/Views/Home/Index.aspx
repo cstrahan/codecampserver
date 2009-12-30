@@ -19,4 +19,8 @@
     <p>
         <%= Model.Location() %>
         </p>
+    <hr />
+    <p>
+        <a href="<%=Url.Action<HomeController>(x=>x.Events(null),new {ViewAsPdf=1}) %>">Save All Events as PDF</a>
+    </p>
 </asp:Content>

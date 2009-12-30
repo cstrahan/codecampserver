@@ -1,0 +1,11 @@
+/*
+    Prince - XLink stylesheet
+    http://www.princexml.com
+*/
+
+@namespace xlink url("http://www.w3.org/1999/xlink");
+
+*[xlink|href] {
+    prince-link: attr(xlink|href)
+}
+

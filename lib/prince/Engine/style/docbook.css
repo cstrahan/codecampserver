@@ -1,0 +1,190 @@
+/*
+    Prince - DocBook stylesheet
+    http://www.princexml.com
+*/
+
+/* Book */
+
+book {
+    display: block;
+    font: 10pt/12pt serif;
+    counter-reset: part;
+    counter-reset: chapter
+}
+
+bookinfo {
+    display: block
+}
+
+preface {
+    display: block
+}
+
+/* Part */
+
+part {
+    display: block;
+    page-break-before: always;
+    counter-increment: part
+}
+
+part > title {
+    text-align: center
+}
+
+part > title::before {
+    content: "Part " counter(part, upper-roman) ". "
+}
+
+/* Chapter */
+
+chapter {
+    display: block;
+    counter-increment: chapter;
+    page-break-before: always
+}
+
+chapterinfo {
+    display: none
+}
+
+chapter > title {
+    font-size: 24pt;
+    font-weight: bold;
+    text-align: right
+}
+
+chapter > title::before {
+    display: block;
+    font-size: 100pt;
+    content: counter(chapter)
+}
+
+appendix {
+    display: block
+}
+
+/* Article */
+
+article {
+    display: block
+}
+
+/* Sections */
+
+section, sect1, sect2, sect3, sect4, sect5 {
+    display: block
+}
+
+/* Default title */
+
+title {
+    display: block;
+    font: bold 16pt sans-serif
+}
+
+/* Paragraphs */
+
+para {
+    display: block;
+    margin-top: 1.12em;
+    margin-bottom: 1.12em;
+    text-align: justify
+}
+
+/* Itemized Lists */
+
+itemizedlist {
+    display: block;
+    counter-reset: list-item
+}
+
+itemizedlist > listitem {
+    display: list-item;
+    counter-increment: list-item
+}
+
+itemizedlist > listitem::marker {
+    padding-right: 8pt;
+    width: 32pt;
+    text-align: right
+}
+
+/* Variable Lists */
+
+varlistentry {
+    display: block
+}
+
+varlistentry > term {
+    display: block
+}
+
+varlistentry > listitem {
+    display: block;
+    margin-left: 40px
+}
+
+/* Tables */
+
+table { display: table }
+thead { display: table-header-group }
+tfoot { display: table-footer-group }
+tbody { display: table-row-group }
+row   { display: table-row }
+entry { display: table-cell }
+
+/* Index */
+
+indexterm {
+    display: none
+}
+
+/* Screen and Program Listing */
+
+screen, programlisting {
+    display: block;
+    font-family: monospace;
+    white-space: pre
+}
+
+/* Examples */
+
+example, informalexmaple {
+    display: block
+}
+
+/* External graphics */
+
+graphic, inlinegraphic, imagedata {
+    content: attr(fileref, url)
+}
+
+mediaobject { display: inline-block }
+
+imageobject { display: block }
+
+/* Inline elements */
+
+emphasis {
+    font-style: italic
+}
+
+emphasis emphasis {
+    font-style: normal
+}
+
+strong {
+    font-weight: bold
+}
+
+/* SGML tags */
+
+sgmltag { font-family: monospace }
+
+sgmltag.starttag::before { content: "<" }
+sgmltag.starttag::after { content: ">" }
+
+sgmltag.endtag::before { content: "</" }
+sgmltag.endtag::after { content: ">" }
+

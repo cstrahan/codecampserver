@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>Prince: Help</title>
+<style type="text/css">
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body { 
+    font-family: Trebuchet MS, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #4d4d4d;
+    background: white;
+    margin: 0;
+    padding: 0 0 42px 0;
+}
+
+div.indent {
+    margin: 0px 10px 0px 80px;
+    padding: 0px;
+}
+
+h1, h2, h3 { margin: 0.8em 0 0.2em }
+h1, h2, h3 { font-size: 1.3em }
+h3 { font-size: 1.2em; font-style: italic }
+ul, p {  margin: 0 0 0.6em 0; padding: 0; }
+ul { margin-left: 2em }
+
+#menu {
+    background: #3b0c60;
+    margin: 0 0 1em 0;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0.5em 80px;
+}
+
+#menu ul {
+    display: inline;
+    list-style-type: none;
+    padding: 0; margin: 0;
+}
+
+#menu li {
+    display: inline;
+    list-style-type: none;
+    margin-right: 1em;
+}
+
+#menu a:hover {
+    border-bottom: solid orange 2px;
+}
+
+#menu a {
+    color: white;
+    text-decoration: none;
+}
+
+.button {
+    border: 1px solid black;
+    padding: 0px 1px;
+}
+</style>
+</head>
+
+<body>
+<div class="indent">
+<img src="plogo4.png"/>
+</div>
+
+<div id="menu">
+<ul>
+<li><a href="#using">Using</a></li>
+<li><a href="#licenses">Licenses</a></li>
+<li><a href="#support">Support</a></li>
+<li><a href="#feedback">Feedback</a></li>
+</ul>
+</div>
+
+<div class="indent">
+
+<p>Prince is a computer program that converts XML and HTML into PDF documents
+by way of CSS. Prince runs on major operating platforms such as
+Windows, Linux, and MacOS X. For extensive information about Prince, please visit <a
+target="_blank" href="http://www.princexml.com">www.princexml.com</a></p>
+
+<h2 id="using">Using Prince</h2>
+    
+<p>Run Prince from the Start Menu item "Prince", or by double-clicking
+on the Prince icon on your desktop.</p>
+
+<p>The main window has five tab pages, making it easy for you to
+navigate through different areas of the application.</p>
+    
+<h3>1. Documents Page</h3>
+
+<p>You can add documents here for conversion. Although the default
+document types are .xml, .xhtml, .html or .htm, Prince does not really
+care about the file extension as long as it is a valid XML document.
+To get started, you can find <a target="_blank"
+href="http://www.princexml.com/samples/">sample documents</a> on our website.</p>
+
+<p>Once a document has been added, you start the conversion process by
+clicking on the <span class="button">Go</span> button. Once a document is processed and a PDF
+file is produced successfully, its status will change to "Converted".
+The output PDF file is saved in the same directory as the input XML
+document.
+</p>
+
+<p>If the status of the currently selected document is "Converted", an
+icon representing the PDF file produced from that document will be
+displayed on the right hand side of the page. You can click on the
+<span class="button">View</span> button to view it.</p>
+
+<p>The status of a document can be one of the following three:</p>
+
+<ul>	
+<li>Unconverted: no attempts have be made to convert it</li>
+<li>Converted: document has been converted successfully</li>
+<li>Unsuccessful: conversion has been unsuccessful and no PDF file was produced</li>
+</ul>
+
+<p>You can view the output log on the Output Log page for details of the conversion.</p>
+
+
+<h3>2. Style sheets Page</h3>
+
+<p>This page is used to apply CSS style sheets to documents. If your
+document references style sheets, these style sheets will be applied
+automatically and there is no need to use this page.</p>
+
+<h3>3. Configuration Page</h3>
+
+<p>On this page you can select a document type for the document to be converted
+and enter encryption information if you want to
+encrypt the PDF file for security reasons. Encryption key can be 40
+bits or 128 bits. Note that not all PDF viewers support encryption.</p>
+<p>By default the document type will be auto-detected, which should work fine for most
+XML and HTML documents.</p>
+
+
+<h3>4. Output Log Page</h3>
+
+<p>The Output Log page displays the messages Prince produced during the
+conversion. Messages are categorized into three major groups:</p>
+
+<ul>
+<li>Information: general information the user might be interested in</li>
+<li>Warning: minor problems encountered during conversion</li>
+<li>Error: problems that have had a major impact on the conversion</li>
+</ul>
+
+<h3>5. Preview Page</h3>
+
+<p>When a PDF file is successfully produced, it can be viewed on this
+page. You will need to have Acrobat Reader installed on your computer
+to be able to use this feature. You can view one PDF file at a time.
+The previous PDF file will be closed when you open and view a new one.
+The <span class="button">View</span> button appears on the lower right hand side of the
+Documents page when you click on a document that has a status of
+"Converted".</p>
+
+
+<h2 id="licenses">Licenses</h2>
+
+<p>
+To purchase a license to use Prince for commercial purposes, please
+<a target="_blank" href="http://www.princexml.com/purchase/">visit our website</a>.
+</p>
+
+<p>After purchasing a license, a license file will be emailed to you.
+Save this file in any directory of your choice.
+The License window can be brought up from the License menu item in the
+Help menu. You can simply drag and drop the license file to this
+window from whatever location you might have saved it (or you can use
+the <span class="button">Open</span> button to open it if you are not used to drag-and-drop).
+Read the license details. If you agree with the license, press the
+<span class="button">Accept</span> button to activate the new license for Prince.</p>
+
+<h2 id="support">Technical Support</h2>
+
+<p>If you experience technical difficulties with installing or using
+Prince, please send your email to <a
+href="mailto:support@yeslogic.com">support@yeslogic.com</a> We try to
+provide the best possible support to users.</p>
+
+<h2 id="feedback">Feedback</h2>
+
+<p>If you have questions or suggestions, you can email us at <a
+href="mailto:info@yeslogic.com">info@yeslogic.com</a> or alternatively
+visit <a target="_blank" href="http://www.princexml.com">www.princexml.com</a> and submit your
+comments there.</p>
+
+</div>
+
+</body>
+</html>
+
+

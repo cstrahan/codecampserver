@@ -16,7 +16,7 @@ namespace CodeCampServer.UI.Controllers
 			}
 			return result;
 		}
-
+        
 		public ViewResult Events(UserGroup userGroup)
 		{
 			return AutoMappedView<UserGroupInput>(userGroup);

@@ -37,21 +37,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\exceptioneer\Exceptioneer.WebClient.dll</HintPath>
     </Reference>
-    <Reference Include="LoginPortableArea, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\mvccontrib\LoginPortableArea.dll</HintPath>
-    </Reference>
     <Reference Include="MvcContrib, Version=0.0.1.168, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\mvccontrib\MvcContrib.dll</HintPath>
-    </Reference>
-    <Reference Include="Naak.HtmlRules, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\naak\Naak.HtmlRules.dll</HintPath>
-    </Reference>
-    <Reference Include="StructureMap, Version=2.5.4.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\structuremap\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations">
@@ -77,16 +65,11 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Configuration" />
-    <Reference Include="Tjoc.Web.Validator, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\naak\Tjoc.Web.Validator.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="ConventionMessageHandlerFactory.cs" />
     <Compile Include="Css.cs" />
     <Compile Include="Helpers\ActionResults\ActionActionResult.cs" />
     <Compile Include="Helpers\ActionResults\AutoMappedViewResult.cs" />
@@ -114,7 +97,6 @@
     <Compile Include="Helpers\ImageLinkHelper.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LoginHandler.cs" />
     <Compile Include="Models\Messages\DeleteMeetingMessage.cs" />
     <Compile Include="Models\Messages\DeleteUserGroupInput.cs" />
     <Compile Include="Helpers\UserSelectorInputTypeConverter.cs" />
@@ -161,6 +143,9 @@
     <Compile Include="RouteConfigurator.cs" />
     <Compile Include="ViewPages.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\BaseViewPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -482,7 +467,7 @@
     <Content Include="scripts\tiny_mce\utils\validate.js" />
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="css\emporium.css" />
-    <Content Include="Views\Event\ConferenceAnnouncement.ascx" />
+    <Content Include="Views\Event\ConferenceAnnouncement.aspx" />
     <Content Include="Views\Event\MeetingAnnouncement.aspx" />
     <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Event\AllUpcomingEvents.aspx" />

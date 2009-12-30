@@ -1,0 +1,1372 @@
+<!DOCTYPE operators PUBLIC "-//W3C//DTD MathML 2.0//EN" "http://www.w3.org/Math/DTD/mathml2/mathml2.dtd">
+<operators>
+
+    <operator mo="("
+        form="prefix" fence="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo=")"
+        form="postfix" fence="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="["
+        form="prefix" fence="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="]"
+        form="postfix" fence="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="{"
+        form="prefix" fence="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="}"
+        form="postfix" fence="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&CloseCurlyDoubleQuote;"
+        form="postfix" fence="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&CloseCurlyQuote;"
+        form="postfix" fence="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&LeftAngleBracket;"
+        form="prefix" fence="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&LeftCeiling;"
+        form="prefix" fence="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&LeftDoubleBracket;"
+        form="prefix" fence="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&LeftFloor;"
+        form="prefix" fence="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&OpenCurlyDoubleQuote;"
+        form="prefix" fence="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&OpenCurlyQuote;"
+        form="prefix" fence="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&RightAngleBracket;"
+        form="postfix" fence="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&RightCeiling;"
+        form="postfix" fence="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&RightDoubleBracket;"
+        form="postfix" fence="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&RightFloor;"
+        form="postfix" fence="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&InvisibleComma;"
+        form="infix" separator="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo=","
+        form="infix" separator="true"
+        lspace="0em" rspace="verythickmathspace"/>
+
+    <operator mo="&HorizontalLine;"
+        form="infix" stretchy="true" minsize="0"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo=";"
+        form="infix" separator="true"
+        lspace="0em" rspace="thickmathspace"/>
+
+    <operator mo=";"
+        form="postfix" separator="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo=":="
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&Assign;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&Because;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&Therefore;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+/>
+    <operator mo="&VerticalSeparator;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="//"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&Colon;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&amp;"
+        form="prefix"
+        lspace="0em" rspace="thickmathspace"/>
+
+    <operator mo="&amp;"
+        form="postfix"
+        lspace="thickmathspace" rspace="0em"/>
+
+    <operator mo="*="
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="-="
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="+="
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="/="
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="-&gt;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo=":"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo=".."
+        form="postfix"
+        lspace="mediummathspace" rspace="0em"/>
+
+    <operator mo="..."
+        form="postfix"
+        lspace="mediummathspace" rspace="0em"/>
+
+    <operator mo="&SuchThat;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&DoubleLeftTee;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&DoubleRightTee;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&DownTee;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LeftTee;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&RightTee;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&Implies;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&RoundImplies;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="|"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="||"
+        form="infix"
+        lspace="mediummathspace" rspace="mediummathspace"/>
+
+    <operator mo="&Or;"
+        form="infix" stretchy="true"
+        lspace="mediummathspace" rspace="mediummathspace"/>
+
+    <operator mo="&amp;&amp;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&And;"
+        form="infix" stretchy="true"
+        lspace="mediummathspace" rspace="mediummathspace"/>
+
+    <operator mo="&amp;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="!"
+        form="prefix"
+        lspace="0em" rspace="thickmathspace"/>
+
+    <operator mo="&Not;"
+        form="prefix"
+        lspace="0em" rspace="thickmathspace"/>
+
+    <operator mo="&Exists;"
+        form="prefix"
+        lspace="0em" rspace="thickmathspace"/>
+
+    <operator mo="&ForAll;"
+        form="prefix"
+        lspace="0em" rspace="thickmathspace"/>
+
+    <operator mo="&NotExists;"
+        form="prefix"
+        lspace="0em" rspace="thickmathspace"/>
+
+    <operator mo="&Element;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotElement;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotReverseElement;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotSquareSubset;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotSquareSubsetEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotSquareSuperset;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotSquareSupersetEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotSubset;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotSubsetEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotSuperset;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotSupersetEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&ReverseElement;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&SquareSubset;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&SquareSubsetEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&SquareSuperset;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&SquareSupersetEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&Subset;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&SubsetEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&Superset;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&SupersetEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&DoubleLeftArrow;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&DoubleLeftRightArrow;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&DoubleRightArrow;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&DownLeftRightVector;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&DownLeftTeeVector;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&DownLeftVector;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&DownLeftVectorBar;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&DownRightTeeVector;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&DownRightVector;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&DownRightVectorBar;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LeftArrow;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LeftArrowBar;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LeftArrowRightArrow;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LeftRightArrow;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LeftRightVector;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LeftTeeArrow;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LeftTeeVector;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LeftVector;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LeftVectorBar;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LowerLeftArrow;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LowerRightArrow;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&RightArrow;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&RightArrowBar;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&RightArrowLeftArrow;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&RightTeeArrow;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&RightTeeVector;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&RightVector;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&RightVectorBar;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&ShortLeftArrow;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&ShortRightArrow;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&UpperLeftArrow;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&UpperRightArrow;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="="
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&lt;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&gt;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="!="
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="=="
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&lt;="
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&gt;="
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&Congruent;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&CupCap;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&DotEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&DoubleVerticalBar;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&Equal;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&EqualTilde;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&Equilibrium;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&GreaterEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&GreaterEqualLess;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&GreaterFullEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&GreaterGreater;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&GreaterLess;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&GreaterSlantEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&GreaterTilde;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&HumpDownHump;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&HumpEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LeftTriangle;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LeftTriangleBar;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LeftTriangleEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&le;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LessEqualGreater;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LessFullEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LessGreater;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LessLess;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LessSlantEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&LessTilde;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NestedGreaterGreater;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NestedLessLess;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotCongruent;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotCupCap;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotDoubleVerticalBar;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotEqualTilde;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotGreater;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotGreaterEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotGreaterFullEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotGreaterGreater;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotGreaterLess;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotGreaterSlantEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotGreaterTilde;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotHumpDownHump;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotHumpEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotLeftTriangle;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotLeftTriangleBar;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotLeftTriangleEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotLess;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotLessEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotLessGreater;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotLessLess;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotLessSlantEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotLessTilde;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotNestedGreaterGreater;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotNestedLessLess;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotPrecedes;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotPrecedesEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotPrecedesSlantEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotRightTriangle;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotRightTriangleBar;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotRightTriangleEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotSucceeds;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotSucceedsEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotSucceedsSlantEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotSucceedsTilde;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotTilde;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotTildeEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotTildeFullEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotTildeTilde;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&NotVerticalBar;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&Precedes;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&PrecedesEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&PrecedesSlantEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&PrecedesTilde;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&Proportion;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&Proportional;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&ReverseEquilibrium;"
+        form="infix" stretchy="true"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&RightTriangle;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&RightTriangleBar;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&RightTriangleEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&Succeeds;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&SucceedsEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&SucceedsSlantEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&SucceedsTilde;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&Tilde;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&TildeEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&TildeFullEqual;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&TildeTilde;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&UpTee;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&VerticalBar;"
+        form="infix"
+        lspace="thickmathspace" rspace="thickmathspace"/>
+
+    <operator mo="&SquareUnion;"
+        form="infix" stretchy="true"
+        lspace="mediummathspace" rspace="mediummathspace"/>
+
+    <operator mo="&Union;"
+        form="infix" stretchy="true"
+        lspace="mediummathspace" rspace="mediummathspace"/>
+
+    <operator mo="&UnionPlus;"
+        form="infix" stretchy="true"
+        lspace="mediummathspace" rspace="mediummathspace"/>
+
+    <operator mo="-"
+        form="infix"
+        lspace="mediummathspace" rspace="mediummathspace"/>
+
+    <operator mo="+"
+        form="infix"
+        lspace="mediummathspace" rspace="mediummathspace"/>
+
+    <operator mo="&Intersection;"
+        form="infix" stretchy="true"
+        lspace="mediummathspace" rspace="mediummathspace"/>
+
+    <operator mo="&MinusPlus;"
+        form="infix"
+        lspace="mediummathspace" rspace="mediummathspace"/>
+
+    <operator mo="&PlusMinus;"
+        form="infix"
+        lspace="mediummathspace" rspace="mediummathspace"/>
+
+    <operator mo="&SquareIntersection;"
+        form="infix" stretchy="true"
+        lspace="mediummathspace" rspace="mediummathspace"/>
+
+    <operator mo="&Vee;"
+        form="prefix" largeop="true" movablelimits="true" stretchy="true"
+        lspace="0em" rspace="thinmathspace"/>
+
+    <operator mo="&CircleMinus;"
+        form="prefix" largeop="true" movablelimits="true"
+        lspace="0em" rspace="thinmathspace"/>
+
+    <operator mo="&CirclePlus;"
+        form="prefix" largeop="true" movablelimits="true"
+        lspace="0em" rspace="thinmathspace"/>
+
+    <operator mo="&Sum;"
+        form="prefix" largeop="true" movablelimits="true" stretchy="true"
+        lspace="0em" rspace="thinmathspace"/>
+
+    <operator mo="&Union;"
+        form="prefix" largeop="true" movablelimits="true" stretchy="true"
+        lspace="0em" rspace="thinmathspace"/>
+
+    <operator mo="&UnionPlus;"
+        form="prefix" largeop="true" movablelimits="true" stretchy="true"
+        lspace="0em" rspace="thinmathspace"/>
+
+    <operator mo="lim"
+        form="prefix" movablelimits="true"
+        lspace="0em" rspace="thinmathspace"/>
+
+    <operator mo="max"
+        form="prefix" movablelimits="true"
+        lspace="0em" rspace="thinmathspace"/>
+
+    <operator mo="min"
+        form="prefix" movablelimits="true"
+        lspace="0em" rspace="thinmathspace"/>
+
+    <operator mo="&CircleMinus;"
+        form="infix"
+        lspace="thinmathspace" rspace="thinmathspace"/>
+
+    <operator mo="&CirclePlus;"
+        form="infix"
+        lspace="thinmathspace" rspace="thinmathspace"/>
+
+    <operator mo="&ClockwiseContourIntegral;"
+        form="prefix" largeop="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&ContourIntegral;"
+        form="prefix" largeop="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&CounterClockwiseContourIntegral;"
+        form="prefix" largeop="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&DoubleContourIntegral;"
+        form="prefix" largeop="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&Integral;"
+        form="prefix" largeop="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&Cup;"
+        form="infix"
+        lspace="thinmathspace" rspace="thinmathspace"/>
+
+    <operator mo="&Cap;"
+        form="infix"
+        lspace="thinmathspace" rspace="thinmathspace"/>
+
+    <operator mo="&VerticalTilde;"
+        form="infix"
+        lspace="thinmathspace" rspace="thinmathspace"/>
+
+    <operator mo="&Wedge;"
+        form="prefix" largeop="true" movablelimits="true" stretchy="true"
+        lspace="0em" rspace="thinmathspace"/>
+
+    <operator mo="&CircleTimes;"
+        form="prefix" largeop="true" movablelimits="true"
+        lspace="0em" rspace="thinmathspace"/>
+
+    <operator mo="&Coproduct;"
+        form="prefix" largeop="true" movablelimits="true" stretchy="true"
+        lspace="0em" rspace="thinmathspace"/>
+
+    <operator mo="&Product;"
+        form="prefix" largeop="true" movablelimits="true" stretchy="true"
+        lspace="0em" rspace="thinmathspace"/>
+
+    <operator mo="&Intersection;"
+        form="prefix" largeop="true" movablelimits="true" stretchy="true"
+        lspace="0em" rspace="thinmathspace"/>
+
+    <operator mo="&Coproduct;"
+        form="infix"
+        lspace="thinmathspace" rspace="thinmathspace"/>
+
+    <operator mo="&Star;"
+        form="infix"
+        lspace="thinmathspace" rspace="thinmathspace"/>
+
+    <operator mo="&CircleDot;"
+        form="prefix" largeop="true" movablelimits="true"
+        lspace="0em" rspace="thinmathspace"/>
+
+    <operator mo="*"
+        form="infix"
+        lspace="thinmathspace" rspace="thinmathspace"/>
+
+    <operator mo="&InvisibleTimes;"
+        form="infix"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&CenterDot;"
+        form="infix"
+        lspace="thinmathspace" rspace="thinmathspace"/>
+
+    <operator mo="&CircleTimes;"
+        form="infix"
+        lspace="thinmathspace" rspace="thinmathspace"/>
+
+    <operator mo="&Vee;"
+        form="infix"
+        lspace="thinmathspace" rspace="thinmathspace"/>
+
+    <operator mo="&Wedge;"
+        form="infix"
+        lspace="thinmathspace" rspace="thinmathspace"/>
+
+    <operator mo="&Diamond;"
+        form="infix"
+        lspace="thinmathspace" rspace="thinmathspace"/>
+
+    <operator mo="&Backslash;"
+        form="infix" stretchy="true"
+        lspace="thinmathspace" rspace="thinmathspace"/>
+
+    <operator mo="/"
+        form="infix" stretchy="true"
+        lspace="thinmathspace" rspace="thinmathspace"/>
+
+    <operator mo="-"
+        form="prefix"
+        lspace="0em" rspace="veryverythinmathspace"/>
+
+    <operator mo="+"
+        form="prefix"
+        lspace="0em" rspace="veryverythinmathspace"/>
+
+    <operator mo="&MinusPlus;"
+        form="prefix"
+        lspace="0em" rspace="veryverythinmathspace"/>
+
+    <operator mo="&PlusMinus;"
+        form="prefix"
+        lspace="0em" rspace="veryverythinmathspace"/>
+
+    <operator mo="."
+        form="infix"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&Cross;"
+        form="infix"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="**"
+        form="infix"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&CircleDot;"
+        form="infix"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&SmallCircle;"
+        form="infix"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&Square;"
+        form="prefix"
+        lspace="0em" rspace="verythinmathspace"/>
+
+    <operator mo="&Del;"
+        form="prefix"
+        lspace="0em" rspace="verythinmathspace"/>
+
+    <operator mo="&PartialD;"
+        form="prefix"
+        lspace="0em" rspace="verythinmathspace"/>
+
+    <operator mo="&CapitalDifferentialD;"
+        form="prefix"
+        lspace="0em" rspace="verythinmathspace"/>
+
+    <operator mo="&DifferentialD;"
+        form="prefix"
+        lspace="0em" rspace="verythinmathspace"/>
+
+    <operator mo="&Sqrt;"
+        form="prefix" stretchy="true"
+        lspace="0em" rspace="verythinmathspace"/>
+
+    <operator mo="&DoubleDownArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&DoubleLongLeftArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&DoubleLongLeftRightArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&DoubleLongRightArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&DoubleUpArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&DoubleUpDownArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&DownArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&DownArrowBar;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&DownArrowUpArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&DownTeeArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&LeftDownTeeVector;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&LeftDownVector;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&LeftDownVectorBar;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&LeftUpDownVector;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&LeftUpTeeVector;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&LeftUpVector;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&LeftUpVectorBar;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&LongLeftArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&LongLeftRightArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&LongRightArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&ReverseUpEquilibrium;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&RightDownTeeVector;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&RightDownVector;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&RightDownVectorBar;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&RightUpDownVector;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&RightUpTeeVector;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&RightUpVector;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&RightUpVectorBar;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&ShortDownArrow;"
+        form="infix"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&ShortUpArrow;"
+        form="infix"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&UpArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&UpArrowBar;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&UpArrowDownArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&UpDownArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&UpEquilibrium;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&UpTeeArrow;"
+        form="infix" stretchy="true"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="^"
+        form="infix"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&lt;&gt;"
+        form="infix"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="'"
+        form="postfix"
+        lspace="verythinmathspace" rspace="0em"/>
+
+    <operator mo="!"
+        form="postfix"
+        lspace="verythinmathspace" rspace="0em"/>
+
+    <operator mo="!!"
+        form="postfix"
+        lspace="verythinmathspace" rspace="0em"/>
+
+    <operator mo="~"
+        form="infix"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="@"
+        form="infix"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="--"
+        form="postfix"
+        lspace="verythinmathspace" rspace="0em"/>
+
+    <operator mo="--"
+        form="prefix"
+        lspace="0em" rspace="verythinmathspace"/>
+
+    <operator mo="++"
+        form="postfix"
+        lspace="verythinmathspace" rspace="0em"/>
+
+    <operator mo="++"
+        form="prefix"
+        lspace="0em" rspace="verythinmathspace"/>
+
+    <operator mo="&ApplyFunction;"
+        form="infix"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="?"
+        form="infix"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="_"
+        form="infix"
+        lspace="verythinmathspace" rspace="verythinmathspace"/>
+
+    <operator mo="&Breve;"
+        form="postfix" accent="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&Cedilla;"
+        form="postfix" accent="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&DiacriticalGrave;"
+        form="postfix" accent="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&DiacriticalDot;"
+        form="postfix" accent="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&DiacriticalDoubleAcute;"
+        form="postfix" accent="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&LeftArrow;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&LeftRightArrow;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&LeftRightVector;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&LeftVector;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&DiacriticalAcute;"
+        form="postfix" accent="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&RightArrow;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&RightVector;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&DiacriticalTilde;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&DoubleDot;"
+        form="postfix" accent="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&DownBreve;"
+        form="postfix" accent="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&Hacek;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&Hat;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&OverBar;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&OverBrace;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&OverBracket;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&OverParenthesis;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&TripleDot;"
+        form="postfix" accent="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&UnderBar;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&UnderBrace;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&UnderBracket;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+    <operator mo="&UnderParenthesis;"
+        form="postfix" accent="true" stretchy="true"
+        lspace="0em" rspace="0em"/>
+
+</operators>
