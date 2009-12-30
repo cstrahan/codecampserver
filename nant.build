@@ -243,8 +243,18 @@
 			</fileset>
 		</copy>
 
+    <copy todir="${dir.package}\website\Prince" includeemptydirs="false" overwrite="true">
+      <fileset basedir="lib\Prince">
+        <include name="**\**"/>
+      </fileset>
+    </copy>
 
-		<copy todir="${dir.package}\database" includeemptydirs="false">
+    <xmlpoke file="${dir.package}\website\web.config"  
+             xpath="/configuration/appSettings/add[@key = 'PrincePathToExe']/@value" 
+             value="Prince/Engine/bin/prince.exe" />
+
+
+    <copy todir="${dir.package}\database" includeemptydirs="false">
 			<fileset basedir="${dir.solution}\Infrastructure\Database">
 				<include name="**\*.sql"/>
 			</fileset>
