@@ -59,9 +59,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
   <div id="wrapper">
     <!-- start header -->
     <div id="logo">
-      <h1>
-        <a href="/">
-          <%=pageInfo.Title%></a></h1>
+      <h1><a href="/"><%=pageInfo.Title%></a></h1>
         <asp:LoginView ID="LoginView3" runat="server">
           <LoggedInTemplate>
 			      <h2 class="<%=Css.OuterControls%>">
@@ -72,7 +70,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 			      </h2>
           </LoggedInTemplate>
           <AnonymousTemplate>
-						<div class="<%=Css.OuterLinks%>"><%=Html.UrlButton("Log in","/login/login/index")%></div>
+						<div class="<%=Css.OuterLinks%>" style="float: right; font-size: 14pt; font-weight: bold;"><%=Html.UrlButton("Log in","/login/login/index")%></div>
           </AnonymousTemplate>
         </asp:LoginView>
     </div>
