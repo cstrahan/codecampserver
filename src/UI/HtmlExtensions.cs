@@ -260,7 +260,7 @@ namespace CodeCampServer.UI
 			return
 				string.Format(
 					"<div class=\"buttonLeftEndCap\"></div><div class=\"buttonContentBackground\">{0}</div><div class=\"buttonRightEndCap\"></div>",
-					"<a href="+ url+">"+linkText+"</a>");
+					"<a href=\""+ url+"\">"+linkText+"</a>");
 
 		}
 	}

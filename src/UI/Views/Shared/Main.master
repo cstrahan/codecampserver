@@ -62,19 +62,19 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
       <h1>
         <a href="/">
           <%=pageInfo.Title%></a></h1>
-      <h2 class="<%=Css.OuterControls%>">
         <asp:LoginView ID="LoginView3" runat="server">
           <LoggedInTemplate>
-            Welcome,
-            <%=ViewData.Get<User>().Name%>            
-            (<span class="<%=Css.OuterLinks%>"><a href="/login/login/logout">Log out</a></span>) |
-            <span class="<%=Css.OuterLinks%>"><%=Html.ActionLink<UserController>("My Profile", c=>c.Edit((User)null)) %></span>
+			      <h2 class="<%=Css.OuterControls%>">
+							Welcome,
+							<%=ViewData.Get<User>().Name%>            
+							(<span class="<%=Css.OuterLinks%>"><a href="/login/login/logout">Log out</a></span>) |
+							<span class="<%=Css.OuterLinks%>"><%=Html.ActionLink<UserController>("My Profile", c=>c.Edit((User)null)) %></span>
+			      </h2>
           </LoggedInTemplate>
           <AnonymousTemplate>
-			<div class="<%=Css.OuterLinks%>"><%=Html.UrlButton("Log in","/login/login/index")%></div>
+						<div class="<%=Css.OuterLinks%>"><%=Html.UrlButton("Log in","/login/login/index")%></div>
           </AnonymousTemplate>
         </asp:LoginView>
-      </h2>
     </div>
     <div id="header">
       <% if (ViewData.Contains<Conference>())
