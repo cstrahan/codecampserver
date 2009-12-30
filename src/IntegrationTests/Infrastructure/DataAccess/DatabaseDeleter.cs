@@ -1,22 +1,20 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using CodeCampServer.Core.Bases;
-using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 using NHibernate;
 using NHibernate.Transform;
 using CodeCampServer.Core.Common;
+using ISessionBuilder=CodeCampServer.Infrastructure.NHibernate.DataAccess.ISessionBuilder;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
 	public class DatabaseDeleter
 	{
 		private readonly ISessionBuilder _builder;
-		private static readonly string[] _ignoredTables = new[] {"conference_migration", "sysdiagrams", "usd_AppliedDatabaseScript"};
+		private static readonly string[] _ignoredTables = new[] { "conference_migration", "sysdiagrams", "usd_AppliedDatabaseScript" };
 		private static string[] _tablesToDelete;
-		private static object _lockObj = new object();
+		private static string _deleteSql;
+		private static readonly object _lockObj = new object();
 		private static bool _initialized;
 
 		private class Relationship
@@ -35,14 +33,10 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		public virtual void DeleteAllObjects()
 		{
 			ISession session = _builder.GetSession();
-			using (var tx = session.BeginTransaction())
+			using (IDbCommand command = session.Connection.CreateCommand())
 			{
-				foreach (var table in _tablesToDelete)
-				{
-					session.CreateSQLQuery(string.Format("delete from {0}", table)).ExecuteUpdate();
-				}
-
-				tx.Commit();
+				command.CommandText = _deleteSql;
+				command.ExecuteNonQuery();
 			}
 		}
 
@@ -55,7 +49,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		{
 			if (!_initialized)
 			{
-				lock(_lockObj)
+				lock (_lockObj)
 				{
 					if (!_initialized)
 					{
@@ -67,34 +61,46 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 						_tablesToDelete = BuildTableList(allTables, allRelationships);
 
+						_deleteSql = BuildTableSql(_tablesToDelete);
+
 						_initialized = true;
 					}
 				}
 			}
 		}
 
-		private string[] BuildTableList(ICollection<string> allTables, ICollection<Relationship> allRelationships) 
+		private string BuildTableSql(string[] tablesToDelete)
+		{
+			string completeQuery = "";
+			foreach (string tableName in tablesToDelete)
+			{
+				completeQuery += string.Format("delete from [{0}];", tableName);
+			}
+			return completeQuery;
+		}
+
+		private string[] BuildTableList(ICollection<string> allTables, ICollection<Relationship> allRelationships)
 		{
 			var tablesToDelete = new List<string>();
 
 			while (allTables.Any())
 			{
 				var leafTables = allTables.Except(allRelationships.Select(rel => rel.PrimaryKeyTable)).ToArray();
-				
+
 				tablesToDelete.AddRange(leafTables);
-				
+
 				leafTables.ForEach(lt =>
-               	{
-               		allTables.Remove(lt);
-               		var relToRemove = allRelationships.Where(rel => rel.ForeignKeyTable == lt).ToArray();
-               		relToRemove.ForEach(toRemove => allRelationships.Remove(toRemove));
-               	});
+				{
+					allTables.Remove(lt);
+					var relToRemove = allRelationships.Where(rel => rel.ForeignKeyTable == lt).ToArray();
+					relToRemove.ForEach(toRemove => allRelationships.Remove(toRemove));
+				});
 			}
 
 			return tablesToDelete.ToArray();
 		}
 
-		private IList<Relationship> GetRelationships(ISession session) 
+		private IList<Relationship> GetRelationships(ISession session)
 		{
 			var otherquery = session.CreateSQLQuery(@"select
 	so_pk.name as PrimaryKeyTable
@@ -110,7 +116,7 @@ order by
 			return otherquery.SetResultTransformer(Transformers.AliasToBean<Relationship>()).List<Relationship>();
 		}
 
-		private IList<string> GetAllTables(ISession session) 
+		private IList<string> GetAllTables(ISession session)
 		{
 			var query = session.CreateSQLQuery("select name from sys.tables");
 
