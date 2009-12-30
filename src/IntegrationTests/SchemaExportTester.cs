@@ -32,7 +32,7 @@ namespace CodeCampServer.IntegrationTests
 		private void DropAllTables(Configuration configuration)
 		{
 			ServerConnection connection = GetServerConnection(configuration);
-			List<string> tables = DatabaseDeleter.GetTables();
+			var tables = DatabaseDeleter.GetTables();
 			foreach (var table in tables)
 			{
 				try
