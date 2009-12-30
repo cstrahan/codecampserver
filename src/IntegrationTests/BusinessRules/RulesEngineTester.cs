@@ -8,12 +8,12 @@ using CodeCampServer.DependencyResolution;
 using CodeCampServer.Infrastructure.BusinessRules;
 using CodeCampServer.Infrastructure.BusinessRules.CommandConfiguration;
 using CodeCampServer.Infrastructure.ObjectMapping;
+using CodeCampServer.UI;
 using CodeCampServer.UI.Messages;
 using CodeCampServer.UI.Models.Input;
 using CodeCampServer.UI.Models.Messages;
 using CodeCampServer.UnitTests;
 using CommandProcessor;
-using LoginPortableArea.Models;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -68,7 +68,6 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			var userGroupRepository = S<IUserGroupRepository>();
 			userGroupRepository.Stub(groupRepository => groupRepository.GetById(Guid.Empty)).Return(new UserGroup());
 			ObjectFactory.Inject(typeof (IUserGroupRepository), userGroupRepository);
-
 
 			RulesEngineConfiguration.Configure(typeof (UpdateMeetingMessageConfiguration));
 			var rulesRunner = new RulesEngine();

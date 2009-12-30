@@ -1,6 +1,5 @@
 using CodeCampServer.Core.Services.BusinessRule.Login;
-using CodeCampServer.UI.Models.Input;
-using LoginPortableArea.Models;
+using CodeCampServer.UI;
 using Tarantino.RulesEngine.Configuration;
 using Tarantino.RulesEngine.ValidationRules;
 
@@ -10,8 +9,7 @@ namespace CodeCampServer.Infrastructure.BusinessRules.CommandConfiguration
 	{
 		public LoginUserConfiguration()
 		{
-			Execute<LoginUserCommandMessage>().Enforce(
-				v =>
+			Execute<LoginUserCommandMessage>().Enforce(v =>
 					{
 						v.Rule<ValidateNotNull>(c => c.Username).RefersTo(m => m.Username);
 						v.Rule<ValidateNotNull>(c => c.Password).RefersTo(m => m.Password);

@@ -37,6 +37,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\exceptioneer\Exceptioneer.WebClient.dll</HintPath>
     </Reference>
+    <Reference Include="LoginPortableArea, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\mvccontrib\LoginPortableArea.dll</HintPath>
+    </Reference>
     <Reference Include="MvcContrib, Version=0.0.1.168, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\mvccontrib\MvcContrib.dll</HintPath>
@@ -82,6 +86,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ConventionMessageHandlerFactory.cs" />
     <Compile Include="Css.cs" />
     <Compile Include="Helpers\ActionResults\ActionActionResult.cs" />
     <Compile Include="Helpers\ActionResults\AutoMappedViewResult.cs" />
@@ -109,6 +114,7 @@
     <Compile Include="Helpers\ImageLinkHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LoginHandler.cs" />
     <Compile Include="Models\Messages\DeleteMeetingMessage.cs" />
     <Compile Include="Models\Messages\DeleteUserGroupInput.cs" />
     <Compile Include="Helpers\UserSelectorInputTypeConverter.cs" />

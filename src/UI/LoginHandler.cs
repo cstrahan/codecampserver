@@ -1,0 +1,40 @@
+using CodeCampServer.Core.Services;
+using LoginPortableArea.Messages;
+using MvcContrib.PortableAreas;
+
+namespace CodeCampServer.UI
+{
+	public class LoginHandler : MessageHandler<LoginInputMessage>
+	{
+		private readonly IRulesEngine _rulesEngine;
+
+		public LoginHandler(IRulesEngine rulesEngine)
+		{
+			_rulesEngine = rulesEngine;
+		}
+
+		public override void Handle(LoginInputMessage message)
+		{
+			var uimessage = new LoginInput {Password = message.Input.Password, Username = message.Input.Username};
+
+			ICanSucceed result = _rulesEngine.Process(uimessage);
+
+			if (result.Successful)
+			{
+				message.Result.Success = true;
+				message.Result.Username = message.Input.Username;
+			}
+
+			foreach (var errorMessage in result.Errors)
+			{
+				message.Result.Message += errorMessage.Message;
+			}
+		}
+	}
+
+	public class LoginInput
+	{
+		public string Password { get; set; }
+		public string Username { get; set; }
+	}
+}
