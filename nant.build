@@ -54,7 +54,7 @@
 	<property name="file.solution" value="${dir.solution}/${project::get-name()}.sln"/>
 
 	<!-- Database migration settings -->
-	<property name="database.script.directory" value="${dir.solution}/Infrastructure/Database" />
+	<property name="database.script.directory" value="${dir.solution}/Database" />
   	<property name="database.server" value="localhost\sqlexpress" overwrite="false"/>
 	<property name="database.name" value="${project::get-name()}" overwrite="false"/>
 	<property name="database.integrated" value="true" overwrite="false" />
@@ -255,7 +255,7 @@
 
 
     <copy todir="${dir.package}\database" includeemptydirs="false">
-			<fileset basedir="${dir.solution}\Infrastructure\Database">
+			<fileset basedir="${dir.solution}\Database">
 				<include name="**\*.sql"/>
 			</fileset>
 		</copy>
