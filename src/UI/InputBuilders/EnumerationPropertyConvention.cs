@@ -28,7 +28,12 @@ namespace CodeCampServer.UI.InputBuilders
 			foreach (Enumeration level in Enumeration.GetAll(propertyInfo.PropertyType))
 			{
 				bool isChecked = value != null && value == level;
-				items.Add(new SelectListItem { Selected = isChecked, Text = level.DisplayName, Value = level.Value.ToString() });
+				items.Add(new SelectListItem
+				          	{
+				          		Selected = isChecked, 
+								Text = level.DisplayName, 
+								Value = level.Value.ToString()
+				          	});
 			}
 			return items;
 		}

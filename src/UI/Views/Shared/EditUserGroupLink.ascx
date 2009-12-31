@@ -1,5 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl<UserGroupInput>" %>
-<%@ Import Namespace="CodeCampServer.Core.Common"%>
-<%if (ViewContext.HttpContext.User.Identity.IsAuthenticated){%>
-<a href="<%= Url.Action<UserGroupController>(t => t.Edit(Guid.Empty), new{entityToEdit = Model.Id}).ToXHTMLLink() %>"><img src="/images/icons/application_edit.png" alt="Edit User Group: <%= Model.Name %>" /></a>
+<%@ Import Namespace="CodeCampServer.Core.Common" %>
+<%if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
+  {%>
+<form method="get" class="editButtonForm" action="<%=Url.Action<UserGroupController>(t => t.Edit(Guid.Empty)) %>">
+<%=	Html.Hidden("entityToEdit", Model.Id) %>
+<button class="ui-state-default ui-corner-all fg-button-icon-solo" type="submit"
+	title="Edit User Group">
+	<span class="ui-icon ui-icon-pencil" />
+</button>
+</form>
 <%}%>

@@ -371,4 +371,8 @@ font-size:15px;
 {
 float: right;
 }
-</style>
+
+.editButtonForm
+{
+	display:inline;
+}

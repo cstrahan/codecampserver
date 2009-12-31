@@ -1,5 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl" %>
 <%@ Import Namespace="CodeCampServer.UI.Helpers" %>
 <%if (ViewContext.HttpContext.User.Identity.IsAuthenticated){%>
-<a href="<%=Url.Action<MeetingController>(x=>x.New(null)) %>"><img src="/images/icons/application_add.png" alt="Add a Meeting" /></a>
+<form method="get" class="editButtonForm" action="<%=Url.Action<MeetingController>(x=>x.New(null)) %>">
+	<button class="ui-state-default ui-corner-all fg-button-icon-solo" type="submit"
+		title="Add Meeting" >
+	<span class="ui-icon ui-icon-plus" />
+</button>
+</form>
+
 <%}%>

@@ -3,8 +3,13 @@
 <%@ Import Namespace="CodeCampServer.UI.Controllers" %>
 <%if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
   {%>
-<a id="deleteMeeting<%=Model.Id%>" href="<%= Url.Action<MeetingController>(t => t.Delete(null,null), new{meeting = Model.Id}).ToXHTMLLink() %>">
-  <img src="/images/icons/application_delete.png" title="Delete the meeting" alt="Delete the Meeting" /></a>
+  <form method="get" class="editButtonForm" action="<%=Url.Action<MeetingController>(t => t.Delete(null,null)) %>">
+	<%=	Html.Hidden("meeting", Model.Id) %>
+	<button id="deleteMeeting<%=Model.Id%>" class="ui-state-default ui-corner-all fg-button-icon-solo" type="submit"
+		title="Delete Meeting" >
+	<span class="ui-icon ui-icon-minus" />
+</button>
+</form>
 
 <script type="text/javascript">
   $(function() {

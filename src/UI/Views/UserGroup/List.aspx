@@ -11,7 +11,7 @@
 		</form>
 		<%}%>
 
-		<table class="default datatable">
+		<table class="fullWidth">
 		    <thead>
 		        <tr>
 		            <th>User Group</th>
@@ -32,7 +32,10 @@
 		            <td>		            
 		                <a href="<%=Url.Action<UserGroupController>(c=>c.Index(null),new {UserGroup = userGroup.Key})%>"  title="View <%= userGroup.Name%> <%= userGroup.Key %>">View <%=Html.Encode( userGroup.Name)%></a>
 		                <a href="http://<%=userGroup.DomainName+":"+ ViewContext.HttpContext.Request.Url.Port%>"  title="Go To <%= userGroup.Name%> <%= userGroup.Key %>">Goto the website: <%=Html.Encode( userGroup.Name)%></a>
-			            <div class="fr"><%Html.RenderPartial("EditUserGroupLink",userGroup); %></div>			            
+			            			            
+                    </td>
+                    <td>
+						<div class="fr"><%Html.RenderPartial("EditUserGroupLink",userGroup); %></div>
                     </td>
                     <%}%>
 		        </tr>
