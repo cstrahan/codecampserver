@@ -5,20 +5,20 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.Core.Services;
 using CodeCampServer.DependencyResolution;
-using CodeCampServer.Infrastructure.BusinessRules;
-using CodeCampServer.Infrastructure.BusinessRules.CommandConfiguration;
+using CodeCampServer.Infrastructure.CommandProcessor;
+using CodeCampServer.Infrastructure.CommandProcessor.CommandConfiguration;
 using CodeCampServer.Infrastructure.ObjectMapping;
 using CodeCampServer.UI;
 using CodeCampServer.UI.Messages;
 using CodeCampServer.UI.Models.Input;
 using CodeCampServer.UI.Models.Messages;
 using CodeCampServer.UnitTests;
-using CommandProcessor;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
 using StructureMap;
 using Tarantino.RulesEngine;
+using RulesEngine=CommandProcessor.RulesEngine;
 
 namespace CodeCampServer.IntegrationTests.BusinessRules
 {
@@ -28,7 +28,8 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 		[SetUp]
 		public void Setup()
 		{
-			ObjectFactory.ResetDefaults();	
+			ObjectFactory.ResetDefaults();
+			ObjectFactory.AssertConfigurationIsValid();
 		}
 
 		[Test]
@@ -47,7 +48,7 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			RulesEngineConfiguration.Configure(typeof (DeleteMeetingMessageConfiguration));
 			var rulesRunner = new RulesEngine();
 
-			ExecutionResult result = rulesRunner.Process(new DeleteMeetingMessage {Meeting = Guid.NewGuid()},
+			ExecutionResult result = rulesRunner.Process(new DeleteMeetingMessage() {Meeting = Guid.NewGuid()},
 			                                             typeof (DeleteMeetingMessage));
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<Meeting>().ShouldEqual(meeting);
@@ -130,7 +131,7 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 
 			var rulesRunner = new RulesEngine();
 
-			ExecutionResult result = rulesRunner.Process(new DeleteUserGroupInput
+			ExecutionResult result = rulesRunner.Process(new DeleteUserGroupInput()
 			                                             	{
 			                                             		UserGroup = Guid.Empty,
 			                                             	}, typeof (DeleteUserGroupInput));
@@ -195,7 +196,7 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 
 			var rulesRunner = new RulesEngine();
 
-			ExecutionResult result = rulesRunner.Process(new LoginInputProxy
+			ExecutionResult result = rulesRunner.Process(new LoginInputProxy()
 			                                             	{
 			                                             		Username = "foo",
 			                                             		Password = "thepass",

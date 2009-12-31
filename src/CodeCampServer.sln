@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{D6690A44
 		..\psake.ps1 = ..\psake.ps1
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.CommandProcessor", "Infrastructure.CommandProcessor\Infrastructure.CommandProcessor.csproj", "{454BB0F3-6E57-4E4A-BEF8-0A223161BD82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AutomatedDebug|Any CPU = AutomatedDebug|Any CPU
@@ -105,6 +107,12 @@ Global
 		{161EBC98-48AB-41EC-B080-EC7707D92DD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{161EBC98-48AB-41EC-B080-EC7707D92DD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{161EBC98-48AB-41EC-B080-EC7707D92DD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{454BB0F3-6E57-4E4A-BEF8-0A223161BD82}.AutomatedDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{454BB0F3-6E57-4E4A-BEF8-0A223161BD82}.AutomatedDebug|Any CPU.Build.0 = Debug|Any CPU
+		{454BB0F3-6E57-4E4A-BEF8-0A223161BD82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{454BB0F3-6E57-4E4A-BEF8-0A223161BD82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{454BB0F3-6E57-4E4A-BEF8-0A223161BD82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{454BB0F3-6E57-4E4A-BEF8-0A223161BD82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

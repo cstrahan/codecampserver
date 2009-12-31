@@ -8,19 +8,20 @@ namespace CodeCampServer.DependencyResolution
 	public class DependencyRegistrar
 	{
 		private static bool _dependenciesRegistered;
-		private static readonly object sync = new object();
 
 		private static void RegisterDependencies()
 		{
 			ObjectFactory.Initialize(x => x.Scan(y =>
 			                                     	{
-														y.AssemblyContainingType<NaakRegistry>();
 			                                     		y.AssemblyContainingType<DependencyRegistry>();
+			                                     		y.AssemblyContainingType<NaakRegistry>();
 			                                     		y.LookForRegistries();
 			                                     	}));
 			new InitiailizeDefaultFactories().Configure();
 
 		}
+
+		private static readonly object sync = new object();
 
 		internal void ConfigureOnStartup()
 		{

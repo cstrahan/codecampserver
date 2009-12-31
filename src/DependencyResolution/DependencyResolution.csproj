@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3A222037-75A5-4DFF-BA27-9487BF3A8536}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -89,6 +89,10 @@
     <ProjectReference Include="..\Infrastructure.Automapper\Infrastructure.Automapper.csproj">
       <Project>{D6EC5B3E-2094-4268-8633-DA498A4C52E2}</Project>
       <Name>Infrastructure.Automapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.CommandProcessor\Infrastructure.CommandProcessor.csproj">
+      <Project>{454BB0F3-6E57-4E4A-BEF8-0A223161BD82}</Project>
+      <Name>Infrastructure.CommandProcessor</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure.NHibernate\Infrastructure.NHibernate.csproj">
       <Project>{CFBE2871-F3A7-411A-A494-AA0E66CE7B0D}</Project>

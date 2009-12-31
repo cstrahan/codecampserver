@@ -4,7 +4,8 @@ using System.Linq;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Common;
 using CodeCampServer.DependencyResolution;
-using CodeCampServer.Infrastructure.BusinessRules;
+using CodeCampServer.Infrastructure.CommandProcessor;
+using CodeCampServer.Infrastructure.CommandProcessor.CommandConfiguration;
 using CodeCampServer.Infrastructure.ObjectMapping;
 using CodeCampServer.IntegrationTests.Infrastructure.DataAccess;
 using CommandProcessor;
@@ -13,6 +14,7 @@ using Rhino.Mocks;
 using StructureMap;
 using Tarantino.RulesEngine;
 using IUnitOfWork=CodeCampServer.Infrastructure.NHibernate.DataAccess.IUnitOfWork;
+using RulesEngine=CommandProcessor.RulesEngine;
 
 namespace CodeCampServer.IntegrationTests.UI.Subcutaneous
 {

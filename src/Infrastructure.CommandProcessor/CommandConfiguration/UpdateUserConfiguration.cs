@@ -1,5 +1,5 @@
 using CodeCampServer.Core.Services.BusinessRule.UpdateUser;
-using CodeCampServer.Infrastructure.BusinessRules.Validation;
+using CodeCampServer.Infrastructure.CommandProcessor.Rules;
 using CodeCampServer.UI.Models.Input;
 using Tarantino.RulesEngine.Configuration;
 using Tarantino.RulesEngine.ValidationRules;

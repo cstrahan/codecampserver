@@ -178,6 +178,10 @@
       <Project>{D6EC5B3E-2094-4268-8633-DA498A4C52E2}</Project>
       <Name>Infrastructure.Automapper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.CommandProcessor\Infrastructure.CommandProcessor.csproj">
+      <Project>{454BB0F3-6E57-4E4A-BEF8-0A223161BD82}</Project>
+      <Name>Infrastructure.CommandProcessor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure.NHibernate\Infrastructure.NHibernate.csproj">
       <Project>{CFBE2871-F3A7-411A-A494-AA0E66CE7B0D}</Project>
       <Name>Infrastructure.NHibernate</Name>

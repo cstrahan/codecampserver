@@ -1,11 +1,15 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Services;
-using CodeCampServer.Infrastructure.UI.Services;
+using CodeCampServer.Infrastructure;
+using CodeCampServer.Infrastructure.CommandProcessor;
 using CodeCampServer.UI.Helpers.Filters;
 using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
-using System.Linq;
+using Tarantino.RulesEngine.CommandProcessor;
 
 namespace CodeCampServer.DependencyResolution
 {
@@ -16,20 +20,20 @@ namespace CodeCampServer.DependencyResolution
 			string assemblyPrefix = GetThisAssembliesPrefix();
 
 			Scan(x =>
-			{
-			    var enumerable = GetType().Assembly.GetReferencedAssemblies()
-			        .Where(name => name.Name.StartsWith(assemblyPrefix));
-			    enumerable.ForEach(name => x.Assembly(name.Name));
-
-                x.Assembly("CodeCampServer.Infrastructure.Prince");
-				x.Assembly("CommandProcessor");
-				x.With<DefaultConventionScanner>();
-				x.LookForRegistries();
-				x.AddAllTypesOf<IRequiresConfigurationOnStartup>();
-				x.AddAllTypesOf<IConventionActionFilter>();
-			});
+			     	{
+			     		IEnumerable<AssemblyName> enumerable = GetType().Assembly.GetReferencedAssemblies()
+			     			.Where(name => name.Name.StartsWith(assemblyPrefix));
+			     		enumerable.ForEach(name => x.Assembly(name.Name));
+			     		x.Assembly("CommandProcessor");
+			     		x.With<DefaultConventionScanner>();
+			     		x.LookForRegistries();
+			     		x.AddAllTypesOf<IRequiresConfigurationOnStartup>();
+			     		x.AddAllTypesOf<IConventionActionFilter>();
+			     	});
 
 			ForRequestedType<IRulesEngine>().TheDefaultIsConcreteType<RulesEngine>();
+			ForRequestedType<ISystemClock>().TheDefaultIsConcreteType<SystemClock>();
+			
 		}
 
 		private string GetThisAssembliesPrefix()

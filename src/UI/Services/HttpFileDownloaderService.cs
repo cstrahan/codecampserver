@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using CodeCampServer.Core.Services;
 
-namespace CodeCampServer.Infrastructure
+namespace CodeCampServer.UI.Services
 {
 	public class HttpFileDownloaderService : IHttpFileDownloaderService
 	{

@@ -3,7 +3,6 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.ActionResults;
 using CodeCampServer.UI.Helpers.Attributes;
-//using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Messages;
 using CodeCampServer.UI.Models.Input;
 
@@ -21,7 +20,7 @@ namespace CodeCampServer.UI.Controllers
 		[HttpGet]
 		public ActionResult Edit(Meeting meeting, UserGroup usergroup)
 		{
-			return AutoMappedView<MeetingInput>(meeting ?? new Meeting { UserGroup = usergroup });
+			return AutoMappedView<MeetingInput>(meeting ?? new Meeting {UserGroup = usergroup});
 		}
 
 		[HttpPost]

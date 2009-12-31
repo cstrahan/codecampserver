@@ -120,8 +120,6 @@
     <Compile Include="InputBuilders\PasswordPropertyConvention.cs" />
     <Compile Include="InputBuilders\UserPickerPropertyConvention.cs" />
     <Compile Include="LoginHandler.cs" />
-    <Compile Include="Models\Messages\DeleteMeetingMessage.cs" />
-    <Compile Include="Models\Messages\DeleteUserGroupInput.cs" />
     <Compile Include="Helpers\UserSelectorInputTypeConverter.cs" />
     <Compile Include="HtmlExtensions.cs">
       <SubType>Code</SubType>
@@ -131,13 +129,18 @@
     <Compile Include="Models\Input\EventInput.cs" />
     <Compile Include="Models\Display\EventList.cs" />
     <Compile Include="Models\Display\MeetingAnnouncementDisplay.cs" />
+    <Compile Include="Models\Input\LoginInput.cs" />
     <Compile Include="Models\Input\MeetingInput.cs" />
     <Compile Include="Models\Input\SponsorInput.cs" />
     <Compile Include="Models\Input\UserGroupInput.cs" />
     <Compile Include="Models\Input\UserSelectorInput.cs" />
     <Compile Include="Helpers\Filters\AssemblyVersionrFilterAttribute.cs" />
+    <Compile Include="Models\Messages\DeleteMeetingMessage.cs" />
+    <Compile Include="Models\Messages\DeleteUserGroupInput.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="MvcStartupConfiguration.cs" />
+    <Compile Include="Services\AssemblyVersion.cs" />
+    <Compile Include="Services\HttpFileDownloaderService.cs" />
     <Compile Include="Services\IAssemblyVersion.cs" />
     <Compile Include="DomainnameRouteHandler.cs" />
     <Compile Include="Services\IUrlService.cs">
