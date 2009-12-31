@@ -1,11 +1,16 @@
 using CodeCampServer.Core.Domain.Model;
+using FluentNHibernate.Mapping;
 
 namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings
 {
-	public class SponsorMap : AuditedEntityClassMap<Sponsor>
+	public class SponsorMap : ClassMap<Sponsor>
 	{
 		public SponsorMap()
 		{
+			Cache.ReadWrite();
+			DynamicUpdate();
+			Id(x => x.Id).UnsavedValue(0).GeneratedBy.Identity();
+			this.ChangeAuditInfo();
 			Table("Sponsors");
 			Map(x => x.Name).Length(100);
 			Map(x => x.Url).Length(255);

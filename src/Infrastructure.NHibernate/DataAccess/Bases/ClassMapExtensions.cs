@@ -1,4 +1,5 @@
-﻿using CodeCampServer.Core.Bases;
+﻿using System;
+using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain.Model;
 using FluentNHibernate.Mapping;
 
@@ -17,10 +18,17 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings
 			                                      	});
 		}
 
-		public static void StandardId<T>(this ClassMap<T> map) where T : PersistentObject
+		public static void StandardId<T>(this ClassMap<T> map) where T : AuditedPersistentObjectOfGuid
 		{
-			map.Id(x => x.Id)
-				.GeneratedBy.GuidComb();
+			try
+			{
+				map.Id(x=>x.Id)
+					.GeneratedBy.GuidComb();
+			}
+			catch(Exception e)
+			{
+				;
+			}
 		}
 	}
 }

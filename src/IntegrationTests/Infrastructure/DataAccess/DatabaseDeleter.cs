@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			}
 		}
 
-		public static string[] GetTables()
+		public string[] GetTables()
 		{
 			return _tablesToDelete;
 		}
@@ -62,6 +63,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 						_tablesToDelete = BuildTableList(allTables, allRelationships);
 
 						_deleteSql = BuildTableSql(_tablesToDelete);
+//						Console.WriteLine(_deleteSql);
 
 						_initialized = true;
 					}

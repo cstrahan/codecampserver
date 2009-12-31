@@ -22,9 +22,9 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 		public class UserSessionDataStub : UserSessionStub
 		{
-			private readonly Guid _id;
+			private readonly object _id;
 
-			public UserSessionDataStub(Guid id) : base(null)
+			public UserSessionDataStub(object id) : base(null)
 			{
 				_id = id;
 			}

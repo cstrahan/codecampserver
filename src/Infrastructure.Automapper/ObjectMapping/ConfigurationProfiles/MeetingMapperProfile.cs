@@ -17,7 +17,7 @@ namespace CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles
 		}
 		protected override void Configure()
 		{
-			Mapper.CreateMap<Guid, Meeting>().ConvertUsing<IdToEntityConverter<Meeting>>();
+			Mapper.CreateMap<Guid, Meeting>().ConvertUsing<GuidIdToEntityConverter<Meeting>>();
 			Mapper.CreateMap<Meeting, MeetingInput>();
 			Mapper.CreateMap<Meeting, MeetingAnnouncementDisplay>()
 				.ForMember(x => x.Heading, o => o.MapFrom(m => m.Name))

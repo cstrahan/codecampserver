@@ -1,20 +1,31 @@
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
+using CodeCampServer.Infrastructure.NHibernate;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 using CodeCampServer.IntegrationTests.Infrastructure.DataAccess;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
-using Configuration=NHibernate.Cfg.Configuration;
+using Configuration = NHibernate.Cfg.Configuration;
 
 namespace CodeCampServer.IntegrationTests
 {
 	[TestFixture(Description = "SchemaExport"), Explicit]
-	public class SchemaExportTester
+	public class SchemaExportTester : DataTestBase
 	{
+		[Test, Category("SchemaExport"), Explicit]
+		public void ExportSchema()
+		{
+			Configuration configuration = new ConfigurationFactory().Build();
+
+			DropAllTables(configuration);
+
+			new SchemaExport(configuration).Execute(true, true, false);
+
+			RenameForeignKeys(configuration);
+		}
+
 		private void RenameForeignKeys(Configuration configuration)
 		{
 			ServerConnection connection = GetServerConnection(configuration);
@@ -32,14 +43,11 @@ namespace CodeCampServer.IntegrationTests
 		private void DropAllTables(Configuration configuration)
 		{
 			ServerConnection connection = GetServerConnection(configuration);
-			var tables = DatabaseDeleter.GetTables();
-			foreach (var table in tables)
+			string[] tables = new DatabaseDeleter(new SessionBuilder()).GetTables();
+
+			foreach (string table in tables)
 			{
-				try
-				{
-					connection.ExecuteNonQuery(string.Format("drop table [{0}];", table));
-				}
-				catch (Exception e) {}
+				connection.ExecuteNonQuery(string.Format("drop table [{0}];", table));
 			}
 		}
 
@@ -49,18 +57,6 @@ namespace CodeCampServer.IntegrationTests
 			var conn = new SqlConnection(connectionString);
 			var server = new Server(new ServerConnection(conn));
 			return server.ConnectionContext;
-		}
-
-		[Test, Category("SchemaExport"), Explicit]
-		public void ExportSchema()
-		{
-			Configuration configuration = new ConfigurationFactory().Build();
-
-			DropAllTables(configuration);
-
-			new SchemaExport(configuration).Execute(true, true, false);
-
-			RenameForeignKeys(configuration);
 		}
 	}
 }

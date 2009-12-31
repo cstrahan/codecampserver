@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Reflection;
 using CodeCampServer.Core.Bases;
 using NUnit.Framework;
+using NBehave.Spec.NUnit;
 
 namespace CodeCampServer.UnitTests.Core.Domain
 {
 	[TestFixture]
 	public class EnumerationTester
 	{
+
+
 		[Test]
 		public void Test_all_enumerations()
 		{

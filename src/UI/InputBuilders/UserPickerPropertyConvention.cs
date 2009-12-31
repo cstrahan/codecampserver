@@ -40,7 +40,7 @@ namespace CodeCampServer.UI.InputBuilders
 
 			foreach (User user in _userRepository.GetAll())
 			{
-				bool isChecked = value != null && (value).Where(form => form.Id == user.Id).Count() > 0;
+				bool isChecked = value != null && (value).Where(form => Equals(form.Id, user.Id)).Count() > 0;
 				items.Add(new SelectListItem {Selected = isChecked, Text = user.Name, Value = user.Id.ToString()});
 			}
 			return items;

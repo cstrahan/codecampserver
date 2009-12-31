@@ -120,8 +120,10 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 
 
 			var repository = S<IUserGroupRepository>();
-			repository.Stub(repository1 => repository1.GetById(Guid.Empty)).Return(new UserGroup());
-			ObjectFactory.Inject(typeof (IUserGroupRepository), repository);
+			var repositoryT = S<IRepository<UserGroup>>();
+			repositoryT.Stub(repository1 => repository1.GetById(Guid.Empty)).Return(new UserGroup());
+			ObjectFactory.Inject(typeof(IRepository<UserGroup>), repositoryT);
+			ObjectFactory.Inject(typeof(IUserGroupRepository), repository);
 
 			var userRepository = S<IUserRepository>();
 			ObjectFactory.Inject(typeof(IUserRepository), userRepository);
@@ -230,7 +232,7 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			                                             	{
 			                                             		Name = "New Meeting",
 			                                             		BannerUrl = "the url",
-			                                             		Id = Guid.Empty,
+			                                             		Id = 0,
 			                                             		Level = SponsorLevel.Gold,
 			                                             		Url = "http://foo.com",
 			                                             	}, typeof (SponsorInput));

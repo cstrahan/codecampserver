@@ -38,7 +38,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var controller = new SponsorController(S<IUserGroupRepository>(), PermisiveSecurityContext());
 
 			var userGroup = new UserGroup();
-			userGroup.Add(new Sponsor {Id = Guid.Empty});
+			userGroup.Add(new Sponsor {Id = default(int)});
 
 			controller.Edit(userGroup, new Sponsor())
 				.AssertViewRendered()

@@ -20,7 +20,7 @@ namespace CodeCampServer.Infrastructure.UI.Mappers
 		public Sponsor Convert(SponsorInput source)
 		{
 			var usergroup = _userGroupRepository.GetById(source.UserGroupId);
-			var sponsor = usergroup.GetSponsors().Where(sponsor1 => sponsor1.Id == source.ID).FirstOrDefault();
+			var sponsor = usergroup.GetSponsors().Where(sponsor1 => Equals(sponsor1.Id, source.ID)).FirstOrDefault();
 			if(sponsor==null)
 			{
 				sponsor=new Sponsor();

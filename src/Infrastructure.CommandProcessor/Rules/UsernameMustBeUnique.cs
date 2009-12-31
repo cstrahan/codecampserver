@@ -27,7 +27,7 @@ namespace CodeCampServer.Infrastructure.CommandProcessor.Rules
 		private bool UsernameAlreadyExists(UpdateUserCommandMessage message)
 		{
 			User entity = _repository.GetByUserName(message.Username);
-			return entity != null && entity.Id != message.Id;
+			return entity != null && !Equals(entity.Id, message.Id);
 		}
 	}
 }

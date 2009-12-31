@@ -1,11 +1,26 @@
 using System;
 using CodeCampServer.Core.Bases;
+using NBehave.Spec.NUnit;
 using NUnit.Framework;
 
 namespace Tarantino.UnitTests.Core.Commons.Model
 {
 	public abstract class PersistentObjectTester
 	{
+		[Test]
+		public void asdfoo()
+		{
+			object objA = null;
+			object objB = null;
+			Equals(objA, objB).ShouldBeTrue();
+
+			Equals(Guid.Empty, Guid.Empty).ShouldBeTrue();
+			Equals(new int?(), new int?()).ShouldBeTrue();
+			Equals(0, default(Int32)).ShouldBeTrue();
+			Equals(new int?(), new int?(3)).ShouldBeFalse();
+			Equals(this, this.GetHashCode()).ShouldBeFalse();
+		}
+
 		[Test]
 		public void CanAssignAndReadId()
 		{

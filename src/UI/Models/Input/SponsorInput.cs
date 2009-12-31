@@ -1,15 +1,13 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
-using CodeCampServer.UI.Helpers.Attributes;
 using MvcContrib.UI.InputBuilder.Attributes;
 
 namespace CodeCampServer.UI.Models.Input
 {
 	public class SponsorInput
 	{
-		public virtual Guid Id { get; set; }
+		public virtual int Id { get; set; }
 
 		[Required]
 		public virtual string Name { get; set; }

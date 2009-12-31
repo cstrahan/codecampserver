@@ -1,12 +1,15 @@
-using System;
-
 namespace CodeCampServer.Core.Bases
 {
 	public abstract class PersistentObject
 	{
 		public const string ID = "Id";
 
-		public virtual Guid Id { get; set; }
+		public virtual object Id { get; set; }
+
+		protected PersistentObject()
+		{
+			Id = GetEmptyId();
+		}
 
 		public virtual bool IsPersistent
 		{
@@ -18,10 +21,15 @@ namespace CodeCampServer.Core.Bases
 			if (isPersistentObject())
 			{
 				var persistentObject = obj as PersistentObject;
-				return (persistentObject != null) && (Id == persistentObject.Id);
+				return (persistentObject != null) && (IdsAreEqual(persistentObject));
 			}
 
 			return base.Equals(obj);
+		}
+
+		protected bool IdsAreEqual(PersistentObject persistentObject)
+		{
+			return Equals(Id, persistentObject.Id);
 		}
 
 		public override int GetHashCode()
@@ -31,7 +39,9 @@ namespace CodeCampServer.Core.Bases
 
 		private bool isPersistentObject()
 		{
-			return (Id != Guid.Empty);
+			return !Equals(Id, GetEmptyId());
 		}
+
+		protected abstract object GetEmptyId();
 	}
 }

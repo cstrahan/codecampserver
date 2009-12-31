@@ -143,7 +143,7 @@ namespace CodeCampServer.UI
 			return inputHtml + labelHtml;
 		}
 
-		public static string PickLink(this HtmlHelper helper, Guid id, Type entityType)
+		public static string PickLink(this HtmlHelper helper, object id, Type entityType)
 		{
 			return
 				string.Format(

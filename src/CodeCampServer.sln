@@ -55,6 +55,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{98
 		Database\Update\0019_MigrateTheTables.sql = Database\Update\0019_MigrateTheTables.sql
 		Database\Update\0020_ChangeAuditInfo.sql = Database\Update\0020_ChangeAuditInfo.sql
 		Database\Update\0021_AddKeys.sql = Database\Update\0021_AddKeys.sql
+		0022_MakeSponsorIdInt32.sql = 0022_MakeSponsorIdInt32.sql
 	EndProjectSection
 EndProject
 Global

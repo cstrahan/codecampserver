@@ -1,6 +1,6 @@
 namespace CodeCampServer.Core.Domain.Model
 {
-	public class User : AuditedPersistentObject
+	public class User : AuditedPersistentObjectOfGuid
 	{
 		public const string ADMIN_USERNAME = "admin";
 		public virtual string Username { get; set; }

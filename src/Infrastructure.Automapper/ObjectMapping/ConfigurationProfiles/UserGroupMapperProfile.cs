@@ -17,8 +17,8 @@ namespace CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles
 		{
 			Mapper.CreateMap<UserGroup, UserGroupInput>();
 			Mapper.CreateMap<string, UserGroup>().ConvertUsing<GuidToUserGroupTypeConverter>();
-			Mapper.CreateMap<Guid, UserGroup>().ConvertUsing<GuidToUserGroupTypeConverter>();
-			Mapper.CreateMap<Guid, Sponsor>().ConvertUsing<GuidIdToSponsorTypeConverter>();
+			Mapper.CreateMap<Guid, UserGroup>().ConvertUsing<IdToPersistentObjectTypeConverter<Guid, UserGroup>>();
+			Mapper.CreateMap<int, Sponsor>().ConvertUsing<IdToPersistentObjectTypeConverter<int, Sponsor>>();
 			Mapper.CreateMap<UserGroupInput, UserGroup>().ConvertUsing<UserGroupInputToUserGroupTypeConverter>();
 
 			Mapper.CreateMap<UserGroupInput, UpdateUserGroupCommandMessage>()

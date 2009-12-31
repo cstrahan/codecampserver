@@ -2,15 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CodeCampServer.Core.Bases;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.Core.Services;
 using CodeCampServer.Core.Services.Impl;
 using CodeCampServer.DependencyResolution;
-using CodeCampServer.Infrastructure.UI.Mappers;
 using CodeCampServer.IntegrationTests.Infrastructure.DataAccess;
-using CodeCampServer.UI.Models.Input;
 using NUnit.Framework;
 using StructureMap;
 
@@ -30,7 +27,6 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 
 		private void LoadData()
 		{
-
 			var userGroup = new UserGroup
 			                	{
 			                		Name = "Austin .Net Users Group",
@@ -88,7 +84,6 @@ View Larger Map</a></small></p>"
 			IEnumerable<Meeting> meetings = CreateMeetings(userGroup);
 			list.AddRange(conferences.ToArray());
 			list.AddRange(meetings.ToArray());
-
 
 
 			PersistEntities(list.ToArray());
@@ -153,41 +148,41 @@ View Larger Map</a></small></p>"
 		private User[] CreateUsers()
 		{
 			var crypto = new Cryptographer();
-			var salt = crypto.CreateSalt();
+			string salt = crypto.CreateSalt();
 			return new[]
 			       	{
-						new User()
-			                       	{
-			                       		Name = "Joe User",
-			                       		Username = "admin",
-			                       		EmailAddress = "joe@user.com",
-			                       		PasswordHash = crypto.GetPasswordHash("password",salt),
-										PasswordSalt = salt,
-			                       	},
-			       		new User()
-			       		           	{
-			       		           		Name = "Jeffrey Palermo",
-			       		           		EmailAddress = "jeffis@theman.com",
-			       		           		Username = "jpalermo",			       		           		
-			                       		PasswordHash = crypto.GetPasswordHash("beer",salt),
-										PasswordSalt = salt,
-			       		           	},
-			       		new User()
-			       		           	{
-			       		           		Name = "Homer Simpson",
-			       		           		EmailAddress = "homer@simpsons.com",
-			       		           		Username = "hsimpson",
-			                       		PasswordHash = crypto.GetPasswordHash("beer",salt),
-										PasswordSalt = salt,
-			       		           	},
 			       		new User
-			       		           	{
-			       		           		Name = "Bart Simpson",
-			       		           		EmailAddress = "bart@simpsons.com",
-			       		           		Username = "bsimpson",
-			                       		PasswordHash = crypto.GetPasswordHash("beer",salt),
-										PasswordSalt = salt,
-			       		           	}
+			       			{
+			       				Name = "Joe User",
+			       				Username = "admin",
+			       				EmailAddress = "joe@user.com",
+			       				PasswordHash = crypto.GetPasswordHash("password", salt),
+			       				PasswordSalt = salt,
+			       			},
+			       		new User
+			       			{
+			       				Name = "Jeffrey Palermo",
+			       				EmailAddress = "jeffis@theman.com",
+			       				Username = "jpalermo",
+			       				PasswordHash = crypto.GetPasswordHash("beer", salt),
+			       				PasswordSalt = salt,
+			       			},
+			       		new User
+			       			{
+			       				Name = "Homer Simpson",
+			       				EmailAddress = "homer@simpsons.com",
+			       				Username = "hsimpson",
+			       				PasswordHash = crypto.GetPasswordHash("beer", salt),
+			       				PasswordSalt = salt,
+			       			},
+			       		new User
+			       			{
+			       				Name = "Bart Simpson",
+			       				EmailAddress = "bart@simpsons.com",
+			       				Username = "bsimpson",
+			       				PasswordHash = crypto.GetPasswordHash("beer", salt),
+			       				PasswordSalt = salt,
+			       			}
 			       	};
 		}
 	}

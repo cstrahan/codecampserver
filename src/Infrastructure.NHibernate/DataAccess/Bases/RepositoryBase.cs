@@ -12,7 +12,7 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl
 		{
 		}
 
-		public virtual T GetById(Guid id)
+		public virtual T GetById(object id)
 		{
 			ISession session = GetSession();
 			return session.Get<T>(id);

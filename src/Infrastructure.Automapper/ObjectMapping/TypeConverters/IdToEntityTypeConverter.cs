@@ -5,12 +5,12 @@ using CodeCampServer.Core.Domain;
 
 namespace CodeCampServer.Infrastructure.ObjectMapping.TypeConverters
 {
-	public class IdToEntityConverter<TEntity> : ITypeConverter<Guid, TEntity>
+	public class GuidIdToEntityConverter<TEntity> : ITypeConverter<Guid, TEntity>
 		where TEntity : PersistentObject
 	{
 		private readonly IRepository<TEntity> _repository;
 
-		public IdToEntityConverter(IRepository<TEntity> repository)
+		public GuidIdToEntityConverter(IRepository<TEntity> repository)
 		{
 			_repository = repository;
 		}
