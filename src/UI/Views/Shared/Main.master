@@ -63,7 +63,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 	<div id="frame">
 		<!-- start logIn -->
 		<div id="logIn">
-			<h2>
+			<h1>
 				<asp:LoginView ID="LoginView1" runat="server">
 					<LoggedInTemplate>
 						Welcome,
@@ -73,7 +73,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 						<%=Html.UrlButton("Log in","/login/login/index")%>
 					</AnonymousTemplate>
 				</asp:LoginView>
-			</h2>
+			</h1>
 		</div>
 		<!-- end logIn -->
 		<!-- start logo -->

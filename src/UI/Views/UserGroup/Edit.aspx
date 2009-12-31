@@ -38,7 +38,7 @@
 				<%=Html.Input(a => a.HomepageHTML).Partial("MultilineText")%>
 				<%=Html.Input(a => a.GoogleAnalysticsCode)%>
 				<p class="buttons">
-					<input type="submit" value="Save" />
+					<input type="submit" value="Save" class="accept ui-state-default ui-corner-all ui-priority-primary "  />
 					<%= Html.ActionLink<UserGroupController>( "Cancel",x=>x.List()) %>
 				</p>
 			</div>

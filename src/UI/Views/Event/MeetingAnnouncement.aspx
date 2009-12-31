@@ -4,14 +4,6 @@
 <%@ Import Namespace="CodeCampServer.UI.Helpers" %>
 <%@ Import Namespace="CodeCampServer.UI.Controllers" %>
 
-<style>
-
-.info
-{
-	margin-left: 173px;
-}
-
-</style>
 
 <h1 class="title">
 	<%= Model.Heading %>

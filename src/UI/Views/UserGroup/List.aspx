@@ -2,11 +2,15 @@
 <%@ Import Namespace="CodeCampServer.UI.Helpers"%>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-    <h2>User Groups
+    <h2>User Groups    </h2>
 		<%if (User.Identity.IsAuthenticated) { %>
-			<a href="<%=Url.Action<UserGroupController>(t=>t.Edit(Guid.Empty)) %>"><img src="/images/icons/application_add.png" alt="Add a User Group" /></a>
+		<form method="get" action="<%=Url.Action<UserGroupController>(t=>t.Edit(Guid.Empty)) %>">
+			<button class="ui-state-default ui-corner-all fg-button-icon-solo" type="submit" title="Add a User Group">
+				<span class="ui-icon ui-icon-plus"/>
+			</button>
+		</form>
 		<%}%>
-    </h2>
+
 		<table class="default datatable">
 		    <thead>
 		        <tr>

@@ -129,7 +129,6 @@
     <Compile Include="Models\Input\EventInput.cs" />
     <Compile Include="Models\Display\EventList.cs" />
     <Compile Include="Models\Display\MeetingAnnouncementDisplay.cs" />
-    <Compile Include="Models\Input\LoginInput.cs" />
     <Compile Include="Models\Input\MeetingInput.cs" />
     <Compile Include="Models\Input\SponsorInput.cs" />
     <Compile Include="Models\Input\UserGroupInput.cs" />
@@ -231,6 +230,9 @@
     <Content Include="css\sidebar.css" />
     <Content Include="css\standard.css" />
     <Content Include="css\styles.css" />
+    <Content Include="images\bg.jpg" />
+    <Content Include="images\button1.gif" />
+    <Content Include="images\button2.gif" />
     <Content Include="images\icons\application_add.png" />
     <Content Include="images\icons\application_delete.png" />
     <Content Include="images\icons\application_edit.png" />
