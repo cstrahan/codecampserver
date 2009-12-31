@@ -29,7 +29,7 @@ namespace CodeCampServer.DependencyResolution
 			     		x.AddAllTypesOf<IRequiresConfigurationOnStartup>();
 			     		x.AddAllTypesOf<IConventionActionFilter>();
 			     	});
-
+		
 			ForRequestedType<IRulesEngine>().TheDefaultIsConcreteType<RulesEngine>();
 			ForRequestedType<ISystemClock>().TheDefaultIsConcreteType<SystemClock>();
 			

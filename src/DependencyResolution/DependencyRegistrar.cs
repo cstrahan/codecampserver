@@ -16,6 +16,7 @@ namespace CodeCampServer.DependencyResolution
 			                                     		y.AssemblyContainingType<DependencyRegistry>();
 			                                     		y.AssemblyContainingType<NaakRegistry>();
 			                                     		y.LookForRegistries();
+			                                     		y.AddAllTypesOf<IRequiresConfigurationOnStartup>();
 			                                     	}));
 			new InitiailizeDefaultFactories().Configure();
 
