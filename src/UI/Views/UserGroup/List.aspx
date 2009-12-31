@@ -1,14 +1,11 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="ViewPage<UserGroupInput[]>"%>
+<%@ Import Namespace="CodeCampServer.UI.Helpers.Extensions"%>
 <%@ Import Namespace="CodeCampServer.UI.Helpers"%>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
     <h2>User Groups    </h2>
 		<%if (User.Identity.IsAuthenticated) { %>
-		<form method="get" action="<%=Url.Action<UserGroupController>(t=>t.Edit(Guid.Empty)) %>">
-			<button class="ui-state-default ui-corner-all fg-button-icon-solo" type="submit" title="Add a User Group">
-				<span class="ui-icon ui-icon-plus"/>
-			</button>
-		</form>
+		    <%= Html.AddImageButton(Url.Action("Edit", new {}))%>
 		<%}%>
 
 		<table class="fullWidth">

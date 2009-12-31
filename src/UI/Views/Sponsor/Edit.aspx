@@ -9,7 +9,8 @@
 		<div class="ui-widget-content ui-corner-bottom">
 			<div class="ui-dialog-content">
 				<%=Html.InputForm() %>
-				<%= Html.ActionLink<SponsorController>("Cancel", x=>x.Index(null)) %>
+				<% var manager = ReturnUrlManagerFactory.GetDefault(); %>
+				<a class="action-link cancel" href="<%=manager.GetReturnUrl() %>">Cancel</a>
 			</div>
 		</div>
 	</div>

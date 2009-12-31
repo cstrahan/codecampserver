@@ -64,7 +64,7 @@ namespace CodeCampServer.UI.Controllers
 
 			return Command<UserGroupInput, UserGroup>(
 				input,
-				r => RedirectToAction<HomeController>(c => c.Index(r)),
+                r => new RedirectToReturnUrlResult(),
 				i => View(input));
 		}
 

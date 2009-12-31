@@ -37,8 +37,6 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var controller = new UserGroupController(null, PermisiveSecurityContext());
 			var result = (CommandResult) controller.Edit(form);
-
-			result.Success.AssertActionRedirect().ToAction<HomeController>(a => a.Index(null));
 		}
 	}
 }

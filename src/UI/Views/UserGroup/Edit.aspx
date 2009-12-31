@@ -39,7 +39,8 @@
 				<%=Html.Input(a => a.GoogleAnalysticsCode)%>
 				<p class="buttons">
 					<input type="submit" value="Save" class="accept ui-state-default ui-corner-all ui-priority-primary "  />
-					<%= Html.ActionLink<UserGroupController>( "Cancel",x=>x.List()) %>
+					<% var manager = ReturnUrlManagerFactory.GetDefault(); %>
+				    <a class="action-link cancel" href="<%=manager.GetReturnUrl() %>">Cancel</a>				
 				</p>
 			</div>
 		</div>
