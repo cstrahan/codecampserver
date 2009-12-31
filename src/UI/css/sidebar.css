@@ -1,0 +1,46 @@
+#main
+{
+    float: left;
+    width: 620px;
+    border-right: 1px dashed #DFE1E0;
+}
+
+/* Sidebar */
+
+#sidebar
+{
+    float: right;
+    width: 230px;
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar ul
+{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#sidebar li
+{
+    margin-bottom: 40px;
+}
+
+#sidebar li ul
+{
+}
+
+#sidebar li li
+{
+    margin: 0;
+}
+
+#sidebar h2
+{
+    width: 250px;
+    padding: 8px 0 0 0px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #28313A;
+}

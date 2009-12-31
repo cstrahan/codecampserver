@@ -14,7 +14,7 @@ namespace CodeCampServer.UI.InputBuilders
 		}
 		public override string PartialNameConvention(PropertyInfo propertyInfo)
 		{
-			return "Enum";
+			return "DropDown";
 		}
 		public override PropertyViewModel CreateViewModel<T>()
 		{

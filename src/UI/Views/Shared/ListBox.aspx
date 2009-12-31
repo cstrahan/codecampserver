@@ -5,5 +5,5 @@ Inherits="ViewPage<PropertyViewModel<IEnumerable<SelectListItem>>>" %>
 <%
     ViewData.Add(Model.Name, Model.Value.Where(item => item.Selected).Select(item => item.Value).ToList());
 %>
-<%=Html.ListBox(Model.Name,Model.Value)%>
+<%=Html.ListBox(Model.Name, Model.Value, new { Style = string.Format("Height:{0}px;", Math.Min(Model.Value.Count()*15, 100)) })%>
 </asp:Content>

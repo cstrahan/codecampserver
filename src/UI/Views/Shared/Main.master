@@ -1,4 +1,5 @@
 <%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
 <%@ Import Namespace="CodeCampServer.UI.Helpers.Filters" %>
 <%@ Import Namespace="CodeCampServer.UI" %>
 <%@ Import Namespace="CodeCampServer.UI.Controllers" %>
@@ -21,121 +22,125 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 <% PageInfo pageInfo = ViewData.Get<PageInfo>(); %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title> 
-    <%=pageInfo.Title%></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link href="/css/emporium.css" id="cssStyleSheet" rel="Stylesheet" type="text/css"/>
-  <link href="/css/standard.css" rel="stylesheet" type="text/css"/>
-  <link href="/css/custom-theme/jquery-ui-1.7.2.custom.css" type="text/css" rel="Stylesheet" />
-  
-  <script type="text/javascript" src="/scripts/jquery-1.3.2.min.js"></script>
+	<title>
+		<%=pageInfo.Title%></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/css/sidebar.css" id="Link1" rel="Stylesheet" type="text/css" />
+	<link href="/css/styles.css" id="cssStyleSheet" rel="Stylesheet" type="text/css" />
+	<link href="/css/custom-theme/jquery-ui-1.7.2.custom.css" type="text/css" rel="stylesheet" />
+	<link href="/css/standard.css" rel="stylesheet" type="text/css" />
+	<link href="/css/custom-theme/jquery-ui-1.7.2.custom.css" type="text/css" rel="Stylesheet" />
 
-  <script type="text/javascript" src="/scripts/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="/scripts/jquery-1.3.2.min.js"></script>
 
-  <script type="text/javascript" src="/scripts/startup.js"></script>
+	<script type="text/javascript" src="/scripts/jquery-ui-1.7.2.custom.min.js"></script>
 
-  <script type="text/javascript">
-    $(function() { initialize();});
-  </script>
+	<script type="text/javascript" src="/scripts/startup.js"></script>
 
-  <script type="text/javascript" src="/scripts/tiny_mce/tiny_mce.js"></script>
+	<script type="text/javascript">
+		$(function() { initialize(); });
+	</script>
 
-  <script type="text/javascript">
-    tinyMCE.init({
-      mode: "textareas",
-      theme: "advanced",
-      theme_advanced_buttons1: "justifyleft,justifycenter,justifyright,bold,italic,bullist,numlist,indent,outdent,forecolor",
-      theme_advanced_buttons2: "",
-      plugins: "style",
-      theme_advanced_buttons1_add: "",
-      verify_html: false
-    });
-  </script>
+	<script type="text/javascript" src="/scripts/tiny_mce/tiny_mce.js"></script>
 
-  <asp:ContentPlaceHolder ID="Stylesheets" runat="server">
-  </asp:ContentPlaceHolder>
+	<script type="text/javascript">
+		tinyMCE.init({
+			mode: "textareas",
+			theme: "advanced",
+			theme_advanced_buttons1: "justifyleft,justifycenter,justifyright,bold,italic,bullist,numlist,indent,outdent,forecolor",
+			theme_advanced_buttons2: "",
+			plugins: "style",
+			theme_advanced_buttons1_add: "",
+			verify_html: false
+		});
+	</script>
+
+	<asp:ContentPlaceHolder ID="Stylesheets" runat="server">
+	</asp:ContentPlaceHolder>
 </head>
-<body class="<%=Css.UniversalFont%>">
-  <div id="wrapper">
-    <!-- start header -->
-    <div id="logo">
-      <h1><a href="/"><%=pageInfo.Title%></a></h1>
-        <asp:LoginView ID="LoginView3" runat="server">
-          <LoggedInTemplate>
-			      <h2 class="<%=Css.OuterControls%>">
-							Welcome,
-							<%=ViewData.Get<User>().Name%>            
-							(<span class="<%=Css.OuterLinks%>"><a href="/login/login/logout">Log out</a></span>) |
-							<span class="<%=Css.OuterLinks%>"><%=Html.ActionLink<UserController>("My Profile", c=>c.Edit((User)null)) %></span>
-			      </h2>
-          </LoggedInTemplate>
-          <AnonymousTemplate>
-						<div class="<%=Css.OuterLinks%>" style="float: right; font-size: 14pt; font-weight: bold;"><%=Html.UrlButton("Log in","/login/login/index")%></div>
-          </AnonymousTemplate>
-        </asp:LoginView>
-    </div>
-    <div id="header">
-      <% if (ViewData.Contains<Conference>())
-         {
-           Html.RenderPartial("Menu");
-         }
-         else
-         {
-           Html.RenderPartial("HomeMenu");
-         }
-      %>
-    </div>
-    <!-- end header -->
-  </div>
-  <!-- start page -->
-  <div id="page" class="<%= Css.UniversalColors %>">
-    <!-- start content -->
-    <div id="content">
-      <asp:ContentPlaceHolder ID="Main" runat="server" />
-    </div>
-    <!-- end content -->
-    <!-- start sidebar -->
-    <div id="sidebar">
-      <asp:ContentPlaceHolder ID="SidebarPlaceHolder" runat="server">
-      </asp:ContentPlaceHolder>
-    </div>
-    <!-- end sidebar -->
-    <div style="clear: both;">
-      &nbsp;</div>
-  </div>
-  <!-- end page -->
-  <!-- start footer -->
-  <div id="footer" class="<%=Css.OuterControls%>">
-    <p id="legal">
-      Powered by <span class="<%=Css.OuterLinks%>"><a href="http://codecampserver.com" target="_blank" title="Code Camp Server">Code Camp Server</a></span> (<span id="revisionNumber"><%=ViewData[AssemblyVersionFilterAttribute.AssemblyVersion].ToString() %></span>)
-      <br />
-      &copy;
-      <%=DateTime.Now.Year %>. All Rights Reserved.</p>
-  </div>
-  <!-- end footer -->
-  <!-- CodeCampServer.com tracking-->
+<body>
+	<!-- start frame -->
+	<div id="frame">
+		<!-- start logIn -->
+		<div id="logIn">
+			<h2>
+				<asp:LoginView ID="LoginView1" runat="server">
+					<LoggedInTemplate>
+						Welcome,
+						<%=ViewData.Get<User>().Name%>&nbsp;&nbsp;<a href="/login/login/logout">Log out</a>
+					</LoggedInTemplate>
+					<AnonymousTemplate>
+						<%=Html.UrlButton("Log in","/login/login/index")%>
+					</AnonymousTemplate>
+				</asp:LoginView>
+			</h2>
+		</div>
+		<!-- end logIn -->
+		<!-- start logo -->
+		<div id="logo">
+			<h1>
+				<a href="/">
+					<%=pageInfo.Title%></a></h1>
+		</div>
+		<!-- end logo -->
+		<div id="menu"> 
+		<% if (ViewData.Contains<Conference>())
+	 {
+		 Html.RenderPartial("Menu");
+	 }
+	 else
+	 {
+		 Html.RenderPartial("HomeMenu");
+	 }
+		%>
+		</div>
+		<!-- end menu -->
+		<!-- start main -->
+		<div id="main">
+			<asp:ContentPlaceHolder ID="Main" runat="server" />
+		</div>
+		<!-- end main -->
+		<!-- start sidebar -->
+		<div id="sidebar">
+			<asp:ContentPlaceHolder ID="SidebarPlaceHolder" runat="server">
+			</asp:ContentPlaceHolder>
+		</div>
+		<!-- end sidebar -->
+		<!-- start footer -->
+		<div id="footer">
+			<p id="legal">
+				Powered by <span class="<%=Css.OuterLinks%>"><a href="http://codecampserver.com"
+					target="_blank" title="Code Camp Server">Code Camp Server</a></span> (<span id="revisionNumber"><%=ViewData[AssemblyVersionFilterAttribute.AssemblyVersion].ToString() %></span>)
+				<br />
+				&copy;
+				<%=DateTime.Now.Year %>. All Rights Reserved.</p>
+		</div>
+		<!-- end footer -->
+	</div>
+	<!-- end frame -->
+	<!-- CodeCampServer.com tracking-->
 
-  <script type="text/javascript">
-    try {
-      var ccsPageTracker = _gat._getTracker("<%=pageInfo.MasterTrackingCode%>");
-      ccsPageTracker._setDomainName("none");
-      ccsPageTracker._setAllowLinker(true);
-      ccsPageTracker._trackPageview();
-    } catch (err) { }
-  </script>
+	<script type="text/javascript">
+		try {
+			var ccsPageTracker = _gat._getTracker("<%=pageInfo.MasterTrackingCode%>");
+			ccsPageTracker._setDomainName("none");
+			ccsPageTracker._setAllowLinker(true);
+			ccsPageTracker._trackPageview();
+		} catch (err) { }
+	</script>
 
-  <%if (pageInfo.TrackingCodeExists)
-    { %>
+	<%if (pageInfo.TrackingCodeExists)
+   { %>
 
-  <script type="text/javascript">
-    try {
-      var usergroupPageTracker = _gat._getTracker("<%=pageInfo.TrackingCode%>");
-      usergroupPageTracker._trackPageview();
-    } catch (err) { }
-  </script>
+	<script type="text/javascript">
+		try {
+			var usergroupPageTracker = _gat._getTracker("<%=pageInfo.TrackingCode%>");
+			usergroupPageTracker._trackPageview();
+		} catch (err) { }
+	</script>
 
-  <% } %>
-  <!--
+	<% } %>
+	<!--
 www.dotcom-monitor.com
 -->
 </body>

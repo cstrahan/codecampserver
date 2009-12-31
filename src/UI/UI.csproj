@@ -225,7 +225,9 @@
     <Content Include="css\custom-theme\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="css\custom-theme\images\ui-icons_ffffff_256x240.png" />
     <Content Include="css\custom-theme\jquery-ui-1.7.2.custom.css" />
+    <Content Include="css\sidebar.css" />
     <Content Include="css\standard.css" />
+    <Content Include="css\styles.css" />
     <Content Include="images\icons\application_add.png" />
     <Content Include="images\icons\application_delete.png" />
     <Content Include="images\icons\application_edit.png" />

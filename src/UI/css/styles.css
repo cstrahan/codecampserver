@@ -1,0 +1,325 @@
+/* BEGIN PRE-FORMAT TAGS */
+h1,h2,h3,h4,h5,h6,pre,code { font-size: 1em; }
+html,body,div,h1,h2,h3,h4,h5,h6,p,dl,dt,dd,ul,ol,li,pre,form,fieldset,input, button { margin: 0px; padding: 0px; }
+a img,:link img,:visited img { border: none; }
+table, div { border-collapse: collapse; }
+tr { vertical-align: top; }
+br { clear: left; }
+strong, b {	font-weight: bold; }
+/* END PRE-FORMAT TAGS */
+
+body
+{
+	color: #666;
+	margin: 0px;
+  padding: 0px;
+  font-family: Verdana;
+	font-size: 62.5%;
+  background-attachment: fixed;
+	background-repeat: repeat-x;
+	background-color: white;
+	background-position: left bottom;
+	background-image: url(../images/bg.jpg);
+}
+
+/* frame */
+#frame
+{
+	width: 980px;
+	margin: 10px auto;
+	border: 1px solid #f6f6f6;
+	padding: 10px;
+	background-color: White;
+}
+
+/* logo */
+#logo
+{
+	font-size: 1.8em;
+	color: #73AF59;
+}
+
+/* logIn */
+#logIn
+{
+	float: right;
+	font-size: 1.2em;
+}
+
+/* menu */
+#menu { margin: 10px 0px; }
+.menu {padding:0 0 0 32px; margin:0; list-style:none; height:35px; background:#fff url(../images/button1.gif); position:relative; border:1px solid #000; border-width:0 1px; border-bottom:1px solid #444;}
+.menu li {float:left;}
+.menu li a {display:block; float:left; height:35px; line-height:35px; color:#fff; text-decoration:none; font-size:1.5em; font-family:arial, verdana, sans-serif; text-align:center; padding:0 0 0 8px; cursor:pointer;}
+.menu li a b {float:left; display:block; padding:0 16px 0 8px; font-weight: normal;}
+.menu li.current a {color:#fff; background:url(../images/button3.gif);}
+.menu li.current a b {background:url(../images/button3.gif) no-repeat right top;}
+.menu li a:hover {color:#ccc; background:#000 url(../images/button2.gif);}
+.menu li a:hover b {background:url(../images/button2.gif) no-repeat right top;}
+.menu li.current a:hover {color:#ccc; background:#000 url(../images/button3.gif); cursor:default;}
+.menu li.current a:hover b {background:url(../images/button3.gif) no-repeat right top;}
+
+/* main */
+#main
+{
+	margin-bottom: 10px;
+}
+
+#main h2
+{
+	color: #73AF59;
+	font-size: 1.4em;
+	border-bottom: 1px dotted #eeeeee;
+	padding-bottom: 5px;
+}
+
+#main h3
+{
+	color: #73AF59;
+	font-size: 1.3em;
+	margin: 0px 0px 10px 0px;
+	padding-top: 10px;
+	padding-bottom: 5px;
+	clear: both;
+	border-bottom: 1px dotted #eeeeee;
+}
+
+/* halfWidth */
+.halfWidth
+{
+  float: left;
+  width: 50%;
+}
+
+/* footer */
+#footer
+{
+	clear: both;
+  background: #f6f6f6;
+  padding: 5px 0px;
+  margin-top: 40px;
+}
+
+input[type="text"], select, input[type="password"]
+{
+    height: 14px;
+    margin: 5px 0px;
+    font-size: 1.1em;
+    margin: 5px;
+    padding: 0px 3px; 
+}
+
+input[type="checkbox"]
+{
+    height: 14px;
+    margin: 5px 0px;
+    font-size: 1.1em;
+    margin: 2px 0px;
+    padding: 4px; 
+}
+
+select
+{
+    height: 22px;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+    margin: 1px;
+    padding: 1px 1px; 
+}
+
+/* legal */
+#legal
+{
+  text-align: center;
+  font-size: 1.2em;
+}
+
+fieldset
+{
+  background-color: #eee;
+  margin: 10px auto;    
+  border: solid 4px #336699;
+  border-top: solid 20px #369;
+}
+
+fieldset.wide
+{
+  width: 650px;
+}
+
+fieldset a.cancel
+{
+  text-align:center;
+  margin-left:250px;
+  position:relative;
+  top:-28px;
+}
+
+fieldset label
+{
+  float: left;
+  display: block;
+  width: 125px;
+  text-align: right;
+  height: 20px;
+  margin: 7px;
+}
+
+fieldset input[type="text"], textarea, fieldset input[type="password"]
+{
+  font-size: 1.1em;
+  margin: 1px;
+  padding: 4px; 
+}
+
+fieldset select
+{
+  font-size: 1.1em;
+  margin: 1px;
+  padding: 4px;
+}
+
+fieldset input[type="checkbox"]
+{
+  margin: 8px 0;
+}
+
+fieldset input[type='submit']
+{
+  text-align:center;
+}
+
+.cleaner
+{
+  clear: both;
+  height: 0px;
+}
+
+.required
+{
+	color: Red;
+}
+
+fieldset input[type="text"] date, .date
+{
+  width: 100px;
+}
+
+.sidebarTitle
+{
+  text-align: left;
+}
+.sidebarCopy
+{
+  text-align: left;
+}
+
+.field-validation-error
+{
+  color:Red;
+  font-size:28px;
+  vertical-align:top;
+}
+
+.validation-summary-errors
+{
+  background-color: #FFBBBB;
+  color: Black;
+  border: solid 1px red;
+  font-size: 14px;
+}
+
+.topic-value
+{
+	font-weight:bold;
+	font-size: larger;
+	font-style:italic;
+}
+
+table.fullWidth
+{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table.fullWidth th
+{
+	background-color: #f6f6f6;
+	font-size: 1.2em;
+	padding: 5px;
+	border: 1px solid #eeeeee;
+}
+
+table.fullWidth td
+{
+	border-collapse: collapse;
+	font-size: 1.1em;
+	padding: 5px;
+	border: 1px solid #eeeeee;
+}
+
+.display-label
+{
+	clear: left;
+	float: left;
+	width: 170px;
+	text-align: right;
+    font-weight:bold;
+    margin-right: 2px;
+}
+
+p.display
+{
+	font-size: 1.2em;
+	padding:2px;
+}
+
+
+.edit-label
+{
+	clear: left;
+	float: left;
+	width: 170px;
+	text-align: right;
+	font-size: 1.2em;
+	padding: 3px 5px 3px 3px;
+    font-weight:bold;
+}
+
+.display-field
+{
+	float: left;
+	font-size: 1.2em;
+	padding: 3px 5px 3px 3px;
+}
+
+ul.square
+{
+	margin-left: 30px;
+}
+
+ul.square li
+{
+	margin-bottom: 5px;
+	list-style-type: square;
+	font-size: 1.2em;
+}
+
+a:link, a:visited
+{
+	color: #e48324;
+}
+
+a:hover, a:active
+{
+	color: #fbb951;
+}
+
+.button
+{
+	margin: 5px 10px;
+}
+
+.addMeeting {
+	float:right;
+}

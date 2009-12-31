@@ -3,14 +3,12 @@
 <%@ Import Namespace="CodeCampServer.Core.Domain.Model.Enumerations"%>
 
 <% var conference = ViewData.Get<Conference>(); %>
-<div id="menu"> 
-    <ul> 
+    <ul class="menu"> 
 		<asp:LoginView ID="LoginView1" runat="server">
 			<LoggedInTemplate>
-				<li><a href="<%=Url.Action<AdminController>(c=>c.Index(null)) %>">admin</a></li>
+				<li><a href="<%=Url.Action<AdminController>(c=>c.Index(null)) %>"><b>admin</b></a></li>
 			</LoggedInTemplate>
 		</asp:LoginView>
 
-		<li><a href="<%=Url.RouteUrl("conferencedefault",new{controller="conference",action="index",conferencekey=conference.Key}) %>">home</a></li>
+		<li><a href="<%=Url.RouteUrl("conferencedefault",new{controller="conference",action="index",conferencekey=conference.Key}) %>"><b>home</b></a></li>
 	</ul>
-</div>
