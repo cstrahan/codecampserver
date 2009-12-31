@@ -32,6 +32,5 @@ namespace CodeCampServer.UI.InputBuilders
 			}
 			return items;
 		}
-
 	}
 }

@@ -122,6 +122,8 @@
     <Compile Include="InputBuilders\MultiLinePropertyConvention.cs" />
     <Compile Include="InputBuilders\NullableGuidPropertyConvention.cs" />
     <Compile Include="InputBuilders\PasswordPropertyConvention.cs" />
+    <Compile Include="InputBuilders\SelectListProvidedPropertyConvention.cs" />
+    <Compile Include="InputBuilders\SelectListProvision\ISelectListProvider.cs" />
     <Compile Include="InputBuilders\UserPickerPropertyConvention.cs" />
     <Compile Include="LoginHandler.cs" />
     <Compile Include="Helpers\UserSelectorInputTypeConverter.cs" />

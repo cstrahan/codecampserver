@@ -1,6 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.Attributes;
+using CodeCampServer.UI.InputBuilders.SelectListProvision;
 using MvcContrib.UI.InputBuilder.Attributes;
 
 namespace CodeCampServer.UI.Models.Input
@@ -10,8 +12,7 @@ namespace CodeCampServer.UI.Models.Input
 	public class UserInput
 	{
 		[Required]
-		[RegularExpression(@"^([a-zA-Z])[a-zA-Z_-]*[\w_-]*[\S]$|^([a-zA-Z])[0-9_-]*[\S]$|^[a-zA-Z]*[\S]$",
-			ErrorMessage = "Username is not valid.")]
+		[RegularExpression(@"^([a-zA-Z])[a-zA-Z_-]*[\w_-]*[\S]$|^([a-zA-Z])[0-9_-]*[\S]$|^[a-zA-Z]*[\S]$", ErrorMessage = "Username is not valid.")]
 		public virtual string Username { get; set; }
 
 		[Required]
@@ -27,8 +28,10 @@ namespace CodeCampServer.UI.Models.Input
 		[Required]
 		public virtual string Password { get; set; }
 
-
 		[Required]
 		public virtual string ConfirmPassword { get; set; }
+
+//		[SelectListProvided(typeof(AllUsersSelectListProvider))]
+//		public User DummyUser { get; set; }
 	}
 }

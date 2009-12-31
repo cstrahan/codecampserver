@@ -6,4 +6,15 @@ namespace CodeCampServer.UI.Helpers.Attributes
 	public sealed class HiddenAttribute : Attribute
 	{
 	}
+
+	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+	public sealed class SelectListProvidedAttribute : Attribute
+	{
+		public Type SelectListProvider { get; set; }
+
+		public SelectListProvidedAttribute(Type selectListProvider)
+		{
+			SelectListProvider = selectListProvider;
+		}
+	}
 }

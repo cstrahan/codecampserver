@@ -9,6 +9,7 @@ using CodeCampServer.UI;
 using CodeCampServer.UI.Binders;
 using CodeCampServer.UI.Filters;
 using CodeCampServer.UI.InputBuilders;
+using CodeCampServer.UI.InputBuilders.SelectListProvision;
 using Microsoft.Practices.ServiceLocation;
 using MvcContrib.Services;
 using StructureMap;
@@ -32,6 +33,7 @@ namespace CodeCampServer.DependencyResolution
 			DependencyResolver.InitializeWith(new StructureMapServiceLocator());
 			ServiceLocator.SetLocatorProvider(() => new StructureMapServiceLocator());
 			UnitOfWorkFactory.GetDefault = () => ObjectFactory.GetInstance<IUnitOfWork>();
+			SelectListProviderFactory.GetDefault = type => (ISelectListProvider) ObjectFactory.GetInstance(type);
 		}
 	}
 }
