@@ -3,6 +3,7 @@ using AutoMapper;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services.BusinessRule.DeleteUserGroup;
 using CodeCampServer.Core.Services.BusinessRule.UpdateUserGroup;
+using CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles;
 using CodeCampServer.Infrastructure.ObjectMapping.TypeConverters;
 using CodeCampServer.Infrastructure.UI.Mappers;
 using CodeCampServer.UI.Models.Input;
@@ -17,6 +18,7 @@ namespace CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles
 			Mapper.CreateMap<UserGroup, UserGroupInput>();
 			Mapper.CreateMap<string, UserGroup>().ConvertUsing<GuidToUserGroupTypeConverter>();
 			Mapper.CreateMap<Guid, UserGroup>().ConvertUsing<GuidToUserGroupTypeConverter>();
+			Mapper.CreateMap<Guid, Sponsor>().ConvertUsing<GuidIdToSponsorTypeConverter>();
 			Mapper.CreateMap<UserGroupInput, UserGroup>().ConvertUsing<UserGroupInputToUserGroupTypeConverter>();
 
 			Mapper.CreateMap<UserGroupInput, UpdateUserGroupCommandMessage>()
@@ -26,20 +28,9 @@ namespace CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles
 				                       	});
 			Mapper.CreateMap<DeleteUserGroupInput, DeleteUserGroupCommandMessage>();
 
-			Mapper.CreateMap<SponsorInput, UpdateSponsorCommandMessage>()
-				.ConvertUsing(input =>
+			Mapper.CreateMap<SponsorInput, UpdateSponsorCommandMessage>();
 
-				              new UpdateSponsorCommandMessage()
-				              	{
-				              		Sponsor = Mapper.Map<SponsorInput, Sponsor>(input),
-				              		UserGroup = Mapper.Map<Guid,UserGroup>(input.UserGroupId)
-				              			}
-				              	);
-			Mapper.CreateMap<SponsorInput,Sponsor>().ConvertUsing<SponsorInputToSponsorTypeConverter>();
-
-			Mapper.CreateMap<Sponsor, SponsorInput>()
-				.ForMember(x => x.UserGroupId, o => o.Ignore());
-
+			Mapper.CreateMap<Sponsor, SponsorInput>().ForMember(x=>x.UserGroup, expression => expression.Ignore());
 		}
 	}
 }

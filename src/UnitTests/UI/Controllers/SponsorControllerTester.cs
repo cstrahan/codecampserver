@@ -4,7 +4,9 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI;
 using CodeCampServer.UI.Controllers;
 //using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Helpers.ActionResults;
 using CodeCampServer.UI.Models.Input;
+using MvcContrib.ActionResults;
 using MvcContrib.TestHelper;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -56,10 +58,9 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var controller = new SponsorController(null, PermisiveSecurityContext());
 
-			var result = (CommandResult) controller.Edit(userGroup, input);
+			var result = (CommandResult) controller.Edit(input, null);
 
-			result.Success.AssertActionRedirect()
-				.ToAction<SponsorController>(c => c.Index(userGroup));
+			result.Success.AssertResultIs<RedirectToReturnUrlResult>();
 		}
 
 		[Test]

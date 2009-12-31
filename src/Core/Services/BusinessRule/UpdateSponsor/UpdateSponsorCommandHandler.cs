@@ -7,19 +7,23 @@ namespace CodeCampServer.Core.Services.BusinessRule.UpdateUserGroup
 {
 	public class UpdateSponsorCommandHandler : Command<UpdateSponsorCommandMessage>
 	{
-		private readonly IUserGroupRepository _userGroupRepository;
+		private readonly ISponsorRepository _repository;
 
-		public UpdateSponsorCommandHandler(IUserGroupRepository userGroupRepository)
+		public UpdateSponsorCommandHandler(ISponsorRepository repository)
 		{
-			_userGroupRepository = userGroupRepository;
+			_repository = repository;
 		}
 
 		protected override ReturnValue Execute(UpdateSponsorCommandMessage commandMessage)
 		{
-			UserGroup userGroup = commandMessage.UserGroup;
-			userGroup.Add(commandMessage.Sponsor);
-			_userGroupRepository.Save(userGroup);
-			return new ReturnValue {Type = typeof (Sponsor), Value = commandMessage.Sponsor};
+			Sponsor sponsor = commandMessage.Id ?? new Sponsor(){UserGroup = commandMessage.UserGroup};
+			sponsor.Level = commandMessage.Level;
+			sponsor.BannerUrl = commandMessage.BannerUrl;
+			sponsor.Name = commandMessage.Name;
+			sponsor.Url = commandMessage.Url;
+
+			_repository.Save(sponsor);
+			return new ReturnValue {Type = typeof (Sponsor), Value = sponsor};
 		}
 	}
 }

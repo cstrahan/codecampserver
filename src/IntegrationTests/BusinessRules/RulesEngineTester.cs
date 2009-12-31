@@ -216,10 +216,9 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			ObjectFactory.Inject(typeof (IRepository<UserGroup>), repository);
 			repository.Stub(repository1 => repository1.GetById(Guid.Empty)).IgnoreArguments().Repeat.Any().Return(new UserGroup());
 
-			var userGroupRepository = S<IUserGroupRepository>();
-			ObjectFactory.Inject(typeof (IUserGroupRepository), userGroupRepository);
-			userGroupRepository.Stub(repository1 => repository1.GetById(Guid.Empty)).IgnoreArguments().Repeat.Any().Return(
-				new UserGroup());
+			var sponsorRepository = S<ISponsorRepository>();
+			ObjectFactory.Inject(typeof (ISponsorRepository), sponsorRepository);
+			sponsorRepository.Stub(repository1 => repository1.GetById(Guid.Empty)).IgnoreArguments().Repeat.Any().Return(new Sponsor());
 
 			//var userRepository = S<IUserRepository>();
 			///ObjectFactory.Inject(typeof(IUserRepository), userRepository);
@@ -231,16 +230,15 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			                                             	{
 			                                             		Name = "New Meeting",
 			                                             		BannerUrl = "the url",
-			                                             		ID = Guid.Empty,
+			                                             		Id = Guid.Empty,
 			                                             		Level = SponsorLevel.Gold,
 			                                             		Url = "http://foo.com",
-			                                             		UserGroupId = Guid.NewGuid(),
 			                                             	}, typeof (SponsorInput));
 
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<Sponsor>().ShouldNotBeNull();
 
-			userGroupRepository.AssertWasCalled(r => r.Save(null), options => options.IgnoreArguments());
+			sponsorRepository.AssertWasCalled(r => r.Save(null), options => options.IgnoreArguments());
 		}
 	}
 }

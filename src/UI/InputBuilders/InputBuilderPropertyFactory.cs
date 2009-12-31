@@ -24,6 +24,7 @@ namespace CodeCampServer.UI.InputBuilders
 			Add(new NullableGuidPropertyConvention());
 			Add(new MultiLinePropertyConvention());
 			Add(new EmailPropertyConvention());
+			Add(new IgnoredEntityPropertyConvention());
 			Add(new SelectListProvidedPropertyConvention());
 			Add(new InputBuilderPropertyConvention());
 		}

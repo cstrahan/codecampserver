@@ -95,6 +95,7 @@
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserGroupController.cs" />
+    <Compile Include="Helpers\ActionResults\RedirectToReturnUrlResult.cs" />
     <Compile Include="Helpers\Attributes\AllowHtml.cs" />
     <Compile Include="Helpers\Attributes\MultilineAttribute.cs" />
     <Compile Include="Helpers\ConferenceViewExtensions.cs">
@@ -113,10 +114,13 @@
     <Compile Include="Helpers\ImageLinkHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\IPreviousViewPageUrlManager.cs" />
+    <Compile Include="Helpers\PreviousViewPageUrlManager.cs" />
     <Compile Include="InputBuilders\DatePickerPropertyConvention.cs" />
     <Compile Include="InputBuilders\EmailPropertyConvention.cs" />
     <Compile Include="InputBuilders\EnumerationPropertyConvention.cs" />
     <Compile Include="InputBuilders\GuidPropertyConvention.cs" />
+    <Compile Include="InputBuilders\IgnoredEntityPropertyConvention.cs" />
     <Compile Include="InputBuilders\InputBuilderPropertyConvention.cs" />
     <Compile Include="InputBuilders\InputBuilderPropertyFactory.cs" />
     <Compile Include="InputBuilders\MultiLinePropertyConvention.cs" />
@@ -144,13 +148,16 @@
     <Compile Include="Models\Messages\DeleteUserGroupInput.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="MvcStartupConfiguration.cs" />
+    <Compile Include="ReturnUrlManagerFactory.cs" />
     <Compile Include="Services\AssemblyVersion.cs" />
     <Compile Include="Services\HttpFileDownloaderService.cs" />
     <Compile Include="Services\IAssemblyVersion.cs" />
     <Compile Include="DomainnameRouteHandler.cs" />
+    <Compile Include="Services\IReturnUrlManager.cs" />
     <Compile Include="Services\IUrlService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Services\ReturnUrlManager.cs" />
     <Compile Include="Services\UrlService.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -510,6 +517,7 @@
     <Content Include="Views\Home\DefaultIndex.aspx" />
     <Content Include="Views\Home\Events.aspx" />
     <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Shared\EmptyInputBuilder.aspx" />
     <Content Include="Views\Shared\Array.aspx" />
     <Content Include="Views\Shared\ArrayAddButton.aspx" />
     <Content Include="Views\Shared\ArrayRemoveButton.aspx" />

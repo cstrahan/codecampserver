@@ -9,13 +9,17 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 		[Test]
 		public void Should_map_a_sponsor()
 		{
-		    
-		    var sponsor = new Sponsor
+			var userGroup = new UserGroup();
+			var sponsor = new Sponsor
 			              	{
 			              		Name = "FooBar",
                                 Level =SponsorLevel.Gold,
-                                Url = "http://thisistheurl.com/"
+                                Url = "http://thisistheurl.com/",
+																UserGroup = userGroup
 			              	};
+
+			PersistEntities(userGroup);
+
 			AssertObjectCanBePersisted(sponsor);
 
 		}

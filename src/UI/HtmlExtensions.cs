@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Common;
+using CodeCampServer.UI.Models.Input;
 using MvcContrib;
 using MvcContrib.UI.Grid;
 using MvcContrib.UI.Grid.Syntax;
@@ -189,7 +191,6 @@ namespace CodeCampServer.UI
 			return column;
 		}
 
-
 		public static IGridWithOptions<T> WithID<T>(this IGridWithOptions<T> grid, string htmlID) where T : class
 		{
 			return grid.Attributes(id => htmlID);
@@ -245,6 +246,7 @@ namespace CodeCampServer.UI
 					"<div class=\"buttonLeftEndCap\"></div><div class=\"buttonContentBackground\">{0}</div><div class=\"buttonRightEndCap\"></div>",
 					helper.ActionLink(linkText, actionName, controllerName,helper.ViewContext.RouteData,null));
 		}
+
 		public static string RouteButton(this HtmlHelper helper, string linkText,
 													   string routeName)
 		{

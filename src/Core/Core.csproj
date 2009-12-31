@@ -62,6 +62,7 @@
     <Compile Include="Domain\Bases\IAuditable.cs" />
     <Compile Include="Domain\IEventRepository.cs" />
     <Compile Include="Domain\IMeetingRepository.cs" />
+    <Compile Include="Domain\ISponsorRepository.cs" />
     <Compile Include="Domain\IUserGroupRepository.cs" />
     <Compile Include="Bases\AuditedPersistentObject.cs" />
     <Compile Include="Domain\Model\Event.cs" />

@@ -1,10 +1,15 @@
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Domain.Model.Enumerations;
 
 namespace CodeCampServer.Core.Services.BusinessRule.UpdateUserGroup
 {
 	public class UpdateSponsorCommandMessage
 	{
-		public UserGroup UserGroup { get; set; }
-		public Sponsor Sponsor { get; set; }
+		public virtual Sponsor Id { get; set; }
+		public virtual string Name { get; set; }
+		public virtual string Url { get; set; }
+		public virtual string BannerUrl { get; set; }
+		public virtual SponsorLevel Level { get; set; }
+		public virtual UserGroup UserGroup { get; set; }
 	}
 }

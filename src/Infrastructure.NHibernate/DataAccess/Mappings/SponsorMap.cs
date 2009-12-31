@@ -11,6 +11,7 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings
 			Map(x => x.Url).Length(255);
 			Map(x => x.BannerUrl).Length(255);
 			Map(x => x.Level);
+			References(x => x.UserGroup);
 		}
 	}
 
