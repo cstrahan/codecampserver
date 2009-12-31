@@ -181,7 +181,7 @@ namespace CodeCampServer.UI
 			                            		IView view = context.ViewEngines.TryLocatePartial(context.ViewContext, partialName);
 			                            		var newViewData = new ViewDataDictionary<T>(item);
 			                            		var newContext = new ViewContext(context.ViewContext, context.ViewContext.View,
-			                            		                                 newViewData, context.ViewContext.TempData);
+			                            		                                 newViewData, context.ViewContext.TempData, context.Writer);
 			                            		context.Writer.Write("<td>");
 			                            		view.Render(newContext, context.Writer);
 			                            		context.Writer.Write("</td>");

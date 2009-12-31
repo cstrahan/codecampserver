@@ -1,4 +1,5 @@
-﻿<%@ Import Namespace="System.Web.Mvc.Html"%>
+﻿<%@ Import Namespace="MvcContrib.UI.InputBuilder.Views"%>
+<%@ Import Namespace="System.Web.Mvc.Html"%>
 <%@ Import Namespace="MvcContrib.UI.InputBuilder"%>
 <%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage<PropertyViewModel>" %>
 <asp:ContentPlaceHolder ID="Header" runat="server"><p></asp:ContentPlaceHolder>

@@ -1,5 +1,4 @@
-<%@ Page Title="" Language="C#"  
-Inherits="System.Web.Mvc.ViewPage<PropertyViewModel<Guid>>" %>
+<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<PropertyViewModel<Guid>>" %>
 <%@ Import Namespace="MvcContrib.UI.InputBuilder.Views"%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Label" runat="server"></asp:Content>

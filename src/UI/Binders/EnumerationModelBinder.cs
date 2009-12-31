@@ -10,7 +10,7 @@ namespace CodeCampServer.UI.Binders
 		{
 			try
 			{
-				string enumerationValue = GetAttemptedValue(bindingContext, controllerContext);
+				string enumerationValue = GetAttemptedValue(bindingContext);
 
 				if (enumerationValue == "")
 				{
@@ -40,9 +40,9 @@ namespace CodeCampServer.UI.Binders
 			return Enumeration.FromDisplayNameOrDefault(enumerationType, value);
 		}
 
-		private static string GetAttemptedValue(ModelBindingContext bindingContext, ControllerContext controllerContext)
+		private static string GetAttemptedValue(ModelBindingContext bindingContext)
 		{
-			ValueProviderResult value = bindingContext.ValueProvider.GetValue(controllerContext, bindingContext.ModelName);
+			ValueProviderResult value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
 			return value == null ? string.Empty : value.AttemptedValue;
 		}
 	}

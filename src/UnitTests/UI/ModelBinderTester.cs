@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
@@ -95,14 +94,6 @@ namespace CodeCampServer.UnitTests.UI
 		public override Type return_model_binder()
 		{
 			return typeof (ModelBinder<Meeting, IMeetingRepository>);
-		}
-	}
-
-	public static class ValueProviderExtensions
-	{
-		public static void AddKeyAndValue(this IDictionary<string, ValueProviderResult> collection, string key, object value)
-		{
-			collection.Add(key, new ValueProviderResult(value, value == null ? "" : value.ToString(), null));
 		}
 	}
 }

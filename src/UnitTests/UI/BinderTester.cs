@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -29,18 +31,14 @@ namespace CodeCampServer.UnitTests.UI
 
 		protected static ModelBindingContext CreateBindingContext(string key, string value)
 		{
-			ValueProviders.Providers.Clear();
-			ValueProviders.Providers.Add(CreateValueProvider(key, value));
-			var context = new ModelBindingContext();
-			context.ModelName = key;
+			var context = new ModelBindingContext {ModelName = key, ValueProvider = CreateValueProvider(key, value)};
 			return context;
 		}
 
-		private static IValueProvider CreateValueProvider(string key, string value)
+		protected static IValueProvider CreateValueProvider(string key, string value)
 		{
-			var provider = new SimpleValueProvider();
-			provider.Add(key, value);
-			return provider;
+			var values = new Dictionary<string, string> {{key, value}};
+			return new DictionaryValueProvider<string>(values, CultureInfo.InvariantCulture);
 		}
 	}
 }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
@@ -46,21 +48,6 @@ namespace CodeCampServer.UnitTests.UI
 		}
 
 		[Test]
-		public void Should_throw_error_when_query_string_parameter_not_found()
-		{
-			const string badParameter = "Bad Value";
-
-			ControllerContext controllerContext = GetControllerContext("foo", badParameter);
-
-
-			var context = new ModelBindingContext {ModelName = "foo"};
-
-			var binder = new KeyedModelBinder<TEntity, TRepository>(null);
-			object model = binder.BindModel(controllerContext, context);
-			Assert.That(model, Is.Null);
-		}
-
-		[Test]
 		public void Should_return_null_when_query_string_parameter_value_is_null()
 		{
 			const string badParameter = "";
@@ -88,6 +75,22 @@ namespace CodeCampServer.UnitTests.UI
 			object result = binder.BindModel(controllerContext, context);
 
 			Assert.That(result, Is.EqualTo(entity));
+		}
+
+		[Test]
+		public void Should_throw_error_when_query_string_parameter_not_found()
+		{
+			const string badParameter = "Bad Value";
+
+			ControllerContext controllerContext = GetControllerContext("foo", badParameter);
+
+			var values = new Dictionary<string, string>();
+			var valueProvider = new DictionaryValueProvider<string>(values, CultureInfo.InvariantCulture);
+			var context = new ModelBindingContext { ModelName = "foo", ValueProvider = valueProvider };
+
+			var binder = new KeyedModelBinder<TEntity, TRepository>(null);
+			object model = binder.BindModel(controllerContext, context);
+			Assert.That(model, Is.Null);
 		}
 	}
 

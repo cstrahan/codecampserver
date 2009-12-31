@@ -498,6 +498,11 @@
     <Content Include="Views\Home\DefaultIndex.aspx" />
     <Content Include="Views\Home\Events.aspx" />
     <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Shared\Array.aspx" />
+    <Content Include="Views\Shared\ArrayAddButton.aspx" />
+    <Content Include="Views\Shared\ArrayRemoveButton.aspx" />
+    <Content Include="Views\Shared\Boolean.aspx" />
+    <Content Include="Views\Shared\DateTime.aspx" />
     <Content Include="Views\Shared\Display.aspx" />
     <Content Include="Views\Shared\Edit.aspx" />
     <Content Include="Views\Shared\EditUserLink.ascx" />
@@ -506,13 +511,21 @@
     <Content Include="Views\Shared\DisplayLabel.aspx" />
     <Content Include="Views\Shared\DisplayParagraph.aspx" />
     <Content Include="Views\Shared\DisplayInline.aspx" />
+    <Content Include="Views\Shared\Enum.aspx" />
+    <Content Include="Views\Shared\Form.aspx" />
     <Content Include="Views\Shared\Guid.aspx" />
     <Content Include="Views\Shared\Index.aspx" />
+    <Content Include="Views\Shared\Int32.aspx" />
+    <Content Include="Views\Shared\MultilineText.aspx" />
+    <Content Include="Views\Shared\RadioButtons.aspx" />
+    <Content Include="Views\Shared\ReadOnly.aspx" />
+    <Content Include="Views\Shared\String.aspx" />
     <Content Include="Views\Shared\Submit.aspx" />
     <Content Include="Views\Meeting\Edit.aspx" />
     <Content Include="Views\Shared\AddMeetingLink.ascx" />
     <Content Include="Views\Shared\Display.Master" />
     <Content Include="Areas\Web.config" />
+    <Content Include="Views\Shared\Array.Master" />
     <None Include="Views\Shared\Field.Master" />
     <Content Include="Views\Shared\Password.aspx" />
     <Content Include="Views\Shared\ListBox.aspx" />
@@ -532,6 +545,8 @@
     <Content Include="Views\Shared\AdminMenu.ascx" />
     <Content Include="Views\Shared\Modal.Master" />
     <Content Include="Views\Shared\LoginPortableArea.Master" />
+    <Content Include="Views\Shared\HiddenField.Master" />
+    <Content Include="Views\Shared\Row.Master" />
     <None Include="xhtml1-transitional.dtd">
     </None>
     <Content Include="Views\Shared\http404.ascx" />

@@ -41,7 +41,7 @@ namespace CodeCampServer.UI.Binders
 		protected virtual ValueProviderResult GetRequestValue(ModelBindingContext bindingContext, string requestKey, ControllerContext controllerContext)
 		{
 			string key = requestKey;
-			ValueProviderResult valueProvider = bindingContext.ValueProvider.GetValue(controllerContext, requestKey);
+			ValueProviderResult valueProvider = bindingContext.ValueProvider.GetValue(requestKey);
 			if (valueProvider == null && !key.EndsWith(GetOptionalSuffix()))
 			{
 				//try appending "id" on the key

@@ -1,6 +1,7 @@
-﻿<%@ Import Namespace="MvcContrib.UI.InputBuilder.Views"%>
+<%@ Import Namespace="MvcContrib.UI.InputBuilder.Views"%>
 <%@ Import Namespace="System.Web.Mvc.Html"%>
 <%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage<PropertyViewModel>" %>
+<!-- Array.Master -->
 <%
     Example.Visible = Model.HasExample();
 %>
@@ -18,5 +19,7 @@
     <asp:ContentPlaceHolder ID="Example" runat="Server" Visible="false">
         <span class="example">ex.: <%=Html.Encode(Model.Example)%></span>
     </asp:ContentPlaceHolder>    
+    
     </div>
+        
 </div>
