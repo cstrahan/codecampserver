@@ -268,7 +268,7 @@ table.fullWidth td
     margin-right: 2px;
 }
 
-p.display
+.display
 {
 	font-size: 1.2em;
 	padding:2px;
@@ -327,7 +327,7 @@ a:hover, a:active
 
 .info
 {
-	margin-left: 173px;
+	margin-left: 172px;
 }
 
 h1.title

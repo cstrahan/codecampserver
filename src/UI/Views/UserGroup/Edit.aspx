@@ -22,8 +22,8 @@
 	<% using (Html.BeginForm())
 	{ %>
 	<%= Html.ValidationSummary() %>
-	<h3>
-		Edit User Group</h3>
+	<h2>
+		Edit User Group</h2>
 	<div class="onpage-form ui-dialog ui-widget ui-corner-all">
 		<div class="ui-widget-content ui-corner-bottom">
 			<div class="ui-dialog-content">

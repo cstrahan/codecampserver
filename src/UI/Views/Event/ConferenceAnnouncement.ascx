@@ -4,7 +4,7 @@
 
 <h1 class="title"><%=Model.Name%> </h1> 
 <div class="entry"> 
-    <p><b>When:</b> <%=Model.GetDate() %> </p> 
-    <p><b>Location:</b> <%=Model.LocationName %> - <a href="<%=Model.LocationUrl %>" class="more">map</a></p> 
-    <p><b>Conference info:</b> <%=Model.Description %></p> 
+    <p class="display"><span class="display-label">When:</span> <%=Model.GetDate() %> </p> 
+    <p class="display"><span class="display-label">Location:</span> <%=Model.LocationName %> - <a href="<%=Model.LocationUrl %>" class="more">map</a></p> 
+    <p class="display"><span class="display-label">Conference info:</span> <%=Model.Description %></p> 
 </div> 

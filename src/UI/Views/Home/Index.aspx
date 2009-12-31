@@ -15,7 +15,8 @@
     <hr />
     <h2>
         <%= Model.Name %>
-        <%Html.RenderPartial("EditUserGroupLink", Model); %></h2>
+    </h2>
+        <%Html.RenderPartial("EditUserGroupLink", Model); %>
     <p>
         <%= Model.Location() %>
         </p>
