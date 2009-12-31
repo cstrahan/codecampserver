@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{98200972-A038-4DA8-8917-CBC4895175DC}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -44,6 +44,10 @@
     <Reference Include="MvcContrib, Version=0.0.1.168, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\mvccontrib\MvcContrib.dll</HintPath>
+    </Reference>
+    <Reference Include="Prince, Version=1.0.3554.30285, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\prince\Engine\bin\Prince.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations">
@@ -170,8 +174,7 @@
     <Compile Include="ViewPages.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Helpers\BaseViewPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="Helpers\PrinceModule.cs">
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -498,7 +501,7 @@
     <Content Include="scripts\tiny_mce\utils\validate.js" />
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="css\emporium.css" />
-    <Content Include="Views\Event\ConferenceAnnouncement.aspx" />
+    <Content Include="Views\Event\ConferenceAnnouncement.ascx" />
     <Content Include="Views\Event\MeetingAnnouncement.aspx" />
     <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Event\AllUpcomingEvents.aspx" />
@@ -590,9 +593,6 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

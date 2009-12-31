@@ -44,12 +44,6 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\aspnetmvc\System.Web.Abstractions.dll</HintPath>
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -86,12 +80,9 @@
     <Compile Include="Domain\Model\KeyedObject.cs" />
     <Compile Include="Domain\Bases\User.cs" />
     <Compile Include="Domain\Bases\ValueObject.cs" />
-    <Compile Include="PrinceReportWrapperFactory.cs" />
-    <Compile Include="Services\IPrinceReportWrapper.cs" />
     <Compile Include="IRequiresConfigurationOnStartup.cs" />
     <Compile Include="ISystemClock.cs" />
     <Compile Include="Clock.cs" />
-    <Compile Include="Services\Impl\PrinceReportWrapper.cs" />
     <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandHandler.cs" />
     <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandMessage.cs" />
     <Compile Include="Services\BusinessRule\Login\LoginCommandHandler.cs" />

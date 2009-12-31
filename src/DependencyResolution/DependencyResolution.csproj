@@ -100,10 +100,6 @@
       <Project>{CFBE2871-F3A7-411A-A494-AA0E66CE7B0D}</Project>
       <Name>Infrastructure.NHibernate</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Prince\Infrastructure.Prince.csproj">
-      <Project>{161EBC98-48AB-41EC-B080-EC7707D92DD1}</Project>
-      <Name>Infrastructure.Prince</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UI\UI.csproj">
       <Project>{98200972-A038-4DA8-8917-CBC4895175DC}</Project>
       <Name>UI</Name>

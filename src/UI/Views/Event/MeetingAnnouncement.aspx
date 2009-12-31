@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" 
-  Inherits="CodeCampServer.UI.Helpers.BaseViewPage<MeetingAnnouncementDisplay>" %>
+  Inherits="ViewPage<MeetingAnnouncementDisplay>" %>
 
 <%@ Import Namespace="CodeCampServer.UI.Helpers" %>
 <%@ Import Namespace="CodeCampServer.UI.Controllers" %>

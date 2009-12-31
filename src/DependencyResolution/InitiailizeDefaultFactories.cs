@@ -32,7 +32,6 @@ namespace CodeCampServer.DependencyResolution
 			DependencyResolver.InitializeWith(new StructureMapServiceLocator());
 			ServiceLocator.SetLocatorProvider(() => new StructureMapServiceLocator());
 			UnitOfWorkFactory.GetDefault = () => ObjectFactory.GetInstance<IUnitOfWork>();
-            PrinceReportWrapperFactory.GetDefault = () => ObjectFactory.GetInstance<IPrinceReportWrapper>();
 		}
 	}
 }
