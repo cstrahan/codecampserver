@@ -1,6 +1,6 @@
 using CodeCampServer.Core;
 
-namespace CodeCampServer.Infrastructure
+namespace CodeCampServer.DependencyResolution
 {
 	public class FactoryConfiguration : IRequiresConfigurationOnStartup
 	{

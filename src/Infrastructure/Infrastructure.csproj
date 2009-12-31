@@ -74,8 +74,6 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="FactoryConfiguration.cs" />
-    <Compile Include="SystemClock.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Database\Update\0001_AddDatabaseUser.sql" />
@@ -113,11 +111,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BusinessRules\CommandConfiguration\" />
-    <Folder Include="BusinessRules\UpdateUser\" />
-    <Folder Include="BusinessRules\Validation\" />
     <Folder Include="Properties\" />
-    <Folder Include="UI\Services\Impl\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

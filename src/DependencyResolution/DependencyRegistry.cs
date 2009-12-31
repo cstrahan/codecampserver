@@ -4,7 +4,6 @@ using System.Reflection;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Services;
-using CodeCampServer.Infrastructure;
 using CodeCampServer.Infrastructure.CommandProcessor;
 using CodeCampServer.UI.Helpers.Filters;
 using StructureMap.Configuration.DSL;
