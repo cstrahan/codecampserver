@@ -3,4 +3,4 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Label" runat="server">&nbsp;</asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="Input" runat="server"><input type="submit" Value="Submit" /></asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="Input" runat="server"><input type="submit" value="Submit" class="accept ui-state-default ui-corner-all ui-priority-primary " /></asp:Content>

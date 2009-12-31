@@ -4,7 +4,7 @@
 <%if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
   {%>
 <a id="deleteMeeting<%=Model.Id%>" href="<%= Url.Action<MeetingController>(t => t.Delete(null,null), new{meeting = Model.Id}).ToXHTMLLink() %>">
-  <img src="/images/icons/application_delete.png" title="Delete the meeting" /></a>
+  <img src="/images/icons/application_delete.png" title="Delete the meeting" alt="Delete the Meeting" /></a>
 
 <script type="text/javascript">
   $(function() {
