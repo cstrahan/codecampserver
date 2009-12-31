@@ -6,7 +6,7 @@ using CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl;
 using StructureMap.Configuration.DSL;
 using Tarantino.RulesEngine.CommandProcessor;
 
-namespace CodeCampServer.Infrastructure
+namespace CodeCampServer.DependencyResolution
 {
 	public class InfrastructureRegistry : Registry
 	{
@@ -22,7 +22,6 @@ namespace CodeCampServer.Infrastructure
 			     	});
 		}
 	}
-
 
 	public class AutoMapperRegistry : Registry
 	{

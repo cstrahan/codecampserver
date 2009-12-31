@@ -4,13 +4,14 @@ using CodeCampServer.Core.Bases;
 
 namespace CodeCampServer.UI.Binders
 {
-	public class EnumerationModelBinder : IModelBinder
+	public class EnumerationModelBinder : IFilteredModelBinder
 	{
-		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+		public BindResult BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			try
 			{
-				string enumerationValue = GetAttemptedValue(bindingContext);
+				ValueProviderResult value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+				string enumerationValue = value == null ? string.Empty : value.AttemptedValue;
 
 				if (enumerationValue == "")
 				{
@@ -18,7 +19,7 @@ namespace CodeCampServer.UI.Binders
 				}
 
 				Enumeration enumeration = GetEnumeration(bindingContext.ModelType, enumerationValue);
-				return enumeration;
+				return new BindResult(enumeration, value);
 			}
 			catch (Exception ex)
 			{
@@ -26,6 +27,11 @@ namespace CodeCampServer.UI.Binders
 				                               bindingContext.ModelName);
 				throw new ApplicationException(message, ex);
 			}
+		}
+
+		public bool ShouldBind(ControllerContext controllerContext, ModelBindingContext bindingContext)
+		{
+			return typeof (Enumeration).IsAssignableFrom(bindingContext.ModelType);
 		}
 
 		private static Enumeration GetEnumeration(Type enumerationType, string value)
@@ -38,12 +44,6 @@ namespace CodeCampServer.UI.Binders
 			}
 
 			return Enumeration.FromDisplayNameOrDefault(enumerationType, value);
-		}
-
-		private static string GetAttemptedValue(ModelBindingContext bindingContext)
-		{
-			ValueProviderResult value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
-			return value == null ? string.Empty : value.AttemptedValue;
 		}
 	}
 }

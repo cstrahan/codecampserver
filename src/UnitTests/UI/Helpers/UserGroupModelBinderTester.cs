@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.UI.Binders;
+using CodeCampServer.UI.Binders.Keyed;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -20,7 +20,7 @@ namespace CodeCampServer.UnitTests.UI.Helpers
 			userGroupRepository.Stub(repository => repository.GetDefaultUserGroup()).Return(userGroup1);
 
 			var modelBinder = new UserGroupModelBinder(userGroupRepository);
-			var usergroup = (UserGroup) modelBinder.BindModel(new ControllerContext(), CreateBindingContext("usergroupkey", ""));
+			var usergroup = (UserGroup) modelBinder.BindModel(new ControllerContext(), CreateBindingContext("usergroupkey", "")).Value;
 
 			usergroup.ShouldEqual(userGroup1);
 		}
@@ -34,7 +34,7 @@ namespace CodeCampServer.UnitTests.UI.Helpers
 			userGroupRepository.Stub(repository => repository.GetDefaultUserGroup()).Return(userGroup1);
 
 			var modelBinder = new UserGroupModelBinder(userGroupRepository);
-			var usergroup = (UserGroup) modelBinder.BindModel(new ControllerContext(), CreateBindingContext("usergroupkey", "foo"));
+			var usergroup = (UserGroup) modelBinder.BindModel(new ControllerContext(), CreateBindingContext("usergroupkey", "foo")).Value;
 
 			usergroup.ShouldEqual(userGroup1);
 		}
@@ -48,7 +48,7 @@ namespace CodeCampServer.UnitTests.UI.Helpers
 
 
 			var modelBinder = new UserGroupModelBinder(userGroupRepository);
-			var usergroup = (UserGroup) modelBinder.BindModel(new ControllerContext(), CreateBindingContext("usergroupkey", "foo"));
+			var usergroup = (UserGroup) modelBinder.BindModel(new ControllerContext(), CreateBindingContext("usergroupkey", "foo")).Value;
 			usergroup.ShouldEqual(userGroup1);
 		}
 	}

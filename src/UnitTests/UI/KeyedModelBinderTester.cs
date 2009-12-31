@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Binders;
+using CodeCampServer.UI.Binders.Keyed;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
@@ -37,13 +38,13 @@ namespace CodeCampServer.UnitTests.UI
 			ModelBindingContext modelBindingContext1 = CreateBindingContext("fookey", "key");
 
 			object result = binder.BindModel(controllerContext1,
-			                                 modelBindingContext1);
+			                                 modelBindingContext1).Value;
 
 
 			Assert.That(result, Is.EqualTo(entity));
 
 			ModelBindingContext modelBindingContext2 = CreateBindingContext("barkey", "key");
-			result = binder.BindModel(controllerContext2, modelBindingContext2);
+			result = binder.BindModel(controllerContext2, modelBindingContext2).Value;
 			Assert.That(result, Is.EqualTo(entity));
 		}
 
@@ -57,7 +58,7 @@ namespace CodeCampServer.UnitTests.UI
 
 			var binder = new KeyedModelBinder<TEntity, TRepository>(null);
 
-			object binderResult = binder.BindModel(controllerContext, context);
+			object binderResult = binder.BindModel(controllerContext, context).Value;
 			binderResult.ShouldBeNull();
 		}
 
@@ -72,7 +73,7 @@ namespace CodeCampServer.UnitTests.UI
 
 			ModelBindingContext context = CreateBindingContext("foo", "key");
 
-			object result = binder.BindModel(controllerContext, context);
+			object result = binder.BindModel(controllerContext, context).Value;
 
 			Assert.That(result, Is.EqualTo(entity));
 		}
@@ -89,8 +90,8 @@ namespace CodeCampServer.UnitTests.UI
 			var context = new ModelBindingContext { ModelName = "foo", ValueProvider = valueProvider };
 
 			var binder = new KeyedModelBinder<TEntity, TRepository>(null);
-			object model = binder.BindModel(controllerContext, context);
-			Assert.That(model, Is.Null);
+			BindResult model = binder.BindModel(controllerContext, context);
+			Assert.That(model.Value, Is.Null);
 		}
 	}
 

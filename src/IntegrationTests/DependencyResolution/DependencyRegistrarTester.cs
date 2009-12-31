@@ -7,7 +7,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl;
-using CodeCampServer.UI.Binders;
+using CodeCampServer.UI.Binders.Keyed;
 using CodeCampServer.UI.Controllers;
 using NBehave.Spec.NUnit;
 
@@ -66,7 +66,7 @@ namespace CodeCampServer.IntegrationTests.DependencyResolution
 				Type repositoryType = typeof(IKeyedRepository<>).MakeGenericType(typeof(Conference));
 				Type modelBinderType = typeof(KeyedModelBinder<,>).MakeGenericType(typeof(Conference), repositoryType);
 
-				var binder = (IModelBinder)DependencyRegistrar.Resolve(modelBinderType);
+				var binder = (IKeyedModelBinder)DependencyRegistrar.Resolve(modelBinderType);
 				
 				binder.ShouldNotBeNull();
 			}

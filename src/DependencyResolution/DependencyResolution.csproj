@@ -82,6 +82,7 @@
     <Compile Include="NHibernateRegistry.cs" />
     <Compile Include="StructureMapServiceLocator.cs" />
     <Compile Include="SystemClock.cs" />
+    <Compile Include="UiRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

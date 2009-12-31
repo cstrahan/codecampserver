@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.UI.Binders;
+using CodeCampServer.UI.Binders.Entities;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
@@ -35,12 +35,12 @@ namespace CodeCampServer.UnitTests.UI
 			ControllerContext controllerContext2 = GetControllerContext("barid", guid.ToString()); //lowercase
 
 			ModelBindingContext modelBindingContext = CreateBindingContext("fooid", guid.ToString());
-			object result = binder.BindModel(controllerContext1, modelBindingContext);
-			Assert.That(result, Is.EqualTo(entity));
+			var result = binder.BindModel(controllerContext1, modelBindingContext);
+			Assert.That(result.Value, Is.EqualTo(entity));
 
 			ModelBindingContext modelBindingContext2 = CreateBindingContext("barid", guid.ToString());
 			result = binder.BindModel(controllerContext2, modelBindingContext2);
-			Assert.That(result, Is.EqualTo(entity));
+			Assert.That(result.Value, Is.EqualTo(entity));
 		}
 
 		[Test]
@@ -56,7 +56,7 @@ namespace CodeCampServer.UnitTests.UI
 
 			ModelBindingContext context = CreateBindingContext("foo", guid.ToString());
 
-			object result = binder.BindModel(controllerContext, context);
+			object result = binder.BindModel(controllerContext, context).Value;
 
 			Assert.That(result, Is.EqualTo(entity));
 		}
@@ -83,7 +83,7 @@ namespace CodeCampServer.UnitTests.UI
 			;
 
 			var binder = new ModelBinder<TEntity, TRepository>(null);
-			object binderResult = binder.BindModel(GetControllerContext("foo", ""), context);
+			var binderResult = binder.BindModel(GetControllerContext("foo", ""), context).Value;
 			binderResult.ShouldBeNull();
 		}
 	}

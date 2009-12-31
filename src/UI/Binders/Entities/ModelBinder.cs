@@ -3,32 +3,36 @@ using System.Web.Mvc;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
 
-namespace CodeCampServer.UI.Binders
+namespace CodeCampServer.UI.Binders.Entities
 {
-	public class ModelBinder<TEntity, TRepository> : DefaultModelBinder
-		where TRepository : IRepository<TEntity>
+	public interface IEntityModelBinder  {
+		BindResult BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext);
+	}
+
+	public class ModelBinder<TEntity, TRepository> : IEntityModelBinder where TRepository : IRepository<TEntity>
 		where TEntity : PersistentObject
 	{
 		protected readonly TRepository _repository;
-
+		
 		public ModelBinder(TRepository repository)
 		{
 			_repository = repository;
 		}
 
-		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+		public virtual BindResult BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			try
 			{
 				ValueProviderResult value = GetRequestValue(bindingContext, bindingContext.ModelName, controllerContext);
-				if (value == null) return default(TEntity);
+				if (value == null) return new BindResult(null,null);
 
 				string attemptedValue = value.AttemptedValue;
-				if (attemptedValue == "") return default(TEntity);
+				if (attemptedValue == "") return new BindResult(null, null);
 
 				var matchId = new Guid(attemptedValue);
 				TEntity match = _repository.GetById(matchId);
-				return match;
+
+				return new BindResult(match, value);
 			}
 			catch (Exception ex)
 			{
@@ -38,7 +42,8 @@ namespace CodeCampServer.UI.Binders
 			}
 		}
 
-		protected virtual ValueProviderResult GetRequestValue(ModelBindingContext bindingContext, string requestKey, ControllerContext controllerContext)
+		protected virtual ValueProviderResult GetRequestValue(ModelBindingContext bindingContext, string requestKey,
+		                                                      ControllerContext controllerContext)
 		{
 			string key = requestKey;
 			ValueProviderResult valueProvider = bindingContext.ValueProvider.GetValue(requestKey);
@@ -47,7 +52,7 @@ namespace CodeCampServer.UI.Binders
 				//try appending "id" on the key
 				valueProvider = GetRequestValue(bindingContext, requestKey + GetOptionalSuffix(), controllerContext);
 			}
-			
+
 			return valueProvider;
 		}
 

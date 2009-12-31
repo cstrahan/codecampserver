@@ -5,6 +5,7 @@ using CodeCampServer.Core;
 using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Services;
 using CodeCampServer.Infrastructure.CommandProcessor;
+using CodeCampServer.UI.Binders;
 using CodeCampServer.UI.Helpers.Filters;
 using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
@@ -32,7 +33,6 @@ namespace CodeCampServer.DependencyResolution
 		
 			ForRequestedType<IRulesEngine>().TheDefaultIsConcreteType<RulesEngine>();
 			ForRequestedType<ISystemClock>().TheDefaultIsConcreteType<SystemClock>();
-			
 		}
 
 		private string GetThisAssembliesPrefix()
