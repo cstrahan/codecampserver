@@ -26,6 +26,7 @@ namespace CodeCampServer.UI.InputBuilders
 			Add(new EmailPropertyConvention());
 			Add(new IgnoredEntityPropertyConvention());
 			Add(new SelectListProvidedPropertyConvention());
+			Add(new CheckboxListPropertyConvention());
 			Add(new InputBuilderPropertyConvention());
 		}
 	}

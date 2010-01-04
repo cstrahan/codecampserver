@@ -19,11 +19,9 @@
 
 </asp:Content>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
-	<% using (Html.BeginForm())
-	{ %>
+	<% using (Html.BeginForm()){ %>
 	<%= Html.ValidationSummary() %>
-	<h2>
-		Edit User Group</h2>
+	<h3>Edit User Group</h3>
 	<div class="onpage-form ui-dialog ui-widget ui-corner-all">
 		<div class="ui-widget-content ui-corner-bottom">
 			<div class="ui-dialog-content">

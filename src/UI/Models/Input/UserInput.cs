@@ -31,7 +31,10 @@ namespace CodeCampServer.UI.Models.Input
 		[Required]
 		public virtual string ConfirmPassword { get; set; }
 
-//		[SelectListProvided(typeof(AllUsersSelectListProvider))]
+		[SelectListProvided(typeof(AllUsersSelectListProvider))]
+		public User DummyUser { get; set; }
+
+//		[CheckboxList(typeof(AllUsersSelectListProvider))]
 //		public User DummyUser { get; set; }
 	}
 }
