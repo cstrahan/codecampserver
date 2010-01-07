@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Models.Input;
 using MvcContrib.UI.InputBuilder.Views;

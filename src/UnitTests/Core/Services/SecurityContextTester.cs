@@ -1,4 +1,5 @@
 using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.Core.Services.Impl;

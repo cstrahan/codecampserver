@@ -7,9 +7,7 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl
 {
 	public class UserGroupRepository : KeyedRepository<UserGroup>, IUserGroupRepository
 	{
-		public UserGroupRepository(IUnitOfWork unitOfWork) : base(unitOfWork) {}
-
-		public override UserGroup GetByKey(string key)
+	    public override UserGroup GetByKey(string key)
 		{
 			return
 				GetSession().CreateCriteria(typeof (UserGroup)).SetFetchMode("Sponsors", FetchMode.Eager).Add(

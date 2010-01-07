@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using CodeCampServer.Core.Domain;
+﻿using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Infrastructure.CommandProcessor;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl;
@@ -12,22 +12,14 @@ namespace CodeCampServer.DependencyResolution
 	{
 		public InfrastructureRegistry()
 		{
-			ForRequestedType(typeof (IRepository<>)).TheDefaultIsConcreteType(typeof (RepositoryBase<>));
-			ForRequestedType(typeof (IKeyedRepository<>)).TheDefaultIsConcreteType(typeof (KeyedRepository<>));
-			ForRequestedType<IMessageMapper>().TheDefaultIsConcreteType<RulesEngineConfiguration.CcsMessageMapper>();
+            For(typeof(IRepository<>)).Use(typeof(RepositoryBase<>));
+            For(typeof(IKeyedRepository<>)).Use(typeof(KeyedRepository<>));
+            For<IMessageMapper>().Use<RulesEngineConfiguration.CcsMessageMapper>();
 			Scan(x =>
 			     	{
 			     		x.AssemblyContainingType<Event>();
 			     		x.ConnectImplementationsToTypesClosing(typeof (Command<>));
 			     	});
-		}
-	}
-
-	public class AutoMapperRegistry : Registry
-	{
-		public AutoMapperRegistry()
-		{
-			ForRequestedType<IMappingEngine>().TheDefault.Is.ConstructedBy(() => Mapper.Engine);
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using System.Data;
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using NHibernate;
 using NUnit.Framework;

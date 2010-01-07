@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{CFBE2871-F3A7-411A-A494-AA0E66CE7B0D}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -91,15 +91,12 @@
     <Compile Include="DataAccess\Impl\SponsorRepository.cs" />
     <Compile Include="DataAccess\Impl\UserGroupRepository.cs" />
     <Compile Include="DataAccess\ISessionBuilder.cs" />
-    <Compile Include="DataAccess\IUnitOfWork.cs" />
     <Compile Include="DataAccess\Mappings\ConferenceMap.cs" />
     <Compile Include="DataAccess\Mappings\EventMap.cs" />
     <Compile Include="DataAccess\Mappings\MeetingMap.cs" />
     <Compile Include="DataAccess\Mappings\SponsorMap.cs" />
     <Compile Include="DataAccess\Mappings\UserGroupMap.cs" />
     <Compile Include="DataAccess\UnitOfWork.cs" />
-    <Compile Include="DataAccess\UnitOfWorkFactory.cs" />
-    <Compile Include="DataAccess\UnitOfWorkModule.cs" />
     <Compile Include="HttpContextInstanceScoper.cs" />
     <Compile Include="HybridInstanceScoper.cs" />
     <Compile Include="IInstanceScoper.cs" />

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.Core.Services;

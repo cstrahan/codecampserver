@@ -73,13 +73,14 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AutoMapperRegistry.cs" />
     <Compile Include="DependencyRegistrar.cs" />
     <Compile Include="DependencyRegistrarModule.cs" />
     <Compile Include="DependencyRegistry.cs" />
     <Compile Include="FactoryConfiguration.cs" />
+    <Compile Include="CommandProcessorRegistry.cs" />
     <Compile Include="InfrastructureRegistry.cs" />
     <Compile Include="InitiailizeDefaultFactories.cs" />
-    <Compile Include="NHibernateRegistry.cs" />
     <Compile Include="StructureMapServiceLocator.cs" />
     <Compile Include="SystemClock.cs" />
     <Compile Include="UiRegistry.cs" />

@@ -8,9 +8,7 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl
 {
 	public class EventRepository : KeyedRepository<Event>, IEventRepository
 	{
-		public EventRepository(IUnitOfWork unitOfWork) : base(unitOfWork) {}
-
-		public Event[] GetAllForUserGroup(UserGroup usergroup)
+	    public Event[] GetAllForUserGroup(UserGroup usergroup)
 		{
 			return GetSession().CreateQuery(
 				"from Event e where e.UserGroup = :usergroup order by e.StartDate desc").

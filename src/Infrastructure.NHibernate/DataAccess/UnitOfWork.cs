@@ -1,77 +1,69 @@
 using System;
+using CodeCampServer.Core;
 using NHibernate;
 
 namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 {
-	public class UnitOfWork : IUnitOfWork
-	{
-		private readonly ISessionBuilder _sessionBuilder;
+    public class UnitOfWork : IUnitOfWork
+    {
+        private readonly ISessionBuilder _sessionBuilder;
 
-		public UnitOfWork(ISessionBuilder sessionBuilder)
-		{
-			_sessionBuilder = sessionBuilder;
-		}
+        public UnitOfWork(ISessionBuilder sessionBuilder)
+        {
+            _sessionBuilder = sessionBuilder;
+        }
 
-		public void Begin()
-		{
-			BeginNewTransaction();
-		}
+        public UnitOfWork()
+            : this(new SessionBuilder())
+        {
 
-		public void Commit()
-		{
-			CheckHasBegun();
+        }
 
-			ITransaction transaction = GetTransaction();
-			if (transaction.IsActive)
-			{
-				transaction.Commit();
-			}
-		}
+        public void Begin()
+        {
+            if (ThereIsATransactionInProgress())
+            {
+                GetTransaction().Dispose();
+            }
 
-		private ITransaction GetTransaction()
-		{
-			return GetSession().Transaction;
-		}
+            GetSession().BeginTransaction();
+        }
 
-		public void RollBack()
-		{
-			CheckHasBegun();
+        private bool ThereIsATransactionInProgress()
+        {
+            return GetTransaction().IsActive || GetTransaction().WasCommitted || GetTransaction().WasRolledBack;
+        }
 
-			if (GetTransaction().IsActive)
-			{
-				GetTransaction().Rollback();
-			}
-		}
+        public void Commit()
+        {
+            ITransaction transaction = GetTransaction();
+            if (!transaction.IsActive)
+                throw new InvalidOperationException("Must call Start() on the unit of work before committing");
 
-		public ISession GetSession()
-		{
-			return _sessionBuilder.GetSession();
-		}
+            transaction.Commit();
+        }
 
-		private void BeginNewTransaction()
-		{
-			if (GetTransaction().IsActive || GetTransaction().WasCommitted || GetTransaction().WasRolledBack)
-			{
-				GetTransaction().Dispose();
-			}
+        private ITransaction GetTransaction()
+        {
+            return GetSession().Transaction;
+        }
 
-			GetSession().BeginTransaction();
-		}
+        public void RollBack()
+        {
+            if (GetTransaction().IsActive)
+            {
+                GetTransaction().Rollback();
+            }
+        }
 
-		private void CheckHasBegun()
-		{
-			if (!GetTransaction().IsActive)
-				throw new InvalidOperationException("Must call Begin() on the unit of work before committing");
-		}
+        public ISession GetSession()
+        {
+            return _sessionBuilder.GetSession();
+        }
 
-		public void Dispose()
-		{
-			GetSession().Dispose();
-		}
-
-		public void Invalidate()
-		{
-			RollBack();
-		}
-	}
+        public void Dispose()
+        {
+            GetSession().Dispose();
+        }
+    }
 }

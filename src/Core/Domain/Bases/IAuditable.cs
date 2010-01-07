@@ -1,7 +1,7 @@
-namespace CodeCampServer.Core.Domain
+namespace CodeCampServer.Core.Domain.Bases
 {
-	public interface IAuditable
-	{
-		ChangeAuditInfo ChangeAuditInfo { get; set; }
-	}
+    public interface IAuditable
+    {
+        ChangeAuditInfo ChangeAuditInfo { get; set; }
+    }
 }

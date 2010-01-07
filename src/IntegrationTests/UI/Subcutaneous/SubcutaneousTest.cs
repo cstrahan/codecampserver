@@ -13,7 +13,7 @@ using Microsoft.Practices.ServiceLocation;
 using Rhino.Mocks;
 using StructureMap;
 using Tarantino.RulesEngine;
-using IUnitOfWork=CodeCampServer.Infrastructure.NHibernate.DataAccess.IUnitOfWork;
+using IUnitOfWork=CodeCampServer.Core.IUnitOfWork;
 using RulesEngine=CommandProcessor.RulesEngine;
 
 namespace CodeCampServer.IntegrationTests.UI.Subcutaneous

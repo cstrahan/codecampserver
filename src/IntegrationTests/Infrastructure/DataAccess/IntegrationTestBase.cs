@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using CodeCampServer.Core;
 using CodeCampServer.Core.Common;
 using CodeCampServer.DependencyResolution;
 using CodeCampServer.Infrastructure.NHibernate;
@@ -34,7 +35,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 		protected virtual ISession GetSession()
 		{
-			return UnitOfWork.GetSession();
+		    return new SessionBuilder().GetSession();
 		}
 
 		protected virtual void CommitChanges()

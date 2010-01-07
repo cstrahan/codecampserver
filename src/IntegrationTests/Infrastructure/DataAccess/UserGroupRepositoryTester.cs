@@ -1,5 +1,6 @@
 using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl;
 using NBehave.Spec.NUnit;

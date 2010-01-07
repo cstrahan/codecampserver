@@ -11,7 +11,7 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl
 	{
 		private readonly ISystemClock _clock;
 
-		public ConferenceRepository(IUnitOfWork unitOfWork, ISystemClock clock) : base(unitOfWork)
+		public ConferenceRepository(ISystemClock clock) : base()
 		{
 			_clock = clock;
 		}

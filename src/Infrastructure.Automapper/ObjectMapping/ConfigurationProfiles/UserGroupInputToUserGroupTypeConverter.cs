@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Models.Input;
 

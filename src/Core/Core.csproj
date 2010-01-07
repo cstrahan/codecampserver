@@ -84,6 +84,7 @@
     <Compile Include="IRequiresConfigurationOnStartup.cs" />
     <Compile Include="ISystemClock.cs" />
     <Compile Include="Clock.cs" />
+    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandHandler.cs" />
     <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandMessage.cs" />
     <Compile Include="Services\BusinessRule\Login\LoginCommandHandler.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="SystemTime.cs" />
     <Compile Include="Common\TimeExtensions.cs" />
     <Compile Include="SystemClockFactory.cs" />
+    <Compile Include="UnitOfWorkFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

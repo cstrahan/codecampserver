@@ -1,5 +1,6 @@
 using System.Linq;
 using AutoMapper;
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Models.Input;
 

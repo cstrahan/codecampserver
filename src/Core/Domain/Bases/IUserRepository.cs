@@ -1,10 +1,8 @@
-using CodeCampServer.Core.Domain.Model;
-
-namespace CodeCampServer.Core.Domain
+namespace CodeCampServer.Core.Domain.Bases
 {
-	public interface IUserRepository : IRepository<User>
-	{
-		User GetByUserName(string username);
-		User[] GetLikeLastNameStart(string query);
-	}
+    public interface IUserRepository : IRepository<User>
+    {
+        User GetByUserName(string username);
+        User[] GetLikeLastNameStart(string query);
+    }
 }

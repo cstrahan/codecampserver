@@ -1,4 +1,5 @@
 using AutoMapper;
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services.BusinessRule.UpdateUser;
 using CodeCampServer.UI.Models.Input;

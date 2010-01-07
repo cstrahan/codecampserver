@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CodeCampServer.Core.Bases;
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.Infrastructure.NHibernate;

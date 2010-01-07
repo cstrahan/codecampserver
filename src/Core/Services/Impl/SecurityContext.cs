@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.Core.Services.Impl

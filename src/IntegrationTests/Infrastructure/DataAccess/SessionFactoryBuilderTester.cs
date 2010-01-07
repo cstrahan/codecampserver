@@ -1,3 +1,4 @@
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Infrastructure.NHibernate;
 using CodeCampServer.UnitTests;
@@ -18,7 +19,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			ISessionFactory sessionFactory = builder.GetFactory();
 			sessionFactory.ShouldNotBeNull();
 			IClassMetadata metadata = sessionFactory.GetClassMetadata(typeof(User));
-			metadata.EntityName.ShouldEqual("CodeCampServer.Core.Domain.Model.User");
+			metadata.EntityName.Contains(typeof(User).Name).ShouldBeTrue();
 		}
 
 		[Test]

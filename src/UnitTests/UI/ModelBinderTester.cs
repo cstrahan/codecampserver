@@ -2,6 +2,7 @@ using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Binders.Entities;
 using NBehave.Spec.NUnit;

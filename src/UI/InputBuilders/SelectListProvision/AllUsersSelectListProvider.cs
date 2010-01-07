@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.UI.InputBuilders.SelectListProvision

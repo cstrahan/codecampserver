@@ -1,5 +1,6 @@
 using System.Linq;
 using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using NHibernate;
 using NHibernate.Criterion;
@@ -8,12 +9,7 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl
 {
 	public class UserRepository : RepositoryBase<User>, IUserRepository
 	{
-		public UserRepository(IUnitOfWork unitOfWork)
-			: base(unitOfWork) 
-		{
-		}
-
-		public User GetByUserName(string username)
+	    public User GetByUserName(string username)
 		{
 			ISession session = GetSession();
 			IQuery query = session.CreateQuery("from User u where u.Username = :username");

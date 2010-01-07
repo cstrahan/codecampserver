@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{98200972-A038-4DA8-8917-CBC4895175DC}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -171,6 +171,7 @@
     <Compile Include="Services\UrlService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UnitOfWorkModule.cs" />
     <Compile Include="ViewNames.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -216,10 +217,6 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{9C81B684-40CC-472A-804D-7C0F963315F5}</Project>
       <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.NHibernate\Infrastructure.NHibernate.csproj">
-      <Project>{CFBE2871-F3A7-411A-A494-AA0E66CE7B0D}</Project>
-      <Name>Infrastructure.NHibernate</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -618,6 +615,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

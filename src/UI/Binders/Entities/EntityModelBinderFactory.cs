@@ -2,6 +2,7 @@ using System;
 using System.Web.Mvc;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Domain.Bases;
 
 namespace CodeCampServer.UI.Binders.Entities
 {

@@ -1,3 +1,4 @@
+using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 
 namespace CodeCampServer.Core.Domain.Model

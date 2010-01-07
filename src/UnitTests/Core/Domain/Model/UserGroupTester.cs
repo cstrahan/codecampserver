@@ -1,3 +1,4 @@
+using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using NUnit.Framework;
 using NBehave.Spec.NUnit;

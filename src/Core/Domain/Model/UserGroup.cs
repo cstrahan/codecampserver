@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CodeCampServer.Core.Domain.Bases;
 using Iesi.Collections.Generic;
 
 namespace CodeCampServer.Core.Domain.Model
