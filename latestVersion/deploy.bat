@@ -1,6 +1,6 @@
 echo on
 cd %4
-SET applicationname=cleartracker
+SET applicationname=codecampserver
 IF "%1"=="" (
 SET databaseServer=.\sqlexpress
 ) ELSE (
