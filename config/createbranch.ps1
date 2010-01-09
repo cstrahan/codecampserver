@@ -19,7 +19,7 @@ function CreateBranch($branchname) {
       }    
         
     $a.Add("</cruisecontrol>")  
-    $a | out-file newCruise.config
+    $a | out-file ccnet.config
 }
 
 CreateBranch $args[0]
