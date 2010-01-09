@@ -371,12 +371,12 @@
 
     		<exec 
 			program=".\lib\ncover\NCover.Console.exe"
-			commandline=" .\lib\nunit\nunit-console.exe ${assembly.unittests} /noshadow /nologo /nodots  /xml=..\..\${dir.results}/${assembly.unittests}.tests.xml  //x ${dir.results}/${assembly.unittests}.Coverage.xml  //ias ${project::get-name()}.Core;${project::get-name()}.UI;${project::get-name()}.Infrastructure;${project::get-name()}.DependencyInjection //w ${dir.test}"
+			commandline=" .\lib\nunit\nunit-console.exe ${assembly.unittests} /noshadow /nologo /nodots  /xml=..\..\${dir.results}/${assembly.unittests}.tests.xml  //x ${dir.results}/${assembly.unittests}.Coverage.xml  //ias ${project::get-name()}.Core;${project::get-name()}.UI;${project::get-name()}.Infrastructure;${project::get-name()}.DependencyInjection //w ${dir.test} //reg"
 		/>
 
     		<exec 
 			program=".\lib\ncover\NCover.Console.exe"
-			commandline=" .\lib\nunit\nunit-console.exe ${assembly.integrationtests} /exclude:DataLoader /noshadow /nologo /nodots  /xml=..\..\${dir.results}/${assembly.integrationtests}.tests.xml  //x ${dir.results}/${assembly.integrationtests}.Coverage.xml  //ias ${project::get-name()}.Core;${project::get-name()}.UI;${project::get-name()}.Infrastructure;${project::get-name()}.DependencyInjection //w ${dir.test}"
+			commandline=" .\lib\nunit\nunit-console.exe ${assembly.integrationtests} /exclude:DataLoader /noshadow /nologo /nodots  /xml=..\..\${dir.results}/${assembly.integrationtests}.tests.xml  //x ${dir.results}/${assembly.integrationtests}.Coverage.xml  //ias ${project::get-name()}.Core;${project::get-name()}.UI;${project::get-name()}.Infrastructure;${project::get-name()}.DependencyInjection //w ${dir.test} //reg"
 		/>
 
     		<exec 

@@ -256,7 +256,7 @@
     program="${msdeployexe}"
     commandline="-verb:sync -source:runCommand='${deploy.installdir}\${deploy.cmd} ${deploy.cmdargs} ${deploy.installdir}',waitInterval=5000,waitAttempts=40 -dest:auto,computername=${deploy.server} -verbose"
     output="deploystep2.txt" />
-    <echo message="here"/>
+    
     <loadfile file="deploystep2.txt" property="deploystep2" />
 
     <regex pattern="Info: BUILD (?'setupResultCode'.+)" input="${deploystep2}" />
