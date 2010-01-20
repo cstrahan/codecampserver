@@ -4,8 +4,6 @@ $instance       = $args[1]
 $reloadDatabase = $args[2]
 $currentDir     = $args[3]
 
-#cd %4
-
 function SetDefaults( ){
     if( !$dbserver ){$dbserver=".\sqlexpress"}
     if( !$instance){$instance="local"}
@@ -28,5 +26,7 @@ function DeployApp( $applicationName,$databaseServer,$instance,$reloadData ) {
     & ".\CommonDeploy.bat" "$databaseServer" "$instance" "$reloadData"
     #cmd /c %systemroot%\system32\inetsrv\appcmd start site %appinstance%
 }
+
+SetDefaults
 
 DeployApp -applicationName "$application" -databaseServer "$dbserver" -instance "$instance" -reloadData "$reloadDatabase"
