@@ -16,13 +16,4 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings
 			this.ChangeAuditInfo();
 		}
 	}
-
-/*	  <joined-subclass name="Meeting" extends="Event" table="Meetings" dynamic-update="true">
-    <key column="Id"/>
-    <property name="Topic" length="1000"/>
-    <property name="Summary" length="1000"/>
-    <property name="SpeakerName"/>
-    <property name="SpeakerBio" length="1000"/>
-    <property name="SpeakerUrl" length="255"/>
-  </joined-subclass>*/
 }
