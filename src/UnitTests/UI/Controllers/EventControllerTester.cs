@@ -3,6 +3,7 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.ActionResults;
+using CodeCampServer.UI.Models.Display;
 using CodeCampServer.UI.Models.Input;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
