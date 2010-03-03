@@ -31,7 +31,7 @@ namespace CodeCampServer.UI
             catch
             {
                 instance.RollBack();
-                throw;
+                //throw;
             }
             finally
             {

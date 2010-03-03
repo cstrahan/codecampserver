@@ -16,16 +16,20 @@ namespace CodeCampServer.UnitTests.UI.Routes
 		[Test]
 		public void Should_correctly_generate_session_url()
 		{
-			new RouteConfigurator().RegisterRoutes(() => { });
-			var builder = new TestControllerBuilder();
-			var context = new RequestContext(builder.HttpContext, new RouteData());
-			context.HttpContext.Response.Expect(x => x.ApplyAppPathModifier(null)).IgnoreArguments().Do(new Func<string, string>(s => s)).Repeat.Any();
-			var urlhelper = new UrlHelper(context);
-			string url = urlhelper.RouteUrl("session", new { sessionKey = "this-is-the-session", conferenceKey = "austincodecamp" });
-			url.ShouldEqual("/austincodecamp/sessions/this-is-the-session");
+		    string url = GetUrl("session");
+		    url.ShouldEqual("/austincodecamp/sessions/this-is-the-session");
 		}
 
-		[Test]
+	    private string GetUrl(string routeName) {
+	        new RouteConfigurator().RegisterRoutes(() => { });
+	        var builder = new TestControllerBuilder();
+	        var context = new RequestContext(builder.HttpContext, new RouteData());
+	        context.HttpContext.Response.Expect(x => x.ApplyAppPathModifier(null)).IgnoreArguments().Do(new Func<string, string>(s => s)).Repeat.Any();
+	        var urlhelper = new UrlHelper(context);
+	        return urlhelper.RouteUrl(routeName, new { sessionKey = "this-is-the-session", conferenceKey = "austincodecamp" });
+	    }
+
+	    [Test]
 		public void Should_correctly_generate_speaker_url()
 		{
 			new RouteConfigurator().RegisterRoutes(()=>{});

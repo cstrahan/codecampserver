@@ -2,6 +2,7 @@ using System;
 using System.Web.Mvc;
 using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Services;
+using CodeCampServer.UI.InputBuilders;
 
 namespace CodeCampServer.UI.Controllers
 {
@@ -43,12 +44,30 @@ namespace CodeCampServer.UI.Controllers
 
 				foreach (ErrorMessage errorMessage in result.Errors)
 				{
-					modelState.AddModelError(UINameHelper.BuildNameFrom(errorMessage.InvalidProperty), errorMessage.Message);
+				    string exception = GetErrorMessage(errorMessage);
+
+				    modelState.AddModelError(UINameHelper.BuildNameFrom(errorMessage.InvalidProperty), exception);
 				}
 			}
 			
 			Failure.ExecuteResult(context);
 		}
+
+	    private string GetErrorMessage(ErrorMessage errorMessage) {
+	        string exception;
+	        if (errorMessage.Message.Contains("{0}"))
+	        {
+	            string displayName =
+	                new InputBuilderPropertyConvention().LabelForPropertyConvention(
+	                    ReflectionHelper.FindProperty(errorMessage.InvalidProperty));
+	            exception = string.Format(errorMessage.Message, displayName,"");
+	        }
+	        else
+	        {
+	            exception = errorMessage.Message;
+	        }
+	        return exception;
+	    }
 	}
 
 	public abstract class CommandResult:ActionResult 

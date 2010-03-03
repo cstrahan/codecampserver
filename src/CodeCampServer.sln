@@ -58,6 +58,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{98
 		0022_MakeSponsorIdInt32.sql = 0022_MakeSponsorIdInt32.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITestHelper.WatiN", "UITestHelper.WatiN\UITestHelper.WatiN.csproj", "{32D78201-34A8-4E74-959D-5EE7C13D6639}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AutomatedDebug|Any CPU = AutomatedDebug|Any CPU
@@ -125,6 +127,12 @@ Global
 		{454BB0F3-6E57-4E4A-BEF8-0A223161BD82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{454BB0F3-6E57-4E4A-BEF8-0A223161BD82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{454BB0F3-6E57-4E4A-BEF8-0A223161BD82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32D78201-34A8-4E74-959D-5EE7C13D6639}.AutomatedDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32D78201-34A8-4E74-959D-5EE7C13D6639}.AutomatedDebug|Any CPU.Build.0 = Debug|Any CPU
+		{32D78201-34A8-4E74-959D-5EE7C13D6639}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32D78201-34A8-4E74-959D-5EE7C13D6639}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32D78201-34A8-4E74-959D-5EE7C13D6639}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32D78201-34A8-4E74-959D-5EE7C13D6639}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,5 +142,6 @@ Global
 		{472E5A68-10F2-46B5-A935-0C77FE8DAE3C} = {6A1AE1F2-F42C-457C-BD16-D2A9EF407AE8}
 		{1A623D88-E936-4251-BD91-0F49F67FBC16} = {6A1AE1F2-F42C-457C-BD16-D2A9EF407AE8}
 		{9AA9FD4D-58F4-4148-9376-EE09868E2B73} = {6A1AE1F2-F42C-457C-BD16-D2A9EF407AE8}
+		{32D78201-34A8-4E74-959D-5EE7C13D6639} = {6A1AE1F2-F42C-457C-BD16-D2A9EF407AE8}
 	EndGlobalSection
 EndGlobal

@@ -60,6 +60,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 	</asp:ContentPlaceHolder>
 </head>
 <body>
+<%=Html.Hidden("controller-action", this.ViewContext.RouteData.Values["controller"] + "." + this.ViewContext.RouteData.Values["action"])%>
 	<!-- start frame -->
 	<div id="frame">
 		<!-- start logIn -->

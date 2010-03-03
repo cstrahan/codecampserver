@@ -74,7 +74,7 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			RulesEngineConfiguration.Configure(typeof (UpdateMeetingMessageConfiguration));
 			var rulesRunner = new RulesEngine();
 
-			ExecutionResult result = rulesRunner.Process(new MeetingInput {Description = "New Meeting"}, typeof (MeetingInput));
+			ExecutionResult result = rulesRunner.Process(new MeetingInput {Description = "New Meeting",StartDate = DateTime.Now,EndDate = DateTime.Now}, typeof (MeetingInput));
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<Meeting>().ShouldNotBeNull();
 

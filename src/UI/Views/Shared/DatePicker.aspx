@@ -32,7 +32,7 @@ $(function() {
 });
 function updateDateTime<%=Model.Name%>()
 {
-    $('#<%=Model.Name%>').val($('#<%=Model.Name %>_date').val()+' '+(parseInt($('#<%=Model.Name %>_hour').val(),10)+parseInt($('#<%=Model.Name %>_noon').val(),10))+ ':' + $('#<%=Model.Name %>_minute').val());
+    $('#<%=Model.Name%>').val($('#<%=Model.Name %>_date').val()+' '+(((parseInt($('#<%=Model.Name %>_hour').val(),10)*parseInt($('#<%=Model.Name %>_noon').val(),10)))-12)+ ':' + $('#<%=Model.Name %>_minute').val());
 }
 	</script>
 <script runat=server>
@@ -42,13 +42,13 @@ function updateDateTime<%=Model.Name%>()
     {
       Selected = time.Hours < 13,
       Text = "A.M.",
-      Value = "0"
+      Value = "1"
     };
     yield return new SelectListItem()
     {
       Selected = time.Hours >= 13,
       Text = "P.M.",
-      Value = "12"
+      Value = "2"
     };
   }
 
