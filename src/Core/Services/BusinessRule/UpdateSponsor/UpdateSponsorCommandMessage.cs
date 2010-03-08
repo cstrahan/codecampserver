@@ -1,7 +1,7 @@
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Domain.Model.Enumerations;
 
-namespace CodeCampServer.Core.Services.BusinessRule.UpdateUserGroup
+namespace CodeCampServer.Core.Services.BusinessRule.UpdateSponsor
 {
 	public class UpdateSponsorCommandMessage
 	{
