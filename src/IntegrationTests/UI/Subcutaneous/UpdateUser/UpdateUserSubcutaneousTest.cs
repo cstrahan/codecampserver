@@ -1,11 +1,8 @@
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
-using CodeCampServer.Infrastructure.UI.Mappers;
 using CodeCampServer.UI.Models.Input;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
-using Tarantino.RulesEngine;
 
 namespace CodeCampServer.IntegrationTests.UI.Subcutaneous.UpdateUser
 {
@@ -18,21 +15,22 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous.UpdateUser
 			base.Setup();
 			var cryptographer = GetInstance<ICryptographer>();
 			var salt = cryptographer.CreateSalt();
-			_user = new User()
+			_user = new User
 			        	{
-			                   		Name = "Joe Sub",
-			                   		Username = "admin",
-			                   		EmailAddress = "joe@user.com",
-                                    PasswordHash = cryptographer.GetPasswordHash("password",salt),
-                                    PasswordSalt = salt,
+			        		Name = "Joe Sub",
+			        		Username = "admin",
+			        		EmailAddress = "joe@user.com",
+			        		PasswordHash = cryptographer.GetPasswordHash("password", salt),
+			        		PasswordSalt = salt,
 			        	};
-			_anotherUser=	new User()			                          	{
-			                          		Name = "Joe Two",
-			                          		Username = "another",
-			                          		EmailAddress = "two@user.com",
-                                    PasswordHash = cryptographer.GetPasswordHash("password",salt),
-                                    PasswordSalt = salt,
-			                          	};
+			_anotherUser = new User
+			               	{
+			               		Name = "Joe Two",
+			               		Username = "another",
+			               		EmailAddress = "two@user.com",
+			               		PasswordHash = cryptographer.GetPasswordHash("password", salt),
+			               		PasswordSalt = salt,
+			               	};
 
 			PersistEntities(_user, _anotherUser);
 		}
@@ -53,7 +51,7 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous.UpdateUser
 			            		Username = "another"
 			            	};
 
-			ExecutionResult result = ProcessForm(input);
+			var result = ProcessForm(input);
 
 			result.ShouldNotBeSuccessful();
 			result.ShouldHaveMessage<UserInput>(x => x.Username);
@@ -72,7 +70,7 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous.UpdateUser
 			            		Username = "username"
 			            	};
 
-			ExecutionResult result = ProcessForm(input);
+			var result = ProcessForm(input);
 
 			result.ShouldNotBeSuccessful();
 			result.ShouldHaveMessage<UserInput>(x => x.ConfirmPassword);
@@ -91,7 +89,7 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous.UpdateUser
 			            		Username = "username"
 			            	};
 
-			ExecutionResult result = ProcessForm(input);
+			var result = ProcessForm(input);
 
 			result.ShouldNotBeSuccessful();
 			result.ShouldHaveMessage<UserInput>(x => x.ConfirmPassword);
@@ -110,7 +108,7 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous.UpdateUser
 			            		Username = "username"
 			            	};
 
-			ExecutionResult result = ProcessForm(input);
+			var result = ProcessForm(input);
 
 			result.ShouldNotBeSuccessful();
 			result.ShouldHaveMessage<UserInput>(x => x.EmailAddress);
@@ -129,7 +127,7 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous.UpdateUser
 			            		Username = "username"
 			            	};
 
-			ExecutionResult result = ProcessForm(input);
+			var result = ProcessForm(input);
 
 			result.ShouldNotBeSuccessful();
 			result.ShouldHaveMessage<UserInput>(x => x.Name);
@@ -148,7 +146,7 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous.UpdateUser
 			            		Username = "username"
 			            	};
 
-			ExecutionResult result = ProcessForm(input);
+			var result = ProcessForm(input);
 
 			result.ShouldNotBeSuccessful();
 			result.ShouldHaveMessage<UserInput>(x => x.Password);
@@ -167,7 +165,7 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous.UpdateUser
 			            		Username = null
 			            	};
 
-			ExecutionResult result = ProcessForm(input);
+			var result = ProcessForm(input);
 
 			result.ShouldNotBeSuccessful();
 			result.ShouldHaveMessage<UserInput>(x => x.Username);
@@ -186,7 +184,7 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous.UpdateUser
 			            		Username = "updated"
 			            	};
 
-			ExecutionResult result = ProcessForm(input);
+			var result = ProcessForm(input);
 
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<User>().ShouldEqual(_user);

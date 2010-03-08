@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl<IGloballyUnique>" %>
+<%@ Import Namespace="CodeCampServer.Core.Bases"%>
 <%@ Import Namespace="CodeCampServer.Core.Common" %>
 <%@ Import Namespace="CodeCampServer.UI.Controllers" %>
 <%if (ViewContext.HttpContext.User.Identity.IsAuthenticated)

@@ -1,8 +1,6 @@
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services.BusinessRule.UpdateUser;
-using Tarantino.RulesEngine;
+using MvcContrib.CommandProcessor.Validation;
 
 namespace CodeCampServer.Infrastructure.CommandProcessor.Rules
 {
@@ -27,7 +25,7 @@ namespace CodeCampServer.Infrastructure.CommandProcessor.Rules
 
 		private bool UsernameAlreadyExists(UpdateUserCommandMessage message)
 		{
-			User entity = _repository.GetByUserName(message.Username);
+			var entity = _repository.GetByUserName(message.Username);
 			return entity != null && !Equals(entity.Id, message.Id);
 		}
 	}

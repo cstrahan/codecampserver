@@ -22,7 +22,7 @@ namespace CodeCampServer.DependencyResolution
                          IEnumerable<AssemblyName> enumerable = GetType().Assembly.GetReferencedAssemblies()
                              .Where(name => name.Name.StartsWith(assemblyPrefix));
                          enumerable.ForEach(name => x.Assembly(name.Name));
-                         x.Assembly("CommandProcessor");
+                         x.Assembly("MvcContrib.CommandProcessor");
                          x.With<DefaultConventionScanner>();
                          x.LookForRegistries();
                          x.AddAllTypesOf<IRequiresConfigurationOnStartup>();

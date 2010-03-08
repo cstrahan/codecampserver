@@ -1,12 +1,10 @@
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Practices.ServiceLocation;
 using MvcContrib.Interfaces;
 using StructureMap;
 
-namespace CodeCampServer.Infrastructure
+namespace CodeCampServer.DependencyResolution
 {
 	public class StructureMapServiceLocator : IServiceLocator, IDependencyResolver
 	{
@@ -27,9 +25,9 @@ namespace CodeCampServer.Infrastructure
 
 		public IEnumerable<object> GetAllInstances(Type serviceType)
 		{
-			IList instances = ObjectFactory.GetAllInstances(serviceType);
+			var instances = ObjectFactory.GetAllInstances(serviceType);
 			var objects = new List<object>();
-			foreach (object o in instances)
+			foreach (var o in instances)
 			{
 				objects.Add(o);
 			}
@@ -53,7 +51,7 @@ namespace CodeCampServer.Infrastructure
 
 		public Interface GetImplementationOf<Interface>()
 		{
-			return ObjectFactory.GetInstance < Interface>();
+			return ObjectFactory.GetInstance<Interface>();
 		}
 
 		public Interface GetImplementationOf<Interface>(Type type)
@@ -66,8 +64,6 @@ namespace CodeCampServer.Infrastructure
 			return ObjectFactory.GetInstance(type);
 		}
 
-		public void DisposeImplementation(object instance)
-		{
-		}
+		public void DisposeImplementation(object instance) {}
 	}
 }

@@ -1,10 +1,9 @@
 using System;
-using CodeCampServer.Core;
 
-namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
+namespace CodeCampServer.Core
 {
-    public class UnitOfWorkFactory : AbstractFactoryBase<IUnitOfWork>
-    {
-        public static Func<IUnitOfWork> GetDefault = DefaultUnconfiguredState;
-    }
+	public class UnitOfWorkFactory : AbstractFactoryBase<IUnitOfWork>
+	{
+		public static Func<IUnitOfWork> GetDefault = DefaultUnconfiguredState;
+	}
 }

@@ -1,8 +1,6 @@
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
-using Tarantino.RulesEngine;
-using Tarantino.RulesEngine.CommandProcessor;
+using MvcContrib.CommandProcessor;
+using MvcContrib.CommandProcessor.Commands;
 
 namespace CodeCampServer.Core.Services.BusinessRule.UpdateUser
 {
@@ -19,7 +17,7 @@ namespace CodeCampServer.Core.Services.BusinessRule.UpdateUser
 
 		protected override ReturnValue Execute(UpdateUserCommandMessage commandMessage)
 		{
-			User user = _repository.GetById(commandMessage.Id) ?? new User();
+			var user = _repository.GetById(commandMessage.Id) ?? new User();
 			user.Name = commandMessage.Name;
 			user.EmailAddress = commandMessage.EmailAddress;
 			user.PasswordSalt = _cryptographer.CreateSalt();

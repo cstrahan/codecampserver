@@ -1,7 +1,6 @@
 using CodeCampServer.Core.Domain;
-using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services.BusinessRule.UpdateUserGroup;
-using Tarantino.RulesEngine;
+using MvcContrib.CommandProcessor.Validation;
 
 namespace CodeCampServer.Infrastructure.CommandProcessor.Rules
 {
@@ -26,7 +25,7 @@ namespace CodeCampServer.Infrastructure.CommandProcessor.Rules
 
 		private bool UserGroupKeyAlreadyExists(UpdateUserGroupCommandMessage message)
 		{
-			UserGroup entity = _repository.GetByKey(message.UserGroup.Key);
+			var entity = _repository.GetByKey(message.UserGroup.Key);
 			return entity != null && entity.Id != message.UserGroup.Id;
 		}
 	}

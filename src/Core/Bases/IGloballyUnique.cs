@@ -1,6 +1,6 @@
 using System;
 
-namespace CodeCampServer.Core.Domain.Model
+namespace CodeCampServer.Core.Bases
 {
 	public interface IGloballyUnique
 	{

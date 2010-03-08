@@ -1,4 +1,5 @@
 using System;
+using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Models.Input;
 using MvcContrib.UI.InputBuilder.Attributes;

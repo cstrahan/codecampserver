@@ -1,11 +1,10 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using CodeCampServer.Core.Common;
+using MvcContrib.CommandProcessor;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
-using Tarantino.RulesEngine;
 
 namespace CodeCampServer.IntegrationTests.UI.Subcutaneous
 {
@@ -14,13 +13,13 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous
 		public static void ShouldHaveMessage<TMessage>(this ExecutionResult result,
 		                                               Expression<Func<TMessage, object>> expression)
 		{
-			PropertyInfo targetProperty = CodeCampServer.Core.Common.ReflectionHelper.FindProperty(expression);
-			if (!result.Messages.Any(x => CodeCampServer.Core.Common.ReflectionHelper.FindProperty(x.UIAttribute) == targetProperty))
+			var targetProperty = Core.Common.ReflectionHelper.FindProperty(expression);
+			if (!result.Messages.Any(x => Core.Common.ReflectionHelper.FindProperty(x.UIAttribute) == targetProperty))
 			{
 				string failureMessage = result.Messages
 					.Select(x => x.UIAttribute + ":" + x.MessageText)
 					.WrapEachWith("", "", "\n");
-				
+
 				Assert.Fail(string.Format("No message for {0}.  Other messages include:\n{1}", expression, failureMessage));
 				return;
 			}

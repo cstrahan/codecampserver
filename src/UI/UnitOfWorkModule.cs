@@ -1,7 +1,6 @@
 using System;
 using System.Web;
 using CodeCampServer.Core;
-using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 
 namespace CodeCampServer.UI
 {

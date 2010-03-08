@@ -1,7 +1,8 @@
+using CodeCampServer.Core.Services.BusinessRule.UpdateSponsor;
 using CodeCampServer.Core.Services.BusinessRule.UpdateUserGroup;
 using CodeCampServer.Infrastructure.CommandProcessor.Rules;
 using CodeCampServer.UI.Models.Input;
-using Tarantino.RulesEngine.Configuration;
+using MvcContrib.CommandProcessor.Configuration;
 
 namespace CodeCampServer.Infrastructure.CommandProcessor.CommandConfiguration
 {

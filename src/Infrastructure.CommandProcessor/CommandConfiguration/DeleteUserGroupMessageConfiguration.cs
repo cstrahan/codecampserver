@@ -1,6 +1,6 @@
 using CodeCampServer.Core.Services.BusinessRule.DeleteUserGroup;
 using CodeCampServer.UI.Models.Messages;
-using Tarantino.RulesEngine.Configuration;
+using MvcContrib.CommandProcessor.Configuration;
 
 namespace CodeCampServer.Infrastructure.CommandProcessor.CommandConfiguration
 {

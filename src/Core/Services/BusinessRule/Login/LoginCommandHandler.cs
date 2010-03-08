@@ -1,8 +1,6 @@
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
-using Tarantino.RulesEngine;
-using Tarantino.RulesEngine.CommandProcessor;
+using MvcContrib.CommandProcessor;
+using MvcContrib.CommandProcessor.Commands;
 
 namespace CodeCampServer.Core.Services.BusinessRule.Login
 {
@@ -20,7 +18,7 @@ namespace CodeCampServer.Core.Services.BusinessRule.Login
 
 		protected override ReturnValue Execute(LoginUserCommandMessage commandMessage)
 		{
-			User user = _repository.GetByUserName(commandMessage.Username);
+			var user = _repository.GetByUserName(commandMessage.Username);
 			if (user != null)
 			{
 				if (_authenticationService.PasswordMatches(user, commandMessage.Password))

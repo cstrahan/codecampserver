@@ -1,7 +1,7 @@
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using Tarantino.RulesEngine;
-using Tarantino.RulesEngine.CommandProcessor;
+using MvcContrib.CommandProcessor;
+using MvcContrib.CommandProcessor.Commands;
 
 namespace CodeCampServer.Core.Services.BusinessRule.UpdateUserGroup
 {

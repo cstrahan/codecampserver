@@ -35,13 +35,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\AutoMapper\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="CommandProcessor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MvcContrib.CommandProcessor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\tinorulesengine\CommandProcessor.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\tinorulesengine\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <HintPath>..\..\lib\mvccontrib\MvcContrib.CommandProcessor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">

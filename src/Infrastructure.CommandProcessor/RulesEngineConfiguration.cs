@@ -2,9 +2,7 @@ using System;
 using AutoMapper;
 using CodeCampServer.Core;
 using CodeCampServer.Infrastructure.CommandProcessor.CommandConfiguration;
-using CommandProcessor;
-using Microsoft.Practices.ServiceLocation;
-using Tarantino.RulesEngine.CommandProcessor;
+using MvcContrib.CommandProcessor;
 
 namespace CodeCampServer.Infrastructure.CommandProcessor
 {
@@ -12,9 +10,9 @@ namespace CodeCampServer.Infrastructure.CommandProcessor
 	{
 		public static void Configure(Type typeToLocatorConfigurationAssembly)
 		{
-			var rulesEngine = new global::CommandProcessor.RulesEngine();
-			global::CommandProcessor.RulesEngine.MessageProcessorFactory = new MessageProcessorFactory();
+			var rulesEngine = new MvcContrib.CommandProcessor.RulesEngine();
 			rulesEngine.Initialize(typeToLocatorConfigurationAssembly.Assembly, new CcsMessageMapper());
+			MvcContrib.CommandProcessor.RulesEngine.MessageProcessorFactory = new MessageProcessorFactory();
 		}
 
 		public class CcsMessageMapper : IMessageMapper

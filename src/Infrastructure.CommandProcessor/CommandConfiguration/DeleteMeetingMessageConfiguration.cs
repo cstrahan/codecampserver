@@ -1,6 +1,6 @@
 using CodeCampServer.Core.Services.BusinessRule.DeleteMeeting;
 using CodeCampServer.UI.Messages;
-using Tarantino.RulesEngine.Configuration;
+using MvcContrib.CommandProcessor.Configuration;
 
 namespace CodeCampServer.Infrastructure.CommandProcessor.CommandConfiguration
 {
@@ -9,6 +9,6 @@ namespace CodeCampServer.Infrastructure.CommandProcessor.CommandConfiguration
 		public DeleteMeetingMessageConfiguration()
 		{
 			Execute<DeleteMeetingCommandMessage>();
-		}		
+		}
 	}
 }

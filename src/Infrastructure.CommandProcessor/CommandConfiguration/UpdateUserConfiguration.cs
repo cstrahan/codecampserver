@@ -1,10 +1,10 @@
 using CodeCampServer.Core.Services.BusinessRule.UpdateUser;
 using CodeCampServer.Infrastructure.CommandProcessor.Rules;
 using CodeCampServer.UI.Models.Input;
-using Tarantino.RulesEngine.Configuration;
-using Tarantino.RulesEngine.ValidationRules;
+using MvcContrib.CommandProcessor.Configuration;
+using MvcContrib.CommandProcessor.Validation.Rules;
 
-namespace CodeCampServer.Infrastructure.BusinessRules.CommandConfiguration
+namespace CodeCampServer.Infrastructure.CommandProcessor.CommandConfiguration
 {
 	public class UpdateUserConfiguration : MessageDefinition<UserInput>
 	{

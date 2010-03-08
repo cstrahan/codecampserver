@@ -1,7 +1,4 @@
-using System.Web.Mvc;
 using CodeCampServer.Core;
-using CodeCampServer.Core.Services;
-using CodeCampServer.Infrastructure;
 using CodeCampServer.Infrastructure.NHibernate;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 using CodeCampServer.Infrastructure.ObjectMapping;
@@ -14,9 +11,9 @@ using CodeCampServer.UI.Filters;
 using CodeCampServer.UI.InputBuilders;
 using CodeCampServer.UI.InputBuilders.SelectListProvision;
 using CodeCampServer.UI.Services;
-using Microsoft.Practices.ServiceLocation;
 using MvcContrib.Services;
 using StructureMap;
+using Microsoft.Practices.ServiceLocation;
 
 namespace CodeCampServer.DependencyResolution
 {
@@ -42,7 +39,7 @@ namespace CodeCampServer.DependencyResolution
 			ServiceLocator.SetLocatorProvider(() => new StructureMapServiceLocator());
 			UnitOfWorkFactory.GetDefault = () => ObjectFactory.GetInstance<IUnitOfWork>();
 			SelectListProviderFactory.GetDefault = type => (ISelectListProvider) ObjectFactory.GetInstance(type);
-            ReturnUrlManagerFactory.GetDefault = () => ObjectFactory.GetInstance<IReturnUrlManager>();
+			ReturnUrlManagerFactory.GetDefault = () => ObjectFactory.GetInstance<IReturnUrlManager>();
 		}
 	}
 }

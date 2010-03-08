@@ -8,13 +8,13 @@ using CodeCampServer.Infrastructure.CommandProcessor;
 using CodeCampServer.Infrastructure.CommandProcessor.CommandConfiguration;
 using CodeCampServer.Infrastructure.ObjectMapping;
 using CodeCampServer.IntegrationTests.Infrastructure.DataAccess;
-using CommandProcessor;
-using Microsoft.Practices.ServiceLocation;
+using MvcContrib.CommandProcessor;
+using MvcContrib.CommandProcessor.Interfaces;
 using Rhino.Mocks;
 using StructureMap;
-using Tarantino.RulesEngine;
+using Microsoft.Practices.ServiceLocation;
 using IUnitOfWork=CodeCampServer.Core.IUnitOfWork;
-using RulesEngine=CommandProcessor.RulesEngine;
+using RulesEngine=MvcContrib.CommandProcessor.RulesEngine;
 
 namespace CodeCampServer.IntegrationTests.UI.Subcutaneous
 {

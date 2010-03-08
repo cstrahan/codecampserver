@@ -2,23 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CodeCampServer.Core.Services;
-using Tarantino.RulesEngine;
-using ErrorMessage = CodeCampServer.Core.Services.ErrorMessage;
+using MvcContrib.CommandProcessor;
+using ErrorMessage=CodeCampServer.Core.Services.ErrorMessage;
+using IRulesEngine=CodeCampServer.Core.Services.IRulesEngine;
 
 namespace CodeCampServer.Infrastructure.CommandProcessor
 {
 	public class RulesEngine : IRulesEngine
 	{
-		private readonly global::CommandProcessor.IRulesEngine _rulesEngine;
+		private readonly MvcContrib.CommandProcessor.IRulesEngine _rulesEngine;
 
-		public RulesEngine(global::CommandProcessor.IRulesEngine rulesEngine)
+		public RulesEngine(MvcContrib.CommandProcessor.IRulesEngine rulesEngine)
 		{
 			_rulesEngine = rulesEngine;
 		}
 
 		public ICanSucceed Process(object message)
 		{
-			ExecutionResult result = _rulesEngine.Process(message);
+			var result = _rulesEngine.Process(message);
 			return
 				new SuccessResult(
 					Messages(result),

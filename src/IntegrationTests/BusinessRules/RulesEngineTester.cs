@@ -14,12 +14,12 @@ using CodeCampServer.UI.Messages;
 using CodeCampServer.UI.Models.Input;
 using CodeCampServer.UI.Models.Messages;
 using CodeCampServer.UnitTests;
+using MvcContrib.CommandProcessor.Interfaces;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 using Rhino.Mocks;
 using StructureMap;
-using Tarantino.RulesEngine;
-using RulesEngine=CommandProcessor.RulesEngine;
+using RulesEngine=MvcContrib.CommandProcessor.RulesEngine;
 
 namespace CodeCampServer.IntegrationTests.BusinessRules
 {
@@ -49,8 +49,8 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			RulesEngineConfiguration.Configure(typeof (DeleteMeetingMessageConfiguration));
 			var rulesRunner = new RulesEngine();
 
-			ExecutionResult result = rulesRunner.Process(new DeleteMeetingMessage() {Meeting = Guid.NewGuid()},
-			                                             typeof (DeleteMeetingMessage));
+			var result = rulesRunner.Process(new DeleteMeetingMessage {Meeting = Guid.NewGuid()},
+			                                 typeof (DeleteMeetingMessage));
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<Meeting>().ShouldEqual(meeting);
 		}
@@ -74,7 +74,10 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			RulesEngineConfiguration.Configure(typeof (UpdateMeetingMessageConfiguration));
 			var rulesRunner = new RulesEngine();
 
-			ExecutionResult result = rulesRunner.Process(new MeetingInput {Description = "New Meeting",StartDate = DateTime.Now,EndDate = DateTime.Now}, typeof (MeetingInput));
+			var result =
+				rulesRunner.Process(
+					new MeetingInput {Description = "New Meeting", StartDate = DateTime.Now, EndDate = DateTime.Now},
+					typeof (MeetingInput));
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<Meeting>().ShouldNotBeNull();
 
@@ -100,12 +103,12 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			RulesEngineConfiguration.Configure(typeof (UpdateUserGroupMessageConfiguration));
 			var rulesRunner = new RulesEngine();
 
-			ExecutionResult result = rulesRunner.Process(new UserGroupInput
-			                                             	{
-			                                             		Name = "New Meeting",
-			                                             		Users = new List<UserSelectorInput>(),
-			                                             		Sponsors = new List<SponsorInput>(),
-			                                             	}, typeof (UserGroupInput));
+			var result = rulesRunner.Process(new UserGroupInput
+			                                 	{
+			                                 		Name = "New Meeting",
+			                                 		Users = new List<UserSelectorInput>(),
+			                                 		Sponsors = new List<SponsorInput>(),
+			                                 	}, typeof (UserGroupInput));
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<UserGroup>().ShouldNotBeNull();
 
@@ -123,21 +126,21 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			var repository = S<IUserGroupRepository>();
 			var repositoryT = S<IRepository<UserGroup>>();
 			repositoryT.Stub(repository1 => repository1.GetById(Guid.Empty)).Return(new UserGroup());
-			ObjectFactory.Inject(typeof(IRepository<UserGroup>), repositoryT);
-			ObjectFactory.Inject(typeof(IUserGroupRepository), repository);
+			ObjectFactory.Inject(typeof (IRepository<UserGroup>), repositoryT);
+			ObjectFactory.Inject(typeof (IUserGroupRepository), repository);
 
 			var userRepository = S<IUserRepository>();
-			ObjectFactory.Inject(typeof(IUserRepository), userRepository);
+			ObjectFactory.Inject(typeof (IUserRepository), userRepository);
 
 
 			RulesEngineConfiguration.Configure(typeof (DeleteUserGroupMessageConfiguration));
 
 			var rulesRunner = new RulesEngine();
 
-			ExecutionResult result = rulesRunner.Process(new DeleteUserGroupInput()
-			                                             	{
-			                                             		UserGroup = Guid.Empty,
-			                                             	}, typeof (DeleteUserGroupInput));
+			var result = rulesRunner.Process(new DeleteUserGroupInput
+			                                 	{
+			                                 		UserGroup = Guid.Empty,
+			                                 	}, typeof (DeleteUserGroupInput));
 
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<UserGroup>().ShouldNotBeNull();
@@ -165,15 +168,15 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 
 			var rulesRunner = new RulesEngine();
 
-			ExecutionResult result = rulesRunner.Process(new UserInput
-			                                             	{
-			                                             		Name = "New Meeting",
-			                                             		Username = "foo",
-			                                             		Password = "thepass",
-			                                             		ConfirmPassword = "thepass",
-			                                             		EmailAddress = "ere@sdfdsf.com",
-			                                             		Id = Guid.Empty,
-			                                             	}, typeof (UserInput));
+			var result = rulesRunner.Process(new UserInput
+			                                 	{
+			                                 		Name = "New Meeting",
+			                                 		Username = "foo",
+			                                 		Password = "thepass",
+			                                 		ConfirmPassword = "thepass",
+			                                 		EmailAddress = "ere@sdfdsf.com",
+			                                 		Id = Guid.Empty,
+			                                 	}, typeof (UserInput));
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<User>().ShouldNotBeNull();
 
@@ -199,11 +202,11 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 
 			var rulesRunner = new RulesEngine();
 
-			ExecutionResult result = rulesRunner.Process(new LoginInputProxy()
-			                                             	{
-			                                             		Username = "foo",
-			                                             		Password = "thepass",
-			                                             	}, typeof (LoginInputProxy));
+			var result = rulesRunner.Process(new LoginInputProxy
+			                                 	{
+			                                 		Username = "foo",
+			                                 		Password = "thepass",
+			                                 	}, typeof (LoginInputProxy));
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<User>().ShouldNotBeNull();
 		}
@@ -221,7 +224,8 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 
 			var sponsorRepository = S<ISponsorRepository>();
 			ObjectFactory.Inject(typeof (ISponsorRepository), sponsorRepository);
-			sponsorRepository.Stub(repository1 => repository1.GetById(Guid.Empty)).IgnoreArguments().Repeat.Any().Return(new Sponsor());
+			sponsorRepository.Stub(repository1 => repository1.GetById(Guid.Empty)).IgnoreArguments().Repeat.Any().Return(
+				new Sponsor());
 
 			//var userRepository = S<IUserRepository>();
 			///ObjectFactory.Inject(typeof(IUserRepository), userRepository);
@@ -229,14 +233,14 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			RulesEngineConfiguration.Configure(typeof (UpdateUserGroupMessageConfiguration));
 			var rulesRunner = new RulesEngine();
 
-			ExecutionResult result = rulesRunner.Process(new SponsorInput
-			                                             	{
-			                                             		Name = "New Meeting",
-			                                             		BannerUrl = "the url",
-			                                             		Id = 0,
-			                                             		Level = SponsorLevel.Gold,
-			                                             		Url = "http://foo.com",
-			                                             	}, typeof (SponsorInput));
+			var result = rulesRunner.Process(new SponsorInput
+			                                 	{
+			                                 		Name = "New Meeting",
+			                                 		BannerUrl = "the url",
+			                                 		Id = 0,
+			                                 		Level = SponsorLevel.Gold,
+			                                 		Url = "http://foo.com",
+			                                 	}, typeof (SponsorInput));
 
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<Sponsor>().ShouldNotBeNull();

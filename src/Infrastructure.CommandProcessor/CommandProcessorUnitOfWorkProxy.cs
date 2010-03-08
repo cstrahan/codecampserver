@@ -1,24 +1,24 @@
-using Tarantino.RulesEngine;
+using CodeCampServer.Core;
 
 namespace CodeCampServer.Infrastructure.CommandProcessor
 {
-    public class CommandProcessorUnitOfWorkProxy : IUnitOfWork
-    {
-        private readonly Core.IUnitOfWork _coreUnitOfWork;
+	public class CommandProcessorUnitOfWorkProxy : MvcContrib.CommandProcessor.Interfaces.IUnitOfWork
+	{
+		private readonly IUnitOfWork _coreUnitOfWork;
 
-        public CommandProcessorUnitOfWorkProxy(Core.IUnitOfWork coreUnitOfWork)
-        {
-            _coreUnitOfWork = coreUnitOfWork;
-        }
+		public CommandProcessorUnitOfWorkProxy(IUnitOfWork coreUnitOfWork)
+		{
+			_coreUnitOfWork = coreUnitOfWork;
+		}
 
-        public void Dispose()
-        {
-            _coreUnitOfWork.Dispose();
-        }
+		public void Dispose()
+		{
+			_coreUnitOfWork.Dispose();
+		}
 
-        public void Invalidate()
-        {
-            _coreUnitOfWork.RollBack();
-        }
-    }
+		public void Invalidate()
+		{
+			_coreUnitOfWork.RollBack();
+		}
+	}
 }
