@@ -2,17 +2,20 @@ properties {
   $projectName = "CodeCampServer"
   $base_dir = resolve-path .
   $build_dir = "$base_dir\build"
+  $package_dir = "$build_dir\package"
+  $package_file = "$base_dir\latestVersion\" + $projectName +"Package.exe"
   $source_dir = "$base_dir\src\"
   $test_dir = "$build_dir\test\"
   $result_dir = "$build_dir\results\"
+  
 }
 
 task default -depends privateBuild
 task privateBuild -depends Clean, Compile, Test
-task integrationBuild -depends Clean,Compile,TestWithCoverage,Inspection
+task integrationBuild -depends Clean,Compile,TestWithCoverage,Inspection,Package
 
 task Test {  
-    copy_all_assemblies_for_test
+    copy_all_assemblies_for_test $test_dir
     run_nunit "$projectName.UnitTests.dll"
     run_nunit "$projectName.IntegrationTests.dll"
 }
@@ -29,7 +32,7 @@ task Clean {
 }
 
 task TestWithCoverage {
-    copy_all_assemblies_for_test
+    copy_all_assemblies_for_test $test_dir 
     run_nunit_with_coverage "$projectName.UnitTests.dll"
     run_nunit_with_coverage "$projectName.IntegrationTests.dll"
 }
@@ -39,9 +42,37 @@ task Inspection {
     run_source_monitor
 }
 
+task Package {
+    delete_directory $package_dir    
+    copy_website_files "$source_dir\UI" "$package_dir\website" 
+    copy_files "$source_dir\Database" "$package_dir\Database" 
+    copy_files "$base_dir\lib\tarantino" "$source_dir\Database\Tools" @("*.pdb")
+    copy_all_assemblies_for_test "$package_dir\Tests"
+    copy_files "$base_dir\lib\cassini" "$package_dir\tests\tools\cassini"
+    copy_files "$base_dir\lib\nunit"  "$package_dir\tests\tools\nunit"
+    copy_files "$base_dir\lib\gallio" "$package_dir\tests\tools\gallio"
+    copy_files "$base_dir\lib\nant" "$package_dir\nant" @( '*.pdb','*.xml')
+    copy_files "$base_dir\deployment" "$package_dir"
+    
+    zip_directory $package_dir $package_file
+}
+
 # -------------------------------------------------------------------------------------------------------------
 # generalized functions 
 # --------------------------------------------------------------------------------------------------------------
+function global:zip_directory($directory,$file)
+{
+    delete_file $file
+    cd $directory
+    &"$base_dir\lib\7zip\7za.exe" a -mx=9 -r -sfx $file *.*
+    cd $base_dir
+}
+function global:delete_file($file)
+{
+    if( $file) {
+        remove-item $file } 
+}
+
 function global:run_fxcop
 {
    & .\lib\FxCop\FxCopCmd.exe /out:$result_dir"FxCopy.xml"  /file:$test_dir$projectname".*.dll" /quiet /d:$test_dir /c /summary | out-file $result_dir"fxcop.log"
@@ -85,7 +116,7 @@ function global:delete_directory($directory_name)
 
 function global:create_directory($directory_name)
 {
-  mkdir $directory_name  -ErrorAction SilentlyContinue 
+  mkdir $directory_name  -ErrorAction SilentlyContinue  |out-null
 }
 
 function global:run_nunit ($test_assembly)
@@ -95,7 +126,7 @@ function global:run_nunit ($test_assembly)
 
 function global:run_nunit_with_coverage($test_assembly)
 {
-     .\lib\ncover\NCover.Console.exe .\lib\nunit\nunit-console.exe $test_dir$test_assembly /noshadow /nologo /nodots  /xml=$result_dir$test_assembly.xml  //x $result_dir"$test_assembly.Coverage.xml"  //ias $projectName".Core;"$projectName".UI;"$projectName".Infrastructure;"$projectName".DependencyInjection" //w $test_dir //h $result_dir
+     .\lib\ncover\NCover.Console.exe $base_dir\lib\nunit\nunit-console.exe $test_dir$test_assembly /noshadow /nologo /nodots  /xml=$result_dir$test_assembly.xml  //x $result_dir"$test_assembly.Coverage.xml"  //ias $projectName".Core;"$projectName".UI;"$projectName".Infrastructure;"$projectName".DependencyInjection" //w $test_dir //h $result_dir //reg
 
 }
 
@@ -104,11 +135,22 @@ function global:Copy_and_flatten ($source,$filter,$dest)
   ls $source -filter $filter -r | cp -dest $dest
 }
 
-function global:copy_all_assemblies_for_test{
-  Copy_and_flatten $source_dir *.dll $test_dir
-  Copy_and_flatten $source_dir *.config $test_dir
-  Copy_and_flatten $source_dir *.xml $test_dir
-  Copy_and_flatten $source_dir *.pdb $test_dir
+function global:copy_all_assemblies_for_test($destination){
+  create_directory $destination
+  Copy_and_flatten $source_dir *.dll $destination
+  Copy_and_flatten $source_dir *.config $destination
+  Copy_and_flatten $source_dir *.xml $destination
+  Copy_and_flatten $source_dir *.pdb $destination
+}
+
+function global:copy_website_files($source,$destination){
+    $exclude = @('*.user','*.dtd','*.tt','*.cs','*.csproj') 
+    copy_files $source $destination $exclude
+}
+
+function global:copy_files($source,$destination,$exclude=@()){    
+    create_directory $destination
+    Get-ChildItem $source -Recurse -Exclude $exclude | Copy-Item -Destination {Join-Path $destination $_.FullName.Substring($source.length)} 
 }
 
 function global:Convert-WithXslt($originalXmlFilePath, $xslFilePath, $outputFilePath) 
