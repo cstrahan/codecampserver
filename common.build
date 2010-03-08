@@ -3,11 +3,27 @@
 
 	<target name="init" description="Initializes build properties">
 		<echo message="Using database.server=${database.server}"/>
-		<echo message="To override, set environment variable '%NANT_DATABASE_SERVER_PROPERTY_ARG_SQL2008X64%'"/>
-		<echo message="Example: SET NANT_DATABASE_SERVER_PROPERTY_ARG_SQL2008X64=&quot;-D:database.server=localhost\something&quot;"/>
+		<echo message="To override, set environment variable '%NANT_DATABASE_SERVER%'"/>
+		<echo message="Example: SET NANT_DATABASE_SERVER=localhost\something"/>
 		<delete dir="${dir.build}" failonerror="false" includeemptydirs="true" />
 		<mkdir dir="${dir.build}" />
 		<echo message="Current Directory: ${project::get-base-directory()}"/>
+	</target>
+
+	<target name="create-hibernate-cfg" description="Use the NHibernate template to create the needed config files">
+		<echo message="Copying NHibernate config file from ${dir.config} to ${dir.solution}" />
+		<copy todir="${dir.solution}" flatten="true">
+			<fileset basedir="${dir.config}">
+				<include name="hibernate.cfg.xml" />
+			</fileset>
+		</copy>
+
+		<echo message="Poking NHibernate config file" />
+		<xmlpoke file="${dir.solution}/hibernate.cfg.xml"	xpath="//*/hbm:property[@name='connection.connection_string']"	value="${local.connection.string}">
+			<namespaces>
+				<namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
+			</namespaces>
+		</xmlpoke>
 	</target>
 
 	<target name="revert">

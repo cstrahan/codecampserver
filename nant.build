@@ -5,7 +5,7 @@
   	<!-- ******************** -->
   	<!-- Master Build Targets -->
   	<!-- ******************** -->
-  	<target name="build" depends="init, commonassemblyinfo, dropDatabase, createDatabase, compile, move-for-test, test"/>
+  	<target name="build" depends="init, commonassemblyinfo, create-hibernate-cfg, dropDatabase, createDatabase, compile, move-for-test, test"/>
   	<target name="cruise" depends="build, package, create-template"/>	
   	<target name="integrationBuild" depends="init, commonassemblyinfo, dropDatabase, createDatabase,, compile, move-for-test, coverage, inspection,package"/>
   	<target name="publish" depends="init, revert, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test, package,commitPackage"/>
@@ -39,6 +39,7 @@
 	<!-- Folder references -->
   <property name="dir.root" value="${path::get-full-path('.')}"/>
   <property name="dir.solution" value="src"/>
+  <property name="dir.config" value="${dir.root}/config"/>
 	<property name="dir.ui" value="${dir.solution}/UI"/>
 	<property name="dir.build" value="build" dynamic="true"/>
 	<property name="dir.test" value="${dir.build}/${nant.settings.currentframework}-${project.config}"/>
@@ -55,11 +56,18 @@
 
 	<!-- Database migration settings -->
 	<property name="database.script.directory" value="${dir.solution}/Database" />
-  	<property name="database.server" value="localhost\sqlexpress" overwrite="false"/>
+  <property name="database.server" value="localhost\sqlexpress" overwrite="false"/>
 	<property name="database.name" value="${project::get-name()}" overwrite="false"/>
 	<property name="database.integrated" value="true" overwrite="false" />
 	<property name="database.username" value="dbuser" overwrite="false"/>
 	<property name="database.password" value="P@ssword1" overwrite="false"/>
+	<property name="database.environment.variable.name" value="NANT_DATABASE_SERVER" overwrite="false"/>
+	<if test="${environment::variable-exists(database.environment.variable.name)}">
+		<property name="database.server" value="${environment::get-variable(database.environment.variable.name)}" overwrite="true"/>
+	</if>
+
+	<!-- NHibernate Settings -->
+	<property name="local.connection.string" value="server=${database.server};database=${database.name};Integrated Security=true;"/>
 
 	<!-- Testing settings -->
 	<property name="assembly.unittests" value="${project::get-name()}.UnitTests.dll"/>
@@ -85,7 +93,6 @@
 				<include name="*.cfg.xml"/>
 			</fileset>
 		</copy>
-<property name="local.connection.string" value="server=${database.server};database=${database.name};Integrated Security=true;"/>
     <xmlpoke file="${dir.test}/hibernate.cfg.xml"	xpath="//*/hbm:property[@name='connection.connection_string']"	value="${local.connection.string}">
       <namespaces>
         <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
