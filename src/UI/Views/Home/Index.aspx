@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="System.Web.Mvc.ViewPage<UserGroupInput>" %>
+<%@ Import Namespace="CodeCampServer.UI.Helpers.Extensions"%>
 <%@ Import Namespace="CodeCampServer.Core.Common"%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Stylesheets" runat="server">

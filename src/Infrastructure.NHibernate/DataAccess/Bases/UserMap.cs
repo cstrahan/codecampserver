@@ -1,7 +1,6 @@
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
 
-namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Bases
 {
 	public class UserMap : AuditedEntityClassMap<User>
 	{
@@ -15,17 +14,4 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings
 			Map(x => x.PasswordSalt).Length(100);
 		}
 	}
-
-	/*<class name="User" table="Users" dynamic-update="true">
-		<cache usage="read-write"/>
-		<id name="Id" column="Id" type="Guid">
-			<generator class="guid.comb"/>
-		</id>
-
-		<property name="Username" length="50"/>
-		<property name="Name" length="100"/>
-		<property name="EmailAddress" length="100"/>
-		<property name="PasswordHash" length="100"/>
-		<property name="PasswordSalt" length="100"/>
-	</class>*/
 }

@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using CodeCampServer.UI.Filters;
 using CodeCampServer.UI.Services;
 
 namespace CodeCampServer.UI.Helpers.Filters

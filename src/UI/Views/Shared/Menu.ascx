@@ -6,7 +6,7 @@
     <ul class="menu"> 
 		<asp:LoginView ID="LoginView1" runat="server">
 			<LoggedInTemplate>
-				<li><a href="<%=Url.Action<AdminController>(c=>c.Index(null)) %>"><b>admin</b></a></li>
+				<li><a href="<%=CodeCampServer.UI.Helpers.Extensions.UrlHelperExtensions.Action<AdminController>(Url, c=>c.Index(null)) %>"><b>admin</b></a></li>
 			</LoggedInTemplate>
 		</asp:LoginView>
 

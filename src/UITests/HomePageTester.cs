@@ -2,9 +2,8 @@
 using NUnit.Framework;
 using WatiN.Core;
 
-namespace UITests
+namespace CodeCampServerUiTests
 {
-	
 	[TestFixture]
 	public class HomePageTester
 	{

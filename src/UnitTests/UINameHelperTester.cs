@@ -1,13 +1,12 @@
 using System;
 using System.Linq.Expressions;
 using CodeCampServer.Core.Common;
-using CodeCampServer.Core.Domain.Model.Enumerations;
 using CodeCampServer.UI.Helpers.Attributes;
 using MvcContrib.UI.InputBuilder.Attributes;
-using NUnit.Framework;
 using NBehave.Spec.NUnit;
+using NUnit.Framework;
 
-namespace Cuc.Jcms.UnitTests.Core.Common
+namespace CodeCampServer.UnitTests
 {
 	[TestFixture]
 	public class UINameHelperTester
@@ -53,8 +52,9 @@ namespace Cuc.Jcms.UnitTests.Core.Common
 			}
 		}
 	}
+
 	[Serializable]
-	public class ExampleForm 
+	public class ExampleForm
 	{
 		[Hidden]
 		public Guid DrugTestId { get; set; }
@@ -68,6 +68,7 @@ namespace Cuc.Jcms.UnitTests.Core.Common
 		[ShowAsRequired]
 		[Label("Other Location")]
 		public string DrugTestTestLocationOtherDescription { set; get; }
+
 		[Label("Administered By")]
 		public Guid? DrugTestAdministeredById { get; set; }
 
@@ -78,13 +79,12 @@ namespace Cuc.Jcms.UnitTests.Core.Common
 		public Guid? DrugTestWitnessedById { get; set; }
 
 
-
 		[Label("Drug Test Results")]
 		public Foo[] DrugTestDrugTestResults { get; set; }
-
 	}
 
-	public class Foo {
+	public class Foo
+	{
 		public object SubstanceTested { get; set; }
 	}
 }

@@ -1,9 +1,8 @@
 ﻿using System;
 using CodeCampServer.Core.Bases;
-using CodeCampServer.Core.Domain.Model;
 using FluentNHibernate.Mapping;
 
-namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Bases
 {
 	public static class ClassMapExtensions
 	{
@@ -22,10 +21,10 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings
 		{
 			try
 			{
-				map.Id(x=>x.Id)
+				map.Id(x => x.Id)
 					.GeneratedBy.GuidComb();
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				;
 			}

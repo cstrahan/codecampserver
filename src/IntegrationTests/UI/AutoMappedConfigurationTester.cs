@@ -1,6 +1,6 @@
 using AutoMapper;
 using CodeCampServer.DependencyResolution;
-using CodeCampServer.Infrastructure.ObjectMapping;
+using CodeCampServer.Infrastructure.Automapper.ObjectMapping;
 using NUnit.Framework;
 
 namespace CodeCampServer.IntegrationTests.UI

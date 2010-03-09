@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using CodeCampServer.UI.Models.Input;
 
-namespace CodeCampServer.UI.Helpers.Binders
+namespace CodeCampServer.UI.Helpers
 {
 	public class UserSelectorInputTypeConverter : TypeConverter
 	{

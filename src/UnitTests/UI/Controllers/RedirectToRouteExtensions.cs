@@ -1,7 +1,7 @@
 using System;
 using System.Linq.Expressions;
 using System.Web.Mvc;
-using CodeCampServer.UI;
+using CodeCampServer.UI.Helpers.Extensions;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {

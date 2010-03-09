@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true"
     Inherits="ViewPage<EventList[]>" %>
+<%@ Import Namespace="CodeCampServer.UI.Models.Display"%>
 <div  class="post"><h1>Upcoming Events</h1></div>
 <% foreach (EventList eventKey in Model){%>
     <div class="post"> 

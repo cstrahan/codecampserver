@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Controllers;
-//using CodeCampServer.UI.Helpers.Mappers;
+using CodeCampServer.UI.Helpers.ActionResults;
 using CodeCampServer.UI.Models.Input;
 using MvcContrib.TestHelper;
 using NUnit.Framework;

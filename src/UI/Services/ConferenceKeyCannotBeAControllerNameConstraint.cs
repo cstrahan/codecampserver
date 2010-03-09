@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Routing;
 
-namespace CodeCampServer.UI
+namespace CodeCampServer.UI.Services
 {
 	public class ConferenceKeyCannotBeAControllerNameConstraint : IRouteConstraint
 	{

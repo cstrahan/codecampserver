@@ -2,7 +2,7 @@ using AutoMapper;
 using CodeCampServer.Core.Services.BusinessRule.Login;
 using CodeCampServer.UI;
 
-namespace CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles
+namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles.Bases
 {
 	public class UserMapperProfile : Profile
 	{

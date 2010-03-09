@@ -1,4 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="ViewPage<IEnumerable>"%>
+<%@ Import Namespace="CodeCampServer.UI.Helpers.Extensions"%>
 <%@ Import Namespace="MvcContrib.UI.Grid"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="Main" runat="server">
 	<h2><%=Html.GetLabelForModel() %> </h2>

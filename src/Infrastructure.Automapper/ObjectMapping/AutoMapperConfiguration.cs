@@ -5,7 +5,7 @@ using CodeCampServer.Core;
 using CodeCampServer.Core.Common;
 using CodeCampServer.UI.Helpers.ActionResults;
 
-namespace CodeCampServer.Infrastructure.ObjectMapping
+namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping
 {
 	public class AutoMapperConfiguration : IRequiresConfigurationOnStartup
 	{
@@ -34,7 +34,7 @@ namespace CodeCampServer.Infrastructure.ObjectMapping
 		{
 			Configure();
 
-            AutoMappedViewResult.Map = (a, b, c) => AutoMappedWrapper.Map(a, b, c);
+			AutoMappedViewResult.Map = (a, b, c) => AutoMappedWrapper.Map(a, b, c);
 
 		}
 	}

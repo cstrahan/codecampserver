@@ -4,8 +4,6 @@ using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services.BusinessRule.DeleteUserGroup;
 using CodeCampServer.Core.Services.BusinessRule.UpdateSponsor;
 using CodeCampServer.Core.Services.BusinessRule.UpdateUserGroup;
-using CodeCampServer.Infrastructure.ObjectMapping.TypeConverters;
-using CodeCampServer.Infrastructure.UI.Mappers;
 using CodeCampServer.UI.Models.Input;
 using CodeCampServer.UI.Models.Messages;
 

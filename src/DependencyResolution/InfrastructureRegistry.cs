@@ -2,6 +2,7 @@
 using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Infrastructure.CommandProcessor;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess.Bases;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl;
 using MvcContrib.CommandProcessor;
 using MvcContrib.CommandProcessor.Commands;

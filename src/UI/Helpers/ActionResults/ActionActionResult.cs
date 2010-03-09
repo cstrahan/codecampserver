@@ -1,7 +1,7 @@
 using System;
 using System.Web.Mvc;
 
-namespace CodeCampServer.UI.Controllers
+namespace CodeCampServer.UI.Helpers.ActionResults
 {
 	public class ActionActionResult : ActionResult
 	{

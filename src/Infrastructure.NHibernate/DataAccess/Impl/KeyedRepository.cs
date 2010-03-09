@@ -1,5 +1,6 @@
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess.Bases;
 using NHibernate.Criterion;
 
 namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl

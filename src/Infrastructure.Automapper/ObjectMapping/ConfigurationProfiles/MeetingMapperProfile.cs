@@ -2,11 +2,11 @@ using System;
 using AutoMapper;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.ObjectMapping.TypeConverters;
+using CodeCampServer.Infrastructure.Automapper.ObjectMapping.TypeConverters;
 using CodeCampServer.UI.Models.Display;
 using CodeCampServer.UI.Models.Input;
 
-namespace CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles
+namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles
 {
 	public class MeetingMapperProfile : Profile
 	{

@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Web.Mvc;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Services;
-using CodeCampServer.Infrastructure.UI.Mappers;
 using CodeCampServer.UI;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Helpers.ActionResults;
-//using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
 using MvcContrib.TestHelper;
-using NBehave.Spec.NUnit;
 using NUnit.Framework;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
@@ -44,7 +37,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		public void Index_should_list_the_users()
 		{
 			var controller = new UserController(S<IUserRepository>(), PermisiveSecurityContext());
-			ViewResult result = controller.Index();
+			var result = controller.Index();
 			result.AssertViewRendered();
 			result.ForView("");
 		}
@@ -65,11 +58,10 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void When_edit_is_passed_null_a_new_user_should_be_selected()
 		{
-
 			var controller = new UserController(null, PermisiveSecurityContext());
 
 			var result = controller.Edit((User) null);
-			
+
 			result.AssertViewRendered()
 				.ForView(ViewNames.Default)
 				.ModelShouldBe<User>();

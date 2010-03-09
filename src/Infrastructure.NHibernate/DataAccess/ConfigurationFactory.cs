@@ -1,4 +1,4 @@
-﻿using CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings;
+﻿using CodeCampServer.Infrastructure.NHibernate.DataAccess.Bases;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Conventions.Helpers;
 using NHibernate.Cfg;

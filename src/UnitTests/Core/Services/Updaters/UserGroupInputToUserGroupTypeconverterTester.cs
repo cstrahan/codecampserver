@@ -2,7 +2,7 @@ using System;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.UI.Mappers;
+using CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles;
 using CodeCampServer.UI.Models.Input;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;

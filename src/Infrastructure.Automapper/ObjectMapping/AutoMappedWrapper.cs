@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 
-namespace CodeCampServer.Infrastructure.ObjectMapping
+namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping
 {
 	public class AutoMappedWrapper
 	{

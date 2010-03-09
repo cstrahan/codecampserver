@@ -109,7 +109,7 @@
     <Compile Include="Helpers\ConferenceViewExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Helpers\Extensions\ButtonExtensions.cs" />
+    <Compile Include="Helpers\Extensions\ButtonExtensions2.cs" />
     <Compile Include="Helpers\Extensions\MvcHelperExtensions.cs">
       <SubType>Code</SubType>
     </Compile>

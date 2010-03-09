@@ -1,10 +1,11 @@
 using System;
 using AutoMapper;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.ObjectMapping.CustomResolvers;
+using CodeCampServer.Infrastructure.Automapper.ObjectMapping.CustomResolvers;
+using CodeCampServer.UI.Models.Display;
 using CodeCampServer.UI.Models.Input;
 
-namespace CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles
+namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles.Bases
 {
 	public class AutoMapperProfile : Profile
 	{

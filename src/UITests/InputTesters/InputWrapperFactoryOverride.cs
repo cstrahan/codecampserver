@@ -1,13 +1,13 @@
 using MvcContrib.TestHelper.Ui;
 
-namespace UITestHelper
+namespace CodeCampServerUiTests.InputTesters
 {
-    public class InputWrapperFactoryOverride : InputTesterFactory
-    {
-        public InputWrapperFactoryOverride()
-        {
-            Insert(0, new ScriptWrittenInputWrapperFactory());
-            Insert(0, new DateTimeInputWrapperFactory());
-        }
-    }
+	public class InputWrapperFactoryOverride : InputTesterFactory
+	{
+		public InputWrapperFactoryOverride()
+		{
+			Insert(0, new ScriptWrittenInputWrapperFactory());
+			Insert(0, new DateTimeInputWrapperFactory());
+		}
+	}
 }

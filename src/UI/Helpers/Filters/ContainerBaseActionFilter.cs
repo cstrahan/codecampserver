@@ -1,7 +1,7 @@
 using System;
 using System.Web.Mvc;
 
-namespace CodeCampServer.UI.Filters
+namespace CodeCampServer.UI.Helpers.Filters
 {
 	public abstract class ContainerBaseActionFilter : IActionFilter, IResultFilter
 	{

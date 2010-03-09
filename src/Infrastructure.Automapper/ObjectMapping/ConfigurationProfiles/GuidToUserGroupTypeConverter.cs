@@ -2,9 +2,8 @@ using System;
 using AutoMapper;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.UI.Mappers;
 
-namespace CodeCampServer.Infrastructure.ObjectMapping.TypeConverters
+namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles
 {
 	public class GuidToUserGroupTypeConverter :
 		ITypeConverter<string, UserGroup>, ITypeConverter<Guid, UserGroup>

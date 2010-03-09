@@ -4,7 +4,7 @@
 <%@ Import Namespace="CodeCampServer.UI.Controllers" %>
 <%if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
   {%>
-  <form method="get" class="editButtonForm" action="<%=Url.Action<MeetingController>(t => t.Delete(null,null)) %>">
+  <form method="get" class="editButtonForm" action="<%=CodeCampServer.UI.Helpers.Extensions.UrlHelperExtensions.Action<MeetingController>(Url, t => t.Delete(null,null)) %>">
 	<%=	Html.Hidden("meeting", Model.Id) %>
 	<button id="deleteMeeting<%=Model.Id%>" class="ui-state-default ui-corner-all fg-button-icon-solo" type="submit"
 		title="Delete Meeting" >

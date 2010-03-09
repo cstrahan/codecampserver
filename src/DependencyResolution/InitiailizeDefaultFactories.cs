@@ -1,13 +1,13 @@
 using CodeCampServer.Core;
+using CodeCampServer.Infrastructure.Automapper.ObjectMapping;
+using CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles;
 using CodeCampServer.Infrastructure.NHibernate;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess;
-using CodeCampServer.Infrastructure.ObjectMapping;
-using CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles;
 using CodeCampServer.UI;
 using CodeCampServer.UI.Binders;
 using CodeCampServer.UI.Binders.Entities;
 using CodeCampServer.UI.Binders.Keyed;
-using CodeCampServer.UI.Filters;
+using CodeCampServer.UI.Helpers.Filters;
 using CodeCampServer.UI.InputBuilders;
 using CodeCampServer.UI.InputBuilders.SelectListProvision;
 using CodeCampServer.UI.Services;

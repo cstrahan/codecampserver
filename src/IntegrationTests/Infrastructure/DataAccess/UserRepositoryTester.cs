@@ -1,9 +1,6 @@
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess.Bases;
 using NBehave.Spec.NUnit;
-using NHibernate;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
@@ -30,7 +27,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			            		Username = "lsimpson",
 			            	};
 
-			using (ISession session = GetSession())
+			using (var session = GetSession())
 			{
 				session.SaveOrUpdate(one);
 				session.SaveOrUpdate(two);
@@ -38,8 +35,8 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				session.Flush();
 			}
 
-			var repository = (UserRepository) CreateRepository();
-			User employee = repository.GetByUserName("bsimpson");
+			var repository = CreateRepository();
+			var employee = repository.GetByUserName("bsimpson");
 
 			Assert.That(employee.Id, Is.EqualTo(two.Id));
 			Assert.That(employee.Username, Is.EqualTo(two.Username));
@@ -54,7 +51,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			PersistEntities(user, user1, user2);
 			IUserRepository repository = CreateRepository();
 
-			User[] users = repository.GetLikeLastNameStart("test");
+			var users = repository.GetLikeLastNameStart("test");
 
 			users.Length.ShouldEqual(2);
 			users[0].ShouldEqual(user);

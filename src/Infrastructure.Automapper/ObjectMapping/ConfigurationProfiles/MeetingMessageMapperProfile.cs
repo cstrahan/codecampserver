@@ -2,10 +2,10 @@ using AutoMapper;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services.BusinessRule.DeleteMeeting;
 using CodeCampServer.Core.Services.BusinessRule.UpdateMeeting;
-using CodeCampServer.UI.Messages;
 using CodeCampServer.UI.Models.Input;
+using CodeCampServer.UI.Models.Messages;
 
-namespace CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles
+namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles
 {
 	public class MeetingMessageMapperProfile : Profile
 	{

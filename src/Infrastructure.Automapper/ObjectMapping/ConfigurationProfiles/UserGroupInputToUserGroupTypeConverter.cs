@@ -1,18 +1,17 @@
-using System.Collections.Generic;
 using System.Linq;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Models.Input;
 
-namespace CodeCampServer.Infrastructure.UI.Mappers
+namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles
 {
-	public class UserGroupInputToUserGroupTypeConverter:IUserGroupInputToUserGroupTypeConverter
+	public class UserGroupInputToUserGroupTypeConverter : IUserGroupInputToUserGroupTypeConverter
 	{
 		private readonly IUserRepository _userRepository;
 		private readonly IUserGroupRepository _userGroupRepository;
 
-		public UserGroupInputToUserGroupTypeConverter(IUserRepository userRepository,IUserGroupRepository userGroupRepository)
+		public UserGroupInputToUserGroupTypeConverter(IUserRepository userRepository, IUserGroupRepository userGroupRepository)
 		{
 			_userRepository = userRepository;
 			_userGroupRepository = userGroupRepository;
@@ -29,30 +28,30 @@ namespace CodeCampServer.Infrastructure.UI.Mappers
 			model.Region = input.Region;
 			model.Country = input.Country;
 			model.GoogleAnalysticsCode = input.GoogleAnalysticsCode;
-			User[] existingUsers = model.GetUsers();
+			var existingUsers = model.GetUsers();
 
-			IEnumerable<User> usersToRemove = existingUsers.Where(user => !input.Users.Any(uf => uf.Id == user.Id));
+			var usersToRemove = existingUsers.Where(user => !input.Users.Any(uf => uf.Id == user.Id));
 
-			foreach (User user in usersToRemove)
+			foreach (var user in usersToRemove)
 			{
 				model.Remove(user);
 			}
 
-			IEnumerable<UserSelectorInput> userFormToAdd =
+			var userFormToAdd =
 				input.Users.Where(userForm => !existingUsers.Any(user => user.Id == userForm.Id));
-			User[] users = _userRepository.GetAll();
+			var users = _userRepository.GetAll();
 
-			foreach (UserSelectorInput userForm in userFormToAdd)
+			foreach (var userForm in userFormToAdd)
 			{
-				User user = users.FirstOrDefault(user1 => user1.Id == userForm.Id);
+				var user = users.FirstOrDefault(user1 => user1.Id == userForm.Id);
 				model.Add(user);
 			}
 		}
 
 		public UserGroup Convert(UserGroupInput source)
 		{
-			UserGroup destination = _userGroupRepository.GetById(source.Id) ?? new UserGroup();
-			UpdateUserGroupFromInput(destination,source);
+			var destination = _userGroupRepository.GetById(source.Id) ?? new UserGroup();
+			UpdateUserGroupFromInput(destination, source);
 			return destination;
 		}
 	}

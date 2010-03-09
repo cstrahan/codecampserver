@@ -1,18 +1,15 @@
 using System.Linq;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
-using NHibernate;
 using NHibernate.Criterion;
 
-namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Bases
 {
 	public class UserRepository : RepositoryBase<User>, IUserRepository
 	{
-	    public User GetByUserName(string username)
+		public User GetByUserName(string username)
 		{
-			ISession session = GetSession();
-			IQuery query = session.CreateQuery("from User u where u.Username = :username");
+			var session = GetSession();
+			var query = session.CreateQuery("from User u where u.Username = :username");
 			query.SetString("username", username);
 
 			var matchingUser = query.UniqueResult<User>();
@@ -31,9 +28,9 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl
 		}
 
 
-        //protected override string GetEntityNaturalKeyName()
-        //{
-        //    return "Username";
-        //}
+		//protected override string GetEntityNaturalKeyName()
+		//{
+		//    return "Username";
+		//}
 	}
 }

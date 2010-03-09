@@ -1,6 +1,6 @@
 using System;
 
-namespace CodeCampServer.UI.Messages
+namespace CodeCampServer.UI.Models.Messages
 {
 	public class DeleteMeetingMessage 
 	{

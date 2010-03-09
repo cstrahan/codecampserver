@@ -2,7 +2,7 @@ using System;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 
-namespace CodeCampServer.UI
+namespace CodeCampServer.UI.Helpers.Extensions
 {
 	public static class UrlHelperExtensions
 	{

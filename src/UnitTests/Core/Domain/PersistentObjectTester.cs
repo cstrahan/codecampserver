@@ -3,7 +3,7 @@ using CodeCampServer.Core.Bases;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 
-namespace Tarantino.UnitTests.Core.Commons.Model
+namespace CodeCampServer.UnitTests.Core.Domain
 {
 	public abstract class PersistentObjectTester
 	{

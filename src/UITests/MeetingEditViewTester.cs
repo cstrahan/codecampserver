@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using CodeCampServer.UI;
 using CodeCampServer.UI.Models.Input;
+using CodeCampServerUiTests.InputTesters;
 using MvcContrib.TestHelper;
 using MvcContrib.TestHelper.Ui;
 using MvcContrib.TestHelper.WatiN;
@@ -13,7 +14,6 @@ using MvcContrib.UI.InputBuilder.Helpers;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 using Rhino.Mocks;
-using UITestHelper;
 using WatiN.Core;
 
 namespace CodeCampServerUiTests

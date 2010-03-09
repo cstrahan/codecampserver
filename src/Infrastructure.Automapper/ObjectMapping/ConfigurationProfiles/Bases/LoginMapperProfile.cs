@@ -1,10 +1,9 @@
 using AutoMapper;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services.BusinessRule.UpdateUser;
 using CodeCampServer.UI.Models.Input;
 
-namespace CodeCampServer.Infrastructure.ObjectMapping.ConfigurationProfiles
+namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles.Bases
 {
 	public class LoginMapperProfile : Profile
 	{

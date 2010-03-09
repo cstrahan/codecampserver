@@ -1,8 +1,7 @@
 ﻿using CodeCampServer.Core.Bases;
-using CodeCampServer.Core.Domain.Model;
 using FluentNHibernate.Mapping;
 
-namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Mappings
+namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Bases
 {
 	public class AuditedEntityClassMap<TEntity> : ClassMap<TEntity>
 		where TEntity : AuditedPersistentObjectOfGuid

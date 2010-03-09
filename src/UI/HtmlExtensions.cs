@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Common;
-using CodeCampServer.UI.Models.Input;
+using CodeCampServer.UI.Helpers.Extensions;
 using MvcContrib;
 using MvcContrib.UI.Grid;
 using MvcContrib.UI.Grid.Syntax;
@@ -34,7 +33,7 @@ namespace CodeCampServer.UI
 		                                                string selectedName, object htmlOptions)
 			where T : Enumeration, new()
 		{
-			int? selectedValue = selectedName == null ? (int?) null : Enumeration.FromDisplayName<T>(selectedName).Value;
+			var selectedValue = selectedName == null ? (int?) null : Enumeration.FromDisplayName<T>(selectedName).Value;
 			return EnumerationDropDownList<T>(helper, listName, includeBlankOption, selectedValue, htmlOptions);
 		}
 
@@ -42,10 +41,10 @@ namespace CodeCampServer.UI
 		                                                int? selectedValue, object htmlOptions)
 			where T : Enumeration, new()
 		{
-			IEnumerable<SelectListItem> selectList = GetSelectListForDropDown<T>(Enumeration.GetAll<T>(),
-			                                                                     includeBlankOption, selectedValue, null);
+			var selectList = GetSelectListForDropDown<T>(Enumeration.GetAll<T>(),
+			                                             includeBlankOption, selectedValue, null);
 
-			string html = helper.DropDownList(listName, selectList).ToString();
+			var html = helper.DropDownList(listName, selectList).ToString();
 			return html;
 		}
 
@@ -53,11 +52,11 @@ namespace CodeCampServer.UI
 		                                                           bool includeBlankOption, string displayValueToExclude,
 		                                                           int? selectedValue) where T : Enumeration, new()
 		{
-			IEnumerable<SelectListItem> selectList = GetSelectListForDropDown<T>(Enumeration.GetAll<T>(),
-			                                                                     includeBlankOption, selectedValue,
-			                                                                     displayValueToExclude);
+			var selectList = GetSelectListForDropDown<T>(Enumeration.GetAll<T>(),
+			                                             includeBlankOption, selectedValue,
+			                                             displayValueToExclude);
 
-			string html = helper.DropDownList(listName, selectList).ToString();
+			var html = helper.DropDownList(listName, selectList).ToString();
 			return html;
 		}
 
@@ -67,7 +66,7 @@ namespace CodeCampServer.UI
 		                                                                      string displayValueToExclude, T first)
 			where T : Enumeration, new()
 		{
-			IEnumerable<T> listWithoutFirst = list.Except(new[] {first});
+			var listWithoutFirst = list.Except(new[] {first});
 			var innerList = new List<T>(listWithoutFirst);
 			innerList.Insert(0, first);
 
@@ -116,7 +115,7 @@ namespace CodeCampServer.UI
 				codes.Add(empty);
 			}
 
-			foreach (Enumeration enumValue in list)
+			foreach (var enumValue in list)
 			{
 				var listItem = new SelectListItem {Text = enumValue.DisplayName, Value = enumValue.Value.ToString()};
 
@@ -136,10 +135,10 @@ namespace CodeCampServer.UI
 		public static string AccessibleCheckBox(this HtmlHelper helper, string checkboxName, string checkboxLabel,
 		                                        bool isChecked)
 		{
-			string isCheckedHtml = isChecked ? "checked=\"checked\"" : string.Empty;
-			string inputHtml = string.Format("<input type=\"checkbox\" value=\"true\" {0} name=\"{1}\" id=\"{1}\"/>",
-			                                 isCheckedHtml, checkboxName);
-			string labelHtml = string.Format("<label for=\"{0}\">{1}</label>", checkboxName, checkboxLabel);
+			var isCheckedHtml = isChecked ? "checked=\"checked\"" : string.Empty;
+			var inputHtml = string.Format("<input type=\"checkbox\" value=\"true\" {0} name=\"{1}\" id=\"{1}\"/>",
+			                              isCheckedHtml, checkboxName);
+			var labelHtml = string.Format("<label for=\"{0}\">{1}</label>", checkboxName, checkboxLabel);
 			return inputHtml + labelHtml;
 		}
 
@@ -157,7 +156,7 @@ namespace CodeCampServer.UI
 			{
 				headerText = @"&nbsp;";
 			}
-			string html = string.Format(@"<p class=""dataHeading"">{0}</p>", headerText);
+			var html = string.Format(@"<p class=""dataHeading"">{0}</p>", headerText);
 			return html;
 		}
 
@@ -169,8 +168,8 @@ namespace CodeCampServer.UI
 		public static string ActionLink<TController>(this HtmlHelper helper, string linkText,
 		                                             Expression<Func<TController, object>> actionExpression)
 		{
-			string controllerName = typeof (TController).GetControllerName();
-			string actionName = actionExpression.GetActionName();
+			var controllerName = typeof (TController).GetControllerName();
+			var actionName = actionExpression.GetActionName();
 
 			return helper.ActionLink(linkText, actionName, controllerName, null,
 			                         new {@class = "action-link " + linkText.ToLower()}).ToString();
@@ -180,10 +179,11 @@ namespace CodeCampServer.UI
 		{
 			column.CustomItemRenderer = (context, item) =>
 			                            	{
-			                            		IView view = context.ViewEngines.TryLocatePartial(context.ViewContext, partialName);
+			                            		var view = context.ViewEngines.TryLocatePartial(context.ViewContext, partialName);
 			                            		var newViewData = new ViewDataDictionary<T>(item);
 			                            		var newContext = new ViewContext(context.ViewContext, context.ViewContext.View,
-			                            		                                 newViewData, context.ViewContext.TempData, context.Writer);
+			                            		                                 newViewData, context.ViewContext.TempData,
+			                            		                                 context.Writer);
 			                            		context.Writer.Write("<td>");
 			                            		view.Render(newContext, context.Writer);
 			                            		context.Writer.Write("</td>");
@@ -208,7 +208,7 @@ namespace CodeCampServer.UI
 
 		public static IGridWithOptions<T> AutoColumns<T>(this IGridWithOptions<T> grid) where T : class
 		{
-			Expression<Func<T, object>>[] properySpecifiers = typeof (T).GetProperties()
+			var properySpecifiers = typeof (T).GetProperties()
 				.Where(info => ShouldPropertyBeDisplayed(info))
 				.Select(info => ProperyToLamdaExpression<T>(info)).ToArray();
 
@@ -224,9 +224,9 @@ namespace CodeCampServer.UI
 
 		private static Expression<Func<T, object>> ProperyToLamdaExpression<T>(PropertyInfo info)
 		{
-			ParameterExpression param = Expression.Parameter(typeof (T), "arg");
-			MemberExpression member = Expression.Property(param, info);
-			UnaryExpression loselyTypeExpression = Expression.Convert(member, typeof (object));
+			var param = Expression.Parameter(typeof (T), "arg");
+			var member = Expression.Property(param, info);
+			var loselyTypeExpression = Expression.Convert(member, typeof (object));
 			return Expression.Lambda<Func<T, object>>(loselyTypeExpression, param);
 		}
 
@@ -239,31 +239,30 @@ namespace CodeCampServer.UI
 		public static string ActionButton<TController>(this HtmlHelper helper, string linkText,
 		                                               Expression<Func<TController, object>> actionExpression)
 		{
-			string controllerName = typeof (TController).GetControllerName();
-			string actionName = actionExpression.GetActionName();
+			var controllerName = typeof (TController).GetControllerName();
+			var actionName = actionExpression.GetActionName();
 			return
 				string.Format(
 					"<div class=\"buttonLeftEndCap\"></div><div class=\"buttonContentBackground\">{0}</div><div class=\"buttonRightEndCap\"></div>",
-					helper.ActionLink(linkText, actionName, controllerName,helper.ViewContext.RouteData,null));
+					helper.ActionLink(linkText, actionName, controllerName, helper.ViewContext.RouteData, null));
 		}
 
 		public static string RouteButton(this HtmlHelper helper, string linkText,
-													   string routeName)
+		                                 string routeName)
 		{
 			return
 				string.Format(
 					"<div class=\"buttonLeftEndCap\"></div><div class=\"buttonContentBackground\">{0}</div><div class=\"buttonRightEndCap\"></div>",
 					helper.RouteLink(linkText, routeName));
-					
 		}
+
 		public static string UrlButton(this HtmlHelper helper, string linkText,
-													   string url)
+		                               string url)
 		{
 			return
 				string.Format(
 					"<div class=\"buttonLeftEndCap\"></div><div class=\"buttonContentBackground\">{0}</div><div class=\"buttonRightEndCap\"></div>",
-					"<a href=\""+ url+"\">"+linkText+"</a>");
-
+					"<a href=\"" + url + "\">" + linkText + "</a>");
 		}
 	}
 }

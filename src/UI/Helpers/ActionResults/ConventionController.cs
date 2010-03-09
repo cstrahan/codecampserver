@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Routing;
-using CodeCampServer.UI.Controllers;
+using CodeCampServer.UI.Helpers.Extensions;
 
 namespace CodeCampServer.UI.Helpers.ActionResults
 {
