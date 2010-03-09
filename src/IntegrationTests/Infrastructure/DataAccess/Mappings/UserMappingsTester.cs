@@ -1,7 +1,4 @@
-using System.Data;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
-using NHibernate;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
@@ -18,8 +15,8 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 			           		EmailAddress = "jdoe@abc.com",
 			           		Name = "sdf",
 			           		Username = "jdoe",
-										PasswordHash = "foo",
-										PasswordSalt = "bar"
+			           		PasswordHash = "foo",
+			           		PasswordSalt = "bar"
 			           	};
 
 			AssertObjectCanBePersisted(user);
@@ -30,19 +27,19 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess.Mappings
 		{
 			var user = new User {Username = "foo"};
 
-			ISession session = GetSession();
-			ITransaction transaction = session.BeginTransaction();
+			var session = GetSession();
+			var transaction = session.BeginTransaction();
 			session.SaveOrUpdate(user);
 			transaction.Commit();
 
 			session.Dispose();
 
-			ISession session2 = GetSession();
+			var session2 = GetSession();
 			var result =
 				session2.CreateQuery("from User u where u.Username = ?").SetString(0,
 				                                                                   "foo").
 					SetCacheable(true).UniqueResult<User>();
-			IDbCommand command = session2.Connection.CreateCommand();
+			var command = session2.Connection.CreateCommand();
 			command.CommandText = "delete from Users";
 			command.ExecuteNonQuery();
 			session2.Dispose();

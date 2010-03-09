@@ -1,7 +1,5 @@
 ﻿using System.Web.Mvc;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Models.Input;
@@ -21,7 +19,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			repository.Stub(repo => repo.GetByUserName("admin")).Return(new User());
 
 			var controller = new AdminController(repository);
-			ActionResult result = controller.Index(null);
+			var result = controller.Index(null);
 			result.AssertViewRendered().ViewName.ShouldEqual(ViewNames.Default);
 		}
 
@@ -31,7 +29,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 			var repository = S<IUserRepository>();
 			repository.Stub(repo => repo.GetByUserName("admin")).Return(null);
 			var controller = new AdminController(repository);
-			ActionResult result = controller.Index(null);
+			var result = controller.Index(null);
 			result.AssertActionRedirect();
 
 			var redirectResult = result as RedirectToRouteResult;

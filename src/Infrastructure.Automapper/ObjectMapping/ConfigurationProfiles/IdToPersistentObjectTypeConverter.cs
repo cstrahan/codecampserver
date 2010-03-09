@@ -1,6 +1,5 @@
 using AutoMapper;
 using CodeCampServer.Core.Bases;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
 
 namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles

@@ -1,11 +1,9 @@
 using System.Web.Mvc;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.ActionResults;
-//using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Models.Input;
+//using CodeCampServer.UI.Helpers.Mappers;
 
 namespace CodeCampServer.UI.Controllers
 {
@@ -27,7 +25,7 @@ namespace CodeCampServer.UI.Controllers
 			{
 				return NotAuthorizedView;
 			}
-            return AutoMappedView<UserInput>(entity ?? new User());
+			return AutoMappedView<UserInput>(entity ?? new User());
 		}
 
 		[HttpPost]
@@ -45,11 +43,11 @@ namespace CodeCampServer.UI.Controllers
 				);
 		}
 
-        [HttpGet]
-        public ViewResult Display(User entity)
-        {
-            return AutoMappedView<UserInput>(entity);
-        }
+		[HttpGet]
+		public ViewResult Display(User entity)
+		{
+			return AutoMappedView<UserInput>(entity);
+		}
 
 		public ViewResult Index()
 		{

@@ -1,10 +1,7 @@
 using System.Security.Authentication;
-using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 
 namespace CodeCampServer.UI.Helpers
@@ -20,13 +17,13 @@ namespace CodeCampServer.UI.Helpers
 
 		public User GetCurrentUser()
 		{
-			IIdentity identity = HttpContext.Current.User.Identity;
+			var identity = HttpContext.Current.User.Identity;
 			if (!identity.IsAuthenticated)
 			{
 				return null;
 			}
 
-			User currentUser = _repository.GetByUserName(identity.Name);
+			var currentUser = _repository.GetByUserName(identity.Name);
 			blowUpIfEmployeeCannotLogin(currentUser);
 			return currentUser;
 		}

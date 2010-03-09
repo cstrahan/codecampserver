@@ -1,5 +1,4 @@
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.Core.Services.Impl
 {
@@ -14,7 +13,7 @@ namespace CodeCampServer.Core.Services.Impl
 
 		public bool PasswordMatches(User user, string password)
 		{
-			string passwordHash = _cryptographer.GetPasswordHash(password, user.PasswordSalt);
+			var passwordHash = _cryptographer.GetPasswordHash(password, user.PasswordSalt);
 			return passwordHash.Equals(user.PasswordHash);
 		}
 	}

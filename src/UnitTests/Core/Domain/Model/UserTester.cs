@@ -1,7 +1,6 @@
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
-using NUnit.Framework;
 using NBehave.Spec.NUnit;
+using NUnit.Framework;
 
 namespace CodeCampServer.UnitTests.Core.Domain.Model
 {
@@ -11,7 +10,7 @@ namespace CodeCampServer.UnitTests.Core.Domain.Model
 		[Test]
 		public void Should_be_admin_if_username_matches()
 		{
-			new User{Username = User.ADMIN_USERNAME}.IsAdmin().ShouldBeTrue();
+			new User {Username = User.ADMIN_USERNAME}.IsAdmin().ShouldBeTrue();
 		}
 	}
 }

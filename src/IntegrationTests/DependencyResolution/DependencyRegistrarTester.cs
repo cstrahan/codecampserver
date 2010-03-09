@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Web.Mvc;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
@@ -11,76 +9,75 @@ using CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl;
 using CodeCampServer.UI.Binders.Keyed;
 using CodeCampServer.UI.Controllers;
 using NBehave.Spec.NUnit;
+using NUnit.Framework;
 
 namespace CodeCampServer.IntegrationTests.DependencyResolution
 {
-	using NUnit.Framework;
-
-	
-		[TestFixture]
-		public class DependencyRegistrarTester
+	[TestFixture]
+	public class DependencyRegistrarTester
+	{
+		[Test]
+		public void Reflection_helper_can_resolve_repositories()
 		{
+			ReflectionHelper.IsConcreteAssignableFromGeneric(typeof (ConferenceRepository), typeof (IKeyedRepository<>)).
+				ShouldNotBeNull();
 
-			[Test]
-			public void Reflection_helper_can_resolve_repositories()
-			{				
-				ReflectionHelper.IsConcreteAssignableFromGeneric(typeof(ConferenceRepository), typeof(IKeyedRepository<>)).ShouldNotBeNull();
+			ReflectionHelper.IsConcreteAssignableFromGeneric(typeof (ConferenceRepository), typeof (IRepository<>)).
+				ShouldNotBeNull();
+		}
 
-				ReflectionHelper.IsConcreteAssignableFromGeneric(typeof(ConferenceRepository), typeof(IRepository<>)).ShouldNotBeNull();
-			}
+		[Test]
+		public void Should_register_conferencerepository()
+		{
+			DependencyRegistrar.EnsureDependenciesRegistered();
+			var repository = DependencyRegistrar.Resolve<IConferenceRepository>();
+			repository.ShouldBeInstanceOfType(typeof (ConferenceRepository));
+		}
 
-			[Test]
-			public void Should_register_conferencerepository()
+		[Test]
+		public void Should_register_all_objects()
+		{
+			DependencyRegistrar.EnsureDependenciesRegistered();
+			var controllers = GetControllers();
+			foreach (var controller in controllers)
 			{
-				DependencyRegistrar.EnsureDependenciesRegistered();
-				var repository = DependencyRegistrar.Resolve<IConferenceRepository>();
-				repository.ShouldBeInstanceOfType(typeof(ConferenceRepository));
+				DependencyRegistrar.Resolve(controller);
 			}
+		}
 
-			[Test]
-			public void Should_register_all_objects()
-			{
-				DependencyRegistrar.EnsureDependenciesRegistered();
-				IEnumerable<Type> controllers = GetControllers();
-				foreach (Type controller in controllers)
-				{
-					DependencyRegistrar.Resolve(controller);
-				}
-			}
+		[Test]
+		public void Should_resolve_a_complex_type_for_the_Irepository()
+		{
+			DependencyRegistrar.EnsureDependenciesRegistered();
 
-			[Test]
-			public void Should_resolve_a_complex_type_for_the_Irepository()
-			{
-				DependencyRegistrar.EnsureDependenciesRegistered();
+			var repositoryType = typeof (IRepository<>).MakeGenericType(typeof (Conference));
 
-				Type repositoryType = typeof(IRepository<>).MakeGenericType(typeof(Conference));
+			var binder = (IRepository<Conference>) DependencyRegistrar.Resolve(repositoryType);
 
-				var binder = (IRepository<Conference>)DependencyRegistrar.Resolve(repositoryType);
+			binder.ShouldBeAssignableFrom(typeof (ConferenceRepository));
+		}
 
-				binder.ShouldBeAssignableFrom(typeof(ConferenceRepository));
-			}
+		[Test]
+		public void Should_resolve_a_complex_type_for_the_IKeyed_repository()
+		{
+			DependencyRegistrar.EnsureDependenciesRegistered();
+			var repositoryType = typeof (IKeyedRepository<>).MakeGenericType(typeof (Conference));
+			var modelBinderType = typeof (KeyedModelBinder<,>).MakeGenericType(typeof (Conference), repositoryType);
 
-			[Test]
-			public void Should_resolve_a_complex_type_for_the_IKeyed_repository()
-			{
-				DependencyRegistrar.EnsureDependenciesRegistered();
-				Type repositoryType = typeof(IKeyedRepository<>).MakeGenericType(typeof(Conference));
-				Type modelBinderType = typeof(KeyedModelBinder<,>).MakeGenericType(typeof(Conference), repositoryType);
+			var binder = (IKeyedModelBinder) DependencyRegistrar.Resolve(modelBinderType);
 
-				var binder = (IKeyedModelBinder)DependencyRegistrar.Resolve(modelBinderType);
-				
-				binder.ShouldNotBeNull();
-			}
+			binder.ShouldNotBeNull();
+		}
 
-			private IEnumerable<Type> GetControllers() {
-				Type[] types = typeof(HomeController).Assembly.GetTypes();
-				return types.Where(e => IsAController(e));
-			}
+		private IEnumerable<Type> GetControllers()
+		{
+			var types = typeof (HomeController).Assembly.GetTypes();
+			return types.Where(e => IsAController(e));
+		}
 
 		private bool IsAController(Type e)
-		{				
-			return e.GetInterface("IController")!=null&& !e.IsAbstract;
-		}
-			
+		{
+			return e.GetInterface("IController") != null && !e.IsAbstract;
 		}
 	}
+}

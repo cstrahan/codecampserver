@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using System.Reflection;
 using CodeCampServer.Core.Bases;
 using NUnit.Framework;
-using NBehave.Spec.NUnit;
 
 namespace CodeCampServer.UnitTests.Core.Domain
 {
 	[TestFixture]
 	public class EnumerationTester
 	{
-
-
 		[Test]
 		public void Test_all_enumerations()
 		{
-			Assembly assembly = Assembly.LoadFrom("CodeCampServer.Core.dll");
+			var assembly = Assembly.LoadFrom("CodeCampServer.Core.dll");
 
 			foreach (var type in assembly.GetTypes())
 			{
@@ -28,7 +25,7 @@ namespace CodeCampServer.UnitTests.Core.Domain
 
 					foreach (var info in fields)
 					{
-						object instance = Activator.CreateInstance(type);
+						var instance = Activator.CreateInstance(type);
 
 						var locatedValue = (Enumeration) info.GetValue(instance);
 

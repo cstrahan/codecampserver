@@ -3,13 +3,12 @@ using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI;
 using CodeCampServer.UI.Controllers;
-//using CodeCampServer.UI.Helpers.Mappers;
 using CodeCampServer.UI.Helpers.ActionResults;
 using CodeCampServer.UI.Models.Input;
-using MvcContrib.ActionResults;
 using MvcContrib.TestHelper;
 using NUnit.Framework;
 using Rhino.Mocks;
+//using CodeCampServer.UI.Helpers.Mappers;
 
 namespace CodeCampServer.UnitTests.UI.Controllers
 {
@@ -18,7 +17,6 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void Should_list_the_sponors_for_a_user_group()
 		{
-
 			var repository = S<IUserGroupRepository>();
 			repository.Stub(groupRepository => groupRepository.GetById(Guid.NewGuid())).IgnoreArguments().Return(new UserGroup());
 			var controller = new SponsorController(repository, PermisiveSecurityContext());

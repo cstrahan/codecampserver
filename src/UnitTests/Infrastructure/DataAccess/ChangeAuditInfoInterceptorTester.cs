@@ -1,7 +1,6 @@
 using System;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Bases;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
@@ -34,7 +33,7 @@ namespace CodeCampServer.UnitTests.Infrastructure.DataAccess
 		public void Should_tag_created_and_updated_info_when_no_created_date_exists()
 		{
 			var userSession = S<IUserSession>();
-			var currentUser = new User(){Username = "username"};
+			var currentUser = new User {Username = "username"};
 			userSession.Stub(us => us.GetCurrentUser()).Return(currentUser);
 
 			var conference = new Conference();
@@ -53,12 +52,15 @@ namespace CodeCampServer.UnitTests.Infrastructure.DataAccess
 		public void Should_tag_updated_info_when_created_info_exists()
 		{
 			var userSession = S<IUserSession>();
-			var createdUser = new User(){Username = "created"};
-			var currentUser = new User(){Username = "current"};
+			var createdUser = new User {Username = "created"};
+			var currentUser = new User {Username = "current"};
 			userSession.Stub(us => us.GetCurrentUser()).Return(currentUser);
 
 			var conference = new Conference
-			             	{ChangeAuditInfo = new ChangeAuditInfo {Created = new DateTime(2008, 10, 1), CreatedBy = createdUser.Username}};
+			                 	{
+			                 		ChangeAuditInfo =
+			                 			new ChangeAuditInfo {Created = new DateTime(2008, 10, 1), CreatedBy = createdUser.Username}
+			                 	};
 
 			var interceptor = new ChangeAuditInfoInterceptor(userSession, new Clock(new DateTime(2008, 10, 20)));
 

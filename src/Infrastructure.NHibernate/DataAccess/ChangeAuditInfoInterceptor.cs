@@ -1,9 +1,7 @@
 using System;
 using CodeCampServer.Core;
 using CodeCampServer.Core.Common;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using NHibernate;
 using NHibernate.Type;
@@ -29,13 +27,13 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 			if (!AuditingEnabled)
 				return false;
 
-			string propertyName = UINameHelper.BuildNameFrom<IAuditable>(x => x.ChangeAuditInfo);
+			var propertyName = UINameHelper.BuildNameFrom<IAuditable>(x => x.ChangeAuditInfo);
 
 			if (entity is IAuditable && !(entity is User))
 			{
 				var auditable = (IAuditable) entity;
 
-				Action<object> setter = GetSetter(propertyNames, currentState, propertyName);
+				var setter = GetSetter(propertyNames, currentState, propertyName);
 				CommonAudit(auditable, setter);
 				return true;
 			}
@@ -47,13 +45,13 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 			if (!AuditingEnabled)
 				return false;
 
-			string propertyName = UINameHelper.BuildNameFrom<IAuditable>(x => x.ChangeAuditInfo);
+			var propertyName = UINameHelper.BuildNameFrom<IAuditable>(x => x.ChangeAuditInfo);
 
 			if (entity is IAuditable && !(entity is User))
 			{
 				var auditable = (IAuditable) entity;
 
-				Action<object> setter = GetSetter(propertyNames, state, propertyName);
+				var setter = GetSetter(propertyNames, state, propertyName);
 				CommonAudit(auditable, setter);
 				return true;
 			}
@@ -76,7 +74,7 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess
 
 		private static Action<object> GetSetter(string[] propertyNames, object[] currentState, string propertyName)
 		{
-			int index = Array.IndexOf(propertyNames, propertyName);
+			var index = Array.IndexOf(propertyNames, propertyName);
 			if (index < 0 || index >= propertyNames.Length)
 				return x => { };
 			return value => currentState[index] = value;

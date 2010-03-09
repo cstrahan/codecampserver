@@ -1,12 +1,7 @@
-using System;
-using System.Linq.Expressions;
-using System.Web.Mvc;
-using System.Web.Routing;
-
 namespace CodeCampServer.UI.Helpers
 {
-    public static class ImageLinkHelper
-    {
+	public static class ImageLinkHelper
+	{
 		//public static string ImageLink<TController>(this HtmlHelper html, Expression<Func<TController, object>> expr, object routeValues, string relativeImageUrl, string imgAlt)
 		//{
 		//    var urlHelper = new UrlHelper(html.ViewContext.RequestContext);
@@ -39,7 +34,7 @@ namespace CodeCampServer.UI.Helpers
 		//                                     ? url.Action(action, controller, routevalues)
 		//                                     : url.Action(action, controller);
 
-            
+
 		//    if(htmlAttributes != null)
 		//    {
 		//        var attributeDictionary = new RouteValueDictionary(htmlAttributes);
@@ -53,5 +48,5 @@ namespace CodeCampServer.UI.Helpers
 
 		//    return builder.ToString(TagRenderMode.Normal);
 		//}        
-    }
+	}
 }

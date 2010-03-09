@@ -1,7 +1,5 @@
 using System;
-using System.Web.Mvc;
 using CodeCampServer.Core;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
 
 namespace CodeCampServer.UI.Binders.Entities
@@ -17,8 +15,8 @@ namespace CodeCampServer.UI.Binders.Entities
 
 		public IEntityModelBinder GetEntityModelBinder(Type entityType)
 		{
-			Type repositoryType = typeof (IRepository<>).MakeGenericType(entityType);
-			Type modelBinderType = typeof (ModelBinder<,>).MakeGenericType(entityType, repositoryType);
+			var repositoryType = typeof (IRepository<>).MakeGenericType(entityType);
+			var modelBinderType = typeof (ModelBinder<,>).MakeGenericType(entityType, repositoryType);
 
 			return GetDefault(modelBinderType);
 		}

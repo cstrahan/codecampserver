@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
@@ -12,7 +10,7 @@ namespace CodeCampServer.Core.Services
 
 	public interface ICanSucceed
 	{
-		bool Successful{ get;}
+		bool Successful { get; }
 		IEnumerable<ErrorMessage> Errors { get; }
 		T Result<T>();
 	}

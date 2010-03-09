@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -37,10 +36,10 @@ namespace CodeCampServer.Core.Bases
 
 		public static IEnumerable<T> GetAll<T>() where T : Enumeration, new()
 		{
-			Type type = typeof (T);
-			FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
+			var type = typeof (T);
+			var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
 
-			foreach (FieldInfo info in fields)
+			foreach (var info in fields)
 			{
 				var instance = new T();
 				var locatedValue = info.GetValue(instance) as T;
@@ -54,11 +53,11 @@ namespace CodeCampServer.Core.Bases
 
 		public static IEnumerable<Enumeration> GetAll(Type type)
 		{
-			FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
+			var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
 
-			foreach (FieldInfo info in fields)
+			foreach (var info in fields)
 			{
-				object instance = Activator.CreateInstance(type);
+				var instance = Activator.CreateInstance(type);
 				yield return (Enumeration) info.GetValue(instance);
 			}
 		}
@@ -72,8 +71,8 @@ namespace CodeCampServer.Core.Bases
 				return false;
 			}
 
-			bool typeMatches = GetType().Equals(obj.GetType());
-			bool valueMatches = _value.Equals(otherValue.Value);
+			var typeMatches = GetType().Equals(obj.GetType());
+			var valueMatches = _value.Equals(otherValue.Value);
 
 			return typeMatches && valueMatches;
 		}
@@ -85,29 +84,29 @@ namespace CodeCampServer.Core.Bases
 
 		public static int AbsoluteDifference(Enumeration firstValue, Enumeration secondValue)
 		{
-			int absoluteDifference = Math.Abs(firstValue.Value - secondValue.Value);
+			var absoluteDifference = Math.Abs(firstValue.Value - secondValue.Value);
 			return absoluteDifference;
 		}
 
 		public static T FromValue<T>(int value) where T : Enumeration, new()
 		{
-			T matchingItem = parse<T, int>(value, "value", item => item.Value == value);
+			var matchingItem = parse<T, int>(value, "value", item => item.Value == value);
 			return matchingItem;
 		}
 
 		public static T FromDisplayName<T>(string displayName) where T : Enumeration, new()
 		{
-			T matchingItem = parse<T, string>(displayName, "display name", item => item.DisplayName == displayName);
+			var matchingItem = parse<T, string>(displayName, "display name", item => item.DisplayName == displayName);
 			return matchingItem;
 		}
 
 		private static T parse<T, K>(K value, string description, Func<T, bool> predicate) where T : Enumeration, new()
 		{
-			T matchingItem = GetAll<T>().FirstOrDefault(predicate);
+			var matchingItem = GetAll<T>().FirstOrDefault(predicate);
 
 			if (matchingItem == null)
 			{
-				string message = string.Format("'{0}' is not a valid {1} in {2}", value, description, typeof (T));
+				var message = string.Format("'{0}' is not a valid {1} in {2}", value, description, typeof (T));
 				throw new ApplicationException(message);
 			}
 

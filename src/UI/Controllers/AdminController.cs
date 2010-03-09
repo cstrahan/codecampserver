@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Helpers.ActionResults;
@@ -19,7 +18,7 @@ namespace CodeCampServer.UI.Controllers
 
 		public ActionResult Index(Conference conference)
 		{
-			User user = _repository.GetByUserName("admin");
+			var user = _repository.GetByUserName("admin");
 			if (user == null)
 			{
 				return RedirectToAction<UserController>(c => c.Edit((User) null));

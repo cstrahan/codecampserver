@@ -1,9 +1,7 @@
 using System.Linq;
 using CodeCampServer.Core.Bases;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
 using NBehave.Spec.NUnit;
-using NHibernate;
 using NUnit.Framework;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
@@ -20,9 +18,9 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			var three = new T();
 			PersistEntities(one, two, three);
 
-			TRepository repository = CreateRepository();
+			var repository = CreateRepository();
 
-			T returnedFromDatabase = repository.GetById(one.Id);
+			var returnedFromDatabase = repository.GetById(one.Id);
 			returnedFromDatabase.ShouldEqual(one);
 		}
 
@@ -36,9 +34,9 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			var three = new T();
 			PersistEntities(one, two, three);
 
-			TRepository repository = CreateRepository();
+			var repository = CreateRepository();
 
-			T[] all = repository.GetAll();
+			var all = repository.GetAll();
 			all.Length.ShouldEqual(3);
 		}
 
@@ -46,12 +44,12 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		public virtual void Should_save_one()
 		{
 			var one = new T();
-			TRepository repository = CreateRepository();
+			var repository = CreateRepository();
 			repository.Save(one);
 
 			CommitChanges();
 
-			using (ISession session = GetSession())
+			using (var session = GetSession())
 			{
 				var reloaded = session.Load<T>(one.Id);
 				reloaded.Id.ShouldEqual(one.Id);
@@ -67,7 +65,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 			PersistEntities(one, two, three);
 
-			TRepository repository = CreateRepository();
+			var repository = CreateRepository();
 
 			repository.Delete(one);
 
@@ -75,7 +73,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 			using (var session = GetSession())
 			{
-				T[] all = session.CreateCriteria(typeof(T)).List<T>().ToArray();
+				var all = session.CreateCriteria(typeof (T)).List<T>().ToArray();
 
 				CollectionAssert.DoesNotContain(all, one);
 				CollectionAssert.Contains(all, two);

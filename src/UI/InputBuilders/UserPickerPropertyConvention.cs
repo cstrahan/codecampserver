@@ -2,9 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
-using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.UI.Models.Input;
 using MvcContrib.UI.InputBuilder.Views;
 
@@ -34,14 +32,14 @@ namespace CodeCampServer.UI.InputBuilders
 			return base.CreateViewModel<IEnumerable<SelectListItem>>();
 		}
 
-		public override object ValueFromModelPropertyConvention(PropertyInfo propertyInfo, object model,string parentName)
+		public override object ValueFromModelPropertyConvention(PropertyInfo propertyInfo, object model, string parentName)
 		{
 			var value = propertyInfo.GetValue(model, null) as IEnumerable<UserSelectorInput>;
 			var items = new List<SelectListItem>();
 
-			foreach (User user in _userRepository.GetAll())
+			foreach (var user in _userRepository.GetAll())
 			{
-				bool isChecked = value != null && (value).Where(form => Equals(form.Id, user.Id)).Count() > 0;
+				var isChecked = value != null && (value).Where(form => Equals(form.Id, user.Id)).Count() > 0;
 				items.Add(new SelectListItem {Selected = isChecked, Text = user.Name, Value = user.Id.ToString()});
 			}
 			return items;

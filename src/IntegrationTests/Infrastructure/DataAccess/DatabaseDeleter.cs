@@ -1,18 +1,21 @@
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
+using CodeCampServer.Core.Common;
+using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 using NHibernate;
 using NHibernate.Transform;
-using CodeCampServer.Core.Common;
-using ISessionBuilder=CodeCampServer.Infrastructure.NHibernate.DataAccess.ISessionBuilder;
 
 namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 {
 	public class DatabaseDeleter
 	{
 		private readonly ISessionBuilder _builder;
-		private static readonly string[] _ignoredTables = new[] { "conference_migration", "sysdiagrams", "usd_AppliedDatabaseScript" };
+
+		private static readonly string[] _ignoredTables = new[]
+		                                                  	{
+		                                                  		"conference_migration", "sysdiagrams", "usd_AppliedDatabaseScript"
+		                                                  	};
+
 		private static string[] _tablesToDelete;
 		private static string _deleteSql;
 		private static readonly object _lockObj = new object();
@@ -33,8 +36,8 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 		public virtual void DeleteAllObjects()
 		{
-			ISession session = _builder.GetSession();
-			using (IDbCommand command = session.Connection.CreateCommand())
+			var session = _builder.GetSession();
+			using (var command = session.Connection.CreateCommand())
 			{
 				command.CommandText = _deleteSql;
 				command.ExecuteNonQuery();
@@ -54,7 +57,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				{
 					if (!_initialized)
 					{
-						ISession session = _builder.GetSession();
+						var session = _builder.GetSession();
 
 						var allTables = GetAllTables(session);
 
@@ -73,8 +76,8 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 		private string BuildTableSql(string[] tablesToDelete)
 		{
-			string completeQuery = "";
-			foreach (string tableName in tablesToDelete)
+			var completeQuery = "";
+			foreach (var tableName in tablesToDelete)
 			{
 				completeQuery += string.Format("delete from [{0}];", tableName);
 			}
@@ -92,11 +95,11 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				tablesToDelete.AddRange(leafTables);
 
 				leafTables.ForEach(lt =>
-				{
-					allTables.Remove(lt);
-					var relToRemove = allRelationships.Where(rel => rel.ForeignKeyTable == lt).ToArray();
-					relToRemove.ForEach(toRemove => allRelationships.Remove(toRemove));
-				});
+				                   	{
+				                   		allTables.Remove(lt);
+				                   		var relToRemove = allRelationships.Where(rel => rel.ForeignKeyTable == lt).ToArray();
+				                   		relToRemove.ForEach(toRemove => allRelationships.Remove(toRemove));
+				                   	});
 			}
 
 			return tablesToDelete.ToArray();
@@ -104,7 +107,9 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 		private IList<Relationship> GetRelationships(ISession session)
 		{
-			var otherquery = session.CreateSQLQuery(@"select
+			var otherquery =
+				session.CreateSQLQuery(
+					@"select
 	so_pk.name as PrimaryKeyTable
 ,   so_fk.name as ForeignKeyTable
 from
