@@ -19,7 +19,7 @@ namespace CodeCampServer.Infrastructure.CommandProcessor.CommandConfiguration
 						v.Rule<ValidateNotNull>(c => c.EmailAddress).RefersTo(m => m.EmailAddress);
 						v.Rule<ValidateNotNull>(c => c.ConfirmPassword).RefersTo(m => m.ConfirmPassword);
 						v.Rule<ValidateEqualTo>(c => c.Password, c => c.ConfirmPassword).RefersTo(m => m.ConfirmPassword);
-						v.Rule<UsernameMustBeUnique>().RefersTo(m=>m.Username);
+						v.Rule<UsernameMustBeUnique>().RefersTo(m => m.Username);
 					});
 		}
 	}

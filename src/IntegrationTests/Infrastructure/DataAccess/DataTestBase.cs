@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Domain.Model;
 using CodeCampServer.Core.Services;
 using CodeCampServer.Infrastructure.NHibernate;
 using NHibernate;
@@ -38,7 +36,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 		protected void PersistEntities(params PersistentObject[] entities)
 		{
-			using (ISession session = GetSession())
+			using (var session = GetSession())
 			{
 				Persist(entities, session);
 			}
@@ -66,13 +64,13 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 
 		protected void AssertObjectCanBePersisted<T>(T persistentObject) where T : PersistentObject
 		{
-			using (ISession session = GetSession())
+			using (var session = GetSession())
 			{
 				session.SaveOrUpdate(persistentObject);
 				session.Flush();
 			}
 
-			using (ISession session = GetSession())
+			using (var session = GetSession())
 			{
 				var reloadedObject = session.Load<T>(persistentObject.Id);
 				Assert.That(reloadedObject, Is.EqualTo(persistentObject));
@@ -84,7 +82,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		protected void Reload<TEntity>(ref TEntity entity)
 			where TEntity : PersistentObject
 		{
-			ISession session = GetSession();
+			var session = GetSession();
 			if (session.Contains(entity))
 				session.Evict(entity);
 			entity = session.Get<TEntity>(entity.Id);

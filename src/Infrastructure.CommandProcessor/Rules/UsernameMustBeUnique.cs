@@ -1,32 +1,24 @@
 using CodeCampServer.Core.Domain.Bases;
+using CodeCampServer.Core.Services;
 using CodeCampServer.Core.Services.BusinessRule.UpdateUser;
 using MvcContrib.CommandProcessor.Validation;
 
 namespace CodeCampServer.Infrastructure.CommandProcessor.Rules
 {
-	public class UsernameMustBeUnique : IValidationRule
+	public class UsernameMustBeUnique : ValidationRule<UpdateUserCommandMessage>
 	{
-		private readonly IUserRepository _repository;
+		private readonly IUniquenessChecker _uniquenessChecker;
 
-		public UsernameMustBeUnique(IUserRepository repository)
+		public UsernameMustBeUnique(IUniquenessChecker uniquenessChecker)
 		{
-			_repository = repository;
+			_uniquenessChecker = uniquenessChecker;
 		}
 
-		public bool StopProcessing
+		protected override string IsValidCore(UpdateUserCommandMessage message)
 		{
-			get { return false; }
-		}
-
-		public string IsValid(object input)
-		{
-			return UsernameAlreadyExists((UpdateUserCommandMessage) input) ? "Username is already taken." : null;
-		}
-
-		private bool UsernameAlreadyExists(UpdateUserCommandMessage message)
-		{
-			var entity = _repository.GetByUserName(message.Username);
-			return entity != null && !Equals(entity.Id, message.Id);
+			string value = message.Username;
+			var isUnique = _uniquenessChecker.IsUnique<User>(value, x => x.Username);
+			return isUnique ? Success() : _uniquenessChecker.BuildFailureMessage<User>(value, x => x.Username);
 		}
 	}
 }

@@ -93,6 +93,7 @@
     <Compile Include="DataAccess\Mappings\SponsorMap.cs" />
     <Compile Include="DataAccess\Mappings\UserGroupMap.cs" />
     <Compile Include="DataAccess\UnitOfWork.cs" />
+    <Compile Include="EntityCounter.cs" />
     <Compile Include="HttpContextInstanceScoper.cs" />
     <Compile Include="HybridInstanceScoper.cs" />
     <Compile Include="IInstanceScoper.cs" />

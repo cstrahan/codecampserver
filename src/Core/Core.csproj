@@ -101,6 +101,7 @@
     <Compile Include="Services\BusinessRule\UpdateUser\UpdateUserCommandMessage.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\ICryptographer.cs" />
+    <Compile Include="Services\IEntityCounter.cs" />
     <Compile Include="Services\IHttpFileDownloaderService.cs" />
     <Compile Include="Services\Impl\AuthenticationService.cs" />
     <Compile Include="Services\Impl\Cryptographer.cs" />
@@ -109,8 +110,10 @@
     <Compile Include="Services\Impl\SecurityContext.cs" />
     <Compile Include="Services\IRulesEngine.cs" />
     <Compile Include="Services\ISecurityContext.cs" />
+    <Compile Include="Services\IUniquenessChecker.cs" />
     <Compile Include="Services\IUserSession.cs" />
     <Compile Include="AbstractFactoryBase.cs" />
+    <Compile Include="Services\UniquenessChecker.cs" />
     <Compile Include="Services\UserSessionStub.cs" />
     <Compile Include="SystemTime.cs" />
     <Compile Include="Common\TimeExtensions.cs" />

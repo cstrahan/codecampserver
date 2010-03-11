@@ -42,6 +42,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\mvccontrib\MvcContrib.dll</HintPath>
     </Reference>
+    <Reference Include="MvcContrib.CommandProcessor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\mvccontrib\MvcContrib.CommandProcessor.dll</HintPath>
+    </Reference>
     <Reference Include="MvcContrib.TestHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\mvccontrib\MvcContrib.TestHelper.dll</HintPath>
@@ -106,6 +110,7 @@
     </Compile>
     <Compile Include="Core\Common\PrimitiveExtensionsTester.cs" />
     <Compile Include="Core\Common\UINameHelperTester.cs" />
+    <Compile Include="Core\Domain\EntityCounterSpy.cs" />
     <Compile Include="Core\Domain\EnumerationTester.cs" />
     <Compile Include="Core\Domain\Model\ConferenceTester.cs" />
     <Compile Include="Core\Domain\Model\ObjectExtensionsTester.cs" />
@@ -119,6 +124,7 @@
     <Compile Include="Core\Services\SecurityContextTester.cs" />
     <Compile Include="Core\Services\Updaters\UserGroupInputToUserGroupTypeconverterTester.cs" />
     <Compile Include="Core\TimeExtensionsTester.cs" />
+    <Compile Include="Infrastructure\CommandProcessor\Rules\Unique\UniquenessCheckerTester.cs" />
     <Compile Include="Infrastructure\DataAccess\ChangeAuditInfoInterceptorTester.cs" />
     <Compile Include="MvcMockHelpers.cs" />
     <Compile Include="PrimitiveExtensionsTester.cs" />
@@ -158,6 +164,10 @@
     <ProjectReference Include="..\Infrastructure.Automapper\Infrastructure.Automapper.csproj">
       <Project>{D6EC5B3E-2094-4268-8633-DA498A4C52E2}</Project>
       <Name>Infrastructure.Automapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.CommandProcessor\Infrastructure.CommandProcessor.csproj">
+      <Project>{454BB0F3-6E57-4E4A-BEF8-0A223161BD82}</Project>
+      <Name>Infrastructure.CommandProcessor</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure.NHibernate\Infrastructure.NHibernate.csproj">
       <Project>{CFBE2871-F3A7-411A-A494-AA0E66CE7B0D}</Project>
