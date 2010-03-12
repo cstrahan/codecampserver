@@ -13,12 +13,6 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 	[TestFixture]
 	public class ConferenceRepositoryTester : KeyedRepositoryTester<Conference, ConferenceRepository>
 	{
-		protected override ConferenceRepository CreateRepository()
-		{
-			return (ConferenceRepository) ObjectFactory.GetInstance<IConferenceRepository>();
-		}
-
-
 		[Test]
 		public void should_retrieve_conferences_for_a_usergroup()
 		{

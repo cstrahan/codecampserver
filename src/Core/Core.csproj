@@ -61,6 +61,7 @@
     <Compile Include="Domain\Bases\ChangeAuditInfo.cs" />
     <Compile Include="Domain\Bases\Heartbeat.cs" />
     <Compile Include="Domain\Bases\IAuditable.cs" />
+    <Compile Include="Domain\Bases\IHeartbeatRepository.cs" />
     <Compile Include="Domain\IEventRepository.cs" />
     <Compile Include="Domain\IMeetingRepository.cs" />
     <Compile Include="Domain\ISponsorRepository.cs" />
@@ -88,6 +89,8 @@
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandHandler.cs" />
     <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandMessage.cs" />
+    <Compile Include="Services\BusinessRule\CreateHeartbeat\CreateHeartbeatCommandHandler.cs" />
+    <Compile Include="Services\BusinessRule\CreateHeartbeat\CreateHeartbeatCommandMessage.cs" />
     <Compile Include="Services\BusinessRule\Login\LoginCommandHandler.cs" />
     <Compile Include="Services\BusinessRule\Login\UpdateMeetingCommandMessage.cs" />
     <Compile Include="Services\BusinessRule\UpdateMeeting\UpdateMeetingCommandHandler.cs" />
@@ -102,6 +105,8 @@
     <Compile Include="Services\BusinessRule\UpdateUser\UpdateUserCommandMessage.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\ICryptographer.cs" />
+    <Compile Include="Services\IHeartbeatChecker.cs" />
+    <Compile Include="Services\Impl\HeartbeatChecker.cs" />
     <Compile Include="Services\Unique\EntitySpecificationOfGuid.cs" />
     <Compile Include="Services\Unique\IEntityCounter.cs" />
     <Compile Include="Services\Unique\IEntitySpecification.cs" />

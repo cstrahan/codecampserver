@@ -13,9 +13,9 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		[Test]
 		public virtual void Should_get_by_id()
 		{
-			var one = new T();
-			var two = new T();
-			var three = new T();
+			var one = CreateValidInput();
+			var two = CreateValidInput();
+			var three = CreateValidInput();
 			PersistEntities(one, two, three);
 
 			var repository = CreateRepository();
@@ -24,14 +24,17 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			returnedFromDatabase.ShouldEqual(one);
 		}
 
-		protected abstract TRepository CreateRepository();
+		protected virtual TRepository CreateRepository()
+		{
+			return GetInstance<TRepository>();
+		}
 
 		[Test]
 		public virtual void Should_get_all()
 		{
-			var one = new T();
-			var two = new T();
-			var three = new T();
+			var one = CreateValidInput();
+			var two = CreateValidInput();
+			var three = CreateValidInput();
 			PersistEntities(one, two, three);
 
 			var repository = CreateRepository();
@@ -43,7 +46,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		[Test]
 		public virtual void Should_save_one()
 		{
-			var one = new T();
+			var one = CreateValidInput();
 			var repository = CreateRepository();
 			repository.Save(one);
 
@@ -59,9 +62,9 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		[Test]
 		public virtual void Should_delete()
 		{
-			var one = new T();
-			var two = new T();
-			var three = new T();
+			var one = CreateValidInput();
+			var two = CreateValidInput();
+			var three = CreateValidInput();
 
 			PersistEntities(one, two, three);
 
@@ -79,6 +82,11 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 				CollectionAssert.Contains(all, two);
 				CollectionAssert.Contains(all, three);
 			}
+		}
+
+		protected virtual T CreateValidInput()
+		{
+			return new T();
 		}
 	}
 }

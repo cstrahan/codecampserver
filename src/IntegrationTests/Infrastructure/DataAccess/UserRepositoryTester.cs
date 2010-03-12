@@ -57,10 +57,5 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			users[0].ShouldEqual(user);
 			users[1].ShouldEqual(user1);
 		}
-
-		protected override UserRepository CreateRepository()
-		{
-			return GetInstance<UserRepository>();
-		}
 	}
 }

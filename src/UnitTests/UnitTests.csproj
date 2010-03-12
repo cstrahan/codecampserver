@@ -121,6 +121,7 @@
     <Compile Include="Core\Domain\ValueObjectTester.cs" />
     <Compile Include="Core\Services\AuthenticationServiceTester.cs" />
     <Compile Include="Core\Services\CryptographerTester.cs" />
+    <Compile Include="Core\Services\HeartbeatCheckerTester.cs" />
     <Compile Include="Core\Services\SecurityContextTester.cs" />
     <Compile Include="Core\Services\Unique\EntitySpecificationOfGuidTester.cs" />
     <Compile Include="Core\Services\Updaters\UserGroupInputToUserGroupTypeconverterTester.cs" />

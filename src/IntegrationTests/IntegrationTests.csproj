@@ -136,6 +136,7 @@
     <Compile Include="BusinessRules\RulesEngineTester.cs" />
     <Compile Include="DatabaseConnectionTester.cs" />
     <Compile Include="DependencyResolution\DependencyRegistrarTester.cs" />
+    <Compile Include="Infrastructure\DataAccess\HeartbeatRepositoryTester.cs" />
     <Compile Include="Infrastructure\DataAccess\Mappings\HeartbeatMappingsTester.cs" />
     <Compile Include="Infrastructure\NHibernate\EntityCounterTester.cs" />
     <Compile Include="Infrastructure\DataAccess\ChangeAuditInfoInterceptorTester.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="SchemaImportTester.cs" />
     <Compile Include="UI\AutoMappedConfigurationTester.cs" />
     <Compile Include="UI\DataLoader\ZDataLoader.cs" />
+    <Compile Include="UI\Subcutaneous\Heartbeat\HeartbeatSubcutaneousTest.cs" />
     <Compile Include="UI\Subcutaneous\SubcutaneousTest.cs" />
     <Compile Include="UI\Subcutaneous\ExecutionResultAssertionExtensions.cs" />
     <Compile Include="UI\Subcutaneous\UpdateUser\UpdateUserSubcutaneousTest.cs" />

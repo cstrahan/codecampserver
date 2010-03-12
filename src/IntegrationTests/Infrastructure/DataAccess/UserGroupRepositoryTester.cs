@@ -25,12 +25,6 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			return userGroup;
 		}
 
-		protected override UserGroupRepository CreateRepository()
-		{
-			return GetInstance<UserGroupRepository>();
-		}
-
-
 		[Test]
 		public void Should_remove_a_user_from_its_collection()
 		{

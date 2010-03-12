@@ -7,9 +7,5 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 	[TestFixture]
 	public class MeetingRepositoryTester : RepositoryTester<Meeting, MeetingRepository>
 	{
-		protected override MeetingRepository CreateRepository()
-		{
-			return GetInstance<MeetingRepository>();
-		}
 	}
 }

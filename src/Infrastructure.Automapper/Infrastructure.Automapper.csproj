@@ -61,6 +61,7 @@
     <Compile Include="ObjectMapping\AutoMappedWrapper.cs" />
     <Compile Include="ObjectMapping\AutoMapperConfiguration.cs" />
     <Compile Include="ObjectMapping\ConfigurationProfiles\Bases\AutoMapperProfile.cs" />
+    <Compile Include="ObjectMapping\ConfigurationProfiles\Bases\HeartbeatMapperProfile.cs" />
     <Compile Include="ObjectMapping\ConfigurationProfiles\Bases\UserMapperProfile.cs" />
     <Compile Include="ObjectMapping\ConfigurationProfiles\Bases\LoginMapperProfile.cs" />
     <Compile Include="ObjectMapping\ConfigurationProfiles\IdToPersistentObjectTypeConverter.cs" />

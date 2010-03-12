@@ -149,6 +149,7 @@
     <Compile Include="Models\Input\EventInput.cs" />
     <Compile Include="Models\Display\EventList.cs" />
     <Compile Include="Models\Display\MeetingAnnouncementDisplay.cs" />
+    <Compile Include="Models\Input\HeartbeatInput.cs" />
     <Compile Include="Models\Input\MeetingInput.cs" />
     <Compile Include="Models\Input\SponsorInput.cs" />
     <Compile Include="Models\Input\UserGroupInput.cs" />

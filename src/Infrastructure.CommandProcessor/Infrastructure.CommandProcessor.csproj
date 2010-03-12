@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="CommandConfiguration\DeleteMeetingMessageConfiguration.cs" />
     <Compile Include="CommandConfiguration\DeleteUserGroupMessageConfiguration.cs" />
+    <Compile Include="CommandConfiguration\HeartbeatConfiguration.cs" />
     <Compile Include="CommandConfiguration\LoginUserConfiguration.cs" />
     <Compile Include="CommandConfiguration\UpdateMeetingMessageConfiguration.cs" />
     <Compile Include="CommandConfiguration\UpdateUserConfiguration.cs" />
