@@ -3,7 +3,7 @@ using CodeCampServer.Core.Domain.Bases;
 
 namespace CodeCampServer.Core.Bases
 {
-    public abstract class AuditedPersistentObjectOfGuid : AuditedPersistentObject
+    public abstract class AuditedPersistentObjectOfGuid : AuditedPersistentObject, IPersistentObjectOfGuid
     {
         public new virtual Guid Id
         {
@@ -15,6 +15,8 @@ namespace CodeCampServer.Core.Bases
         {
             return default(Guid);
         }
+
+    	public static Guid EmptyId = default(Guid);
     }
 
     public abstract class AuditedPersistentObjectOfInt32 : AuditedPersistentObject
@@ -58,4 +60,9 @@ namespace CodeCampServer.Core.Bases
             }
         }
     }
+
+	public interface IPersistentObjectOfGuid
+	{
+		Guid Id { get; set; }
+	}
 }

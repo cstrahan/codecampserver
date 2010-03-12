@@ -3,21 +3,21 @@ using System.Linq.Expressions;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Common;
 
-namespace CodeCampServer.Core.Services
+namespace CodeCampServer.Core.Services.Unique
 {
 	public class UniquenessChecker : IUniquenessChecker
 	{
-		private readonly IEntityCounter _counter;
+		private readonly IEntityCounter _counter; 
 
 		public UniquenessChecker(IEntityCounter counter)
 		{
 			_counter = counter;
 		}
 
-		public bool IsUnique<TModel>(object value, Expression<Func<TModel, object>> propertyExpression)
+		public bool IsUnique<TModel>(IEntitySpecification<TModel> specification)
 			where TModel : PersistentObject
 		{
-			var inputValueIsUnique = _counter.CountByProperty(propertyExpression, value) == 0;
+			var inputValueIsUnique = _counter.CountByProperty(specification) == 0;
 			return inputValueIsUnique;
 		}
 

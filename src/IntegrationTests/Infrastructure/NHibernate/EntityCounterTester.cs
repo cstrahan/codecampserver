@@ -1,4 +1,5 @@
 using CodeCampServer.Core.Domain.Bases;
+using CodeCampServer.Core.Services.Unique;
 using CodeCampServer.Infrastructure.NHibernate;
 using CodeCampServer.IntegrationTests.Infrastructure.DataAccess;
 using NBehave.Spec.NUnit;
@@ -9,22 +10,37 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.NHibernate
 	public class EntityCounterTester : DataTestBase
 	{
 		[Test]
-		public void Should_check_for_uniqueness_on_string_property()
+		public void Should_check_for_uniqueness_by_specification()
 		{
 			var address = "foo@example.com";
+			var otherAddress = "other@example.com";
 			var differentCase = "FOO@eXAmple.com";
+			
 			var existing = new User {EmailAddress = address};
+			var incoming = new User {EmailAddress = otherAddress};
+			
 			PersistEntities(existing);
 
-			var counter = CreateRepository();
+			var counter = CreateEntityCounter();
 
-			counter.CountByProperty<User>(x => x.EmailAddress, address).ShouldEqual(1);
-			counter.CountByProperty<User>(x => x.EmailAddress, differentCase).ShouldEqual(1);
+			//The only existing one is "me"
+			var spec = new EntitySpecificationOfGuid<User>{PropertyExpression = x=> x.EmailAddress, Value = address, Id = existing.Id};
+			counter.CountByProperty(spec).ShouldEqual(0);
+			
+			//The existing user has this value
+			var spec2 = new EntitySpecificationOfGuid<User>{PropertyExpression = x=> x.EmailAddress, Value = address, Id = incoming.Id};
+			counter.CountByProperty(spec2).ShouldEqual(1);
+			
 			//Case insensitive.  A SQLServer installation configuration.
-			counter.CountByProperty<User>(x => x.EmailAddress, "something else").ShouldEqual(0);
+			var spec3 = new EntitySpecificationOfGuid<User> { PropertyExpression = x => x.EmailAddress, Value = differentCase, Id = incoming.Id };
+			counter.CountByProperty(spec3).ShouldEqual(1);
+
+			//This email address is not in the database
+			var spec4 = new EntitySpecificationOfGuid<User> { PropertyExpression = x => x.EmailAddress, Value = otherAddress, Id = incoming.Id };
+			counter.CountByProperty(spec4).ShouldEqual(0);
 		}
 
-		private EntityCounter CreateRepository()
+		private EntityCounter CreateEntityCounter()
 		{
 			return new EntityCounter(new SessionBuilder());
 		}

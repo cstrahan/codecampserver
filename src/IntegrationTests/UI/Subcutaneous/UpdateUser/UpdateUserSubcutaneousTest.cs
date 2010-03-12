@@ -198,5 +198,33 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous.UpdateUser
 			GetInstance<IAuthenticationService>()
 				.PasswordMatches(_user, "password").ShouldBeTrue();
 		}
+
+		[Test]
+		public void Should_update_user_without_changing_username()
+		{
+			var input = new UserInput
+			            	{
+			            		Id = _user.Id,
+			            		ConfirmPassword = "password",
+			            		Password = "password",
+			            		EmailAddress = "test@example.com",
+			            		Name = "New Name",
+			            		Username = _user.Username
+			            	};
+
+			var result = ProcessForm(input);
+
+			result.Successful.ShouldBeTrue();
+			result.ReturnItems.Get<User>().ShouldEqual(_user);
+
+			Reload(ref _user);
+
+			_user.ShouldEqual(_user);
+			_user.Username.ShouldEqual(input.Username);
+			_user.EmailAddress.ShouldEqual(input.EmailAddress);
+			_user.Name.ShouldEqual(input.Name);
+			GetInstance<IAuthenticationService>()
+				.PasswordMatches(_user, "password").ShouldBeTrue();
+		}
 	}
 }

@@ -1,12 +1,12 @@
 using System;
 using System.Linq.Expressions;
 using CodeCampServer.Core.Bases;
-using CodeCampServer.Core.Services;
+using CodeCampServer.Core.Services.Unique;
 using CodeCampServer.UnitTests.Core.Domain;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
 
-namespace CodeCampServer.UnitTests.Infrastructure.CommandProcessor.Rules.Unique
+namespace CodeCampServer.UnitTests.Core.Services.Unique
 {
 	[TestFixture]
 	public class UniquenessCheckerTester : TestBase
@@ -14,34 +14,31 @@ namespace CodeCampServer.UnitTests.Infrastructure.CommandProcessor.Rules.Unique
 		[Test]
 		public void should_indicate_success_when_input_has_a_unique_property()
 		{
-			Expression<Func<TestModel, object>> propertyExpression = x => x.MyInt;
-			var propertyValue = 123;
-			var input = new TestModel {MyInt = propertyValue};
+			var specification = new EntitySpecificationOfGuid<TestModel>();
 
-			var counter = EntityCounterSpy.With().StubbedCount(0);
+			var counter = EntityCounterSpy<TestModel>.With().StubbedCount(0);
 
 			var checker = new UniquenessChecker(counter);
-			var result = checker.IsUnique(propertyValue, propertyExpression);
+			var result = checker.IsUnique(specification);
 
 			result.ShouldBeTrue();
 
-			counter.Value.ShouldEqual(propertyValue);
-			counter.PropertyName.ShouldEqual("MyInt");
+			counter.Specification.ShouldBeTheSameAs(specification);
 		}
 
 		[Test]
 		public void should_indicate_failure_when_input_property_is_not_unique()
 		{
-			Expression<Func<TestModel, object>> propertyExpression = x => x.MyInt;
-			var propertyValue = 2134;
-			var input = new TestModel {MyInt = propertyValue};
+			var specification = new EntitySpecificationOfGuid<TestModel>();
 
-			var counter = EntityCounterSpy.With().StubbedCount(1);
+			var counter = EntityCounterSpy<TestModel>.With().StubbedCount(1);
 
 			var checker = new UniquenessChecker(counter);
-			var result = checker.IsUnique(propertyValue, propertyExpression);
+			var result = checker.IsUnique(specification);
 
 			result.ShouldBeFalse();
+
+			counter.Specification.ShouldBeTheSameAs(specification);
 		}
 
 		[Test]
@@ -51,7 +48,7 @@ namespace CodeCampServer.UnitTests.Infrastructure.CommandProcessor.Rules.Unique
 			var propertyValue = 1;
 			var input = new TestModel {MyInt = propertyValue};
 
-			var counter = EntityCounterSpy.With().StubbedCount(1);
+			var counter = EntityCounterSpy<TestModel>.With().StubbedCount(1);
 
 			var rule = new UniquenessChecker(null);
 			var result = rule.BuildFailureMessage(propertyValue, propertyExpression);
@@ -59,7 +56,7 @@ namespace CodeCampServer.UnitTests.Infrastructure.CommandProcessor.Rules.Unique
 			result.ShouldEqual("Property 'MyInt' should be unique, but the value '1' already exists.");
 		}
 
-		private class TestModel : PersistentObject
+		private class TestModel : AuditedPersistentObjectOfGuid
 		{
 			public int MyInt { get; set; }
 

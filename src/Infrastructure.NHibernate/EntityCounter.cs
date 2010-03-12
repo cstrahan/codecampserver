@@ -1,9 +1,7 @@
-using System;
 using System.Linq;
-using System.Linq.Expressions;
 using CodeCampServer.Core.Bases;
 using CodeCampServer.Core.Common;
-using CodeCampServer.Core.Services;
+using CodeCampServer.Core.Services.Unique;
 using NHibernate;
 using NHibernate.Criterion;
 
@@ -23,15 +21,18 @@ namespace CodeCampServer.Infrastructure.NHibernate
 			return _sessionBuilder.GetSession();
 		}
 
-		public int CountByProperty<TModel>(Expression<Func<TModel, object>> propertyExpression, object value)
-			where TModel : PersistentObject
+		public int CountByProperty<TModel>(IEntitySpecification<TModel> specification) where TModel : PersistentObject
 		{
-			var property = UINameHelper.BuildNameFrom(propertyExpression);
-			return GetSession()
-				.CreateCriteria(typeof (TModel))
-				.Add(Restrictions.Eq(property, value))
-				.List<TModel>()
-				.Count();
+			var property = UINameHelper.BuildNameFrom(specification.PropertyExpression);
+
+			var criteria = GetSession().CreateCriteria(typeof (TModel));
+
+			criteria.Add(Restrictions.Eq(property, specification.Value));
+
+			if (specification.HasExistingId)
+				criteria.Add(Restrictions.Not(Restrictions.Eq(PersistentObject.ID, specification.ExistingId)));
+
+			return criteria.List<TModel>().Count();
 		}
 	}
 }

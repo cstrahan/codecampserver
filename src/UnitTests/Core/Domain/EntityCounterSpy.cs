@@ -1,31 +1,29 @@
-using System;
-using System.Linq.Expressions;
 using CodeCampServer.Core.Bases;
-using CodeCampServer.Core.Common;
-using CodeCampServer.Core.Services;
+using CodeCampServer.Core.Services.Unique;
 
 namespace CodeCampServer.UnitTests.Core.Domain
 {
-	public class EntityCounterSpy : IEntityCounter
+	public class EntityCounterSpy<TModel> : IEntityCounter where TModel : PersistentObject
 	{
 		private int _count;
 
-		public static EntityCounterSpy With() { return new EntityCounterSpy(); }
+		public static EntityCounterSpy<TModel> With()
+		{
+			return new EntityCounterSpy<TModel>();
+		}
 
-		public EntityCounterSpy StubbedCount(int count)
+		public EntityCounterSpy<TModel> StubbedCount(int count)
 		{
 			_count = count;
 			return this;
 		}
 
-		public int CountByProperty<TModel>(Expression<Func<TModel, object>> propertyExpression, object value) where TModel : PersistentObject
+		public IEntitySpecification<TModel> Specification { get; private set; }
+
+		public int CountByProperty<T>(IEntitySpecification<T> specification) where T : PersistentObject
 		{
-			PropertyName = UINameHelper.BuildNameFrom(propertyExpression);
-			Value = value;
+			Specification = (IEntitySpecification<TModel>) specification;
 			return _count;
 		}
-
-		public string PropertyName { get; private set; }
-		public object Value { get; private set; }
 	}
 }

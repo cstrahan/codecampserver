@@ -122,9 +122,10 @@
     <Compile Include="Core\Services\AuthenticationServiceTester.cs" />
     <Compile Include="Core\Services\CryptographerTester.cs" />
     <Compile Include="Core\Services\SecurityContextTester.cs" />
+    <Compile Include="Core\Services\Unique\EntitySpecificationOfGuidTester.cs" />
     <Compile Include="Core\Services\Updaters\UserGroupInputToUserGroupTypeconverterTester.cs" />
     <Compile Include="Core\TimeExtensionsTester.cs" />
-    <Compile Include="Infrastructure\CommandProcessor\Rules\Unique\UniquenessCheckerTester.cs" />
+    <Compile Include="Core\Services\Unique\UniquenessCheckerTester.cs" />
     <Compile Include="Infrastructure\DataAccess\ChangeAuditInfoInterceptorTester.cs" />
     <Compile Include="MvcMockHelpers.cs" />
     <Compile Include="PrimitiveExtensionsTester.cs" />
@@ -186,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\Domain\Model\Enumerations\" />
+    <Folder Include="Infrastructure\CommandProcessor\Rules\Unique\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
