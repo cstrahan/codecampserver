@@ -1,21 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CodeCampServer.UI.Helpers.Attributes;
 
 namespace CodeCampServer.UI.Models.Input
 {
 	public class UserGroupInput
 	{
-		//public UserGroupInput()
-		//{
-		//    Users = new List<UserSelectorInput>();
+		public UserGroupInput()
+		{
+		    Users = new List<UserSelectorInput>();
 		//    Sponsors = new List<SponsorInput>();
-		//}
+		}
 
 		[Required]
 		//[ValidateKey]
 			public virtual string Key { get; set; }
-
+		 
 		public virtual Guid Id { get; set; }
 
 		[Required]
@@ -32,6 +33,7 @@ namespace CodeCampServer.UI.Models.Input
 
 		public virtual string GoogleAnalysticsCode { get; set; }
 
+		[MultiSelect]
 		public virtual IList<UserSelectorInput> Users { get; set; }
 
 		public virtual IList<SponsorInput> Sponsors { get; set; }

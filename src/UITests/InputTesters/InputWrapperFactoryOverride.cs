@@ -10,4 +10,12 @@ namespace CodeCampServerUiTests.InputTesters
 			Insert(0, new DateTimeInputWrapperFactory());
 		}
 	}
+
+	public class MultipleInputFactoryOverride : MultipleInputTesterFactory
+	{
+		public MultipleInputFactoryOverride()
+		{
+			Insert(0, new SelectMultipleInputWrapperFactory());
+		}
+	}
 }

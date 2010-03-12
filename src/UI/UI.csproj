@@ -105,6 +105,7 @@
     <Compile Include="Helpers\Attributes\AllowHtml.cs" />
     <Compile Include="Helpers\Attributes\CheckboxListAttribute.cs" />
     <Compile Include="Helpers\Attributes\MultilineAttribute.cs" />
+    <Compile Include="Helpers\Attributes\MultiSelectAttribute.cs" />
     <Compile Include="Helpers\Attributes\SelectListProvidedAttribute.cs" />
     <Compile Include="Helpers\ConferenceViewExtensions.cs">
       <SubType>Code</SubType>
@@ -172,6 +173,7 @@
     <Compile Include="Services\UrlService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CodeCampSite.cs" />
     <Compile Include="UnitOfWorkModule.cs" />
     <Compile Include="ViewNames.cs">
       <SubType>Code</SubType>

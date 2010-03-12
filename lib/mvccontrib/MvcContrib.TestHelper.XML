@@ -4,17 +4,6 @@
         <name>MvcContrib.TestHelper</name>
     </assembly>
     <members>
-        <member name="T:MvcContrib.TestHelper.ActionResultAssertionException">
-            <summary>
-            Exception that is thrown when a ActionResult assertion fails.
-            </summary>
-        </member>
-        <member name="M:MvcContrib.TestHelper.ActionResultAssertionException.#ctor(System.String)">
-            <summary>
-            Creates a new instance of the <see cref="T:MvcContrib.TestHelper.ActionResultAssertionException"/> class.
-            </summary>
-            <param name="message">Message thrown in the exception.</param>
-        </member>
         <member name="T:MvcContrib.TestHelper.ActionResultHelper">
             <summary>
             Contains extension methods for testing action results.
@@ -143,11 +132,6 @@
             <param name="actionResult">The result to check.</param>
             <returns>The ViewData in it's strongly-typed form.</returns>
         </member>
-        <member name="T:MvcContrib.TestHelper.AssertionException">
-            <summary>
-             This exception is thrown by the TestHelper extension methods.  This allows this project to be unit test framework agnostic.
-            </summary>
-        </member>
         <member name="T:MvcContrib.TestHelper.GeneralTestExtensions">
             <summary>
             Contains basic extension methods to simplify testing.
@@ -174,6 +158,13 @@
             Compares the two strings (case-insensitive).
             </summary>
             <param name="actual"></param>
+            <param name="expected"></param>
+        </member>
+        <member name="M:MvcContrib.TestHelper.GeneralTestExtensions.AssertStringContains(System.String,System.String)">
+            <summary>
+            Compares the two strings (case-insensitive).
+            </summary>
+            <param name="fullstring"></param>
             <param name="expected"></param>
         </member>
         <member name="M:MvcContrib.TestHelper.GeneralTestExtensions.ShouldNotBeNull(System.Object,System.String)">
@@ -340,77 +331,64 @@
             Not Implemented
             </summary>
         </member>
-        <member name="T:MvcContrib.TestHelper.RouteTestingExtensions">
+        <member name="T:MvcContrib.TestHelper.AssertionException">
             <summary>
-            Used to simplify testing routes.
+             This exception is thrown by the TestHelper extension methods.  This allows this project to be unit test framework agnostic.
             </summary>
         </member>
-        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.WithMethod(System.String,System.String)">
+        <member name="T:MvcContrib.TestHelper.WriteableHttpFileCollection">
             <summary>
-            A way to start the fluent interface and and which method to use
-            since you have a method constraint in the route.
+            An implementation of HttpFileCollectionBase to assit with testing.
             </summary>
-            <param name="url"></param>
-            <param name="httpMethod"></param>
-            <returns></returns>
         </member>
-        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.Route(System.String,System.String)">
+        <member name="T:MvcContrib.TestHelper.IWriteableHttpFileCollection">
             <summary>
-            Find the route for a URL and an Http Method
-            because you have a method contraint on the route 
+            Defines an extended <see cref="T:System.Web.HttpFileCollectionBase"/> which allows modifications to assist with testing.
             </summary>
-            <param name="url"></param>
-            <param name="httpMethod"></param>
-            <returns></returns>
+            <remarks>
+            Using this interface allows us to work around that fact that the indexers on <see cref="T:System.Web.HttpPostedFileBase"/>
+            are read only and cannot be changed by overrides.
+            </remarks>
         </member>
-        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.Route(System.String)">
+        <member name="P:MvcContrib.TestHelper.IWriteableHttpFileCollection.Item(System.String)">
             <summary>
-            Returns the corresponding route for the URL.  Returns null if no route was found.
+            Gets or sets the <see cref="T:System.Web.HttpPostedFileBase"/> with the specified name.
             </summary>
-            <param name="url">The app relative url to test.</param>
-            <returns>A matching <see cref="T:System.Web.Routing.RouteData"/>, or null.</returns>
         </member>
-        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.ShouldMapTo``1(System.Web.Routing.RouteData,System.Linq.Expressions.Expression{System.Func{``0,System.Web.Mvc.ActionResult}})">
+        <member name="M:MvcContrib.TestHelper.WriteableHttpFileCollection.#ctor">
             <summary>
-            Asserts that the route matches the expression specified.  Checks controller, action, and any method arguments
-            into the action as route values.
+            Initializes a new instance of the <see cref="T:MvcContrib.TestHelper.WriteableHttpFileCollection"/> class.
             </summary>
-            <typeparam name="TController">The controller.</typeparam>
-            <param name="routeData">The routeData to check</param>
-            <param name="action">The action to call on TController.</param>
         </member>
-        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.ShouldMapTo``1(System.String,System.Linq.Expressions.Expression{System.Func{``0,System.Web.Mvc.ActionResult}})">
+        <member name="P:MvcContrib.TestHelper.WriteableHttpFileCollection.AllKeys">
             <summary>
-            Converts the URL to matching RouteData and verifies that it will match a route with the values specified by the expression.
+            Gets a string array containing the keys (names) of all members in the file collection.
             </summary>
-            <typeparam name="TController">The type of controller</typeparam>
-            <param name="relativeUrl">The ~/ based url</param>
-            <param name="action">The expression that defines what action gets called (and with which parameters)</param>
-            <returns></returns>
+            <value>An array of file names.</value>
         </member>
-        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.ShouldMapTo``1(System.Web.Routing.RouteData)">
+        <member name="P:MvcContrib.TestHelper.WriteableHttpFileCollection.Item(System.String)">
             <summary>
-            Verifies the <see cref="T:System.Web.Routing.RouteData">routeData</see> maps to the controller type specified.
+            Gets the object with the specified name from the file collection.
             </summary>
-            <typeparam name="TController"></typeparam>
-            <param name="routeData"></param>
-            <returns></returns>
+            <param name="name">Name of item to be returned.</param>
+            <returns>The System.Web.HttpPostedFile specified by name.</returns>
         </member>
-        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.ShouldBeIgnored(System.String)">
+        <member name="P:MvcContrib.TestHelper.WriteableHttpFileCollection.Item(System.Int32)">
             <summary>
-            Verifies the <see cref="T:System.Web.Routing.RouteData">routeData</see> will instruct the routing engine to ignore the route.
+            Gets the object with the specified index from the file collection.
             </summary>
-            <param name="relativeUrl"></param>
-            <returns></returns>
+            <param name="index">Index of item to be returned.</param>
+            <returns>The System.Web.HttpPostedFile specified by index.</returns>
         </member>
-        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.GetValue(System.Web.Routing.RouteValueDictionary,System.String)">
+        <member name="P:MvcContrib.TestHelper.WriteableHttpFileCollection.MvcContrib#TestHelper#IWriteableHttpFileCollection#Item(System.String)">
             <summary>
-            Gets a value from the <see cref="T:System.Web.Routing.RouteValueDictionary"/> by key.  Does a
-            case-insensitive search on the keys.
+            Gets or sets the <see cref="T:System.Web.HttpPostedFileBase"/> with the specified name.
             </summary>
-            <param name="routeValues"></param>
-            <param name="key"></param>
-            <returns></returns>
+        </member>
+        <member name="P:MvcContrib.TestHelper.WriteableHttpFileCollection.Count">
+            <summary>
+            Gets the file count of the underlying <see cref="T:System.Web.HttpFileCollectionBase"/>.
+            </summary>
         </member>
         <member name="T:MvcContrib.TestHelper.TestControllerBuilder">
             <summary>
@@ -517,47 +495,88 @@
             </summary>
             <value>The RawUrl string</value>
         </member>
-        <member name="T:MvcContrib.TestHelper.IWriteableHttpFileCollection">
+        <member name="T:MvcContrib.TestHelper.RouteTestingExtensions">
             <summary>
-            Defines an extended <see cref="T:System.Web.HttpFileCollectionBase"/> which allows modifications to assist with testing.
-            </summary>
-            <remarks>
-            Using this interface allows us to work around that fact that the indexers on <see cref="T:System.Web.HttpPostedFileBase"/>
-            are read only and cannot be changed by overrides.
-            </remarks>
-        </member>
-        <member name="P:MvcContrib.TestHelper.IWriteableHttpFileCollection.Item(System.String)">
-            <summary>
-            Gets or sets the <see cref="T:System.Web.HttpPostedFileBase"/> with the specified name.
+            Used to simplify testing routes.
             </summary>
         </member>
-        <member name="T:MvcContrib.TestHelper.WriteableHttpFileCollection">
+        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.WithMethod(System.String,System.String)">
             <summary>
-            An implementation of HttpFileCollectionBase to assit with testing.
+            A way to start the fluent interface and and which method to use
+            since you have a method constraint in the route.
+            </summary>
+            <param name="url"></param>
+            <param name="httpMethod"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.Route(System.String,System.String)">
+            <summary>
+            Find the route for a URL and an Http Method
+            because you have a method contraint on the route 
+            </summary>
+            <param name="url"></param>
+            <param name="httpMethod"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.Route(System.String)">
+            <summary>
+            Returns the corresponding route for the URL.  Returns null if no route was found.
+            </summary>
+            <param name="url">The app relative url to test.</param>
+            <returns>A matching <see cref="T:System.Web.Routing.RouteData"/>, or null.</returns>
+        </member>
+        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.ShouldMapTo``1(System.Web.Routing.RouteData,System.Linq.Expressions.Expression{System.Func{``0,System.Web.Mvc.ActionResult}})">
+            <summary>
+            Asserts that the route matches the expression specified.  Checks controller, action, and any method arguments
+            into the action as route values.
+            </summary>
+            <typeparam name="TController">The controller.</typeparam>
+            <param name="routeData">The routeData to check</param>
+            <param name="action">The action to call on TController.</param>
+        </member>
+        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.ShouldMapTo``1(System.String,System.Linq.Expressions.Expression{System.Func{``0,System.Web.Mvc.ActionResult}})">
+            <summary>
+            Converts the URL to matching RouteData and verifies that it will match a route with the values specified by the expression.
+            </summary>
+            <typeparam name="TController">The type of controller</typeparam>
+            <param name="relativeUrl">The ~/ based url</param>
+            <param name="action">The expression that defines what action gets called (and with which parameters)</param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.ShouldMapTo``1(System.Web.Routing.RouteData)">
+            <summary>
+            Verifies the <see cref="T:System.Web.Routing.RouteData">routeData</see> maps to the controller type specified.
+            </summary>
+            <typeparam name="TController"></typeparam>
+            <param name="routeData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.ShouldBeIgnored(System.String)">
+            <summary>
+            Verifies the <see cref="T:System.Web.Routing.RouteData">routeData</see> will instruct the routing engine to ignore the route.
+            </summary>
+            <param name="relativeUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcContrib.TestHelper.RouteTestingExtensions.GetValue(System.Web.Routing.RouteValueDictionary,System.String)">
+            <summary>
+            Gets a value from the <see cref="T:System.Web.Routing.RouteValueDictionary"/> by key.  Does a
+            case-insensitive search on the keys.
+            </summary>
+            <param name="routeValues"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MvcContrib.TestHelper.ActionResultAssertionException">
+            <summary>
+            Exception that is thrown when a ActionResult assertion fails.
             </summary>
         </member>
-        <member name="M:MvcContrib.TestHelper.WriteableHttpFileCollection.#ctor">
+        <member name="M:MvcContrib.TestHelper.ActionResultAssertionException.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:MvcContrib.TestHelper.WriteableHttpFileCollection"/> class.
+            Creates a new instance of the <see cref="T:MvcContrib.TestHelper.ActionResultAssertionException"/> class.
             </summary>
-        </member>
-        <member name="P:MvcContrib.TestHelper.WriteableHttpFileCollection.AllKeys">
-            <summary>
-            Gets a string array containing the keys (names) of all members in the file collection.
-            </summary>
-            <value>An array of file names.</value>
-        </member>
-        <member name="P:MvcContrib.TestHelper.WriteableHttpFileCollection.Item(System.String)">
-            <summary>
-            Gets the object with the specified name from the file collection.
-            </summary>
-            <param name="name">Name of item to be returned.</param>
-            <returns>The System.Web.HttpPostedFile specified by name.</returns>
-        </member>
-        <member name="P:MvcContrib.TestHelper.WriteableHttpFileCollection.MvcContrib#TestHelper#IWriteableHttpFileCollection#Item(System.String)">
-            <summary>
-            Gets or sets the <see cref="T:System.Web.HttpPostedFileBase"/> with the specified name.
-            </summary>
+            <param name="message">Message thrown in the exception.</param>
         </member>
     </members>
 </doc>

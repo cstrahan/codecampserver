@@ -110,17 +110,17 @@ namespace CodeCampServer.UI.Helpers.Extensions
 			return string.Format("<button type=\"submit\" class=\"{0} {1}\"><span class=\"{2}\"></span>New</button>", Css.PrimaryButton, Css.WithIconLeft, Css.AddIcon);
 		}
 
-		public static string EditImageButton(this HtmlHelper helper, string url)
+		public static string EditImageButton(this HtmlHelper helper, string url, string imageLinkRel)
 		{
-			return ImageButton(helper, url, "Edit", "/images/icons/application_edit.png");
+			return ImageButton(helper, url, "Edit", "/images/icons/application_edit.png", imageLinkRel);
 		}
 
-		public static string AddImageButton(this HtmlHelper helper, string url)
+		public static string AddImageButton(this HtmlHelper helper, string url, string imageLinkRel)
 		{
-			return ImageButton(helper, url, "Add", "/images/icons/application_add.png");
+			return ImageButton(helper, url, "Add", "/images/icons/application_add.png", imageLinkRel);
 		}
 
-		public static string ImageButton(this HtmlHelper helper, string url, string altText, string imageFile)
+		public static string ImageButton(this HtmlHelper helper, string url, string altText, string imageFile, string imageLinkRel)
 		{
 			if (!HttpContext.Current.User.Identity.IsAuthenticated)
 				return string.Empty;
@@ -128,7 +128,12 @@ namespace CodeCampServer.UI.Helpers.Extensions
 			IReturnUrlManager manager = ReturnUrlManagerFactory.GetDefault();
 
 			var targetUrl = manager.GetTargetUrlWithReturnUrl(url);
-			return string.Format("<a href=\"{0}\"><img src=\"{1}\" alt=\"{2}\" /></a>", targetUrl, imageFile, altText);
-		}	
+			return string.Format("<a href=\"{0}\" rel=\"{1}\"><img src=\"{2}\" alt=\"{3}\" /></a>", targetUrl, imageLinkRel, imageFile, altText);
+		}
+
+		public static string ImageButton(this HtmlHelper helper, string url, string altText, string imageFile)
+		{
+			return ImageButton(helper, url, altText, imageFile, "");
+		}
 	}
 }

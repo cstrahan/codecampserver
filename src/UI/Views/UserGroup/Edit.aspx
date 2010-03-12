@@ -36,7 +36,7 @@
 				<%=Html.Input(a => a.HomepageHTML).Partial("MultilineText")%>
 				<%=Html.Input(a => a.GoogleAnalysticsCode)%>
 				<p class="buttons">
-					<input type="submit" value="Save" class="accept ui-state-default ui-corner-all ui-priority-primary "  />
+					<input type="submit" value="Save" id="Submit" class="accept ui-state-default ui-corner-all ui-priority-primary "  />
 					<% var manager = ReturnUrlManagerFactory.GetDefault(); %>
 				    <a class="action-link cancel" href="<%=manager.GetReturnUrl() %>">Cancel</a>				
 				</p>

@@ -40,9 +40,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\mvccontrib\MvcContrib.dll</HintPath>
     </Reference>
-    <Reference Include="MvcContrib.WatiN, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MvcContrib.TestHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\mvccontrib\MvcContrib.WatiN.dll</HintPath>
+      <HintPath>..\..\lib\mvccontrib\MvcContrib.TestHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcContrib.TestHelper.WatiN, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\mvccontrib\MvcContrib.TestHelper.WatiN.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\NHibernate-2.1.0.GA-bin\Required_Bins\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="nunit.core, Version=2.4.6.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -79,15 +87,21 @@
       <HintPath>..\..\lib\aspnetmvc\System.Web.Routing.dll</HintPath>
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="WatiN.Core, Version=1.3.0.4000, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\watin\WatiN.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HomePageTester.cs" />
     <Compile Include="InputTesters\DateTimePickerInputWrapper.cs" />
     <Compile Include="InputTesters\InputWrapperFactoryOverride.cs" />
     <Compile Include="InputTesters\ScriptWrittenInputWrapperFactory.cs" />
     <Compile Include="InputTesters\ScriptWrittenTextBoxInputWrapper.cs" />
+    <Compile Include="InputTesters\SelectMultipleInputWrapperFactory.cs" />
     <Compile Include="MeetingEditViewTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UiTestBase.cs" />
+    <Compile Include="UserGroupEditViewTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
