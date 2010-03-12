@@ -59,6 +59,7 @@
     <Compile Include="Common\ReflectionExtensions.cs" />
     <Compile Include="Common\UINameHelper.cs" />
     <Compile Include="Domain\Bases\ChangeAuditInfo.cs" />
+    <Compile Include="Domain\Bases\Heartbeat.cs" />
     <Compile Include="Domain\Bases\IAuditable.cs" />
     <Compile Include="Domain\IEventRepository.cs" />
     <Compile Include="Domain\IMeetingRepository.cs" />
