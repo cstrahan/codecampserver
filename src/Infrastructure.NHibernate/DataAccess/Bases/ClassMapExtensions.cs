@@ -17,7 +17,7 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Bases
 			                                      	});
 		}
 
-		public static void StandardId<T>(this ClassMap<T> map) where T : AuditedPersistentObjectOfGuid
+		public static void StandardId<T>(this ClassMap<T> map) where T : IPersistentObjectOfGuid
 		{
 			try
 			{

@@ -61,6 +61,22 @@ namespace CodeCampServer.Core.Bases
 		}
 	}
 
+	public abstract class PersistentObjectOfGuid : PersistentObject, IPersistentObjectOfGuid
+	{
+		public new virtual Guid Id
+		{
+			get { return (Guid)base.Id; }
+			set { base.Id = value; }
+		}
+
+		protected override object GetEmptyId()
+		{
+			return default(Guid);
+		}
+
+		public static Guid EmptyId = default(Guid);
+	}
+
 	public interface IPersistentObjectOfGuid
 	{
 		Guid Id { get; set; }

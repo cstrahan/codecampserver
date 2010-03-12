@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="DataAccess\Bases\AuditedEntityClassMap.cs" />
     <Compile Include="DataAccess\Bases\ClassMapExtensions.cs" />
+    <Compile Include="DataAccess\Bases\EntityClassMap.cs" />
     <Compile Include="DataAccess\Bases\EnumerationTypeConvention.cs" />
     <Compile Include="DataAccess\Bases\HeartbeatMap.cs" />
     <Compile Include="DataAccess\Bases\Logger.cs" />
