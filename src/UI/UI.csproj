@@ -146,6 +146,7 @@
     <Compile Include="HtmlExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Display\HeartbeatCheckDisplay.cs" />
     <Compile Include="Models\Display\HeartbeatDisplay.cs" />
     <Compile Include="Models\Input\AdminInput.cs" />
     <Compile Include="Models\Input\DateTimeSpan.cs" />
@@ -528,6 +529,8 @@
     <Content Include="css\emporium.css" />
     <Content Include="Views\Event\ConferenceAnnouncement.ascx" />
     <Content Include="Views\Event\MeetingAnnouncement.aspx" />
+    <Content Include="Views\Heartbeat\Create.aspx" />
+    <Content Include="Views\Heartbeat\Check.aspx" />
     <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Event\AllUpcomingEvents.aspx" />
     <Content Include="Views\Home\DefaultIndex.aspx" />
@@ -597,7 +600,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Views\Heartbeat\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

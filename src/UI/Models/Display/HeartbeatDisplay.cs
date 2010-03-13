@@ -1,3 +1,4 @@
+using System;
 using MvcContrib.UI.InputBuilder.Attributes;
 
 namespace CodeCampServer.UI.Models.Display
@@ -5,7 +6,8 @@ namespace CodeCampServer.UI.Models.Display
 	[Label("Heartbeat")]
 	public class HeartbeatDisplay
 	{
-		public virtual string Message { get; set; }
-		public virtual string Date { get; set; }
+		public string Message { get; set; }
+		public string Date { get; set; }
+		public Guid Id { get; set; }
 	}
 }
