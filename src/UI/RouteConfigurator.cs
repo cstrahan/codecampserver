@@ -54,7 +54,7 @@ namespace CodeCampServer.UI
 				.WithDefaults(new { controller = "home", action = "index" })
 				.WithConstraints(new
 				{
-					controller = "(admin|login|home|conference|usergroup|user|rss|sponsor|rssfeed|event|meeting)"
+					controller = "(admin|login|home|conference|usergroup|user|rss|sponsor|rssfeed|event|meeting|heartbeat)"
 				})
 				.AddWithName("default", routes)
 				.RouteHandler = new DomainNameRouteHandler();
