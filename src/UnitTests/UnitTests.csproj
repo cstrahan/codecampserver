@@ -141,6 +141,7 @@
     <Compile Include="UI\Controllers\ControllerTester.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UI\Controllers\HeartbeatControllerTester.cs" />
     <Compile Include="UI\Controllers\SponsorControllerTester.cs" />
     <Compile Include="UI\Controllers\HomeControllerTester.cs" />
     <Compile Include="UI\Controllers\RedirectToRouteExtensions.cs" />
