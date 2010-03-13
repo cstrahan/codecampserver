@@ -8,5 +8,6 @@ AutoEventWireup="true" Inherits="ViewPage<AdminInput>"%>
 			<li><a href="<%=CodeCampServer.UI.Helpers.Extensions.UrlHelperExtensions.Action<UserGroupController>(Url, c=>c.List()) %>" rel="<%=CodeCampSite.Admin.EditUserGroups %>"> Edit User Groups</a></li>
 			<li><a href="<%=CodeCampServer.UI.Helpers.Extensions.UrlHelperExtensions.Action<UserController>(Url, c=>c.Index()) %>"> Edit Users</a></li>
 			<li><a href="<%=CodeCampServer.UI.Helpers.Extensions.UrlHelperExtensions.Action<SponsorController>(Url, c=>c.Index(null)) %>"> Edit Sponsors</a></li>
+			<li><a href="<%=CodeCampServer.UI.Helpers.Extensions.UrlHelperExtensions.Action<HeartbeatController>(Url, c=>c.Index()) %>"> Heartbeats</a></li>
 	  </ul>
 </asp:Content>

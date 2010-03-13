@@ -90,6 +90,7 @@
     <Compile Include="Binders\CompositionBinder.cs" />
     <Compile Include="Binders\Keyed\UserGroupModelBinder.cs" />
     <Compile Include="ControllerFactory.cs" />
+    <Compile Include="Controllers\HeartbeatController.cs" />
     <Compile Include="ConventionActionInvoker.cs" />
     <Compile Include="ConventionMessageHandlerFactory.cs" />
     <Compile Include="Css.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="HtmlExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Display\HeartbeatDisplay.cs" />
     <Compile Include="Models\Input\AdminInput.cs" />
     <Compile Include="Models\Input\DateTimeSpan.cs" />
     <Compile Include="Models\Input\EventInput.cs" />
