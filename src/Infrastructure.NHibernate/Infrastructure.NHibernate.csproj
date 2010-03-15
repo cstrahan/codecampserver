@@ -81,6 +81,7 @@
     <Compile Include="DataAccess\Bases\UserMap.cs" />
     <Compile Include="DataAccess\Bases\UserRepository.cs" />
     <Compile Include="DataAccess\ChangeAuditInfoInterceptor.cs" />
+    <Compile Include="DataAccess\Common\QueryExtensions.cs" />
     <Compile Include="DataAccess\ConfigurationFactory.cs" />
     <Compile Include="DataAccess\EnumerationType.cs" />
     <Compile Include="DataAccess\Impl\ConferenceRepository.cs" />

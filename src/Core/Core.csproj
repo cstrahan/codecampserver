@@ -56,6 +56,7 @@
     <Compile Include="Common\ExpressionHelper.cs" />
     <Compile Include="Common\Format.cs" />
     <Compile Include="Common\PrimitiveExtensions.cs" />
+    <Compile Include="Common\QueryLimitExtensions.cs" />
     <Compile Include="Common\ReflectionExtensions.cs" />
     <Compile Include="Common\UINameHelper.cs" />
     <Compile Include="Domain\Bases\ChangeAuditInfo.cs" />

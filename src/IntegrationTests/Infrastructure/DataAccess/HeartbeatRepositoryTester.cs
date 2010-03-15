@@ -25,5 +25,17 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 			var latest = CreateRepository().GetLatest();
 			latest.ShouldEqual(h4);
 		}
+
+		[Test]
+		public void should_limit_listing()
+		{
+			CheckQueryIsLimited(x => x.GetTop());
+		}
+
+		[Test]
+		public void should_not_limit_all()
+		{
+			CheckQueryIsNotLimited(x => x.GetAll());
+		}
 	}
 }

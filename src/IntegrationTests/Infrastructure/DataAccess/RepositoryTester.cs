@@ -1,5 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using CodeCampServer.Core.Bases;
+using CodeCampServer.Core.Common;
 using CodeCampServer.Core.Domain.Bases;
 using NBehave.Spec.NUnit;
 using NUnit.Framework;
@@ -87,6 +90,41 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		protected virtual T CreateValidInput()
 		{
 			return new T();
+		}
+		protected void CheckQueryIsLimited(Func<TRepository, T[]> query)
+		{
+			CheckQueryIsLimited(CreateValidInput, query);
+		}
+		protected void CheckQueryIsLimited(Func<T> createEntity, Func<TRepository, T[]> query)
+		{
+			int expectedLength = QueryLimitExtensions.ResultsLimit;
+			int createdLength = QueryLimitExtensions.ResultsLimit + 1;
+			CheckQueryLimit(createdLength, expectedLength, createEntity, query);
+		}
+
+		protected void CheckQueryIsNotLimited(Func<TRepository, T[]> query)
+		{
+			CheckQueryIsNotLimited(CreateValidInput, query);
+		}
+
+		protected void CheckQueryIsNotLimited(Func<T> createEntity, Func<TRepository, T[]> query)
+		{
+			int expectedLength = QueryLimitExtensions.ResultsLimit + 1;
+			int createdLength = QueryLimitExtensions.ResultsLimit + 1;
+			CheckQueryLimit(createdLength, expectedLength, createEntity, query);
+		}
+
+		private void CheckQueryLimit(int createdLength, int expectedLength, Func<T> createEntity, Func<TRepository, T[]> query)
+		{
+			var entities = new List<PersistentObject>();
+			for (int i = 0; i < createdLength; i++)
+			{
+				entities.Add(createEntity());
+			}
+			PersistEntities(entities.ToArray());
+
+			var results = query(CreateRepository());
+			results.Length.ShouldEqual(expectedLength);
 		}
 	}
 }

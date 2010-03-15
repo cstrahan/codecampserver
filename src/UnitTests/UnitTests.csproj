@@ -109,6 +109,7 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Common\PrimitiveExtensionsTester.cs" />
+    <Compile Include="Core\Common\QueryLimitExtensionsTester.cs" />
     <Compile Include="Core\Common\UINameHelperTester.cs" />
     <Compile Include="Core\Domain\EntityCounterSpy.cs" />
     <Compile Include="Core\Domain\EnumerationTester.cs" />
