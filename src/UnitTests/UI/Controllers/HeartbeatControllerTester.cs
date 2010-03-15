@@ -27,16 +27,16 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void should_list_on_index()
 		{
-			var all = new Heartbeat[3];
+			var top = new Heartbeat[3];
 
 			var repository = S<IHeartbeatRepository>();
-			repository.Stub(x => x.GetAll()).Return(all);
+			repository.Stub(x => x.GetTop()).Return(top);
 
 			var controller = new HeartbeatController(repository, null);
 
 			var result = controller.Index();
 
-			result.ViewData.Model.ShouldBeTheSameAs(all);
+			result.ViewData.Model.ShouldBeTheSameAs(top);
 		}
 
 		[Test]

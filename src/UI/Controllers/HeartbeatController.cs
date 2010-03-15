@@ -37,7 +37,7 @@ namespace CodeCampServer.UI.Controllers
 		[HttpGet]
 		public ViewResult Index()
 		{
-			return AutoMappedView<HeartbeatDisplay[]>(_repository.GetAll());
+			return AutoMappedView<HeartbeatDisplay[]>(_repository.GetTop());
 		}
 
 		[HttpGet]

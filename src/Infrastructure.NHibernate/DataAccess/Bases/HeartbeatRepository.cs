@@ -1,6 +1,7 @@
 using System.Linq;
 using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess.Common;
+using NHibernate;
 using NHibernate.Criterion;
 
 namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Bases
@@ -9,20 +10,23 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Bases
 	{
 		public Heartbeat GetLatest()
 		{
-			return GetSession()
-				.CreateCriteria<Heartbeat>()
-				.AddOrder(Order.Desc("Date"))
-				.SetMaxResults(1)
-				.UniqueResult<Heartbeat>();
+			var criteria = GetSession().CreateCriteria<Heartbeat>();
+			MakeOrdered(criteria);
+			criteria.SetMaxResults(1);
+			return criteria.UniqueResult<Heartbeat>();
+		}
+
+		private void MakeOrdered(ICriteria criteria)
+		{
+			criteria.AddOrder(Order.Desc("Date"));
 		}
 
 		public Heartbeat[] GetTop()
 		{
-			return GetSession()
-				.CreateCriteria<Heartbeat>()
-				.Limit()
-				.List<Heartbeat>()
-				.ToArray();
+			var criteria = GetSession().CreateCriteria<Heartbeat>();
+			MakeOrdered(criteria);
+			criteria.Limit();
+			return criteria.List<Heartbeat>().ToArray();
 		}
 	}
 }

@@ -8,6 +8,7 @@
 	<%=Html.ButtonAddIcon()%>
 	<%Html.EndForm(); %>
 	</div>
+	<%= Html.SearchCountMessage(Model) %>
   <table class="fullWidth">
     <thead>
 			<tr>

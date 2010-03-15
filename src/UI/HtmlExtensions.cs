@@ -264,5 +264,10 @@ namespace CodeCampServer.UI
 					"<div class=\"buttonLeftEndCap\"></div><div class=\"buttonContentBackground\">{0}</div><div class=\"buttonRightEndCap\"></div>",
 					"<a href=\"" + url + "\">" + linkText + "</a>");
 		}
+
+		public static string SearchCountMessage(this HtmlHelper helper, IEnumerable enumerable)
+		{
+			return string.Format("<div class=\"{0}\"><p>{1}</p></div>", Css.SearchSizeMessage, enumerable.Cast<object>().ToArray().GetSizeMessage());
+		}
 	}
 }
