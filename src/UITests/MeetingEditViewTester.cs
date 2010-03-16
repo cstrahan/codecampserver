@@ -8,6 +8,7 @@ using NUnit.Framework;
 
 namespace CodeCampServerUiTests
 {
+	[TestFixture]
 	public class MeetingEditViewTester : UiTestBase
 	{
 		[Test]

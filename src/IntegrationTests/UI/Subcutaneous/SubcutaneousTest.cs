@@ -18,7 +18,7 @@ using RulesEngine=MvcContrib.CommandProcessor.RulesEngine;
 
 namespace CodeCampServer.IntegrationTests.UI.Subcutaneous
 {
-	public class SubcutaneousTest<TForm> : DataTestBase where TForm : new()
+	public abstract class SubcutaneousTest<TForm> : DataTestBase where TForm : new()
 	{
 		public override void Setup()
 		{

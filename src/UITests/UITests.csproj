@@ -125,6 +125,10 @@
       <Project>{98200972-A038-4DA8-8917-CBC4895175DC}</Project>
       <Name>UI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UnitTests\UnitTests.csproj">
+      <Project>{C01DA28B-6F9D-4378-A2DA-884DDFD224B1}</Project>
+      <Name>UnitTests</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

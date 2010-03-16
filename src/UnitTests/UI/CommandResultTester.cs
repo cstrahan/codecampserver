@@ -5,6 +5,7 @@ using NUnit.Framework;
 
 namespace CodeCampServer.UnitTests.UI
 {
+	[TestFixture]
 	public class CommandResultTester : TestBase
 	{
 		[Test]

@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace CodeCampServerUiTests
 {
-
+	[TestFixture]
 	public class UserGroupEditViewTester : UiTestBase
 	{
 		[Test]

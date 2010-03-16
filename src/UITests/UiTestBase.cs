@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Web.Mvc;
 using System.Web.Routing;
 using CodeCampServer.UI;
+using CodeCampServer.UnitTests;
 using CodeCampServerUiTests.InputTesters;
 using MvcContrib.TestHelper;
 using MvcContrib.TestHelper.Ui;
@@ -13,8 +14,7 @@ using WatiN.Core;
 
 namespace CodeCampServerUiTests
 {
-	[TestFixture]
-	public class UiTestBase 
+	public abstract class UiTestBase : TestBase 
 	{
 		protected IBrowserDriver _webBrowser;
 
