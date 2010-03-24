@@ -1,6 +1,6 @@
 namespace CodeCampServer.Core.Domain.Bases
 {
-	public interface ISelectionText
+	public interface ISelectableEntity
 	{
 		string Text { get; }
 		string IdString { get; }
