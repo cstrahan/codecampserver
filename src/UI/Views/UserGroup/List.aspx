@@ -1,4 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="ViewPage<UserGroupInput[]>"%>
+<%@ Import Namespace="CodeCampServer.UI.Services.Common"%>
+<%@ Import Namespace="MvcContrib.UI.ParamBuilder"%>
 <%@ Import Namespace="CodeCampServer.UI.Helpers.Extensions"%>
 <%@ Import Namespace="CodeCampServer.UI.Helpers"%>
 
@@ -27,7 +29,7 @@
 		            <td><%=userGroup.City%> <%=userGroup.Region%> <%=userGroup.Country%></td>		            
             		<%if (User.Identity.IsAuthenticated){%>
 		            <td>		            
-		                <a href="<%=Url.Action<UserGroupController>(c=>c.Index(null),new {UserGroup = userGroup.Key})%>"  title="View <%= userGroup.Name%> <%= userGroup.Key %>" rel="<%= CodeCampSite.Admin.ViewUserGroup %>">View <%=Html.Encode( userGroup.Name)%></a>
+		                <a href="<%=Url.Action<UserGroupController>(c=>c.Index(null), Params.With.UserGroup(userGroup.Key))%>"  title="View <%= userGroup.Name%> <%= userGroup.Key %>" rel="<%= CodeCampSite.Admin.ViewUserGroup %>">View <%=Html.Encode( userGroup.Name)%></a>
 		                <a href="http://<%=userGroup.DomainName+":"+ ViewContext.HttpContext.Request.Url.Port%>"  title="Go To <%= userGroup.Name%> <%= userGroup.Key %>">Goto the website: <%=Html.Encode( userGroup.Name)%></a>
 			            			            
                     </td>

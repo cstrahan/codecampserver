@@ -1,4 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="System.Web.Mvc.ViewPage<UserGroupInput>" %>
+<%@ Import Namespace="CodeCampServer.UI.Services.Common"%>
+<%@ Import Namespace="MvcContrib.UI.ParamBuilder"%>
 <%@ Import Namespace="CodeCampServer.UI.Helpers.Extensions"%>
 <%@ Import Namespace="CodeCampServer.Core.Common"%>
 
@@ -23,6 +25,8 @@
         </p>
     <hr />
     <p>
-        <a href="<%=Url.Action<HomeController>(x=>x.Events(null),new {ViewAsPdf=1}) %>">Save All Events as PDF</a>
+				<%
+          RouteValueDictionary route = Params.With.ViewAsPdf();%>
+        <a href="<%=Url.Action<HomeController>(x=>x.Events(null), route) %>">Save All Events as PDF</a>
     </p>
 </asp:Content>
