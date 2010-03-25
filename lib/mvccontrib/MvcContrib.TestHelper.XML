@@ -143,6 +143,31 @@
             <param name="actionResult">The result to check.</param>
             <returns>The ViewData in it's strongly-typed form.</returns>
         </member>
+        <member name="M:MvcContrib.TestHelper.AttributeExtensions.IsDecoratedWith``1(System.Reflection.ICustomAttributeProvider)">
+            <summary>
+            Will return true if the attributeTarget is decorated with an attribute of type TAttribute.
+            Will return false if not.
+            </summary>
+            <typeparam name="TAttribute"></typeparam>
+            <param name="attributeTarget"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcContrib.TestHelper.AttributeExtensions.GetAttribute``1(System.Reflection.ICustomAttributeProvider)">
+            <summary>
+            Will return true the first attribute of type TAttribute on the attributeTarget.
+            </summary>
+            <typeparam name="TAttribute"></typeparam>
+            <param name="attributeTarget"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcContrib.TestHelper.MethodInfoExtensions.ActionName(System.Reflection.MethodInfo)">
+            <summary>
+            Will return the name of the action specified in the ActionNameAttribute for a method if it has an ActionNameAttribute.
+            Will return the name of the method otherwise.
+            </summary>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
         <member name="M:MvcContrib.TestHelper.FluentController.ActionExpectations`1.Should(System.Action{System.Web.Mvc.ActionResult})">
             <summary>
             Shoulds the specified assertion.

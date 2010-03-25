@@ -571,6 +571,13 @@
             </summary>
             <param name="value">A format string.</param>
         </member>
+        <member name="M:MvcContrib.FluentHtml.Elements.TypeStamp.#ctor(System.String,System.Type)">
+            <summary>
+            Generates an HTML input element of type 'hidden' that denotes an instance type stamp
+            </summary>
+            <param name="name">Value of the 'name' attribute of the element.  Also used to derive the 'id' attribute.</param>
+            <param name="instanceType">instance type information to be recorded</param>
+        </member>
         <member name="M:MvcContrib.FluentHtml.ModelStateDictionaryExtensions.AddModelError``1(System.Web.Mvc.ModelStateDictionary,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String)">
             <summary>
             Adds an error to the current model state.
@@ -588,6 +595,30 @@
             <param name="modelState">The current model state.</param>
             <param name="keyExpression">An expression specifying the property on the view model to add an error for.</param>
             <param name="exception">The exception you're adding for the specified property.</param>
+        </member>
+        <member name="T:MvcContrib.FluentHtml.PartialNameConventionService">
+            <summary>
+            provides the naming service and ability to change naming convention for typed partials
+            </summary>
+        </member>
+        <member name="M:MvcContrib.FluentHtml.PartialNameConventionService.GeneratePartialName(System.Type)">
+            <summary>
+            Creates a partial name based on the name convention
+            </summary>
+            <param name="targetType">the targeted type to be rendered</param>
+            <returns>name according to convention</returns>
+        </member>
+        <member name="P:MvcContrib.FluentHtml.PartialNameConventionService.PartialNameConvention">
+            <summary>
+            Partial name convention for strongly typed views.
+            </summary>
+        </member>
+        <member name="M:MvcContrib.FluentHtml.PartialRenderer`2.RenderTypedPartial(System.Type)">
+            <summary>
+            Responsible for getting the derived partial, setting up associated data and
+            invoking the partial.
+            </summary>
+            <param name="instanceType">instanceType being passed to the partial</param>
         </member>
         <member name="M:MvcContrib.FluentHtml.StringExtensions.PascalCaseToPhrase(System.String)">
             <summary>
@@ -1210,6 +1241,14 @@
             </summary>
             <param name="view">The view.</param>
             <param name="text">Value of the 'value' and 'name' attributes.  Also used to derive the 'id' attribute.</param>
+        </member>
+        <member name="M:MvcContrib.FluentHtml.ViewModelContainerExtensions.TypeStamp``1(MvcContrib.FluentHtml.IViewModelContainer{``0})">
+            <summary>
+            Generate a hidden field that contains a type stamp of the model
+            </summary>
+            <typeparam name="T">Model</typeparam>
+            <param name="view">extended view</param>
+            <returns>Hidden text field containing type information</returns>
         </member>
         <member name="M:MvcContrib.FluentHtml.ViewModelContainerExtensions.RenderPartial``2(MvcContrib.FluentHtml.IViewModelContainer{``0},System.String,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Web.Mvc.ViewDataDictionary)">
             <summary>
