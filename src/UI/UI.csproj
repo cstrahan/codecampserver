@@ -165,6 +165,8 @@
     <Compile Include="MvcStartupConfiguration.cs" />
     <Compile Include="ReturnUrlManagerFactory.cs" />
     <Compile Include="Services\AssemblyVersion.cs" />
+    <Compile Include="Services\Common\ParamBuilderExtensions.cs" />
+    <Compile Include="Services\Common\ParamNames.cs" />
     <Compile Include="Services\HttpFileDownloaderService.cs" />
     <Compile Include="Services\IAssemblyVersion.cs" />
     <Compile Include="DomainnameRouteHandler.cs" />
