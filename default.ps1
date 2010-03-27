@@ -39,7 +39,7 @@ task Test {
 }
 
 task Compile -depends Clean { 
-    msbuild /t:build $source_dir$projectName.sln 
+    exec { msbuild /t:build $source_dir$projectName.sln }    
 }
 
 task Clean { 
