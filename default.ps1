@@ -24,7 +24,7 @@ Create Database Migration
  #>
 
 task Database {
-    .\lib\tarantino\DatabaseDeployer.exe Rebuild $databaseServer $databaseName  $databaseScripts
+    exec{ .\lib\tarantino\DatabaseDeployer.exe Rebuild $databaseServer $databaseName  $databaseScripts }
 }
 
 task CommonAssemblyInfo {
@@ -46,7 +46,7 @@ task Clean {
     delete_directory $build_dir
     create_directory $test_dir 
     create_directory $result_dir
-    msbuild /t:clean $source_dir\$projectName.sln 
+    exec {    msbuild /t:clean $source_dir\$projectName.sln }
 }
 
 task TestWithCoverage {
@@ -82,7 +82,7 @@ function global:zip_directory($directory,$file)
 {
     delete_file $file
     cd $directory
-    &"$base_dir\lib\7zip\7za.exe" a -mx=9 -r -sfx $file *.*
+    exec {  &"$base_dir\lib\7zip\7za.exe" a -mx=9 -r -sfx $file *.* }
     cd $base_dir
 }
 
@@ -142,7 +142,7 @@ function global:create_directory($directory_name)
 
 function global:run_nunit ($test_assembly)
 {
-    & lib\nunit\nunit-console.exe $test_dir$test_assembly /nologo /nodots /xml=$result_dir$test_assembly.xml
+    exec {lib\nunit\nunit-console-x86.exe $test_dir$test_assembly /nologo /nodots /xml=$result_dir$test_assembly.xml /exclude=DataLoader }
 }
 
 function global:run_nunit_with_coverage($test_assembly)
