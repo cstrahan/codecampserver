@@ -1,3 +1,5 @@
+
+
 using CodeCampServer.Core;
 
 namespace CodeCampServer.DependencyResolution
@@ -7,6 +9,7 @@ namespace CodeCampServer.DependencyResolution
 		public void Configure()
 		{
 			SystemClockFactory.Default = () => new SystemClock();
+			LoggerFactory.Default = () => new Logger();
 		}
 	}
 }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using CodeCampServer.Core;
 using Naak.HtmlRules;
 using StructureMap;
@@ -43,6 +45,11 @@ namespace CodeCampServer.DependencyResolution
 			return ObjectFactory.GetInstance(modelType);
 		}
 
+		public static T Resolve<T>(string key)
+		{
+			return (T)ObjectFactory.GetNamedInstance(typeof(T), key);
+		}
+
 		public static bool Registered(Type type)
 		{
 			EnsureDependenciesRegistered();
@@ -63,6 +70,11 @@ namespace CodeCampServer.DependencyResolution
 					}
 				}
 			}
+		}
+
+		public static IEnumerable<string> GetInstanceNamesFor<TInterface>()
+		{
+			return ObjectFactory.Model.InstancesOf<TInterface>().Select(instance => instance.Name);
 		}
 	}
 }

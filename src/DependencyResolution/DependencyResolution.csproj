@@ -35,6 +35,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\AutoMapper\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="BatchJobs.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\tinoBatchJobs\BatchJobs.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\NHibernate-2.1.0.GA-bin\Required_Bins\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Microsoft.Practices.ServiceLocation\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -81,9 +89,13 @@
     <Compile Include="CommandProcessorRegistry.cs" />
     <Compile Include="InfrastructureRegistry.cs" />
     <Compile Include="InitiailizeDefaultFactories.cs" />
+    <Compile Include="JobAgentFactory.cs" />
+    <Compile Include="JobAgentProxy.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="StructureMapServiceLocator.cs" />
     <Compile Include="SystemClock.cs" />
     <Compile Include="UiRegistry.cs" />
+    <Compile Include="WorkflowRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

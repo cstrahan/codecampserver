@@ -122,6 +122,7 @@
     <Compile Include="Core\Domain\ValidationResultTester.cs" />
     <Compile Include="Core\Domain\ValueObjectTester.cs" />
     <Compile Include="Core\Services\AuthenticationServiceTester.cs" />
+    <Compile Include="Core\Services\BatchJobAgents\SampleBatchJobTester.cs" />
     <Compile Include="Core\Services\CryptographerTester.cs" />
     <Compile Include="Core\Services\HeartbeatCheckerTester.cs" />
     <Compile Include="Core\Services\SecurityContextTester.cs" />

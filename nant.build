@@ -5,7 +5,7 @@
   	<!-- ******************** -->
   	<!-- Master Build Targets -->
   	<!-- ******************** -->
-  	<target name="build" depends="init, commonassemblyinfo, create-hibernate-cfg, dropDatabase, createDatabase, compile, move-for-test, test"/>
+  	<target name="build" depends="init, commonassemblyinfo, create-hibernate-cfg, dropDatabase, createDatabase, compile, move-for-test, test, package"/>
   	<target name="cruise" depends="build, package, create-template"/>	
   	<target name="integrationBuild" depends="init, commonassemblyinfo, dropDatabase, createDatabase,, compile, move-for-test, coverage, inspection,package"/>
   	<target name="publish" depends="init, revert, commonassemblyinfo, dropDatabase, createDatabase,check-projects-for-default-namespace,set-defaults-in-nhibernate-config, compile, move-for-test, test, package,commitPackage"/>
@@ -253,6 +253,47 @@
     <copy todir="${dir.package}\website\Prince" includeemptydirs="false" overwrite="true">
       <fileset basedir="lib\Prince">
         <include name="**\**"/>
+      </fileset>
+    </copy>
+
+
+    <copy todir="${dir.package}\BatchAgents" includeemptydirs="false">
+      <fileset basedir="lib\tinoBatchJobs">
+        <include name="*.*"/>
+      </fileset>
+    </copy>
+
+
+    <copy todir="${dir.package}\BatchAgents" includeemptydirs="false" flatten="true">
+      <fileset basedir="${dir.solution}\UI">
+        <include name="bin\*.dll"/>
+      </fileset>
+    </copy>
+
+
+    <copy todir="${dir.package}\BatchAgents" includeemptydirs="false" flatten="true">
+      <fileset basedir="${dir.solution}\">
+        <include name="*.config"/>
+        <include name="*.xml"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${dir.package}\BatchAgents" includeemptydirs="false" flatten="true">
+      <fileset basedir="${dir.solution}\DependencyResolution">
+        <include name="bin\${project.config}\*.*"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${dir.package}\BatchAgents" includeemptydirs="false" flatten="true">
+      <fileset basedir="${dir.solution}\Infrastructure">
+        <include name="bin\${project.config}\*.*"/>
+      </fileset>
+    </copy>
+
+	<!-- overwrite the default tino app config with project specific settings -->
+	<copy todir="${dir.package}\BatchAgents" includeemptydirs="false" verbose="true" overwrite="true">
+      <fileset basedir="${dir.solution}\DependencyResolution">
+        <include name="BatchJobs.Console.exe.config"/>                       
       </fileset>
     </copy>
 

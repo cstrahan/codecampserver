@@ -85,10 +85,16 @@
     <Compile Include="Domain\Model\KeyedObject.cs" />
     <Compile Include="Domain\Bases\User.cs" />
     <Compile Include="Domain\Bases\ValueObject.cs" />
+    <Compile Include="IBatchJobAgent.cs" />
+    <Compile Include="ILogger.cs" />
     <Compile Include="IRequiresConfigurationOnStartup.cs" />
     <Compile Include="ISystemClock.cs" />
     <Compile Include="Clock.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="LoggerFactory.cs" />
+    <Compile Include="Services\BatchJobAgents\AnotherBatchJob.cs" />
+    <Compile Include="Services\BatchJobAgents\SampleBatchJob.cs" />
     <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandHandler.cs" />
     <Compile Include="Services\BusinessRule\DeleteUserGroup\DeleteUserGroupCommandMessage.cs" />
     <Compile Include="Services\BusinessRule\CreateHeartbeat\CreateHeartbeatCommandHandler.cs" />

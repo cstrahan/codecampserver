@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CodeCampServer.Core;
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
@@ -55,6 +56,15 @@ namespace CodeCampServer.IntegrationTests.DependencyResolution
 			var binder = (IRepository<Conference>) DependencyRegistrar.Resolve(repositoryType);
 
 			binder.ShouldBeAssignableFrom(typeof (ConferenceRepository));
+		}
+
+		[Test]
+		public void Should_resolve_workflow()
+		{
+			DependencyRegistrar.EnsureDependenciesRegistered();
+
+			var agent = DependencyRegistrar.Resolve<IBatchJobAgent>("samplebatchjob");
+			agent.Execute();
 		}
 
 		[Test]

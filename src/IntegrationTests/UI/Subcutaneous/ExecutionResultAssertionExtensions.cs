@@ -13,8 +13,8 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous
 		public static void ShouldHaveMessage<TMessage>(this ExecutionResult result,
 		                                               Expression<Func<TMessage, object>> expression)
 		{
-			var targetProperty = Core.Common.ReflectionHelper.FindProperty(expression);
-			if (!result.Messages.Any(x => Core.Common.ReflectionHelper.FindProperty(x.UIAttribute) == targetProperty))
+			var targetProperty = CodeCampServer.Core.Common.ReflectionHelper.FindProperty(expression);
+			if (!result.Messages.Any(x => CodeCampServer.Core.Common.ReflectionHelper.FindProperty(x.UIAttribute) == targetProperty))
 			{
 				string failureMessage = result.Messages
 					.Select(x => x.UIAttribute + ":" + x.MessageText)

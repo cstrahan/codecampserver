@@ -44,6 +44,13 @@
     <if test="${reloaddatabase=='true'}">
 	    <call target="loadDevData" />
     </if>
+
+    <echo message="Deploy job agent..." />
+    <copy todir="${agents.target.dir}" overwrite="true" includeemptydirs="true" >
+      <fileset basedir="agents">
+        <include name="**" />
+      </fileset>
+    </copy>
   </target>
 
   <!-- Database change management -->
@@ -71,6 +78,13 @@
 
 
     <xmlpoke file="tests/hibernate.cfg.xml"	xpath="${connection.string.path}"	value="${connection.string}">
+      <namespaces>
+        <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
+      </namespaces>
+    </xmlpoke>
+
+
+    <xmlpoke file="agents/hibernate.cfg.xml"	xpath="${connection.string.path}"	value="${connection.string}">
       <namespaces>
         <namespace prefix="hbm" uri="urn:nhibernate-configuration-2.2"></namespace>
       </namespaces>
