@@ -273,7 +273,7 @@
 
     <copy todir="${dir.package}\BatchAgents" includeemptydirs="false" flatten="true">
       <fileset basedir="${dir.solution}\">
-        <include name="*.config"/>
+        <include name="**\*.config"/>
         <include name="*.xml"/>
       </fileset>
     </copy>
