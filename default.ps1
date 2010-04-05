@@ -72,10 +72,10 @@ task Package {
     copy_files "$base_dir\lib\nant" "$package_dir\nant" @( '*.pdb','*.xml')
     copy_files "$base_dir\deployment" "$package_dir"
     
-    
-    copy_files "$base_dir\lib\tinoBatchJobs" "$package_dir\batchagents"
-    copy_files "$source_dir\Ui\bin" "$package_dir\batchagents"
-    Copy_and_flatten $source_dir *.config "$package_dir\batchagents"
+    $agents_dir = "$package_dir\agents"
+    copy_files "$base_dir\lib\tinoBatchJobs" $agents_dir
+    copy_files "$source_dir\Ui\bin" $agents_dir
+    Copy_and_flatten $source_dir *.config $agents_dir
     
     zip_directory $package_dir $package_file
 }
