@@ -16,15 +16,34 @@ properties {
 
 task privateBuild -depends Clean,CommonAssemblyInfo,Database , Compile
 task default -depends privateBuild, Test
-task integrationBuild -depends privateBuild, Test, Package
+task integrationBuild -depends privateBuild, TestWithCoverage,Inspection, Package
 
 <# 
 Poke HIbernate Config
 Create Database Migration
  #>
+task CreateSolutionTemplate {
+    $newsolution ="CcsArchitecture"
+    $templatedir = "..\_CcsTemplate"
+    
+    .\lib\solutionfactory\SolutionFactory-console.exe export $source_dir$projectName.sln $templatedir
+    delete_directory "$templatedir\template\build"
+    # <delete dir="${templatedir}\template\build"  />
+    #<delete dir="${templatedir}\template\src\_ReSharper.CodeCampServer"  />
+    delete_file "$templatedir\template\latestversion\safesolutionnamepackage.exe"
+    delete_file "$templatedir\template\readme.txt"
+
+    #<exec program="lib\solutionfactory\SolutionFactory-console.exe" commandline="create ${templatedir}\template\ ${newsolution} ${templatedir}\..\${newsolution}"></exec>
+    #<exec program="cmd" commandline="/c build.bat build" workingdir="${templatedir}\..\${newsolution}\"></exec>
+
+    #copy_files lib\solutionfactory $templatedir
+    create_directory $package_dir
+    zip_directory $templatedir\template\ $package_dir\VisualStudioTemplate.exe
+
+}
 
 task Database {
-    exec{ .\lib\tarantino\DatabaseDeployer.exe Rebuild $databaseServer $databaseName  $databaseScripts }
+    .\lib\tarantino\DatabaseDeployer.exe Rebuild $databaseServer $databaseName  $databaseScripts
 }
 
 task CommonAssemblyInfo {
@@ -39,14 +58,14 @@ task Test {
 }
 
 task Compile -depends Clean { 
-    exec { msbuild /t:build $source_dir$projectName.sln }    
+    msbuild /t:build $source_dir$projectName.sln 
 }
 
 task Clean { 
     delete_directory $build_dir
     create_directory $test_dir 
     create_directory $result_dir
-    exec {    msbuild /t:clean $source_dir\$projectName.sln }
+    msbuild /t:clean $source_dir\$projectName.sln 
 }
 
 task TestWithCoverage {
@@ -72,11 +91,6 @@ task Package {
     copy_files "$base_dir\lib\nant" "$package_dir\nant" @( '*.pdb','*.xml')
     copy_files "$base_dir\deployment" "$package_dir"
     
-    $agents_dir = "$package_dir\agents"
-    copy_files "$base_dir\lib\tinoBatchJobs" $agents_dir
-    copy_files "$source_dir\Ui\bin" $agents_dir
-    Copy_and_flatten $source_dir *.config $agents_dir
-    
     zip_directory $package_dir $package_file
 }
 
@@ -87,14 +101,14 @@ function global:zip_directory($directory,$file)
 {
     delete_file $file
     cd $directory
-    exec {  &"$base_dir\lib\7zip\7za.exe" a -mx=9 -r -sfx $file *.* }
+    &"$base_dir\lib\7zip\7za.exe" a -mx=9 -r -sfx $file *.*
     cd $base_dir
 }
 
 function global:delete_file($file)
 {
     if($file) {
-        remove-item $file } 
+        remove-item $file  -force  -ErrorAction SilentlyContinue | out-null} 
 }
 
 function global:run_fxcop
@@ -147,7 +161,7 @@ function global:create_directory($directory_name)
 
 function global:run_nunit ($test_assembly)
 {
-    exec {lib\nunit\nunit-console-x86.exe $test_dir$test_assembly /nologo /nodots /xml=$result_dir$test_assembly.xml /exclude=DataLoader }
+    & lib\nunit\nunit-console.exe $test_dir$test_assembly /nologo /nodots /xml=$result_dir$test_assembly.xml
 }
 
 function global:run_nunit_with_coverage($test_assembly)
