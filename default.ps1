@@ -36,7 +36,7 @@ task CreateSolutionTemplate {
     #<exec program="lib\solutionfactory\SolutionFactory-console.exe" commandline="create ${templatedir}\template\ ${newsolution} ${templatedir}\..\${newsolution}"></exec>
     #<exec program="cmd" commandline="/c build.bat build" workingdir="${templatedir}\..\${newsolution}\"></exec>
 
-    #copy_files lib\solutionfactory $templatedir
+    copy_files ".\lib\solutionfactory\" "$templatedir\"
     create_directory $package_dir
     zip_directory $templatedir\template\ $package_dir\VisualStudioTemplate.exe
 
