@@ -886,6 +886,16 @@
             <param name="pageSize">Number of objects per page.</param>
             <returns>An IPagination of T</returns>
         </member>
+        <member name="T:MvcContrib.PortableAreas.AssemblyResourceManager">
+            <summary>
+            Manages all .NET assemblies that have registered their embedded resources.
+            </summary>
+        </member>
+        <member name="T:MvcContrib.UI.InputBuilder.ViewEngine.AssemblyResourceStore">
+            <summary>
+            Stores all the embedded resources for a single assembly/area.
+            </summary>
+        </member>
         <member name="T:MvcContrib.Routing.DebugHttpHandler">
             <summary>
             HTTP Handler that outputs route debugging information.
@@ -1696,6 +1706,13 @@
             The default is true. 
             </summary>
             <param name="isColumnSortable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcContrib.UI.Grid.IGridColumn`1.SortColumnName(System.String)">
+            <summary>
+            Specifies a custom name that should be used when sorting on this column
+            </summary>
+            <param name="name"></param>
             <returns></returns>
         </member>
         <member name="P:MvcContrib.UI.Grid.IGridColumn`1.CustomHeaderRenderer">

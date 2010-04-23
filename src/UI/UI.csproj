@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AssemblyVersionPortableArea, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\mvccontrib\AssemblyVersionPortableArea.dll</HintPath>
+    </Reference>
     <Reference Include="Exceptioneer.WebClient, Version=1.0.0.45, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\exceptioneer\Exceptioneer.WebClient.dll</HintPath>
@@ -158,17 +162,14 @@
     <Compile Include="Models\Input\SponsorInput.cs" />
     <Compile Include="Models\Input\UserGroupInput.cs" />
     <Compile Include="Models\Input\UserSelectorInput.cs" />
-    <Compile Include="Helpers\Filters\AssemblyVersionrFilterAttribute.cs" />
     <Compile Include="Models\Messages\DeleteMeetingMessage.cs" />
     <Compile Include="Models\Messages\DeleteUserGroupInput.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="MvcStartupConfiguration.cs" />
     <Compile Include="ReturnUrlManagerFactory.cs" />
-    <Compile Include="Services\AssemblyVersion.cs" />
     <Compile Include="Services\Common\ParamBuilderExtensions.cs" />
     <Compile Include="Services\Common\ParamNames.cs" />
     <Compile Include="Services\HttpFileDownloaderService.cs" />
-    <Compile Include="Services\IAssemblyVersion.cs" />
     <Compile Include="DomainnameRouteHandler.cs" />
     <Compile Include="Services\IReturnUrlManager.cs" />
     <Compile Include="Services\IUrlService.cs">
@@ -568,6 +569,7 @@
     <Content Include="Views\Shared\Display.Master" />
     <Content Include="Areas\Web.config" />
     <Content Include="Views\Shared\Array.Master" />
+    <Content Include="Views\Shared\Site.Master" />
     <None Include="Views\Shared\Field.Master" />
     <Content Include="Views\Shared\Password.aspx" />
     <Content Include="Views\Shared\ListBox.aspx" />

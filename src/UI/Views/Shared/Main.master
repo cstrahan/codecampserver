@@ -1,3 +1,4 @@
+<%@ Import Namespace="AssemblyVersionPortableArea"%>
 <%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
 
 <%@ Import Namespace="CodeCampServer.UI.Helpers.Filters" %>
@@ -112,7 +113,8 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 		<div id="footer">
 			<p id="legal">
 				Powered by <span class="<%=Css.OuterLinks%>"><a href="http://codecampserver.com"
-					target="_blank" title="Code Camp Server">Code Camp Server</a></span> (<span id="revisionNumber"><%=ViewData[AssemblyVersionFilterAttribute.AssemblyVersion].ToString() %></span>)
+					target="_blank" title="Code Camp Server">Code Camp Server</a></span> (<span id="revisionNumber"><%
+           Html.ShowApplicationVersion(); %></span>)
 				<br />
 				&copy;
 				<%=DateTime.Now.Year %>. All Rights Reserved.</p>

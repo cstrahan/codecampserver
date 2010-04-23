@@ -1,5 +1,5 @@
 using CodeCampServer.Core.Services;
-using LoginPortableArea.Messages;
+using LoginPortableArea.Areas.Login.Messages;
 using MvcContrib.PortableAreas;
 
 namespace CodeCampServer.UI
