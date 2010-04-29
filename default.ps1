@@ -16,7 +16,7 @@ properties {
 
 task privateBuild -depends Clean,CommonAssemblyInfo,Database , Compile
 task default -depends privateBuild, Test
-task integrationBuild -depends privateBuild, TestWithCoverage,Inspection, Package
+task integrationBuild -depends privateBuild, Test,Inspection, Package
 
 <# 
 Poke HIbernate Config
