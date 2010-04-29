@@ -58,14 +58,14 @@ task Test {
 }
 
 task Compile -depends Clean { 
-    msbuild /t:build $source_dir$projectName.sln 
+    exec { msbuild /t:build $source_dir$projectName.sln }
 }
 
 task Clean { 
     delete_directory $build_dir
     create_directory $test_dir 
     create_directory $result_dir
-    msbuild /t:clean $source_dir\$projectName.sln 
+    exec { msbuild /t:clean $source_dir\$projectName.sln }
 }
 
 task TestWithCoverage {
@@ -166,12 +166,12 @@ function global:create_directory($directory_name)
 
 function global:run_nunit ($test_assembly)
 {
-    & lib\nunit\nunit-console.exe $test_dir$test_assembly /nologo /nodots /xml=$result_dir$test_assembly.xml
+    exec { & lib\nunit\nunit-console-x86.exe $test_dir$test_assembly /nologo /nodots /xml=$result_dir$test_assembly.xml}
 }
 
 function global:run_nunit_with_coverage($test_assembly)
 {
-     .\lib\ncover\NCover.Console.exe $base_dir\lib\nunit\nunit-console.exe $test_dir$test_assembly /noshadow /nologo /nodots  /xml=$result_dir$test_assembly.xml  //x $result_dir"$test_assembly.Coverage.xml"  //ias $projectName".Core;"$projectName".UI;"$projectName".Infrastructure;"$projectName".DependencyInjection" //w $test_dir //h $result_dir //reg
+    exec {  .\lib\ncover\NCover.Console.exe $base_dir\lib\nunit\nunit-console.exe $test_dir$test_assembly /noshadow /nologo /nodots  /xml=$result_dir$test_assembly.xml  //x $result_dir"$test_assembly.Coverage.xml"  //ias $projectName".Core;"$projectName".UI;"$projectName".Infrastructure;"$projectName".DependencyInjection" //w $test_dir //h $result_dir //reg}
 
 }
 
