@@ -584,8 +584,8 @@
     <Content Include="Views\Shared\EditUserGroupLink.ascx" />
     <Content Include="Views\Shared\Menu.ascx" />
     <Content Include="Views\Home\Sponsors.ascx" />
-    <Content Include="Views\Sponsor\Edit.aspx" />
-    <Content Include="Views\Sponsor\Index.aspx" />
+    <Content Include="Views\Shared\Sponsor\Edit.aspx" />
+    <Content Include="Views\Shared\Sponsor\Index.aspx" />
     <Content Include="Views\Shared\AdminMenu.ascx" />
     <Content Include="Views\Shared\Modal.Master" />
     <Content Include="Views\Shared\LoginPortableArea.Master" />
