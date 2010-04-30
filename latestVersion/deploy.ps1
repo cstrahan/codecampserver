@@ -10,7 +10,9 @@ function SetDefaults( ){
     if( !$reloadDatabase ){$reloadDatabase=false}
 }
 
-function DeployApp( $applicationName,$databaseServer,$instance,$reloadData ) {
+SetDefaults
+
+function DeployLocal( $applicationName,$databaseServer,$instance,$reloadData ) {
 
     $codedir="..\codeToDeploy_$instance\"
     $appinstance="$applicationName_$instance"
@@ -25,8 +27,35 @@ function DeployApp( $applicationName,$databaseServer,$instance,$reloadData ) {
     #iisreset
     & ".\CommonDeploy.bat" "$databaseServer" "$instance" "$reloadData"
     #cmd /c %systemroot%\system32\inetsrv\appcmd start site %appinstance%
+
+    #DeployLocal -applicationName "$application" -databaseServer "$dbserver" -instance "$instance" -reloadData "$reloadDatabase"
 }
 
-SetDefaults
 
-DeployApp -applicationName "$application" -databaseServer "$dbserver" -instance "$instance" -reloadData "$reloadDatabase"
+
+
+
+
+function global::PushToServer($server,$destinationDirectory)
+{
+    $msdeployexe = ".\lib\msdeploy\msdeploy.exe"
+    
+    & $msdeployexe -verb:sync -source:dirPath=.\ -dest:dirPath="$destinationDirectory",computername=$server -verbose
+
+    $deployOutput = & $msdeployexe -verb:sync -source:runCommand="$destinationDirectory\deploy1.bat $cmdargs $destinationDirectory",waitInterval=5000,waitAttempts=40 -dest:auto,computername=$server -verbose output="deploystep2.txt" 
+
+    $result = [regex]::matches($deployOutput,"Info: BUILD (?'setupResultCode'.+)").value
+
+    out-host $result
+<#    
+    <loadfile file="deploystep2.txt" property="deploystep2" />
+
+    <regex pattern="Info: BUILD (?'setupResultCode'.+)" input="${deploystep2}" />
+    <echo>Remote Build Result is ${setupResultCode}</echo>
+    <if test="${string::contains(setupResultCode, 'FAILED')}">
+      <fail message="Remote Nant Result was ${setupResultCode}" />
+    </if>
+  </target>
+#>
+
+}
