@@ -7,7 +7,7 @@ function Send-Package {
     
     $sourceDirPath = resolve-path .
     remove-item send-package.log
-    .$msdeployexe "-verb:sync" "-source:dirPath=$sourceDirPath" "-dest:dirPath=$destinationDirectory,computername=$server"        
+    .$msdeployexe "-verb:sync" "-source:dirPath=$sourceDirPath" "-dest:dirPath=$destinationDirectory,computername=$server" "-tempAgent=true"
     
     cmd.exe /c "$msdeployexe -verb:sync -dest:auto,computername=$server -source:runCommand=`"$destinationDirectory\pstrami-agent.bat $destinationDirectory $cmd`",waitInterval=2500,waitAttempts=20" | out-file "send-package.log"
     
