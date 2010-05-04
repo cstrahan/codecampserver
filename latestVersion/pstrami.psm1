@@ -35,10 +35,11 @@ function Send-Package {
     remove-item bootstrap.bat
 }
 
-function Receive-Package( $applicationName,$databaseServer,$instance,$reloadData) {
+function Receive-Package( $applicationName, $databaseServer,$instance,$reloadData) {
 
     
-    $appinstance="$applicationName_$instance"
+    $appinstance = "$($applicationName)_$($instance)"
+    
     $codedir="..\codeToDeploy_$appinstance\"
 
     if(test-path $codedir){ remove-item $codedir -Recurse }
@@ -47,7 +48,8 @@ function Receive-Package( $applicationName,$databaseServer,$instance,$reloadData
     
     set-location $codedir
 
-    "$appinstance"
+    "App Instance: $appinstance"
+    "ApplicationName $applicationName" 
     
     & ".\CommonDeploy.bat" "$databaseServer" "$appinstance" "$reloadData"        
 }
