@@ -1,3 +1,3 @@
-build.bat build %* & pause
+psake.bat integrationBuild %* & pause
 
 

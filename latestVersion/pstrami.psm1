@@ -16,18 +16,19 @@ function Send-Package {
     $sourceDirPath = resolve-path .
     remove-item send-package.log   -ErrorAction SilentlyContinue
     
-    .$msdeployexe "-verb:sync" "-source:dirPath=$sourceDirPath" "-dest:dirPath=$destinationDirectory,computername=$server$cred" "-verbose" | out-file "sync-package.log"
+    .$msdeployexe "-verb:sync" "-source:dirPath=$sourceDirPath" "-dest:dirPath=$destinationDirectory,computername=$server$cred"  | out-file "sync-package.log"
     get-content sync-package.log | write-host
     
     .$msdeployexe "-verb:sync" "-dest:auto,computername=$server$cred" "-source:runCommand=bootstrap.bat,waitInterval=2500,waitAttempts=20" | out-file "send-package.log"
     
+    get-content send-package.log | write-host
     
     if(-not (select-string -path send-package.log -pattern "BUILD SUCCEEDED"))
-    {
-        get-content send-package.log | write-host
+    {    
         "Send-Package Failed"
         exit '-1'
     }
+    
     "Send-Package Succeeded"
     remove-item send-package.log
     remove-item bootstrap.bat
@@ -37,7 +38,7 @@ function Receive-Package( $applicationName,$databaseServer,$instance,$reloadData
 
     
     $appinstance="$applicationName_$instance"
-    $codedir="..\codeToDeploy_$instance\"
+    $codedir="..\codeToDeploy_$appinstance\"
 
     if(test-path $codedir){ remove-item $codedir -Recurse }
 
