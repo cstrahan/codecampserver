@@ -6,11 +6,7 @@ function Send-Package {
     {
         $cred = ",getCredentials=$credentials"
     }
-    
-    "@echo off
-    cd /D $destinationDirectory    
-    powershell.exe -NoProfile -ExecutionPolicy unrestricted -Command `"& {         import-module .\pstrami.psm1 ;        Receive-Package $cmd ;        if ($lastexitcode -ne 0) {           write-host `"ERROR: $lastexitcode`" -fore RED         };        stop-process `$pid      }" | out-file bootstrap.bat -encoding ASCII
-    
+        
     $msdeployexe= "C:\Program` Files\IIS\Microsoft` Web` Deploy\msdeploy.exe"
     
     $sourceDirPath = resolve-path .
@@ -19,6 +15,10 @@ function Send-Package {
     .$msdeployexe "-verb:sync" "-source:dirPath=$sourceDirPath" "-dest:dirPath=$destinationDirectory,computername=$server$cred"  | out-file "sync-package.log"
     get-content sync-package.log | write-host
     
+    "@echo off
+    cd /D $destinationDirectory    
+    powershell.exe -NoProfile -ExecutionPolicy unrestricted -Command `"& {         import-module .\pstrami.psm1 ;        Receive-Package $cmd ;        if ($lastexitcode -ne 0) {           write-host `"ERROR: $lastexitcode`" -fore RED         };        stop-process `$pid      }" | out-file bootstrap.bat -encoding ASCII
+
     .$msdeployexe "-verb:sync" "-dest:auto,computername=$server$cred" "-source:runCommand=bootstrap.bat,waitInterval=2500,waitAttempts=20" | out-file "send-package.log"
     
     get-content send-package.log | write-host
@@ -30,6 +30,7 @@ function Send-Package {
     }
     
     "Send-Package Succeeded"
+    remove-item sync-package.log
     remove-item send-package.log
     remove-item bootstrap.bat
 }
