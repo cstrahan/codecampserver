@@ -1,2 +1,1 @@
-@echo off
 powershell.exe -NoProfile -ExecutionPolicy unrestricted -Command "& { import-module .\pstrami.psm1 ; Send-Package -server "%~1" -credentials "%~2" -destinationDirectory "%~3" -cmd '%~4'; if ($lastexitcode -ne 0) {write-host "ERROR: $lastexitcode" -fore RED; exit $lastexitcode} }"

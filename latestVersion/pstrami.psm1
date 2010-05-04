@@ -47,6 +47,8 @@ function Receive-Package( $applicationName,$databaseServer,$instance,$reloadData
     
     set-location $codedir
 
+    "$appinstance"
+    
     & ".\CommonDeploy.bat" "$databaseServer" "$appinstance" "$reloadData"        
 }
 
