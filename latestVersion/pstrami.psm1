@@ -1,5 +1,11 @@
 function Send-Package {  
-    param([string]$server,[string]$destinationDirectory,[string]$cmd);    
+    param([string]$server,[string] $credentials,[string]$destinationDirectory,[string]$cmd);    
+    
+    $cred = ""
+    if($credentials -ne "none")
+    {
+        $cred = ",getCredentials=$credentials"
+    }
     
     "@echo off
     cd /D $destinationDirectory    
@@ -10,9 +16,11 @@ function Send-Package {
     $sourceDirPath = resolve-path .
     remove-item send-package.log   -ErrorAction SilentlyContinue
     
-    .$msdeployexe "-verb:sync" "-source:dirPath=$sourceDirPath" "-dest:dirPath=$destinationDirectory,computername=$server" | out-null
+    .$msdeployexe "-verb:sync" "-source:dirPath=$sourceDirPath" "-dest:dirPath=$destinationDirectory,computername=$server$cred" "-verbose" | out-file "sync-package.log"
+    get-content sync-package.log | write-host
     
-    .$msdeployexe "-verb:sync" "-dest:auto,computername=$server" "-source:runCommand=bootstrap.bat,waitInterval=2500,waitAttempts=20" | out-file "send-package.log"
+    .$msdeployexe "-verb:sync" "-dest:auto,computername=$server$cred" "-source:runCommand=bootstrap.bat,waitInterval=2500,waitAttempts=20" | out-file "send-package.log"
+    
     
     if(-not (select-string -path send-package.log -pattern "BUILD SUCCEEDED"))
     {
