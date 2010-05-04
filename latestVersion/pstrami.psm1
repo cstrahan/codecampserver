@@ -35,8 +35,9 @@ function Send-Package {
 
 function Receive-Package( $applicationName,$databaseServer,$instance,$reloadData) {
 
-    $codedir="..\codeToDeploy_$instance\"
+    
     $appinstance="$applicationName_$instance"
+    $codedir="..\codeToDeploy_$instance\"
 
     if(test-path $codedir){ remove-item $codedir -Recurse }
 
@@ -44,7 +45,7 @@ function Receive-Package( $applicationName,$databaseServer,$instance,$reloadData
     
     set-location $codedir
 
-    & ".\CommonDeploy.bat" "$databaseServer" "$instance" "$reloadData"        
+    & ".\CommonDeploy.bat" "$databaseServer" "$appinstance" "$reloadData"        
 }
 
 Export-ModuleMember Receive-Package, Send-Package
