@@ -34,7 +34,7 @@ namespace CodeCampServer.IntegrationTests.UI.DataLoader
 			                		City = "Austin",
 			                		Region = "Texas",
 			                		Country = "USA",
-			                		Key = "localhost",
+			                		Key = "localhost1",
 			                		HomepageHTML = "Austin .Net Users Group",
 			                	};
 			userGroup.Add(new Sponsor

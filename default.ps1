@@ -55,6 +55,7 @@ task Test {
     copy_all_assemblies_for_test $test_dir
     run_nunit "$projectName.UnitTests.dll"
     run_nunit "$projectName.IntegrationTests.dll"
+    load_test_data "$projectName.IntegrationTests.dll"
 }
 
 task Compile -depends Clean { 
@@ -167,8 +168,14 @@ function global:create_directory($directory_name)
 
 function global:run_nunit ($test_assembly)
 {
-    exec { & lib\nunit\nunit-console-x86.exe $test_dir$test_assembly /nologo /nodots /xml=$result_dir$test_assembly.xml}
+    exec { & lib\nunit\nunit-console-x86.exe $test_dir$test_assembly /nologo /nodots /xml=$result_dir$test_assembly.xml /exclude=DataLoader}
 }
+
+function global:load_test_data ($test_assembly)
+{
+    exec { & lib\nunit\nunit-console-x86.exe $test_dir$test_assembly /nologo /nodots /include=DataLoader}
+}
+
 
 function global:run_nunit_with_coverage($test_assembly)
 {
