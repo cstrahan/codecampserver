@@ -1,7 +1,9 @@
-rem @echo off
+@echo off
 if ~%1~ == ~~ (
-    echo "pstrami method argument is required"
-    powershell.exe -NoProfile -ExecutionPolicy unrestricted -Command "& { import-module .\pstrami.psm1 ; get-module | where-object {$_.name -eq 'pstrami'} | select-object 'ExportedCommands'  }"
+    echo A pstrami method argument is required!
+    echo please call one of the following methods.
+    echo " 
+    powershell.exe -NoProfile -ExecutionPolicy unrestricted -Command "& { import-module .\pstrami.psm1 ; (Get-Module pstrami).ExportedCommands.GetEnumerator() | %%{ get-help $_.name } }"
     goto end
 )
 @echo %*
