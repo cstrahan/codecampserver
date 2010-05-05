@@ -1,5 +1,5 @@
 function Send-Package {  
-    param([string]$server,[string] $credentials,[string]$destinationDirectory,[string]$cmd);    
+    param([string]$server,[string] $credentials="none",[string]$destinationDirectory,[string]$cmd);    
     
     $cred = ""
     if($credentials -ne "none")
@@ -10,9 +10,10 @@ function Send-Package {
     $msdeployexe= "C:\Program` Files\IIS\Microsoft` Web` Deploy\msdeploy.exe"
     
     $sourceDirPath = resolve-path .
-    remove-item send-package.log   -ErrorAction SilentlyContinue
+    remove-item sync-package.log   -ErrorAction SilentlyContinue | out-null
     
-    .$msdeployexe "-verb:sync" "-source:dirPath=$sourceDirPath" "-dest:dirPath=$destinationDirectory,computername=$server$cred"  | out-file "sync-package.log"
+    .$msdeployexe "-verb:sync" "-source:dirPath=$sourceDirPath" "-dest:dirPath=$destinationDirectory,computername=$server$cred"  | out-file sync-package.log 
+    
     get-content sync-package.log | write-host
     
     "@echo off
@@ -38,7 +39,7 @@ function Send-Package {
 function Receive-Package( $applicationName, $databaseServer,$instance,$reloadData) {
 
     
-    $appinstance = "$($applicationName)_$($instance)"
+    $appinstance = "$($applicationName)_$($instance)" #the variable parsing needs to be surrounded with parens.
     
     $codedir="..\codeToDeploy_$appinstance\"
 
@@ -48,9 +49,6 @@ function Receive-Package( $applicationName, $databaseServer,$instance,$reloadDat
     
     set-location $codedir
 
-    "App Instance: $appinstance"
-    "ApplicationName $applicationName" 
-    
     & ".\CommonDeploy.bat" "$databaseServer" "$appinstance" "$reloadData"        
 }
 
