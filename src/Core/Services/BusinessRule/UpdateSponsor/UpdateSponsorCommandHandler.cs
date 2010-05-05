@@ -1,11 +1,9 @@
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using MvcContrib.CommandProcessor;
-using MvcContrib.CommandProcessor.Commands;
 
 namespace CodeCampServer.Core.Services.BusinessRule.UpdateSponsor
 {
-	public class UpdateSponsorCommandHandler : Command<UpdateSponsorCommandMessage>
+	public class UpdateSponsorCommandHandler : ICommand<UpdateSponsorCommandMessage, Sponsor>
 	{
 		private readonly ISponsorRepository _repository;
 
@@ -14,7 +12,7 @@ namespace CodeCampServer.Core.Services.BusinessRule.UpdateSponsor
 			_repository = repository;
 		}
 
-		protected override ReturnValue Execute(UpdateSponsorCommandMessage commandMessage)
+		public Sponsor Execute(UpdateSponsorCommandMessage commandMessage)
 		{
 			Sponsor sponsor = commandMessage.Id ?? new Sponsor(){UserGroup = commandMessage.UserGroup};
 			sponsor.Level = commandMessage.Level;
@@ -23,7 +21,7 @@ namespace CodeCampServer.Core.Services.BusinessRule.UpdateSponsor
 			sponsor.Url = commandMessage.Url;
 
 			_repository.Save(sponsor);
-			return new ReturnValue {Type = typeof (Sponsor), Value = sponsor};
+			return sponsor;
 		}
 	}
 }

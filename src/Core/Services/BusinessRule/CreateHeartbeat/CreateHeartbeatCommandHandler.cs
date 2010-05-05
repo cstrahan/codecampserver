@@ -1,10 +1,8 @@
 using CodeCampServer.Core.Domain.Bases;
-using MvcContrib.CommandProcessor;
-using MvcContrib.CommandProcessor.Commands;
 
 namespace CodeCampServer.Core.Services.BusinessRule.CreateHeartbeat
 {
-	public class CreateHeartbeatCommandHandler : Command<CreateHeartbeatCommandMessage>
+	public class CreateHeartbeatCommandHandler : ICommand<CreateHeartbeatCommandMessage,Heartbeat>
 	{
 		private readonly IHeartbeatRepository _repository;
 		private readonly ISystemClock _clock;
@@ -15,11 +13,11 @@ namespace CodeCampServer.Core.Services.BusinessRule.CreateHeartbeat
 			_clock = clock;
 		}
 
-		protected override ReturnValue Execute(CreateHeartbeatCommandMessage commandMessage)
+		public Heartbeat Execute(CreateHeartbeatCommandMessage commandMessage)
 		{
 			var heartbeat = new Heartbeat {Message = commandMessage.Message, Date = _clock.Now()};
 			_repository.Save(heartbeat);
-			return new ReturnValue{Type = typeof(Heartbeat), Value = heartbeat};
+			return  heartbeat;
 		}
 	}
 }

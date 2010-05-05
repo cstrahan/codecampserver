@@ -1,10 +1,8 @@
 using CodeCampServer.Core.Domain.Bases;
-using MvcContrib.CommandProcessor;
-using MvcContrib.CommandProcessor.Commands;
 
 namespace CodeCampServer.Core.Services.BusinessRule.UpdateUser
 {
-	public class UpdateUserCommandHandler : Command<UpdateUserCommandMessage>
+	public class UpdateUserCommandHandler : ICommand<UpdateUserCommandMessage,User>
 	{
 		private readonly IUserRepository _repository;
 		private readonly ICryptographer _cryptographer;
@@ -15,7 +13,7 @@ namespace CodeCampServer.Core.Services.BusinessRule.UpdateUser
 			_cryptographer = cryptographer;
 		}
 
-		protected override ReturnValue Execute(UpdateUserCommandMessage commandMessage)
+		public User Execute(UpdateUserCommandMessage commandMessage)
 		{
 			var user = _repository.GetById(commandMessage.Id) ?? new User();
 			user.Name = commandMessage.Name;
@@ -27,7 +25,7 @@ namespace CodeCampServer.Core.Services.BusinessRule.UpdateUser
 
 			_repository.Save(user);
 
-			return new ReturnValue {Type = typeof (User), Value = user};
+			return user;// new ReturnValue { Type = typeof(User), Value = user };
 		}
 	}
 }

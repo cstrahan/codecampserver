@@ -1,11 +1,9 @@
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using MvcContrib.CommandProcessor;
-using MvcContrib.CommandProcessor.Commands;
 
 namespace CodeCampServer.Core.Services.BusinessRule.UpdateMeeting
 {
-	public class UpdateMeetingCommandHandler : Command<UpdateMeetingCommandMessage>
+	public class UpdateMeetingCommandHandler : ICommand<UpdateMeetingCommandMessage, Meeting>
 	{
 		private readonly IMeetingRepository _meetingRepository;
 
@@ -14,10 +12,10 @@ namespace CodeCampServer.Core.Services.BusinessRule.UpdateMeeting
 			_meetingRepository = meetingRepository;
 		}
 
-		protected override ReturnValue Execute(UpdateMeetingCommandMessage commandMessage)
+		public Meeting Execute(UpdateMeetingCommandMessage commandMessage)
 		{
 			_meetingRepository.Save(commandMessage.Meeting);
-			return new ReturnValue {Type = typeof (Meeting), Value = commandMessage.Meeting};
+			return commandMessage.Meeting;
 		}
 	}
 }

@@ -1,11 +1,9 @@
 using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Model;
-using MvcContrib.CommandProcessor;
-using MvcContrib.CommandProcessor.Commands;
 
 namespace CodeCampServer.Core.Services.BusinessRule.DeleteMeeting
 {
-	public class DeleteMeetingCommandHandler : Command<DeleteMeetingCommandMessage>
+	public class DeleteMeetingCommandHandler : ICommand<DeleteMeetingCommandMessage,Meeting>
 	{
 		private readonly IMeetingRepository _meetingRepository;
 
@@ -14,10 +12,10 @@ namespace CodeCampServer.Core.Services.BusinessRule.DeleteMeeting
 			_meetingRepository = meetingRepository;
 		}
 
-		protected override ReturnValue Execute(DeleteMeetingCommandMessage commandMessage)
+		public Meeting Execute(DeleteMeetingCommandMessage commandMessage)
 		{
 			_meetingRepository.Delete(commandMessage.Meeting);
-			return new ReturnValue {Type = typeof (Meeting), Value = commandMessage.Meeting};
+			return commandMessage.Meeting;
 		}
 	}
 }
