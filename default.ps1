@@ -62,6 +62,7 @@ task Compile -depends Clean {
 }
 
 task Clean { 
+    delete_file $package_file
     delete_directory $build_dir
     create_directory $test_dir 
     create_directory $result_dir
