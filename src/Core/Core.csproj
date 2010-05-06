@@ -35,10 +35,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\NHibernate-2.1.0.GA-bin\Required_Bins\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="MvcContrib.CommandProcessor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\mvccontrib\MvcContrib.CommandProcessor.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -109,6 +105,7 @@
     <Compile Include="Services\BusinessRule\UpdateSponsor\UpdateSponsorCommandMessage.cs" />
     <Compile Include="Services\BusinessRule\UpdateUserGroup\UpdateUserGroupCommandHandler.cs" />
     <Compile Include="Services\BusinessRule\UpdateUserGroup\UpdateUserGroupCommandMessage.cs" />
+    <Compile Include="Services\BusinessRule\ICommandHandler.cs" />
     <Compile Include="Services\BusinessRule\UpdateUser\UpdateUserCommandHandler.cs" />
     <Compile Include="Services\BusinessRule\UpdateUser\UpdateUserCommandMessage.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />

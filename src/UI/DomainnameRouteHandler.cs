@@ -9,7 +9,7 @@ namespace CodeCampServer.UI
 	{
 		protected override IHttpHandler GetHttpHandler(RequestContext requestContext)
 		{
-			requestContext.RouteData.Values.Add("UserGroupKey", "localhost1");
+			requestContext.RouteData.Values.Add("UserGroupKey", "default");
 			return base.GetHttpHandler(requestContext);
 		}
 

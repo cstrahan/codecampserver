@@ -77,7 +77,7 @@ namespace CodeCampServer.IntegrationTests.Infrastructure.DataAccess
 		public void Should_retrieve_the_default_usergroup()
 		{
 			UserGroup userGroup = CreateUserGroup();
-			userGroup.Key = "localhost";
+			userGroup.Key = "default";
 
 			using (ISession session = GetSession())
 			{

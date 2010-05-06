@@ -21,7 +21,7 @@ namespace CodeCampServer.UnitTests.UI.Routes
 
 			handler.ShouldBeAssignableFrom(typeof (MvcHandler));
 			routeData.Values.ContainsKey("usergroupkey").ShouldBeTrue();
-			routeData.Values["usergroupkey"].ShouldEqual("localhost1");
+			routeData.Values["usergroupkey"].ShouldEqual("default");
 		}
 
 		[Test]
@@ -32,7 +32,7 @@ namespace CodeCampServer.UnitTests.UI.Routes
 
 			handler.ShouldBeAssignableFrom(typeof (MvcHandler));
 			routeData.Values.ContainsKey("usergroupkey").ShouldBeTrue();
-			routeData.Values["usergroupkey"].ShouldEqual("localhost1");
+			routeData.Values["usergroupkey"].ShouldEqual("default");
 		}
 
 		[Test]
@@ -43,7 +43,7 @@ namespace CodeCampServer.UnitTests.UI.Routes
 
 			handler.ShouldBeAssignableFrom(typeof (MvcHandler));
 			routeData.Values.ContainsKey("usergroupkey").ShouldBeTrue();
-			routeData.Values["usergroupkey"].ShouldEqual("localhost1");
+			routeData.Values["usergroupkey"].ShouldEqual("default");
 		}
 
 		private IHttpHandler CreateHandler(RouteData routeData, string url)

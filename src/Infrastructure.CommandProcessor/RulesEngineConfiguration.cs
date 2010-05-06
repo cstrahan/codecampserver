@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using AutoMapper;
 using CodeCampServer.Core;
 using CodeCampServer.Infrastructure.CommandProcessor.CommandConfiguration;
@@ -12,7 +13,7 @@ namespace CodeCampServer.Infrastructure.CommandProcessor
 		{
 			var rulesEngine = new MvcContrib.CommandProcessor.RulesEngine();
 			rulesEngine.Initialize(typeToLocatorConfigurationAssembly.Assembly, new CcsMessageMapper());
-			MvcContrib.CommandProcessor.RulesEngine.MessageProcessorFactory = new MessageProcessorFactory();
+			MvcContrib.CommandProcessor.RulesEngine.MessageProcessorFactory = new CcsMessageProcessorFactory();		
 		}
 
 		public class CcsMessageMapper : IMessageMapper

@@ -16,7 +16,7 @@ namespace CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl
 
 		public UserGroup GetDefaultUserGroup()
 		{
-			return GetByKey("localhost");
+			return GetByKey("default");
 		}
 
 		public override void Save(UserGroup entity)
