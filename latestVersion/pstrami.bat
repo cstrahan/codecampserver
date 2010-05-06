@@ -3,7 +3,7 @@ if ~%1~ == ~~ (
     echo A pstrami method argument is required!
     echo please call one of the following methods.
     echo " 
-    powershell.exe -NoProfile -ExecutionPolicy unrestricted -Command "& { import-module .\pstrami.psm1 ; (Get-Module pstrami).ExportedCommands.GetEnumerator() | %%{ get-help $_.name } }"
+    powershell.exe -NoProfile -ExecutionPolicy unrestricted -Command "& { import-module .\pstrami.psm1 | out-null ; (Get-Module pstrami).ExportedCommands.GetEnumerator() | %%{  $_.name } }"
     goto end
 )
 @echo %*
