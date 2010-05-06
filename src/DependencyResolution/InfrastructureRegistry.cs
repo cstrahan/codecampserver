@@ -1,6 +1,7 @@
 ﻿using CodeCampServer.Core.Domain;
 using CodeCampServer.Core.Domain.Bases;
 using CodeCampServer.Core.Domain.Model;
+using CodeCampServer.Core.Services.BusinessRule;
 using CodeCampServer.Infrastructure.CommandProcessor;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess.Bases;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess.Impl;
@@ -21,6 +22,7 @@ namespace CodeCampServer.DependencyResolution
 			     	{
 			     		x.AssemblyContainingType<Event>();
 			     		x.ConnectImplementationsToTypesClosing(typeof (Command<>));
+						x.ConnectImplementationsToTypesClosing(typeof(ICommandHandler<>));
 			     	});
 		}
 	}

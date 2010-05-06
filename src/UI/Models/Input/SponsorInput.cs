@@ -5,6 +5,7 @@ using MvcContrib.UI.InputBuilder.Attributes;
 
 namespace CodeCampServer.UI.Models.Input
 {
+	[Label("Sponsor")]
 	public class SponsorInput
 	{
 		public virtual int Id { get; set; }

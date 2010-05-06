@@ -3,7 +3,7 @@ using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.Core.Services.BusinessRule.DeleteUserGroup
 {
-	public class DeleteUserGroupCommandHandler : ICommand<DeleteUserGroupCommandMessage>
+	public class DeleteUserGroupCommandHandler : ICommandHandler<DeleteUserGroupCommandMessage>
 	{
 		private readonly IUserGroupRepository _userGroupRepository;
 

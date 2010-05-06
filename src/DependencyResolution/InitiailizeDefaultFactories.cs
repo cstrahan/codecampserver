@@ -1,4 +1,5 @@
 using CodeCampServer.Core;
+using CodeCampServer.Core.Services.BusinessRule;
 using CodeCampServer.Infrastructure.Automapper.ObjectMapping;
 using CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles;
 using CodeCampServer.Infrastructure.CommandProcessor;
@@ -15,6 +16,7 @@ using CodeCampServer.UI.Services;
 using MvcContrib.Services;
 using StructureMap;
 using Microsoft.Practices.ServiceLocation;
+using System.Linq;
 
 namespace CodeCampServer.DependencyResolution
 {
@@ -41,7 +43,7 @@ namespace CodeCampServer.DependencyResolution
 			UnitOfWorkFactory.GetDefault = () => ObjectFactory.GetInstance<IUnitOfWork>();
 			SelectListProviderFactory.GetDefault = type => (ISelectListProvider) ObjectFactory.GetInstance(type);
 			ReturnUrlManagerFactory.GetDefault = () => ObjectFactory.GetInstance<IReturnUrlManager>();
-			CcsCommandFactory.CommandLocator = (t) => ObjectFactory.GetAllInstances(t).Select();
+			CcsCommandFactory.CommandLocator = (t) => ObjectFactory.GetAllInstances(t).Cast<ICommandHandler>().ToArray();
 		}
 	}
 }

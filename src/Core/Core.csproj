@@ -105,7 +105,7 @@
     <Compile Include="Services\BusinessRule\UpdateSponsor\UpdateSponsorCommandMessage.cs" />
     <Compile Include="Services\BusinessRule\UpdateUserGroup\UpdateUserGroupCommandHandler.cs" />
     <Compile Include="Services\BusinessRule\UpdateUserGroup\UpdateUserGroupCommandMessage.cs" />
-    <Compile Include="Services\BusinessRule\ICommand.cs" />
+    <Compile Include="Services\BusinessRule\ICommandHandler.cs" />
     <Compile Include="Services\BusinessRule\UpdateUser\UpdateUserCommandHandler.cs" />
     <Compile Include="Services\BusinessRule\UpdateUser\UpdateUserCommandMessage.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />

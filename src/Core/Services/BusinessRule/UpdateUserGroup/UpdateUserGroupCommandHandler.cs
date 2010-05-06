@@ -3,7 +3,7 @@ using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.Core.Services.BusinessRule.UpdateUserGroup
 {
-	public class UpdateUserGroupCommandHandler : ICommand<UpdateUserGroupCommandMessage>
+	public class UpdateUserGroupCommandHandler : ICommandHandler<UpdateUserGroupCommandMessage>
 	{
 		private readonly IUserGroupRepository _userGroupRepository;
 

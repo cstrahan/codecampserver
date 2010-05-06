@@ -2,7 +2,7 @@ using CodeCampServer.Core.Domain.Bases;
 
 namespace CodeCampServer.Core.Services.BusinessRule.Login
 {
-	public class LoginCommandHandler : ICommand<LoginUserCommandMessage>
+	public class LoginCommandHandler : ICommandHandler<LoginUserCommandMessage>
 	{
 		private readonly IAuthenticationService _authenticationService;
 		private readonly IUserRepository _repository;

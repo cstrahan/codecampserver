@@ -27,7 +27,7 @@ namespace CodeCampServer.IntegrationTests.UI.Subcutaneous
 			AutoMapperConfiguration.Configure();
 			ServiceLocator.SetLocatorProvider(() => new SubcutaneousTestServiceLocator(UnitOfWork));
 			var rulesEngine = new RulesEngine();
-			RulesEngine.MessageProcessorFactory = new MessageProcessorFactory();
+			RulesEngine.MessageProcessorFactory = new CcsMessageProcessorFactory(); 			
 			rulesEngine.Initialize(typeof (DeleteMeetingMessageConfiguration).Assembly,
 			                       new RulesEngineConfiguration.CcsMessageMapper());
 			base.Setup();
