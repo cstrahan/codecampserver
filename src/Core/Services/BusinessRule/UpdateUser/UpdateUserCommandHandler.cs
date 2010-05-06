@@ -2,7 +2,7 @@ using CodeCampServer.Core.Domain.Bases;
 
 namespace CodeCampServer.Core.Services.BusinessRule.UpdateUser
 {
-	public class UpdateUserCommandHandler : ICommand<UpdateUserCommandMessage,User>
+	public class UpdateUserCommandHandler : ICommand<UpdateUserCommandMessage>
 	{
 		private readonly IUserRepository _repository;
 		private readonly ICryptographer _cryptographer;
@@ -13,7 +13,7 @@ namespace CodeCampServer.Core.Services.BusinessRule.UpdateUser
 			_cryptographer = cryptographer;
 		}
 
-		public User Execute(UpdateUserCommandMessage commandMessage)
+		public object Execute(UpdateUserCommandMessage commandMessage)
 		{
 			var user = _repository.GetById(commandMessage.Id) ?? new User();
 			user.Name = commandMessage.Name;

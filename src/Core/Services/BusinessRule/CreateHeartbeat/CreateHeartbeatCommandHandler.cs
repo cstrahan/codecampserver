@@ -2,7 +2,7 @@ using CodeCampServer.Core.Domain.Bases;
 
 namespace CodeCampServer.Core.Services.BusinessRule.CreateHeartbeat
 {
-	public class CreateHeartbeatCommandHandler : ICommand<CreateHeartbeatCommandMessage,Heartbeat>
+	public class CreateHeartbeatCommandHandler : ICommand<CreateHeartbeatCommandMessage>
 	{
 		private readonly IHeartbeatRepository _repository;
 		private readonly ISystemClock _clock;
@@ -13,7 +13,7 @@ namespace CodeCampServer.Core.Services.BusinessRule.CreateHeartbeat
 			_clock = clock;
 		}
 
-		public Heartbeat Execute(CreateHeartbeatCommandMessage commandMessage)
+		public object Execute(CreateHeartbeatCommandMessage commandMessage)
 		{
 			var heartbeat = new Heartbeat {Message = commandMessage.Message, Date = _clock.Now()};
 			_repository.Save(heartbeat);

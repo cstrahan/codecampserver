@@ -1,6 +1,7 @@
 using CodeCampServer.Core;
 using CodeCampServer.Infrastructure.Automapper.ObjectMapping;
 using CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles;
+using CodeCampServer.Infrastructure.CommandProcessor;
 using CodeCampServer.Infrastructure.NHibernate;
 using CodeCampServer.Infrastructure.NHibernate.DataAccess;
 using CodeCampServer.UI;
@@ -40,6 +41,7 @@ namespace CodeCampServer.DependencyResolution
 			UnitOfWorkFactory.GetDefault = () => ObjectFactory.GetInstance<IUnitOfWork>();
 			SelectListProviderFactory.GetDefault = type => (ISelectListProvider) ObjectFactory.GetInstance(type);
 			ReturnUrlManagerFactory.GetDefault = () => ObjectFactory.GetInstance<IReturnUrlManager>();
+			CcsCommandFactory.CommandLocator = (t) => ObjectFactory.GetAllInstances(t).Select();
 		}
 	}
 }

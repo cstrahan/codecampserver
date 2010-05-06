@@ -3,7 +3,7 @@ using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.Core.Services.BusinessRule.UpdateSponsor
 {
-	public class UpdateSponsorCommandHandler : ICommand<UpdateSponsorCommandMessage, Sponsor>
+	public class UpdateSponsorCommandHandler : ICommand<UpdateSponsorCommandMessage>
 	{
 		private readonly ISponsorRepository _repository;
 
@@ -12,7 +12,7 @@ namespace CodeCampServer.Core.Services.BusinessRule.UpdateSponsor
 			_repository = repository;
 		}
 
-		public Sponsor Execute(UpdateSponsorCommandMessage commandMessage)
+		public object Execute(UpdateSponsorCommandMessage commandMessage)
 		{
 			Sponsor sponsor = commandMessage.Id ?? new Sponsor(){UserGroup = commandMessage.UserGroup};
 			sponsor.Level = commandMessage.Level;

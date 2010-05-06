@@ -3,7 +3,7 @@ using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.Core.Services.BusinessRule.UpdateMeeting
 {
-	public class UpdateMeetingCommandHandler : ICommand<UpdateMeetingCommandMessage, Meeting>
+	public class UpdateMeetingCommandHandler : ICommand<UpdateMeetingCommandMessage>
 	{
 		private readonly IMeetingRepository _meetingRepository;
 
@@ -12,7 +12,7 @@ namespace CodeCampServer.Core.Services.BusinessRule.UpdateMeeting
 			_meetingRepository = meetingRepository;
 		}
 
-		public Meeting Execute(UpdateMeetingCommandMessage commandMessage)
+		public object Execute(UpdateMeetingCommandMessage commandMessage)
 		{
 			_meetingRepository.Save(commandMessage.Meeting);
 			return commandMessage.Meeting;

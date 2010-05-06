@@ -3,7 +3,7 @@ using CodeCampServer.Core.Domain.Model;
 
 namespace CodeCampServer.Core.Services.BusinessRule.DeleteMeeting
 {
-	public class DeleteMeetingCommandHandler : ICommand<DeleteMeetingCommandMessage,Meeting>
+	public class DeleteMeetingCommandHandler : ICommand<DeleteMeetingCommandMessage>
 	{
 		private readonly IMeetingRepository _meetingRepository;
 
@@ -12,7 +12,7 @@ namespace CodeCampServer.Core.Services.BusinessRule.DeleteMeeting
 			_meetingRepository = meetingRepository;
 		}
 
-		public Meeting Execute(DeleteMeetingCommandMessage commandMessage)
+		public object Execute(DeleteMeetingCommandMessage commandMessage)
 		{
 			_meetingRepository.Delete(commandMessage.Meeting);
 			return commandMessage.Meeting;
