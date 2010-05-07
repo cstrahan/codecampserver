@@ -24,7 +24,7 @@ function Send-Package {
     $sourceDirPath = resolve-path .
     remove-item sync-package.log   -ErrorAction SilentlyContinue | out-null
     
-    .$msdeployexe "-verb:sync" "-source:dirPath=$sourceDirPath" "-dest:dirPath=$destinationDirectory,computername=$server$cred"  | out-file sync-package.log 
+    .$msdeployexe "-verb:sync" "-source:dirPath=$sourceDirPath" "-dest:dirPath=$destinationDirectory,computername=$server$cred"  "-skip:objectName=filePath,absolutePath=.*\.log" | out-file sync-package.log 
     
     get-content sync-package.log | write-host
     
