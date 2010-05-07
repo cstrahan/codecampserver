@@ -1,11 +1,8 @@
 using System;
 using AutoMapper;
 using CodeCampServer.Core.Domain.Model;
-using CodeCampServer.Core.Services.BusinessRule.DeleteUserGroup;
-using CodeCampServer.Core.Services.BusinessRule.UpdateSponsor;
-using CodeCampServer.Core.Services.BusinessRule.UpdateUserGroup;
+using CodeCampServer.Core.Services.BusinessRule;
 using CodeCampServer.UI.Models.Input;
-using CodeCampServer.UI.Models.Messages;
 
 namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles
 {
@@ -26,9 +23,9 @@ namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationPr
 				                       	});
 			Mapper.CreateMap<DeleteUserGroupInput, DeleteUserGroupCommandMessage>();
 
-			Mapper.CreateMap<SponsorInput, UpdateSponsorCommandMessage>();
+			Mapper.CreateMap<UpdateSponsorInput, UpdateSponsorCommandMessage>();
 
-			Mapper.CreateMap<Sponsor, SponsorInput>().ForMember(x=>x.UserGroup, expression => expression.Ignore());
+			Mapper.CreateMap<Sponsor, UpdateSponsorInput>().ForMember(x=>x.UserGroup, expression => expression.Ignore());
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl<SponsorInput>" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl<UpdateSponsorInput>" %>
 <%@ Import Namespace="CodeCampServer.UI.Helpers.Extensions"%>
 <%@ Import Namespace="CodeCampServer.UI.Helpers" %>
 

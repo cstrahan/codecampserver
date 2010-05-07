@@ -150,6 +150,7 @@
     <Compile Include="HtmlExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Input\LoginProxyInput.cs" />
     <Compile Include="Models\Display\HeartbeatCheckDisplay.cs" />
     <Compile Include="Models\Display\HeartbeatDisplay.cs" />
     <Compile Include="Models\Input\AdminInput.cs" />
@@ -157,13 +158,13 @@
     <Compile Include="Models\Input\EventInput.cs" />
     <Compile Include="Models\Display\EventList.cs" />
     <Compile Include="Models\Display\MeetingAnnouncementDisplay.cs" />
-    <Compile Include="Models\Input\HeartbeatInput.cs" />
+    <Compile Include="Models\Input\CreateHeartbeatInput.cs" />
     <Compile Include="Models\Input\MeetingInput.cs" />
-    <Compile Include="Models\Input\SponsorInput.cs" />
+    <Compile Include="Models\Input\UpdateSponsorInput.cs" />
     <Compile Include="Models\Input\UserGroupInput.cs" />
     <Compile Include="Models\Input\UserSelectorInput.cs" />
-    <Compile Include="Models\Messages\DeleteMeetingMessage.cs" />
-    <Compile Include="Models\Messages\DeleteUserGroupInput.cs" />
+    <Compile Include="Models\Input\DeleteMeetingInput.cs" />
+    <Compile Include="Models\Input\DeleteUserGroupInput.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="MvcStartupConfiguration.cs" />
     <Compile Include="ReturnUrlManagerFactory.cs" />
@@ -603,6 +604,7 @@
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\Messages\" />
     <Folder Include="Properties\" />
     <Folder Include="Views\User\" />
   </ItemGroup>

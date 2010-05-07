@@ -4,7 +4,7 @@ using MvcContrib.CommandProcessor.Configuration;
 
 namespace CodeCampServer.Infrastructure.CommandProcessor.CommandConfiguration
 {
-	public class HeartbeatConfiguration : MessageDefinition<HeartbeatInput>
+	public class HeartbeatConfiguration : MessageDefinition<CreateHeartbeatInput>
 	{
 		public HeartbeatConfiguration()
 		{

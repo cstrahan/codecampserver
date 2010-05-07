@@ -9,9 +9,7 @@ using CodeCampServer.DependencyResolution;
 using CodeCampServer.Infrastructure.Automapper.ObjectMapping;
 using CodeCampServer.Infrastructure.CommandProcessor;
 using CodeCampServer.Infrastructure.CommandProcessor.CommandConfiguration;
-using CodeCampServer.UI;
 using CodeCampServer.UI.Models.Input;
-using CodeCampServer.UI.Models.Messages;
 using CodeCampServer.UnitTests;
 using MvcContrib.CommandProcessor.Interfaces;
 using NBehave.Spec.NUnit;
@@ -45,11 +43,11 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			ObjectFactory.Inject(typeof (IRepository<Meeting>), repository);
 			ObjectFactory.Inject(typeof (IMeetingRepository), S<IMeetingRepository>());
 
-			RulesEngineConfiguration.Configure(typeof (DeleteMeetingMessageConfiguration));
+			RulesEngineConfiguration.Configure(typeof (UpdateUserConfiguration));
 			var rulesRunner = new RulesEngine();
 
-			var result = rulesRunner.Process(new DeleteMeetingMessage {Meeting = Guid.NewGuid()},
-			                                 typeof (DeleteMeetingMessage));
+			var result = rulesRunner.Process(new DeleteMeetingInput {Meeting = Guid.NewGuid()},
+			                                 typeof (DeleteMeetingInput));
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<Meeting>().ShouldEqual(meeting);
 		}
@@ -106,7 +104,7 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			                                 	{
 			                                 		Name = "New Meeting",
 			                                 		Users = new List<UserSelectorInput>(),
-			                                 		Sponsors = new List<SponsorInput>(),
+			                                 		Sponsors = new List<UpdateSponsorInput>(),
 			                                 	}, typeof (UserGroupInput));
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<UserGroup>().ShouldNotBeNull();
@@ -132,7 +130,7 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			ObjectFactory.Inject(typeof (IUserRepository), userRepository);
 
 
-			RulesEngineConfiguration.Configure(typeof (DeleteUserGroupMessageConfiguration));
+			RulesEngineConfiguration.Configure(typeof (UpdateUserConfiguration));
 
 			var rulesRunner = new RulesEngine();
 
@@ -201,11 +199,11 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 
 			var rulesRunner = new RulesEngine();
 
-			var result = rulesRunner.Process(new LoginInputProxy
+			var result = rulesRunner.Process(new LoginProxyInput
 			                                 	{
 			                                 		Username = "foo",
 			                                 		Password = "thepass",
-			                                 	}, typeof (LoginInputProxy));
+			                                 	}, typeof (LoginProxyInput));
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<User>().ShouldNotBeNull();
 		}
@@ -232,14 +230,14 @@ namespace CodeCampServer.IntegrationTests.BusinessRules
 			RulesEngineConfiguration.Configure(typeof (UpdateUserGroupMessageConfiguration));
 			var rulesRunner = new RulesEngine();
 
-			var result = rulesRunner.Process(new SponsorInput
+			var result = rulesRunner.Process(new UpdateSponsorInput
 			                                 	{
 			                                 		Name = "New Meeting",
 			                                 		BannerUrl = "the url",
 			                                 		Id = 0,
 			                                 		Level = SponsorLevel.Gold,
 			                                 		Url = "http://foo.com",
-			                                 	}, typeof (SponsorInput));
+			                                 	}, typeof (UpdateSponsorInput));
 
 			result.Successful.ShouldBeTrue();
 			result.ReturnItems.Get<Sponsor>().ShouldNotBeNull();

@@ -1,5 +1,5 @@
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Services.BusinessRule.UpdateUser;
+using CodeCampServer.Core.Services.BusinessRule;
 using CodeCampServer.Core.Services.Unique;
 using MvcContrib.CommandProcessor.Validation;
 

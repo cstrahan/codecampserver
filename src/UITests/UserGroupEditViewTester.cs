@@ -101,7 +101,7 @@ namespace CodeCampServerUiTests
 		}
 
 		private void GoToUserGroupAdminPage() {
-			Form<LoginInputProxy>("/login/login/index")
+			Form<LoginProxyInput>("/login/login/index")
 				.Input(m => m.Username, "admin")
 				.Input(m => m.Password, "password")
 				.Submit();

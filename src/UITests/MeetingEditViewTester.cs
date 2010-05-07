@@ -1,5 +1,4 @@
 using System;
-using CodeCampServer.UI;
 using CodeCampServer.UI.Controllers;
 using CodeCampServer.UI.Models.Input;
 using MvcContrib.TestHelper.Ui;
@@ -16,7 +15,7 @@ namespace CodeCampServerUiTests
 		{
 			_webBrowser.ScreenCaptureOnFailure(() =>
 			   {
-				   Form<LoginInputProxy>("/login/login/index")
+				   Form<LoginProxyInput>("/login/login/index")
 					   .Input(m => m.Username, "admin")
 					   .Input(m => m.Password, "password")
 					   .Submit();
@@ -47,7 +46,7 @@ namespace CodeCampServerUiTests
 		{
 			_webBrowser.ScreenCaptureOnFailure(() =>
 			   {
-				   Form<LoginInputProxy>("/login/login/index")
+				   Form<LoginProxyInput>("/login/login/index")
 					   .Input(m => m.Username, "admin")
 					   .Input(m => m.Password, "password")
 					   .Submit();

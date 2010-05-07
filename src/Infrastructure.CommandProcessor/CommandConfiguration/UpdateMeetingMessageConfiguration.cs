@@ -1,4 +1,5 @@
 using CodeCampServer.Core.Domain;
+using CodeCampServer.Core.Services.BusinessRule;
 using CodeCampServer.Core.Services.BusinessRule.UpdateMeeting;
 using CodeCampServer.UI.Models.Input;
 using MvcContrib.CommandProcessor.Configuration;

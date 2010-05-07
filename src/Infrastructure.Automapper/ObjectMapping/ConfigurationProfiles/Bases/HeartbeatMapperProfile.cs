@@ -1,6 +1,6 @@
 using AutoMapper;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Services.BusinessRule.CreateHeartbeat;
+using CodeCampServer.Core.Services.BusinessRule;
 using CodeCampServer.UI.Models.Display;
 using CodeCampServer.UI.Models.Input;
 
@@ -10,7 +10,7 @@ namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationPr
 	{
 		protected override void Configure()
 		{
-			Mapper.CreateMap<HeartbeatInput, CreateHeartbeatCommandMessage>();
+			Mapper.CreateMap<CreateHeartbeatInput, CreateHeartbeatCommandMessage>();
 			Mapper.CreateMap<Heartbeat, HeartbeatDisplay>();
 		}
 	}

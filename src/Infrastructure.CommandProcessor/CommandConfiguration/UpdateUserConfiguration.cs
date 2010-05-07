@@ -1,4 +1,4 @@
-using CodeCampServer.Core.Services.BusinessRule.UpdateUser;
+using CodeCampServer.Core.Services.BusinessRule;
 using CodeCampServer.Infrastructure.CommandProcessor.Rules;
 using CodeCampServer.UI.Models.Input;
 using MvcContrib.CommandProcessor.Configuration;

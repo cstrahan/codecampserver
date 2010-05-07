@@ -16,7 +16,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		[Test]
 		public void should_save_new_heartbeat()
 		{
-			var form = new HeartbeatInput {Message = "Howdy"};
+			var form = new CreateHeartbeatInput {Message = "Howdy"};
 			var controller = new HeartbeatController(null, null);
 
 			var result = (CommandResult) controller.Edit(form);
@@ -46,7 +46,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 
 			var result = controller.Edit();
 
-			var display = (HeartbeatInput) result.ViewData.Model;
+			var display = (CreateHeartbeatInput) result.ViewData.Model;
 			display.Message.ShouldBeNull();
 		}
 

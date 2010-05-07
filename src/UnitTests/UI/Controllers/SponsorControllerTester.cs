@@ -25,7 +25,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 				.AssertViewRendered()
 				.ForView(ViewNames.Default)
 				.ModelShouldBe<Sponsor[]>()
-				.AutoMappedModelShouldBe<SponsorInput[]>()
+				.AutoMappedModelShouldBe<UpdateSponsorInput[]>()
 				;
 		}
 
@@ -42,7 +42,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 				.AssertViewRendered()
 				.ForView(ViewNames.Default)
 				.ModelShouldBe<Sponsor>()
-				.AutoMappedModelShouldBe<SponsorInput>()
+				.AutoMappedModelShouldBe<UpdateSponsorInput>()
 				;
 		}
 
@@ -51,7 +51,7 @@ namespace CodeCampServer.UnitTests.UI.Controllers
 		{
 			var userGroup = new UserGroup();
 
-			var input = new SponsorInput();
+			var input = new UpdateSponsorInput();
 
 
 			var controller = new SponsorController(null, PermisiveSecurityContext());

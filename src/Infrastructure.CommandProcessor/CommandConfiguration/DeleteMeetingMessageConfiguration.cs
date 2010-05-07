@@ -4,7 +4,7 @@ using MvcContrib.CommandProcessor.Configuration;
 
 namespace CodeCampServer.Infrastructure.CommandProcessor.CommandConfiguration
 {
-	public class DeleteMeetingMessageConfiguration : MessageDefinition<DeleteMeetingMessage>
+	public class DeleteMeetingMessageConfiguration : MessageDefinition<DeleteMeetingInput>
 	{
 		public DeleteMeetingMessageConfiguration()
 		{

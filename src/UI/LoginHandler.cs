@@ -1,4 +1,5 @@
 using CodeCampServer.Core.Services;
+using CodeCampServer.UI.Models.Input;
 using LoginPortableArea.Areas.Login.Messages;
 using MvcContrib.PortableAreas;
 
@@ -15,7 +16,7 @@ namespace CodeCampServer.UI
 
 		public override void Handle(LoginInputMessage message)
 		{
-			var uimessage = new LoginInputProxy {Password = message.Input.Password, Username = message.Input.Username};
+			var uimessage = new LoginProxyInput {Password = message.Input.Password, Username = message.Input.Username};
 
 			ICanSucceed result = _rulesEngine.Process(uimessage);
 
@@ -30,11 +31,5 @@ namespace CodeCampServer.UI
 				message.Result.Message += errorMessage.Message;
 			}
 		}
-	}
-
-	public class LoginInputProxy
-	{
-		public string Password { get; set; }
-		public string Username { get; set; }
 	}
 }

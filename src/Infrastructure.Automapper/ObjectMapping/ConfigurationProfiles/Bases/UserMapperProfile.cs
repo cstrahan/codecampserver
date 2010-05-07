@@ -1,6 +1,6 @@
 using AutoMapper;
-using CodeCampServer.Core.Services.BusinessRule.Login;
-using CodeCampServer.UI;
+using CodeCampServer.Core.Services.BusinessRule;
+using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles.Bases
 {
@@ -8,7 +8,7 @@ namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationPr
 	{
 		protected override void Configure()
 		{
-			Mapper.CreateMap<LoginInputProxy, LoginUserCommandMessage>();
+			Mapper.CreateMap<LoginProxyInput, LoginProxyCommandMessage>();
 		}
 	}
 }

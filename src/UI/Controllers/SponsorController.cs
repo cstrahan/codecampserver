@@ -21,17 +21,17 @@ namespace CodeCampServer.UI.Controllers
 		public ActionResult Index(UserGroup usergroup)
 		{
 			UserGroup group = _repository.GetById(usergroup.Id);
-			AutoMappedViewResult view = AutoMappedView<SponsorInput[]>(group.GetSponsors());
+			AutoMappedViewResult view = AutoMappedView<UpdateSponsorInput[]>(group.GetSponsors());
 	
 			return view;
 		}
 
 		[HttpPost]
 		[Authorize]
-		public ActionResult Edit(SponsorInput sponsorInput, UserGroup userGroup)
+		public ActionResult Edit(UpdateSponsorInput sponsorInput, UserGroup userGroup)
 		{
 			sponsorInput.UserGroup = userGroup;
-			return Command<SponsorInput, Sponsor>(sponsorInput,
+			return Command<UpdateSponsorInput, Sponsor>(sponsorInput,
 			                                      r => new RedirectToReturnUrlResult(),
 			                                      input => View(sponsorInput));
 		}
@@ -57,12 +57,12 @@ namespace CodeCampServer.UI.Controllers
 				sponsor.UserGroup=userGroup;
 			}
 
-			return AutoMappedView<SponsorInput>(sponsor??new Sponsor(){UserGroup=userGroup});
+			return AutoMappedView<UpdateSponsorInput>(sponsor??new Sponsor(){UserGroup=userGroup});
 		}
 
 		public ActionResult List(UserGroup userGroup)
 		{
-			var result = AutoMappedView<SponsorInput[]>(userGroup.GetSponsors());
+			var result = AutoMappedView<UpdateSponsorInput[]>(userGroup.GetSponsors());
 			result.ViewName = "HomePageWidget";
 
 			return result;

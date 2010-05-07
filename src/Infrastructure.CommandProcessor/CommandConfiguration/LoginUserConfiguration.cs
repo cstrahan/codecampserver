@@ -5,11 +5,11 @@ using MvcContrib.CommandProcessor.Validation.Rules;
 
 namespace CodeCampServer.Infrastructure.CommandProcessor.CommandConfiguration
 {
-	public class LoginUserConfiguration : MessageDefinition<LoginInputProxy>
+	public class LoginUserConfiguration : MessageDefinition<LoginProxyInput>
 	{
 		public LoginUserConfiguration()
 		{
-			Execute<LoginUserCommandMessage>().Enforce(v =>
+			Execute<LoginProxyCommandMessage>().Enforce(v =>
 			                                           	{
 			                                           		v.Rule<ValidateNotNull>(c => c.Username).RefersTo(m => m.Username);
 			                                           		v.Rule<ValidateNotNull>(c => c.Password).RefersTo(m => m.Password);

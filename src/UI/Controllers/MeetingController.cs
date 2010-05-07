@@ -4,7 +4,6 @@ using CodeCampServer.Core.Services;
 using CodeCampServer.UI.Helpers.ActionResults;
 using CodeCampServer.UI.Helpers.Attributes;
 using CodeCampServer.UI.Models.Input;
-using CodeCampServer.UI.Models.Messages;
 
 namespace CodeCampServer.UI.Controllers
 {
@@ -38,7 +37,7 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[Authorize]
-		public ActionResult Delete(DeleteMeetingMessage message, UserGroup userGroup)
+		public ActionResult Delete(DeleteMeetingInput message, UserGroup userGroup)
 		{
 			if (!_securityContext.HasPermissionsFor(userGroup))
 			{

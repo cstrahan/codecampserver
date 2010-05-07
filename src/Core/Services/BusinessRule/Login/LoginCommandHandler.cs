@@ -2,7 +2,7 @@ using CodeCampServer.Core.Domain.Bases;
 
 namespace CodeCampServer.Core.Services.BusinessRule.Login
 {
-	public class LoginCommandHandler : ICommandHandler<LoginUserCommandMessage>
+	public class LoginCommandHandler : ICommandHandler<LoginProxyCommandMessage>
 	{
 		private readonly IAuthenticationService _authenticationService;
 		private readonly IUserRepository _repository;
@@ -14,7 +14,7 @@ namespace CodeCampServer.Core.Services.BusinessRule.Login
 			_repository = repository;
 		}
 
-		public object Execute(LoginUserCommandMessage commandMessage)
+		public object Execute(LoginProxyCommandMessage commandMessage)
 		{
 			var user = _repository.GetByUserName(commandMessage.Username);
 			if (user != null)

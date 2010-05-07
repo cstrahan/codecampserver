@@ -19,9 +19,9 @@ namespace CodeCampServer.UI.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Edit(HeartbeatInput input)
+		public ActionResult Edit(CreateHeartbeatInput input)
 		{
-			return Command<HeartbeatInput, object>(input,
+			return Command<CreateHeartbeatInput, object>(input,
 			                                       r => RedirectToAction<HeartbeatController>(c => c.Index()),
 			                                       i => View(input)
 				);
@@ -30,7 +30,7 @@ namespace CodeCampServer.UI.Controllers
 		[HttpGet]
 		public ViewResult Edit()
 		{
-			return View(new HeartbeatInput());
+			return View(new CreateHeartbeatInput());
 		}
 
 

@@ -48,15 +48,12 @@
   <ItemGroup>
     <Compile Include="CcsCommandFactory.cs" />
     <Compile Include="CcsMessageProcessorFactory.cs" />
-    <Compile Include="CommandConfiguration\DeleteMeetingMessageConfiguration.cs" />
-    <Compile Include="CommandConfiguration\DeleteUserGroupMessageConfiguration.cs" />
-    <Compile Include="CommandConfiguration\HeartbeatConfiguration.cs" />
-    <Compile Include="CommandConfiguration\LoginUserConfiguration.cs" />
     <Compile Include="CommandConfiguration\UpdateMeetingMessageConfiguration.cs" />
     <Compile Include="CommandConfiguration\UpdateUserConfiguration.cs" />
     <Compile Include="CommandConfiguration\UpdateUserGroupMessageConfiguration.cs" />
     <Compile Include="CommandMessageHandlerProxy.cs" />
     <Compile Include="CommandProcessorUnitOfWorkProxy.cs" />
+    <Compile Include="ConventionMessageConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RulesEngine.cs" />
     <Compile Include="RulesEngineConfiguration.cs" />

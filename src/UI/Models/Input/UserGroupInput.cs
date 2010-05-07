@@ -10,7 +10,7 @@ namespace CodeCampServer.UI.Models.Input
 		public UserGroupInput()
 		{
 		    Users = new List<UserSelectorInput>();
-		//    Sponsors = new List<SponsorInput>();
+		//    Sponsors = new List<UpdateSponsorInput>();
 		}
 
 		[Required]
@@ -36,7 +36,7 @@ namespace CodeCampServer.UI.Models.Input
 		[MultiSelect]
 		public virtual IList<UserSelectorInput> Users { get; set; }
 
-		public virtual IList<SponsorInput> Sponsors { get; set; }
+		public virtual IList<UpdateSponsorInput> Sponsors { get; set; }
 
 		public string Location()
 		{

@@ -1,6 +1,6 @@
 using AutoMapper;
 using CodeCampServer.Core.Domain.Bases;
-using CodeCampServer.Core.Services.BusinessRule.UpdateUser;
+using CodeCampServer.Core.Services.BusinessRule;
 using CodeCampServer.UI.Models.Input;
 
 namespace CodeCampServer.Infrastructure.Automapper.ObjectMapping.ConfigurationProfiles.Bases
