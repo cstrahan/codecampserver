@@ -6,6 +6,9 @@ $script:ConnectionString="Data Source=$server;Initial Catalog=$($projectName)_$(
 Environment "dev" -servers @( 
     Server "localhost" @( "Web"; "Db" ; "Application") ;) -installPath "c:\installs\codecampserver_dev"
 
+Environment "ci" -servers @( 
+    Server "173.203.67.149" @( "Web"; "Db" ; "Application") -credential 173_203_67_149;) -installPath "c:\installs\codecampserver_dev"
+
 Environment "qa" -servers @( 
     Server "qa-web" @( "Web" ; "Application"); 
     Server "qa-db"  @("Db") -credential "qa_db"; 
