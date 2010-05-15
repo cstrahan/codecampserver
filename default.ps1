@@ -14,9 +14,9 @@ properties {
   $databaseScripts = "$source_dir\Database"
 }
 
-task privateBuild -depends Clean,CommonAssemblyInfo,Database , Compile
-task default -depends privateBuild, Test
-task integrationBuild -depends privateBuild, Test,Inspection, Package
+task default -depends Clean,CommonAssemblyInfo,Database , Compile
+task privateBuild -depends default, Test
+task integrationBuild -depends default, Test,Inspection, Package
 
 <# 
 Poke HIbernate Config
