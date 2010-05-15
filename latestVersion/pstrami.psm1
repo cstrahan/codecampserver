@@ -32,11 +32,11 @@ function Install-LocalServer{
     
     set-location $packagePath
     $roles = Get-Roles
-	#$server.Name $enviornmentName
+	dir modules\*.psm1 | Import-Module
     Foreach($role in $roles)
     {        
         $global:env = $environmentName
-        "Executing Role:$role"
+        "Executing Role: " + $role.Name
 		if($onetime)
         {
             invoke-command -scriptblock $role.FullInstall
@@ -87,7 +87,8 @@ function Install-RemoteServer{
     
     remove-item bootstrap.bat
 
-    write-host $result    
+    $result|% { foreach($line in $_.Split("`r")) { if($line){ $line|Out-Default}}}
+    
     if(-not (select-string -inputobject $result -pattern $successMessage))
     {    
         "Install-RemoteServer Failed"
@@ -121,14 +122,21 @@ function Send-Files{
     "Sending Files to $server : $remotePackagePath"        
     $msdeployexe= "C:\Program` Files\IIS\Microsoft` Web` Deploy\msdeploy.exe"    
    
+    if($cred -ne "")
+    {
+        $cred = ",getCredentials=" + $cred
+    }
+
    if(-not( test-path $packagePath+"pstrami.psm1"  ))
     {
         copy-item *.* $packagePath
+		mkdir $packagePath\modules|Out-Null
+		copy-item modules\*.* $packagePath\modules
     }
 
     remove-item sync-package.log   -ErrorAction SilentlyContinue | out-null    
     .$msdeployexe "-verb:sync" "-source:dirPath=$packagePath" "-dest:dirPath=$remotePackagePath,computername=$server$cred"  "-skip:objectName=filePath,absolutePath=.*\.log" | out-file sync-package.log     
-    get-content sync-package.log | write-host
+    get-content sync-package.log | Out-Default
 }
 
 
@@ -137,7 +145,7 @@ function Create-RemoteBootstrapper{
             [string] $remotePackagePath,
             [string] $EnvironmentName)
             
-    return "@echo on
+    return "@echo off
     cd /D $remotePackagePath    
     powershell.exe -NoProfile -ExecutionPolicy unrestricted -Command `"& { import-module .\pstrami.psm1; Load-Configuration;Install-LocalServer $server $remotePackagePath $EnvironmentName;if ($lastexitcode -ne 0) { write-host `"ERROR: $lastexitcode`" -fore RED }; stop-process `$pid }"
 }
@@ -237,8 +245,9 @@ function Assert { [CmdletBinding(
 }
 		
 function Load-Configuration{        
-			
-            if ($script:context -eq $null)
+	param([string]$configFile=".\pstrami.config.ps1")
+    	"Loading Config from $configFile"
+			if ($script:context -eq $null)
 			{
 				$script:context = New-Object System.Collections.Stack
 			}
@@ -248,10 +257,11 @@ function Load-Configuration{
             "environments" = @{};            
 			
 			})
-            . .\pstrami.config.ps1            
+            . $configFile
    
-            $script:context.Peek().roles |  format-list
+            
 <#
+	$script:context.Peek().roles |  format-list
             foreach($key in $script:context.Peek().environments.Keys) 
         	{
         		$task = $script:context.Peek().environments.$key
@@ -307,9 +317,10 @@ function Server {
     $roles = $null,
     [string] $credential=""
     )
-	$newTask = "" | select-object Name,Roles
+	$newTask = "" | select-object Name,Roles,Credential
     $newTask.Name = $name
 	$newTask.Roles = $roles
+	$newTask.Credential  = $credential
 	
 	return $newTask
 }
@@ -337,4 +348,4 @@ function Environment {
 }
 
 
-Export-ModuleMember Receive-Package, Send-Package, Load-Configuration, Deploy-Package,Install-LocalServer,get-serverroles,get-roles
+Export-ModuleMember Receive-Package, Send-Package, Load-Configuration, Deploy-Package,Install-LocalServer,get-serverroles,get-roles,Get-Environments
