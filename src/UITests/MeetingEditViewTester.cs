@@ -4,8 +4,7 @@ using CodeCampServer.UI.Models.Input;
 using MvcContrib.TestHelper.Ui;
 using NUnit.Framework;
 
-
-namespace CodeCampServerUiTests
+namespace CodeCampServer.UITests
 {
 	[TestFixture]
 	public class MeetingEditViewTester : UiTestBase

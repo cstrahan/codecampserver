@@ -8,7 +8,7 @@
     <ProjectGuid>{472E5A68-10F2-46B5-A935-0C77FE8DAE3C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CodeCampServerUiTests</RootNamespace>
+    <RootNamespace>CodeCampServer.UITests</RootNamespace>
     <AssemblyName>CodeCampServer.UITests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

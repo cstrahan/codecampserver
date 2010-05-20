@@ -3,8 +3,8 @@ using System.Configuration;
 using System.Web.Mvc;
 using System.Web.Routing;
 using CodeCampServer.UI;
+using CodeCampServer.UITests.InputTesters;
 using CodeCampServer.UnitTests;
-using CodeCampServerUiTests.InputTesters;
 using MvcContrib.TestHelper;
 using MvcContrib.TestHelper.Ui;
 using MvcContrib.TestHelper.WatiN;
@@ -12,7 +12,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using WatiN.Core;
 
-namespace CodeCampServerUiTests
+namespace CodeCampServer.UITests
 {
 	public abstract class UiTestBase : TestBase 
 	{

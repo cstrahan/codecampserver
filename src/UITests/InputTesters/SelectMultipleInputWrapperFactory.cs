@@ -4,9 +4,9 @@ using System.Reflection;
 using CodeCampServer.Core.Common;
 using CodeCampServer.UI.Helpers.Attributes;
 using MvcContrib.TestHelper.Ui;
-using ReflectionHelper=MvcContrib.UI.InputBuilder.Helpers.ReflectionHelper;
+using ReflectionHelper = MvcContrib.UI.InputBuilder.Helpers.ReflectionHelper;
 
-namespace CodeCampServerUiTests.InputTesters
+namespace CodeCampServer.UITests.InputTesters
 {
 	public class SelectMultipleInputWrapperFactory : IMultipleInputTesterFactory
 	{

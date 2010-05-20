@@ -1,1 +1,18 @@
-glob:latestVersion/New folder/CodeCampServerPackage.exe
+syntax: glob
+CodeCampServerPackage.exe
+build/
+*.suo
+*.user
+bin
+!/bin
+obj
+_ReSharper*
+*.csproj.user
+*.resharper.user
+*.suo
+*.cache
+TestResult.xml
+*.trx
+*.log
+CommonAssemblyInfo.cs
+*.orig

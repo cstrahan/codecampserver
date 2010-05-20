@@ -1,6 +1,6 @@
 using MvcContrib.TestHelper.Ui;
 
-namespace CodeCampServerUiTests.InputTesters
+namespace CodeCampServer.UITests.InputTesters
 {
 	public class InputWrapperFactoryOverride : InputTesterFactory
 	{

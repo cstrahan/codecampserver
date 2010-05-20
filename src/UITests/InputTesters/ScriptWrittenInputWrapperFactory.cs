@@ -5,7 +5,7 @@ using MvcContrib.TestHelper.Ui;
 using MvcContrib.UI.InputBuilder.Conventions;
 using MvcContrib.UI.InputBuilder.Helpers;
 
-namespace CodeCampServerUiTests.InputTesters
+namespace CodeCampServer.UITests.InputTesters
 {
 	public class ScriptWrittenInputWrapperFactory : IInputTesterFactory
 	{

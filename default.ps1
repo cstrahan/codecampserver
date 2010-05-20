@@ -28,18 +28,14 @@ task CreateSolutionTemplate {
     
     .\lib\solutionfactory\SolutionFactory-console.exe export $source_dir$projectName.sln $templatedir
     delete_directory "$templatedir\template\build"
-    # <delete dir="${templatedir}\template\build"  />
-    #<delete dir="${templatedir}\template\src\_ReSharper.CodeCampServer"  />
+    delete_directory "$templatedir\template\src\_ReSharper.CodeCampServer"
     delete_file "$templatedir\template\latestversion\safesolutionnamepackage.exe"
     delete_file "$templatedir\template\readme.txt"
 
-    #<exec program="lib\solutionfactory\SolutionFactory-console.exe" commandline="create ${templatedir}\template\ ${newsolution} ${templatedir}\..\${newsolution}"></exec>
-    #<exec program="cmd" commandline="/c build.bat build" workingdir="${templatedir}\..\${newsolution}\"></exec>
-
     copy_files ".\lib\solutionfactory\" "$templatedir\"
+    write "Creating $package_dir"
     create_directory $package_dir
     zip_directory $templatedir\template\ $package_dir\VisualStudioTemplate.exe
-
 }
 
 task Database {
