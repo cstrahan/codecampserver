@@ -33,6 +33,9 @@ function Install-LocalServer{
     set-location $packagePath
     $roles = Get-Roles
 	dir modules\*.psm1 | Import-Module
+    
+    Invoke-Unpackage $EnvironmentName
+    
     Foreach($role in $roles)
     {        
         $global:env = $environmentName
@@ -45,6 +48,16 @@ function Install-LocalServer{
         invoke-command -scriptblock $role.Action
     }
 	"Deployment Succeded"
+}
+
+function Invoke-Unpackage{
+    param([string] $EnvironmentName)
+    
+    $env = Get-Environments | Where-Object {$_.Name -eq $EnvironmentName} 
+    
+    if($env.Unpackage -ne $null) {
+        invoke-command -scriptblock  $env.Unpackage
+    }
 }
 
 function Get-ServerRoles
@@ -76,13 +89,15 @@ function Install-RemoteServer{
         [boolean] $OneTime=$false,
         [string] $successMessage = "Deployment Succeded")
     "Install-RemoteServer"
-    
-    copy-item "pstrami.psm1"  $packagePath
+
+    Copy-PstramiForSync $packagePath
     
     Send-Files $packagePath $server.Name $environment.InstallPath $server.Credential
 
     Create-RemoteBootstrapper $server.Name $environment.InstallPath $environmentName | out-file bootstrap.bat -encoding ASCII
 
+	Get-Content bootstrap.bat | Out-Default
+	
     $result = Invoke-RemoteCommand $server.Name bootstrap.bat $server.Credential
     
     remove-item bootstrap.bat
@@ -95,6 +110,16 @@ function Install-RemoteServer{
         exit '-1'
     }    
     "Install-RemoteServer Succeeded"
+}
+
+function Copy-PstramiForSync {
+    param([string] $destination)
+    $pstramiDest = join-path $destination "pstrami.psm1"
+    
+    if( -not (test-path $pstramiDest)) {
+    
+        copy-item "pstrami.psm1"  $destination
+    }
 }
 
 function Invoke-RemoteCommand{
@@ -331,19 +356,20 @@ function Environment {
     [string]$name, 
     [Parameter(Position=1,Mandatory=1)]
     [object[]]$servers ,
-    [string] $installPath
+    [string] $installPath,
+    [scriptblock] $unpackage
     )
-	$newTask = "" | select-object Name,Servers,InstallPath
-	$newTask.Name = $name
-	$newTask.Servers = $servers
-    $newTask.InstallPath = $installPath
-	
+	$newEnv = "" | select-object Name,Servers,InstallPath,Unpackage
+	$newEnv.Name = $name
+	$newEnv.Servers = $servers
+    $newEnv.InstallPath = $installPath
+	$newEnv.Unpackage = $unpackage
 	
 	$taskKey = $name.ToLower()
 	
 	Assert (!$script:context.Peek().environments.ContainsKey($taskKey)) "Error: Role, $name, has already been defined."
 	
-	$script:context.Peek().environments.$taskKey = $newTask
+	$script:context.Peek().environments.$taskKey = $newEnv
 	#return $newTask
 }
 
